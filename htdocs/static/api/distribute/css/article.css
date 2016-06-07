@@ -1,0 +1,6 @@
+@charset "utf-8";
+/* CSS Document */
+
+#articles .list-group li:first{border-top:0px;}
+
+

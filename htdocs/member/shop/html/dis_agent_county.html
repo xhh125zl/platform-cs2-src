@@ -1,0 +1,58 @@
+<span>蓝色数字为此城市下该分销商代理县（区）的数目，红色为此城市下被其他分销商代理县（区）的数目</span>
+<br/>
+<br/>
+<ul id="K_CityList">
+	 {{foreach from=$provinc_lists key=region_name item=province_id_list name="provinc_lists"}}
+     <li>
+         <div class="dcity clearfix">
+    		<div class="ecity gcity">
+    			{{$i = $smarty.foreach.provinc_lists.index}}										
+					<span class="group-label">
+					{{$province = $province_data_list[$region_name]}}
+					<label for="K_Group_{{$i}}">{{$province.Province_Name}}</label></span>
+			</div>
+    		<div class="province-list">	
+       			{{foreach from=$province_id_list key=key item=citvince_id}} 
+        		<div class="ecitys">
+					<span class="gareas">
+                 	{{$citvince = $city_data_list[$region_name][$citvince_id]}}                   
+                    <label for="K_Province_{{$citvince_id}}">{{$citvince.City_Name}}</label>
+                    {{if $citvince.selectd_county_num gt 0}}
+                    	<span class="check_num">
+                    		{{$citvince.selectd_county_num}},
+                        </span>
+                    {{/if}}
+                    
+                    {{if $citvince.disable_county_num gt 0}}
+                    	<span class="disable_num">
+                    		{{$citvince.disable_county_num}}
+                        </span>
+                    {{/if}}
+                    <img class="trigger" src="/static/member/images/shop/city_down_icon.gif">
+  			  		</span>
+                    
+                    <div class="citys">
+             
+           
+		     {{$county_list = $county_data_list[$region_name][$citvince_id] }}	
+             {{foreach from=$county_list key=county_id item=county }}	
+             
+                <span class="areas">
+             
+                <input value="{{$county_id}}_{{$county.County_Name}}" id="K_County_{{$county_id}}" name="K_County" class="K_City" type="checkbox"
+                {{if $county.checked eq TRUE }}checked{{/if}}  
+                {{if $county.disabled eq TRUE }}disabled{{/if}} 
+                
+                >
+				<label for="K_County_{{$county_id}}" {{if  $county.disabled}}class="del-line"{{/if}}>{{$county.County_Name}}</label></span>
+       		 
+             {{/foreach}}	
+				<p style="text-align:right;"><input value="关闭" class="close_button" type="button"></p>
+		</div>
+				</div>
+			{{/foreach}}
+			</div>
+    	</div>         	
+     </li>	
+     {{/foreach}}
+</ul>

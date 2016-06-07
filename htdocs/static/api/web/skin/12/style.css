@@ -1,0 +1,10 @@
+#footer{background:url(nav_bg.png) 0 0 repeat-x; height:42px; background-size:1px 42px;}
+#footer a{color:#ffb470;}
+#footer div{color:#ffb470;}
+#footer img{display:none;}
+#footer ul{border:0;}
+#footer ul li{height:42px; line-height:42px; background:url(nav_line.png) 0 0 no-repeat; background-size:2px 42px;}
+#footer ul li div, #footer ul li a{height:42px; line-height:42px; overflow:hidden; font-size:16px; cursor:pointer; display:block;}
+#footer ul dl{background:#47270c;}
+#footer ul dl dd{background:url(nav_line_1.png) center top no-repeat #47270c; color:#ffb470;}
+#footer ul dl dd a{color:#ffb470;}

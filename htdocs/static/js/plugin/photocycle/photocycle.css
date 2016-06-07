@@ -1,0 +1,57 @@
+.photo_cont{
+	Z-INDEX: 0; POSITION: relative; DISPLAY: block; width:880px; height:615px; margin:0px auto;
+}
+.imagecycle-controller {
+	Z-INDEX: 10000; POSITION: absolute; MARGIN: -21px 0px 0px -119px; WIDTH: 238px; DISPLAY: none; BACKGROUND: url(/api/images/lsmax/photocycle/controller.png) no-repeat; HEIGHT: 42px; OVERFLOW: hidden; TOP: 90%; LEFT: 50%
+}
+.imagecycle-controller * {
+	PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px
+}
+.imagecycle-controller-hidden{
+	opacity: 0
+}
+.imagecycle-controller-visible {
+	opacity: 1
+}
+.imagecycle-controller A {
+	POSITION: absolute; DISPLAY: block; HEIGHT: 18px; OVERFLOW: hidden; TOP: 12px; CURSOR: pointer
+}
+.imagecycle-controller A:hover {
+	BACKGROUND-POSITION: 0px 18px
+}
+.imagecycle-controller LI {
+	LIST-STYLE-TYPE: none
+}
+.imagecycle-controller LI.first A {
+	BACKGROUND-IMAGE: url(/api/images/lsmax/photocycle/controller-first.gif); WIDTH: 19px; LEFT: 33px
+}
+.imagecycle-controller LI.last A {
+	BACKGROUND-IMAGE: url(/api/images/lsmax/photocycle/controller-last.gif); WIDTH: 19px; LEFT: 186px
+}
+.imagecycle-controller LI.next A {
+	BACKGROUND-IMAGE: url(/api/images/lsmax/photocycle/controller-next.gif); WIDTH: 28px; LEFT: 145px
+}
+.imagecycle-controller LI.pause A {
+	BACKGROUND-IMAGE: url(/api/images/lsmax/photocycle/controller-pause.gif); WIDTH: 20px; LEFT: 109px
+}
+.imagecycle-controller LI.play A {
+	BACKGROUND-POSITION: 20px 0px
+}
+.imagecycle-controller LI.play A:hover {
+	BACKGROUND-POSITION: 20px 18px
+}
+.imagecycle-controller LI.prev A {
+	BACKGROUND-IMAGE: url(/api/images/lsmax/photocycle/controller-prev.gif); WIDTH: 28px; LEFT: 65px
+}
+
+
+
+.photo_list{
+	POSITION: relative; PADDING-BOTTOM: 0px; LIST-STYLE-TYPE: none; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; DISPLAY: none; OVERFLOW: hidden; PADDING-TOP: 0px
+}
+.photo_list li{width:880px; height:615px;text-align:center; background:none}
+
+.photo_list .imagecycle-caption {
+	POSITION: absolute; PADDING-BOTTOM: 5px; PADDING-LEFT: 5px; WIDTH: 100%; BOTTOM: 0px; PADDING-RIGHT: 5px; DISPLAY: none; WHITE-SPACE: nowrap; BACKGROUND: #000; COLOR: #fff; PADDING-TOP: 5px; LEFT: 0px; opacity: 0.8
+}
+

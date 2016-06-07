@@ -1,0 +1,24 @@
+html, body{height:100%; background:#0F0E0C;}
+
+#column *{color:#ccc;}
+#column .contents{background:#2F2F2F; margin:8px; border-radius:8px;}
+#column .list-type-0 .item{margin-bottom:8px; margin:5px; background:#2F2F2F; border:none;}
+#column .list-type-1 .item div{background:#2F2F2F;}
+#column .list-type-2 .item{margin-bottom:8px; margin:5px; background:#2F2F2F; border:none;}
+
+#plug_menu{position:fixed; bottom:0; left:0; z-index:10000;}
+#plug_menu .bgcolor{background:#ff936d;}
+#plug_menu .menu{width:36px; height:36px; border-radius:36px; position:absolute; bottom:16px; left:16px; z-index:999; -moz-box-shadow:0 0 0 4px #FFF,0 2px 5px 4px rgba(0,0,0,0.25); -webkit-box-shadow:0 0 0 4px #FFF,0 2px 5px 4px rgba(0,0,0,0.25); box-shadow:0 0 0 4px #FFF,0 2px 5px 4px rgba(0,0,0,0.25);}
+#plug_menu .menu span{display:block; width:28px; height:28px; background:url(icon-main.png) no-repeat; background-size:28px 28px; text-indent:-999px; position:absolute; top:50%; left:50%; margin-top:-14px; margin-left:-14px; overflow:hidden; -webkit-transition:-webkit-transform 200ms;}
+#plug_menu .menu span.open{-webkit-animation-name:open; -webkit-transform:rotate(135deg);}
+#plug_menu .menu span.close{-webkit-animation-name:close; -webkit-transform:rotate(0deg);}
+#plug_menu .plug-btn{width:32px; height:32px; border-radius:32px; -moz-box-shadow:0 0 0 3px #fff,0 2px 5px 3px rgba(0,0,0,0.25); -webkit-box-shadow:0 0 0 3px #fff,0 2px 5px 3px rgba(0,0,0,0.25); box-shadow:0 0 0 3px #fff,0 2px 5px 3px rgba(0,0,0,0.25); background:#ff936d; position:absolute; bottom:0; left:0; margin-bottom:20px; margin-left:20px; z-index:998; -webkit-transition:-webkit-transform 200ms;}
+#plug_menu .plug-btn img{width:100%; height:100%; width:22px; height:22px; text-indent:-999px; position:absolute; top:50%; left:50%; margin-top:-11px; margin-left:-11px; overflow:hidden; background-repeat:no-repeat;}
+#plug_menu .plug-btn1.open{-webkit-transform:translate(0,-100px) rotate(720deg);}
+#plug_menu .plug-btn1.close{-webkit-transform:translate(0,0) rotate(0deg);}
+#plug_menu .plug-btn2.open{-webkit-transform:translate(47px,-81px) rotate(720deg);}
+#plug_menu .plug-btn2.close{-webkit-transform:translate(0,0) rotate(0deg);}
+#plug_menu .plug-btn3.open{-webkit-transform:translate(81px,-45px) rotate(720deg);}
+#plug_menu .plug-btn3.close{-webkit-transform:translate(0,0) rotate(0deg);}
+#plug_menu .plug-btn4.open{-webkit-transform:translate(100px,0) rotate(720deg);}
+#plug_menu .plug-btn4.close{-webkit-transform:translate(0,0) rotate(0deg);}

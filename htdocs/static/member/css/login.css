@@ -1,0 +1,103 @@
+@charset "utf-8";
+/*网站后台登录注册公用css*/
+
+body { display: block; overflow: hidden; background: url(../images/loginbox/bg.jpg) no-repeat #31aeef; width: 100%; height: 100%; }
+.login-box { width: 580px; background: #fff; position: absolute; left: 50%; top: 50%; margin-top: -275px; margin-left: -320px; border-radius: 5px; padding: 30px; box-shadow:0px 0px 2px 2px #f3f3f3; }
+
+.login-title { width: 306px; margin: 0 auto; text-align: center; position: relative; }
+.login-title h1 { font-size: 40px; border-bottom: 1px solid #30aeef; height: 50px; padding-bottom: 20px; color: #30aeef; }
+.login-title .login-english { position: absolute;
+    top: 60px;
+    background: #FFF;
+    display: block;
+    overflow: hidden;
+    width: 100px;
+    left: 100px;
+    color: #30aeef;
+    font-size: 16px; }
+
+.login-form { display: block;
+    overflow: hidden;
+    padding-top: 48px; }
+
+.label { width: 56px;
+    height: 56px;
+    line-height: 56px;
+    display: inline-block;
+    float: left;
+    background: #30aeef;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px; }
+
+.label-content { background: url(../images/loginbox/bg_icon.png) no-repeat;
+    height: 30px;
+    width: 25px;
+    margin: 0 auto;
+    margin-top: 13px; }
+.username { background-position: -6px 0px; }
+.password { background-position: -3px -40px; }
+.virtrfy { background-position: -6px -76px; }
+.mobile { background-position: -5px -108px; }
+
+.input { height: 54px;
+    line-height: 54px;
+    width: 520px;
+    background: #f0f0f0; font-size: 16px; text-indent: 5px; outline: none; border: 0px; }
+.virtrfycode { width: 280px; }
+.verifyimg { width: 220px;
+    float: right;
+    height: 56px; }
+
+
+.split { display: block; overflow: hidden; height: 30px; clear: both; }
+.split-min { height: 18px; }
+.manage { font-size: 16px; }
+.manage input { float: left; height: 24px;
+    line-height: 24px; }
+input[type='submit'] {     width: 100%;
+    background: #ec6941;
+    color: #FFF;
+    height: 55px;
+    border-radius: 5px;
+    font-size: 18px;
+    border-bottom: 4px solid #c65a3a; cursor: pointer; }
+
+a.tips-login {     display: block;
+    overflow: hidden;
+    background: #ccc;
+    height: 105px;
+    width: 92px;
+    position: absolute;
+    top: -10px;
+    right: 30px; background:  url(../images/loginbox/bg_icon.png) no-repeat; background-position: -35px -3px;    font-size: 24px;
+    color: #FFF;
+    text-align: center;
+    line-height: 111px;
+    text-indent: 10px; }
+
+a.tips-login:hover { color: #FFF; text-decoration: none; }
+
+.login_msg { height: 30px;
+    line-height: 30px;
+    font-size: 14px;
+    color: red; }
+
+
+
+.regiest-box { display: block; margin-top: -350px; }
+.faxinxi { width: 220px;
+    float: right;
+    height: 56px; background: #30aeef; font-size: 20px; border-radius: 5px; text-align: center; line-height: 56px; color: #FFF; }
+.trade_1, .trade_2 { height: 56px;
+    line-height: 56px;
+    font-size: 16px;
+    background: #f0f0f0;
+    border: none;
+    text-indent: 10px; outline: none; width: 270px; }
+.trade_2 { float: right; }
+
+.forget_password {     position: absolute;
+    bottom: -30px;
+    right: 30px; font-size: 16px; }
+.forget_password a { color: #FFF; }
+

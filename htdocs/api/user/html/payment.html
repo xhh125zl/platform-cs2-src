@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" />
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta content="telephone=no" name="format-detection" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>{{$title}}</title>
+<link href='{{$base_url}}static/css/global.css' rel='stylesheet' type='text/css' />
+<link href='{{$base_url}}static/api/css/user.css' rel='stylesheet' type='text/css' />
+<script type='text/javascript' src='{{$base_url}}static/js/jquery-1.7.2.min.js'></script>
+<script type='text/javascript' src='{{$base_url}}static/api/js/global.js'></script>
+<script type='text/javascript' src='{{$base_url}}static/api/js/user.js'></script>
+
+</head>
+
+<body>
+<script type="text/javascript">$(document).ready(user_obj.payment_init);</script>
+<div id="message">
+  <div class="t"><img src="/static/api/kanjia/image/axe.png" />{{$title}}</div>
+ 
+  <!-- 订单详情 begin -->
+	
+  	<div id="payment">
+    <div class="i-ture">
+      <h1 class="t">订单提交成功！</h1>
+      <div class="info"> 订 单 号：{{$OrderSn}}<br>
+        订单总价：<span class="fc_red">{{$Order.Order_TotalAmount}}</span> </div>
+    </div>
+    <form id="payment_form" action="/api/{{$UsersID}}/user/">
+      <div class="i-ture">
+        <h1 class="t">选择支付方式</h1>
+        <ul>
+    	{{if !empty($Pay.PaymentWxpayEnabled) }}
+         <li>
+            <input type="radio" checked="checked" name="PaymentMethod" value="微支付" id="wzf"   />
+            <label for="wzf"><strong>微支付</strong></label>
+          </li>
+        {{/if}}
+      	
+       
+        
+        {{if !empty($Pay.Payment_OfflineEnabled)}} 
+          <li>
+            <input name="PaymentMethod" value="线下支付" id="out" type="radio">
+            <label for="out"><strong>线下支付</strong></label>
+            <div class="payment_info" style="display: none;" >{{$Pay.Payment_OfflineInfo}}
+
+              <textarea name="PaymentInfo" placeholder="请输入支付信息，如转账帐号、时间等">支付信息</textarea>
+            </div>
+          </li>
+		{{/if}}
+           
+          
+          <li>
+            <input name="PaymentMethod" value="余额支付" id="money" type="radio" {{if $yue_enabled eq 0}}disabled="disabled"{{/if}} >
+            <label for="money"><strong>余额支付</strong> 
+            	(
+                <font style="color:#F60">
+                {{$user.User_Money}}
+          		{{if $yue_enabled eq 0 }}
+                	余额不足
+                {{/if}}
+                </font>) 
+                </label>
+			<div style="display: none;" class="payment_password">
+              <input name="PayPassword" placeholder="请输入支付密码" value="" type="password">
+            </div>            
+          </li>
+        </ul>
+      </div>
+      <div class="payment">
+        <input value="下一步" type="button">
+      </div>
+      <input name="OrderID" value="{{$Order.Order_ID}}" type="hidden">
+      <input name="action" value="payment" type="hidden">
+      <input name="DefautlPaymentMethod" value="{{$Order.Order_PaymentMethod}}" type="hidden">
+    </form>
+  </div>
+  <!-- 订单详情 end -->
+  
+  
+  </div>
+<div id="footer_user_points"></div>
+{{include file="lbi/footer_user.html"}}
+
+<script language='javascript'>var KfIco='/static/kf/ico/00.png'; var OpenId='1l8obisr35rh22l0hnva910te7'; var UsersID='u768jrowps'; </script>
+<script type='text/javascript' src='/kf/js/webchat.js?t=1425524604'></script>
+</body>
+</html>

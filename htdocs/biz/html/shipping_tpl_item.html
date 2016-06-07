@@ -1,0 +1,68 @@
+<p>除指定地区外，其他地区运费采用默认运费(此部分内容只能填写数字)</p>
+
+<div class="section">
+   
+    <div class="poster_detail">
+        <!--  默认运费begin -->
+        <div class="default J_DefaultSet">
+            {{if !empty($template_content[$business_alias])}} 默认运费：
+            <input name="{{$business_alias}}_start" value="{{$template_content[$business_alias]['default']['start']}}" data-field="start" class="input-text" autocomplete="off" maxlength="6" aria-label="默认运费{{$unit}}数" type="text" notnull>{{$unit}}内，
+            <input data-field="postage" name="{{$business_alias}}_postage" value="{{$template_content[$business_alias]['default']['postage']}}" class="input-text" autocomplete="off" maxlength="6" aria-label="默认运费价格" type="text" notnull> 元， 每增加
+            <input name="{{$business_alias}}_plus" data-field="plus" value="{{$template_content[$business_alias]['default']['plus']}}" class="input-text" autocomplete="off" maxlength="6" aria-label="每加{{$unit}}" type="text" notnull> {{$unit}}， 增加运费
+            <input name="{{$business_alias}}_postageplus" data-field="postageplus" value="{{$template_content[$business_alias]['default']['postageplus']}}" class="input-text" autocomplete="off" maxlength="6" aria-label="加{{$unit}}运费" type="text" notnull>元 
+            {{else}} 
+            默认运费：
+            <input name="{{$business_alias}}_start" value="1" data-field="start" class="input-text" autocomplete="off" maxlength="6" aria-label="默认运费{{$unit}}数" type="text" notnull>{{$unit}}内，
+            <input data-field="postage" name="{{$business_alias}}_postage" value="" class="input-text" autocomplete="off" maxlength="6" aria-label="默认运费价格" type="text" notnull> 元， 每增加
+            <input name="{{$business_alias}}_plus" data-field="plus" value="1" class="input-text" autocomplete="off" maxlength="6" aria-label="每加{{$unit}}" type="text" notnull> {{$unit}}， 增加运费
+            <input style="display: none;" class="j_sellerBearFrePrice" value="0.00" disabled="disabled" type="text">
+            <input name="{{$business_alias}}_postageplus" data-field="postageplus" value="" class="input-text" autocomplete="off" maxlength="6" aria-label="加{{$unit}}运费" type="text" notnull>元
+            {{/if}}
+        </div>
+        <!-- 默认运费end -->
+        <!-- 特殊地区设置begin -->
+        {{if !empty($template_content[$business_alias])}}	
+        	{{if $template_content[$business_alias]['except'] == true}}
+        		<div class="tpl_except">
+            <table cellspacing="0">
+                <tbody>
+                    <tr>
+                        <th>运送到</th>
+                        <th>按{{$method_name}}({{$unit}})</th>
+                        <th>首费</th>
+                        <th>续{{$method_name}}({{$unit}})</th>
+                        <th>续费</th>
+                        <th>操作</th>
+                    </tr>
+                    
+                    
+                        {{foreach $template_content[$business_alias]['specify'] key=k item=v }}
+                   			<tr>
+                        <td><span>{{if !empty($v['desc']) eq true}} {{$v['desc']}} {{else}}未指定区域{{/if}}</span> <a class="Edit_Area" href="javascript:void(0)" area_type="deliver_business" area_value_container="{{$business_alias}}_areas_{{$k}}">编辑</a>
+                            <input name="{{$business_alias}}_areas_{{$k}}" id="{{$business_alias}}_areas_{{$k}}" class="{{$business_alias}}_areas" value="{{$v['areas']}}" type="hidden">
+                            <input name="{{$business_alias}}_desc_{{$k}}" class="area_desc" value="" type="hidden"> </td>
+                        <td>
+                            <input name="{{$business_alias}}_start_{{$k}}" data-field="start" value="{{$v['start']}}" class="input-text " autocomplete="off" maxlength="6" aria-label="首kg" notnull="" type="text"> </td>
+                        <td>
+                            <input name="{{$business_alias}}_postage_{{$k}}" data-field="postage" value="{{$v['postage']}}" class="input-text" autocomplete="off" maxlength="6" aria-label="首费" notnull="" type="text"> </td>
+                        <td>
+                            <input name="{{$business_alias}}_plus_{{$k}}" data-field="plus" value="{{$v['plus']}}" class="input-text " autocomplete="off" maxlength="6" aria-label="续kg" notnull="" type="text"> </td>
+                        <td>
+                            <input name="{{$business_alias}}_postageplus_{{$k}}" data-field="postageplus" value="{{$v['postageplus']}}" class="input-text " autocomplete="off" maxlength="6" aria-label="续费" notnull="" type="text"> </td>
+                        <td><a href="javascript:void(0)" class="delete_rule_link">删除</a></td>
+                    </tr>
+                    	{{/foreach}}
+               		
+                </tbody>
+            </table>
+        </div>
+        	{{/if}}
+        {{/if}}
+        <!-- 特殊地区设置end -->
+        <div class="tbl-attach">
+            <div class="J_SpecialMessage"></div>
+            <a href="javascript:void(0)" class="AddRule_Link" business_alias='{{$business_alias}}'>为指定地区城市设置运费</a>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,69 @@
+body,html{background:#fff;}
+#web_skin_index{width:100%; max-width:640px;margin:0 auto; background:#fff;}
+.clean{ clear:both;}
+.wrap_content{width:100%; overflow:hidden;}
+
+.packagep0Sprite .wrapP0Item{margin-left:0.05%; float:left; width:33.3%;}
+.packagep0Sprite .wrapP0Item .p0Img{width:100%;}
+.packagep0Sprite .wrapP0Item .p0Img img{vertical-align:top; max-width:100%}
+.packagep0Sprite .wrapP0Item .p0Word{width:100%; height:28px; line-height:28px; text-align:center; overflow:hidden;}
+
+.packagep1Sprite .wrapP1Item{ float:left; width:50%;}
+.packagep1Sprite .wrapP1Item .p1Img img{ vertical-align:top; display:block;}
+.packagep1Sprite .wrapP1Item .p1Img{ width:100%;}
+.packagep1Sprite .wrapP1Item .p1Word{ width:100%; height:28px; line-height:28px; text-align:center; overflow:hidden;}
+
+.packagep6Sprite .wrapP6Item{ float:left; width:25%;}
+.packagep6Sprite .wrapP6Item .p6Img img{ vertical-align:top; display:block;}
+.packagep6Sprite .wrapP6Item .p6Img{ width:100%;}
+.packagep6Sprite .wrapP6Item .p6Word{ width:100%; height:28px; line-height:28px; text-align:center; overflow:hidden;}
+
+.packagep7Sprite .wrapP7Item{ float:left; width:20%;}
+.packagep7Sprite .wrapP7Item .p7Img img{ vertical-align:top; display:block;}
+.packagep7Sprite .wrapP7Item .p7Img{ width:100%;}
+.packagep7Sprite .wrapP7Item .p7Word{ width:100%; height:28px; line-height:28px; text-align:center; overflow:hidden;}
+
+.packagep2Sprite .p2word{ line-height:22px; padding:5px;}
+
+.packagep3Sprite .wrapP3Item{ float:left; width:100%;}
+.packagep3Sprite .wrapP3Item .p3Img img{ vertical-align:top; display:block;}
+.packagep3Sprite .wrapP3Item .p3Img{ width:100%;}
+.packagep3Sprite .wrapP3Item .p3Word{ width:100%; height:28px; line-height:28px; text-align:center; overflow:hidden;}
+
+.packagep4Sprite{overflow:hidden; position:relative;}
+.packagep5Sprite{ width:100%;}
+.packagep5Sprite li{height:28px; float:left; line-height:28px; width:50%; overflow:hidden; background:url(tel.png) 3px 4px no-repeat; text-indent:16px;}
+.packagep5Sprite li a{text-decoration:none;}
+
+.packagep8Sprite .left8,.packagep8Sprite .right8{width:50%; float:left}
+.packagep8Sprite .wrapP8Item{width:100%}
+.packagep8Sprite .wrapP8Item .p8Img{width:100%;}
+.packagep8Sprite .wrapP8Item .p8Img img{vertical-align:top; max-width:100%}
+.packagep8Sprite .wrapP8Item .p8Word{width:100%; height:28px; line-height:28px; text-align:center; overflow:hidden;}
+
+.packagep9Sprite .left9{width:33.33333333%; float:left}
+.packagep9Sprite .right9{width:66.66666666%; float:left}
+.packagep9Sprite .left9 .wrapP9Item{width:100%}
+.packagep9Sprite .right9 .wrapP9Item{width:50%; float:left}
+.packagep9Sprite .wrapP9Item .p9Img{width:100%;}
+.packagep9Sprite .wrapP9Item .p9Img img{vertical-align:top; max-width:100%}
+.packagep9Sprite .wrapP9Item .p9Word{width:100%; height:28px; line-height:28px; text-align:center; overflow:hidden;}
+
+.packagep10Sprite .left10,.packagep10Sprite .right10{width:50%; float:left}
+.packagep10Sprite .wrapP10Item{width:100%}
+.packagep10Sprite .wrapP10Item .p10Img{width:100%;}
+.packagep10Sprite .wrapP10Item .p10Img img{vertical-align:top; max-width:100%}
+.packagep10Sprite .wrapP10Item .p10Word{width:100%; height:28px; line-height:28px; text-align:center; overflow:hidden;}
+
+.packagep11Sprite .left11{width:66.66666666%; float:left}
+.packagep11Sprite .right11{width:33.33333333%; float:left}
+.packagep11Sprite .left11 .wrapP11Item{width:50%; float:left}
+.packagep11Sprite .right11 .wrapP11Item{width:100%}
+.packagep11Sprite .wrapP11Item .p1Img{width:100%;}
+.packagep11Sprite .wrapP11Item .p11Img img{vertical-align:top; max-width:100%}
+.packagep11Sprite .wrapP11Item .p11Word{width:100%; height:28px; line-height:28px; text-align:center; overflow:hidden;}
+
+.packagep12Sprite .wrapP12Item{width:100%; padding:6px 0; overflow:hidden; position:relative; text-align:center; position:relative; background:#ED145B}
+.packagep12Sprite .wrapP12Item .input{width:98%; height:30px; margin:0px auto; line-height:28px; padding:0 48px 0 8px; border:1px #FFF solid; box-sizing:border-box; border-radius:5px;}
+.packagep12Sprite .wrapP12Item .submit{width:40px; height:30px; overflow:hidden; position:absolute; top:6px; right:0px; background-size:16px 16px; cursor:pointer;  border-top-right-radius:5px;  border-bottom-right-radius:5px; line-height:30px;}
+.packagep12Sprite .wrapP12Item .submit img{width:100%; max-height:30px;}

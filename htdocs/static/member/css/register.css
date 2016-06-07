@@ -1,0 +1,15 @@
+body{margin:0px; padding:0px}
+.register_bg{background:url(../images/register/bg.jpg) repeat-x left top ; width:100%; height:726px;}
+#register{width:1050px; margin:0 auto; overflow:hidden;}
+#register .register_top{height:120px; width:1000px; background:url(../images/register/logo.png) no-repeat left center}
+#register .register_main{width:1050px; background:#fff; margin:20px 0px 25px; padding-bottom:135px; overflow:hidden;}
+.register_bottom{width:100%; height:193px; background:url(../images/register/reg_bottom.jpg) no-repeat center}
+
+#register form{width:970px; clear:both; margin:5px auto 0px}
+#register form .rows{padding:0px; overflow:hidden; margin-top:36px;}
+#register form .rows label{display:block; width:140px; height:40px; line-height:40px; color:#3b3b3b; text-align:right; float:left; _display:inline; overflow:hidden; position:relative; left:0; top:0; font-size:18px; font-family:"微软雅黑"; letter-spacing:1px}
+#register form .rows span{display:block; _display:block; float:left; overflow:hidden;}
+#register form .rows em{display:block; _display:block; float:left; overflow:hidden; padding:0px 5px 0px; font-size:12px; color:#656668; font-style:normal; line-height:40px}
+#register form .rows span input{width:470px; height:40px; line-height:40px; border:1px solid #d4d4d4; padding:0 5px; margin:0; color:#adadad}
+#register form .submit{width:282px; margin:40px 0px 0px 140px; margin-bottom:0px; height:40px;}
+#register form .submit input{margin:0; width:282px; height:40px; background:url(../images/register/register_btn.jpg) no-repeat top center; border:none; cursor:pointer}

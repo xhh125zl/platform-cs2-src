@@ -1,0 +1,20 @@
+@media all and (min-width:360px){
+	#web_skin_index .banner{height:187px;}
+	#web_skin_index .box li .cont{width:109px; height:109px; margin:0 auto}
+	#web_skin_index .box li .img{height:109px; overflow:hidden; text-align:center;}
+}
+@media all and (min-width:420px){
+	#web_skin_index .banner{height:218px;}
+  	#web_skin_index .box li .cont{width:127px; height:127px; margin:0 auto}
+	#web_skin_index .box li .img{height:127px; overflow:hidden; text-align:center;}
+}
+@media all and (min-width:480px){
+	#web_skin_index .banner{height:249px;}
+	#web_skin_index .box li .cont{width:145px; height:145px; margin:0 auto}
+	#web_skin_index .box li .img{height:145px; overflow:hidden; text-align:center;}
+}
+@media all and (min-width:640px){
+	#web_skin_index .banner{height:332px}
+	#web_skin_index .box li .cont{width:192px; height:192px; margin:0 auto}
+	#web_skin_index .box li .img{height:192px; overflow:hidden; text-align:center;}
+}

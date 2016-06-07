@@ -1,0 +1,9 @@
+#article .banner{width:100%; height:160px; overflow:hidden;}
+#article .banner img{width:100%; height:100%;}
+#article .box{margin:8px; overflow:hidden; border:1px solid #eeedec; border-radius:5px;}
+#article .box h3{width:100%; height:36px; padding:6px 8px; line-height:24px; box-sizing:border-box; background:#FBFBFB; border-bottom:1px solid #EDEDED; font-weight:bold;}
+#article .box .contents{margin:8px; height:92px; overflow:hidden; background:#FFF;}
+#article .box>a.more{display:block; width:100%; height:36px; line-height:32px; text-align:center; background:#F9F9F9; border-top:1px solid #EDEDED; text-decoration:none; font-weight:bold; color:#666;}
+#article .box>label{display:block; width:100%; text-indent:8px; height:36px; line-height:32px; overflow:hidden;}
+#article .box>label a{color:#000000; text-decoration:none}
+#article .box>label img{vertical-align:middle;}

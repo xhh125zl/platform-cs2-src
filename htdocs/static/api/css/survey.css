@@ -1,0 +1,67 @@
+/*
+Powered by ly200.com		http://www.ly200.com
+广州联雅网络科技有限公司		020-83226791
+*/
+
+body, html{background:url(../images/survey/bg.jpg) bottom center no-repeat #B9DE98; background-size:100%; min-height:100%;}
+
+#survey{margin:8px;}
+#survey .index{ width:100%; margin:0 auto;}
+#survey .index .welcome{text-align:center; font-size:16px; color:#FFF; font-weight:bold; line-height:30px; margin:0 auto;}
+#survey .index .desc{background:#fff; border-radius:5px; padding:5px 8px; font-size:14px; margin-bottom:8px; line-height:180%; min-height:80px;}
+#survey .index .login a, #survey .index .start{height:40px; line-height:40px; background:#f09500; border:none; color:#fff; font-size:20px; font-weight:bold; border-radius:5px; text-align:center; background-image:linear-gradient(bottom, #fd6a03 0, #f09500 100%); background-image:-moz-linear-gradient(bottom, #fd6a03 0, #f09500 100%); background-image:-webkit-linear-gradient(bottom, #fd6a03 0, #f09500 100%); box-shadow:0 1px 0 #f09500 inset, 0 1px 2px rgba(0,0,0,0.5); text-shadow:0 3px 5px #fd6a03; display:block; text-decoration:none;}
+
+#survey .vote{width:100%; display:none;}
+#survey .vote h1{width:100%; border-radius:5px 5px 0 0; height:46px; line-height:46px; padding-bottom:4px; text-align:center; font-size:22px; font-weight:bold; color:white; background:url(../images/survey/v0.png) repeat-x; background-size:43px 50px;}
+#survey .vote .v_top{width:100%; height:22px; background:url(../images/survey/i0.png) repeat-x; background-size:100% 22px;}
+#survey .vote .v_con{width:100%; padding:4px 8px; min-height:200px; box-sizing:border-box; background:#ffffff;}
+#survey .vote .v_con .title{width:100%; height:40px; line-height:40px; overflow:hidden; border-radius:5px; background:#f4f4f4; color:#444; text-indent:10px; font-size:18px; font-weight:bold;}
+#survey .vote .v_con .title span{color:#f00; font-size:18px; font-weight:bold;}
+#survey .vote .v_con .contents{padding:12px 0;}
+#survey .vote .v_con .contents .questions{display:none;}
+#survey .vote .v_con .contents h5{font-size:14px; line-height:24px; font-size:16px; padding:5px 0 12px 28px; position:relative;}
+#survey .vote .v_con .contents h5 .list_num{width:24px; height:24px; line-height:25px; font-size:15px; display:block; position:absolute; text-align:center; color:white; left:0px; top:5px; font-weight:bold; background:#DA1B1B; border-radius:3px; margin-right:5px;}
+#survey .vote .v_con .contents h5 .q{font-size:18px; font-weight:bold;}
+#survey .vote .v_con .contents h5 .img{padding-top:8px;}
+#survey .vote .v_con .contents h5 .img img{max-width:100%;}
+#survey .vote .v_con .contents li{margin-bottom:8px;}
+#survey .vote .v_con .contents li .answer{line-height:20px; padding:10px; position:relative;}
+#survey .vote .v_con .contents li .a_bg_0{border:1px solid #DEDEDE; background:#F4F4F4; border-radius:5px;}
+#survey .vote .v_con .contents li .a_bg_1{border:1px solid #e75151; background:#ffceb9; border-radius:5px;}
+#survey .vote .v_con .contents li .answer .a_num{position:absolute; top:10px; width:20px; height:20px; font-size:14px; font-weight:bold; line-height:24px;}
+#survey .vote .v_con .contents li .answer .a_con{min-height:20px; margin-left:25px; overflow:hidden; word-break:break-all; white-space:normal; font-size:16px; line-height:24px; padding-right:25px;}
+#survey .vote .v_con .contents li .answer .a_con img{margin-top:12px; max-width:100%;}
+#survey .vote .v_con .contents li .answer .a_con input{width:90%; height:24px; line-height:24px; border:1px solid #ddd; background:#fff; vertical-align:middle;}
+#survey .vote .v_con .contents li .answer .a_input{position:absolute; right:10px; width:15px; height:42px; top:10px;}
+#survey .vote .v_con .contents .q_submit{padding-top:12px;}
+#survey .vote .v_con .contents .q_submit .pre{height:40px; line-height:40px; border:none; color:#fff; font-size:16px; font-weight:bold; border-radius:5px; text-align:left; float:left; width:48%; background:url(../images/survey/pre.png) left center no-repeat #ff841d; box-sizing:border-box; text-indent:55px;}
+#survey .vote .v_con .contents .q_submit .next{height:40px; line-height:40px; border:none; color:#fff; font-size:16px; font-weight:bold; border-radius:5px; text-align:left; float:right; width:48%; background:url(../images/survey/next.png) right center no-repeat #ff841d; box-sizing:border-box; text-indent:35px;}
+#survey .vote .v_con .contents .q_submit .submit{height:40px; line-height:40px; border:none; color:#fff; font-size:16px; font-weight:bold; border-radius:5px; text-align:center; float:right; width:48%; background:#d91d1b;}
+#survey .vote .v_bottom{width:100%; height:12px; background:url(../images/survey/i1.png) repeat-x; background-size:100% 12px;}
+#survey .tips{width:100%; min-height:100px; background:#ffffff; border:1px solid #ddd; border-radius:5px; margin:0 auto; background-image:linear-gradient(bottom, #ffffff 0, #e1e1e1 100%); background-image:-moz-linear-gradient(bottom, #ffffff 0, #e1e1e1 100%); background-image:-webkit-linear-gradient(bottom, #ffffff 0, #e1e1e1 100%); box-shadow:0 1px 0 #e1e1e1 inset, 0 1px 2px rgba(0,0,0,0.5); text-shadow:0 3px 5px #ffffff; padding:12px; box-sizing:border-box;}
+#survey .tips div{padding:5px 0; line-height:24px; font-size:16px; font-weight:bold; line-height:200%;}
+#survey .tips div span{color:red; font-size:16px; font-weight:bold;}
+#survey .tips div input{width:100%; height:40px; line-height:40px; background:#f09500; border:none; color:#fff; font-size:20px; font-weight:bold; border-radius:5px; margin:20px auto; text-align:center; background-image:linear-gradient(bottom, #fd6a03 0, #f09500 100%); background-image:-moz-linear-gradient(bottom, #fd6a03 0, #f09500 100%); background-image:-webkit-linear-gradient(bottom, #fd6a03 0, #f09500 100%); box-shadow:0 1px 0 #f09500 inset, 0 1px 2px rgba(0,0,0,0.5); text-shadow:0 3px 5px #fd6a03;}
+
+#survey .result{width:100%; display:none;}
+#survey .result h1{width:100%; border-radius:5px 5px 0 0; height:46px; line-height:46px; padding-bottom:4px; text-align:center; font-size:20px; font-weight:bold; background-image:linear-gradient(bottom, #FFFEFB 0, #FEF3D0 100%); background-image:-moz-linear-gradient(bottom, #FFFEFB 0, #FEF3D0 100%); background-image:-webkit-linear-gradient(bottom, #FFFEFB 0, #FEF3D0 100%); border-bottom:1px solid #f8f8f8;}
+#survey .result .v_con{width:100%; padding:20px 8px 12px; min-height:200px; box-sizing:border-box; background:#ffffff; border-top:1px solid #f8f8f8;}
+#survey .result .v_con .title{width:100%; height:40px; line-height:40px; overflow:hidden; border-radius:5px; background:#f4f4f4; color:#444; text-indent:10px; font-size:18px; font-weight:bold;}
+#survey .result .v_con .title span{color:#f00; font-size:18px; font-weight:bold;}
+#survey .result .v_con .contents{padding:12px 0;}
+#survey .result .v_con .contents .questions{padding:12px 0; border-bottom:1px solid #ddd;}
+#survey .result .v_con .contents h5{font-size:14px; line-height:24px; font-size:16px; padding:5px 0 12px 28px; position:relative;}
+#survey .result .v_con .contents h5 .list_num{width:24px; height:24px; line-height:25px; font-size:15px; display:block; position:absolute; text-align:center; color:white; left:0px; top:5px; font-weight:bold; background:#DA1B1B; border-radius:3px; margin-right:5px;}
+#survey .result .v_con .contents h5 .q{font-size:18px; font-weight:bold;}
+#survey .result .v_con .contents h5 .img{padding-top:8px;}
+#survey .result .v_con .contents h5 .img img{max-width:100%;}
+#survey .result .v_con .contents li{margin-bottom:8px;}
+#survey .result .v_con .contents li .answer{line-height:20px; padding:10px; position:relative;}
+#survey .result .v_con .contents li .a_bg_0{border:1px solid #DEDEDE; background:#F4F4F4; border-radius:5px;}
+#survey .result .v_con .contents li .a_bg_1{border:1px solid #e75151; background:#ffceb9; border-radius:5px;}
+#survey .result .v_con .contents li .answer .a_num{position:absolute; top:10px; width:20px; height:20px; font-size:14px; font-weight:bold; line-height:24px;}
+#survey .result .v_con .contents li .answer .a_con{min-height:20px; margin-left:25px; overflow:hidden; word-break:break-all; white-space:normal; font-size:16px; line-height:24px; padding-right:40px;}
+#survey .result .v_con .contents li .answer .a_con img{margin-top:12px; max-width:100%;}
+#survey .result .v_con .contents li .answer .a_input{position:absolute; right:10px; height:42px; top:10px;}
+#survey .result .v_bottom{width:100%; height:12px; background:url(../images/survey/i1.png) repeat-x; background-size:100% 12px;}
+#survey .result .back{width:100%; height:40px; line-height:40px; display:block; text-decoration:none; background:#f09500; border:none; color:#fff; font-size:20px; font-weight:bold; border-radius:5px; margin-top:20px; text-align:center; background-image:linear-gradient(bottom, #fd6a03 0, #f09500 100%); background-image:-moz-linear-gradient(bottom, #fd6a03 0, #f09500 100%); background-image:-webkit-linear-gradient(bottom, #fd6a03 0, #f09500 100%); box-shadow:0 1px 0 #f09500 inset, 0 1px 2px rgba(0,0,0,0.5); text-shadow:0 3px 5px #fd6a03;}

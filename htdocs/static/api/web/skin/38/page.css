@@ -1,0 +1,17 @@
+#web_skin_index{width:100%; height:100%; position:relative; overflow:hidden; z-index:1;}
+#web_skin_index .web_skin_index_list{overflow:hidden; position:relative; z-index:3}
+#web_skin_index .banner{width:100%;  overflow:hidden; height:100%;z-index:1;position:relative; }
+#web_skin_index .banner *{ width:100%;}
+
+#web_skin_index .web_contents{ position:absolute; height:275px; left:0px; bottom:40px;z-index:100; width:100%;}
+
+#web_skin_index .box{width:240px; height:240px;overflow:hidden; box-sizing:border-box;  margin:0 auto; text-align:center;-webkit-transform:rotate(45deg);-moz-transform:rotate(45deg);transform:rotate(45deg);}
+
+.item_bg{ position:absolute; z-index:2; background:#008212; width:110px; height:110px; border:1px solid #fff; border-radius:10px;filter:alpha(opacity=90);
+-moz-opacity:0.9;opacity:0.9;}
+.items{-webkit-transform:rotate(-45deg);-moz-transform:rotate(-45deg);transform:rotate(-45deg); width:75px; height:75px; margin:22px 0 0 22px;}
+#web_skin_index .box li{ width:110px; height:110px; float:left; overflow:hidden; border:none; box-sizing:border-box; margin:4px;}
+#web_skin_index .box li .img{height:32px;margin:8px 0; overflow:hidden; text-align:center;  }
+#web_skin_index .box li .img img{ height:100%;}
+#web_skin_index .box li .text{text-align:center; font-size:12px;}
+#web_skin_index .box li .text a{ color:#FFFFFF}

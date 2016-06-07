@@ -1,0 +1,32 @@
+@media all and (min-width:360px){
+	#shop_skin_index .banner{height:178px;}
+	.ind_one_box .lbar,.ind_one_box .rbar{ width:169px; height:151px}
+	.ad_items{ height:113px; }
+
+}
+@media all and (min-width:420px){
+	
+	#shop_skin_index .banner{height:208px;}
+	.ind_one_box .lbar,.ind_one_box .rbar{ width:199px; height:178px}
+	.ad_items{ height:133px; }
+	
+	
+}
+@media all and (min-width:480px){
+	
+	#shop_skin_index .banner{height:238px;}
+	.ind_one_box .lbar,.ind_one_box .rbar{ width:229px; height:204px}
+	.ad_items{ height:153px; }
+	
+	
+}
+@media all and (min-width:560px){
+	#shop_skin_index .banner{height:279px;}
+	.ind_one_box .lbar,.ind_one_box .rbar{ width:269px; height:240px}
+	.ad_items{ height:180px; }
+}
+@media all and (min-width:640px){
+	#shop_skin_index .banner{height:315px;}
+	.ind_one_box .lbar,.ind_one_box .rbar{ width:309px;height:276px}
+	.ad_items{ height:200px; }
+}

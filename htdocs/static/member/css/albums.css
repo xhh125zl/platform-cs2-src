@@ -1,0 +1,45 @@
+/*
+Powered by ly200.com		http://www.ly200.com
+广州联雅网络科技有限公司		020-83226791
+*/
+
+#albums-list-type{height:300px; margin-top:9px;}
+#albums-list-type li{float:left; width:220px; height:300px; overflow:hidden; padding-right:8px;}
+#albums-list-type li .item{position:relative; width:200px; height:300px;}
+#albums-list-type li .item .img{position:absolute; width:200px; height:300px; z-index:1;}
+#albums-list-type li .item .filter{position:absolute; width:200px; height:300px; z-index:2;}
+#albums-list-type li .item .bg{position:absolute; width:200px; height:300px; z-index:3;}
+#albums-list-type li .item_on .filter{background:#000; filter:alpha(opacity=70); -moz-opacity:0.7; -khtml-opacity:0.7; opacity:0.7;}
+#albums-list-type li .item_on .bg{background:url(../images/albums/selected-icon.png) center center no-repeat;}
+
+#albums_size{float:left; border:1px solid #ddd; background:#f7f7f7; height:30px; line-height:30px; width:385px; position:relative; overflow:hidden; border-radius:5px; margin-right:10px;}
+#albums_size span.bg{display:block; background:#1584D5; height:30px; left:0; top:0; position:absolute;}
+#albums_size span.txt{display:block; width:100%; left:0; top:0; position:absolute; text-align:center; font-size:12px;}
+
+#albums .item{border:1px solid #ddd; background:#f7f7f7; overflow:hidden; margin:0 15px 15px 0; width:239px; float:left;}
+#albums .item .t{height:18px; line-height:18px; overflow:hidden; border-bottom:1px solid #ccc; padding:10px; cursor:move;}
+#albums .item .t .dot{width:8px; height:8px; background:#2D6C9F; float:left; margin-top:6px;}
+#albums .item .t .i{height:18px; line-height:18px; overflow:hidden; text-indent:8px; font-weight:bold; color:#666;}
+#albums .item .t .i a{padding:0 1px;}
+#albums .item .e{padding:10px; background:#fff; cursor:move;}
+#albums .item .e div{overflow:hidden; width:100%; height:150px; text-align:center;}
+#albums .item .e div img{width:100%;}
+#albums .placeHolder{border:dashed 1px #1584D5; background:#fff;}
+#albums .rows .input .copy{display:none;}
+#albums .size_full{text-align:center; padding:50px; font-weight:bold; color:#555; border:1px solid #ddd; background:#fafafa;}
+#albums .size_full .f{width:380px; margin:0 auto; margin-bottom:30px;}
+#albums #upload_img li{margin-top:5px; height:125px;}
+#albums #upload_img li .img{float:left; border:1px solid #ddd; background:#fff; width:180px; height:120px; overflow:hidden; position:relative;}
+#albums #upload_img li .img img{width:100%; min-height:120px;}
+#albums #upload_img li .img .del{position:absolute; bottom:0; height:22px; line-height:22px; text-align:center; background:#000; width:100%; color:#fff; filter:alpha(opacity=70); -moz-opacity:0.7; -khtml-opacity:0.7; opacity:0.7; cursor:pointer;}
+#albums #upload_img li .info{float:left; margin-left:15px;}
+#albums #upload_img li .info input{vertical-align:middle;}
+#albums #upload_img li .info textarea{vertical-align:middle; width:280px; height:70px;}
+#albums .albums_info{background:#f7f7f7; border-radius:5px; border:1px solid #ddd; height:36px; line-height:36px; padding:0 10px; margin-bottom:10px; clear:both;}
+#albums .albums_info .l{float:left;}
+#albums .albums_info .r{color:#888; float:right;}
+#albums .photo_list dd{border:1px solid #ccc; background:#f7f7f7; overflow:hidden; margin:0 15px 15px 0; width:239px; height:175px; float:left;}
+#albums .photo_list dd.placeHolder{border:dashed 1px #1584D5; background:#fff;}
+#albums .photo_list ul li.name{height:25px; line-height:25px; overflow:hidden; background:#ddd; cursor:move; text-indent:3px;}
+#albums .photo_list ul li.img{height:150px; padding:1px; overflow:hidden; background:#ccc;}
+#albums .photo_list ul li.img img{width:100%; min-height:150px;}

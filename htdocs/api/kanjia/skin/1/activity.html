@@ -1,0 +1,187 @@
+{{include file="lbi/header.html"}}
+</head>
+<body>
+<div id="wrap"> 
+  <!-- 导航栏begin --> 
+  {{include file="lbi/top_nav.html"}} 
+  <!-- 导航栏end --> 
+  
+  <!-- 标题栏begin --> 
+  {{include file="lbi/title_bar.html"}} 
+  <!-- 标题栏end --> 
+  
+  <!-- 主题内容begin -->
+  <div class="content container">
+    <div class="row">
+      <div class="activity-image">
+      <img  width="100%" src="{{$base_url}}{{$product['thumb']}}"/>
+      <a class="deadline" href="javascript:void()"><i class="icon-time"></i>活动剩余时间
+    <span ><strong id="day_show">{{$deadline_array.day}}</strong>天</span>
+    <span ><strong id="hour_show">{{$deadline_array.hour}}</strong>小时</span>
+    <span ><strong id="minute_show">{{$deadline_array.minute}}</strong>分</span>
+    <span ><strong id="second_show">{{$deadline_array.second}}</strong>秒</span>
+    </a>
+      </div>
+    </div>
+    <div class="row">
+
+      <div class="desc">
+       <form action="{{$base_url}}api/{{$UsersID}}/kanjia/" method="post" id="addto_cart_form">
+        <input type="hidden" name="Product_ID" value="{{$product.Products_ID}}"/>
+        <input type="hidden" name="Cur_Price" value="{{$cur_price}}" />
+        <h4>{{$product.Products_Name}}</h4>
+        
+        <span class="cur_price">当前价格:<strong class="red">&yen;{{$cur_price}}</strong></span> 底价: &yen;{{$activity.Bottom_Price}} <span class="grey">|</span> 原价: &yen;{{$product.Products_PriceX}}
+      {{if count($Product_Property) gt 0}}  
+       <ul class="info">
+        {{foreach from=$Product_Property key=PName item=Property}}
+          <li class="property">
+            <table>
+              <tr>
+                <td nowrap="nowrap">{{$PName}}:&nbsp;</td>
+                
+                <td>
+                {{foreach from=$Property.values key=value_name item=value_value }}
+               		 {{if $value_value@iteration eq 1}}	 
+                     	<span PName="{{$PName}}" class="cur">{{$value_name}}</span> 
+                	 {{else}}
+                     	<span PName="{{$PName}}">{{$value_name}}</span> 
+                     {{/if}}
+                {{/foreach}}
+                </td>
+              </tr>
+            </table>
+            <input type="hidden" name="Property[{{$PName}}]" value="{{$Property.default}}" id="{{$PName}}" />
+          </li>
+          {{/foreach}}
+        </ul>
+       {{/if}}
+        <input type="hidden" name="action" value="addto_cart" />
+       </form>
+       
+           <div class="go-detail">
+	 			 <a href="{{$kanjia_url}}product/{{$product.Products_ID}}/"><span>&nbsp;</span>商品详细描述</a>
+          </div>
+       
+      </div>
+      
+   
+     
+    </div>
+    
+    <div class="row">
+     
+      
+      <input type="hidden" id="self_kaned" value="{{$self_kaned}}"/>
+      {{if $expired eq 0}}
+		
+		{{if $cur_price gt $activity.Bottom_Price}}	
+			<div class="button-panel container"> 
+			{{if $self_kaned eq 0}}
+				<p>自砍一刀参加此活动</p>
+				<button id="self_kan" class="btn btn-danger col-xs-10" href="{{$base_url}}api/kanjia/help.php?UsersID={{$UsersID}}&KanjiaID={{$KanjiaID}}&action=self_kan">自砍一刀</button> <br/>
+				<br/>
+			{{else}}
+				<p>您自己砍掉了<span class="red">{{$member_activity.Self_Kan}}</span>元</p>
+			{{/if}}
+			<button id="invite_kan" class="btn btn-warning col-xs-10" href="#" role="button">邀请好友帮我砍价</button>
+			<div class="clear"></div>
+			</div>
+		{{else}}
+			<p >
+      			<h4 style="text-align:center;margin-top:10px;">此产品已经到底价,不能再邀请好友砍价</h4>
+      		</p>	
+   	    {{/if}}
+	  {{else}}
+      		 <p >
+      			<h4 style="text-align:center;margin-top:10px;">此活动已经过期</h4>
+      		</p>
+      {{/if}}
+    </div>
+    <div class="row">
+      <div class="kanjia_list">
+        <div class="title">
+          <h5>砍友榜</h5>
+          <hr/>
+        </div>
+        <div class="container">
+          <div class="row"> {{if count($helper_list) gt 0}}
+            <table class="table">
+              <tbody>
+                <tr>
+                  <td>头像</td>
+                  <td>昵称</td>
+                  <td>砍掉金额</td>
+                </tr>
+              {{foreach from=$helper_list item=item}}
+       			{{assign var="Helper_ID" value=$item.Helper_ID}}
+              <tr>
+                <td><img width="50px" height="50px" src="{{$user_list.$Helper_ID.User_HeadImg}}"/></td>
+                <td>{{$user_list.$Helper_ID.User_NickName}}</td>
+                <td>{{$item.Record_Reduce}}</td>
+              </tr>
+              {{/foreach}}
+                </tbody>
+              
+            </table>
+            {{else}}
+            &nbsp;&nbsp;&nbsp;&nbsp;目前没有人帮你砍价！！！
+            {{/if}} </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- 主题内容end --> 
+</div>
+
+<!-- 分享提示遮罩begin -->
+<div class='share_layer'><img src='/static/api/kanjia/image/share.png' /></div>
+<!-- 分享提示遮罩end --> 
+
+<!-- 固定footer begin -->
+<footer class="footer">
+  <div class="container">
+    <ul class="buy-panel row">
+      <li class="col-xs-5" style="text-align:left;"> 现价: <span class="red">&yen;{{$cur_price}}</span> </li>
+      <li class="col-xs-5" style="text-align:right"> 
+      {{if $expired eq 0}}
+     	 <a  id="buy_btn" class="btn btn-warning input-sm" href="{{$kanjia_url}}buy/{{$KanjiaID}}/" role="button">立即购买</a> 
+      {{else}}
+      	 {{ad($UsersID,2,2)}}
+      {{/if}}
+      </li>
+      </li>
+    </ul>
+  </div>
+</footer>
+<!-- 固定footer end --> 
+
+
+<!-- Include all compiled plugins (below), or include individual files as needed --> 
+<script src="{{$public}}js/kanjia.js"></script> 
+<script type="text/javascript">
+	 	  var UsersID = "{{$UsersID}}";
+          var base_url = "{{$base_url}}";
+		  var Kanjia_ID = "{{$KanjiaID}}";
+		  var time_interval = "{{$time_interval}}";
+	 	  kanjia_obj.activity_init();
+	 </script>
+	 {{if $share_flag}}
+	<script language="javascript">
+		var share_config = {
+		   appId:"{{$appId}}",		   
+		   timestamp:{{$timestamp}},
+		   nonceStr:"{{$noncestr}}",
+		   url:"{{$url}}",
+		   signature:"{{$signature}}",
+		   title:"{{$product.Products_Name}}",
+		   desc:"{{$desc}}",
+		   img_url:"{{$base_url}}{{$product['thumb']}}",
+		   link:""
+		};
+		$(document).ready(global_obj.share_init_config);
+	</script>
+	{{/if}}
+</body>
+</html>

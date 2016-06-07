@@ -1,0 +1,195 @@
+body{background-color:#f5c10d;}
+.clean{ clear:both;}
+img{ vertical-align:top;}
+header{ width:100%; margin:0 auto; max-width:640px;}
+#content{width:100%; margin:0 auto; max-width:640px;}
+#content .con-item{width:100%; margin:0 auto; max-width:640px; background-color:#f5c20f; background-size:100% 100%; padding-top:15px;}
+#send_friends{ display:block; margin:0 auto; width:60.15625%; margin-top:20px;}
+#content .game-notice{ line-height:22px; color:#fff; font-size:16px; width:80%; margin:0px auto;}
+#content .con-item .ci1{width:100%; text-align:center; max-width:640px;}
+#content .con-item .ci1 img{ width:60.15625%;}
+#content .con-item .lst1 .icon1{ width:20px; height:20px; float:left; text-align:center; border-radius:20px; line-height:20px; background:#F6A820;}
+#content .con-item .lst1 .title1{ float:left; width:85%; color:#fff; font-size:14px; margin-left:5px; line-height:25px;}
+
+
+#footer{width:100%; margin:0 auto; max-width:640px; background-color:#f5c20f; min-height:350px;}
+#footer .main_bottom{width:95%; margin:0px auto; padding:8px 0px;}
+#footer .main_bottom .main_content{
+	background:#fa9f36;
+	padding:0px;
+}
+#footer .main_bottom .main_content .btns{ height:52px; box-sizing:border-box; background-color:#ffe98c; margin-top:20px;}
+#footer .main_bottom .main_content .btns p{margin:0px; padding:0px; height:52px; width:33.3333%; box-sizing:border-box; overflow:hidden; text-align:center; font-size:14px; font-weight:bold; color:#824449; float:left; line-height:52px;}
+#footer .main_bottom .main_content .btns p.cur{background:url(../images/battle/select_on.png) no-repeat left center; margin-top:-12px; height:64px; line-height:76px; color:#FFF; background-size:100% 100%;}
+#footer .main_bottom .main_content .btns p.my_btn{background-size:90% 30px;}
+#footer .main_bottom .main_content .stores{padding:2px 0px 0px 0px; margin:5px; box-sizing:border-box; line-height:20px; font-size:14px; color:#333;}
+
+.prize_thumb {width:50px;height:50px;}
+/*表格样式*/
+.zebra {font-size:1em;width:100%;}
+h3{font-weight:bold;}
+.zebra td, .zebra th {
+    padding: 5px;
+	font-weight:normal;
+   /* border-bottom: 1px solid #f2f2f2;*/    
+}
+
+/*.zebra tbody tr:nth-child(even) {
+    background: #f5f5f5;
+    -webkit-box-shadow: 0 1px 0 rgba(255,255,255,.8) inset; 
+    -moz-box-shadow:0 1px 0 rgba(255,255,255,.8) inset;  
+    box-shadow: 0 1px 0 rgba(255,255,255,.8) inset;        
+}*/
+
+/*.zebra th {
+    text-align: center;
+    text-shadow: 0 1px 0 rgba(255,255,255,.5); 
+    border-bottom: 1px solid #ccc;
+    background-color: #eee;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#f5f5f5), to(#eee));
+    background-image: -webkit-linear-gradient(top, #f5f5f5, #eee);
+    background-image:    -moz-linear-gradient(top, #f5f5f5, #eee);
+    background-image:     -ms-linear-gradient(top, #f5f5f5, #eee);
+    background-image:      -o-linear-gradient(top, #f5f5f5, #eee); 
+    background-image:         linear-gradient(top, #f5f5f5, #eee);
+}*/
+
+.zebra th:first-child {
+    -moz-border-radius: 6px 0 0 0;
+    -webkit-border-radius: 6px 0 0 0;
+    border-radius: 6px 0 0 0;  
+}
+
+.zebra th:last-child {
+    -moz-border-radius: 0 6px 0 0;
+    -webkit-border-radius: 0 6px 0 0;
+    border-radius: 0 6px 0 0;
+}
+
+.zebra th:only-child{
+    -moz-border-radius: 6px 6px 0 0;
+    -webkit-border-radius: 6px 6px 0 0;
+    border-radius: 6px 6px 0 0;
+}
+
+.zebra tfoot td {
+    border-bottom: 0;
+    border-top: 1px solid #fff;
+    background-color: #f1f1f1;  
+}
+
+.zebra tfoot td:first-child {
+    -moz-border-radius: 0 0 0 6px;
+    -webkit-border-radius: 0 0 0 6px;
+    border-radius: 0 0 0 6px;
+}
+
+.zebra tfoot td:last-child {
+    -moz-border-radius: 0 0 6px 0;
+    -webkit-border-radius: 0 0 6px 0;
+    border-radius: 0 0 6px 0;
+}
+
+.zebra tfoot td:only-child{
+    -moz-border-radius: 0 0 6px 6px;
+    -webkit-border-radius: 0 0 6px 6px
+    border-radius: 0 0 6px 6px
+}
+#rank_list_0{background-color:#ee5a3c; padding:20px; margin-bottom:5px; color:#FFF; font-size:13px;}
+#rank_list_0 h3{font-size:13px; color:#FFF}
+.share_layer{width:100%; height:100%; overflow:hidden; text-align:right; position:fixed; top:0px; left:0px; display:none; z-index:1000;}
+.share_layer img{max-width:600px; width:100%; position:relative;}
+
+#source{ width:100%; height:401px; max-width:640px; margin:0 auto;  background:url(../images/battle/sourcebg.png) center bottom no-repeat;background-size:70% 70%; position:relative;}
+#source .source-item{position:absolute;width:100px; height:100px;right:10px; top:10px; line-height:100px;}
+#source .source-item .maohao{text-shadow:1px 1px 3px #333;font-size:20px;}
+#source .source-item .square{text-shadow:1px 1px 3px #333;width:14%; height:100px; text-align:center; line-height:40px; float:left; margin-left:2.352%;font-size:20px;}
+#source .source-item .sqfirst{ margin-left:21.5%;}
+#source .source-title{position:absolute;height:100px; top:10px; left:10px; line-height:30px; width:250px; font-size:14px;}
+#source .source-title div{float:left;}
+#source .fenshu{position:absolute; text-align:center; line-height:30px; bottom:80px; font-size:24px; color:#844449; font-weight:700; letter-spacing:3px; left:50%; top:50%; margin:0 0 0 -40px;}
+#source .fenshu div{ font-size:24px; color:#844449; font-weight:700;}
+#q2{width:100%; margin:0 auto; max-width:640px; padding-bottom:10px;}
+#q2 .q2_content{width:100%; margin:0 auto; max-width:640px;}
+#q2 .questionTitle{ width:84%; margin:0 auto;}
+#q2 .questionTitle .questionFrame{ width:100%; margin-left:12px; font-size:16px; color:#000; font-weight:bold; line-height:22px; text-align:center; margin:15px 0;}
+#q2 .questionList{width:85%; padding-top:5px; padding-bottom:5px; margin:0 auto; margin-top:20px; line-height:22px; font-size:14px; color:#fff; font-weight:bold; cursor:pointer; border-radius: 20px; border:solid 10px #ee5a3c; overflow:hidden; background-color:#ee5a3c; text-align:center;}
+#q2 .bg1{ background:#6b150b;}
+#result1{ width:100%; max-width:640px; height:495px; background:#4d3f70 url(../images/battle/aliluya.png) no-repeat; background-size:100% 100%; margin:0px auto;}
+#result2{ width:100%; max-width:640px; height:250px; background:url(../images/battle/huahua.png) center center no-repeat; background-size:90% 90%; margin:0px auto; margin-top:-220px;}
+#result2 .re-show{width:82%; color:#fff36f; text-align:center; height:120px; margin:0 auto; padding-top:70px; line-height:120px; font-size:48px;}
+#result2 .self_paihang{width:82%; color:#FFF; font-size:20px; margin:0 auto; padding-top:30px; text-align:center;}
+#result3{ width:100%; max-width:640px; padding-top:5px; background-color:#0aa6eb; background-size:100% 100%; margin:0px auto;}
+#result3 .ranking{width:95%; margin:0 auto;}
+#result3 .ranking .icon{margin:0 auto; width:296px;}
+#result3 .rank_list_box{ width:90%; margin:0 auto; border:10px solid #35688f; border-radius:20px; margin-top:10px;}
+#result3 .rank_list{ width:98%; height:23px; margin:0 auto; margin-top:5px;}
+#result3 .rank_list .gold{width:20px; height:20px; border-radius:20px; text-align:center; line-height:20px; background:#ffc230; float:left; margin-left:5px;}
+#result3 .rank_list .silver{width:20px; height:20px; border-radius:20px; text-align:center; line-height:20px; background:#e1e3e3; float:left; margin-left:5px;}
+#result3 .rank_list .copper{width:20px; height:20px; border-radius:20px; text-align:center; line-height:20px; background:#fea211; float:left; margin-left:5px;}
+#result3 .rank_list .round{ width:20px; height:20px; border-radius:20px; text-align:center; line-height:20px; background:#fdc310; float:left; margin-left:5px;}
+#result3 .rank_list .showName{ float:left; margin-left:8px; line-height:20px; font-size:12px; color:#500c02;}
+#result3 .share{ width:89.0625%; height:146px; background:url(../images/battle/fbg.jpg) no-repeat;background-size:100% 100%; margin:0 auto;}
+#result3 .share .s1{ width:33.5087%; margin-left:7.01%; margin-top:45px; float:left;}
+#result3 .share .s2{ width:7.01%; float:left; margin-top:53px; margin-left:1%;}
+#result3 .backBtn{width:28.59375%; height:45px; margin:0 auto; margin-top:30px;}
+.next-btn {
+    background: -moz-linear-gradient(center top , #FFAA22 0px, #F04A02 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+	background: -moz-linear-gradient(#FFAA22, #F04A02);
+	background: -webkit-gradient(linear, 0 0, 0 bottom, from(#FFAA22), to(#F04A02));
+	background: -webkit-linear-gradient(#FFAA22, #F04A02);
+    border: 1px solid #C94E04;
+	border-radius:8px;
+    color: #000000;
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 20px;
+    padding: 10px 32px;
+}
+#mask{ width:100%; height:100%; position:fixed; z-index:999; background:#000; opacity:0.7; display:none;}
+#notice-item{ width:200px; position:absolute; left:50%; margin-left:-100px; top:20%;  z-index:10001; display:none;}
+#notice-item .timesUpImg{ width:100%;}
+#notice-item .timesUpImg img{ margin-left:20px;}
+#notice-item .timeNotice{ text-align:center; color:#fff; font-size:18px; margin-top:10px;}
+#notice-item .timeBtn{ text-align:center; width:106px; margin-left:10px; display:block;}
+#notice-item .timeBtn:hover{ text-decoration:none; color:#333;}
+#wrong-item{ width:200px; position:absolute; left:50%; margin-left:-100px; top:20%;  z-index:10001; display:none;}
+#wrong-item .wrongImg{ width:100%; text-align:center;}
+#wrong-item .wrongNotice{ text-align:center; color:#fff; font-size:18px; margin-top:10px;}
+#wrong-item .timeBtn{ text-align:center; width:106px; margin-left:10px; display:block;}
+#wrong-item .timeBtn:hover{ text-decoration:none; color:#333;}
+#showItem{  width:260px; height:120px; position:absolute; left:50%; margin-left:-130px; margin-top:-60px; top:50%;  z-index:10001; background:#fff; border-radius:8px;}
+#showItem .showNotice{ color:#333; font-size:18px; margin:10px; text-align:center; line-height:26px;}
+#showItem .showClose{ width:240px; margin:10px; text-align:center;height:40px; line-height:40px;border-top:1px #ddd solid; font-size:18px;}
+#right-item{ width:200px; position:absolute; left:50%; margin-left:-100px; top:20%;  z-index:10001; display:none;}
+#right-item .rightNotice{ text-align:center; color:#fff; font-size:18px; height:50px;}
+#right-item .timeBtn{ margin-left:15px;}
+#right-item .rightImg{width:100%; text-align:center;}
+@media screen and (max-width:360px){
+	#source{ height:226px;  background:url(../images/battle/sourcebg.png) center bottom no-repeat;background-size:70% 70%; }
+	#source .source-item{}
+	#source .source-item .square{height:70px; line-height:40px; font-size:20px;}
+	#source .source-item .maohao{ float:left; line-height:40px;}
+	#source .source-title{ height:39.375px; line-height:25px; font-size:12px;}
+	#source .source-title span{ padding-left:15px; font-weight:700; display:block; float:left;}
+	#result1{ height:278px;}
+	#result2{ height:250px;}
+	#result2 .re-show{ height:68px; margin:0 auto; padding-top:95px; padding-left:10px; line-height:68px; font-size:60px; letter-spacing:3px; color:#F00;}
+	#result3 .share{ height:82px;}
+	#result3 .share .s1{margin-top:25px;}
+	#result3 .share .s2{margin-top:30px; margin-left:2%;}
+	#result3 .rank_list .round{ width:20px; height:20px; border-radius:20px; text-align:center; line-height:20px; background:#fdc310; float:left; margin-left:10px;}
+}
+@media screen and (max-width:320px){
+	#q2 .questionTitle .questionFrame{width:100%; margin-left:12px; font-size:14px; color:#666; font-weight:bold; line-height:22px; text-align:center; margin:15px 0;}
+	#result2 .re-show{font-size:25px;}
+	#result3 .share .s1{margin-top:27px;}
+	#result3 .share .s2{margin-top:32px; margin-left:3%;}
+}
+.kstz,#send_friends{display:block; font-size:15px; color:#FFF; width:70%; margin:0px auto; height:42px; line-height:42px; text-align:center; border-radius:8px;}
+a.kstz:hover{color:#FFF;}
+.kstz{background:#F66313}
+#send_friends{background:#339CD5; margin-top:10px;}
+.b8{height:16px; font-size:1px; width:100%}
+#do_action{height:50px; line-height:50px; font-size:20px; font-weight:700; color:#FFF; width:90%; margin:0 auto; text-align:center; background:url(../images/battle/do_action_bg.png) center center no-repeat; background-size:100% 100%;}
+#join{height:50px; line-height:50px; font-size:20px; font-weight:700; color:#FFF; width:90%; margin:0 auto; text-align:center; background:url(../images/battle/join_bg.png) center center no-repeat; background-size:100% 100%;}

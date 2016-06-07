@@ -1,0 +1,20 @@
+@charset "utf-8";
+/* 分销中心财富排行榜样式*/
+
+#income-filter{font-family:"Microsoft Yahei";font-size:18px;margin:10px auto;width:70%;text-align:center;}
+#income-filter a.item{display:block;width:45%;padding-left:2%;padding-right:2%;padding-bottom:5px;float:left;}
+#income-filter span.shu{float:left;color:#AEAEAE;display:block;width:2%;}
+#income-filter a.selected{color:#BE1224;border-bottom:2px solid #BE1224;}
+#income-filter a:hover{text-decoration:none;}
+#table-panel{width:90%;margin:10px 5%;font-family:"Microsoft Yahei";border:1px solid #dfdfdf;}
+.income_list {margin-bottom:10px;margin-top:10px;}
+.income_list .rank{padding:5px;display:block;}
+#rank_1{color:#FE6304;}
+#rank_2{color:#56B700;}
+#rank_3{color:#3188BD;}
+
+#rank_1 span.rank{border-radius:50%;background:#FE6304;width:20px;height:20px;color:#ffffff;font-size:16px;text-align:center;line-height:20px;}
+#rank_2 span.rank{border-radius:50%;background:#56B700;width:20px;height:20px;color:#ffffff;font-size:16px;text-align:center;line-height:20px;}
+#rank_3 span.rank{border-radius:50%;background:#3188BD;width:20px;height:20px;color:#ffffff;font-size:16px;text-align:center;line-height:20px;}
+
+.table > thead > tr > th {border-bottom:0px;}

@@ -1,0 +1,132 @@
+/*全局样式*/
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  /* Margin bottom by footer height */
+  background:#F3F3F3;
+  margin-bottom: 80px;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: auto;
+  background-color: #f5f5f5;
+}
+
+
+.text-center{text-align:center;};
+/* Custom page CSS
+-------------------------------------------------- */
+/* Not required for template or sticky footer method. */
+
+.container .text-muted {
+  margin: 20px 0;
+}
+
+.footer > .container {
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+code {
+  font-size: 80%;
+}
+
+a:hover{text-decoration:none;}
+
+li{list-style:none;}
+.fr{float:right;}
+.fl{float:left;}
+.blue {color:#188eee;}
+.red {color:#ef363e;}
+.grey{color:#D1D1D1;}
+.shallow_grey{color:#b5b5b5;}
+.btn-danger{background:#EF363E;}
+.btn-warning{background:#FF8A00;}
+
+
+a {color:#333333;}
+a:hover {color:#000000;}
+
+.push_left{float:left;}
+.push_right{float:right;}
+
+
+/*倒计时样式*/
+.activity-image{position:relative;}
+a.deadline { color:#D3D3D4; background-color:rgba(0,0,0,0.8);
+filter:progid:DXImageTransform.Microsoft.Gradient(GradientType=0, StartColorStr='#A0000000', EndColorStr='#A0000000');
+padding:5px 0;
+position: absolute;
+left:0;right:0;bottom:0;
+width: 100%;
+text-decoration: none;
+font: 14px Microsoft YaHei, Verdana;
+color:#fff;
+}
+.deadline i{font-size:16px;padding-right:5px;}
+.deadline strong{color:red;}
+/*商品属性*/ 
+.desc .info{padding:10px 0 0 0;}
+.desc .info li.property{height:auto; padding-top:4px;}
+.desc .info li.property table{border-collapse:collapse; border-spacing:0;}
+.desc .info li.property td{vertical-align:top; padding:0;}
+.desc .info li.property span{border:1px solid #ddd; padding:0 10px; margin:2px 5px 4px 0; height:24px; line-height:24px; overflow:hidden; display:inline-block; background:#fff;}
+.desc .info li.property span.cur{border:1px solid red; background:#ffffff;}
+
+.desc .go-detail{background:#FFF; margin-top:8px; border-radius:5px; font-size:16px;margin-right:10px;}
+.desc .go-detail a{font-size:16px; color:#5a5a5a; display:block; width:100%; text-indent:10px; padding:8px 0px}
+.desc .go-detail a span{float:right; margin-right:8px; background:url('../image/right-arrow.png') no-repeat right center; padding:0px 10px}
+
+#help_kan{float:none;}
+#self_kan{float:none;}
+#invite_kan{float:none;}
+
+.kanjia_list .title h5{padding-left:10px;}
+.kanjia_lsit hr{heihgt:1px;margin:0;padding:0;}
+.laknjia_list caption {border-bottom:1px solid #D1D1D1;}
+.kanjia_list .table > tbody > tr > td{border-top:0px;text-align:center;}
+.kanjia_list .table{margin-top:10px;width:80%;float:none;}
+
+
+
+/*底部导航样式*/
+.navbar-default {
+  background:rgba(0,0,0,0.8);
+  border-color: #000000;
+}
+
+.home-title {text-align:center;background:#ffffff;}
+.product-list {background:#ffffff;}
+
+
+.footer .col-xs-2{text-align:center;}
+#footer_nav{padding:10px 0 5px;background:#ffffff;margin-bottom:0px;border-top:1px solid #dfdfdf;} 
+#footer_nav li.item{text-align:center;width:25%;float:left;} 
+.footer a{color:#555555;font-size:12px;}
+
+/*分享层样式*/
+.share_layer{width:100%; height:100%; overflow:hidden; text-align:right; position:fixed; top:0px; left:0px; display:none; z-index:100000;}
+.share_layer img{max-width:600px; width:100%; position:relative;}
+.b10{height:10px; font-size:1px; width:100%;}
+
+/*头部导航样式*/
+.nav {background:#EA5D41;height:40px;padding-top:5px;}
+a.logo{display:block;margin-top:5px;}
+#search_btn {cursor:pointer;}
+.white{color:#ffffff}
+.nav form{margin-top:2px;}
+#nav-keyword{height:18px;width:85%;box-shadow:none;border-radius:5px;}
+.nav form span.icon-search{margin-top:5px;}
+.nav .col-xs-8 {padding-left:0px;padding-right:0px;}
+.nav .col-xs-2 {padding-left:0px;padding-right:0px;}
+.nav-search-icon {font-size:1.5em;}
+.nav .header-icon{text-align:center;margin-top:2px;}
+
+#search_btn{cursor:pointer;height:30px;line-height:30px;position:absolute;top:0px;right:0px;padding-right:15px;}
+

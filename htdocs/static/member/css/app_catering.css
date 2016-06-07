@@ -1,0 +1,76 @@
+/*
+Powered by ly200.com		http://www.ly200.com
+广州联雅网络科技有限公司		020-83226791
+*/
+.f_b{ font-weight:bold}
+#stores .tips_info{background:#f7f7f7; border-radius:5px; border:1px solid #ddd; height:30px; line-height:30px; padding:0 10px; margin-bottom:8px; float:left;}
+#stores strong{color:#444;}
+
+#products .r_con_search_form{display:none;}
+#products .rows .attr{font-size:12px; color:#888; height:32px; line-height:28px;}
+#products .category .m_lefter{float:left; width:385px; padding:10px; padding-top:0; border:1px solid #ddd; background:#f7f7f7; min-height:400px; _height:400px; overflow:hidden;}
+#products .category .m_lefter dd{border:1px solid #f7f7f7; border-bottom:1px solid #ddd; background:#f7f7f7;}
+#products .category .m_lefter dd.placeHolder{border:dashed 1px #1584D5; background:#fff;}
+#products .category .m_lefter dd div.category{height:50px; line-height:50px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis; cursor:move;}
+#products .category .m_righter{float:left; width:340px; margin-left:20px;}
+#products .category .m_righter form{padding:10px; border:1px solid #ddd; background:#f7f7f7; zoom:1;}
+#products .category .m_righter .mod_form{border:1px dotted red;}
+#products .category .m_righter h1{font-weight:bold; padding-bottom:5px;}
+#products .category .m_righter .opt_item{padding:5px 0;}
+#products .category .m_righter .opt_item label{float:left; width:70px; height:28px; line-height:28px;}
+#products .category .m_righter .opt_item .input{float:left; width:240px; display:block; line-height:28px;}
+#products .category .m_righter .opt_item .input .form_input{border:1px solid #ddd; border-radius:5px; height:28px; line-height:28px; text-indent:2px;}
+#products .category .m_righter .opt_item .input select{height:32px; border:1px solid #ddd; border-radius:5px; padding:5px; width:220px; overflow:hidden;}
+
+#orders .r_con_search_form{ position:relative;}
+#orders .r_con_search_form div{height:22px; width:110px; position:absolute; right:5px; top:12px;}
+#orders .r_con_search_form div span{color:red;}
+#orders .r_con_table del{color:#888;}
+#orders .r_con_table tbody tr.is_not_read *{color:red;}
+#orders .cp_title{height:28px; border-left:1px solid #ddd;}
+#orders .cp_title div{border:1px solid #ddd; border-bottom:none; border-left:none; background:#fff; width:130px; height:27px; line-height:27px; text-align:center; font-weight:bold; float:left; cursor:pointer;}
+#orders .cp_title div.cur{background:#f1f1f1;}
+#orders .detail_card{border:1px solid #ddd; padding:15px;}
+#orders .detail_card .order_info{border-collapse:collapse;}
+#orders .detail_card .order_info *{font-size:12px;}
+#orders .detail_card .order_info td{padding:10px 7px; border-bottom:1px solid #ddd; empty-cells:show;}
+#orders .detail_card .order_info td input{height:28px; line-height:28px; border:1px solid #ddd; border-radius:5px;}
+#orders .detail_card .order_info td textarea{vertical-align:top; border-radius:5px; width:350px; height:80px; padding:5px; line-height:150%;}
+#orders .detail_card .order_info td select{height:32px; border:1px solid #ddd; padding:5px; vertical-align:middle; border-radius:5px;}
+#orders .detail_card .cp_item_mod{display:none;}
+#orders .detail_card .cp_item_mod td input{border:0; height:30px; line-height:30px;}
+#orders .item_info{height:20px; line-height:20px; font-weight:bold;}
+#orders .order_item_list{border:1px solid #ddd; margin:5px 0; border-collapse:collapse;}
+#orders .order_item_list td{empty-cells:show; font-size:12px;}
+#orders .order_item_list .tb_title td{border-right:1px solid #ddd; height:32px; font-weight:bold; text-align:center; background:#f1f1f1;}
+#orders .order_item_list .tb_title td.last{border-right:none;}
+#orders .order_item_list .item_list td{padding:7px 5px; border-top:1px solid #ddd; background:#fff;}
+#orders .order_item_list .item_list td img{width:100px;}
+#orders .order_item_list .item_list:hover td{background:#E4F1FC;}
+#orders .order_item_list .total td{height:26px; background:#efefef; text-align:center; color:#B50C08; font-weight:bold;}
+/****************pos_cont****************************/
+#pos_cont{ width:320px; position:absolute; left:150px; top:150px; background:#fff; border:5px solid #333; padding:4px; height:350px; display:none}
+#pos_cont iframe{ width:100%; height:350px; padding:0px;background:#fff}
+#pos_cont .btn_cont{ text-align:center; padding-top:5px}
+.pos_print{ width:100%;background:#fff}
+
+.items{ border-bottom:1px dotted #CCC; width:100%; padding:5px 0}
+.items *{font-size:12px}
+.pos_print{ min-height:320px;position:relative; padding-bottom:30px}
+.pos_print .page_head{ text-align:center; font-size:14px; font-weight:bold; padding:5px 0}
+.pos_print .page_foot{ text-align:center;padding:5px 0;font-size:12px}
+.pos_print .print_info{ font-size:12px; line-height:20px}
+.pos_print .btn_cont{ position:fixed; bottom:0;text-align:center; width:100%}
+.pos_print .btn_cont input[type='button']{background:#1584D5; color:white; border:none; height:22px; line-height:22px; width:50px;}
+@media print{
+	.pos_print .btn_cont{ display:none}
+	.pos_print{width:100%; }
+	.pos_print *{ font-size:9pt!important}
+	.pos_print .items{ width:100%; margin-bottom:5px; padding:2px 0px}
+	.pos_print .page_foot{ text-align:center;padding:5px 0;}
+	.pos_print .head{ display:block}
+}
+
+#iframe_page .btn_ok{display:block; height:30px; line-height:30px; background:url(../images/global/ok-btn-bg.jpg); border:none; color:#fff; width:145px; border-radius:5px; text-align:center; text-decoration:none; float:left; margin-right:10px;}
+#iframe_page .btn_ok_w_120{width:120px; background:url(../images/global/ok-btn-120-bg.jpg);}
+#iframe_page .btn_cancel{display:block; height:30px; line-height:30px; background:url(../images/global/cancel-btn-bg.jpg); border:none; width:88px; border-radius:5px; text-align:center; text-decoration:none; float:left;}

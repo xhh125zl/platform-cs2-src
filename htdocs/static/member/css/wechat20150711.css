@@ -1,0 +1,95 @@
+
+
+#attention a.material{font-size:12px; margin-left:15px; text-decoration:underline; color:#ff6600;}
+
+#token .set_token_msg{height:30px; line-height:30px; text-indent:130px; color:red; display:none;}
+#token .tips_info{background:#f7f7f7; border-radius:5px; border:1px solid #ddd; line-height:22px; padding:10px 10px; margin-bottom:10px; font-size:12px;}
+#token .tips_info strong{color:#444;}
+#token .input .tips{font-size:14px;}
+#token .r_con_form .rows label{width:120px;}
+#token .r_con_form .rows .input{ width:625px;}
+
+#wechat_menu .tips_info{background:#f7f7f7; border:1px solid #ddd; font-size:12px; line-height:220%; padding:10px; margin-bottom:10px;}
+#wechat_menu .tips_info span{color:red; font-size:12px;}
+#wechat_menu .tips_info a{color:#ff6600;}
+#wechat_menu .m_menu .from{border:1px solid #ddd; background:#f7f7f7; padding:20px;}
+#wechat_menu .m_menu .m_lefter{float:left; width:287px; padding:10px; border:1px solid #ddd; background:#f7f7f7; min-height:318px; _height:318px; overflow:hidden;}
+#wechat_menu .m_menu .m_lefter dd{border:1px solid #f7f7f7; border-bottom:1px solid #ddd; background:#f7f7f7;}
+#wechat_menu .m_menu .m_lefter dd.placeHolder{border:dashed 1px #1584D5; background:#fff;}
+#wechat_menu .m_menu .m_lefter dd div.list{height:30px; line-height:30px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis; cursor:move;}
+#wechat_menu .m_menu .m_lefter dd div.no_ext{height:50px; line-height:50px;}
+#wechat_menu .m_menu .m_lefter dd ul{padding-left:40px;}
+#wechat_menu .m_menu .m_lefter ul li{height:24px; line-height:24px; overflow:hidden; font-size:12px; border:1px solid #f7f7f7;}
+#wechat_menu .m_menu .m_lefter ul li:hover{background:#e6e6e6;}
+#wechat_menu .m_menu .m_lefter ul li.placeHolder{border:dashed 1px #1584D5; background:#fff;}
+#wechat_menu .m_menu .m_lefter ul li .title{height:24px; line-height:24px; float:left; overflow:hidden; white-space:nowrap; width:100px; text-overflow:ellipsis; cursor:move; font-size:12px;}
+#wechat_menu .m_menu .m_lefter ul li .opt{float:right; padding-top:3px; padding-right:10px; display:none; cursor:move;}
+#wechat_menu .m_menu .m_lefter .publish{padding:10px 0;}
+#wechat_menu .m_menu .m_righter{float:left; width:450px; margin-left:10px;}
+#wechat_menu .m_menu .m_righter form{padding:10px; border:1px solid #ddd; background:#f7f7f7; zoom:1;}
+#wechat_menu .m_menu .m_righter .mod_form{border:1px dotted red;}
+#wechat_menu .m_menu .m_righter h1{font-weight:bold; padding-bottom:5px;}
+#wechat_menu .m_menu .m_righter .opt_item{padding:5px 0;}
+#wechat_menu .m_menu .m_righter .opt_item label{float:left; width:70px; height:28px; line-height:28px;}
+#wechat_menu .m_menu .m_righter .opt_item .input{float:left; width:350px; display:block; line-height:28px;}
+#wechat_menu .m_menu .m_righter .opt_item .input .form_input{border:1px solid #ddd; border-radius:5px; height:28px; line-height:28px; text-indent:2px;}
+#wechat_menu .m_menu .m_righter .opt_item .input textarea{width:95%; height:80px; border-radius:5px; padding:5px;}
+#wechat_menu .m_menu .m_righter .opt_item .input select{height:32px; border:1px solid #ddd; border-radius:5px; padding:5px; width:220px; overflow:hidden;}
+#wechat_menu .m_menu .m_righter .opt_item .input .submit{height:32px; line-height:32px; background:#1584D5; border:none; color:#fff; width:120px; border-radius:5px;}
+#wechat_menu .m_menu .m_righter .opt_item .input a{font-size:12px; margin-left:15px; text-decoration:underline; color:#ff6600;}
+
+#wechat_info .tips_info{background:#f7f7f7; border:1px solid #ddd; font-size:12px; line-height:220%; padding:10px; margin-bottom:10px;}
+#wechat_info .tips_info span{color:red; font-size:12px;}
+#wechat_info .oauth_tips{color:#888; line-height:180%; font-size:12px;}
+#wechat_info .oauth_tips *{font-size:12px;}
+#wechat_info .oauth_tips h1{color:#555;}
+
+#reply_keyword #r_con_form{padding:50px 20px;}
+#reply_keyword .input a.material{font-size:12px; margin-left:15px; text-decoration:underline; color:#ff6600;}
+
+#spread .tips_info{background:#f7f7f7; border:1px solid #ddd; font-size:12px; line-height:220%; padding:10px; margin-bottom:10px;}
+#spread .tips_info span{color:red; font-size:12px;}
+#spread .tips_info a{color:#ff6600;}
+
+#plugin img{cursor:pointer;}
+
+#shopping thead td{width:33%; max-width:350px;}
+#shopping tbody td{padding:8px 15px;}
+#shopping tbody tr:hover{background:#fff;}
+#shopping .payment ul li{border:1px solid #ddd; background:#fff; width:100%;}
+#shopping .payment ul li h1{background:#f7f7f7; text-align:center; font-weight:bold; border-bottom:1px solid #ddd; height:32px; line-height:32px;}
+#shopping .payment ul li h1 span{font-weight:normal; font-size:12px; padding-left:8px; color:#555;}
+#shopping .payment ul li dl{padding:5px;}
+#shopping .payment ul li dl dd{padding:5px 0;}
+#shopping .payment ul li dl dd input{border:1px solid #ddd; border-radius:5px; height:32px; line-height:32px; width:210px;}
+#shopping .payment ul li dl dd .textarea{border:1px solid #ddd; border-radius:5px; height:50px; width:200px; vertical-align:text-top;}
+#shopping .payment ul li dl dd textarea{border-radius:5px; width:90%; height:100px; padding:5px; line-height:150%;}
+#shopping .payment .submit{text-align:center; padding:20px; height:32px; clear:both;}
+#shopping .payment .submit input{float:none; margin:0 auto;}
+#shopping .shipping dl{border:1px solid #ddd;}
+#shopping .shipping dd{text-align:left; text-indent:3px;}
+#shopping .shipping dd.placeHolder{border:dashed 1px #1584D5; background:#fff;}
+#shopping .shipping dd div{height:50px; line-height:50px; border-bottom:1px solid #ddd; white-space:nowrap; text-overflow:ellipsis; cursor:move;}
+#shopping .shipping form{border:1px solid #ddd; border-top:none; zoom:1;}
+#shopping .shipping .mod_form{border:1px dotted red;}
+#shopping .shipping form .form{padding:5px;}
+#shopping .shipping h1{background:#f7f7f7; text-align:center; font-weight:bold; border-bottom:1px solid #ddd; height:32px; line-height:32px;}
+#shopping .shipping .opt_item{padding:5px 0;}
+#shopping .shipping .opt_item label{float:left; width:70px; height:28px; line-height:28px;}
+#shopping .shipping .opt_item .input{float:left; width:200px; display:block; line-height:28px; text-align:left;}
+#shopping .shipping .opt_item .input .form_input{border:1px solid #ddd; border-radius:5px; height:28px; line-height:28px; text-indent:2px;}
+#shopping .address ul li{background:#fff; width:100%; overflow:hidden; margin:0 auto;}
+#shopping .address ul li h1{border-bottom:1px solid #ddd; height:32px; line-height:32px; text-align:left; margin-bottom:10px; font-weight:bold;}
+#shopping .address ul li h1 span{color:#555; font-weight:normal;}
+#shopping .address ul li dl dd{text-align:left;}
+#shopping .address ul li dl dd textarea{border-radius:5px; width:95%; height:100px; padding:5px; line-height:150%; margin-top:5px;}
+#shopping .address .submit{text-align:center; padding:20px; height:32px; clear:both;}
+#shopping .address .submit input{float:none; margin:0 auto;}
+#shopping input[type=submit]{font-size:14px;}
+
+#message .data{clear:both; height:36px;}
+#message .data div{float:left; margin-right:5px;}
+#message .data select{width:160px;}
+#message .data .custom{width:160px; border:1px solid #ddd; height:28px; background:#fff; display:none; border-radius:5px;}
+#message .data .custom .form_input{border:none; float:left; padding:0px 3px}
+#message .data .custom div{float:left; width:25px; height:20px; margin:0; margin-top:5px; background:url(/static/member/images/ico/del.gif) center center no-repeat;}

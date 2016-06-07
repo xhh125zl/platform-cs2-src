@@ -1,0 +1,117 @@
+{{include file="lbi/header.html"}}
+  </head>
+  
+  <body id="home_body">
+  <div id="wrap">
+    <!-- 导航栏begin -->
+	{{include file="lbi/top_nav.html"}}
+    <!-- 导航栏end -->
+	
+	<!-- 标题栏begin -->
+  	<div class="header-bar  container">
+    <div class="row">
+  	
+   	  <ul class="filter container">
+       	  <li class="col-xs-3 {{if $filter eq 'is_new'}}cur{{/if}}"><a href="{{$base_url}}api/kanjia/index.php?UsersID={{$UsersID}}&is_new=1">最新</a></li>
+            <li class="col-xs-1 grey">|</li>
+          <li class="col-xs-3 {{if $filter eq 'is_hot'}}cur{{/if}}"><a href="{{$base_url}}api/kanjia/index.php?UsersID={{$UsersID}}&is_hot=1">最热</a></li>
+            <li class="col-xs-1 grey">|</li>
+        <li class="col-xs-3 {{if $filter eq 'is_recommend'}}cur{{/if}}"><a href="{{$base_url}}api/kanjia/index.php?UsersID={{$UsersID}}&is_recommend=1">推荐</a></li>
+ 		<li class="clearfix"></li>         
+        </ul>
+    </div>
+  </div>
+  	<!-- 标题栏end -->
+
+	<!-- 主体内容begin -->
+    <div class="product_list">
+    	{{foreach from=$kanjia_list item=item}}
+        
+        {{assign var="kanjia_id" value=$item.Kanjia_ID }}
+        	
+      <div class="item well">
+        	<div class="row">
+            <div class="image col-xs-3">
+            	<a href="{{$item.activity_url}}"><img width="102px" height="102px" src="{{$base_url}}{{$item.product.thumb}}"/></a>
+            </div>
+            <div class="item_desc col-xs-4">
+           	  <h5><a href="{{$item.activity_url}}">{{$item.product.Products_Name}}</a></h5>
+               
+            	<p>原价:&nbsp;&yen;{{$item.product.Products_PriceX}}</p>
+            	<p>底价:&nbsp;&yen;{{$item.Bottom_Price}}</p>
+                {{if isset($member_kanjia_list.$kanjia_id)}}
+ 					<p>当前价:<span  class="red cur-price">&yen;{{$member_kanjia_list.$kanjia_id.Cur_Price}}</span></p>
+            	{{else}}
+           	  <p>当前价:<span  class="red cur-price">&yen;{{$item.product.Products_PriceX}}</span></p>
+                {{/if}}
+            </div>
+           
+            <div class="col-xs-2 kan-button">
+               	{{if $item.expired eq 0}} 
+            	<a href="{{$item.activity_url}}"><img width="80px" height="38px" src="{{$public}}image/kanjia_btn.png"/></a>
+        
+            	{{else}}
+                <a href="javascript:void(0)"><img src="{{$public}}image/jin.png"/></a>
+               
+                {{/if}}
+            </div>	
+            
+         
+            </div>
+            
+            <div class="row">
+             <hr/>
+           	 {{if $item.expired eq 0}} 
+              <ul class="brief_info">
+                {{if isset($member_kanjia_list.$kanjia_id)}}
+            	<li class="col-xs-6"><i class="icon-user shallow_grey"></i>&nbsp;已有{{$member_kanjia_list.$kanjia_id.Helper_Count}}人为你砍价</li>
+                {{else}}
+                <li class="col-xs-6"><i class="icon-user shallow_grey"></i>&nbsp;已有0人为你砍价</li>
+                {{/if}}
+                <li class="col-xs-1 grey">|</li>
+            	<li class="col-xs-4"><i class="icon-home shallow_grey"></i>&nbsp;库存:{{$item.product.Products_Count}}件</li>
+                <li class="clearfix"></li>
+           	  </ul>
+             {{else}}
+           	  <ul class="brief_info"><li class="col-xs-6 red">此活动已过期</li><li class="clearfix"></li></ul>
+             {{/if}}
+        </div>
+         
+      </div>
+     	{{/foreach}}
+    </div>	
+    
+	<!-- 主体内容end -->
+  </div>
+    <!-- 固定footer begin -->
+      <div style="margin-bottom:-40px;">
+      </div>
+    <!-- 固定footer end -->
+	
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+   
+    <script src="{{$public}}js/kanjia.js"></script> 
+    <script type="text/javascript">
+	 	  var UsersID = "{{$UsersID}}";
+          var base_url = "{{$base_url}}";
+	 	  kanjia_obj.general_init();
+	</script>
+	{{if $share_flag}}
+	<script language="javascript">
+		var share_config = {
+		   appId:"{{$appId}}",		   
+		   timestamp:{{$timestamp}},
+		   nonceStr:"{{$noncestr}}",
+		   url:"{{$url}}",
+		   signature:"{{$signature}}",
+		   title:"{{$title}}",
+		   desc:"{{$desc}}",
+		   img_url:"{{$img_url}}",
+		   link:""
+		};
+		$(document).ready(global_obj.share_init_config);
+	</script>
+	{{/if}}
+    {{ad($UsersID,2,2)}}
+  </body>
+</html>

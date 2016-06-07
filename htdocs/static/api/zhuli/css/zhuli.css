@@ -1,0 +1,107 @@
+html, body{background:#f7bb48; padding:0px; margin:0px}
+.clear{clear:both}
+.banner{width:100%; margin:0px; padding:0px;}
+.banner img{width:100%; display:block}
+
+.main{width:100%; position:relative}
+.main .main_bg{width:100%; display:block}
+.main .my_score,.main .my_rank,.main .main_btn{width:100%; position:absolute; left:0; text-align:center; }
+.main .my_score{font-size:75px; font-weight:bold; color:#ffc600;}
+.main .my_rank{color:#FFF; font-size:16px; font-weight:bold; letter-spacing:1px;}
+.main .main_btn{position:absolute; bottom:28px; width:100%; display:block}
+.main .main_btn img{width:90%; margin:0px auto}
+
+.main_bottom{width:100%; background:url('../images/main_bottom.jpg') no-repeat left top; background-size:100%; margin:0px; padding:8px 0px;}
+.main_bottom .main_content{
+	margin:0px 6px;
+	border:2px #ff991c solid;
+	border-radius:10px;
+	background:#FFF;
+	padding:0px;
+	filter:progid:DXImageTransform.Microsoft.Shadow(color=#ffef4e,direction=120,strength=4);/*ie*/
+	-moz-box-shadow: 2px 2px 10px #ffef4e;/*firefox*/
+	-webkit-box-shadow: 2px 2px 10px #ffef4e;/*safari或chrome*/
+	box-shadow:2px 2px 10px #ffef4e;/*opera或ie9*/
+}
+.main_bottom .main_content .btns{ height:51px; padding:8px 0px 0px 0px; margin:0px 10px; box-sizing:border-box;}
+.main_bottom .main_content .btns p{margin:0px; padding:0px; height: 30px; width:33.3333%; box-sizing:border-box; overflow:hidden; text-align:center; font-size:14px; font-weight:bold; color:#FFF; background:url('../images/btn0.png') no-repeat center; background-size:90% 30px; float:left; line-height:30px;}
+.main_bottom .main_content .btns p.cur{background:url('../images/btn1.png') no-repeat center;  background-size:90% 30px;}
+.main_bottom .main_content .btns p.my_btn{background:url('../images/btn_my.png') no-repeat center;  background-size:90% 30px;}
+
+.main_bottom .main_content .stores{padding:2px 0px 0px 0px; margin:0px 10px; box-sizing:border-box; line-height:20px; font-size:14px; color:#333;}
+
+.prize_thumb {width:50px;height:50px;}
+/*表格样式*/
+.zebra {font-size:1em;width:100%;}
+h3{font-weight:bold;}
+.zebra td, .zebra th {
+    padding: 5px;
+	font-weight:normal;
+    border-bottom: 1px solid #f2f2f2;    
+}
+
+.zebra tbody tr:nth-child(even) {
+    background: #f5f5f5;
+    -webkit-box-shadow: 0 1px 0 rgba(255,255,255,.8) inset; 
+    -moz-box-shadow:0 1px 0 rgba(255,255,255,.8) inset;  
+    box-shadow: 0 1px 0 rgba(255,255,255,.8) inset;        
+}
+
+.zebra th {
+    text-align: center;
+    text-shadow: 0 1px 0 rgba(255,255,255,.5); 
+    border-bottom: 1px solid #ccc;
+    background-color: #eee;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#f5f5f5), to(#eee));
+    background-image: -webkit-linear-gradient(top, #f5f5f5, #eee);
+    background-image:    -moz-linear-gradient(top, #f5f5f5, #eee);
+    background-image:     -ms-linear-gradient(top, #f5f5f5, #eee);
+    background-image:      -o-linear-gradient(top, #f5f5f5, #eee); 
+    background-image:         linear-gradient(top, #f5f5f5, #eee);
+}
+
+.zebra th:first-child {
+    -moz-border-radius: 6px 0 0 0;
+    -webkit-border-radius: 6px 0 0 0;
+    border-radius: 6px 0 0 0;  
+}
+
+.zebra th:last-child {
+    -moz-border-radius: 0 6px 0 0;
+    -webkit-border-radius: 0 6px 0 0;
+    border-radius: 0 6px 0 0;
+}
+
+.zebra th:only-child{
+    -moz-border-radius: 6px 6px 0 0;
+    -webkit-border-radius: 6px 6px 0 0;
+    border-radius: 6px 6px 0 0;
+}
+
+.zebra tfoot td {
+    border-bottom: 0;
+    border-top: 1px solid #fff;
+    background-color: #f1f1f1;  
+}
+
+.zebra tfoot td:first-child {
+    -moz-border-radius: 0 0 0 6px;
+    -webkit-border-radius: 0 0 0 6px;
+    border-radius: 0 0 0 6px;
+}
+
+.zebra tfoot td:last-child {
+    -moz-border-radius: 0 0 6px 0;
+    -webkit-border-radius: 0 0 6px 0;
+    border-radius: 0 0 6px 0;
+}
+
+.zebra tfoot td:only-child{
+    -moz-border-radius: 0 0 6px 6px;
+    -webkit-border-radius: 0 0 6px 6px
+    border-radius: 0 0 6px 6px
+}
+
+.share_layer{width:100%; height:100%; overflow:hidden; text-align:right; position:fixed; top:0px; left:0px; display:none; z-index:100000;}
+.share_layer img{max-width:600px; width:100%; position:relative;}
+.b10{height:10px; font-size:1px; width:100%;}

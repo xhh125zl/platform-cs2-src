@@ -1,0 +1,7 @@
+.r_con_wrap .r_con_table td.upd_points select, .r_con_wrap .r_con_table td.upd_points input{width:68px;}
+
+
+#prize .level_table td label{width:80px; height:30px; padding:0px; margin:0px; overflow:hidden; display:block}
+#prize .level_table td span.pic{text-align:center; display:block; width:80px; margin-top:5px}
+#prize .level_table td span.pic img{width:80px; height:80px;}
+#prize .level_table *[disabled]{border:1px solid #ddd; background:#fff; color:#acacac;}

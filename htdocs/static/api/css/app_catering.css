@@ -1,0 +1,102 @@
+/*
+Powered by ly200.com		http://www.ly200.com
+广州联雅网络科技有限公司		020-83226791
+*/
+
+body, html{background:#eee;}
+
+#your_address{margin:8px; display:none;}
+#your_address dt{border-top-left-radius:5px; border-top-right-radius:5px; padding:6px; font-size:16px; font-weight:bold; color:#fff; text-align:center; background-image:linear-gradient(bottom, #076404 0, #4FBA4D 100%); background-image:-moz-linear-gradient(bottom, #076404 0, #4FBA4D 100%); background-image:-webkit-linear-gradient(bottom, #076404 0, #4FBA4D 100%);}
+#your_address dd{background:#fff; border-bottom-left-radius:5px; border-bottom-right-radius:5px; padding:12px; font-size:14px; text-align:center; border:1px solid #ddd;}
+
+#stores{margin:8px; clear:both;}
+#stores *{font-size:14px; text-decoration:none;}
+#stores .store{margin-bottom:8px; padding:8px; border:1px solid #ddd; border-radius:5px; background:#fff; position:relative; height:120px;}
+#stores .store .img{width:120px; height:80px; overflow:hidden; position:absolute; left:7px; top:7px; border-radius:5px;}
+#stores .store .img img{width:120px; height:80px; border-radius:5px;}
+#stores .store .info{overflow:hidden; position:absolute; left:132px; top:7px; padding-right:8px;}
+#stores .store .info h1{height:16px; line-height:16px; overflow:hidden; margin-bottom:3px; font-weight:bold; font-size:16px;}
+#stores .store .info h2{line-height:150%; overflow:hidden; color:#888; font-size:12px; padding-top:5px;}
+#stores .store .info .dis{display:none; color:#888; font-size:12px; padding-top:5px;}
+#stores .store .info .dis span{color:#36B35F;}
+#stores .store ul{margin-top:90px; left:7px; right:8px; border-top:1px solid #ddd;}
+#stores .store ul li{width:30%; height:36px; line-height:36px; float:left; text-indent:25px;}
+#stores .store ul li.tel{width:40%; background:url(../images/app_catering/icon_order.png) left 5px no-repeat; background-size:24px;}
+#stores .store ul li.reserve{background:url(../images/app_catering/icon_reserve.png) left 5px no-repeat; background-size:24px;}
+#stores .store ul li.lbs{background:url(../images/app_catering/icon_lbs.png) left 5px no-repeat; background-size:24px;}
+#stores .store ul li a{color:#36B35F; text-decoration:none;}
+#stores .nearest{border:1px solid #4FBA4D;}
+
+#reserve_success{display:none; width:80%; height:80px; line-height:80px; margin:0 auto; position:fixed; bottom:0; left:0; right:0; z-index:10000; border:1px solid #0B8E00; border-radius:8px; filter:alpha(opacity=0); -moz-opacity:0; -khtml-opacity:0; opacity:0; text-align:center; font-weight:bold; background:#1EA400; font-size:20px; color:#fff;}
+#reserve *{font-size:16px; text-decoration:none;}
+#reserve .header_img img{width:100%;}
+#reserve form{margin:0 auto; padding:3px 8px;}
+#reserve .cp{border:1px solid #ddd; border-radius:5px; background:#fff; margin-bottom:8px; padding:5px;}
+#reserve .cp h2{border-bottom:1px dotted #ddd; padding-bottom:3px; text-indent:2px; font-weight:bold;}
+#reserve .cp>div{font-size:14px; color:#666; line-height:150%; padding-top:5px; padding-left:2px; zoom:1;}
+#reserve .cp div h3{float:left; width:50%; height:26px; line-height:26px; overflow:hidden; color:#888;}
+#reserve .cp div h3 img{margin-top:5px;}
+#reserve .cp div h3 a{color:#666; text-decoration:none; font-size:14px;}
+#reserve .cp .address{background:url(../images/app_catering/lbs.png) 3px 8px no-repeat; padding-left:20px;}
+#reserve .cp .address a{text-decoration:none; color:#666; font-size:14px;}
+#reserve .reserve_table{border:1px solid #ddd; border-radius:5px; background:#fff;}
+#reserve .reserve_table td{color:#a1a1a1; height:44px; padding:0 8px;}
+#reserve .reserve_table thead td{background-image:linear-gradient(bottom, #e6e6e6 0, #f9f9f9 100%); background-image:-moz-linear-gradient(bottom, #e6e6e6 0, #f9f9f9 100%); background-image:-webkit-linear-gradient(bottom, #e6e6e6 0, #f9f9f9 100%); color:#818181; font-size:14px; border-top-left-radius:5px; border-top-right-radius:5px; height:32px;}
+#reserve .reserve_table .label{width:65px; color:#333;}
+#reserve .reserve_table .form_input{border:1px solid #EDEDED; color:#a1a1a1; border-radius:5px; width:100%; height:32px; line-height:32px; padding:0 5px; box-sizing:border-box;}
+#reserve .reserve_table select{height:32px; border:1px solid #ddd; border-radius:5px; padding:5px; width:100%; background:#fff; color:#a1a1a1;}
+#reserve .reserve_table select.reserve_time{width:60px;}
+#reserve .submit{width:100%; margin:5px auto; margin-bottom:12px; box-sizing:border-box; -webkit-box-sizing:border-box; -moz-box-sizing:border-box; background-color:#179F00; padding:8px; font-size:18px; border:1px solid #0B8E00; background-image:linear-gradient(bottom, #179F00 0, #5DD300 100%); background-image:-moz-linear-gradient(bottom, #179F00 0, #5DD300 100%); background-image:-webkit-linear-gradient(bottom, #179F00 0, #5DD300 100%); box-shadow:0 1px 0 #94E700 inset, 0 1px 2px rgba(0,0,0,0.5); border-radius:5px; color:#fff; text-shadow:0 1px rgba(0,0,0,0.2);}
+
+#shop_main_frame{position:relative;}
+#shop_main_frame #left_menu{top:0; float:left; width:85px; position:absolute; overflow-x:hidden; overflow-y:scroll; -webkit-overflow-scrolling:touch; height:200px; background:url(../images/app_catering/xbg.png) left repeat-y;}
+#shop_main_frame #left_menu li{padding:15px 0;	background:url(../images/app_catering/linehen.png) no-repeat left bottom;}
+#shop_main_frame #left_menu li a{color:#666; text-decoration:none; display:block; text-indent:10px;}
+#shop_main_frame #left_menu .blank25{height:38px;}
+#shop_main_frame #page_right_contents{position:absolute; left:85px; width:235px; top:0; overflow-x:hidden; overflow-y:scroll; -webkit-overflow-scrolling:touch;}
+
+#shop_products .item{border-bottom:1px solid #ddd;position:relative; padding:12px 5px; height:60px; overflow:hidden; margin-left:5px; width:90%; -webkit-tap-highlight-color:rgba(255,0,0,0);}
+#shop_products .item .img{width:60px; height:60px; z-index:9; position:absolute;}
+#shop_products .item .img img{width:60px; height:60px;}
+#shop_products .item .inkcom{float:left; position:absolute; left:70px; padding-right:35px;}
+#shop_products .item .inkcom .name{font-size:14px; margin-bottom:3px;}
+#shop_products .item .inkcom .price{font-size:16px; color:#ff0000;}
+#shop_products .item .inkcom1{float:left; position:absolute; left:10px; padding-right:35px;}
+#shop_products .item .inkcom1 .name{font-size:14px; margin-bottom:3px;}
+#shop_products .item .inkcom1 .price{font-size:16px; color:#ff0000;}
+#shop_products .item .inkcom_bt{position:absolute; width:35px; right:0; margin-top:10px;}
+#shop_products .item .inkcom_bt1{position:absolute; width:100px; right:0; margin-top:10px;}
+#shop_products .item .inkcom_bt1 img{float:right}
+#shop_products .item .inkcom_bt .btn{padding:4px; margin-top:4px;}
+#shop_products .item .inkcom_bt .bts{padding:4px; margin-top:4px; display:none;}
+#shop_products .blank25{height:38px;}
+#shop_products .total{border-bottom:1px solid #ddd;position:relative; padding:12px 5px; height:20px; overflow:hidden; margin-left:5px; width:90%; -webkit-tap-highlight-color:rgba(255,0,0,0);}
+#shop_products .total .btn_qr{width:80px; background:#ff0000; border:0px;}
+
+#shopping_cart{width:100%; margin:0 auto; background:#ddd; height:38px; line-height:38px; position:fixed; z-index:1000; bottom:0; border-top:1px solid #ccc; filter:alpha(opacity=90); opacity:0.9; -moz-opacity:0.9; padding:0 10px; box-sizing:border-box; display:none;}
+#shopping_cart span{color:red; font-weight:bold;}
+#shopping_cart a{display:block; float:right; width:70px; margin-top:4px; height:28px; line-height:28px; background:#A70513; border-radius:5px; color:#fff; text-decoration:none; text-align:center;}
+#no_goods{width:200px; margin:30px auto; font-size:18px; color:#F60; font-weight:bold}
+#checkout .item{border-bottom:1px solid #ddd; position:relative; padding:12px 5px; height:55px; overflow:hidden; margin-left:5px; width:90%; -webkit-tap-highlight-color:rgba(255,0,0,0);}
+#checkout .item .inkcom{float:left; position:absolute; padding-right:90px;}
+#checkout .item .inkcom .name{font-size:14px; margin-bottom:3px;}
+#checkout .item .inkcom .price{font-size:16px; color:#ff0000;}
+#checkout .item .inkcom_bt{position:absolute; width:80px; right:0; margin-top:10px; padding:4px 0; white-space:nowrap;}
+#checkout .item .inkcom_bt select{width:52px;}
+#checkout .item .inkcom_bt img{vertical-align:middle; margin:0 6px; cursor:pointer}
+#checkout .total_price{padding:10px 5px; font-weight:bold; text-indent:5px; border-bottom:1px solid #ddd; margin-left:5px; width:90%;}
+#checkout .total_price span{color:#ff0000; font-size:16px; font-weight:bold;}
+#checkout ul{padding:10px 5px; width:90%; margin:0;}
+#checkout ul li{padding:5px 0;}
+#checkout ul li input{border:1px solid #ddd; border-radius:5px; width:100%; box-sizing:border-box; height:32px; line-height:32px; color:#666;}
+#checkout ul li select{height:32px; border:1px solid #ddd; border-radius:5px; padding:5px; background:#fff; margin-bottom:5px; color:#666; width:100%; box-sizing:border-box;}
+#checkout ul li textarea{width:100%; height:50px; box-sizing:border-box; border:1px solid #ddd; border-radius:5px; line-height:150%; color:#666;}
+#checkout .checkout{height:60px; width:90%; padding:0px 5px; margin:0;}
+#checkout .checkout input{width:100%; height:36px; box-sizing:border-box; -webkit-box-sizing:border-box; -moz-box-sizing:border-box; background-color:#DC3749; font-size:16px; border:1px solid #c10001; background-image:linear-gradient(bottom, #E20018 0, #DC3749 100%); background-image:-moz-linear-gradient(bottom, #E20018 0, #DC3749 100%); background-image:-webkit-linear-gradient(bottom, #E20018 0, #DC3749 100%); box-shadow:0 1px 0 #D95260 inset, 0 1px 2px rgba(0,0,0,0.5); border-radius:5px; color:#fff; text-shadow:0 1px rgba(0,0,0,0.2);}
+
+#order_list{width:95%; margin:8px auto;}
+#order_list h1{background:#A30512; color:#fff; border-radius:5px; height:30px; line-height:30px; text-indent:5px;}
+#order_list .pro{padding:12px 0; border-bottom:1px solid #ddd;}
+#order_list .pro .price{color:#ff0000;}
+.blank_20{width:100%; height:20px; font-size:1px;}
+#footer{width:100%; height:20px; line-height:20px; font-size:12px; position:fixed; bottom:0px; left:0px; text-align:center; background:#eee}

@@ -1,0 +1,9 @@
+#GameTimeLayer{top:1em; left:0; width:100%; text-align:center; color:#f00; font-size:40px; text-shadow:0 0 3px #fff,0 0 3px #fff,0 0 3px #fff; overflow:hidden;}
+#GameLayerBG{top:0;left:0;right:0;bottom:0;overflow:hidden;}
+#GameLayerBG .GameLayer{position:absolute;bottom:0;left:0;}
+.t1,.t2,.t3,.t4,.t5{background-size:auto 100%;}
+.tt1,.tt2,.tt3,.tt4,.tt5{background:none;}
+.block{position:absolute;border-top:1px solid #1D70B6; background-repeat:no-repeat; background-position:center;}
+.bl{border-left:1px solid #1D70B6;}
+.bad{background-color:#f00; opacity:0.8; -webkit-animation:flash .2s 3;animation:flash .2s 3;}
+*{-webkit-tap-highlight-color:rgba(0,0,0,0);-ms-tap-highlight-color:rgba(0,0,0,0); tap-highlight-color:rgba(0,0,0,0); -ms-user-select:none;}

@@ -1,0 +1,57 @@
+
+html,body{background:url(../images/scratch/bg.png) center top no-repeat #db4628; background-size:100%; font-family:'微软雅黑'; font-weight:normal}
+.ui-body-c, .ui-overlay-c,*{text-shadow:none;}
+.none{display:none;}
+.clear{width:100%; height:0px; font-size:0px; overflow:hidden; clear:both;}
+
+#scratch_success{display:none; width:80%; height:80px; line-height:80px; margin:0 auto; position:fixed; bottom:0; left:0; right:0; z-index:10000; border:1px solid #0B8E00; border-radius:8px; filter:alpha(opacity=0); -moz-opacity:0; -khtml-opacity:0; opacity:0; text-align:center; font-weight:bold; background:#1EA400; font-size:20px; color:#fff;}
+
+.cover{width: 320px;max-width: 480px;margin: 0 auto;position: relative; top:150px; margin-bottom:160px;}
+.cover img{width: 320px;}
+#scratchpad, #prize{position: absolute; width: 160px; height: 45px; line-height:45px; top: 36px;left:119px;text-align: center;font-weight: bold;font-size: 20px; overflow:hidden;}
+#get_prize{ position:absolute; top:150px; left:225px;}
+#get_prize input{border:1px solid #eee; border-radius:5px; width:95px; text-align:center; height:32px; line-height:32px; background:#fff; font-size:16px; font-weight:bold;}
+
+.cover .i1{display:block;position:absolute; bottom:28px; left:124px; color:#db4528; font-weight:700;}
+.cover .i2{display:block;position:absolute; bottom:28px; right:56px; color:#db4528; font-weight:700;}
+#scratch #WheelEvent .text{display:block; text-align:center; margin:0 auto; padding:5px; color:#FFF; font-weight:normal}
+#scratch #WheelEvent .textnew{text-align:center; margin:0 auto; padding:5px; color:#FFF; font-weight:0px; font-size:14px;}
+
+.share_layer{width:100%; height:100%; overflow:hidden; text-align:right; position:fixed; top:0px; left:0px; display:none; z-index:100000;}
+.share_layer img{max-width:600px; width:100%; position:relative;}
+#jifen,#share{margin:5px auto; width:90%; border-radius:5px; text-align:center; font-size:20px; height:46px; letter-spacing:1px; line-height:46px; color:#FFF;}
+#jifen{background:#ff8031}
+#share{background:#ffba00}
+.introduce{height:36px; font-size:12px; color:#FFF; line-height:36px; width:100%; text-align:center; }
+.introduce a.ui-link{ color:#ffe400;}
+.introduce a.ui-link:hover{ color:#ffe400;}
+
+#scratch .refer{width:95%; margin:8px auto; box-sizing:border-box; border-radius:5px; background:#ba3b22; padding:8px;}
+#scratch .refer>span{display:block; font-size:16px; line-height:150%; padding-bottom:5px; text-indent:26px; font-weight:bold; color:#ffba00;text-shadow:none;}
+#scratch .refer>span.s1{ background:url(../images/scratch/jpsz_ico.png) no-repeat;}
+#scratch .refer>span.s2{ background:url(../images/scratch/hdgz_ico.png) no-repeat;}
+#scratch .refer>span.s3{ background:url(../images/scratch/hdsj_ico.png) no-repeat;}
+
+#scratch .refer>span>font{color:#FFF; font-size:16px;text-shadow:none;}
+#scratch .refer>div{font-size:14px; color:#FFF; line-height:150%; padding-top:5px; padding-left:2px; zoom:1; min-height:80px;text-shadow:none;}
+#scratch .refer>div>h3{float:left; width:50%; height:26px; line-height:26px; overflow:hidden; color:#888; text-indent:20px;}
+#scratch .refer>div>h3 a{color:#888;}
+#scratch .refer .input{padding-bottom:5px; padding-top:3px;}
+#scratch .refer .input .form_input{border:1px solid #ddd; border-radius:5px; width:100%; margin:0; padding:0; box-sizing:border-box; height:32px; line-height:32px;}
+#scratch .refer .submit{width:100%; margin:5px auto; margin-bottom:12px; box-sizing:border-box; -webkit-box-sizing:border-box; -moz-box-sizing:border-box; background-color:#F30; padding:8px; font-size:18px; border:1px solid #F00; background-image:linear-gradient(bottom, #F30 0, #F93 100%); background-image:-moz-linear-gradient(bottom, #F30 0, #F93 100%); background-image:-webkit-linear-gradient(bottom, #F30 0, #F93 100%); box-shadow:0 1px 0 #F96 inset, 0 1px 2px rgba(0,0,0,0.5); border-radius:5px; color:#fff; text-shadow:0 1px rgba(0,0,0,0.2);}
+#scratch .refer .use .submit{width:60%; float:left;}
+#scratch .refer .use .close{width:39%; margin:5px auto; margin-bottom:12px; box-sizing:border-box; -webkit-box-sizing:border-box; -moz-box-sizing:border-box; background-color:#666; padding:8px; font-size:18px; border:1px solid #333; background-image:linear-gradient(bottom, #666 0, #bbb 100%); background-image:-moz-linear-gradient(bottom, #666 0, #bbb 100%); background-image:-webkit-linear-gradient(bottom, #666 0, #bbb 100%); box-shadow:0 1px 0 #e0e0e0 inset, 0 1px 2px rgba(0,0,0,0.5); border-radius:5px; color:#fff; text-shadow:0 1px rgba(0,0,0,0.2); float:right;}
+#scratch .refer>div.prize_list{ width:100%;}
+#scratch .refer>div.prize_list ul{ width:100%; margin:0; padding:0;}
+#scratch .refer>div.prize_list li{list-style:none; padding:5px 0; border-top:1px dotted #bbb; font-size:14px;}
+#scratch .refer>div.prize_list li.bn{border:none;}
+#scratch .refer>div.prize_list li label{display:block; width:20px; height:21px; line-height:21px; float:left; overflow:hidden; font-size:14px;}
+#scratch .refer>div.prize_list li span{display:block; width:80%; line-height:21px; float:left; overflow:hidden; font-size:14px;}
+#scratch .refer>div.prize_list li span .sn{font-size:14px; color:#F00; font-size:14px;}
+#scratch .refer>div.prize_list li span .time{font-size:14px; color:#F60; text-decoration:underline; font-size:14px;}
+#scratch .refer>div.prize_list li span a{margin-left:12px; text-decoration:underline; color:#06F; font-size:14px;}
+#scratch .tips{padding:10px; padding-top:20px;}
+#scratch .tips .cur{color:#fff; font-size:24px; font-weight:bold; text-align:center;}
+#scratch .tips .need{padding:10px 0; padding-bottom:30px; text-align:center; font-size:18px; font-weight:bold; color:#fff;}
+#scratch .tips .btn{width:100%; display:block; text-align:center; -webkit-box-sizing:border-box; -moz-box-sizing:border-box; background-color:#F30; padding:8px; font-size:18px; border:1px solid #F00; background-image:linear-gradient(bottom, #F30 0, #F93 100%); background-image:-moz-linear-gradient(bottom, #F30 0, #F93 100%); background-image:-webkit-linear-gradient(bottom, #F30 0, #F93 100%); box-shadow:0 1px 0 #F96 inset, 0 1px 2px rgba(0,0,0,0.5); border-radius:5px; color:#fff; text-shadow:0 1px rgba(0,0,0,0.2); text-decoration:none;}
+.b5{width:100%; height:5px; font-size:1px; overflow:hidden;}

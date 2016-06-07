@@ -1,0 +1,43 @@
+@charset "utf-8";
+/* 分销中心财富排行榜样式*/
+
+#filter-panel{padding:15px 0;background:#FFCA3A;}
+#income-filter{font-family:"Microsoft Yahei";font-size:18px;width:95%;display:block;margin:0 auto;}
+#income-filter a.item{display:block;width:48%;padding-bottom:5px;float:left;color:#ee3615;font-weight:800;}
+#income-filter a.btn{border:2px solid #EE3615;padding:6px 0;}
+#income-filter a.btn-default{background:#FFCA3A;}
+#income-filter span.shu{float:left;color:#AEAEAE;display:block;width:2%;}
+#income-filter a.selected{color:#FFFFFF;background:#EE3615;}
+#income-filter a:hover{text-decoration:none;}
+#table-panel{width:100%;margin:0;font-family:"Microsoft Yahei";min-height:300px;}
+#table-panel thead{background:#ffffff;}
+#table-panel tbody{background:#FFFAEC;}
+#table-panel .alert-danger{width:95%;margin:0 auto;background:#FFFAEC;}
+.income_list .rank{display:block;background:#F36A66;text-align:center;color:#ffffff;border-radius:50%;width:25px;height:25px;line-height:25px;}
+#rank_1{color:#ED2152;}
+#rank_2{color:#0C92E7;}
+#rank_3{color:#078F79;}
+
+#rank_1 span.rank{border-radius:0;background:url(../images/1st.jpg);width:26px;height:45px;color:#ffffff;font-size:16px;text-align:center;}
+#rank_2 span.rank{border-radius:0;background:url(../images/2st.jpg);width:26px;height:45px;color:#ffffff;font-size:16px;text-align:center;}
+#rank_3 span.rank{border-radius:0;background:url(../images/3st.jpg);width:26px;height:45px;color:#ffffff;font-size:16px;text-align:center;}
+
+.table > thead > tr > th,
+.table > thead > tr > td{
+	border-bottom:0px;
+	border-bottom:1px solid #EED5BF;
+}
+
+.table > tbody > tr > th{padding:10px 5px;width:8%;vertical-align:middle;}
+.table > tfoot > tr > th,
+.table > thead > tr > td,
+.table > tbody > tr > td,
+.table > tfoot > tr > td {
+  vertical-align:middle;
+  border-top: 0px solid #ddd;
+  border-bottom:1px solid #EED5BF;
+}
+
+.hd_img{width:40px;height:40px;border-radius:50%;margin-right:5px;}
+.juewei{display:block;background:#FF7800;color:#ffffff;padding:2px 10px;border-radius:10px;font-size:12px;}
+.total_income{color:#0078FF;}

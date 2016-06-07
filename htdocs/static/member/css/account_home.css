@@ -1,0 +1,61 @@
+@charset "utf-8";
+/* CSS Document */
+
+body{background:#F1F2F7;margin:10px;}
+.red{color:red;}
+.sky-blue{color:#38A0E7}
+.golden{color:#F39800}
+.fz-16{font-size:16px;}
+.fz-18{font-size:18px;}
+.fz-20{font-size:20px;}
+
+
+#welcome {width:80%;height:30px;line-height:30px;;font-size:16px;margin-bottom:15px;padding-left:5px;background:url(../images/account/sound.png) no-repeat left center;padding-left:25px;margin-left:10px;}
+#welcome #Account_Name{color:#27A9E3;font-weight:bold;font-size:14px;}
+#welcome #Account_Data_Range{color:#F56059;font-size:16px;}
+#welcome #Account_Type{color:#27A9E3}	
+#welcome #level-up-btn{background:#27A9E3;}
+
+#statistics {width:80%;}
+.statis-item {color:#ffffff;padding-left:10px;padding-right:10px;width:50%;float:left;}
+.statis-item  img{margin-left:10px;}
+#statistics .statis-item p{display:block;width:100%;line-height:90px;height:90px;padding:0 10px;}
+#statistics .statis-item p .statis-name{font-size:18px;}
+#statistics .statis-item p .statis-num{font-size:25px;}
+#statistics .statis-item#all_order p{background:#27A9E3;}
+#statistics .statis-item#payed_order p{background:#28B779;}  
+#statistics .statis-item#today_sales p{background:#F39800;}
+#statistics .statis-item#month_sales p{background:#DA542E;}
+#statistics .statis-item#today_bonus p{background:#DA542E;}
+#statistics .statis-item#month_bonus p{background:#27A9E3;}
+#statistics .statis-item#today_new_dis_num p{background:#28B779;}
+#statistics .statis-item#month_new_dis_num p{background:#F74D4D;}
+
+#sale-chart-panel {width:80%;padding-left:5px;padding-right:5px;}
+#sale-chart-panel .panel-heading {font-size:15px;}
+
+#sale-chart-panel .panel-heading .fa{margin-right:5px;}
+
+
+#finacial_detail {margin-top:10px;}
+#reportrange{width:240px;}
+
+form#renewal_form p {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.lean-modal-form .rows {
+    padding: 5px 0px;
+    clear: both;
+	margin:0 30px;
+}
+
+#input-record-brief,#output-record-brief {margin-top:10px;font-size:16px;}
+#order_input_record_table{min-height:150px;}
+#level-up-btn {background:#27A9E3;}
+#level-up-btn:focus{background:#27A9E3;}
+#level-up-btn:hove{background:#27A9E3;}
+form#renewal_form p{margin-top:20px;margin-bottom:20px;}
+form#renewal_form span.qty_filter{border:1px solid #dfdfdf;padding:2px 8px;margin-right:10px;cursor:pointer;}
+form#renewal_form span.cur{border:1px solid #F00;background:#FFF1E0;}

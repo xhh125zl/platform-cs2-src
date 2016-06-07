@@ -1,0 +1,111 @@
+#web_skin_index{width:100%; height:100%; overflow:hidden; background:#fff;}
+#web_skin_index .web_skin_index_list{overflow:hidden; position:relative; z-index:1}
+#web_skin_index img{width:100%; height:auto;}
+#web_skin_index .banner{width:100%; height:175px; overflow:hidden;}
+#web_skin_index .banner *{width:100%; height:100%; overflow:hidden;}
+
+.box{
+	padding:10px 0px;
+	background:url('nav_bg.jpg') repeat-x left top;
+}
+.box .web_skin_index_list{
+	width:25%;
+	float:left
+}
+.box .web_skin_index_list .img{
+	width:46.8%;
+	height:auto;
+	margin:0px auto
+}
+.box .web_skin_index_list .img img{
+	width:100%;
+	height:100%;
+	margin:0px auto
+}
+.box .web_skin_index_list .text{
+	width:100%;
+	color:#75674a;
+	font-size:14px;
+	height:20px;
+	text-align:center;
+	line-height:20px;
+}
+.box .web_skin_index_list .text a{
+	color:#75674a;
+	text-decoration:none
+}
+.tbox {
+	width: 100%;
+	height: 100%;
+}
+.tbox > * {
+	height: 100%;
+	display: table-cell;
+	vertical-align: top;
+}
+.tbox > *:last-child {
+	width: 100%;
+}
+/********************************/
+.list_ul{
+	margin:10px;
+}
+.list_ul li div.left{width:21%}
+.list_ul li div.right{width:79%}
+.list_ul li{
+	border:1px solid #ccc;
+	border-radius:5px;
+	background:#fff;
+	min-height:50px;
+	margin:10px 0px;
+	padding:5px 0px;
+	-webkit-box-sizing:border-box;
+}
+.list_ul li>div:first-of-type{
+	height:100px;
+	overflow:hidden;
+}
+.list_ul li>div:first-of-type img{
+	width:120px;
+	margin:0px 0px 0px 5px
+}
+
+.list_ul dl{
+	margin-left:5px;
+	overflow:hidden;
+}
+.list_ul dl dd{
+	display:inline-block;
+	width:33.3%;
+	float:left;
+}
+.list_ul dl dd a{
+	display:block;
+	line-height:25px;
+	border:1px solid #ccc;
+	width:50px; 
+	margin:5px auto 0;
+	border-radius: 3px;
+	text-align:center;
+	color:#75674a;
+	background:-webkit-gradient(linear, 0 0, 0 100%, from(#ffffff), to(#f1f1f0) );
+}
+
+.list_ul dl dt label{
+	text-align:left;
+	overflow:hidden;
+	display:block;
+	width:90%;
+	height:30px;
+	margin:5px auto;
+	line-height:20px;
+	font-size:17px;
+	font-weight:bolder;
+	color:#fff;
+	text-indent:5px;
+	border:1px solid red;
+	border-width:4px 4px 4px 20px;
+	-webkit-box-sizing:border-box;
+	-webkit-border-image:url(title.png) 4 5 4 53;
+}
+

@@ -1,0 +1,12 @@
+@media all and (min-width:360px){
+	#web_skin_index .banner{height:197px;}
+}
+@media all and (min-width:420px){
+	#web_skin_index .banner{height:230px;}
+}
+@media all and (min-width:480px){
+	#web_skin_index .banner{height:263px;}
+}
+@media all and (min-width:640px){
+	#web_skin_index .banner{height:350px;}
+}

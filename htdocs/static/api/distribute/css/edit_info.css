@@ -1,0 +1,14 @@
+@charset "utf-8";
+/* CSS Document */
+
+
+.apply_title{background:#F0EFF4;}
+#edit_info_panel {border-radius:0px;margin-bottom:0px;}
+#edit_info_panel input[type="text"]{border:0px;}
+#edit_info_panel #submit-btn{width:80%;background:#3396FE;color:#ffffff;}
+#edit_info_panel #submit-btn:hover{width:80%;background:#3396FE;color:#ffffff;}
+#edit_info_panel #submit-btn:focus{width:80%;background:#3396FE;color:#ffffff;}
+#edit_info_panel #hdImg{border-radius:50%;width:70px;height:70px;}
+#edit_info_panel #annoce-label{display:block;float:left;}
+#edit_info_panel textarea{border:1px solid #dfdfdf;width:80%;height:100px;border-radius:5px;}
+#submit-btn{float:none;}

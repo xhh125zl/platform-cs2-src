@@ -1,0 +1,158 @@
+{{include file="lbi/header.html"}}
+     <script type='text/javascript' src='{{$base_url}}static/js/plugin/pcas/pcas.js'></script> 
+  </head>
+  <body>
+<div id="wrap">
+    <!-- 导航栏begin -->
+	{{include file="lbi/top_nav.html"}}
+    <!-- 导航栏end -->
+	
+	<!-- 标题栏begin -->
+ 	{{include file="lbi/title_bar.html"}}
+	<!-- 标题栏end -->
+
+	<!-- 主题内容begin -->
+    	<div class="content">
+    
+            	<div class="order_info container">
+            		<form id="order_form" name="order_form" class="row" method="post">
+                    
+                    <div id="address_info" class="well">
+                    	<h5>联系人信息</h5>
+                        <ul >
+                        	{{foreach from=$address_list key=key item=item}}
+                            
+                            <li>
+                             {{if $key eq 0}}
+                            	<input type="radio"  value="{{$item.Address_ID}}" checked="true" name="AddressID" />
+                             {{else}}
+                                <input type="radio"  value="{{$item.Address_ID}}"  name="AddressID"/>
+                             {{/if}}
+                            {{$item.Address_Province}}{{$item.Address_City}}{{$item.Address_Area}}【{{$item.Address_Detailed}},{{$item.Address_Mobile}}】
+                            </li>
+                            
+                            {{/foreach}}
+                            <li>
+                            <input type="radio" name="AddressID" value="0" id="user_new"/>
+                            使用新的联系人地址
+                            </li>
+                        	 
+                        </ul>
+                     <div id="new_address_info">   
+                     <div class="form-group">
+                     	<label>姓名</label>
+                        <input type="text" class="form-control input-sm" name="Name"  placeholder="姓名" notnull/>
+                     </div>
+                     <div class="form-group">
+                    	<label>手机</label>
+                        <input type="text" class="form-control input-sm"  name="Mobile" value=""  notnull/>
+                     </div>
+                     
+                     <div id="diqu" class="form-group">
+                     	<label>所在地区</label>
+                        <br/>
+                        <select class="input-sm form-control col-xs-3" name="Province"  notnull ></select>
+                        <select class="input-sm form-control col-xs-2" name="City" notnull ></select>
+                        <select class="input-sm form-control col-xs-2 " name="Area" notnull ></select>
+						<script type="text/javascript">new PCAS("Province","City","Area");</script>
+                        <div class="clearfix"></div>
+                     </div>
+                     
+                     <div class="form-group">
+                     	<label>详细地址</label>
+                     	<input class="form-control input-sm" type="text" name="Detailed" value="" notnull />
+                     </div>
+                     
+                     </div>
+                  
+                    </div>
+                	<div id="product_info" class="well">
+                    <input type="hidden" name="Product_ID" value="{{$activity.Product_ID}}"/> 
+                    <input type="hidden" name="total_price" id="total_price" value="{{$member_activity.Cur_Price}}"/>
+                         <h5>订单商品信息</h5>
+                        
+                    	<table class="table">
+                        <tr>
+                        	<td>名称</td><td> 数量</td><td> 价格 </td>
+                        </tr>	
+                        <tr>
+                        	<td>{{$activity.Product_Name}}</td> <td>1 </td><td>&yen;&nbsp;<span class="red" >{{$member_activity.Cur_Price}}</span></td>  
+                        	
+                        </tr>
+                        </table>
+                    </div> 
+               		
+                    <div id="shipping_info" class="well">
+                		<h5>选择配送方式</h5>
+                        <input type="hidden" name="shipping_price" id="shipping_price" value="{{$shipping_price}}" />
+                        <table class="table">
+                        	{{foreach from=$shipping_list key=key item=item}}
+                            
+                            <tr><td>
+                            {{if $key eq 0}}
+                            	<input type="radio" price="{{$item.Price}}" checked="true" name="Shipping[Express]" value="{{$item.Express}}"/>
+                            {{else}}
+                            	<input type="radio" price="{{$item.Price}}" name="Shipping[Express]" value="{{$item.Express}}"/>
+                            {{/if}}
+                            </td>
+                            
+                            <td>{{$item.Express}}</td>
+                            
+                            <td>&yen;&nbsp;<span class="red">{{$item.Price}}</span></td>
+                            </tr>
+                            {{/foreach}}
+                            
+                            
+                        </table>
+                     
+               	    </div>
+                    
+                    <div id="order_remark" class="well">
+                    	<h5>订单备注</h5>
+                        <textarea  name="Remark" class="form-control" rows="3"></textarea>
+                    </div>
+                  
+                    <div class="order_sum">
+                       <div class="container">
+                         <p style="text-align:right;">订单总价:&yen;<span class="red" id="order_sum">{{$order_sum}}</span>&nbsp;&nbsp;&nbsp;&nbsp;</p>
+                         <p style="text-align:center;"><button type="button"  id="submit" class="btn btn-danger">提交订单</button></p>
+                       </div>
+                   
+                       </div>
+                
+                    <input type="hidden" name="action" value="confirm_order"/>
+                    
+                    </form>  
+                    </div>
+                </div>
+                
+              	
+    	</div>
+    
+     <!-- 主题内容end -->
+</div>
+    
+    
+    
+    <!-- 固定footer begin -->
+    	<footer class="footer">
+        	   <div class="container">
+                
+               </div>
+  		</footer>
+    <!-- 固定footer end -->
+	
+   
+	
+ 
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="{{$public}}js/kanjia.js"></script>
+ 
+     <script type="text/javascript">
+	 	  var base_url = "{{$base_url}}";
+		  var Kanjia_ID = "{{$KanjiaID}}";
+		  var UsersID = "{{$UsersID}}";
+	 	  kanjia_obj.buy_init();
+	 </script>
+  </body>
+</html>

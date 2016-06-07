@@ -1,0 +1,35 @@
+/*
+Powered by ly200.com		http://www.ly200.com
+广州联雅网络科技有限公司		020-83226791
+*/
+
+body,html{width:100%; height:100%; overflow:hidden;}
+
+#greeting_cards{width:100%; 	height:100%; position:fixed;}
+#greeting_cards .diy_gif{margin:0 auto;}
+#greeting_cards .diy_gif img{width:100%;}
+#greeting_cards .send_btn{position:fixed; width:100%; bottom:28px;}
+#greeting_cards .send_btn h1{width:90%; margin:0 auto; padding:0 10px; background:url(../../images/greeting_cards/black.png); height:36px; line-height:36px; text-align:center;}
+#greeting_cards .send_btn h1 span{color:#fefefe; font-size:18px; height:36px; line-height:36px; font-weight:bold; width:95px; display:block; margin:0 auto; background:url(../../images/greeting_cards/send_btn.png) 0 8px no-repeat; padding-left:30px;}
+#greeting_cards .contents{position:fixed; width:100%; bottom:72px; min-height:30px;}
+#greeting_cards .contents .txt{width:90%; padding:10px; margin:0 auto; background:url(../../images/greeting_cards/black.png);}
+#greeting_cards .contents *{color:#fefefe;}
+#greeting_cards .contents h1, #greeting_cards .contents h2, #greeting_cards .contents h3{display:none;}
+#greeting_cards .contents h1{font-size:18px; font-weight:bold;}
+#greeting_cards .contents h2{line-height:150%; padding:5px 0; text-indent:28px;}
+#greeting_cards .contents h3{font-size:18px; font-weight:bold; text-align:right;}
+
+form{display:none; width:100%; height:100%;}
+form .header{height:42px; line-height:42px; color:#fff; font-size:18px; font-weight:bold; background:#1C2628; text-align:center; position:relative;}
+form .header img{position:absolute; left:10px; top:11px;}
+form .rows{margin:10px; padding:5px; border:1px solid #ddd; background:#f7f7f7; border-radius:5px; opacity:0.9;}
+form .rows input{width:100%; height:30px; line-height:30px; border:none; font-size:16px; font-weight:bold; background:#f7f7f7;}
+form .rows input.sendname{text-align:right;}
+form .rows textarea{width:100%; line-height:150%; height:100px; border:none; text-indent:30px; background:#f7f7f7;}
+form .submit{padding:0; border:none; background:none; opacity:0.8;}
+form .submit input{background:#333; height:40px; line-height:40px; color:#fff; font-weight:normal; border-radius:5px;}
+
+#global_support{color:#FFF; text-align:center}
+#global_support .bg{background:#000; opacity:0.3;}
+.share_layer{width:100%; height:100%; overflow:hidden; text-align:right; position:fixed; top:0px; left:0px; display:none; background:#000; background:rgba(0,0,0,0.8); filter:alpha(opacity=80); -moz-opacity:0.8; -khtml-opacity: 0.8; opacity: 0.8; z-index:100000;}
+.share_layer img{max-width:600px; width:100%; position:relative;}

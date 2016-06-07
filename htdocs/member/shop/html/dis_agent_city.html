@@ -1,0 +1,58 @@
+<span>蓝色数字为此省下该分销商代理城市的数目，红色为此省下被其他分销商代理城市的数目</span>
+<br/>
+<br/>
+<ul id="K_CityList">
+	 {{foreach from=$region_list key=region_name item=province_id_list name="region_list"}}
+     <li>
+         <div class="dcity clearfix">
+    		<div class="ecity gcity">
+    			{{$i = $smarty.foreach.region_list.index}}										
+					<span class="group-label">
+					<label for="K_Group_{{$i}}">{{$region_name}}</label></span>
+			</div>
+    		<div class="province-list">	
+       			{{foreach from=$province_id_list key=key item=province_id}} 
+        		<div class="ecity">
+					<span class="gareas">
+                 	{{$province = $province_data_list[$province_id]}}
+                   
+                    <label for="K_Province_{{$province_id}}">{{$province.Province_Name}}</label>
+                    {{if $province.selectd_city_num gt 0}}
+                    	<span class="check_num">
+                    		{{$province.selectd_city_num}},
+                        </span>
+                    {{/if}}
+                    
+                    {{if $province.disable_city_num gt 0}}
+                    	<span class="disable_num">
+                    		{{$province.disable_city_num}}
+                        </span>
+                    {{/if}}
+                    <img class="trigger" src="/static/member/images/shop/city_down_icon.gif">
+  			  		</span>
+                    
+                    <div class="citys">
+             
+           
+		     {{$city_list = $city_data_list[$province_id] }}	
+             {{foreach from=$city_list key=city_id item=city }}	
+             
+                <span class="areas">
+             
+                <input value="{{$city_id}}_{{$city.City_Name}}" id="K_City_{{$city_id}}" name="K_City" class="K_City" type="checkbox"
+                {{if $city.checked eq TRUE }}checked{{/if}}  
+                {{if $city.disabled eq TRUE }}disabled{{/if}} 
+                
+                >
+				<label for="K_City_{{$city_id}}" {{if  $city.disabled}}class="del-line"{{/if}}>{{$city.City_Name}}</label></span>
+       		 
+             {{/foreach}}	
+				<p style="text-align:right;"><input value="关闭" class="close_button" type="button"></p>
+		</div>
+				</div>
+			{{/foreach}}
+			</div>
+    	</div>         	
+     </li>	
+     {{/foreach}}
+</ul>

@@ -1,0 +1,20 @@
+#shop_skin_index{width:100%; overflow:hidden; margin:0 auto; background:#f3f3f3; max-width:640px}
+#shop_skin_index .img{height:100%; overflow:hidden;}
+#shop_skin_index .img img{width:100%; height:auto}
+#shop_skin_index .shop_skin_index_list{ overflow:hidden; position:relative; z-index:1;}
+#shop_skin_index .banner{height:158px; width:100%;}
+#shop_skin_index .banner *{width:100%; height:100%;}
+
+/*ind_wrap*/
+.ind_wrap{ width:96%; margin:0 auto; height:100%;}
+.category{ width:100%;}
+.category h3{ font-size:14px; font-weight:bold; padding:8px 0px; color:#8c8c8c}
+.category h3 .more{ font-size:12px; font-weight:normal; float:right;color:#8c8c8c}
+
+/*products*/
+.products{ border-radius:5px; background:#fff; -moz-box-shadow: 0 0 5px #888;-webkit-box-shadow: 0 0 5px #888;box-shadow: 0 0 5px #888; width:100%; margin-bottom:5px}
+.products .items{ width:68px; margin:6px 0 6px 2%; float:left}
+.products .items .pro_img{ width:68px; height:68px; overflow:hidden; -moz-box-shadow: 0 0 3px #888;-webkit-box-shadow: 0 0 3px #888;box-shadow: 0 0 3px #888; overflow:hidden; border:1px solid #fff; box-sizing:border-box; -moz-box-sizing:border-box;-webkit-box-sizing:border-box;}
+.products .items .pro_img img{ width:100%;height:100%;}
+.products .items .name{ height:25px; line-height:25px; overflow:hidden; text-overflow:clip;}
+.products .items .name a{color:#8c8c8c}

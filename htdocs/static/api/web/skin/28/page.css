@@ -1,0 +1,16 @@
+#web_skin_index{width:100%; height:100%; overflow:hidden;position:relative; z-index:1}
+#web_skin_index .web_skin_index_list{overflow:hidden; position:relative; z-index:2}
+#web_skin_index img{ border:0px}
+#web_skin_index .bg{ position:relative; z-index:1}
+#web_skin_index .banner{width:100%; height:100%; overflow:hidden; margin:0;}
+#web_skin_index .banner *{width:100%; overflow:hidden;}
+
+.mar_l10{ margin-left:10px; +margin-left:8px}
+
+#web_skin_index  .web_contents{ position:absolute; top:0px; left:0px; width:100%; height:100%; z-index:2;}
+#web_skin_index  .menu_wrap{ width:270px; margin:0 auto; margin-top:50px;}
+
+.menu_01{ width:130px; height:80px; background:url(bg.png); border-radius:10px; display:inline-block; overflow:hidden; float:left;margin-bottom:10px;}
+.menu_01 .text{ float:left; font-size:16px; color:#FFFFFF; width:40px;padding:20px 30px 10px 10px; line-height:20px; height:50px; overflow-y:hidden}
+.menu_01 .img{ float:right; width:32px; text-align:right; margin:32px 10px 0 0} 
+.menu_01 .img img{height:auto; width:30px}

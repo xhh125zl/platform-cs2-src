@@ -1,0 +1,22 @@
+html, body{ background:#e1e0de}
+
+@media all and (min-width:360px){
+	#web_skin_index .banner{height:183px;}
+	#web_skin_index .banner .img img{height:183px;}
+	#web_skin_index .box li .img{height:92px;}
+}
+@media all and (min-width:420px){
+	#web_skin_index .banner{height:213px;}
+	#web_skin_index .banner .img img{height:213px;}
+	#web_skin_index .box li .img{height:107px;}
+}
+@media all and (min-width:480px){
+	#web_skin_index .banner{height:244px;}
+	#web_skin_index .banner .img img{height:244px;}
+	#web_skin_index .box li .img{height:122px;}
+}
+@media all and (min-width:640px){
+	#web_skin_index .banner{height:325px}
+	#web_skin_index .banner .img img{height:325px;}
+	#web_skin_index .box li .img{height:160px;}
+}

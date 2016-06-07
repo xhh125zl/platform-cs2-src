@@ -1,0 +1,60 @@
+body{padding:5px;}
+
+@media all and (min-width:360px){
+	#web_skin_index .banner{height:175px;}
+	#web_skin_index .nav{height:48px; background-size:100% 48px;}
+	#web_skin_index .nav li{height:48px; padding:10px 0;}
+	#web_skin_index .nav li a{width:80px; height:28px; line-height:28px; font-size:14px; background-size:100% 28px;}
+
+	#web_skin_index .box .i0{height:152px;}
+	#web_skin_index .box .i1{height:72px;}
+	#web_skin_index .box .i2{height:80px;}
+	#web_skin_index .box .i3{height:76px;}
+	#web_skin_index .box .i4{height:68px;}
+	#web_skin_index .box .i5, #web_skin_index .box .i6, #web_skin_index .box .i9{height:144px;}
+	#web_skin_index .box .i7 div, #web_skin_index .box .i8 div{height:72px;}
+}
+@media all and (min-width:420px){
+	#web_skin_index .banner{height:205px;}
+	#web_skin_index .nav{height:56px; background-size:100% 56px;}
+	#web_skin_index .nav li{height:56px; padding:13px 0;}
+	#web_skin_index .nav li a{width:88px; height:30px; line-height:30px; font-size:14px; background-size:100% 30px;}
+
+	#web_skin_index .box .i0{height:177px;}
+	#web_skin_index .box .i1{height:85px;}
+	#web_skin_index .box .i2{height:92px;}
+	#web_skin_index .box .i3{height:89px;}
+	#web_skin_index .box .i4{height:79px;}
+	#web_skin_index .box .i5, #web_skin_index .box .i6, #web_skin_index .box .i9{height:168px;}
+	#web_skin_index .box .i7 div, #web_skin_index .box .i8 div{height:84px;}
+}
+@media all and (min-width:480px){
+	#web_skin_index .banner{height:234px;}
+	#web_skin_index .nav{height:64px; background-size:100% 64px;}
+	#web_skin_index .nav li{height:64px; padding:16px 0;}
+	#web_skin_index .nav li a{width:98px; height:32px; line-height:32px; font-size:16px; background-size:100% 32px;}
+
+	#web_skin_index .box .i0{height:202px;}
+	#web_skin_index .box .i1{height:98px;}
+	#web_skin_index .box .i2{height:104px;}
+	#web_skin_index .box .i3{height:102px;}
+	#web_skin_index .box .i4{height:90px;}
+	#web_skin_index .box .i5, #web_skin_index .box .i6, #web_skin_index .box .i9{height:192px;}
+	#web_skin_index .box .i7 div, #web_skin_index .box .i8 div{height:96px;}
+}
+
+
+@media all and (min-width:640px){
+	#web_skin_index .banner{height:312px;}
+	#web_skin_index .nav{height:86px; background-size:100% 86px;}
+	#web_skin_index .nav li{height:86px; padding:22px 0;}
+	#web_skin_index .nav li a{width:132px; height:42px; line-height:42px; font-size:18px; background-size:100% 42px;}
+
+	#web_skin_index .box .i0{height:270px;}
+	#web_skin_index .box .i1{height:130px;}
+	#web_skin_index .box .i2{height:140px;}
+	#web_skin_index .box .i3{height:136px;}
+	#web_skin_index .box .i4{height:120px;}
+	#web_skin_index .box .i5, #web_skin_index .box .i6, #web_skin_index .box .i9{height:256px;}
+	#web_skin_index .box .i7 div, #web_skin_index .box .i8 div{height:128px;}
+}

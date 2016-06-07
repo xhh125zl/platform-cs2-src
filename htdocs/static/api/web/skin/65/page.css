@@ -1,0 +1,26 @@
+#web_skin_index{width:100%; padding-bottom:1px; overflow:hidden; margin:0 auto;}
+#web_skin_index .img{height:100%; overflow:hidden;}
+#web_skin_index .img img{width:100%; height:100%;}
+#web_skin_index .web_skin_index_list{float:left; _display:inline; overflow:hidden; position:relative; line-height:100px; z-index:1; margin-top:1px;}
+#web_skin_index .banner{width:100%; height:180px; line-height:180px;}
+#web_skin_index .banner *{width:100%; height:100%; overflow:hidden;}
+
+#web_contents *{color:#fff;}
+#web_contents h1{height:32px; clear:both; border-bottom:1px solid #212224; margin-top:5px;}
+#web_contents h1 span{display:block; float:left; width:50%; height:32px; line-height:32px; overflow:hidden; text-indent:8px; font-weight:bold;}
+#web_contents h1 a{display:block; float:right; width:30%; height:32px; line-height:32px; text-align:right; padding-right:8px; color:#888; text-decoration:none;}
+#web_contents dl{height:100%; overflow:hidden; width:98%; margin:0 auto;}
+#web_contents dl dd{height:90px; padding:10px 0; width:25%; overflow:hidden; float:left;}
+#web_contents dl dd .item_img{width:70px; height:70px; margin:0 auto;}
+#web_contents dl dd .item_img a{display:block; padding:7px; background:#212224; border-radius:5px; width:56px; height:56px;}
+#web_contents dl dd .item_img img{width:100%; height:100%;}
+#web_contents dl dd .a{width:90%; height:20px; line-height:20px; overflow:hidden; display:block; margin:0 auto; text-align:center;}
+#web_contents dl dd .a a{text-decoration:none; font-size:12px;}
+#web_contents .touchslider{position:relative;}
+#web_contents .touchslider .img{width:100%; margin:0 auto;}
+#web_contents .touchslider .img .touchslider-viewport{width:320px; height:100px; overflow:hidden; float:left;}
+#web_contents .touchslider .img .touchslider-viewport .list{width:10000px; height:100%;}
+#web_contents .touchslider .img .touchslider-viewport .list .touchslider-item{width:320px; height:100%; overflow:hidden;}
+#web_contents .touchslider .touchslider-nav{width:100%; position:absolute; top:100px; text-align:center;}
+#web_contents .touchslider .touchslider-nav .touchslider-nav-item{width:8px; height:8px; background:#666; margin:0 1px; display:inline-block; border-radius:6px;}
+#web_contents .touchslider .touchslider-nav .touchslider-nav-item-current{background:#cff0ff;}

@@ -1,0 +1,27 @@
+#web_skin_index{width:100%; height:100%; overflow:hidden;}
+#web_skin_index .web_skin_index_list{float:left; _display:inline; overflow:hidden; position:relative;}
+#web_skin_index .img{height:100%; overflow:hidden;}
+#web_skin_index .img img{width:100%;}
+#web_skin_index .banner{width:100%; height:100%; overflow:hidden; margin:0;}
+#web_skin_index .banner *{width:100%; height:100%; overflow:hidden;}
+
+#skin_index_control{position:fixed; left:0px; bottom:0; width:100%; border-top:1px solid #C0C0C0; height:70px; display:block; z-index:100000}
+#skin_index_control .bg{position:absolute; width:100%; height:100%; background:#000000; opacity:0.5;}
+#skin_index_control .list-box{position:absolute; height:100%; left:34px; right:34px; overflow:hidden;}
+#skin_index_control .list-box .item-box{position:absolute; top:0; left:0; white-space:nowrap;}
+#skin_index_control .list-box .item-box .cate-item{height:100%; width:58px; margin:10px 2px; overflow:hidden; position:relative; display:inline-block; text-decoration:none; color:#fff; text-align:center;}
+#skin_index_control .list-box .item-box .cate-item img{margin:2px auto; margin-bottom:5px; width:30px; height:30px; display:block;}
+#skin_index_control .list-box .item-box .cate-item div{text-align:center; font-size:12px; overflow:hidden; margin:3px auto; color:#fff; white-space:nowrap;}
+#skin_index_control .toolbar-item{position:absolute; top:0; width:34px; height:100%; background:#FF0000;}
+#skin_index_control .left{left:0; background:url(../images/app_estate/left.png) center no-repeat;}
+#skin_index_control .right{right:0; background:url(../images/app_estate/right.png) center no-repeat;}
+#skin_index_control .list-box li{/*margin:0 10px; */ float:left; overflow:hidden; _display:inline;}
+@media all and (min-width:360px){
+	#skin_index_control .list-box .item-box .cate-item{width:64px;}
+}
+@media all and (min-width:420px){
+	#skin_index_control .list-box .item-box .cate-item{width:83px;}
+}
+@media all and (min-width:480px){
+	#skin_index_control .list-box .item-box .cate-item{width:98px;}
+}

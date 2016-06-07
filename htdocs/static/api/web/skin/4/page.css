@@ -1,0 +1,20 @@
+#web_skin_index{width:100%; padding-bottom:1px; overflow:hidden; margin:0 auto;}
+#web_skin_index .img{height:100%; overflow:hidden;}
+#web_skin_index .img img{width:100%; height:100%;}
+#web_skin_index .web_skin_index_list{float:left; _display:inline; overflow:hidden; position:relative; line-height:100px; z-index:1; margin-top:1px;}
+#web_skin_index .banner{width:100%; height:130px; line-height:130px;}
+#web_skin_index .banner *{width:100%; height:100%; overflow:hidden;}
+#web_skin_index .i0{width:33%; height:100px;}
+#web_skin_index .i1{width:34%; *width:33%; height:100px;}
+#web_skin_index .i0 .img, #web_skin_index .i1 .img{margin-left:1px;}
+#web_skin_index .b0{width:50%; float:left; _display:inline; overflow:hidden;}
+#web_skin_index .b0 .web_skin_index_list{padding-right:1px; padding-left:1px;}
+#web_skin_index .b0 .i2{width:100%; height:125px; line-height:125px; overflow:hidden;}
+#web_skin_index .b0 .i3{width:100%; height:55px; line-height:55px; overflow:hidden;}
+#web_skin_index .b1{width:50%; float:left; overflow:hidden;}
+#web_skin_index .b1 .c{padding-left:1px;}
+#web_skin_index .b1 .i4{width:100%; line-height:90px;}
+#web_skin_index .b1 .i5{width:50%; line-height:90px;}
+#web_skin_index .b1 .i6{width:50%; *width:49.9%; line-height:90px;}
+#web_skin_index .b1 .i6 .img{margin-left:1px;}
+#web_skin_index .b1 .i4, #web_skin_index .b1 .i5, #web_skin_index .b1 .i6{height:90px;}

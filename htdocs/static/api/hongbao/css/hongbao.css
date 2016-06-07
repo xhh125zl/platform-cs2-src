@@ -1,0 +1,57 @@
+html, body{background:#ff5742; padding:0px; margin:0px}
+.clear{clear:both}
+
+.main{width:100%; position:relative;}
+.main .main_bg{width:100%; display:block}
+.qiang_div,.myhong_div,.act_name,.qiang_time,.chai_div,.syhy,.help_div{position:absolute; width:100%; display:block}
+.qiang_time p{margin:0px auto; padding:4px 0px; height:36px; line-height:18px; background:#d5231f; border-radius:5px; font-size:13px; color:#FFF; width:50%; text-align:center}
+.syhy p{margin:0px auto; padding:0px; height:36px; line-height:36px; background:#d5231f; border-radius:5px; font-size:13px; color:#FFF; width:50%; text-align:center}
+.act_name{text-align:center; line-height:28px; font-size:28px; color:#ffdd40; font-weight:bold; top:185px; letter-spacing:1px; font-family:"微软雅黑"}
+.qiang_div img,.myhong_div img,.chai_div img,.help_div img{width:50%; margin:0px auto; display:block; cursor:pointer}
+.main .main_other{position:absolute; height:40px; line-height:20px; width:100%; font-size:14px; font-weight:bold}
+.main .main_other p{width:71.875%; margin:0px auto; padding:0px; text-align:right}
+.main .main_other p span{padding:0px 2px; color:#FFF; font-family:"Times New Roman"; font-size:14px;}
+.main .main_other p a{color:#FFF}
+.main .invite{position:absolute; height:40px; line-height:40px; width:100%; font-size:16px; font-weight:bold}
+.main .invite p{width:71.875%; margin:0px auto; padding:0px; text-align:right}
+.main .invite p a{color:#FFF}
+
+.ranklist{width:80%; margin:8px auto 0px}
+.ranklist td{padding:0px 0px 8px 0px; text-align:left; font-size:14px; font-weight:bold; color:#FFF}
+
+.rules_top{width:100%}
+.rules_top img{width:100%}
+.rules_time,.rules{width:90%; margin:0px auto; background:#FFF; border-radius:5px; padding:8px 8px}
+.rules_time p{margin:0px; padding:0px; line-height:22px; color:#000}
+.rules{line-height:22px; color:#000; margin-top:8px;}
+.goback{position:fixed; bottom:10px; right:5px; display:block; width:50px; height:40px; text-align:center; line-height:40px; letter-spacing:1px; font-size:16px; font-weight:bold; color:#FFF; background:#cb2e1b}
+
+.mycenter_top{width:100%}
+.mycenter_top img{width:100%}
+.mycenter_middle{width:100%;}
+.mycenter_middle .mymoney{width:100%; height:80px; margin:15px 0px 0px}
+.mycenter_middle .mymoney .mymoney_div{width:30%; height:80px; float:left; margin:0px;}
+.mycenter_middle .mymoney .add_flag{width:5%; height:80px; float:left; margin:0px; line-height:76px; color:#FFF; font-weight:bold; font-size:20px; text-align:center}
+.mycenter_middle .mymoney .mymoney_div div{width:70px; height:70px; margin:0px auto; text-align:center; border-radius:50%;}
+.mycenter_middle .mymoney .mymoney_div div p{margin:0px; padding:0px;}
+.mycenter_middle .mymoney .mymoney_div div .total_title{height:20px; height:20px; font-size:12px; font-weight:bold; padding-top:10px}
+.mycenter_middle .mymoney .mymoney_div div .total{height:20px; line-height:20px; padding:0px; font-size:18px; font-weight:bold; font-family:"Times New Roman"}
+.f2{ background:#b22c24; color:#FFF;}
+.f0{ background:#FCEDCC; color:#b22c24}
+.f1{ background:#FF6600; color:#FFF;}
+.mycenter_middle .myinfo{width:80px; height:100px; margin:0px auto}
+.mycenter_middle .myinfo img{width:80px; height:80px; border-radius:50%; margin:0px auto}
+.mycenter_middle .myinfo span{display:block; width:80px; height:20px; line-height:20px; font-size:14px; font-weight:bold; color:#FFF; overflow:hidden; text-align:center}
+.mylist{width:95%; margin:8px auto 0px;}
+.mylist .list_table{width:98%; background:#FFF; margin:0px auto}
+.mylist .list_table th{height:30px; line-height:30px; font-size:12px; text-align:center; background:#f1f1f1; border-right:1px #dfdfdf solid;}
+.mylist .list_table td{height:30px; line-height:30px; font-size:12px; text-align:center; border-right:1px #dfdfdf solid; border-bottom:1px #dfdfdf solid}
+.notice{width:90%; margin:10px auto 20px; background:#FFF; border-radius:5px; padding:5px 8px; line-height:22px; font-size:12px;}
+
+.share_layer{width:100%; height:100%; overflow:hidden; text-align:right; position:fixed; top:0px; left:0px; display:none; z-index:100000;}
+.share_layer img{max-width:600px; width:100%; position:relative;}
+.b10{height:10px; font-size:1px; width:100%;}
+
+.gift_opening{width:100%; margin-top:30px;}
+.gift_opening img{margin:0px auto; display:block}
+.gift_opening_font{height:30px; line-height:30px; font-size:12px; color:#FFF; text-align:center; width:100%}

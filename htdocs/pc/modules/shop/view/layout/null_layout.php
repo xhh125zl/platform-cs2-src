@@ -1,0 +1,1 @@
+<?php require_once($output['tpl_file']);?>

@@ -1,0 +1,235 @@
+
+
+/*-----------------start loading-----------------*/
+
+body {
+    background-color: #F5F5F5;
+    background-image:url("../../../base/images/ajax-loader2.GIF");
+    background-position: center 200px;
+    background-repeat: no-repeat;
+    background-size: 100px 100px;
+}
+
+
+
+/*-----------------start loading-----------------*/
+/*-----------------start header-----------------*/
+
+.header{
+    background-color: #1391c3;
+    box-shadow: 0 3px 5px #777;
+    position: relative;
+}
+
+/* s edit by jun */
+.header .back, .header button {
+    height: 64px;
+    width: 2.5rem;
+    display: block;
+    color: #333333;
+    position:absolute;
+    top: 10%;
+    cursor: pointer;
+}
+.header button{
+    border: none;
+    outline:none;
+    background: url(../../../base/images/menu.png) center center no-repeat;
+    background-size: 50%;
+    right: 0px;
+    padding: 0;
+}
+/* e edit by jun */
+
+.header .back{
+    background: url(../../../base/images/back.png) center center no-repeat;
+    background-size: 50%;
+}
+#personal{
+    position: absolute;
+    top: 10%;
+    right: 2.5rem;
+    width: 2rem;
+    display: block;
+    height: 64px;
+    background: url("../../../base/images/personal.png") no-repeat center center;
+    background-size: 15px 20px;
+    cursor: pointer;
+}
+
+.header h1{
+    color: #FFF;
+    text-align: center;
+    font-size:1.2rem;
+    padding: 1.5rem 5rem 1.5rem 2.5rem;
+    margin-bottom: 0.71428571rem;
+}
+.header h2 {
+    font-size: 1rem;
+    padding-top: 0.41666667rem;
+}
+.header h2 i{
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+    vertical-align: -20%;
+    background-image: url("../../../base/images/userLevel.png");
+    background-size: 16px 116px;
+
+}
+.userLevel_1{
+    background-position: center top;
+}
+.userLevel_5{
+    background-position: center -75px;
+}
+.userLevel_6{
+    background-position: center -25px;
+}
+.userLevel_7{
+    background-position: center -100px;
+}
+.userLevel_8{
+    background-position: center -50px;
+}
+/*------------------end header------------------*/
+/*------------------start menu------------------*/
+.menu nav ul{
+    box-sizing: border-box;
+    -webkit-box-sizing:border-box;
+    width: 100%;
+    font-size: 1.2rem;
+    padding: 0 10px;
+}
+.menu nav ul li{
+    -webkit-box-sizing:border-box;
+    box-sizing: border-box;
+    display: inline-block;
+    width: 25%;
+    color: #FFF;
+    text-align: center;
+    padding-right: 0.57142857rem;
+    margin-bottom:  0.83333333rem;
+}
+.menu nav ul li:nth-child(4n+4){
+    padding-right: 0;
+}
+.menu nav ul li a{
+    box-sizing: border-box;
+    -webkit-box-sizing:border-box;
+    padding: 0.666666666rem 0;
+    color:#fff;
+    display: inline-block;
+    width: 100%;
+    font-size:1rem;
+    border-radius: 5px;
+    background-color: #E74C3C;
+    box-shadow: 0 -3px 0 #C54133 inset;
+    
+}
+
+/*-------------------end menu------------------*/
+/*-----------------start footer-----------------*/
+.footer {
+    text-align: center;
+    margin-top:  0.83333333rem;
+    margin-bottom: 60px;
+}
+.footer nav{
+    background-color: #FFF;
+    padding: 0.83333333rem  0.41666667rem;
+    margin:  0.41666667rem 0;
+    line-height: 1rem;
+    height: 1rem;
+}
+.footer a{
+    font-size:  1.16666667rem;
+    color: #333333;
+}
+.footer nav a:first-child {
+    float:left;
+}
+.footer nav a:last-child {
+    float:right;
+}
+.footer p {
+    font-size:  1.16666667rem;
+    padding: 0.83333333rem 0;
+    color:#999999;
+}
+.footer p:last-child {
+    padding-top: 0;
+}
+/*------------------end footer------------------*/
+/*------------------start float tip ------------------*/
+.float {
+    position: fixed;
+    right: 0px;
+    bottom: 0px;
+	z-index:999;
+}
+.float nav {
+    border:1px solid #d1d1d1;
+    border-radius: 5px;
+    background-color:#ffffff;
+    padding-left:10px;
+    width:94px;
+    box-shadow: 0px 0px 4px #777;
+}
+.float nav ul  li{
+    border-bottom:1px solid #d1d1d1;
+    background-color:#ffffff;
+
+}
+.float nav ul  li:last-child{
+    border-bottom:none;
+}
+.float nav ul  li a{
+    font-size:12px;
+    display:block;
+    height:35px;
+    line-height: 35px;
+    padding-right: 5px;
+    color:#333;
+}
+.float nav ul  li a i{
+    display: block;
+    float: left;
+    height: 16px;
+    width: 18px;
+    line-height: 35px;
+    text-align: right;
+    background-image: url(../../../base/images/bg.png);
+    background-size: 75px 250px;
+    margin: 10px 5px;
+}
+.float nav ul  li a .index{
+    background-position:0 -100px;
+}
+.float nav ul  li a .introduce{
+    background-position:0 -120px;
+}
+.float nav ul  li a .product{
+    background-position:0 -140px;
+}
+.float nav ul  li a .credit{
+    background-position:0 -160px;
+}
+.float nav ul  li a .contact{
+    background-position:0 -180px;
+}
+.float .tip-menu-btn{
+    display: block;
+    border: none;
+    outline:none;
+    height: 49px;
+    width: 49px;
+    float: right;
+    background: url(../../../base/images/bg.png) 0 0 no-repeat;
+    background-size: 75px 250px;
+    margin-top: 5px;
+}
+.float .tip-menu-btn-open{
+    background-position:0 -200px;
+}
+/*------------------end float tip ------------------*/

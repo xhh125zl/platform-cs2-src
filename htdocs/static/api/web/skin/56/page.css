@@ -1,0 +1,11 @@
+#web_skin_index{width:100%; height:100%; overflow:hidden; background:#fff;}
+#web_skin_index .web_skin_index_list{overflow:hidden; position:relative; z-index:1}
+#web_skin_index img{width:100%; height:auto;}
+#web_skin_index .banner{width:100%; height:175px; overflow:hidden;}
+#web_skin_index .banner *{width:100%; height:100%; overflow:hidden;}
+
+.web_warp{width:96.875%; margin:0px auto; padding-bottom:0px;}
+.web_warp .item{width:100%; margin-top:5px;}
+.web_warp .item .section1{float:left; width:48.548%}
+.web_warp .item .section2{float:right; width:48.548%}
+.web_warp .item .section1 img,.web_warp .item .section2 img{width:100%;}

@@ -1,0 +1,28 @@
+@media all and (min-width:360px){
+	#shop_skin_index .banner{height:180px;}
+	#shop_skin_index .box .a0, #shop_skin_index .box .a1{height:188px;}
+	#shop_skin_index .box .item{height:98px;}
+	#shop_skin_index .box .item a{padding-left:90px;}
+	#shop_skin_index .box .item .img{width:80px; height:80px;}
+}
+@media all and (min-width:480px){
+	#shop_skin_index .banner{height:240px;}
+	#shop_skin_index .box .a0, #shop_skin_index .box .a1{height:252px;}
+	#shop_skin_index .box .item{height:131px;}
+	#shop_skin_index .box .item a{padding-left:123px;}
+	#shop_skin_index .box .item .img{width:113px; height:113px;}
+}
+@media all and (min-width:560px){
+	#shop_skin_index .banner{height:280px;}
+	#shop_skin_index .box .a0, #shop_skin_index .box .a1{height:294px;}
+	#shop_skin_index .box .item{height:151px;}
+	#shop_skin_index .box .item a{padding-left:143px;}
+	#shop_skin_index .box .item .img{width:133px; height:133px;}
+}
+@media all and (min-width:640px){
+	#shop_skin_index .banner{height:320px;}
+	#shop_skin_index .box .a0, #shop_skin_index .box .a1{height:336px;}
+	#shop_skin_index .box .item{height:172px;}
+	#shop_skin_index .box .item a{padding-left:164px;}
+	#shop_skin_index .box .item .img{width:154px; height:154px;}
+}

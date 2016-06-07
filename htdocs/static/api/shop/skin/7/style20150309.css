@@ -1,0 +1,12 @@
+#footer_points{height:35px;}
+#footer{background:url(btm_bg.png) left bottom repeat-x; height:49px;background-size: auto 35px; box-sizing:border-box; -moz-box-sizing:border-box;-webkit-box-sizing:border-box;}
+#footer ul li{height:34px; border-right:1px solid #bef877;box-sizing:border-box; -moz-box-sizing:border-box;-webkit-box-sizing:border-box; margin-top:15px; overflow:hidden; padding-top:0px; width:30%; text-align:center}
+#footer ul li>a{ height:34px; line-height:34px;color:#fff; width:75px; margin:0 auto;text-align:left;-moz-box-sizing:border-box;-webkit-box-sizing:border-box;}
+#footer ul li.category{ background:url(btm_cate.png) left bottom no-repeat; width:41px; height:49px; background-size:41px 49px;margin-left:7px; border:0px; margin-top:0}
+#footer ul li.category a{width:100%; height:49px; line-height:49px; background:none; text-align:center; text-indent:0; display:block;}
+#footer ul li.cart{ width:25%;}
+#footer ul li.home{ border:0px; }
+#footer ul li.member{}
+#footer ul li.cart a{ font-size:14px;color:#fff; background:url(btm_cart.png) no-repeat 0px center; padding-left:20px; background-size:17px 16px; width:70px}
+#footer ul li.member a{font-size:14px;color:#fff;background:url(btm_member.png) no-repeat 0px center; padding-left:20px;background-size:18px 18px}
+#footer ul li.home a{font-size:14px;color:#fff;border:0px;background:url(btm_home.png) no-repeat 0px center; padding-left:19px;background-size:16px 14px}

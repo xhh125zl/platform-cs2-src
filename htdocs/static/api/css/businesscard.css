@@ -1,0 +1,247 @@
+#share{width:100%; height:100%; overflow:hidden; text-align:right; position:fixed; top:0px; left:0px; display:none; background:#000; background:rgba(0,0,0,0.8); filter:alpha(opacity=80); -moz-opacity:0.8; -khtml-opacity: 0.8; opacity: 0.8; z-index:100;}
+#share img{max-width:600px; width:100%; position:relative;}
+
+#share{width:100%; height:100%; overflow:hidden; text-align:right; position:fixed; top:0px; left:0px; display:none; background:#000; background:rgba(0,0,0,0.8); filter:alpha(opacity=80); -moz-opacity:0.8; -khtml-opacity: 0.8; opacity: 0.8; z-index:100;}
+#share img{max-width:600px; width:100%; position:relative;}
+
+#music{width:20px; height:20px; position:absolute; right:10px; top:10px; z-index:99999;}
+#music img{width:100%;}
+#hidcode{ left:50%; top:50%; width:300px; height:300px; margin-left:-150px; margin-top:-150px; position:fixed; z-index:99999; display:none;}
+#hidcode img{ width:100%; vertical-align:top;}
+#hidcode .close_btn{ right:0px; top:-24px; width:60px; height:24px; line-height:24px; position:absolute; background:#fff; color:#000; text-align:center;}
+body{background:#eaeaea;}
+
+/* 风格0 start */
+#businesscard_skin_0{padding:12px 8px; box-sizing:border-box; margin:0 auto; overflow:hidden; position:relative;}
+#businesscard_skin_0 .none{display:none;}
+#businesscard_skin_0 .logo{width:80px; height:80px; overflow:hidden; position:absolute; top:12px; left:13px; z-index:1;}
+#businesscard_skin_0 .logo img{max-height:80px;}
+#businesscard_skin_0 .toper{width:96%; height:32px; overflow:hidden; background:url(../images/businesscard/toper.jpg) no-repeat; background-size:100% 32px;}
+#businesscard_skin_0 .toper h1{width:59%; height:32px; line-height:36px; overflow:hidden; font-size:20px; font-weight:bold; float:left; padding-left:90px; box-sizing:border-box;}
+#businesscard_skin_0 .toper label{width:40%; height:32px; line-height:32px; float:right; font-size:16px; font-weight:bold; color:#e31a08; text-align:center;}
+#businesscard_skin_0 li{width:100%; margin:0 auto;}
+#businesscard_skin_0 li.t{width:100%; height:10px; background:url(../images/businesscard/box_top.jpg) no-repeat; background-size:100% 10px; overflow:hidden;}
+#businesscard_skin_0 li.b{width:100%; height:16px; background:url(../images/businesscard/box_bottom.jpg) no-repeat; background-size:100% 16px; overflow:hidden;}
+#businesscard_skin_0 li.c{width:100%; padding:8px 24px; box-sizing:border-box; background:url(../images/businesscard/box_bg.jpg) repeat-y; background-size:100% 4px;}
+#businesscard_skin_0 li.c dt{width:100%; padding-left:66px; padding-bottom:16px; margin-top:-10px; box-sizing:border-box; overflow:hidden; font-size:18px;}
+#businesscard_skin_0 li.c dd{width:100%; padding:12px 0; line-height:32px; padding-left:42px; box-sizing:border-box; overflow:hidden; position:relative; font-size:16px; border-top:1px solid #eee;}
+#businesscard_skin_0 li.c dd.bn{border:none;}
+#businesscard_skin_0 li.c dd label{display:table-cell; width:32px; height:32px; position:absolute; left:0px; top:12px; overflow:hidden; text-align:center; vertical-align:middle; *display:block; *font-family:Arial; *font-size:28px;}
+#businesscard_skin_0 li.c dd label img{max-width:32px; max-height:32px; vertical-align:middle;}
+#businesscard_skin_0 .bottom{padding:5px;}
+#businesscard_skin_0 .bottom a{display:block; width:100%; height:50px; line-height:50px; font-size:18px; font-weight:bold; color:#888; margin:10px auto; box-sizing:border-box; text-align:center; text-decoration:none; background:url(../images/businesscard/btn_bg.jpg) no-repeat; background-size:100% 50px;}
+#share{width:100%; height:100%; overflow:hidden; text-align:right; position:fixed; top:0px; left:0px; display:none; background:#000; background:rgba(0,0,0,0.8); filter:alpha(opacity=80); -moz-opacity:0.8; -khtml-opacity:0.8; opacity:0.8; z-index:100;}
+#share img{max-width:600px; width:100%; position:relative;}
+/* 风格0 end */
+
+/* 风格1 start */
+#businesscard_skin_1{width:100%; margin:0 auto; max-width:640px;background-image:-webkit-linear-gradient(0deg, #3e3a3e, #533742);background-image:linear-gradient(0deg,#3e3a3e,#533742);}
+#businesscard_skin_1 section{width:75%; margin:0 auto; padding-top:40px;}
+#businesscard_skin_1 section img{width:100%; vertical-align:top;}
+#businesscard_skin_1 section .box1{width:100%; display:-webkit-box;-webkit-box-pack:Justify;-webkit-box-align:center}
+#businesscard_skin_1 section .box1 .icon-item{width:10%;}
+#businesscard_skin_1 section .box1 .icon-item img{box-shadow:2px 2px 5px #000;}
+#businesscard_skin_1 section .box1 .face-item{ width:38.125%; border:5px #fff solid; border-radius:49%; overflow:hidden;box-shadow:2px 2px 5px #000;}
+#businesscard_skin_1 section .box1 .face-item img{border-radius:49%; }
+#businesscard_skin_1 section .box2{width:100%; text-align:center; line-height:24px; padding-top:10px; padding-bottom:10px;}
+#businesscard_skin_1 section .box2 span:nth-of-type(1){color:#fff; font-size:24px;}
+#businesscard_skin_1 section .box2 span:nth-of-type(2){color:#abadb0; font-size:16px;}
+#businesscard_skin_1 section .box3{ padding-left:27px;word-break:keep-all;width:100%; height:38px; border:2px #fff solid; box-sizing:border-box;-webkit-box-sizing:border-box; text-align:center; line-height:34px; font-size:16px; color:#fff; border-radius:40px; background:url(../images/businesscard/skin_1/icon3.png) 10px 50% no-repeat; background-size:6%; overflow:hidden;}
+#businesscard_skin_1 section .box4{width:100%; margin-top:15px; border-bottom:1px #fff solid; border-top:1px #fff solid; padding-top:10px; padding-bottom:10px;}
+#businesscard_skin_1 section .box4 .box4_list{width:100%;}
+#businesscard_skin_1 section .box4 .box4_list .icon{width:12%; height:50px;-webkit-box-align:center;-webkit-box-sizing:border-box; padding-left:5px; float:left;}
+#businesscard_skin_1 section .box4 .box4_list .bg1{background:url(../images/businesscard/skin_1/c1.png) no-repeat 5px 50%; background-size:50%;}
+#businesscard_skin_1 section .box4 .box4_list .bg2{background:url(../images/businesscard/skin_1/c2.png) no-repeat 5px 50%; background-size:50%;}
+#businesscard_skin_1 section .box4 .box4_list .bg3{background:url(../images/businesscard/skin_1/c3.png) no-repeat 5px 50%; background-size:50%;}
+#businesscard_skin_1 section .box4 .box4_list .bg4{background:url(../images/businesscard/skin_1/c4.png) no-repeat 5px 50%; background-size:50%;}
+#businesscard_skin_1 section .box4 .box4_list .bg5{background:url(../images/businesscard/skin_1/c5.png) no-repeat 5px 50%; background-size:50%;}
+#businesscard_skin_1 section .box4 .box4_list .bg6{background:url(../images/businesscard/skin_1/qq01.png) no-repeat 5px 50%; background-size:50%;}
+#businesscard_skin_1 section .box4 .box4_list .title{width:17.708%; color:#abadb0; font-size:16px; line-height:50px; float:left;}
+#businesscard_skin_1 section .box4 .box4_list .content{width:70%; float:left; color:#fff; font-size:18px; line-height:50px; overflow:hidden;}
+#businesscard_skin_1 section .box4 .box4_list .content a{color:#fff;}
+#businesscard_skin_1 section .box4 .box4_list .content a:hover{text-decoration:none;}
+#businesscard_skin_1 section .box4 .box4_list .content1{width:70%; float:left; color:#fff; font-size:18px; line-height:24px; padding-top:12px; padding-bottom:8px; word-wrap:break-word;}
+#businesscard_skin_1 section .box5{width:100%; margin-top:15px;display:-webkit-box;-webkit-box-pack:Justify;-webkit-box-align:center; padding-bottom:15px;}
+#businesscard_skin_1 section .box5 .f_icon{width:19.116666%;}
+/* 风格1 end */
+
+/* 风格2 start */
+#businesscard_skin_2{width:100%; margin:0 auto; max-width:640px;}
+#businesscard_skin_2 .box2 a{color:#fff;}
+#businesscard_skin_2 .box2 a:hover{color:#fff; text-decoration:none;}
+#businesscard_skin_2 .box1 a:hover,#businesscard_skin_2 .box3 a:hover{color:#333; text-decoration:none;}
+#businesscard_skin_2 img{width:100%; vertical-align:top;}
+#businesscard_skin_2 .box1{width:100%; margin:0 auto; padding-top:18px; padding-bottom:18px; border-bottom:2px #1c1c1c solid; background:#333;}
+#businesscard_skin_2 .box1 .box1_item{width:84.375%; margin:0 auto;}
+#businesscard_skin_2 .box1 .box1_item .face_item{width:33.33333%; float:left; border:2px #1d2226 solid;}
+#businesscard_skin_2 .box1 .box1_item .info_item{width:61.11111%; float:right;}
+#businesscard_skin_2 .box1 .box1_item .info_item .title{width:100%;}
+#businesscard_skin_2 .box1 .box1_item .info_item .title span:nth-of-type(1){color:#fff; font-size:24px;}
+#businesscard_skin_2 .box1 .box1_item .info_item .title span:nth-of-type(2){color:#abadb0; font-size:16px; margin-left:5px}
+#businesscard_skin_2 .box1 .box1_item .info_item .contact{position:relative; padding-left:10px;-webkit-box-sizing:border-box; box-sizing:border-box; width:52%; height:28px; line-height:24px; font-size:14px; margin-top:12px; border:2px #212121 solid; border-radius:5px;background-image:-webkit-linear-gradient(0deg, #c3c3c3, #fcfcfc);background-image:linear-gradient(0deg,#c3c3c3,#fcfcfc);}
+#businesscard_skin_2 .box1 .box1_item .info_item .contact span{display:inline-block; float:left;}
+#businesscard_skin_2 .box1 .box1_item .info_item .contact span:nth-of-type(1){width:15px; margin-top:5px;}
+#businesscard_skin_2 .box1 .box1_item .info_item .contact span:nth-of-type(2){margin-left:5px;}
+#businesscard_skin_2 .box1 .box1_item .info_item .contact span:nth-of-type(3){width:24%; right:-32px; position:absolute; z-index:1000;}
+#businesscard_skin_2 .box1 .box1_item .info_item .company{width:100%; margin-top:12px; font-size:14px; color:#fff;}
+#businesscard_skin_2 .box2{width:100%; margin:0 auto;}
+#businesscard_skin_2 .box2 .box2_list1{width:100%; border-top:2px #434343 solid; background:#2c2c2c;}
+#businesscard_skin_2 .box2 .box2_list2{width:100%; border-top:2px #171717 solid;border-bottom:2px #171717 solid;background-image:-webkit-linear-gradient(0deg, #292929, #232323);background-image:linear-gradient(0deg,#292929,#232323);}
+#businesscard_skin_2 .box2 .box2_item{width:84.375%; margin:0 auto;}
+#businesscard_skin_2 .box2 .box2_item .icon{width:11.666667%; height:50px; float:left; margin-left:1.85%;}
+#businesscard_skin_2 .box2 .box2_item .bg1{background:url(../images/businesscard/skin_2/c1.png) no-repeat 0px 50%; background-size:100%;}
+#businesscard_skin_2 .box2 .box2_item .bg2{background:url(../images/businesscard/skin_2/c2.png) no-repeat 0px 50%; background-size:100%;}
+#businesscard_skin_2 .box2 .box2_item .bg3{background:url(../images/businesscard/skin_2/c3.png) no-repeat 0px 50%; background-size:100%;}
+#businesscard_skin_2 .box2 .box2_item .bg4{background:url(../images/businesscard/skin_2/c4.png) no-repeat 0px 50%; background-size:100%;}
+#businesscard_skin_2 .box2 .box2_item .bg5{background:url(../images/businesscard/skin_2/c5.png) no-repeat 0px 50%; background-size:100%;}
+#businesscard_skin_2 .box2 .box2_item .bg6{background:url(../images/businesscard/skin_2/qq02.png) no-repeat 0px 50%; background-size:100%;}
+#businesscard_skin_2 .box2 .box2_item .info{width:79%; color:#fff; font-size:18px; float:left; line-height:50px; margin-left:7.4%;}
+#businesscard_skin_2 .box2 .box2_item .info1{width:79%; color:#fff; word-wrap:break-word; font-size:18px; float:left; line-height:24px; margin-left:7.4%; padding-top:12px; padding-bottom:8px;}
+#businesscard_skin_2 .box3{width:100%; border-top:2px #434343 solid; background:#2c2c2c; padding-bottom:12px;}
+#businesscard_skin_2 .box3 .box3_btn{width:82%; height:34px; line-height:34px; font-size:16px; margin:0 auto; margin-top:12px; border:2px #212121 solid; border-radius:5px;background-image:-webkit-linear-gradient(0deg, #c3c3c3, #fcfcfc);background-image:linear-gradient(0deg,#c3c3c3,#fcfcfc);}
+#businesscard_skin_2 .box3 .box3_btn .icon1{float:left; margin-left:3.7%; width:5.55556%; height:34px;}
+#businesscard_skin_2 .box3 .box3_btn .icon2{float:right; margin-right:3.7%; width:2.777778%; height:34px;background:url(../images/businesscard/skin_2/icon1.png) no-repeat 0px 50%; background-size:100%;}
+#businesscard_skin_2 .box3 .box3_btn .title{float:left; height:34px; line-height:36px; font-size:16px; margin-left:4%;}
+#businesscard_skin_2 .box3 .box3_btn .f1{background:url(../images/businesscard/skin_2/f1.png) no-repeat 0px 50%; background-size:100%;}
+#businesscard_skin_2 .box3 .box3_btn .f2{background:url(../images/businesscard/skin_2/f2.png) no-repeat 0px 50%; background-size:100%;}
+#businesscard_skin_2 .box3 .box3_btn .f3{background:url(../images/businesscard/skin_2/f3.png) no-repeat 0px 50%; background-size:100%;}
+@media all and (max-width:320px){
+	#businesscard_skin_2 .box1 .box1_item .info_item .title span:nth-of-type(1){color:#fff; font-size:16px;}
+	#businesscard_skin_2 .box1 .box1_item .info_item .title span:nth-of-type(2){color:#abadb0; font-size:14px; margin-left:5px}
+	#businesscard_skin_2 .box1 .box1_item .info_item .company{width:100%; margin-top:12px; font-size:12px; color:#fff;}
+}
+
+/* 风格2 end */
+
+/* 风格3 start */
+#businesscard_skin_3{width:100%; margin:0 auto; max-width:640px;background:url(../images/businesscard/skin_3/bg.jpg);}
+#businesscard_skin_3 .arrow_up{position:absolute; left:50%; margin-left:-5px; top:-5px; width:0px; height:0px; border-left:5px solid transparent;  border-right:5px solid transparent; border-bottom:5px solid rgba(255,255,255,0.7); font-size:0px;line-height:0px;}
+#businesscard_skin_3 img{width:100%; vertical-align:top;}
+#businesscard_skin_3 .box2 a{color:#fff;}
+#businesscard_skin_3 .box2 a:hover{color:#fff; text-decoration:none;}
+#businesscard_skin_3 .box1{width:100%; margin:0 auto;background-image:-webkit-linear-gradient(0deg, #f3b199, #141c29);background-image:linear-gradient(0deg,#f3b199,#141c29);}
+#businesscard_skin_3 .box1 .box1_item1{width:84.375%; margin:0 auto; padding-top:28px; padding-bottom:28px;}
+#businesscard_skin_3 .box1 .box1_item1 .face_item{width:31.481%; float:left; border:2px #fff solid; border-radius:50%; overflow:hidden;}
+#businesscard_skin_3 .box1 .box1_item1 .face_item img{border-radius:50%;}
+#businesscard_skin_3 .box1 .box1_item1 .info_item{width:61.11111%; float:right; line-height:30px; padding-top:15px; position:relative;}
+#businesscard_skin_3 .box1 .box1_item1 .info_item span:nth-of-type(1){color:#fff; font-size:22px;}
+#businesscard_skin_3 .box1 .box1_item1 .info_item span:nth-of-type(2){color:#fff; font-size:16px; margin-left:5px}
+#businesscard_skin_3 .box1 .box1_item1 .info_item span:nth-of-type(3){color:#fff; overflow:hidden;}
+#businesscard_skin_3 .box1 .box1_item1 .info_item span:nth-of-type(4){width:14%; right:0px; top:10px; position:absolute; z-index:1000;}
+#businesscard_skin_3 .box1 .box1_item2{width:100%; height:40px; background-color:rgba(255,255,255,0.7); display:-webkit-box;}
+#businesscard_skin_3 .box1 .box1_item2 .icon{position:relative;-moz-box-flex:1;-webkit-box-flex:1; border-right:1px #f5ebea solid; border-left:1px #d5c3c1 solid; text-align:center;}
+#businesscard_skin_3 .box1 .box1_item2 .icon a{display:inline-block; width:41.40625%; height:40px;}
+#businesscard_skin_3 .box1 .box1_item2 .c1{background:url(../images/businesscard/skin_3/c1.png) no-repeat 0px 50%; background-size:100%;}
+#businesscard_skin_3 .box1 .box1_item2 .c2{background:url(../images/businesscard/skin_3/c2.png) no-repeat 0px 50%; background-size:70%;}
+#businesscard_skin_3 .box1 .box1_item2 .c3{background:url(../images/businesscard/skin_3/c3.png) no-repeat 0px 50%; background-size:100%;}
+#businesscard_skin_3 .box1 .box1_item2 .c4{background:url(../images/businesscard/skin_3/c4.png) no-repeat 0px 50%; background-size:100%;}
+#businesscard_skin_3 .box1 .box1_item2 .c5{background:url(../images/businesscard/skin_3/c5.png) no-repeat 0px 50%; background-size:100%;}
+#businesscard_skin_3 .box2{width:100%; margin:0 auto;background:url(../images/businesscard/skin_3/bg.jpg);}
+#businesscard_skin_3 .box2 .box2_item1{width:84.375%;min-height:350px; margin:0 auto;background:url(../images/businesscard/skin_3/line.png) 3% repeat-y;padding-top:10px;}
+#businesscard_skin_3 .box2 .box2_item1 .box2_list{width:100%;}
+#businesscard_skin_3 .box2 .box2_item1 .box2_list .side{width:9.07407%; float:left; height:45px;background:url(../images/businesscard/skin_3/i.png) 0px 50% no-repeat; background-size:100%;}
+#businesscard_skin_3 .box2 .box2_item1 .box2_list .title{width:25%; text-align:center; padding-left:10px; height:45px;line-height:45px; font-size:16px; color:#abadb0; box-sizing:border-box;-webkit-box-sizing:border-box; float:left;}
+#businesscard_skin_3 .box2 .box2_item1 .box2_list .content{width:62%; height:45px; line-height:45px; font-size:18px; color:#fff; float:left; overflow:hidden;}
+#businesscard_skin_3 .box2 .box2_item1 .box2_list .content1{width:62%; word-wrap:break-word; line-height:24px; padding-top:12px; padding-bottom:8px; font-size:18px; color:#fff; float:left;}
+#businesscard_skin_3 .box2 .box2_item1 .line{width:100%; margin:0 auto;}
+#businesscard_skin_3 .box2 .box2_item1 .line .side{width:9.07407%; height:15px; float:left;background:url(../images/businesscard/skin_3/icon2.jpg) 0px 50% repeat-y; background-size:100%;}
+@media all and (max-width:320px){
+	#businesscard_skin_3 .box1 .box1_item1 .info_item span:nth-of-type(3){color:#fff; overflow:hidden; font-size:12px;}
+}
+
+/* 风格3 end */
+
+/* 风格4 start */
+#businesscard_skin_4{width:100%; margin:0 auto; max-width:640px; overflow:hidden; position:relative;}
+#businesscard_skin_4 #ul1{position:absolute; left:0; width:3000px; z-index:9000;}
+#businesscard_skin_4 #ul1 li{float:left;}
+#businesscard_skin_4 #ul1 li img{width:100%; height:100%;}
+#businesscard_skin_4 .box1 a{color:#fff;}
+#businesscard_skin_4 img{width:100%; vertical-align:top;}
+#businesscard_skin_4 .box1{width:100%;max-width:640px; position:absolute; z-index:9500; left:0px; bottom:0px; background-color:rgba(0,0,0,0.7);}
+#businesscard_skin_4 .box1 .box1_item1{width:90.625%; margin:0 auto;}
+#businesscard_skin_4 .box1 .box1_item1 .info_item{width:100%; padding-top:12px; padding-bottom:12px; text-align:center; line-height:28px;}
+#businesscard_skin_4 .box1 .box1_item1 .info_item span:nth-of-type(1){color:#fff; font-size:22px;}
+#businesscard_skin_4 .box1 .box1_item1 .info_item span:nth-of-type(2){color:#fff; font-size:16px; margin-left:5px}
+#businesscard_skin_4 .box1 .box1_item1 .info_item span:nth-of-type(3){color:#fff;}
+#businesscard_skin_4 .box1 .box1_item1 .number_item1{width:100%; height:35px; border-bottom:1px #fff solid;border-top:1px #fff solid;}
+#businesscard_skin_4 .box1 .box1_item1 .number_item1 .icon1{width:4%; height:35px;margin-left:8px;background:url(../images/businesscard/skin_4/icon1.png) no-repeat 0px 50%; background-size:100%; float:left;}
+#businesscard_skin_4 .box1 .box1_item1 .number_item1 .icon2{width:5%; height:35px; margin-left:8px;background:url(../images/businesscard/skin_4/icon2.png) no-repeat 0px 50%;background-size:100%;float:left;}
+#businesscard_skin_4 .box1 .box1_item1 .number_item1 .phone{width:40%; overflow:hidden; text-align:left; color:#fff; font-size:16px; margin-left:8px; height:35px;line-height:35px;float:left;}
+#businesscard_skin_4 .box1 .box1_item1 .number_item1 .phone1{width:40%; overflow:hidden; text-align:left; color:#fff; font-size:12px; margin-left:8px; height:35px;line-height:35px;float:left;}
+#businesscard_skin_4 .box1 .box1_item1 .number_item2{width:100%; height:35px; border-bottom:1px #fff solid;border-top:1px #fff solid; text-align:center;}
+#businesscard_skin_4 .box1 .box1_item1 .number_item2 .icon2{width:5%; height:35px;margin-left:8px;background:url(../images/businesscard/skin_4/icon2.png) no-repeat 0px 50%;background-size:100%; display:inline-block;}
+#businesscard_skin_4 .box1 .box1_item1 .number_item2 .phone{width:40%; line-height:35px; overflow:hidden; text-align:left; color:#fff; font-size:16px; margin-left:8px; height:35px; display:inline-block;}
+#businesscard_skin_4 .box1 .box1_item1 .number_item2 .phone1{width:40%; overflow:hidden; text-align:left; color:#fff; font-size:12px; margin-left:8px; height:35px;line-height:35px; display:inline-block;}
+
+#businesscard_skin_4 .box1 .box1_item1 .footer{width:67.241%; margin:0 auto; margin-top:15px;display:-webkit-box;-webkit-box-pack:Justify;-webkit-box-align:center; padding-bottom:15px;}
+#businesscard_skin_4 .box1 .box1_item1 .footer .f_icon{width:8.59%;}
+/* 风格4 end */
+
+/* 风格5 start */
+#businesscard_skin_5{width:100%; margin:0 auto; max-width:640px;}
+#businesscard_skin_5 .box4 a{color:#fff;}
+#businesscard_skin_5 .box4 a:hover{color:#fff; text-decoration:none;}
+#businesscard_skin_5 img{width:100%; vertical-align:top;} 
+#businesscard_skin_5 .box1{width:100%; margin:0 auto; padding-top:20px; text-align:center;}
+#businesscard_skin_5 .box1 .face_item{width:31.25%; display:inline-block;}
+#businesscard_skin_5 .box2{width:100%; margin:0 auto; padding-top:18px; text-align:center;}
+#businesscard_skin_5 .box2 span{display:inline-block;}
+#businesscard_skin_5 .box2 span:nth-of-type(1){color:#fff; font-size:22px;}
+#businesscard_skin_5 .box2 span:nth-of-type(2){color:#fff; font-size:16px; margin-left:12px}
+#businesscard_skin_5 .box3{width:100%; height:42px; background-color:rgba(255,255,255,0.2); margin-top:15px;}
+#businesscard_skin_5 .box3 .box3_item1 {width:85%; margin:0 auto; display:-webkit-box;}
+#businesscard_skin_5 .box3 .box3_item1 .f_icon{-webkit-box-flex:1; text-align:center;}
+#businesscard_skin_5 .box3 .box3_item1 .f_icon span{display:inline-block; width:42%; height:42px;}
+#businesscard_skin_5 .box3 .box3_item1 .bg1{background:url(../images/businesscard/skin_5/f1.png) no-repeat 0px 50%; background-size:100%;}
+#businesscard_skin_5 .box3 .box3_item1 .bg2{background:url(../images/businesscard/skin_5/f2.png) no-repeat 0px 50%; background-size:100%;}
+#businesscard_skin_5 .box3 .box3_item1 .bg3{background:url(../images/businesscard/skin_5/f3.png) no-repeat 0px 50%; background-size:100%;}
+#businesscard_skin_5 .box3 .box3_item1 .bg4{background:url(../images/businesscard/skin_5/f4.png) no-repeat 0px 50%; background-size:100%;}
+#businesscard_skin_5 .box3 .box3_item1 .bg5{background:url(../images/businesscard/skin_5/icon2.png) no-repeat 0px 50%; background-size:100%;}
+#businesscard_skin_5 .box4{width:81.25%;min-height:280px; margin:0 auto;}
+#businesscard_skin_5 .box4 .box4_list{width:100%; border-bottom:2px #fff solid;}
+#businesscard_skin_5 .box4 .box4_list:first-child{margin-top:15px;}
+#businesscard_skin_5 .box4 .box4_list:last-child{border:none;}
+#businesscard_skin_5 .box4 .box4_list .icon{width:6%; height:45px; margin-left:15px; float:left;}
+#businesscard_skin_5 .box4 .box4_list .bg1{background:url(../images/businesscard/skin_5/c1.png) no-repeat 0px 50%; background-size:100%;}
+#businesscard_skin_5 .box4 .box4_list .bg2{background:url(../images/businesscard/skin_5/c2.png) no-repeat 0px 50%; background-size:100%;}
+#businesscard_skin_5 .box4 .box4_list .bg3{background:url(../images/businesscard/skin_5/c3.png) no-repeat 0px 50%; background-size:100%;}
+#businesscard_skin_5 .box4 .box4_list .bg4{background:url(../images/businesscard/skin_5/c4.png) no-repeat 0px 50%; background-size:100%;}
+#businesscard_skin_5 .box4 .box4_list .bg5{background:url(../images/businesscard/skin_5/c5.png) no-repeat 0px 50%; background-size:100%;}
+#businesscard_skin_5 .box4 .box4_list .bg6{background:url(../images/businesscard/skin_5/qq05.png) no-repeat 0px 50%; background-size:100%;}
+#businesscard_skin_5 .box4 .box4_list .info{width:80%; height:45px; line-height:45px; color:#fff; font-size:18px; float:left;  margin-left:15px;}
+#businesscard_skin_5 .box4 .box4_list .info1{width:80%;word-wrap:break-word; line-height:24px;color:#fff; font-size:18px; float:left; margin-left:15px; padding-top:12px; padding-bottom:8px;}
+/* 风格5 end */
+
+/* 风格6 start */
+#businesscard_skin_6{width:100%; margin:0 auto; max-width:640px; background:url(../images/businesscard/skin_6/bg.jpg); background-size:100% 100%; position:fixed; z-index:100;}
+#section1{width:100%;max-width:640px; position:absolute; z-index:200; top:0px;}
+#section1 img{width:100%; vertical-align:top;} 
+#section1 .box3 a{color:#fff;}
+#section1 .box3 a:hover{color:#fff; text-decoration:none;}
+#section1 .box1{width:75%; margin:0 auto; padding-top:40px;}
+#section1 .box1 .face_item{width:38.125%; float:left; border:3px #fff solid; border-radius:50%; overflow:hidden;}
+#section1 .box1 .face_item img{border-radius:50%;}
+#section1 .box1 .code_item{width:27.083%; float:right; margin-top:18px;}
+#section1 .box1 .code_item .code{width:100%;}
+#section1 .box1 .code_item .name{width:100%; height:24px; text-align:center; line-height:24px; color:#fff;}
+#section1 .box2{width:75%; margin:0 auto; padding-left:25px; box-sizing:border-box;-webkit-box-sizing:border-box; line-height:25px; margin-top:10px;}
+#section1 .box2 span:nth-of-type(1){color:#fff; font-size:22px;}
+#section1 .box2 span:nth-of-type(2){color:#fff; font-size:16px; margin-left:12px}
+#section1 .box3{width:75%; margin:0 auto;}
+#section1 .box3 .box3_list{width:100%;}
+#section1 .box3 .box3_list .icon1{width:8%; height:42px; float:left; margin-left:4.166666%;}
+#section1 .box3 .box3_list .info{ overflow:hidden;width:79%; height:42px; line-height:42px; overflow:hidden; color:#fff; font-size:18px; float:right; margin-left:8.3333%; }
+#section1 .box3 .box3_list .info1{width:79%; line-height:22px; color:#fff; font-size:18px; float:right; margin-left:8.3333%; padding-top:8px;word-wrap:break-word; padding-bottom:8px;}
+#section1 .box3 .box3_list .bg1{background:url(../images/businesscard/skin_6/c1.png) no-repeat 0px 50%; background-size:100%;}
+#section1 .box3 .box3_list .bg2{background:url(../images/businesscard/skin_6/c2.png) no-repeat 0px 50%; background-size:100%;}
+#section1 .box3 .box3_list .bg3{background:url(../images/businesscard/skin_6/c3.png) no-repeat 0px 50%; background-size:100%;}
+#section1 .box3 .box3_list .bg4{background:url(../images/businesscard/skin_6/c4.png) no-repeat 0px 50%; background-size:100%;}
+#section1 .box3 .box3_list .bg5{background:url(../images/businesscard/skin_6/c5.png) no-repeat 0px 50%; background-size:100%;}
+#section1 .box3 .box3_list .bg6{background:url(../images/businesscard/skin_6/c6.png) no-repeat 0px 50%; background-size:100%;}
+#section1 .box3 .box3_list .bg7{background:url(../images/businesscard/skin_6/qq06.png) no-repeat 0px 50%; background-size:100%;}
+#section1 .box3 .box3_line{width:100%; height:2px; background:url(../images/businesscard/skin_6/line.png);}
+#section1 .box3 .box3_list:first-child{margin-top:15px;}
+#section1 .box4{width:75%; margin:0 auto; margin-top:15px;display:-webkit-box;-webkit-box-pack:Justify;-webkit-box-align:center; padding-bottom:15px;}
+#section1 .box4 .f_icon{width:19.116666%;}
+/* 风格6 end */

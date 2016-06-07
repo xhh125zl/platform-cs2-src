@@ -1,0 +1,165 @@
+@charset "utf-8";
+/* CSS Document */
+
+.order-fo .field-sub {
+	padding: 20px 10px 10px;
+}
+
+.order-fo .title {
+	height: 34px;
+	line-height: 34px;
+	border-bottom: 1px solid #AAAAAA;
+	padding: 0 12px;
+	background-color: #DCDCDC;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.order-fo .title span {
+	font-size: 14px;
+	color: #535353;
+	letter-spacing: 1px;
+}
+
+.orde-fo-group {
+	margin-top: 20px;
+	border-top: 1px solid #dddddd;
+}
+
+.order-fo .field {
+	height: 41px;
+	border-bottom: 1px solid #dddddd;
+	background-color: #FFFFFF;
+	font-size: 17px;
+	line-height: 41px;
+	padding: 0 0 0 12px;
+	position: relative;
+}
+
+.order-fo .field-sub .sub {
+	width: 100%;
+	line-height: 44px;
+	text-align: center;
+	border: 0;
+	font-size: 20px;
+	color: #FFFFFF;
+	cursor: pointer;
+	-webkit-appearance: none;
+}
+
+.order-fo .msg-warning {
+	text-align: center;
+	padding: 20px;
+	margin: 10px 22px;
+	border: solid 1px red;
+}
+
+.order-fo .msg-warning h1 {
+	font-size: 20px;
+}
+
+.order-fo .msg-addfood {
+	text-align: center;
+	font-size: 12px;
+}
+
+.order-fo .unit {
+	margin-right: 20px;
+}
+
+.order-fo .price {
+	width: 45px;
+	text-align: center;
+	white-space: nowrap;
+}
+
+.order-na {
+	display: block;
+	margin-right: 110px;
+}
+
+.order-total-price {
+	text-align: center;
+}
+
+.order-iconyuan {
+	margin-right: -4px;
+}
+
+.quanti-wrapper {
+	position: absolute;
+	top: 0;
+	right: 0;
+}
+
+.coupopntogglefield {
+	margin-bottom: -20px;
+}
+
+.coupopntogglefield,.togglecoupon {
+	height: 54px;
+	line-height: 54px;
+}
+
+.togglecoupon {
+	float: right;
+}
+
+.togglecoupon i {
+	float: left;
+	margin-top: 18px;
+}
+
+.togglecoupon span {
+	margin: 0 14px 0 5px;
+	font-size: 16px;
+	color: #a0a0a0;
+}
+
+.couponfold .i-minuscircle {
+	display: none;
+}
+
+.couponexpand .i-pluscircle {
+	display: none;
+}
+
+.coupon-form {
+	margin: 20px 10px 0;
+}
+
+.coupon-input-field {
+	margin-right: 65px;
+}
+
+.coupon-input {
+	height: 40px;
+	width: 100%;
+}
+
+.btn-coupon-use {
+	width: 60px;
+	height: 40px;
+	line-height: 40px;
+	font-size: 20px;
+	color: #fff;
+	background-color: #ff6900;
+	float: right;
+}
+
+.couponfold .coupon-form,.couponfold .conpon-tip {
+	display: none;
+}
+
+.conpon-tip {
+	text-align: center;
+	color: #ff0000;
+	font-size: 16px;
+	margin: 20px 10px 0;
+}
+
+.order-fo .field-sub .sub {
+	background-color: #ff6900;
+}
+

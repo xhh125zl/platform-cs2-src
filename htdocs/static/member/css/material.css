@@ -1,0 +1,58 @@
+/*
+Powered by ly200.com		http://www.ly200.com
+广州联雅网络科技有限公司		020-83226791
+*/
+#material{ padding:12px 10px 10px}
+#material .list .item{width:350px; margin-right:15px; margin-bottom:15px; border:1px solid #ddd; background:#fff; float:left; zoom:1;}
+#material .list .first_item{border:1px dotted #ddd; height:150px; width:305px; padding-left:45px;}
+#material .list .first_item>div{width:85px; text-align:center; float:left; margin:40px 20px;}
+#material .list .first_item div div{width:47px; height:55px; margin:0 auto; background:url(../images/bg.png) -850px -50px no-repeat; margin-bottom:10px;}
+#material .list .first_item div.multi div{background:url(../images/bg.png) -898px -50px no-repeat;}
+#material .list .first_item div div a{display:block; width:47px; height:55px;}
+#material .list .first_item a{color:#B5B5B5;}
+#material .list .multi .list .info{left:20px;}
+#material .button{text-align:center; padding:35px 0; padding-left:35px; width:340px; height:32px;}
+#material .one{padding-top:10px;}
+#material .one div{width:320px; margin:0 auto;}
+#material .one .title{height:22px; line-height:22px; overflow:hidden;}
+#material .one .img{width:320px; text-align:center; height:180px; line-height:180px; overflow:hidden; font-size:20px; color:#888; background:#ECECEC; margin-top:8px;}
+#material .one .img img{max-width:320px; max-height:180px;}
+#material .one .txt{line-height:150%; padding:5px 0;}
+#material div.mod_del{width:350px; background:#F4F4F4; border-top:1px solid #ddd; padding:10px 0; height:24px;}
+#material div.mod_del div{float:left; width:175px; text-align:center; height:18px; padding:3px 0;}
+#material div.mod_del div.mod{width:174px; border-right:1px solid #ddd;}
+#material .multi .time{width:320px; margin:0 auto; padding-top:8px; height:20px; line-height:20px;}
+#material .multi .first{width:320px; margin:0 auto; margin-top:8px; height:208px; position:relative; overflow:hidden; margin-bottom:10px;}
+#material .multi .first .info{position:absolute; width:320px; overflow:hidden;}
+#material .multi .first .info .img{text-align:center; height:180px; line-height:180px; font-size:20px; color:#888; background:#ECECEC;}
+#material .multi .first .info .img img{max-width:320px; max-height:180px;}
+#material .multi .first .info .title{height:28px; line-height:28px; overflow:hidden; text-indent:8px; color:#fff; background:#666; font-size:12px;}
+#material .multi .first .control{position:absolute; width:320px; height:208px; line-height:208px; text-align:center; overflow:hidden; background:#ddd; filter:alpha(opacity=70); -moz-opacity:0.7; -khtml-opacity:0.7; opacity:0.7; display:none;}
+#material .multi .list{border-top:1px solid #ddd; height:92px; overflow:hidden; position:relative;}
+#material .multi .list .info{position:absolute; width:320px; left:10px; height:72px; padding:10px 0;}
+#material .multi .list .info .title{width:240px; float:left; overflow:hidden;}
+#material .multi .list .info .img{width:70px; height:70px; line-height:70px; overflow:hidden; text-align:center; float:right; overflow:hidden; border:1px solid #B2B8BD; background:#ECECEC; color:#C0C0C0;}
+#material .multi .list .info .img img{max-width:70px; max-height:70px;}
+#material .multi .list .control{position:absolute; width:340px; height:92px; line-height:92px; text-align:center; background:#ddd; filter:alpha(opacity=70); -moz-opacity:0.7; -khtml-opacity:0.7; opacity:0.7; display:none;}
+#material .multi .add{text-align:center; border-top:1px solid #B2B8BD; padding:35px 0;}
+#material .m_lefter{float:left; width:340px; overflow:hidden; border:1px solid #ddd; border-bottom:2px solid #ddd; background:#fff; margin-right:5px;}
+#material .m_righter{float:left; width:365px; position:relative; border:none; background:#fff;}
+#material .m_righter .input input{width:280px; height:28px; line-height:28px; border:1px solid #ddd; background:#F5F5F5; text-indent:3px; border-radius:5px;}
+#material .m_righter .tips{font-size:12px; color:#888;}
+#material .m_righter textarea{width:330px; height:80px; line-height:150%; border:1px solid #ddd; background:#F5F5F5; padding:4px; border-radius:5px;}
+#material .m_righter .mod_form{position:absolute; height:190px; top:37px; width:365px; background:#fff;}
+#material .m_righter .mod_form .jt{float:left; width:12px; height:150px; padding-top:40px; z-index:2; position:relative;}
+#material .m_righter .mod_form .m_form{float:left; width:340px; margin-left:-1px; border:1px solid #ddd; background:#fff; padding:5px; z-index:1; position:relative;}
+#material .m_righter select{height:32px; border:1px solid #ddd; padding:5px; width:300px; vertical-align:middle; border-radius:5px; margin-top:5px;}
+#material .m_righter select *{width:300px; overflow:hidden;}
+
+#url .type{margin-bottom:15px; min-height:30px;}
+#url .type a{display:block; width:80px; height:30px; line-height:30px; background:#ddd; float:left; margin-right:5px; text-align:center; text-decoration:none; margin-bottom:5px; position:relative}
+#url .type a.cur, #url .type a:hover{background:#1584D5; color:#fff;}
+#url .type a span{display:block; width:80px; height:30px; line-height:30px; background:#ddd; text-align:center; text-decoration:none; visibility:hidden; z-index:999}
+#url .type a:hover span{background:#1584D5; border-top:1px #79A6D5 solid; color:#fff; visibility:visible; display:block;}
+#url .add_form{border:1px solid #ddd; background:#f7f7f7; margin-bottom:10px;}
+#url .mod_form{border:1px dotted red;}
+#url .add_form td{padding:10px 5px;}
+#url .add_form td .form_input{height:28px; line-height:28px; vertical-align:middle; border-radius:5px;}
+#url .add_form td .submit{height:28px; line-height:28px; background:#1584D5; border:none; color:#fff; width:100px; border-radius:5px; font-size:14px;}

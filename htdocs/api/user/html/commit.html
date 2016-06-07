@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" />
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta content="telephone=no" name="format-detection" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>{{$title}}</title>
+<link href='{{$base_url}}static/css/global.css' rel='stylesheet' type='text/css' />
+<link href='{{$base_url}}static/api/css/user.css' rel='stylesheet' type='text/css' />
+<script type='text/javascript' src='{{$base_url}}static/js/jquery-1.7.2.min.js'></script>
+<script type='text/javascript' src='{{$base_url}}static/api/js/global.js'></script>
+<script type='text/javascript' src='{{$base_url}}static/api/js/user.js'></script>
+
+</head>
+
+<body>
+<script type="text/javascript">$(document).ready(user_obj.payment_init);</script>
+<div id="message">
+  <div class="t"><img src="/static/api/kanjia/image/axe.png" />{{$title}}</div>
+ 
+  <!-- 订单详情 begin -->
+	<div id="commit">
+    <script language="javascript">$(document).ready(user_obj.commit_init);</script>
+    <form action="/api/{{$UsersID}}/user/" method="post" id="commit_form">
+      <dl>
+        <dd> 为卖家打分 <font class="fc_red">*</font><br>
+          <select name="Score" class="score_select">
+           <option value="5">非常满意</option>
+           <option value="4">满意</option>
+           <option value="3">一般</option>
+           <option value="2">差</option>
+           <option value="1">非常差</option>
+          </select>
+        </dd>
+        
+        <dd> 评论内容 <br>
+          <textarea name="Note" value="" notnull="" class="score_textarea"></textarea>
+        </dd>
+        <dt>
+          <input class="submit" value="提交保存" type="button">
+        </dt>
+      </dl>
+      <input name="OrderID" value="{{$OrderID}}" type="hidden">
+      <input name="action" value="commit" type="hidden">
+    </form>
+  </div>
+  	
+  <!-- 订单详情 end -->
+  
+  
+  </div>
+<div id="footer_user_points"></div>
+{{include file="lbi/footer_user.html"}}
+  
+<script language='javascript'>var KfIco='/static/kf/ico/00.png'; var OpenId='1l8obisr35rh22l0hnva910te7'; var UsersID='u768jrowps'; </script>
+<script type='text/javascript' src='/kf/js/webchat.js?t=1425524604'></script>
+</body>
+</html>

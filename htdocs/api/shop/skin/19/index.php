@@ -1,0 +1,201 @@
+<?php
+$Dwidth = array('640','75','75','75');
+$DHeight = array('262','75','75','75');
+$Home_Json=json_decode($rsSkin['Home_Json'],true);
+for($no=1;$no<=4;$no++){
+	$json[$no-1]=array(
+		"ContentsType"=>$no==1?"1":"0",
+		"Title"=>$no==1?json_encode($Home_Json[$no-1]['Title']):$Home_Json[$no-1]['Title'],
+		"ImgPath"=>$no==1?json_encode($Home_Json[$no-1]['ImgPath']):$Home_Json[$no-1]['ImgPath'],
+		"Url"=>$no==1?json_encode($Home_Json[$no-1]['Url']):$Home_Json[$no-1]['Url'],
+		"Postion"=>"t0".$no,
+		"Width"=>$Dwidth[$no-1],
+		"Height"=>$DHeight[$no-1],
+		"NeedLink"=>1
+	);
+}
+
+$rsCategory = $DB->get("shop_category","Category_Name,Category_ID,Category_Img","where Users_ID='".$UsersID."' and Category_IndexShow=1 and Category_ParentID=0 order by Category_Index asc ");
+$category_list = $DB->toArray($rsCategory);
+$ANNOUNCE = $rsConfig["ShopAnnounce"];
+
+if(!empty($_POST)){
+	if(empty($_POST['cate_id'])){
+		//获取新品
+		$counts = $DB->GetRs("shop_products","count(Products_ID) as count","where Users_ID='".$UsersID."' and Products_IsNew=1 and Products_Status=1 and Products_SoldOut=0");
+		$num = 4;//每页记录数
+		$p = !empty($_POST['p'])?intval(trim($_POST['p'])):1;
+		$total = $counts['count'];//数据记录总数
+		$totalpage = ceil($total/$num);//总计页数
+		$limitpage = ($p-1)*$num;//每次查询取记录
+		$rsNewProducts = $DB->get("shop_products","Products_Name,Products_ID,Products_JSON,Products_PriceX,Products_Sales","where Users_ID='".$UsersID."' and Products_IsNew=1 and Products_SoldOut=0 and Products_Status=1 order by Products_Index asc,Products_ID desc limit $limitpage,$num");
+		$new_products = handle_product_list($DB->toArray($rsNewProducts));
+		foreach($new_products as $k => $item){
+			$new_products[$k]['link'] = $shop_url.'products/'.$item['Products_ID'].'/';
+			
+		}
+		if(count($new_products)>0){
+			$data = array(
+			    'list' => $new_products,
+				'totalpage' => $totalpage,
+			);
+		}else{
+			$data = array(//没有数据可加载
+			    'list' => '',
+				'totalpage' => $totalpage,
+			);
+		}
+		echo json_encode($data);
+	}else{
+		//根据栏目id的产品列表
+		$catid = $_POST['cate_id'];
+		$new_products = array();
+		$counts = $DB->GetRs("shop_products","count(Products_ID) as count","where Products_SoldOut=0 and Products_Status=1 and Products_Category like '%,".$catid.",%'");
+		$num = 2;//每页记录数
+		if($counts['count'] <= $num){
+			$show_load_btn = 0;
+		}
+		$p = !empty($_POST['p'])?intval(trim($_POST['p'])):1;
+		$total = $counts['count'];//数据记录总数
+		$totalpage = ceil($total/$num);//总计页数
+		$limitpage = ($p-1)*$num;//每次查询取记录
+		
+		$rsNewProducts = $DB->get("shop_products","Products_Name,Products_ID,Products_JSON,Products_PriceX,Products_Sales","where Products_SoldOut=0 and Products_Category like '%,".$catid.",%' and Products_Status=1 order by Products_Index asc,Products_ID desc limit $limitpage,$num");
+		$new_products = handle_product_list($DB->toArray($rsNewProducts));
+		foreach($new_products as $k => $item){
+			$new_products[$k]['link'] = $shop_url.'products/'.$item['Products_ID'].'/';
+		}
+		if(count($new_products)>0){
+			$data = array(
+			    'list' => $new_products,
+				'totalpage' => $totalpage,
+			);
+		}else{
+			$data = array(//没有数据可加载
+			    'list' => '',
+				'totalpage' => $totalpage,
+			);
+		}
+		echo json_encode($data);
+	}
+	exit;
+}
+?>
+<?php require_once('skin/top.php');?> 
+<body>
+<style type="text/css" media="all">
+    /**
+	 *
+	 * 加载更多样式
+	 *
+	 */
+	.pullUp {
+		background:#fff;
+		height:40px;
+		line-height:40px;
+		padding:5px 10px;
+		border-bottom:1px solid #ccc;
+		font-weight:bold;
+		font-size:14px;
+		color:#888;
+		text-align:center;
+		overflow:hidden;
+	}
+	.pullUp .pullUpIcon  {
+		padding:10px 20px;
+		background:url(/static/js/plugin/lazyload/pull-icon@2x.png) 0 0 no-repeat;
+		-webkit-background-size:40px 80px; background-size:40px 80px;
+		-webkit-transition-property:-webkit-transform;
+		-webkit-transition-duration:250ms;	
+	}
+	.pullUp .pullUpIcon  {
+		-webkit-transform:rotate(0deg) translateZ(0);
+	}
+
+	.pullUp.flip .pullUpIcon {
+		-webkit-transform:rotate(0deg) translateZ(0);
+	}
+
+	.pullUp.loading .pullUpIcon {
+		background-position:0 100%;
+		-webkit-transform:rotate(0deg) translateZ(0);
+		-webkit-transition-duration:0ms;
+
+		-webkit-animation-name:loading;
+		-webkit-animation-duration:2s;
+		-webkit-animation-iteration-count:infinite;
+		-webkit-animation-timing-function:linear;
+	}
+
+	@-webkit-keyframes loading {
+		from { -webkit-transform:rotate(0deg) translateZ(0); }
+		to { -webkit-transform:rotate(360deg) translateZ(0); }
+	}
+ </style>
+<?php
+ad($UsersID, 1, 1);
+?>
+<div id="shop_page_contents">
+ <div id="cover_layer"></div>
+ <link href='/static/api/shop/skin/<?php echo $rsConfig['Skin_ID'];?>/page.css' rel='stylesheet' type='text/css' />
+ <link href='/static/api/shop/skin/<?php echo $rsConfig['Skin_ID'];?>/page_media.css' rel='stylesheet' type='text/css' />
+ <link href='/static/js/plugin/flexslider/flexslider.css' rel='stylesheet' type='text/css' />
+ <script type='text/javascript' src='/static/js/plugin/flexslider/flexslider.js'></script>
+ <script type='text/javascript' src='/static/api/shop/js/index.js'></script>
+ <script language="javascript">
+  var shop_skin_data=<?php echo json_encode($json) ?>;
+  $(document).ready(index_obj.index_init);
+ </script>
+ <div id="shop_skin_index">
+   <div class="shop_skin_index_list banner" rel="edit-t01">
+        <div class="img"></div>
+    </div>
+	<?php if($ANNOUNCE){?>
+	 <div class="sound">
+	  <marquee direction="left" behavior="scroll" scrollamount="3" align="middle" height="30" hspace="0" vspace="0" onMouseOver="this.stop()" onMouseOut="this.start()">
+		<?php echo $ANNOUNCE;?>
+	  </marquee>
+	 </div>
+	 <?php }?>
+	<div class="box">
+		<div class="shop_skin_index_list1">
+			<div class="img"><img src="/static/api/shop/skin/<?php echo $rsConfig["Skin_ID"];?>/i0.png" /></div>
+			<div class="text"><a href="<?=$shop_url.'allcategory/'?>">全部分类</a></div>
+		</div>
+		
+		<div class="shop_skin_index_list" rel="edit-t02">
+			<div class="img"></div>
+			<div class="text"></div>
+		</div>
+		<div class="shop_skin_index_list" rel="edit-t03">
+			<div class="img"></div>
+			<div class="text"></div>
+		</div>
+		<div class="shop_skin_index_list" rel="edit-t04">
+			<div class="img"></div>
+			<div class="text"></div>
+		</div>
+		<div class="clear"></div>
+	</div>
+    <div class="clear"></div>
+ </div>
+ 
+ <div class="index_products">
+   <h2>新品上市</h2>
+   <div class="double_clear"></div>
+   <ul id="more" style="overflow:hidden;"></ul>
+   <div class="pullUp get_more" cate_id="" page="1"> <span class="pullUpIcon"></span><span class="pullUpLabel">点击加载更多...</span> </div>
+ </div>
+ <?php foreach($category_list as $t){?>
+ <div class="index_products">
+  <h2><?php echo $t["Category_Name"]?></h2>
+  <div class="double_clear"></div>
+  <ul id="more<?php echo $t["Category_ID"];?>" style="overflow:hidden;"></ul>
+ </div>
+ <div class="pullUp get_more<?php echo $t["Category_ID"];?>" cate_id="<?php echo $t["Category_ID"];?>" page="1"> <span class="pullUpIcon"></span><span class="pullUpLabel">点击加载更多...</span> </div>
+ <?php }?>
+</div>
+<?php require_once('skin/distribute_footer.php'); ?>
+<?php include("yh_index_ajax.php");?>
+</body>
+</html>

@@ -1,0 +1,48 @@
+body{background:#efefef; font-family:"宋体"}
+#shop_skin_index{width:100%; overflow:hidden; margin:0 auto;}
+#shop_skin_index .img img{width:100%; height:100%;}
+#shop_skin_index .shop_skin_index_list{overflow:hidden; position:relative; z-index:1;}
+#shop_skin_index .banner{width:100%; height:131px; line-height:160px;}
+#shop_skin_index .banner *{width:100%; height:100%; overflow:hidden;}
+
+#shop_skin_index .header{width:100%; height:50px; padding:0 8px 0 140px; box-sizing:border-box; overflow:hidden; position:relative; background:#ffffff;}
+#shop_skin_index .header .logo{width:130px; height:32px; overflow:hidden; position:absolute; left:3px; top:9px;}
+#shop_skin_index .header .search{height:30px; border-radius:15px; overflow:hidden; background:#e5e5e5; position:relative; margin-top:8px;}
+#shop_skin_index .header .search .input{width:100%; height:18px; line-height:18px; padding:0 48px 0 8px; box-sizing:border-box; margin:6px 0; border:none; background:#e5e5e5}
+#shop_skin_index .header .search .submit{width:40px; height:30px; overflow:hidden; position:absolute; top:0px; right:0px; background:url(search.png) center center no-repeat #e5e5e5; background-size:16px 16px; cursor:pointer;  border-top-right-radius:5px;  border-bottom-right-radius:5px;}
+.sound{height:30px; width:100%; background:url('sound.png') no-repeat 10px center #e13e3f; background-size:18px; line-height:30px; font-size:14px; color:#FFF; box-sizing:border-box; padding:0px 10px 0px 32px; overflow:hidden}
+.box{
+	padding:10px 0px;
+	background:#FFF;
+}
+.box .shop_skin_index_list{
+	width:25%;
+	float:left
+}
+
+.box .shop_skin_index_list .img{
+	width:80%;
+	height:auto;
+	margin:0px auto
+}
+
+
+
+
+
+.index_products{margin-top:8px;}
+.index_products h2{height:36px; width:100%; line-height:36px; text-indent:18px; font-size:14px; font-weight:bold; color:#FFF; background:url('cate_pre.jpg') no-repeat 10px center #358fff; overflow:hidden}
+.index_products h2 span{float:right; padding-right:8px; font-size:12px; font-weight:normal;}
+.index_products h2 span a{color:#FFF}
+.index_products ul li{width:50%; float:left; box-sizing:border-box; padding-top:8px}
+.index_products ul li div{width:95%; margin:0px auto; background:#FFF; border:1px #d2d2d2 solid}
+.index_products ul li div p{width:100%; margin:0px auto; padding:0px; font-family:"宋体"; background:#FFF; box-sizing:border-box}
+.index_products ul li div p img{width:100%; display:block}
+.index_products ul li div p.products_title{max-height:44px; line-height:22px; overflow:auto; padding:0px 5px; margin-top:2px;}
+.index_products ul li div p.products_price{height:40px; line-height:15px; font-size:16px; font-weight:bold; color:red; font-family:"Times New Roman"; padding:5px 0px}
+.index_products ul li div p.products_price i{font-size:12px; font-weight:normal; text-decoration:line-through; color:#666; font-style:normal}
+.index_products ul li div p.products_price span{float:right; font-size:14px; font-weight:normal; font-family:"宋体"; display:block; height:30px; width:70px; background:#f81f34; margin-right:6px}
+.index_products ul li div p.products_price span a{display:block; height:30px; line-height:28px; text-align:center; color:#FFF}
+.index_products ul li div p.products_data{padding:0px; margin-top:5px; font-size:12px; border-top:1px #d2d2d2 dotted; height:28px; line-height:28px; color:#666}
+.index_products ul li div p.products_data span{float:right; margin-right:5px; font-size:12px; font-weight:normal; color:#666; font-family:"宋体";}
+

@@ -1,0 +1,12 @@
+@charset "utf-8";
+/* CSS Document */
+
+/*提现记录样式*/
+ul#withdraw-record-nav{margin:0px;background:#FFF; width:100%}
+ul#withdraw-record-nav  li.item{display:block; padding:8px 0px; height:auto; line-height:16px; float:left; width:25%; text-align:center; background:url(../images/border_r.jpg) no-repeat right top; font-size:15px; color:#000}
+ul#withdraw-record-nav  span{font-size:15px;}
+ul#withdraw-record-nav .bold{font-weight:bold;}
+ul#withdraw-record-nav  li.cur a{color:#F60;}
+
+#withdraw-list  .list-group-item span.fa{float:right;margin-right:10px;cursor:pointer;}
+#withdraw-list  div.detail{font-size:15px;width:100%;display:none;}

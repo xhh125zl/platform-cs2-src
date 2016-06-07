@@ -1,0 +1,87 @@
+/*
+Powered by ly200.com		http://www.ly200.com
+广州联雅网络科技有限公司		020-83226791
+*/
+
+.r_con_wrap .r_con_table td.upd_points select, .r_con_wrap .r_con_table td.upd_points input{width:68px;}
+
+#skin-list{margin-top:9px;}
+#skin-list li{float:left; width:210px; height:300px; overflow:hidden; padding-right:8px; margin-bottom:8px;}
+#skin-list li .item{position:relative; width:200px; height:300px;}
+#skin-list li .item .img{position:absolute; width:200px; height:300px; z-index:1;}
+#skin-list li .item .filter{position:absolute; width:200px; height:300px; z-index:2;}
+#skin-list li .item .bg{position:absolute; width:200px; height:300px; z-index:3;}
+#skin-list li .item_on .filter{background:#000; filter:alpha(opacity=70); -moz-opacity:0.7; -khtml-opacity:0.7; opacity:0.7;}
+#skin-list li .item_on .bg{background:url(../images/user/selected-icon.png) center center no-repeat;}
+
+#mod_user_pass{z-index:10001;}
+#mod_user_pass .tips{height:100px; line-height:100px; text-align:center; background:#fff; font-size:14px; display:none;}
+
+#card_style{border:1px solid #ddd; background:#f5f5f5; padding:17px; margin-top:5px;}
+#card_style .file .input{background:#fff;}
+#card_style .file .tips{margin-top:5px; color:#999;}
+#card_style .file .logo_upload{float:left; width:130px;}
+#card_style .file .del{float:left; padding-top:8px;}
+#card_style .file .img{max-width:180px; max-height:54px; overflow:hidden; background:#fff;}
+#card_style .file .img img{width:100%;}
+#card_style .style{width:269px; border-radius:5px; min-height:161px; text-align:center; padding-bottom:8px;}
+#card_style .style img{width:267px; height:161px; margin-bottom:8px;}
+#card_style .style a{font-size:12px;}
+#card_style_list .list{height:450px; overflow:auto;}
+#card_style_list table{background:#fff; width:460px;}
+#card_style_list table td{text-align:center; padding:15px;}
+#card_style_list table td:hover{background:#ddd;}
+#card_style_list table td a{width:200px; height:120px; overflow:hidden; display:block; border:3px solid #fff; border-radius:10px;}
+#card_style_list table td a.cur{border:3px solid #F60;}
+#card_style_list table td a img{width:100%; height:100%;}
+
+#card_article .r_con_table td.status, #card_benefits .r_con_table td.status, #coupon_list .r_con_table td.status{color:#1584D5; font-weight:bold;}
+#card_article .r_con_table td.fc_blue, #card_benefits .r_con_table td.fc_blue, #coupon_list .r_con_table td.fc_blue{color:#00C;}
+#card_article .r_con_table td img, #card_benefits .r_con_table td img, #coupon_list .r_con_table td img{ margin:0 3px; vertical-align:middle;}
+
+#coupon_list .none{display:none;}
+
+#user .search{padding:10px; height:45px; background:#f7f7f7; border:1px solid #ddd; margin-bottom:8px; font-size:12px;}
+#user .search *{font-size:12px;}
+#user .search .search_btn{background:#1584D5; color:white; border:none; height:22px; line-height:22px; width:80px; cursor:pointer;}
+#user .search .l{float:left;}
+#user .search .r{float:right;}
+#user .face{width:60px;}
+#update_post_tips{position:fixed; width:200px; height:36px; line-height:36px; background:#1584D5; color:#fff; text-align:center; left:0; top:200px; display:none;}
+
+#business_password .type{margin-bottom:15px; height:30px;}
+#business_password .type a{display:block; width:80px; height:30px; line-height:30px; background:#ddd; float:left; margin-right:10px; text-align:center; text-decoration:none;}
+#business_password .type a.cur, #url .type a:hover{background:#1584D5; color:#fff;}
+#business_password .add_form{border:1px solid #ddd; background:#f7f7f7; margin-bottom:10px;}
+#business_password .mod_form{border:1px dotted red;}
+#business_password .add_form td{padding:10px 5px;}
+#business_password .add_form td .form_input{height:28px; line-height:28px; vertical-align:middle; border-radius:5px;}
+#business_password .add_form td .submit{height:28px; line-height:28px; background:#1584D5; border:none; color:#fff; width:100px; border-radius:5px; font-size:14px;}
+
+#user_level .r_con_table td label{display:inline-block; width:128px; height:30px; overflow:hidden; float:left;}
+#user_level .r_con_table td span.pic{display:inline-block; margin-left:20px; float:left; text-align:center;}
+#user_level .r_con_table td span.pic img{max-width:100px; max-height:60px;}
+#user_level .r_con_table *[disabled]{border:1px solid #ddd; background:#fff; color:#acacac;}
+
+#user_profile .pointer{cursor:pointer;}
+
+#gift .search{padding:10px; background:#f7f7f7; border:1px solid #ddd; margin-bottom:8px; display:none; font-size:12px;}
+#gift .search *{font-size:12px;}
+#gift .search .search_btn{background:#1584D5; color:white; border:none; height:22px; line-height:22px; width:50px;}
+#gift .img{width:150px;}
+
+#gift_orders .search{padding:10px; background:#f7f7f7; border:1px solid #ddd; margin-bottom:8px; font-size:12px;}
+#gift_orders .search *{font-size:12px;}
+#gift_orders .search .search_btn{background:#1584D5; color:white; border:none; height:22px; line-height:22px; width:50px;}
+#gift_orders .img{width:150px;}
+
+.page {text-align:center;}
+
+
+.modal-content{border-radius:0px;box-shadow:none;font-family:"微软雅黑";font-size:14px;}
+.modal-content select{border-radius:0px;}
+.modal-body{padding:10px;}
+.modal-content .area_select{text-align:center;}
+.modal-header {background:#F1F1F1;min-height: 16.4286px; padding: 8px; border-bottom: 1px solid #E5E5E5;}
+.modal-footer {margin-top:0px;padding:8px;}
+.province-list{width:730px;}

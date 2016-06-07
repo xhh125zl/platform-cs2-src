@@ -1,0 +1,117 @@
+@charset "utf-8";
+/* CSS Document */
+.r_con_form .deliver_content_container:hover{background:#ffffff;}
+
+#deliver_content {width:800px;}
+#deliver_content  p{margin-top:5px;margin-bottom:5px;}
+#deliver_content .poster_detail{padding:10px;border:1px solid #B2D1FF;}
+#deliver_content .default{background:#F3FEED;padding:8px 5px;}
+#deliver_content .input-text{width:6em;}
+
+
+#deliver_content .hide{display:none;}
+#deliver_content .poster_detail table {overflow:hidden;border:1px solid #d3d3d3;background:#fefefe;width:100%;margin:5px 0 0 0;-moz-border-radius:5px; /* FF1+ */-webkit-border-radius:5px; /* Saf3-4 */-moz-box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);-webkit-box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);}
+#deliver_content .poster_detail table th, td {padding:6px 8px 6px; text-align:center; }
+#deliver_content .poster_detail table th {padding-top:8px; text-shadow: 1px 1px 1px #fff; background:#e8eaeb;}	
+#deliver_content .poster_detail table td {border-top:1px solid #e0e0e0; border-right:1px solid #e0e0e0;}	
+#deliver_content .poster_detail table tr.odd-row td {background:#f6f6f6;}
+#deliver_content .poster_detail table td.first, th.first {text-align:left}
+#deliver_content .poster_detail table td.last {border-right:none;}
+
+#deliver_free_content  table {overflow:hidden;border:1px solid #d3d3d3;background:#fefefe;width:100%;margin:5px 0 0 0;-moz-border-radius:5px; /* FF1+ */-webkit-border-radius:5px; /* Saf3-4 */-moz-box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);-webkit-box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);}
+#deliver_free_content  table th, td {padding:6px 8px 6px; text-align:center; }
+#deliver_free_content  table th {padding-top:8px; text-shadow: 1px 1px 1px #fff; background:#e8eaeb;}	
+#deliver_free_content  table td {border-top:1px solid #e0e0e0; border-right:1px solid #e0e0e0;}	
+#deliver_free_content  table tr.odd-row td {background:#f6f6f6;}
+#deliver_free_content  table td.first, th.first {text-align:left}
+#deliver_free_content  table td.last {border-right:none;}
+
+/*免费table 样式*/
+#deliver_free_content {width:700px;font-size:14px;}
+#deliver_free_content table{width:100%;margin-top:15px;border-spacing:0;border-collapse:collapse;}
+#deliver_free_content table th{height:14px;font-weight:400;background-color:#f5f5f5;text-align:center;border:1px solid #bbb}
+#deliver_free_content table td{border:1px solid #bbb;background:#fcfcfc;padding:8px}
+#deliver_free_content table td select{width:87px}
+#deliver_free_content .small-icon{display:inline-block;width:14px;height:14px;margin-left:15px;background:url(//img.alicdn.com/tps/i4/TB1TlaNFVXXXXXLXpXXCKzvHXXX-48-14.png) 0 0 no-repeat}
+#deliver_free_content .free-contion{margin-top:5px}
+#deliver_free_content .free-contion input{width:36px}
+#deliver_free_content .J_DelateItem{background-position:-34px 0}
+#deliver_free_content .area-group{padding-right:3em;display:block}
+#deliver_free_content .hidden{display:none}
+#deliver_free_content table td.hui-error{padding:10px 0;border:0}
+#deliver_free_content table td select.J_ChageContion{width:100px}
+#deliver_free_content .free-contion input.input-65{width:65px}
+#deliver_free_content select{padding:0px;border-radius:0;height:24px;!important;}
+
+/*
+	Background gradients are completely unnecessary but a neat effect.
+*/
+#deliver_content .poster_detail table	td {background:#fefefe;}
+#deliver_content .poster_detail table	tr.odd-row td {	background: -moz-linear-gradient(100% 25% 90deg, #f6f6f6, #f1f1f1);background: -webkit-gradient(linear, 0% 0%, 0% 25%, from(#f1f1f1), to(#f6f6f6));}
+#deliver_content .poster_detail table	th {background: -moz-linear-gradient(100% 20% 90deg, #e8eaeb, #ededed);	background: -webkit-gradient(linear, 0% 0%, 0% 20%, from(#ededed), to(#e8eaeb));}
+	
+#deliver_content a{color:#3366CC;}	
+	 
+		
+/*选择地区对话框样式*/
+.dialog-areas{position:absolute;width:580px;border:1px solid #c4d5df;background-color:#fff}
+.dialog-areas .title{padding-left:10px;height:22px;line-height:22px;font-weight:700;background-color:#e9f1f4;border-width:1px;border-color:#fff #fff #c4d5df}
+.dialog-areas .even{background-color:#ecf4ff}
+.dialog-areas .btns{padding:5px 0 5px 10px;margin-left:430px}
+.dialog-areas label{margin:0 3px}
+.dialog-areas ul{border-bottom:1px solid #c4d5df}
+.dialog-areas li{width:100%;overflow:hidden}
+.dialog-areas li span.group-label{margin-right:5px;padding:5px 0 5px 10px;display:inline-block;width:70px;font-weight:700}
+.dialog-areas button{margin-right:5px;padding:2px 3px}
+.dialog-areas .btns .msg{position:absolute}
+.dialog-areas button,.dialog-areas input{vertical-align:middle}
+.dialog-areas .ks-ext-close{position:absolute;top:5px;right:5px;font-size:10px}
+.dialog-areas .areas b{display:none;width:0;height:0;line-height:0;font-size:0;border-width:4px;border-color:#666 #fff #fff;border-style:solid;vertical-align:middle;overflow:hidden}
+.ks-ext-mask{background-color:#fff;opacity:.3;filter:alpha(opacity=30)}
+.dialog-address{position:absolute;width:580px;border:1px solid #95d2ff;background-color:#f1fafe}
+.dialog-address .hd{padding:0 5px;height:30px;line-height:30px;overflow:hidden}
+.dialog-address h3{display:inline}
+.dialog-address .action{float:right}
+.dialog-address table{width:100%;border-left:1px solid #fff}
+.dialog-address caption{display:none}
+.dialog-address .col-uid{width:30px}
+.dialog-address .col-name{width:80px}
+.dialog-address .col-postcode{width:60px}
+.dialog-address .col-mobile,.dialog-address .col-phone{width:90px}
+.dialog-address td{padding:5px;height:34px;border-width:0 1px 1px 0;border-style:solid;border-color:#fff;background-color:#e2efff;word-wrap:break-word}
+.dialog-address .even td{background-color:#cbe1ff}
+.dialog-address input{vertical-align:middle}
+.dialog-address .ft{padding:5px}
+.dialog-batch{position:absolute;width:580px;padding:10px;border:1px solid #95d2ff;background-color:#fff}
+.dialog-batch .input-text{width:6em;height:15px;line-height:15px;padding:1px 0;border:1px solid #7f9db9}
+.dialog-batch .input-readonly{background-color:#eee;border:1px solid #ccc}
+.dialog-batch .btns{padding-top:10px;text-align:center}
+.dialog-batch button{margin:0 5px}
+.dialog-batch .ks-ext-close{position:absolute;top:5px;right:5px;font-size:10px}
+.clearfix:after{display:block;height:0;clear:both;content:''}
+.clearfix{zoom:1}
+.citys{background-color:#FFFEC6;position:absolute;float:right;border:solid 1px #f7e4a5;z-index:20000;top:23px;left:0;width:214px;display:none;white-space:wrap}
+.styblock{display:block}
+.citys span{line-height:2;margin-right:2px}
+.dialog-areas li{overflow:visible}
+.dcity{vertical-align:middle;display:block;z-index:1}
+.ecity{position:relative;float:left;margin-right:1px;padding-right:8px;height:30px;width:80px}
+.gcity,.province-list{display:inline-block}
+.province-list{width:450px}
+.trigger{width:8px;height:8px;padding:2px;cursor:pointer}
+.dialog-areas li span.areas{margin-right:3px;padding:4px 0 1px 4px;display:inline-block}
+.dialog-areas span.gareas{white-space:nowrap;margin-right:3px;padding:4px 4px 1px;display:inline-block;position:relative;height:17px;border:1px solid #fff}
+.dialog-areas .even span.gareas{background-color:#ECF4FF;border-color:#ecf4ff}
+.dialog-areas li span.egareas{margin-right:3px;padding:3px 0 1px;display:inline-block;background-color:#FFFEC6;border:solid 1px #f7e4a5;width:70px}
+.showCityPop{z-index:55556}
+.dialog-areas .showCityPop .gareas{background-color:#FFFEC6;border:solid 1px #f7e4a5;border-bottom:solid 1px #FFFEC6;z-index:56000}
+.dialog-areas .even .showCityPop .gareas{background-color:#FFFEC6;border-color:#f7e4a5 #f7e4a5 #FFFEC6}
+.showCityPop .citys{display:block;z-index:55900}
+.checkbox{vertical-align:middle;padding:0}
+.dialog-areas label{margin:0 1px}
+.check_num{color:#F60;font-size:12px;letter-spacing:-1px}
+.j_sellerBearFrePrice{display:none;width:4em;height:15px;line-height:15px;padding:1px 0;border:1px solid #7f9db9;text-align:right}
+
+.del-line{text-decoration:line-through;text-decoration-color:red;}		
+		
+	

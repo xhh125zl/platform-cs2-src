@@ -1,0 +1,11 @@
+body,html{background:#f7f7f7;}
+body *{font-size:14px;}
+body a{cursor:pointer;}
+.wrap{width:100%; margin:0 auto; clear:both; overflow:hidden;}
+
+#shop_page_contents{width:100%;}
+#cover_layer{width:100%; height:100%; top:0px; display:none; z-index:100000; background:#000; filter:alpha(opacity=20); opacity:0.2; -moz-opacity:0.2; position:fixed; overflow:hidden;}
+
+.shareimg{display:none}
+#back-to-top{height:50px;width:50px;border-radius:50%;background:rgba(102,102,102,0.6) url('../images/back_to_top.png') no-repeat center center;background-size:40% 40%;position:fixed;right:10px;bottom:60px; overflow:hidden;}
+

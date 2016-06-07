@@ -1,0 +1,141 @@
+@charset "utf-8";
+/* CSS Document */
+*{
+    margin:0;
+	padding:0;
+	font-size: 12px;
+	font-family: 微软雅黑,Arial,宋体;
+}
+input,div,h2,select{
+    font-size:20px;
+	color:#7c7e8a;
+}
+body{
+    background:#f5f5f5;
+}
+.clear{
+    clear: both;
+    font-size: 0;
+    height: 0;
+    margin: 0 auto;
+	overflow:hidden;
+}
+.login_logo{clear:both; width:100%; height:50px; position:relative;}
+.login_logo{display:block; width:150px; height:50px; margin:0px auto;}
+.login_box{
+    width:740px;
+    height:490px;
+	position:relative;
+}
+.login_box .alpha{
+    position:absolute;
+	top:0;
+	left:0;
+	width:720px;
+	height:470px;
+	z-index:1;
+    -moz-opacity: 0.2; /* FF 3.5以下 */  
+    opacity: 0.2; /* FF 3.5及以上 */  
+    filter: alpha(opacity=20); /* IE6及以上 */  
+    border: 10px solid #cccccc;
+	border-radius: 15px;
+}
+.login_box .tab_box{
+    position:absolute;
+	top:0;
+	left:0;
+	width:720px;
+	height:470px;
+	z-index:2;
+	border-radius: 3px;
+	background:#ffffff;
+}
+.login_box .tab_box h2{
+    float:left;
+	width:50%;
+	height:75px;
+	line-height:75px;
+	text-align:center;
+	font-weight:500;
+	background:#d2d8d8;
+	color:#809191;
+	cursor:pointer;
+}
+.login_box .tab_box h2.cur{
+    background:#ffffff;
+	color:#505260;
+}
+.login_box .tab_box .login_con{
+    width:90%;
+	margin:0 auto;
+}
+.login_box .tab_box .login_con input{
+    display:block;
+	margin:0 auto;
+    width:100%;
+	height:45px;
+	line-height:45px;
+	background:none;
+	border:solid 1px #d2d8d8;
+	border-radius: 3px;
+	margin-top:30px;
+	text-indent:40px;
+}
+.login_box .tab_box .login_con .name{
+    background:url(../images/login/username.png) 10px center no-repeat;
+}
+.login_box .tab_box .login_con .password{
+    background:url(../images/login/pass.png) 10px center no-repeat;
+}
+.login_box .tab_box .login_con .login_btn{
+    text-indent:0;
+	background:#2f889a;
+	border:none;
+	color:#ffffff;
+}
+.login_box .login_msg{height:40px; padding-top:10px; font-size:14px; font-family:"宋体"; color:#FF0000; line-height:40px;}
+/*注册界面*/
+.login_box .tab_box .reg_con{
+    width:90%;
+	margin:0 auto;
+}
+.login_box .tab_box .reg_con input{
+    display:block;
+	margin:0 auto;
+    width:100%;
+	height:45px;
+	line-height:45px;
+	background:none;
+	border:solid 1px #d2d8d8;
+	border-radius:3px;
+	margin-top:30px;
+	text-indent:50px;
+}
+.login_box .tab_box .reg_con .name{
+    background:url(../images/login/username.png) 10px center no-repeat;
+}
+.login_box .tab_box .reg_con .password{
+    background:url(../images/login/pass.png) 10px center no-repeat;
+}
+.login_box .tab_box .reg_con .reg_btn{
+    text-indent:0;
+	background:#2f889a;
+	border:none;
+	color:#ffffff;
+}
+.login_box .tab_box .reg_con select{
+    display:block;
+	width:45%;
+	height:40px;
+	line-height:40px;
+	background:url(../images/login/select_ico.png) right center no-repeat;
+	padding:0 5px;
+	border:solid 1px #d2d8d8;
+	margin-top:30px;
+}
+.login_box .tab_box .reg_con select.trade_1{
+    float:left;
+}
+.login_box .tab_box .reg_con select.trade_2{
+    float:right;
+}

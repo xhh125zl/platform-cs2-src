@@ -1,0 +1,23 @@
+/*
+Powered by ly200.com		http://www.ly200.com
+广州联雅网络科技有限公司		020-83226791
+*/
+
+#survey_list .tips{width:93%; background:#f5f5f5; border-radius:4px; border:1px solid #ddd; margin-bottom:10px; padding:8px 35px 8px 14px;}
+#survey_list .topic{width:100%; padding:20px 0; border-bottom:1px solid #ddd;}
+#survey_list .topic .title{line-height:28px; padding:3px 0; font-size:14px;}
+#survey_list .topic .title *{font-size:14px;}
+#survey_list .topic .title img{vertical-align:middle; margin-left:5px;}
+#survey_list .topic .answer .list{width:350px; height:30px; overflow:hidden; margin-right:10px; float:left;}
+#survey_list .topic .answer .list:hover{background:#e6e6e6;}
+#survey_list .topic .answer .list .t{height:30px; line-height:30px; float:left; overflow:hidden; white-space:nowrap; width:300px; text-overflow:ellipsis; font-size:14px;}
+#survey_list .topic .answer .list .opt{float:right; height:16px; padding-top:5px; padding-right:8px; display:none;}
+
+#survey_list .topic .answer .percent{width:350px; float:left; overflow:hidden; height:28px; border:1px solid #ddd; background:#f7f7f7; border-radius:5px; position:relative;}
+#survey_list .topic .answer .percent .bg{background:#1584D5; height:28px; position:absolute; left:0; top:0;}
+#survey_list .topic .answer .percent .txt{width:100%; height:28px; line-height:28px; left:0; top:0; position:absolute; text-align:center; font-size:12px;}
+
+.form .rows .input .file_upload{width:125px; float:left;}
+.form .rows .input .img_detail{float:left;}
+.form .rows .input .img_detail img{max-width:100px; max-height:30px;}
+.form .rows .input .big_size_tips{float:left; height:30px; line-height:30px; color:#888;}

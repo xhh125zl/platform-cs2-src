@@ -1,0 +1,84 @@
+/*
+Powered by ly200.com		http://www.ly200.com
+广州联雅网络科技有限公司		020-83226791
+*/
+
+html, body{background:url(../images/fruit/bg.png) 0 0 repeat;}
+
+#fruit_success{display:none; width:90%; height:80px; line-height:80px; margin:0 auto; position:fixed; bottom:0; left:0; right:0; z-index:10000; border:1px solid #0B8E00; border-radius:8px; filter:alpha(opacity=0); -moz-opacity:0; -khtml-opacity:0; opacity:0; text-align:center; font-weight:bold; background:#1EA400; font-size:20px; color:#fff;}
+
+#fruit .none{display:none;}
+#fruit .refer{border:1px solid #ddd; width:95%; margin:8px auto; box-sizing:border-box; border-radius:5px; background:#fff; padding:8px;}
+#fruit .refer>span{display:block; font-size:16px; border-bottom:1px dotted #ddd; line-height:150%; padding-bottom:5px; text-indent:2px; font-weight:bold;}
+#fruit .refer>span>font{color:#FF0000; font-size:16px;}
+#fruit .refer>div{font-size:14px; color:#666; line-height:150%; padding-top:5px; padding-left:2px; zoom:1; min-height:80px;}
+#fruit .refer>div>h3{float:left; width:50%; height:26px; line-height:26px; overflow:hidden; color:#888; text-indent:20px;}
+#fruit .refer>div>h3 a{color:#888;}
+#fruit .refer .input{padding-bottom:5px; padding-top:3px;}
+#fruit .refer .input .form_input{border:1px solid #ddd; border-radius:5px; width:99%; height:32px; line-height:32px; background:#fff;}
+#fruit .refer .submit{width:100%; margin:5px auto; margin-bottom:12px; box-sizing:border-box; -webkit-box-sizing:border-box; -moz-box-sizing:border-box; background-color:#F30; padding:8px; font-size:18px; border:1px solid #F00; background-image:linear-gradient(bottom, #F30 0, #F93 100%); background-image:-moz-linear-gradient(bottom, #F30 0, #F93 100%); background-image:-webkit-linear-gradient(bottom, #F30 0, #F93 100%); box-shadow:0 1px 0 #F96 inset, 0 1px 2px rgba(0,0,0,0.5); border-radius:5px; color:#fff; text-shadow:0 1px rgba(0,0,0,0.2);}
+#fruit .refer .use .submit{width:60%; float:left;}
+#fruit .refer .use .close{width:39%; margin:5px auto; margin-bottom:12px; box-sizing:border-box; -webkit-box-sizing:border-box; -moz-box-sizing:border-box; background-color:#666; padding:8px; font-size:18px; border:1px solid #333; background-image:linear-gradient(bottom, #666 0, #bbb 100%); background-image:-moz-linear-gradient(bottom, #666 0, #bbb 100%); background-image:-webkit-linear-gradient(bottom, #666 0, #bbb 100%); box-shadow:0 1px 0 #e0e0e0 inset, 0 1px 2px rgba(0,0,0,0.5); border-radius:5px; color:#fff; text-shadow:0 1px rgba(0,0,0,0.2); float:right;}
+
+#fruit .refer>div.prize_list{ width:100%;}
+#fruit .refer>div.prize_list ul{ width:100%; margin:0; padding:0;}
+#fruit .refer>div.prize_list li{list-style:none; padding:5px 0; border-top:1px dotted #bbb; font-size:14px;}
+#fruit .refer>div.prize_list li.bn{border:none;}
+#fruit .refer>div.prize_list li label{display:block; width:20px; height:21px; line-height:21px; float:left; overflow:hidden; font-size:14px;}
+#fruit .refer>div.prize_list li span{display:block; width:80%; line-height:21px; float:left; overflow:hidden; font-size:14px;}
+#fruit .refer>div.prize_list li span .sn{font-size:14px; color:#F00;}
+#fruit .refer>div.prize_list li span .time{font-size:14px; color:#F60; text-decoration:underline;}
+#fruit .refer>div.prize_list li span a{margin-left:12px; text-decoration:underline; color:#06F; font-size:14px;}
+#fruit .tips{padding:10px; padding-top:20px;}
+#fruit .tips .cur{color:#fff; font-size:24px; font-weight:bold; text-align:center;}
+#fruit .tips .need{padding:10px 0; padding-bottom:30px; text-align:center; font-size:18px; font-weight:bold; color:#fff;}
+#fruit .tips .btn{width:100%; display:block; text-align:center; -webkit-box-sizing:border-box; -moz-box-sizing:border-box; background-color:#F30; padding:8px; font-size:18px; border:1px solid #F00; background-image:linear-gradient(bottom, #F30 0, #F93 100%); background-image:-moz-linear-gradient(bottom, #F30 0, #F93 100%); background-image:-webkit-linear-gradient(bottom, #F30 0, #F93 100%); box-shadow:0 1px 0 #F96 inset, 0 1px 2px rgba(0,0,0,0.5); border-radius:5px; color:#fff; text-shadow:0 1px rgba(0,0,0,0.2); text-decoration:none;}
+
+.machine{width:316px; height:234px; background:url(../images/fruit/tigerslot.png) 0 0 no-repeat; margin:3px auto 60px auto; position:relative; overflow:visible;}
+.machine .gamebutton{position:absolute; bottom:-50px; width:122px;height:94px; left:50%;margin-left:-61px; background:url(../images/fruit/tigerslot.png) -63px -253px no-repeat; z-index:200;}
+.machine .gamebutton.stop{ background:url(../images/fruit/tigerslot.png) -185px -255px no-repeat;}
+.machine .gamebutton.disabled{ opacity:0.4;}
+
+.tigerslot{padding:0; background:url(../images/fruit/bg.png) 0 0 repeat; height:300px; margin:10px auto 0; overflow:hidden;}
+.tigerslot .strip{ position:absolute; width:63px;height:100px;}
+.tigerslot .strip.left{ top:84px;left:50px;}
+.tigerslot .strip.middle{ top:84px;left:126px;}
+.tigerslot .strip.right{ top:84px;left:202px;}
+.tigerslot .box{ position:absolute; width:50px;height:100%; top:0;left:50%;margin-left:-25px; overflow:hidden; z-index:100; background:url(../images/fruit/item.png) 0 25px repeat-y;}
+.tigerslot .cover{ position:absolute; left:0;top:0; width:100%;height:100%; z-index:100; margin:0; background:url(../images/fruit/tigerslot.png) 0 -253px no-repeat;}
+.tigerslot .part{ margin:10px 10px 3px 10px; border:2px solid #306931; min-height:100px; border-radius:8px; background-color:#FFF9B3; position:relative;}
+.tigerslot .part .title{ margin:3px; width:113px;height:18px; background:url(../images/fruit/tigerslot.png) 0 -356px no-repeat; padding:3px 3px 3px 6px; font-size:14px; line-height:18px; text-shadow:none; color:#FFFFFF;}
+.tigerslot .part .content{ font-size:12px; text-shadow:none; padding:8px;}
+.tigerslot .part .content ul{ padding:0; margin:0;}
+.tigerslot .part .content ul li{ margin:1px; list-style:none;}
+.tigerslot .part .content ol{ padding-left:30px; margin:0;}
+.tigerslot .part .content ol li{ margin:0 0 15px 0;}
+.tigerslot .part .content .prize{ margin:1px;}
+.tigerslot .part .content .code{ color:#FF0000;}
+.tigerslot .part .content .getprize{ margin-left:15px; text-decoration:underline; color:#0000FF;}
+.tigerslot .part .content .hadgetprize{ display:none; margin-left:15px; color:#5ab500;}
+.tigerslot .part .content .hasGetPrize .getprize{ display:none;}
+.tigerslot .part .content .hasGetPrize .hadgetprize{ display:inline;}
+.tigerslot .light{position:absolute; width:24px;height:24px; background:url(../images/fruit/tigerslot.png) -131px -354px no-repeat;}
+.tigerslot .light.on{ background:url(../images/fruit/tigerslot.png) -155px -354px no-repeat; }
+.tigerslot .light.l0{ left:65px;top:0;}
+.tigerslot .light.l1{ left:110px;top:0;}
+.tigerslot .light.l2{ left:154px;top:0;}
+.tigerslot .light.l3{ left:196px;top:0;}
+.tigerslot .light.l4{ left:240px;top:0;}
+.tigerslot .light.l5{ left:278px;top:14px;}
+.tigerslot .light.l6{ left:288px;top:48px;}
+.tigerslot .light.l7{ left:293px;top:84px;}
+.tigerslot .light.l8{ left:293px;top:124px;}
+.tigerslot .light.l9{ left:289px;top:162px;}
+.tigerslot .light.l10{ left:280px;top:194px;}
+.tigerslot .light.l11{ left:254px;top:212px;}
+.tigerslot .light.l12{ left:220px;top:212px;}
+.tigerslot .light.l13{ left:80px;top:212px;}
+.tigerslot .light.l14{ left:40px;top:212px;}
+.tigerslot .light.l15{ left:11px;top:194px;}
+.tigerslot .light.l16{ left:4px;top:162px;}
+.tigerslot .light.l17{ left:0;top:124px;}
+.tigerslot .light.l18{ left:0;top:84px;}
+.tigerslot .light.l19{ left:5px;top:48px;}
+.tigerslot .light.l20{ left:17px;top:14px;}

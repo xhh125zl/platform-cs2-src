@@ -1,0 +1,18 @@
+@charset "utf-8";
+/* CSS Document */
+.text-center{text-align:center;}
+.poster-image{position:relative;}
+.info{ color:#D3D3D4;position: absolute;left:0;right:0;bottom:0;height:70%;width: 100%;font:20px Microsoft YaHei, Verdana;color:#ffffff;text-align:center;padding-top:30%;}
+.info img{width:70px;height:70px;}
+.info #shop_name{font-size:20px;font-weight:bold;margin-top:10px;}
+#poster-announce{font-size:25px;font-weight:bold;margin-top:10px;margin-bottom:10px;}
+#detect_tip{color:#B01319;font-weight:500;}
+#album_tip{color:#dfdfdf;font-weight:bold;margin-top:20px;}
+
+
+
+
+
+
+
+
