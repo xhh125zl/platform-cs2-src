@@ -421,10 +421,13 @@ function handle_products_count($UsersID, $rsOrder){
 			'Products_ID'=>$ProductID
 		);
 		
-		$rsProduct  = $pro_model->field('Products_Count')->where($condition)->find();
+		$rsProduct  = $pro_model->field('Products_Count,Products_Sales')->where($condition)->find();
 		
 		$Products_Count = $rsProduct['Products_Count'] - $qty;
 		$product_data['Products_Count'] = $Products_Count;
+        
+		$Products_Sales = $rsProduct['Products_Sales'] + $qty;
+		$product_data['Products_Sales'] = $Products_Sales;
 
 		if($Products_Count == 0){
 			$product_data['Products_SoldOut'] = 1;

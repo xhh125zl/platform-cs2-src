@@ -38,6 +38,7 @@ class backup{
 			'Back_Account'=>$account,
 			'ProductID'=>$productid
 		);
+		
 		$this->db->add('user_back_order',$data);
 		$detail = "买家申请退款，退款金额：".($amount)."，退款原因：".$reason;
 		$recordid = $this->db->insert_id();
@@ -117,6 +118,11 @@ class backup{
 					'Order_CartList'=>json_encode($CartList,JSON_UNESCAPED_UNICODE),
 					'Back_Amount'=>$Order["Back_Amount"]-$back["Back_Amount"]
 				);
+				if($Order['Order_IsVirtual']==1){
+				    $Data['Order_Status']=2;
+				}else{
+				    $Data['Order_Status']=3;
+				}
 				$this->db->Set("user_order",$Data,"where Order_ID=".$back["Order_ID"]);
 				
 				//增加退款佣金记录
@@ -159,7 +165,7 @@ class backup{
 				
 				//更新退款单
 				$Data = array(
-					"Back_Status"=>3,
+					"Back_Status"=>0,
 					"Buyer_IsRead"=>0,
 					"Back_Amount"=>$arr[0],
 					"Back_UpdateTime"=>$time
