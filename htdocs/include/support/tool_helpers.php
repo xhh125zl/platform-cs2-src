@@ -574,14 +574,11 @@ function handle_products_count($UsersID,$rsOrder){
 		}
 	
 		$condition = "where Users_ID='".$UsersID."' and Products_ID=".$ProductID;
-		$rsProduct  = $DB1->GetRs('shop_products','Products_Count,Products_Sales',$condition);
+		$rsProduct  = $DB1->GetRs('shop_products','Products_Count',$condition);
 		
 		$Products_Count = $rsProduct['Products_Count']-$qty;
 		$product_data['Products_Count'] = $Products_Count;
-		// 销量增加
-		$Products_Sales = $rsProduct['Products_Sales'] + $qty;
-		$product_data['Products_Sales'] = $Products_Sales;
-		
+
 		if($Products_Count == 0){
 			$product_data['Products_SoldOut'] = 1;
 		}

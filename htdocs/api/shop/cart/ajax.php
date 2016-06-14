@@ -549,7 +549,6 @@ if(empty($action)){//加入购物车
 		$order_status = $rsOrder["Order_Status"];
 		$order_total = $rsOrder["Order_TotalPrice"];
 	}
-
 	$rsUser = $DB->GetRs("user","User_Money,User_PayPassword,Is_Distribute,User_Name,User_NickName,Owner_Id,User_Integral","where Users_ID='".$UsersID."' and User_ID=".$_SESSION[$UsersID.'User_ID']);
 	
 	$PaymentMethod = array(
