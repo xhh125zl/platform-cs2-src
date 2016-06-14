@@ -1,6 +1,7 @@
 <?php
 ini_set ( "display_errors", "On" );
-require_once('agent_orders_global.php');
+require_once('sha_orders_global.php');
+//require_once('agent_orders_global.php');
 require_once($_SERVER["DOCUMENT_ROOT"].'/include/helper/url.php');
 $OrderID=empty($_REQUEST['OrderID'])?0:$_REQUEST['OrderID'];
 $rsOrder=$DB->GetRs("sha_order","*","where Users_ID='".$_SESSION['Users_ID']."' and Order_ID=".$OrderID);
