@@ -125,6 +125,9 @@ class DisRecordObserver{
 				$Record_Description = '自己销售自己购买' . $Product['Products_Name'] . '&yen;' . $Product['Products_Price']. '成功，获取奖金';
 				$Record_Money = !empty($Product['Distribute_List'][$my_level][$level]) ? $Product['Distribute_List'][$my_level][$level]*$Qty : 0;
 				$Record_Price = !empty($Product['Distribute_List'][$my_level][$level]) ? $Product['Distribute_List'][$my_level][$level] : 0;
+				if(!$Record_Money){
+				    $Record_Money = $ancestors_meet[$value]['bonus']*$Qty;
+				}
 			} else {
 				if($Owner_ID == $value){
 					$Record_Description = '自己销售下属购买' . $Product['Products_Name'] . '&yen;' .$Product['Products_Price']. '成功，获取奖金';
