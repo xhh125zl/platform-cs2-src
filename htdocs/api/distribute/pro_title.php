@@ -8,14 +8,44 @@ require_once($_SERVER["DOCUMENT_ROOT"].'/include/compser_library/Protitle.php');
 $front_title = get_dis_pro_title($DB,$UsersID);
 
 $dis_config = Dis_Config::where('Users_ID',$UsersID)->first();
-$user_consue = Order::where(array('User_ID'=>$_SESSION[$UsersID.'User_ID'],'Order_Status'=>4))->sum('Order_TotalPrice');
-$user_count = Order::where(array('Owner_ID'=>$_SESSION[$UsersID.'User_ID'],'Order_Status'=>4))->sum('Order_TotalPrice');
+
+$user_consue = Order::where(array('User_ID'=>$_SESSION[$UsersID.'User_ID']))
+->where('Order_Status','>=', $dis_config->Pro_Title_Status)
+->sum('Order_TotalPrice');
 
 $ProTitle = new ProTitle($UsersID, $_SESSION[$UsersID.'User_ID']);
+//$user_count = Order::where(array('Owner_ID'=>$_SESSION[$UsersID.'User_ID'],'Order_Status'=>4))->sum('Order_TotalPrice');
+//自身销售额(直接下级普通用户)
+$user_count = Order::where(array('Owner_ID'=>$_SESSION[$UsersID.'User_ID']))
+->where('Order_Status','>=', $dis_config->Pro_Title_Status)
+->sum('Order_TotalPrice');
+
+
+//获取所有直接下级分销商用户销售额
+$sess_userid = $_SESSION[$UsersID.'User_ID'];
+$sons_dis_userid = $ProTitle->get_sons_dis_userid($sess_userid);
+if ($sons_dis_userid) {
+    $user_dis_sale_count = Order::where('Order_Status', '>=', $dis_config->Pro_Title_Status)
+    ->whereIn('Owner_ID', $sons_dis_userid)
+    ->sum('Order_TotalPrice');
+
+    $user_count = $user_count + $user_dis_sale_count;
+
+    unset($user_dis_sale_count);
+}
+unset($sons_dis_userid);
+
+// die();
+
+
+//团队销售额
+
 $childs = $ProTitle->get_sons($dis_config->Dis_Level,$_SESSION[$UsersID.'User_ID']);
 
 if(!empty($childs)){
-	$Sales_Group = Order::where(array('Order_Status'=>4))->whereIn('Owner_ID',$childs)->sum('Order_TotalPrice');
+	$Sales_Group = Order::where('Order_Status', '>=', $dis_config->Pro_Title_Status)
+ 						->whereIn('Owner_ID',$childs)
+ 						->sum('Order_TotalPrice');
 }else{
 	$Sales_Group = 0;
 }

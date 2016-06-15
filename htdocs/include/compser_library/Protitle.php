@@ -11,6 +11,17 @@ class ProTitle {
 			$this->User_ID =  $UserID;
 		}
 		
+		/**
+		 * 获取指定用户下级所有分销商用户UserID
+		 * @param  int $userid 	[用户userid]
+		 * @return array 	所有直接下属一级分销商用户userid]
+		 */
+		public function get_sons_dis_userid($userid) {
+		      $dis_userid_arr = Dis_Account::where('invite_id', $userid)->lists('User_ID');
+              return $dis_userid_arr;
+		}
+		
+		
 		//获取下级
 		function get_sons($level,$UID){
 			$temp = Dis_Account::where('Dis_Path','like','%,'.$UID.',%')->get(array('User_ID','Dis_Path'))
