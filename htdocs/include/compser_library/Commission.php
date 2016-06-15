@@ -46,7 +46,7 @@ class Commission {
 		 			        $conn = $max;
 		 			    }
 		 			    $conn = $max;
-		 			    if($conn > $vv){
+		 			    if($conn >= $vv){
 		 			        $commission_array[$key] = $array[$key];
 		 			        unset($array[$key]);
 		 			    }
@@ -69,7 +69,7 @@ class Commission {
 		 			        $conn = $max;
 		 			    }
 		 			    $conn = $max;
-		 			    if($conn > $vv){
+		 			    if($conn >= $vv){
 		 			        $commission_array[$key] = $array[$key];
 		 			        unset($array[$key]);
 		 			    }
