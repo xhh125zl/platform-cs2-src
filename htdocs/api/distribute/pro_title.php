@@ -20,10 +20,13 @@ $user_count = Order::where(array('Owner_ID'=>$_SESSION[$UsersID.'User_ID']))
 ->where('Order_Status','>=', $dis_config->Pro_Title_Status)
 ->sum('Order_TotalPrice');
 
+//团队销售额计算使用
+$Sales_Group_2 = $user_count;
 
 //获取所有直接下级分销商用户销售额
 $sess_userid = $_SESSION[$UsersID.'User_ID'];
 $sons_dis_userid = $ProTitle->get_sons_dis_userid($sess_userid);
+$user_dis_sale_count = 0;
 if ($sons_dis_userid) {
     $user_dis_sale_count = Order::where('Order_Status', '>=', $dis_config->Pro_Title_Status)
     ->whereIn('Owner_ID', $sons_dis_userid)
@@ -31,17 +34,12 @@ if ($sons_dis_userid) {
 
     $user_count = $user_count + $user_dis_sale_count;
 
-    unset($user_dis_sale_count);
 }
 unset($sons_dis_userid);
-
-// die();
-
 
 //团队销售额
 
 $childs = $ProTitle->get_sons($dis_config->Dis_Level,$_SESSION[$UsersID.'User_ID']);
-
 if(!empty($childs)){
 	$Sales_Group = Order::where('Order_Status', '>=', $dis_config->Pro_Title_Status)
  						->whereIn('Owner_ID',$childs)
@@ -49,6 +47,8 @@ if(!empty($childs)){
 }else{
 	$Sales_Group = 0;
 }
+//修正团队销售客未包含“自身消费额”和“自身销售额”,而在"自身销售额"里已经包含过了 自身消费额，所以直接加上“自身销售额”就可以了。
+$Sales_Group = $Sales_Group + $Sales_Group_2;
 
 $ex_bonus = array(
 	"total"=>0,
