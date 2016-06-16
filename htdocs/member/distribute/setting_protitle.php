@@ -4,7 +4,6 @@ if(empty($_SESSION["Users_Account"]))
 	header("location:/member/login.php");
 }
 $base_url = base_url();
-
 if($_POST){	
     $distribute_config = Dis_Config::find($_SESSION["Users_ID"]);
 	$Dis_List = array();
@@ -73,7 +72,7 @@ KindEditor.ready(function(K) {
                 imageUrl : K('#ImgPath_1').val(),
                 clickFn : function(url, title, width, height, border, align){
                     K('#ImgPath_1').val(url);
-                    K('#ImgDetail_1').html('<img src="'+url+'" />');
+                    K('#ImgDetail_1').html('<img src="'+url+'" style="max-width:60px;"/>');
                     editor.hideDialog();
                 }
             });
@@ -88,7 +87,7 @@ KindEditor.ready(function(K) {
                 imageUrl : K('#ImgPath_2').val(),
                 clickFn : function(url, title, width, height, border, align){
                     K('#ImgPath_2').val(url);
-                    K('#ImgDetail_2').html('<img src="'+url+'" />');
+                    K('#ImgDetail_2').html('<img src="'+url+'" style="max-width:60px;"/>');
                     editor.hideDialog();
                 }
             });
@@ -103,7 +102,7 @@ KindEditor.ready(function(K) {
                 imageUrl : K('#ImgPath_3').val(),
                 clickFn : function(url, title, width, height, border, align){
                     K('#ImgPath_3').val(url);
-                    K('#ImgDetail_3').html('<img src="'+url+'" />');
+                    K('#ImgDetail_3').html('<img src="'+url+'" style="max-width:60px;"/>');
                     editor.hideDialog();
                 }
             });
@@ -118,7 +117,7 @@ KindEditor.ready(function(K) {
                 imageUrl : K('#ImgPath_4').val(),
                 clickFn : function(url, title, width, height, border, align){
                     K('#ImgPath_4').val(url);
-                    K('#ImgDetail_4').html('<img src="'+url+'" />');
+                    K('#ImgDetail_4').html('<img src="'+url+'" style="max-width:60px;"/>');
                     editor.hideDialog();
                 }
             });
@@ -128,6 +127,13 @@ KindEditor.ready(function(K) {
 })
 
 $(document).ready(config_obj.protitle_config);
+$(function(){
+	$("#dis_pro_title_table tbody tr td img").css({"max-width":"60px"});
+	$("#dis_pro_title_table tbody tr td img").click(function(){
+		$(this).parent().next("input").val("");
+		$(this).remove();
+	});
+});
 </script>
 </head>
 
@@ -174,37 +180,22 @@ $(document).ready(config_obj.protitle_config);
 				<tr  fieldtype="text">
                     <td><?=$i?></td>
                     <td>
-                        <input class="form_input" value="<?php echo empty($dis_title_level[$i]['Name']) ? '' : $dis_title_level[$i]['Name'];?>" name="Dis_Pro_Title[Name][]" 
-						<?php if($i == 1):?>
-						notnull
-						<?php endif;?>
-
-						type="text">
+                        <input class="form_input" value="<?php echo empty($dis_title_level[$i]['Name']) ? '' : $dis_title_level[$i]['Name'];?>" name="Dis_Pro_Title[Name][]" type="text">
                     </td>
                     <td>
-                        <input class="form_input title_val" value="<?php echo empty($dis_title_level[$i]['Consume']) ? '' : $dis_title_level[$i]['Consume'];?>"  name="Dis_Pro_Title[Consume][]"  <?php if($i == 1):?>
-						notnull
-						<?php endif;?> type="text">
+                        <input class="form_input title_val" value="<?php echo empty($dis_title_level[$i]['Consume']) ? '' : $dis_title_level[$i]['Consume'];?>"  name="Dis_Pro_Title[Consume][]"  type="text">
                     </td>
 					<td>
-                        <input class="form_input title_val" value="<?php echo empty($dis_title_level[$i]['Sales_Self']) ? '' : $dis_title_level[$i]['Sales_Self'];?>"  name="Dis_Pro_Title[Sales_Self][]"  <?php if($i == 1):?>
-						notnull
-						<?php endif;?> type="text">
+                        <input class="form_input title_val" value="<?php echo empty($dis_title_level[$i]['Sales_Self']) ? '' : $dis_title_level[$i]['Sales_Self'];?>"  name="Dis_Pro_Title[Sales_Self][]" type="text">
                     </td>
                     <td>
                     	 <input class="form_input Group_Num" value="<?php echo empty($dis_title_level[$i]['Sales_Group']) ? '' : $dis_title_level[$i]['Sales_Group'];?>"  name="Dis_Pro_Title[Sales_Group][]"
-						
-						 <?php if($i == 1):?>
-						notnull
-						<?php endif;?>
 						
 						 type="text">
                     </td>
                     <td>
                         <input class="form_input bonus" value="<?php echo empty($dis_title_level[$i]['Bonus']) ? '' : $dis_title_level[$i]['Bonus'];?>" name="Dis_Pro_Title[Bonus][]" 
- <?php if($i == 1):?>
-						notnull
-						<?php endif;?>						type="text">
+ 					type="text">
                     </td>
                  <td> 
                       <label>
