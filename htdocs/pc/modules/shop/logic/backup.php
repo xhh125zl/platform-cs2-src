@@ -196,7 +196,9 @@ class backup{
 		}
 		$bonus_list = array();
 		
+
 		$bonus_list = model()->query("select d.* from distribute_account_record as d LEFT JOIN distribute_record as r ON d.Ds_Record_ID=r.Record_ID where r.Order_ID=".$orderid." and r.Product_ID=".$productid." and d.CartID=".$cartid." group by d.level", 'select');
+
 		if(!empty($bonus_list)){
 			foreach($bonus_list as $item){
 				$data = $item;//复制数组
@@ -210,7 +212,9 @@ class backup{
 				$data["Record_Description"] = $type==0 ? '用户退款，减少佣金'.$amount.'元' : '用户退款被驳回，增加佣金'.$amount.'元';
 				$data["Record_CreateTime"] = time();
 				$data["Owner_ID"] = 0;
+
 				model('distribute_account_record')->insert($data);
+
 			}
 		}
 	}

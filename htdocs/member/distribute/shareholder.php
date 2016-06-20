@@ -95,7 +95,9 @@ $curid = 1;
             <td><span class="red">&yen;<?=round_pad_zero($record['Record_Money'],2)?></span></td>
 			<td><?=$record['Sha_Qty']?></td>
 			<td><?=round_pad_zero(($record['Record_Money']/$record['Sha_Qty']),2)?></td>
+
 <!--            <td><?//=$Record_Type[$record['Record_Type']]?></td>--><td><?=!empty($record['sha_level_name'])?$record['sha_level_name']:'股东' ?></td>
+
             <td><?=ldate($record['Record_CreateTime'])?></td>
           </tr>
 		  <?php		 

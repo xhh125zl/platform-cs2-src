@@ -93,7 +93,9 @@ class pay_orderController extends controllController {
 				}
 			}else {//是分销商判定可提现条件
 				$tixian = 0;
+
 				$rsAccount = model('distribute_account')->field('User_ID,Enable_Tixian,Account_ID,Is_Dongjie,Is_Delete,Users_ID')->where(array('Users_ID'=>$rsOrder['users_id'],'User_ID'=>$rsOrder['user_id']))->find();
+
 				if($rsAccount) {
 					if($rsAccount['Enable_Tixian'] == 0) {
 						if($this->shopConfig['withdraw_type'] == 0) {
@@ -115,7 +117,9 @@ class pay_orderController extends controllController {
 							}
 						}
 						if($tixian == 1) {
+
 							model('distribute_account')->where(array('Users_ID'=>$rsOrder['users_id'],'Account_ID'=>$rsAccount['Account_ID']))->update(array('Enable_Tixian'=>1));
+
 						}
 					}
 					

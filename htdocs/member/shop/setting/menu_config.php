@@ -21,6 +21,7 @@ if (!empty($_POST))
 	if ($_POST['method'] = 'ajaxpost' && !empty($_POST['menuId'])) 
 	{
 		$rsMenuConfig = $DB->GetRs('shop_config', 'ShopMenuJson', ' WHERE  Users_ID="' .$_SESSION['Users_ID']. '"');
+
 		$ShopMenu = empty($rsMenuConfig['ShopMenuJson']) ? $DefaultMenu : json_decode($rsMenuConfig['ShopMenuJson'], TRUE);
 
 		unset($ShopMenu['menu'][$_POST['menuId']]);
@@ -37,12 +38,14 @@ if (!empty($_POST))
 			}
 		}
 		exit();
+
 	} 
 
 	foreach ($_POST['menu'] as $k => &$v) {
 		$v['menu_name'] = trim($v['menu_name']);
 		$v['menu_href'] = trim($v['menu_href']);
 		if (empty($v['menu_name']) || empty($v['menu_href'])) {
+
 			unset($_POST['menu'][$k]);
 		}
 	}
@@ -58,7 +61,9 @@ if (!empty($_POST))
 } else {
 	$rsMenuConfig = $DB->GetRs('shop_config', 'ShopMenuJson', ' WHERE  Users_ID="' .$_SESSION['Users_ID']. '"');
 
+
 	$ShopMenu = empty($rsMenuConfig['ShopMenuJson']) ? $DefaultMenu : json_decode($rsMenuConfig['ShopMenuJson'], TRUE);
+
 
 }
 
@@ -177,11 +182,13 @@ if (!empty($_POST))
 	              <div class="clear"></div>
 	            </div>
 
+
 	            <div class="opt_item rows">
 	              <label>排序：</label>
 	              <span class="input"><input type="text" name="menu[<?php echo $k; ?>][menu_order]" value="<?php echo $v['menu_order']; ?>" class="form_input" size="5" maxlength="30" notnull /><font class="fc_red">*</font>请输入排序数字</span>
 	              <div class="clear"></div>
 	            </div>
+
 	        </div><!--配置项列表end-->
 		  <?php endforeach; ?>
 

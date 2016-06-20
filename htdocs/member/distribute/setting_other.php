@@ -431,6 +431,7 @@ KindEditor.ready(function(K) {
 		 <!-- 股东条件设置begin -->
         <div class="rows" id="Agent_Ratf_Row"<?php echo $rsConfig["Sha_Agent_Type"]==1 ? ' style="display:block"' : ' style="display:none"'?>>
         	<label>条件设置</label>
+
                 <?php 
 				    $Sha_Rate_list = json_decode($rsConfig['Sha_Rate'],TRUE);
 				  ?>
@@ -490,10 +491,12 @@ KindEditor.ready(function(K) {
 				 <option value="0" <?php echo (isset($Sha_Rate_list['sha'][3]['Level'])?$Sha_Rate_list['sha'][3]['Level']:'')== 0 ? ' selected' : '';?>>---选择等级---</option>
 				 <?php foreach($distribute_level as $key=>$level):?>				 
                    <option value="<?=$level['Level_ID']?>" <?php echo $level['Level_ID']==(isset($Sha_Rate_list['sha'][3]['Level'])?$Sha_Rate_list['sha'][3]['Level']:'') ? ' selected' : '';?>><?=$level['Level_Name']?></option>
+
 				   <?php endforeach;?>
               </select>
 			  <?php endif;?>
 			  <?php if(!empty($dis_title_level)):?>
+
 			  &nbsp;&nbsp;&nbsp;爵位<select name="Sha_Rate[sha][3][Protitle]" class="sha_input">
 			  <option value="0" <?php echo (isset($Sha_Rate_list['sha'][3]['Protitle'])?$Sha_Rate_list['sha'][3]['Protitle']:'')== 0 ? ' selected' : '';?>>---选择爵位---</option>
 				 <?php foreach($dis_title_level as $key=>$title):?>
@@ -504,6 +507,7 @@ KindEditor.ready(function(K) {
 			  &nbsp;&nbsp;&nbsp;自费金额<strong class="red">（元）</strong><input type="text" name="Sha_Rate[sha][3][Selfpro]" value="<?=isset($Sha_Rate_list['sha'][3]['Selfpro'])?$Sha_Rate_list['sha'][3]['Selfpro']:''?>" class="form_input sha_input" size="3" maxlength="10" notnull />
 				 &nbsp;&nbsp;&nbsp;团队销售额<strong class="red">（元）</strong><input type="text" name="Sha_Rate[sha][3][Teampro]" value="<?=isset($Sha_Rate_list['sha'][3]['Teampro'])?$Sha_Rate_list['sha'][3]['Teampro']:''?>" class="form_input sha_input" size="3" maxlength="10" notnull />	   			
         	  &nbsp;&nbsp;&nbsp;申请价格<strong class="red">（元）</strong><input type="text" name="Sha_Rate[sha][3][price]" value="<?=isset($Sha_Rate_list['sha'][3]['price'])?$Sha_Rate_list['sha'][3]['price']:''?>" class="form_input sha_input" size="3" maxlength="10" notnull />
+
         	</span>
         	<div class="clear"></div>
          </div>

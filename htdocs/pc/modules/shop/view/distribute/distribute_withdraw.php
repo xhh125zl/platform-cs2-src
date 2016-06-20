@@ -13,10 +13,12 @@
 		<?php include(dirname(__DIR__) . '/member/_left.php');?>
         <div class="body_center_pub all_dingdan my_yongjin">
         	<div class="top">
+
             	<div>
 <!--                    我的佣金：<span class="money"><em><?php //echo $output['total_income']?></em>元</span><a class="buttom" href="javascript:;">立即提现</a><span class="hostory">可提现佣金：<em><?php //echo round_pad_zero($output['rsDisAccount']['balance'], 2);?></em>元</span>-->
                     我的佣金：<span class="money"><em><?php echo round_pad_zero($output['rsDisAccount']['balance'], 2);?></em>元</span><a class="buttom" href="javascript:;">立即提现</a><span class="hostory">
                 </div>
+
             </div>
             <div class="biaoge">
             	<label>提现记录</label>

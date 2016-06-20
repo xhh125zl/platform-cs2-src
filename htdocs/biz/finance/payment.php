@@ -22,6 +22,7 @@ if(isset($_GET["search"])){
 		}
 	}
 }
+
 $DB->Get('biz','*',"where Users_ID='".$rsBiz["Users_ID"]."'");
 while($BizRs = $DB->fetch_assoc()){
      $BizPayRate[$BizRs["Biz_ID"]] = empty($BizRs['PaymenteRate'])?'100':$BizRs['PaymenteRate'];    
@@ -56,6 +57,7 @@ if(isset($_GET["action"])){
                     );
                     $Add=$DB->Add('user_money_record',$Data);
                 }
+
 		echo '<script language="javascript">window.location.href="payment.php";</script>';
 	}
 	
@@ -133,6 +135,7 @@ $_STATUS = array('<font style="color:red">未收款</font>','<font style="color:
         <input type="hidden" value="1" name="search" />
       </form>
       <div class="control_btn"><a href="payment_add.php" id="payment" class="btn_green btn_w_120">生成收款单</a></div>
+
       <table border="0" cellpadding="5" cellspacing="0" class="r_con_table" id="order_list">
         <thead>
           <tr>
@@ -151,7 +154,7 @@ $_STATUS = array('<font style="color:red">未收款</font>','<font style="color:
         </thead>
         <tbody>
          <?php
-        
+
           foreach($lists as $paymentid=>$value){
 		 ?>
          <tr>
@@ -160,6 +163,7 @@ $_STATUS = array('<font style="color:red">未收款</font>','<font style="color:
             <td nowrap="nowrap"><?php echo date("Y-m-d H:i:s",$value["FromTime"]);?><br />~<br /><?php echo date("Y-m-d H:i:s",$value["EndTime"]);?></td>
             <td nowrap="nowrap"><font style="color:#F60"><?php echo $value["Amount"];?></font></td>
             <td nowrap="nowrap"><?php echo $value["Diff"];?></td>
+
             <td nowrap="nowrap"><?php echo $value["Web"];?></td>           
             <td nowrap="nowrap"><font style="color:blue"><?php echo $value["Total"];?></font><br>(转账
            <span><?php echo $value["Total"]*$BizPayRate[$value["Biz_ID"]]/100;?></span>
@@ -173,6 +177,7 @@ $_STATUS = array('<font style="color:red">未收款</font>','<font style="color:
                 <?php if($value["Status"]==0){?>
                 <a href="?action=getpay&paymentid=<?php echo $paymentid;?>">[确定收款]</a>&nbsp;
                 <a href="?action=del&paymentid=<?php echo $paymentid;?>">[删除]</a><?php }?>
+
             </td>
           </tr>
          <?php }?>
@@ -183,6 +188,7 @@ $_STATUS = array('<font style="color:red">未收款</font>','<font style="color:
     </div>
   </div>
 </div>
+
 <script>
 $(document).ready(function(){
   //  $("#payment")
@@ -193,5 +199,6 @@ $(document).ready(function(){
     
  
 </script>    
+
 </body>
 </html>

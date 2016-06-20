@@ -105,7 +105,9 @@ if (!function_exists('get_dsaccount_by_id')) {
 		if($User_ID == 0){			
 			$account = array('id' => 0,'user_id'=>0, 'shop_name' => '', 'shop_logo' => '', 'shop_announce' => '','root_id'=>0);
 		}else{
-                        $account_model = model('distribute_account', 'common');
+
+            $account_model = model('distribute_account', 'common');
+
 			$account = $account_model->where(['Users_ID' => $UsersID, 'User_ID' => $User_ID])->find();
 			if(empty($account)){
 				echo '不存在这个店主';
@@ -124,7 +126,9 @@ if (!function_exists('add_distribute_record')) {
 		if ($Profit <= 0) {
 			return false;
 		}
+
 		$Product = model('shop_products')->field('Products_ID,Products_PriceX,Products_Distributes,Biz_ID,Products_Name,commission_ratio,platForm_Income_Reward')->where(array('Users_ID' => $UsersID, 'Products_ID' => $ProductID))->find();
+
 		
 		if($Product['commission_ratio'] <= 0) {//佣金比例
 			return false;
@@ -133,6 +137,7 @@ if (!function_exists('add_distribute_record')) {
 		$Product['Products_Profit'] = $Profit;
 		
 		//佣金比例数组、重新组装
+
                 $Products_Distributes = $Product['Products_Distributes'] ? json_decode($Product['Products_Distributes'], true) : array();
 		$distribute_bonus_list = array();
 		/*foreach ($Products_Distributes as $Key => $item) {
@@ -145,6 +150,7 @@ if (!function_exists('add_distribute_record')) {
                         }
                     }
 		}
+
 		if(empty($distribute_bonus_list)){
 			return false;
 		}
@@ -155,8 +161,10 @@ if (!function_exists('add_distribute_record')) {
 		$Product['CartID'] = $CartID;
 
 		//增加分销记录
+
 		//$dis_record_mode = model('shop_distribute_account_record');
                 $dis_record_mode = model('distribute_record');
+
 		$dis_record['Users_ID'] = $UsersID;
 		$dis_record['Buyer_ID'] = $_SESSION[$UsersID . 'User_ID'];
 		$dis_record['Owner_ID'] = $OwnerID;
@@ -169,10 +177,12 @@ if (!function_exists('add_distribute_record')) {
 		$dis_record['Biz_ID'] = $Product['Biz_ID'];
 		$dis_record['Record_Type'] = 0;
 		
+
 		$insert_id = $dis_record_mode->insert($dis_record); 
                 $shop_config = model('shop_config')->field('*')->where(array('Users_ID'=>$UsersID))->find();
                 $dis_config = model('distribute_config')->field('*')->where(array('Users_ID'=>$UsersID))->find();
                 $shop_config = array_merge($shop_config,$dis_config);
+
 		//为分销记录model设置观察者，
 		$DisRecordObserver = new \shop\logic\DisRecordObserver();
 		$DisRecordObserver->shop_config = $shop_config;
@@ -189,12 +199,14 @@ if (!function_exists('change_dsaccount_record_status')) {
 	 *
 	 */
 	function change_dsaccount_record_status($OrderID, $Status) {
+
 	    $shop_distribute_account_record = model('distribute_account_record');
 		$disAccountRecords = model()->query('SELECT * FROM distribute_account_record as dis_account_record RIGHT JOIN distribute_record as dis_record ON dis_account_record.Ds_Record_ID = dis_record.Record_ID LEFT JOIN user_order AS orders ON orders.Order_ID = dis_record.Order_ID WHERE orders.Order_ID = ' . $OrderID, 'SELECT');
 		$flag = true;
 		if($disAccountRecords) {
 		    $record_ids = array();
 			$dis_records = model('distribute_record')->where(array('Order_ID'=>$OrderID))->select();
+
 			if($dis_records){
 				foreach($dis_records as $k => $v) {
 					$record_ids[] = $v['record_id'];
@@ -204,6 +216,7 @@ if (!function_exists('change_dsaccount_record_status')) {
 			    $account_record_count = $shop_distribute_account_record->where(array('Ds_Record_ID'=>$record_ids))->total();
 				if($account_record_count > 0){
 			        $flag = model('distribute_account_record')->where(array('Ds_Record_ID'=>$record_ids))->update(array('Record_Status'=>$Status));
+
 				}
 			}
 		}
@@ -216,14 +229,18 @@ if (!function_exists('create_distribute_acccount')) {
 	/**
 	 *创建分销商
 	 */
+
 	function create_distribute_acccount($rsConfig, $UserID, $Real_Name, $ownerid, $Account_Mobile, $status = 0,$LevelID) {
+
 		/*获取此店铺的配置信息*/
 		$UsersID = $rsConfig['users_id'];
 		$user_model = model('user');
 		$user = $user_model->field('*')->where(array('User_ID'=>$UserID))->find();
 		//若不存在指定用户
 		if (empty($user)) { return false; }
+
                 $dis_account_model = model('distribute_account', 'common');
+
 		
 		//返本相关
 		$Fanben = array();
@@ -239,6 +256,7 @@ if (!function_exists('create_distribute_acccount')) {
 		    'Users_ID'=>$UsersID,
 			'User_ID'=>$UserID,
 			'Level_ID'=>$LevelID,
+
 			'Real_Name'=>$Real_Name,
 			'Shop_Name'=>$user['User_NickName'] . '的店',
 			'Shop_Logo'=>$user['User_HeadImg'],
@@ -308,6 +326,7 @@ if(!function_exists('deal_distribute_fanben')) {//返本处理
 		$Fanben[0] = empty($Fanben[0]) ? 1 : $Fanben[0];//直推人数
 		$Fanben[1] = empty($Fanben[1]) ? 0 : $Fanben[1];//返现金额
 		$Fanben[2] = empty($Fanben[2]) ? 0 : $Fanben[2];//返现次数
+
 		$dis_account_model = model('distribute_account');
 		$user_model = model('user');
 		$rsAccount = $dis_account_model->field('Account_ID,Fanxian_Remainder,Fanxian_Count')->where(array('User_ID'=>$UserID))->find();
@@ -354,27 +373,35 @@ if(!function_exists('deal_distribute_fanben')) {//返本处理
 }
 
 if (!function_exists('pre_add_distribute_account')) {
+
 	function pre_add_distribute_account($shop_config, $UsersID) {		
 		$error_msg = '';
+
 		if (!empty($_SESSION[$UsersID . 'User_ID'])) {
 			$User_ID = $_SESSION[$UsersID . 'User_ID'];
 			$user = model('user')->where(array('Users_ID' => $UsersID, 'User_ID' => $User_ID))->find();
 			if ($user) {
+
 				global $DB1;
 				//获得分销级别
 				$level_data = get_dis_level($DB1,$UsersID);
 				$LevelID = get_user_distribute_level($shop_config,$level_data,$_SESSION[$UsersID . 'User_ID']);//获得该用户应得的分销级别
+
 				if ($user['is_distribute'] == 0) {
 					$ownerid = $user['owner_id'];
 					$truename = $user['user_name'] ? $user['user_name'] : ($user['user_nickname'] ? $user['user_nickname'] : '暂无姓名');
 					switch ($shop_config['distribute_type']) {
 						case '0': //自动成为分销商																				
+
 							$flag = create_distribute_acccount( $shop_config, $_SESSION[$UsersID . 'User_ID'], $truename, $ownerid, '', 1,$LevelID);
+
 							$error_msg = $flag ? 'OK' : '会员自动成为分销商失败';
 							break;
 						case '1': //积分限制
 							if ($user['user_totalintegral'] >= $shop_config['distribute_limit']) {
+
 								$flag = create_distribute_acccount( $shop_config, $_SESSION[$UsersID . 'User_ID'], $truename, $ownerid, '', 1,$LevelID);
+
 								$error_msg = $flag ? 'OK' : '会员成为分销商失败';
 							} else {
 								$error_msg = '1';
@@ -384,7 +411,9 @@ if (!function_exists('pre_add_distribute_account')) {
 							$arr_temp = explode('|', $shop_config['distribute_limit']);
 							$arr_temp[1] = !empty($arr_temp[1]) ? intval($arr_temp[1]) : 0;
 							if ($arr_temp[0] == 0 && $user['user_cost'] >= $arr_temp[1]) {
+
 								$flag = create_distribute_acccount($shop_config, $_SESSION[$UsersID . 'User_ID'], $truename, $ownerid, '', 1,$LevelID);
+
 								$error_msg = $flag ? 'OK' : '会员成为分销商失败';
 							} else {
 								$error_msg = '2';
@@ -407,6 +436,7 @@ if (!function_exists('pre_add_distribute_account')) {
 		return $error_msg;
 	}
 }
+
 /*-20160603add--start--*/
 if(!function_exists('get_dis_level')){
 	function get_dis_level($DB1,$UsersID){
@@ -465,13 +495,16 @@ if(!function_exists('get_user_distribute_level')){//根据消费额获得分销�
 	}
 }
 /*-20160603add--end--*/
+
 if (!function_exists('deal_distribute_fuxiao_record')) {
 	/**
 	 * 启动分销商复销记录
 	 */
 	function deal_distribute_fuxiao_record($Fuxiao, $UsersID, $UserID, $OpenID) {
+
 		$dis_account = model('distribute_account', 'common')->where(array('Users_ID' => $UsersID, 'User_ID' => $UserID))->find();
 		$fuxiao_model = model('distribute_fuxiao');
+
 		if(!empty($dis_account)){
 			$rsRecord = $fuxiao_model->where(array('Users_ID'=>$UsersID,'Account_ID'=>$dis_account['account_id'],'User_ID'=>$UserID))->find();
 			$fxstarttime = getmonth(1);//获得下个月的一号
@@ -514,7 +547,9 @@ if (!function_exists('distribute_fuxiao_tixing')) {
 		$starttime = strtotime(date('Y-m-01', time()));//当前月的第一天
 		$notice_start = strtotime(date('Y-m-t', time())) - 86400 * intval($Fuxiao[2]);//提醒开始时间
 		$notice_end = strtotime(date('Y-m-t', time())) + 86399;//提醒结束时间
+
 		$fuxiao_model = model('distribute_fuxiao');
+
 		
 		if($now<=$notice_end && $now>=$notice_start){//提醒时间段
 			$list = array();
@@ -529,7 +564,9 @@ if (!function_exists('distribute_fuxiao_tixing')) {
 			
 			if(!empty($list)){
 				$sql = 'Fuxiao_LastNoticeTime=' . time().',Fuxiao_SubNoticeCount=Fuxiao_SubNoticeCount-1';
+
 				model('distribute_fuxiao')->where(array('Record_ID'=>array_keys($list)))->update($sql);
+
 				//消息发送
 				$weixin_message = new \shop\logic\weixin_message($UsersID,0);
 				foreach($counts as $k=>$v){
@@ -557,7 +594,9 @@ if (!function_exists('distribute_dongjie_action')) {
 		if($now >= $notice_start){
 			$list = array();
 			$counts = array();//分销账号ID
+
 			$fuxiao_model = model('distribute_fuxiao');
+
 			$list_tmp = $fuxiao_model->field('Record_ID,Account_ID')->where(array('Users_ID'=>$UsersID,'Fuxiao_StartTime'=>$starttime,'Fuxiao_Status'=>0))->select();
 			
 			foreach($list_tmp as $k => $r) {
@@ -567,7 +606,9 @@ if (!function_exists('distribute_dongjie_action')) {
 			
 			if(!empty($list)) {
 				$fuxiao_model->where(array('Record_ID'=>$list))->update('Fuxiao_Status=1');
+
 				model('distribute_account')->where(array('Account_ID'=>$counts))->update('Is_Dongjie=1');
+
 			}
 		}
 	}
@@ -587,7 +628,9 @@ if (!function_exists('distribute_dongjie_tixing')) {
 		if($now <= $notice_end && $now >= $notice_start){//提醒时间段
 			$list = array();
 			$counts = array();//消息发送归类
+
 			$fuxiao_model = model('distribute_fuxiao');
+
 			$list_tmp = $fuxiao_model->field('Record_ID,Fuxiao_LastDenedTime,User_OpenID,Fuxiao_SubDenedCount')->where(array('Users_ID'=>$UsersID,'Fuxiao_StartTime'=>$starttime,'Fuxiao_Status'=>1))->select();
 			foreach($list_tmp as $k => $r) {
 				if($r['fuxiao_lastdenedtime'] == 0 || $r['fuxiao_lastdenedtime'] < strtotime(date('Y-m-d', time()))){
@@ -625,7 +668,9 @@ if (!function_exists('distribute_delete_action')) {
 		$starttime = getmonth(0);//上月的第一天
 		$notice_start = strtotime(date('Y-m-01', time())) + 86400 * $Fuxiao[1];//冻结开始时间，当前月的第一天
 		if($now >= $notice_start){
+
 			$fuxiao_model = model('distribute_fuxiao');
+
 			$list = array();
 			$counts = array();//分销账号ID
 			$usersids = array();
@@ -638,7 +683,9 @@ if (!function_exists('distribute_delete_action')) {
 			
 			if(!empty($list)){
 				$fuxiao_model->where(array('Record_ID'=>$list))->update('Fuxiao_Status=2');
+
 				model('distribute_account')->where(array('Account_ID'=>$counts))->update('Is_Delete=1');
+
 				model('user')->where(array('User_ID'=>$usersids))->update('Is_Distribute=0');
 			}
 		}
@@ -680,7 +727,9 @@ if (!function_exists('distribute_fuxiao_return_action')) {
 		
 		$total = empty($order['money']) ? 0 : $order['money'];
 		if($total >= $Fuxiao[0] && $rsAccount['Is_Dongjie'] == 1){//解冻
+
 		    model('distribute_account')->where(array('Account_ID'=>$rsAccount['Account_ID']))->update(array('Is_Dongjie'=>0));				
+
 		}
 		
 		//更改记录
@@ -690,7 +739,9 @@ if (!function_exists('distribute_fuxiao_return_action')) {
 			'User_ID'=>$UserID,
 			'Fuxiao_StartTime'=>$order_starttime
 		);
+
 		$rsRecord = model('distribute_fuxiao')->field('Record_ID,Fuxiao_Count')->where($condition)->find();
+
 		
 		if($rsRecord) {//存在记录，更改记录
 			$Data = array(
@@ -702,7 +753,9 @@ if (!function_exists('distribute_fuxiao_return_action')) {
 				'Fuxiao_SubDenedCount' => intval($Fuxiao[1]),
 				'Fuxiao_LastDenedTime' => 0,
 			);
+
 			model('distribute_fuxiao')->where(array('Account_ID'=>$rsRecord['Record_ID']))->update($Data);
+
 		}else {//不存在记录，则增加记录
 			$Data = array(
 				'Users_ID' => $UsersID,
@@ -714,7 +767,9 @@ if (!function_exists('distribute_fuxiao_return_action')) {
 				'Fuxiao_SubNoticeCount' => intval($Fuxiao[2]),
 				'Fuxiao_SubDenedCount' => intval($Fuxiao[1])
 			);
+
 			model('distribute_fuxiao')->insert($Data);
+
 		}
 	}
 }
@@ -834,7 +889,9 @@ if (!function_exists('getAncestorIds')) {
 }
 if (!function_exists('get_dis_pro_title')) {
     function get_dis_pro_title($UsersID, $type = 'front') {
+
 		$dis_config = model('distribute_config')->field('Pro_Title_Level')->where(array('Users_ID'=>$UsersID))->find();
+
 		$pro_titles = false;
 		if (!empty($dis_config)) {
 			$pro_titles = json_decode(htmlspecialchars_decode($dis_config['Pro_Title_Level']), TRUE);
@@ -857,7 +914,9 @@ if (!function_exists('get_my_leiji_income')) {
 	 *获取我的累计佣金收入
 	 */
 	function get_my_leiji_income($UsersID, $UserID) {
+
         $record_list = model('distribute_account_record')->field('Record_Money')->where(array('Users_ID' => $UsersID, 'User_ID' => $UserID,'Record_Type'=>0))->select();
+
 
 		$total_income = 0;
 
@@ -873,7 +932,9 @@ if (!function_exists('get_my_leiji_sales')) {
 	 *我的团队累计销售额
 	 */
 	function get_my_leiji_sales($UsersID, $UserID, $posterity) {
+
         $shop_distribute_record = model('distribute_record');
+
 		$total_sales = 0;
 		
 		//计算本店当前用户所购买商品销售额
@@ -911,7 +972,9 @@ if (!function_exists('getPosterity')) {
 	 * @return Collection $posterity
 	 */
 	function getPosterity($Users_ID, $User_ID, $level) {
+
 		$shop_distribute_account = model('distribute_account');
+
 		//获取分销父路径中包含此用户ID的分销商
 		$descendants = $shop_distribute_account->field('Account_ID,User_ID,Dis_Path,Shop_Name,balance,Is_Audit,Total_Income,Account_CreateTime')->where(array('Users_ID'=>$Users_ID,'Dis_Path'=>'%,' . $User_ID . ',%'))->select();
 		//筛选出处于$level级别中的分销商
@@ -964,7 +1027,9 @@ function is_distribute_order($UsersID, $OrderID) {
  *删除分销记录
  */
 function delete_distribute_record($UsersID, $OrderID) {
+
 	$shop_distribute_record = model('distribute_record');
+
 	//删除分销记录
 	$condition = array(
 	    'Users_ID'=>$UsersID,
@@ -982,6 +1047,8 @@ function delete_distribute_record($UsersID, $OrderID) {
 		    'Users_ID'=>$UsersID,
 			'Ds_Record_ID'=>$recordIDS
 		);
+
 		model('distribute_account_record')->where($condition)->delete();
+
 	}
 }

@@ -4,15 +4,19 @@ namespace shop\logic;
 class Commission {
 	//获取分销商爵位级别
 	function get_nobility_level($userid) {
+
 		$md = model('distribute_account')->field('Professional_Title')->where(array('User_ID' => $userid))->find();
+
 		$nobility = $md['Professional_Title'];
 		return $nobility;//(爵位)
 	}
 		
 	//获取分销商爵位级别设置信息
 	function get_nobility_config($usersid) {
+
 		//$md = model('shop_distribute_config')->field('Pro_Title_Level')->where(array('Users_ID'=>$usersid))->find();
                 $md = model('distribute_config')->field('Pro_Title_Level')->where(array('Users_ID'=>$usersid))->find();
+
 		if(!empty($md['Pro_Title_Level'])){
 			$Pro_Title_Level = json_decode($md['Pro_Title_Level'], true);
 			krsort($Pro_Title_Level);
@@ -25,14 +29,18 @@ class Commission {
 		
 	//获取上级
 	function get_parents($ower_id) {
+
 		$cc = model('distribute_account')->field('Dis_Path')->where(array('User_ID' => $ower_id))->find();
+
 		return $cc['Dis_Path'];
 	}
 		
 	//取分销级别信息
 	function get_dis_level($Users_ID) {
+
 		//$dis_level = model('shop_config')->field('*')->where(array('Users_ID'=>$Users_ID))->find();
                 $dis_level = model('distribute_config')->field('*')->where(array('Users_ID'=>$Users_ID))->find();
+
 		return $dis_level;
 	}
 		
@@ -69,8 +77,10 @@ class Commission {
 		$profit = $qty * $products['Products_Profit'];
 		$nobility = $profit * (100 - $commission_ratio) / 100;//爵位奖励
 			
+
 		//$dis_bonus_limit = json_decode($dis_config['Dis_Bonus_Limit'], true);//佣金发放条件
                 $dis_bonus_limit = json_decode($dis_config['Distribute_Limit'], true);//佣金发放条件
+
 
 		$parents = $this->get_parents($order['Owner_ID']);//上级分销商
 		$parents_arr = explode(',', $parents);
@@ -86,7 +96,9 @@ class Commission {
 		}	
 		/*-------------------------爵位奖处理--------------------------*/
 		if($psars){
+
 		    $nobility_level_bak = model('distribute_account')->field('User_ID,Professional_Title')->where(array('Users_ID'=>$order['Users_ID'],'User_ID'=>$psars))->select();
+
 		}else{
 		   $nobility_level_bak = array(); 
 		}

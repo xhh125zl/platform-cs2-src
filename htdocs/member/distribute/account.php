@@ -28,12 +28,13 @@ $dis_title_level = Dis_Config::get_dis_pro_title($_SESSION['Users_ID']);
 if(!$dis_title_level){
 	$dis_title_level = array();
 }
+
 $sha_config = array();
 if($rsConfig['Sha_Agent_Type'] != 0){
     $sha_config = json_decode($rsConfig['Sha_Rate'],true);  
 }
 
- 
+
 if(isset($_GET["action"])){
 	if($_GET["action"]=="del"){		
 		$rs = $DB->GetRs("distribute_account","*","where Users_ID='".$_SESSION["Users_ID"]."' and Account_ID=".$_GET["AccountID"]);
@@ -87,7 +88,9 @@ if(isset($_GET["action"])){
 	
 	//开启分销代理
 	if($_GET["action"]=="enable_agent"){
+
 		$Flag = Dis_Account::find($_GET['AccountID'])->update(array('Enable_Agent'=>1,'sha_level'=>$_GET['level']));		      
+
 		$sha_tie = new Dis_Agent_Tie();
 		$sha_tie->type = 2;
 		$sha_tie->Users_ID = $_SESSION["Users_ID"];
@@ -315,8 +318,10 @@ $dis_level = get_dis_level($DB,$_SESSION["Users_ID"]);
               <?php if($rsConfig['Sha_Agent_Type'] != 0):?>
 				<?php if($rsConfig['Sha_Agent_Type'] == 1): ?>					
                  		<?php if($account['Enable_Agent'] == 0): ?>
+
 <!--                			<a href="?action=enable_agent&AccountID=<?php //echo $account['Account_ID'];?>"/>开启股东</a>|-->
                                 <a href="javascript:void(0)" url="<?php echo $account['Account_ID'];?>" onclick="onSha(this)">开启股东</a>
+
                   		<?php else: ?>
                     		<a href="?action=disable_agent&AccountID=<?php echo $account['Account_ID'];?>"/>关闭股东</a>|
                     	<?php endif;?>					
@@ -335,6 +340,7 @@ $dis_level = get_dis_level($DB,$_SESSION["Users_ID"]);
           	<?php else: ?>
             <a href="?action=enable&AccountID=<?=$account['Account_ID']?>" title="启用" >启用</a></td>
             <?php endif; ?>
+
             <br><span  style="display:none"> 
                 <?php
                 if($rsConfig['Sha_Agent_Type'] != 0){
@@ -346,6 +352,7 @@ $dis_level = get_dis_level($DB,$_SESSION["Users_ID"]);
                 }    
                 ?>
               </sapn>
+
         	</td>
           </tr>
           <?php  }
@@ -394,6 +401,7 @@ $dis_level = get_dis_level($DB,$_SESSION["Users_ID"]);
         </div>
 <!-- 代理信息modal end -->
 
+
 <script>
 function onSha(t){
     $(t).parent().find('span').css('display','block');
@@ -405,5 +413,6 @@ function onSha(t){
         //})
 }
 </script>
+
 </body>
 </html>

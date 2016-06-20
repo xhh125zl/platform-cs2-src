@@ -34,6 +34,7 @@ if($_POST){
 	}
         if(!empty($_POST["PaymenteRate"])){
 		if(!is_numeric($_POST["PaymenteRate"]) || $_POST["PaymenteRate"]<=0){
+
 			echo '<script language="javascript">alert("结算比例必须大于零！");history.back();</script>';
 			exit();
 		}
@@ -56,10 +57,12 @@ if($_POST){
 		"Skin_ID"=>1,
 		"Finance_Type"=>$_POST["FinanceType"],
 		"Finance_Rate"=>empty($_POST["FinanceRate"]) ? 0 : $_POST["FinanceRate"],
+
                 "PaymenteRate"=>empty($_POST["PaymenteRate"]) ? 100 : $_POST["PaymenteRate"],
 		"Users_ID"=>$_SESSION["Users_ID"],
 		"Biz_Logo"=>$_POST['LogoPath'],
                 "Invitation_Code"=>isset($_POST['Invitation_Code'])?trim($_POST['Invitation_Code']):''
+
 	);
 	$Flag=$DB->Add("biz",$Data);
 	$bizid = $DB->insert_id();
@@ -155,6 +158,7 @@ KindEditor.ready(function(K) {
       <script language="javascript">$(document).ready(biz_obj.group_edit);</script>
       <form class="r_con_form" method="post" action="?" id="group_edit">
         <div class="rows">
+
           <label>邀请码</label>
           <span class="input">
           <input type="text" name="Invitation_Code" value="<?=isset($res)?$res['Invitation_Code']:'';?>" class="form_input" size="35" maxlength="50" />
@@ -162,6 +166,7 @@ KindEditor.ready(function(K) {
           <div class="clear"></div>
         </div>  
         <div class="rows">
+
           <label>登录账号</label>
           <span class="input">
           <input type="text" name="Account" value="" class="form_input" size="35" maxlength="50" notnull />
@@ -284,6 +289,7 @@ KindEditor.ready(function(K) {
           </span>
           <div class="clear"></div>
         </div>
+
        <div class="rows" id="FinanceRate">
           <label>结算比例</label>
           <span class="input">
@@ -292,6 +298,7 @@ KindEditor.ready(function(K) {
           </span>
           <div class="clear"></div>
         </div>
+
         <div class="rows">
           <label>状态</label>
           <span class="input">

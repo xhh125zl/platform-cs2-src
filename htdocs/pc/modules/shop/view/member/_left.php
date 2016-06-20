@@ -60,8 +60,10 @@
             <li><a href="<?php echo url('distribute/distribute_withdraw');?>">我的佣金</a></li>
             <li><a href="<?php echo url('distribute/distribute_withdraw_method');?>">我的提现方式</a></li>
             <li><a href="<?php echo url('distribute/distribute_record');?>">分销记录</a></li>
+
 <!--            <li><a href="<?php //echo url('distribute/distribute_qrcodehb');?>" target="_blank">我的二维码</a></li>-->
 <!--			<li><a href="<?php //echo url('distribute/pro_title');?>">爵位晋级</a></li>-->
+
         </ul>
     </div>
 </div>

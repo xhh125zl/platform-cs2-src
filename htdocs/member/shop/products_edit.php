@@ -36,6 +36,7 @@ if($_POST){
 	  echo '<script language="javascript">alert("请设置合理的网站所得比例");history.back();</script>'; exit();
 	}
 
+
 	if (!is_numeric($_POST['nobi_ratio']) || !is_numeric($_POST['area_Proxy_Reward']) || !is_numeric($_POST['sha_Reward']) || !is_numeric($_POST['commission_ratio']) || !is_numeric($_POST['salesman_ratio']) || ($_POST['nobi_ratio']+$_POST['area_Proxy_Reward']+$_POST['commission_ratio']+$_POST['sha_Reward']+$_POST['salesman_ratio']) > 100 || ($_POST['nobi_ratio']+$_POST['area_Proxy_Reward']+$_POST['commission_ratio']+$_POST['sha_Reward']+$_POST['salesman_ratio']) < 0 ) 
         {
           echo '<script language="javascript">alert("请设置合理的佣金分配比例");history.back();</script>'; exit();
@@ -48,6 +49,7 @@ if($_POST){
         if ($_POST['salesman_ratio'] < 0 || array_sum($_POST['salesman_level_ratio']) > 100 || $_POST['salesman_level_ratio'][0] < 0 || $_POST['salesman_level_ratio'][1] < 0 || $_POST['salesman_level_ratio'][2] < 0) {
             echo '<script language="javascript">alert("请设置合理的各级业务提成比例");history.back();</script>'; exit();
         }
+
 	$Data=array(
 		"Products_Index"=>empty($_POST["Index"]) ? 9999 : intval($_POST["Index"]),
 		"Products_Category"=>','.implode(",",$Category).',',
@@ -63,6 +65,7 @@ if($_POST){
 		"sha_Reward" => isset($_POST['sha_Reward']) ? intval($_POST['sha_Reward']) : 0,
                 "salesman_ratio"=>isset($_POST["salesman_ratio"])?intval($_POST["salesman_ratio"]):0,
                 "salesman_level_ratio"=>empty($_POST['salesman_level_ratio'])?"":json_encode($_POST['salesman_level_ratio'],JSON_UNESCAPED_UNICODE)
+
 	);
 
 	
@@ -86,6 +89,7 @@ if($_POST){
 	
 	$JSON=json_decode($rsProducts['Products_JSON'],true);	
 	$distribute_list = $rsProducts['Products_Distributes'] ? json_decode($rsProducts['Products_Distributes'],true) : array(); //分佣金额列表	
+
         $salesman_ratio_list = $rsProducts['salesman_level_ratio'] ? json_decode($rsProducts['salesman_level_ratio'],true) : array(); //分佣金额列表	
 	if(!empty($rsProducts['Products_Type'])){
 		$FinanceType = $rsProducts['Products_FinanceType'];
@@ -337,7 +341,7 @@ function insertRow(){
           </span>
           <div class="clear"></div>
         </div> 
-        
+       
         <div class="rows disnone">
           <label>业务比例</label>  
           <span class="input price">
@@ -346,7 +350,7 @@ function insertRow(){
           </span>
           <div class="clear"></div>
         </div> 
-        
+
         <div class="rows disnone">
           <label>爵位奖励比例</label>		  
           <span class="input price">
@@ -416,6 +420,7 @@ function insertRow(){
             </span>
             <div class="clear"></div>
         </div>
+
         <div class="rows disnone">
           <label>各级业务提成比例</label>		  
           <span class="input">
@@ -447,6 +452,7 @@ function insertRow(){
            
           <div class="clear"></div>
         </div>
+
         <style type="text/css">
 		.disnone { display: none; background: #EEE; }
 		.custom { position: fixed; top: 30%; background: blue; color: #FFF; padding: 5px 10px; right: 25px; width: 100px; height: 30px; line-height: 30px; overflow: hidden; }

@@ -120,6 +120,7 @@ if(!function_exists('get_owner_rootid')){
 
 if (!function_exists('get_dsaccount_by_id')) {
 	function get_dsaccount_by_id($UsersID, $User_ID) {
+
 	global $DB1;	
  
 		if($User_ID==0){			
@@ -127,20 +128,24 @@ if (!function_exists('get_dsaccount_by_id')) {
 		}else{
             $where = ['Users_ID' => $UsersID, 'User_ID' => $User_ID];
 			$account_obj = Dis_Account::Multiwhere($where)->first();			   
+
 			if(empty($account_obj)){
 				echo '不存在这个店主';
 				exit();
 			}				
+
 			$account =  $account_obj->toArray();
             $account['fullDisPath'] = $account_obj->getFullDisPath();
                        
-                         /*  $account = $DB1->GetRs('distribute_account','*',"where Users_ID='".$UsersID."' and User_ID=".$User_ID);
-                        if(empty($account)){
+            /** 
+                if(empty($account)){
 				echo '不存在这个店主';
 				exit();
 			}
-                        $account_record = new Dis_Account();
-                        $account['fullDisPath'] = 	$account_record->getFullDisPath();*/
+            $account_record = new Dis_Account();
+            $account['fullDisPath'] = 	$account_record->getFullDisPath();
+            */
+
 							  
 		}
 
@@ -380,6 +385,7 @@ if (!function_exists('get_my_leiji_sales')) {
 		}
 		
 		$posterityids[] = $UserID;
+
 		global $DB1;
 		$r = $DB1->GetRs('user_order','SUM(Order_TotalAmount) as money','where Owner_ID in('.implode(',',$posterityids).') and Order_Status>=2');
 		if(!empty($r['money'])){
@@ -503,7 +509,9 @@ if (!function_exists('get_product_distribute_info')) {
 
 		return $product;
 	}
+
 } 
+
 
 
 if (!function_exists('change_dsaccount_record_status')) {
@@ -563,6 +571,7 @@ if (!function_exists('create_distribute_acccount')) {
 				$Fuxiao = $rsConfig["Fuxiao_Rules"] ? json_decode($rsConfig['Fuxiao_Rules'],true) : array();
 				deal_distribute_fuxiao_record($Fuxiao, $UsersID, $UserID, $user_data["User_OpenID"]);
 			}
+			
 			return true;
 		}
 		
@@ -1141,7 +1150,9 @@ if(!function_exists('deal_user_to_distribute')){
 						return $flag;
 					}else{
 						global $DB1;
+
 						$DB1->Set('user','Is_Distribute=0','where User_ID='.$user_data['User_ID']);
+
 						return false;
 					}
 				}else{
@@ -1162,6 +1173,7 @@ if(!function_exists('deal_user_to_distribute')){
 		}
 	}
 }
+
 
 if (!function_exists('pre_add_distribute_account')) {
 	function pre_add_distribute_account($shop_config, $UsersID) {
@@ -1227,6 +1239,7 @@ if (!function_exists('pre_add_distribute_account')) {
 		return $error_msg;
 	}
 }
+
 
 if(!function_exists('get_user_distribute_level')){//根据消费额获得分销商级别（总消费额），用于生成分销商或更新
 	function get_user_distribute_level($shop_config,$level_data,$UserID){

@@ -1,5 +1,6 @@
 <?php
 /*$UA = strtoupper($_SERVER['HTTP_USER_AGENT']);
+
 if(strpos($UA, 'WINDOWS NT') == false){
 	header("location:/wap/index.php");
 }else{
@@ -32,4 +33,5 @@ define ( 'RUNTIME_PATH', APP_PATH . 'runtime' );
  * FF亦可移动到WEB以外的目录
  */
 require SITE_PATH.'/Framework/FF/core.php';
+
 ?>

@@ -1114,6 +1114,7 @@ if($action == 'withdraw_appy'){
 	
 	$OrderID = $_POST['OrderID'];
 	$rsOrder = $DB->GetRs('sha_order','*','where Users_ID="'.$UsersID.'" and Order_ID='.$OrderID.' and User_ID='.$_SESSION[$UsersID.'User_ID']);
+
 	if(!$rsOrder){
 		$Data = array(
 			"status"=> 0,
@@ -1131,6 +1132,7 @@ if($action == 'withdraw_appy'){
 		echo json_encode($Data,JSON_UNESCAPED_UNICODE);
 		exit;
 	}
+
         //订单股东级别
         $sha_level =$rsOrder['Applyfor_level'];
         if(empty($sha_level)){
@@ -1145,7 +1147,7 @@ if($action == 'withdraw_appy'){
         $dis_config = dis_config($UsersID);
         $Sha_Rate = json_decode($dis_config['Sha_Rate'], true);
 	$Sha_Name = !empty($Sha_Rate['sha'][$sha_level]['name'])?$Sha_Rate['sha'][$sha_level]['name']:'未知';
-        
+
 	$rsUser = $DB->GetRs('user','User_Money,User_PayPassword','where User_ID='.$rsOrder['User_ID']);
 
 	if($rsUser['User_PayPassword'] != md5($_POST['password'])){
@@ -1170,11 +1172,13 @@ if($action == 'withdraw_appy'){
 	$pay_order = new pay_order($DB, $OrderID);
 	$response = $pay_order->deal_sha_order();
 	
+
 	$effset = $DB->set('distribute_account', array('Enable_Agent' => 1,'sha_level'=>$sha_level), ' WHERE `Users_ID`="' .$rsOrder['Users_ID']. '" AND `User_ID` = '.$rsOrder['User_ID']);
 	if($response['status'] && $effset){
 		$Data = array(
 			"status"=> 1,
 			'msg'=>'支付成功，你已经成为'.$Sha_Name.'股东',
+
 			'url'=>distribute_url()
 		);
 		echo json_encode($Data,JSON_UNESCAPED_UNICODE);

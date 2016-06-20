@@ -60,7 +60,7 @@ $rmenu["distribute"] = array(
 	'record' => '分销记录',
 	'agent' => '代理商',
 	'shareholder' => '股东',
-        'salesman' => '业务员管理',
+    'salesman' => '业务员管理',
 	'withdraw' => '提现管理',
 	'order_history' => '购买级别订单'
 );
@@ -96,10 +96,12 @@ $rmenu["financial"] = array(
 	'sales_record' => '销售记录',
 	'payment' => '付款单'
 );
+
 $rmenu["pcsite"] = array(
 	'pcsite' => 'PC站点管理',
         'index'=>'首页设置'
 );
+
 $rmenu["buy_record"] = array(
 	'buy_record'=>'购买记录',
 	'renewal_record'=>'购买记录'
@@ -129,9 +131,11 @@ $rmenu["html"] = array(
 $rmenusub["wei_account"] = array(
 	'ajax' => 'ajax文件'
 );
+
 $rmenusub["wei_setting"] = array(
 	'sms' => '短信配置'
 );
+
 //自定义菜单设置
 $rmenusub["wei_menu"] = array(
 	'menu_add' => '添加菜单',
@@ -252,6 +256,7 @@ $rmenusub["dis_setting"] = array(
 	'setting_protitle' => '爵位设置',
 	'setting_distribute' => '分销首页设置',
 	'levelview' => '分销级别详情'
+
        
      
 );
@@ -259,6 +264,7 @@ $rmenusub["dis_setting"] = array(
 $rmenusub["dis_salesman"] = array(
 	 'salesman_config' => '业务员设置'
 );
+
 
 //分销账号管理
 $rmenusub["dis_account"] = array(

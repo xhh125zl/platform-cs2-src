@@ -2,12 +2,15 @@
 require_once('global.php');
 require_once($_SERVER["DOCUMENT_ROOT"].'/include/compser_library/Protitle.php');
 require_once($_SERVER["DOCUMENT_ROOT"].'/include/compser_library/Salesman.php');
+
 $level_config = $rsConfig['Dis_Level'];
 
 $posterity = $accountObj->getPosterity($level_config);
 //var_dump($posterity);exit;
 $posterity_count = $posterity->count();
-$posterity_list = $accountObj->getLevelList($level_config); 
+
+$posterity_list = $accountObj->getLevelList($level_config);
+
 $posterity_list = array_slice($posterity_list,0,$rsConfig['Dis_Mobile_Level'],TRUE);
 
 
@@ -147,6 +150,7 @@ if ($enable)
 
   }
 }
+
 //业务员
 $salesman = new Salesman($UsersID,$User_ID);
 $limit = $salesman->up_salesman();
@@ -260,9 +264,11 @@ $is_salesman = $salesman->get_salesman();
 	<?php if($dis_config['Fanben_Open']==1){?>
     <a href="/api/<?=$UsersID?>/distribute/fanben_detail/" class="item item_2"><span class="ico"></span>返本明细<button class="btn btn-default btn-sm bonus_sum"><?=$rsAccount['Fanxian_Count'];?></button></a>
 	<?php }?>
+
     <a href="javascript:void(0)" class="item item_2">可提现<?php echo $Index_Professional_Json['catcommission']; ?>
     <button class="btn-sm btn btn-default" id="withdraw_btn" style="width: 40px;" link="/api/<?=$UsersID?>/distribute/withdraw/">提&nbsp;&nbsp;现</button>
     <button class="btn btn-default btn-sm" id="balance_sum" style="margin-right: 10px;">总额(分销+业务)：<?=round_pad_zero($rsAccount['balance'],2)?></button></a>
+
 	<div class="clearfix"></div>
 </div>
   		<!-- 我的收入统计end -->
@@ -279,6 +285,7 @@ $is_salesman = $salesman->get_salesman();
   <?php if (!empty($pro_titles)): ?>
       <div class="list_item">
       <div class="dline"></div>
+
       <a href="/api/<?=$UsersID?>/distribute/pro_title/" class="item_group_title"><img src="/static/api/distribute/images/title.jpg" width="30" height="30" />&nbsp;&nbsp;爵位晋升     <span class="fa fa-2x fa-chevron-right grey pull-right"></span>
         </a>
       </div>
@@ -296,6 +303,7 @@ $is_salesman = $salesman->get_salesman();
      		</a>
      	</div>
     <?php }?>  
+
     <div class="list_item">
        <div class="dline"></div>
        <a href="/api/<?=$UsersID?>/distribute/qrcodehb/" class="item_group_title"><img src="/static/api/distribute/images/qrcode.png"/>&nbsp;&nbsp;我的推广二维码

@@ -11,6 +11,7 @@ if(!$rsPayment){
 }
 $rsPayment["Biz"] = $rsBiz["Biz_Name"];
 $condition = "where Users_ID='".$rsBiz["Users_ID"]."' and Biz_ID=".$_SESSION["BIZ_ID"]." and Payment_ID=".$paymentid.' order by Record_ID desc';
+
 $DB->Get('biz','*',"where Users_ID='".$rsBiz["Users_ID"]."'");
 while($BizRs = $DB->fetch_assoc()){
      $BizPayRate[$BizRs["Biz_ID"]] = empty($BizRs['PaymenteRate'])?'100':$BizRs['PaymenteRate'];    
@@ -19,6 +20,7 @@ while($BizRs = $DB->fetch_assoc()){
 if(!empty($BizPayRate[$rsPayment['Biz_ID']])){
     $rsPayment['Total'] = $rsPayment['Total']*$BizPayRate[$rsPayment['Biz_ID']]/100;
 } 
+
 ?>
 <!DOCTYPE HTML>
 <html>

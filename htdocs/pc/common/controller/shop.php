@@ -7,9 +7,11 @@ class shopController extends commonController {
 		if(isset($_GET['UsersID'])) {
 			$this->UsersID = $_GET['UsersID'];
 		}else {
-                        if(MAIN_SITE == $_SERVER['HTTP_HOST']){
+
+           if(MAIN_SITE == $_SERVER['HTTP_HOST']){
 			   header('location:http://' . MAIN_SITE . '/member/');
 			}
+
 			$users_info = model('pc_setting')->field('Users_ID')->where(array('site_url'=>$_SERVER['HTTP_HOST']))->find();
 			if($users_info) {
 				$this->UsersID = $users_info['Users_ID'];

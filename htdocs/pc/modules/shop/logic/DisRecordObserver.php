@@ -15,7 +15,9 @@ class DisRecordObserver{
 		
 	//创建此分销记录所产生的佣金记录
 	public function created($Record_ID) {
+
                 $this->DisRecord = model('distribute_record')->field('*')->where(array('Record_ID'=>$Record_ID))->find();
+
 		$account_records = $this->generateDistributeAccountRecord();//二维数组
 		//爵位奖
 		$comm = new \shop\logic\Commission();
@@ -23,8 +25,10 @@ class DisRecordObserver{
 		$final_account_records = $this->combine_records($account_records, $nobi);
 		//组装批量插入sql语句
 		if($final_account_records){
+
 			//$sql = 'INSERT INTO shop_distribute_account_record ';
                         $sql = 'INSERT INTO distribute_account_record ';
+
 			$files = $value = $values = '';
 			foreach($final_account_records as $key => $val){
 				$value = '';
@@ -61,13 +65,15 @@ class DisRecordObserver{
 	 */
 	
 	private function generateDistributeAccountRecord(){
+
                 $Dis_Account_model = model('distribute_account');
+
 		//获取祖先id
 		$UsersID = $this->DisRecord['Users_ID'];
 		$Owner_ID = $this->DisRecord['Owner_ID'];
-		$Buyer_ID = $this->DisRecord['Buyer_ID'];
-		 
+		$Buyer_ID = $this->DisRecord['Buyer_ID'];		 
 		$Ds_Record_ID = $this->DisRecord['Record_ID'];
+
 		$level = $this->shop_config['Dis_Level'];
 		$self = $this->shop_config['Dis_Self_Bonus'];//是否开启自销	
 		$self_flag = false;
@@ -94,14 +100,18 @@ class DisRecordObserver{
 		
 		$Product = $this->Product;
 		$Qty = $this->Qty;
+
                 $my_level = $this->DisAccount['Level_ID'];
 		$Distribute_List = $Product['Distribute_List'];
+
 		foreach ($ancestors_rsort as $key => $value) {
 			if ($Buyer_ID == $value) {//自销
 				//自己获取佣金                                
 				$Record_Description = '自己销售自己购买' . $Product['Products_Name'] . '&yen;' . $Product['Products_Price']. '成功，获取奖金';
+
 				$Record_Money = !empty($Distribute_List[$my_level][$level]) ? $Distribute_List[$my_level][$level] * $Qty : 0;
 				$Record_Price = !empty($Distribute_List[$my_level][$level]) ? $Distribute_List[$my_level][$level] : 0;
+
 			} else {
 				if($Owner_ID == $value) {
 					$Record_Description = '自己销售下属购买' . $Product['Products_Name'] . '&yen;' .$Product['Products_Price'] .  '成功，获取奖金';
@@ -110,10 +120,12 @@ class DisRecordObserver{
 				}
 				//上级分销商获取佣金
 				
+
 				$Record_Money = !empty($Distribute_List[$my_level][$key]) ? $Distribute_List[$my_level][$key] * $Qty : 0;
 				$Record_Price = !empty($Distribute_List[$my_level][$key]) ? $Distribute_List[$my_level][$key] : 0;
 			}
 			 
+
 			if(!in_array($value, $ancestors_meet)) {
 				$Record_Money = 0;
 				$dis_account_records[$key]['Record_Description'] = '没达到获利条件';
@@ -134,7 +146,9 @@ class DisRecordObserver{
 			$dis_account_records[$key]['Record_Qty'] = $Qty;
 			$dis_account_records[$key]['CartID'] = $Product['CartID'];
 		}
+
 		return $dis_account_records; 
+
 	}
 	
 	
@@ -146,8 +160,10 @@ class DisRecordObserver{
 	function getUserfulAncestor($ids, $self_flag, $userid){
 		$user_model = model('user');
 		$shop_config = $this->shop_config;
+
 		//$bonusLimit =  json_decode($shop_config['Dis_Bonus_Limit'], true);
                 $bonusLimit =  json_decode($shop_config['Distribute_Limit'], true);
+
 
 		$res = array();
 		if($self_flag){

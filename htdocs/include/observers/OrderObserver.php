@@ -27,12 +27,14 @@ class OrderObserver {
 		
 		begin_trans();
 		$flag_a = $this->handle_user_info();
+
 		//业务提成处理
-                require_once($_SERVER["DOCUMENT_ROOT"].'/include/compser_library/Salesman_ Commission.php');
-                $salesman = new Salesman_commission();
-                $salesman->up_sales_status($order['Order_ID'],2);
-                $salesman->up_salesincome($order['Order_ID']);
-                
+        require_once($_SERVER["DOCUMENT_ROOT"].'/include/compser_library/Salesman_ Commission.php');
+        $salesman = new Salesman_commission();
+        $salesman->up_sales_status($order['Order_ID'],2);
+        $salesman->up_salesincome($order['Order_ID']);
+        
+
 		$flag_b = $flag_c = $flag_d = $sha_Flag =true;
 		if($order->disAccountRecord()->count() > 0){
 			//更改分销账户得钱记录状态
@@ -423,10 +425,12 @@ class OrderObserver {
             $SHA_Account_Id_List = !empty($SHA_Account_Id_List)?$SHA_Account_Id_List:',';
              
             
+
 	    if (count($Sha_Rate_Count) <= 0) { return; }
 	    $cartProduct = json_decode($order->Order_CartList, true);
 	    $User_ID = $order->User_ID;
 	    $user = $this->user = User::find($User_ID);
+
 	    $owner_id = $user->Owner_Id;
 	    $flag = true;
 	    
@@ -457,11 +461,13 @@ class OrderObserver {
                                         
                                     }
                                     $flag = $flag_a && $flag_b;
+
 		    		}
 		    		
 		    	}
 		    }
 	    }
+
 		return $flag;
 	}
 
@@ -485,7 +491,8 @@ class OrderObserver {
 		$dis_sha_data['Sha_Accountid'] = $SHA_Account_Id_List;
 		$dis_sha_data['Real_Name'] = $accountinfo['Real_Name']; 
 		$dis_sha_data['Account_Mobile'] = $accountinfo['Account_Mobile']; 
-                $dis_sha_data['sha_level_name'] = $sha_level_name; 
+        $dis_sha_data['sha_level_name'] = $sha_level_name; 
+
 		
 		$flag = $DB1->Add('distribute_sha_rec', $dis_sha_data);
 		return $flag;
@@ -504,11 +511,12 @@ class OrderObserver {
 		{
 			return $flag;
 		}
-                $balance = $dis_account->balance+$record_money;
+
+		$balance = $dis_account->balance+$record_money;
 		$Total_Income = $dis_account->Total_Income +$record_money;
 		$dis_account->balance = $balance;
 		$dis_account->Total_Income = $Total_Income;
- 
+
 		$flag = $dis_account->save();					 
 		return $flag;
 	}

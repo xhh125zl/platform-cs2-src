@@ -593,8 +593,9 @@ function handle_products_count($UsersID,$rsOrder){
 function handle_getuserinfo($UsersID,$UserID){	
 	global $DB1;
 		$condition = "where Users_ID='".$UsersID."' and User_ID=".$UserID;
+
 		$rsUser  = $DB1->GetRs('user','User_Mobile',$condition);	
-                
+
 		return $rsUser['User_Mobile'];
 }
 

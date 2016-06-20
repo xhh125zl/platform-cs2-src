@@ -11,8 +11,22 @@ if(isset($_GET["action"]))
 		header("location:/member/login.php");
 	}
 }
+
+//$rsUsers=$DB->GetRs("users","*","where Users_ID='".$_SESSION["Users_ID"]."'");
+//$rsConfig = $DB->GetRs("shop_config","*","where Users_ID='".$_SESSION["Users_ID"]."'");
+
+$expiredate = time();
 $rsUsers=$DB->GetRs("users","*","where Users_ID='".$_SESSION["Users_ID"]."'");
 $rsConfig = $DB->GetRs("shop_config","*","where Users_ID='".$_SESSION["Users_ID"]."'");
+if(isset($rsUsers["Users_ExpireDate"]) && $rsUsers["Users_ExpireDate"]>0){
+	if(intval($rsUsers["Users_ExpireDate"])< $expiredate){
+		session_unset();
+		echo '<script>alert("您的账号已过期，请尽快延期");</script>';
+		header("location:/member/login.php");
+		exit;
+	}
+}
+
 $RIGHT = json_decode($rsUsers["Users_Right"],true);
 //将超过自动收货时限的订单进行自动收货
 $ids = Order::get_expire_order($rsConfig);
@@ -170,6 +184,7 @@ $myArray = Array("basic","product","article","order","backup","financial");
 	<!--<div><a href="pc/member/<?=$key?>/<?=$k?>.php" target="iframe">首页管理</a></div>-->
 <!--<div><a href="http://<?php echo $_SERVER['HTTP_HOST'];?>/pc.php?m=member&c=pc_diy&a=index_block&UsersID=<?=$_SESSION['Users_ID']?>" target="iframe">首页管理</a></div>-->
 <div><a href="/pc.php?m=member&c=pc_diy&a=index_block&UsersID=<?=$_SESSION['Users_ID']?>" target="iframe">首页管理</a></div>
+
 	<?php }else{ ?>
 		<div><a href="/member/<?=$key?>/<?=$k?>.php" target="iframe"><?=$v?></a></div>
 	<?php }}}?>
@@ -177,6 +192,7 @@ $myArray = Array("basic","product","article","order","backup","financial");
 	  <?php }}?>
     </dl>
 		
+
   </div>
   <div class="iframe">
     <iframe src="wechat/account.php" name="iframe" frameborder="0" scrolling="auto"></iframe>
@@ -215,6 +231,7 @@ $myArray = Array("basic","product","article","order","backup","financial");
 				}else if(key == 'pcsite'){
 					//(k == 'index') ? str = "'\pc/member\/pcsite\/index.php'" : str = "'\/member\/"+k+"\/config.php'"; 
 					(k == 'index') ? str = "'/pc.php?m=member&c=pc_diy&a=index_block&UsersID=<?=$_SESSION['Users_ID']?>'" : str = "'\/member\/"+k+"\/config.php'"; 	
+
 				}else{
 					str = "'\/member\/"+key+"\/"+k+".php'";
 				}				

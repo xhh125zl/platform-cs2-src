@@ -371,7 +371,8 @@ if(empty($action)){//加入购物车
 	$CartList = json_decode($OrderCart,true);
 	$CartList = get_filter_cart_list($DB, $CartList);
 	//获取每个供货商的运费默认配置
-        $Biz_ID_String = implode(',',array_keys($CartList));
+    $Biz_ID_String = implode(',',array_keys($CartList));
+
 	$condition = "where Users_ID  = '".$UsersID."' and Biz_ID in (".$Biz_ID_String.")";
 	$rsBizConfigs = $DB1->get('biz','Biz_ID,Biz_Name,Shipping,Default_Shipping,Default_Business',$condition);
 	$Biz_Config_List = $DB1->toArray($rsBizConfigs);
@@ -483,10 +484,12 @@ if(empty($action)){//加入购物车
 					$qty += $v['Qty'];
 					//加入分销记录
 					if($v['OwnerID']>0){
+
 						//add_distribute_record($UsersID,$DB,$v['OwnerID'],$v['ProductsPriceX'],$kk,$v['Qty'],$neworderid,$k);
 						add_distribute_record($UsersID,$v['OwnerID'],$v['ProductsPriceX'],$kk,$v['Qty'],$neworderid,$v["ProductsProfit"],$k);
 					}
 				}
+
                                 $condition ="where Users_ID='".$UsersID."' and Products_ID=".$kk;
 				$DB->set('shop_products','Products_Sales=Products_Sales+'.$qty.',Products_Count=Products_Count-'.$qty,$condition);
                                 $product1 = $vv; 
@@ -496,6 +499,7 @@ if(empty($action)){//加入购物车
                                 require_once($_SERVER["DOCUMENT_ROOT"].'/include/compser_library/Salesman_ Commission.php');
                                 $comm = new Salesman_commission();
                                 $salesman = $comm->handout_salesman_commission($neworderid,$product,$qty);
+
 			}
 		}else{
 			$error = true;

@@ -156,7 +156,9 @@ $_STATUS = array('<font style="color:red">未结算</font>','<font style="color:
             <td nowrap="nowrap"><?php echo $b0;?></td>
             <td nowrap="nowrap"><?php echo $b1;?></td>
             <td nowrap="nowrap"><font style="color:#F60"><?php echo $b2;?></font></td>
+
 <!--            <td nowrap="nowrap"><?php //echo $b3;?></td>-->
+
             <td nowrap="nowrap"><font style="color:#FF0000"><?php echo $b4;?></font></td>
             <td nowrap="nowrap"><?php echo $b5;?></td>
             <td nowrap="nowrap"><?php echo $b6;?></td>

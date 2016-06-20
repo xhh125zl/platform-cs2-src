@@ -37,6 +37,7 @@ if(isset($_GET["action"])){
       <dd style="display:block">
       	<div class="cur"><a href="account/account.php" target="iframe">商家资料</a></div>
         <div><a href="account/account_edit.php" target="iframe">修改资料</a></div>
+
 	<div><a href="account/address_edit.php" target="iframe">收货地址</a></div>
         <div><a href="account/bind_user.php" target="iframe">绑定会员</a></div>
         <div><a href="account/account_password.php" target="iframe">修改密码</a></div>

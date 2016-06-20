@@ -105,7 +105,7 @@ class DisRecordObserver{
 		$ancestors_meet = get_distribute_balance_userids($UsersID,$User_ID,$meet_ancestors,$Product['Distribute_List']);
 		
 		$dis_account_records = array();		
-	 
+
 		foreach ($ancestors as $key =>$value) {
 			$dis_account_record = new Dis_Account_Record();
 			
@@ -121,7 +121,7 @@ class DisRecordObserver{
 					$Record_Description = '下属分销商分销' . $Product['Products_Name'] . '&yen;' .$Product['Products_Price']. '成功，获取奖金';
 				}
 				//上级分销商获取佣金
-				   
+
 				if(!empty($ancestors_meet[$value])){
 					if($ancestors_meet[$value]['status']==1){//正常
 						$Record_Money = $ancestors_meet[$value]['bonus']*$Qty;

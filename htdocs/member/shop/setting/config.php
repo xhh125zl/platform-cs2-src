@@ -212,7 +212,9 @@ KindEditor.ready(function(K) {
               <h1><strong>订单手机短信通知</strong>
                 <input type="checkbox" name="SendSms" value="1"<?php echo empty($rsConfig["SendSms"])?"":" checked"; ?> />
                 <span class="tips">启用（填接收短信的手机号）</span></h1>
+
               <input type="text" class="input" name="MobilePhone" style="width:120px" value="<?php echo $rsConfig["MobilePhone"] ?>" maxlength="11" /><span class="tips"> 短信剩余 <font style="color:red"><?php echo $item["Users_Sms"];?></font> 条</span>
+
             </td>
             <td width="50%" valign="top">
             	<h1><strong>商城关注提醒</strong>
@@ -280,13 +282,15 @@ KindEditor.ready(function(K) {
               <textarea name="ShareIntro"><?php echo $rsConfig["ShareIntro"] ?></textarea>
             </td>
           </tr>
-          
+
         </table>
         <table align="center" border="0" cellpadding="0" cellspacing="0">
           <tr>
             <td><h1><strong>触发信息设置</strong></h1>
               <div class="reply_msg">
+
                 <div class="m_left"> <span class="fc_red">*</span> 触发关键词<span class="tips_key">（有多个关键词请用 <font style="color:red">"|"</font> 隔开）</span><br />
+
                   <input type="text" class="input" name="Keywords" value="<?php echo $rsKeyword["Reply_Keywords"] ?>" maxlength="100" notnull />
                   <br />
                   <br />

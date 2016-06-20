@@ -171,6 +171,7 @@ RewriteRule ^api/([0-9a-z]+)/shop/sjrz/$ /api/shop/sjrz.php?UsersID=$1
 RewriteRule ^api/([0-9a-z]+)/shop/sjrz/([0-9]+)/([0-9]+)/$ /api/shop/sjrz.php?UsersID=$1&typeid=$2&CategoryID=$3
 RewriteRule ^api/([0-9a-z]+)/shop/sjrz/code/([0-9A-Z]+)/$ /api/shop/sjrz.php?UsersID=$1&Invitation_Code=$2
 
+
 RewriteRule ^api/([0-9a-z]+)/shop/articles/$ /api/shop/articles.php?UsersID=$1
 RewriteRule ^api/([0-9a-z]+)/shop/articles/category/([0-9]+)/$ /api/shop/articles.php?UsersID=$1&CategoryID=$2
 RewriteRule ^api/([0-9a-z]+)/shop/articles/([0-9]+)/$ /api/shop/articles.php?UsersID=$1&page=$2

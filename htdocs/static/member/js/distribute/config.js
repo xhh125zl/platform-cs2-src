@@ -178,9 +178,11 @@ var config_obj={
 			if(type == 0){				
 				$("#Agent_Ratf_Row").hide();
 				$("#Agent_Ratg_Row").hide();				
+
                                 //$("#Agent_Ratf_Input").html('');
 				$("#Agent_Ratg_Input").html('');
-                                $(".sha_input").val('0');
+                $(".sha_input").val('0');
+
 			}else if(type == 1){
 				if(level != null){
 				regwhere_shaaget += "等级<select name=\"Sha_Rate[sha][Level]\"><option value=\"0\" selected>---选择等级---</option>";
@@ -200,7 +202,9 @@ var config_obj={
 				
 				$("#Agent_Ratf_Row").show();
 				$("#Agent_Ratg_Row").show();				
+
 				//$("#Agent_Ratf_Input").html(regwhere_shaaget);
+
 				$("#Agent_Ratg_Input").html(shaenable_open);
 			}
 		});

@@ -9,23 +9,25 @@ if (isset($dis_config) && !empty($dis_config['Sha_Rate']))
 	$enable = $Sha_Rate['Shaenable'];
 	unset($Sha_Rate['Shaenable']);
 }
+
 if (!empty($dis_config['Pro_Title_Level'])) 
 {
 	$Pro_Title_Level = json_decode($dis_config['Pro_Title_Level'], true);
 }
- 
+
 if (!empty($_POST)) 
 {
 	if(empty($_POST['Applyfor_Name']) || empty($_POST['Applyfor_Mobile']) || empty($_POST['Applyfor_level']))
 	{
 		exit('用户名、电话、级别不能为空！');
+
 	}
 	$DATA = array(
 		'Users_ID' => $UsersID,
 		'User_ID' => $User_ID,
 		'Applyfor_Name' => htmlspecialchars(trim($_POST['Applyfor_Name']), ENT_QUOTES),
 		'Applyfor_Mobile' => htmlspecialchars(trim($_POST['Applyfor_Mobile']), ENT_QUOTES),
-                'Applyfor_level' => $_POST['Applyfor_level'],
+        'Applyfor_level' => $_POST['Applyfor_level'],
 		'Order_Status' => 0,
 		'Order_CreateTime' => time(),
 		'Level_ID' => $rsAccount['Level_ID'],
@@ -37,7 +39,7 @@ if (!empty($_POST))
 	$Flag = $DB->Add('sha_order', $DATA);
 	if ($Flag) 
 	{
-            header('Location:/api/'.$UsersID.'/distribute/my_sha/'); exit();
+       header('Location:/api/'.$UsersID.'/distribute/my_sha/'); exit();
 	}
 }
 
@@ -54,6 +56,7 @@ if(!empty($childs)){
 }
 
 $MY_Distribute_Level = $rsAccount['Level_ID'];
+
 //判断是不是股东
 $DisRs = $DB->GetRs('distribute_account','sha_level,Enable_Agent',"where Users_ID='".$UsersID."' and User_ID=".$_SESSION[$UsersID.'User_ID']);
 $roleFlag = '';
@@ -67,6 +70,7 @@ $roleFlag = '';
                     continue;
                 }
             }
+
 		$v['Protitle'] = isset($v['Protitle']) ? $v['Protitle'] : 0;
 		$v['Level'] = isset($v['Level']) ? $v['Level'] : 0;
 		$v['Selfpro'] = isset($v['Selfpro']) ? $v['Selfpro'] : 0;
@@ -77,7 +81,7 @@ $roleFlag = '';
 			$roleFlag = '';
 			break;
 		} */
-                
+               
                 if($k>$DisRs['sha_level']){
                     //判断分销商级别是否达到预设值的区域代理等级	
                     if ($MY_Distribute_Level >= $v['Level'] && $rsAccount['Professional_Title'] >= $v['Protitle'] && $user_consue >= $v['Selfpro'] && $Sales_Group >= $v['Teampro']) 
@@ -107,6 +111,7 @@ if ($payInfo['num'] > 0)
         header('Location:/api/'.$UsersID.'/distribute/my_sha/'); exit();
     }
 }
+
 $header_title = '申请成为股东';
 $flagz = $flaga = $flagb = $flagc = $flagd = true;
 require_once('header.php');
@@ -159,6 +164,7 @@ $(document).ready(function(){
 </script>
 <div class="wrap">
 	<div class="container">
+
         <?php
             if($DisRs['sha_level'] > 0 && $DisRs['Enable_Agent'] == 0){
 
@@ -170,7 +176,7 @@ $(document).ready(function(){
 		<div class="row">
 			<form id="area_post_box" method="post" action="">
 				<li class="list-group-item">申请成为<?=!empty($roleFlag)?$Sha_Rate['sha'][$roleFlag]['name']:'';?>股东</li>
-        		
+       		
 		        <li class="list-group-item bank_card" style="display:block">
 		            <label>姓&nbsp;&nbsp;名</label>&nbsp;&nbsp;<input type="text" name="Applyfor_Name" placeholder="请输入您的姓名">
 		        </li> 
@@ -178,6 +184,7 @@ $(document).ready(function(){
 		        <li class="list-group-item bank_card" style="display:block">
 		          <label>电&nbsp;&nbsp;话</label>&nbsp;&nbsp;<input type="text" name="Applyfor_Mobile" placeholder="请输入您的联系电话">	
 		        </li>
+
                         
                         <li class="list-group-item bank_card" style="display:block">
                              <label>级&nbsp;&nbsp;别</label>&nbsp;&nbsp;
@@ -192,12 +199,14 @@ $(document).ready(function(){
 		        </li>
 
 
+
 		        <li class="list-group-item text-center">
 		             <a href="javascript:void(0)" id="btn-addcard" class="btn btn-default submit-btn">立即申请</a>
 		        </li>
         	</form>
 		</div>
 		<?php else: ?>
+
                         <?php if($Sha_lev_nums == $DisRs['sha_level']){ ?>
                                 <h1 class="tips">您已经是最高级别股东!</h1>
                         <?php }else{ ?>
@@ -266,6 +275,7 @@ $(document).ready(function(){
 		    <tbody>
 		    <tr> 
 		        <th class="bodytable">申请条件描述</th> 
+
 		    </tr>
                    <?php
                     foreach($Sha_Rate['sha'] as $k=>$v){
@@ -289,6 +299,7 @@ $(document).ready(function(){
 							<?php endif; ?>
 							<?php if(!empty($v['Teampro'])): ?>		        	
 		        			<span class="m">团队销售额：<span class="bold">¥<?php echo $v['Teampro']; ?></span></span>
+
 							<?php $flagd = false; ?>
 							<?php endif; ?>
 							<?php $flagz = $flaga&&$flagb&&$flagc&&$flagd; ?>
@@ -308,7 +319,7 @@ $(document).ready(function(){
                     <?php    
                         }
                     ?>
-		     
+
 		  </tbody></table> 
         </div>
 		<?php endif; ?>

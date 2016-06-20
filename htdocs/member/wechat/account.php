@@ -78,7 +78,9 @@ if(empty($_SESSION["Users_Account"]))
 	//今日支出佣金
 	$today_output_money = $account_record->recordMoneySum($Users_ID,$today,$now);
 	//本月支出佣金
+
 	$month_output_money = $account_record->recordMoneySum($Users_ID,$month_start,$month_end,1);
+
     //今日加入分销商
 	$today_new__account_num = $account->accountCount($Users_ID,$today,$now);
 	//本月加入分销商

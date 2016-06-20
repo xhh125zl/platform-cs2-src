@@ -9,7 +9,9 @@ class balance{
 	
 	public function add_sales($orderid) {
 		$item = model('user_order')->field('*')->where(array('Order_ID'=>$orderid,'Order_Status'=>4,'Users_ID'=>$this->usersid))->find();
+
 		$rs = model()->query('select SUM(b.Record_Money) as bonus from distribute_account_record as b LEFT JOIN distribute_record as r ON b.Ds_Record_ID=r.Record_ID where r.Order_ID=' . $orderid . ' limit 0,1', 'FIND');
+
 		$bonus = $rs['bonus'] ? $rs['bonus'] : 0;
 
 		if($item) {

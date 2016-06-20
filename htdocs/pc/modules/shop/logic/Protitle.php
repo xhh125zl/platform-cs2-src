@@ -45,7 +45,9 @@ class ProTitle {
 		}
 		$Pro_Title_Level = empty($Pro_Title_Level) ? array() : array_reverse($Pro_Title_Level, true);
 		//直销人数
+
 		$num = model('distribute_account')->where(array('invite_id'=>$this->User_ID))->total();
+
 		$son_level = 0;
 		foreach($Pro_Title_Level as $k => $v){
 			if(isset($v['Saleroom']) && $num >= $v['Saleroom']) {
@@ -65,7 +67,9 @@ class ProTitle {
 			$Pro_Title_Level = get_dis_pro_title($this->Users_ID);
 		}
 		$Pro_Title_Level = empty($Pro_Title_Level) ? array() : array_reverse($Pro_Title_Level, true);
+
 		$shop_distribute_account = model('distribute_account');
+
 		$num = $shop_distribute_account->where(array('Dis_Path'=>'%' . $this->User_ID . ',%'))->total();
 		$group_level = 0;
 		foreach($Pro_Title_Level as $k => $v){
@@ -79,7 +83,9 @@ class ProTitle {
 		
 	//获取当前分销商爵位级别
 	function get_nobility_level(){
+
 		$md = model('distribute_account')->where(array('User_ID'=>$this->User_ID))->find();
+
 		$nobility = 0;
 		if(!empty($md['professional_title'])) {
 			$nobility = $md['professional_title'];
@@ -111,7 +117,9 @@ class ProTitle {
 		$data['level'] = $my_now_level;
 		$data['pro_name'] = isset($Pro_Title_Level[$my_now_level]) ? $Pro_Title_Level[$my_now_level] : '你还没有爵位';
 		if($my_now_level > $level) {
+
 			$Flag = model('distribute_account')->where(array('Users_ID'=>$this->Users_ID,'User_ID'=>$this->User_ID))->update(array('Professional_Title'=>$my_now_level));
+
 			if($Flag) {
 				$data['status'] = 1;
 				return $data;//级别晋升成功

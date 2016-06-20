@@ -157,7 +157,15 @@ function send_sms_curl($url){
 
 function send_sms($mobile, $message, $usersid='') {
 	global $DB1;
-	$flag = 1;	
+
+	$flag = 1;
+	if($usersid){
+		$rsUsers = $DB1->GetRs("users","Users_Sms","where Users_ID='".$usersid."'");
+		if($rsUsers["Users_Sms"]<=0){
+			$flag = 0;
+		}
+	}
+
 	if($flag==1){
 		$mes = $message;
 		$message = strip_sms($message);
@@ -196,7 +204,11 @@ function send_sms($mobile, $message, $usersid='') {
 			"code"=>$code,
 			"usersid"=>$usersid
 		);
-		$DB1->Add("sms",$Data);		
+
+		$DB1->Add("sms",$Data);
+		if($usersid && $res==0){
+			$DB1->Set("users",array('Users_Sms'=>($rsUsers["Users_Sms"]-1)),"where Users_ID='".$usersid."'");
+		}
 		return $recode;
 	}else{
 		return false;

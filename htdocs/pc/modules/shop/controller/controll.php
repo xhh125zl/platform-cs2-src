@@ -31,6 +31,7 @@ class controllController extends \common\controller\shopController {
 		if($_SERVER['REQUEST_METHOD'] == 'GET') {
 			$error_msg = pre_add_distribute_account($this->shopConfig, $this->UsersID);
 		}
+
                     if($this->shopConfig['fuxiao_open'] == 1) {
                             //冻结前复销提醒处理
                             distribute_fuxiao_tixing($this->shopConfig);
@@ -41,6 +42,7 @@ class controllController extends \common\controller\shopController {
                             //删除动作
                             distribute_delete_action($this->shopConfig);
                     }
+
 		//获取会员等级、昵称、图像
 		$array2 = array('member', 'distribute');
 		if(in_array($this->_controller, $array2) && !empty($_SESSION[$this->UsersID . 'User_ID'])){
@@ -101,6 +103,7 @@ class controllController extends \common\controller\shopController {
 		return array($categoryTree, $ProductsList);
 	}
 	function shopConfig() {
+
 		//$wap_config = model('shop_config')->where(array('Users_ID'=>$this->UsersID))->find();
                 $wap_config = model()->query("SELECT * FROM shop_config where Users_ID='".$this->UsersID."' limit 0,1");
                 $dis_config = model()->query("SELECT * FROM distribute_config where Users_ID='".$this->UsersID."' limit 0,1");
@@ -109,6 +112,7 @@ class controllController extends \common\controller\shopController {
 			$config = array_change_key_case(array_merge($wap_config[0],$dis_config[0],$pc_setting));
 		}else {
 			$config = array_change_key_case(array_merge($wap_config[0],$dis_config[0]));
+
 		}
 		return $config;
 	}

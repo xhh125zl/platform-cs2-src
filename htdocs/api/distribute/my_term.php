@@ -164,7 +164,7 @@ $count_posterity_list = 0;
 		  <div class="imgli">
 		  <dd>昵称：<?=$v['Real_Name']?>&nbsp;&nbsp;ID：<?=$v['User_ID']?></dd>
 		  <dd>分销级别：<?php echo empty($dis_level[$v['Level_ID']]) ? '' : $dis_level[$v['Level_ID']]['Level_Name']; ?></dd>
-                  <dd>手机：<?php $tel =  handle_getuserinfo($UsersID,$v['User_ID']);echo !empty($tel)?$tel:'';?></dd>
+      <dd>手机：<?php $tel =  handle_getuserinfo($UsersID,$v['User_ID']);echo !empty($tel)?$tel:'';?></dd>
 		  <dd><?php echo empty($v['Account_CreateTime']) ? '' : ldate($v['Account_CreateTime']); ?></dd>
 		  </div>		 
 		  </div>		  			

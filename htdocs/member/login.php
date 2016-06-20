@@ -80,13 +80,16 @@ if($_POST){
 				$Data=array(
 					'status'=>0
 				);
+
 			}else{				
+
 					$Data=array(
 						'status'=>1
 					);
 					$_SESSION["Users_ID"]=$rsUsers["Users_ID"];
 					$_SESSION["Users_WechatToken"]=$rsUsers["Users_WechatToken"];
 					$_SESSION["Users_Account"]=$rsUsers["Users_Account"];
+
 			}
 		}else{
 			$Data=array(

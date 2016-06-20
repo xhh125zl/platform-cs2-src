@@ -14,6 +14,7 @@ class Dis_Account extends Illuminate\Database\Eloquent\Model {
 		'Shop_Logo', 'Dis_Path', 'status', 'Ex_Bonus', 'Is_Audit',
 		'Up_Group_Num', 'Group_Num', 'Professional_Title', 'last_award_income','sha_level'];
 
+
 	protected $primaryKey = "Account_ID";
 	protected $table = "distribute_account";
 	public $timestamps = false;

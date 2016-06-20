@@ -1,6 +1,7 @@
 <script src="<?php echo $output['_site_url'];?>/static/pc/shop/js/jquery-1.7.2.min.js"></script>
 <script src="<?php echo $output['_site_url'];?>/static/pc/shop/js/jquery.SuperSlide.js"></script>
 <script src="<?php echo $output['_site_url'];?>/static/js/plugin/layer/layer.js"></script> 
+
 <link href="<?php echo $output['_site_url'];?>/static/pc/shop/css/style.css" rel="stylesheet" type="text/css" />
 <link href="<?php echo $output['_site_url'];?>/static/pc/shop/css/public.css" rel="stylesheet" type="text/css" />
 <div class="top_bg">
@@ -26,8 +27,10 @@
 							<li><a href="<?php echo url('distribute/distribute_record');?>">分销记录</a></li>
 							<li><a href="<?php echo url('distribute/distribute_withdraw');?>">佣金提现</a></li>
 							<li><a href="<?php echo url('distribute/distribute_withdraw_method');?>">提现方式</a></li>
+
 <!--							<li><a href="<?php //echo url('distribute/distribute_qrcodehb');?>" target="_blank">二维码</a></li>-->
 <!--							<li><a href="<?php //echo url('distribute/pro_title');?>">我的爵位</a></li>-->
+
 						</ul>
 					</div>
 				</li>
@@ -35,7 +38,9 @@
 			</ul>
 		</div>
 		<?php if(empty($_SESSION[$output['UsersID'] . 'User_ID'])) {?>
+
 		<div class="top_left"><em>您好，欢迎来到<a href="<?php echo url('index/index');?>"><?php echo $output['shopConfig']['shopname'];?></a>网上商城</em><a href="<?php echo url('public/login');?>" class="login">请登录</a><a  href='javascript:void(0)' id='reg' url="<?php echo url('public/register',array('UsersID'=>$output['UsersID']));?>" class="sign">免费注册</a>&nbsp;&nbsp;<a href="<?php echo url('distribute/distribute_invite');?>" style="color:#d30015;">邀请返利</a></div>
+
 	    <?php }else {?>
 		<div class="top_left"><em>您好，<a href="<?php echo url('member/index');?>"><?php echo $_SESSION[$output['UsersID'] . 'User_Name'];?></a>欢迎来到&nbsp;<a href="<?php echo url('index/index');?>"><?php echo $output['shopConfig']['shopname'];?></a>&nbsp;网上商城</em><a href="<?php echo url('public/logout',array('UsersID'=>$output['UsersID']));?>" class="sign">[退出]</a>&nbsp;&nbsp;<a href="<?php echo url('distribute/distribute_invite');?>" style="color:#d30015;">邀请返利</a></div>
 		<?php }?>
@@ -93,6 +98,7 @@
 			}
 		)
     });
+
     $("#reg").click(function(){
             var url = $("#reg").attr('url');
             layer.open({
@@ -103,6 +109,7 @@
             });
             
         })
+
 </script>
 <!-- 头部导航小功能end-->
 <?php if($output['_controller'] != 'index') {?>

@@ -13,6 +13,7 @@ if ($_POST)
     echo '<script language="javascript">alert("请设置合理的网站所得比例");history.back();</script>'; exit();
   }
 
+
   if (!is_numeric($_POST['noBi_Reward']) || !is_numeric($_POST['area_Proxy_Reward']) || !is_numeric($_POST['sha_Reward']) || !is_numeric($_POST['commission_Reward']) || !is_numeric($_POST['salesman_ratio']) || ($_POST['noBi_Reward']+$_POST['area_Proxy_Reward']+$_POST['commission_Reward']+$_POST['sha_Reward']+$_POST['salesman_ratio']) > 100 || ($_POST['noBi_Reward']+$_POST['area_Proxy_Reward']+$_POST['commission_Reward']+$_POST['sha_Reward']+$_POST['salesman_ratio']) < 0 ) 
   {
     echo '<script language="javascript">alert("请设置合理的佣金分配比例");history.back();</script>'; exit();
@@ -27,6 +28,7 @@ if ($_POST)
     }
   
 $Data = array('Shop_Commision_Reward_Json' => json_encode($_POST, JSON_UNESCAPED_UNICODE));
+
 
   $Flag=$DB->Set("shop_config",$Data,"where Users_ID='".$_SESSION["Users_ID"]."'");
   if($Flag){
@@ -134,6 +136,7 @@ $Data = array('Shop_Commision_Reward_Json' => json_encode($_POST, JSON_UNESCAPED
           </span>
           <div class="clear"></div>
         </div>
+
         <div class="rows disnone">
           <label>业务比例</label>  
           <span class="input price">
@@ -144,6 +147,7 @@ $Data = array('Shop_Commision_Reward_Json' => json_encode($_POST, JSON_UNESCAPED
           <div class="clear"></div>
         </div> 
         <div class="rows">
+
           <label>佣金比例</label>		  
           <span class="input price">
           <span>%</span>
@@ -193,6 +197,7 @@ $Data = array('Shop_Commision_Reward_Json' => json_encode($_POST, JSON_UNESCAPED
             <div class="clear"></div>
         </div>
         <div class="rows">
+
           <label>各级业务提成比例</label>		  
           <span class="input">
               <table>
@@ -224,6 +229,7 @@ $Data = array('Shop_Commision_Reward_Json' => json_encode($_POST, JSON_UNESCAPED
           <div class="clear"></div>
         </div>
         <div class="rows">
+
           <label></label>
           <span class="input">
           <input type="submit" class="btn_green" name="submit_button" value="提交保存" /></span>

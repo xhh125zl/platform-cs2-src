@@ -31,10 +31,12 @@ if(isset($_GET["search"])){
 	}
 }
 $curid = 2;
+
 if (isset($dis_config) && !empty($dis_config['Sha_Rate'])) 
 {
     $Sha_Rate = json_decode($dis_config['Sha_Rate'], true);
 }
+
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -76,18 +78,22 @@ if (isset($dis_config) && !empty($dis_config['Sha_Rate']))
       <table width="100%" align="center" border="0" cellpadding="5" cellspacing="0" class="r_con_table">
         <thead>
           <tr>
+
             <td width="7%" nowrap="nowrap">序号</td>
                 <td width="8%" nowrap="nowrap">股东ID</td>
                 <td width="20" nowrap="nowrap">股东级别</td>
                 <td width="25%" nowrap="nowrap">微信昵称</td>
                 <td width="25%" nowrap="nowrap">真实姓名</td>
              <td width="15%" nowrap="nowrap">分红</td>
+
           </tr>
         </thead>		
         <tbody>	
 			<?php
 		  $condition .= " and Enable_Agent = 1 order by User_ID desc";
+
 		  $DB->getPage("distribute_account","User_ID,Account_ID,Real_Name,Enable_Agent,sha_level",$condition,$psize);		  
+
 		  /*获取订单列表牵扯到的分销商*/
 		  $sha_list = array();		  
 		  $userid = array();
@@ -133,12 +139,16 @@ if (isset($dis_config) && !empty($dis_config['Sha_Rate']))
 		}
 		  $i = 1;
 		$zmoney = 0;		
+
 			 ?>
+
 	<?php foreach($newsha_list as $key=>$record):?>
            <tr>
            	<td><?=$i?></td>
 			<td><?=$record['Account_ID']?></td>
+
                         <td><?=!empty($Sha_Rate['sha'][$record['sha_level']]['name'])?$Sha_Rate['sha'][$record['sha_level']]['name']:'未知' ?></td>
+
 			<td><?=empty($record['User_NickName'])?'无':$record['User_NickName']?></td>            
             <td><?=empty($record['Real_Name'])?'无':$record['Real_Name']?></td>				
            <td><?=round_pad_zero((float)$record['sha_fenh'],2)?></td>			

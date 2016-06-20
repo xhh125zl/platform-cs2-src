@@ -17,7 +17,9 @@ if(!empty($pcConfig['site_url'])){
         <tbody>
 		  
           <?php
+
 				$ii=0;
+
 				$list_column = array();
 				$DB->getPage("shop_products","*","where Users_ID='".$_SESSION["Users_ID"]."' and Products_Status=1 order by Products_Index asc",40);
 				while($r=$DB->fetch_assoc()){
@@ -30,7 +32,9 @@ if(!empty($pcConfig['site_url'])){
             <td nowrap="nowrap"><?php echo $ii;?></td>
             <td nowrap="nowrap"><?php echo $v["Products_Name"];?></td>
             <td nowrap="nowrap" class="left last">
+
 			<?php if(!$setting_flag){?>
+
             	http://<?php echo $_SERVER["HTTP_HOST"] ?>/pc.php/shop/goods/index/UsersID/<?php echo $_SESSION["Users_ID"] ?>/id/<?php echo $v["Products_ID"];?>
 			<?php }else{?>
 				http://<?php echo $pcConfig['site_url'] ?>/pc.php/shop/goods/index/id/<?php echo $v["Products_ID"];?>

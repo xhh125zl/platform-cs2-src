@@ -38,6 +38,7 @@ if(isset($_GET['search'])){
 	}
 }
 
+
 $salesman_array = array();
 $is_salesman_array = array();
 $DB->Get("distribute_account","Real_Name,Invitation_Code,Is_Salesman","where Users_ID='".$_SESSION["Users_ID"]."' and Is_Salesman=1 and Invitation_Code <> ''");
@@ -53,6 +54,7 @@ $DB->get("shop_category","Category_ID,Category_Name","where Users_ID='".$_SESSIO
 while ($r = $DB->fetch_assoc()) {
     $shop_cate[$r['Category_ID']] = $r['Category_Name']; 
 }
+
 $condition .= " order by CreateTime desc";
 
 $_Status = array('<font style="color:#ff0000">未处理</font>','<font style="color:blue">已处理</font>');
@@ -109,6 +111,7 @@ $_Status = array('<font style="color:#ff0000">未处理</font>','<font style="co
       <table width="100%" align="center" border="0" cellpadding="5" cellspacing="0" class="r_con_table">
         <thead>
           <tr>
+
             <td width="6%" nowrap="nowrap">ID</td>
             <td width="8%" nowrap="nowrap">邀请码</td>
             <td width="8%" nowrap="nowrap">推荐人</td>
@@ -119,6 +122,7 @@ $_Status = array('<font style="color:#ff0000">未处理</font>','<font style="co
 			<td width="11%" nowrap="nowrap">电子邮箱</td>
             <td width="13%" nowrap="nowrap">申请时间</td>
             <td width="8%" nowrap="nowrap">状态</td>
+
             <td width="10%" nowrap="nowrap" class="last">操作</td>
           </tr>
         </thead>
@@ -139,12 +143,14 @@ $_Status = array('<font style="color:#ff0000">未处理</font>','<font style="co
             <td><?php if(!empty($rsBiz["Invitation_Code"])){if($is_salesman_array[$rsBiz["Invitation_Code"]]!= 1){echo '业务员被删除';}else{echo strlen($salesman_array[$rsBiz["Invitation_Code"]])>0?$salesman_array[$rsBiz["Invitation_Code"]]:'无昵称';} }?></td>
             <td><?php echo $rsBiz["Biz_Name"] ?></td>
             <td><?php echo !empty($shop_cate[$rsBiz["Category_ID"]])?$shop_cate[$rsBiz["Category_ID"]]:''; ?></td>
+
             <td nowrap="nowrap"><?php echo $rsBiz['Contact']; ?></td>
             <td nowrap="nowrap"><?php echo $rsBiz["Mobile"];?></td>
 			<td nowrap="nowrap"><?php echo $rsBiz["Email"];?></td>
             <td nowrap="nowrap"><?php echo date("Y-m-d H:i:s",$rsBiz["CreateTime"]) ?></td>
             <td nowrap="nowrap"><?php echo $_Status[$rsBiz["IsRead"]]; ?></td>
             <td class="last" nowrap="nowrap"><?php if($rsBiz["IsRead"] < 1){?><a href="?action=read&itemid=<?php echo $rsBiz["ItemID"] ?>">[处理]</a><?php } ?><a href="?action=del&itemid=<?php echo $rsBiz["ItemID"] ?>" onClick="if(!confirm('删除后不可恢复，继续吗？')){return false};">[删除]</a></td>
+
           </tr>
           <?php }?>
         </tbody>

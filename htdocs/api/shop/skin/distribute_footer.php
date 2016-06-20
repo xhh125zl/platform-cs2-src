@@ -15,6 +15,7 @@ $DefaultMenu = array(
 );
 
 $rsMenuConfig = $DB->GetRs('shop_config', 'ShopMenuJson', ' WHERE  Users_ID="' .$UsersID. '"');
+
 //$ShopMenu = empty(json_decode($rsMenuConfig['ShopMenuJson'], TRUE)) ? $DefaultMenu : json_decode($rsMenuConfig['ShopMenuJson'], TRUE);
 $ShopMenuJsons = json_decode($rsMenuConfig['ShopMenuJson'], TRUE);
 if(empty($ShopMenuJsons)){
@@ -22,6 +23,7 @@ if(empty($ShopMenuJsons)){
 }else{
   $ShopMenu = $ShopMenuJsons;
 }
+
 ?>
 <footer id="footer">  
   <ul class="list-group" id="footer-nav">

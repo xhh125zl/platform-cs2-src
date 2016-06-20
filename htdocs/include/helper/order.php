@@ -19,7 +19,7 @@ function confirm_receive($DB, $UsersID, $Order_ID) {
 	$User_ID = $order['User_ID'];
 
 	$CartList = json_decode(htmlspecialchars_decode($order["Order_CartList"]), true);
-        
+
 	//分销返利处理
 	$interest_total = 0;
 	if(!empty($CartList)){

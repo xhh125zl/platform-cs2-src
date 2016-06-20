@@ -69,7 +69,9 @@ class distribute_ajaxController extends controllController {
 		    'Users_ID'=>$this->UsersID,
 			'User_ID'=>$_SESSION[$this->UsersID . 'User_ID']
 		);
+
 		$dsAccount = model('distribute_account')->field('Account_ID,balance')->where($condition)->find();
+
 		
 		if($_POST['money'] > $dsAccount['balance']) {
 			$Data = array('status'=>0, 'msg'=>'余额不足');
@@ -103,8 +105,10 @@ class distribute_ajaxController extends controllController {
 					'User_ID'=>$_SESSION[$this->UsersID . 'User_ID'],
 					'Account_ID'=>$dsAccount['Account_ID']
 				);
+
 				model('distribute_account')->where($condition)->update('balance=balance-' . $money);
 				$Flag = model('distribute_account_record')->insert($data);
+
 				if($Flag) {
 					$Data = array('status'=>1);
 				}else {

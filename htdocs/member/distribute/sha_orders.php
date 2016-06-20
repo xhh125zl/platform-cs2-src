@@ -48,10 +48,12 @@ if(isset($_GET["search"])){
 	}
 }
 $curid = 3;
+
 if (isset($dis_config) && !empty($dis_config['Sha_Rate'])) 
 {
     $Sha_Rate = json_decode($dis_config['Sha_Rate'], true);
 }
+
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -119,6 +121,7 @@ if (isset($dis_config) && !empty($dis_config['Sha_Rate']))
             <td width="8%" nowrap="nowrap">状态</td>
             <td width="13%" nowrap="nowrap">申请时间</td>
             <td width="13%" nowrap="nowrap" class="last">操作</td>
+
           </tr>
         </thead>
         <tbody>
@@ -152,6 +155,7 @@ if (isset($dis_config) && !empty($dis_config['Sha_Rate']))
             <td><?=$rsOrder["Applyfor_Name"]?></td> 
             <td nowrap="nowrap"><?php echo date("Y-m-d H:i:s",$rsOrder["Order_CreateTime"]) ?></td>       
             <td nowrap="nowrap"><?=!empty($Sha_Rate['sha'][$rsOrder["Applyfor_level"]]['name'])?$Sha_Rate['sha'][$rsOrder["Applyfor_level"]]['name']:'未知' ?></td>
+
             <td nowrap="nowrap"><?=$Order_Status[$rsOrder["Order_Status"]]?></td>
             <td nowrap="nowrap"><?php echo date("Y-m-d H:i:s",$rsOrder["Order_CreateTime"]) ?></td>
             <td class="last" nowrap="nowrap">

@@ -24,12 +24,14 @@ if($_POST)
 	}else{
 		$_POST["FinanceRate"] = 0;
 	}
+
         if(!empty($_POST["PaymenteRate"])){
 		if(!is_numeric($_POST["PaymenteRate"]) || $_POST["PaymenteRate"]<=0){
 			echo '<script language="javascript">alert("结算比例必须大于零！");history.back();</script>';
 			exit();
 		}
 	}
+
 	
 	$_POST['Introduce'] = htmlspecialchars($_POST['Introduce'], ENT_QUOTES);
 	$Data=array(
@@ -44,9 +46,11 @@ if($_POST)
 		"Biz_Status"=>$_POST['Status'],
 		"Finance_Type"=>$_POST["FinanceType"],
 		"Finance_Rate"=>empty($_POST["FinanceRate"]) ? 0 : $_POST["FinanceRate"],
+
                 "PaymenteRate"=>empty($_POST["PaymenteRate"]) ? 100 : $_POST["PaymenteRate"],
 		"Biz_Logo"=>$_POST['LogoPath'],
                 "Invitation_Code"=>isset($_POST['Invitation_Code'])?trim($_POST['Invitation_Code']):''
+
 	);
 	
 	
@@ -160,6 +164,7 @@ KindEditor.ready(function(K) {
       <script type='text/javascript' src='/static/js/plugin/operamasks/operamasks-ui.min.js'></script>
       <form class="r_con_form" method="post" action="?" id="group_edit">
         <div class="rows">
+
           <label>邀请码</label>
           <span class="input">
           <input type="text" name="Invitation_Code" value="<?=isset($rsBiz['Invitation_Code'])?$rsBiz['Invitation_Code']:'';?>" class="form_input" size="35" maxlength="50" />
@@ -167,6 +172,7 @@ KindEditor.ready(function(K) {
           <div class="clear"></div>
         </div>  
         <div class="rows">
+
           <label>商家登录账号</label>
           <span class="input">
           <input type="text" name="Account" value="<?php echo $rsBiz["Biz_Account"];?>" class="form_input" size="35" maxlength="50" readonly />
@@ -291,6 +297,7 @@ KindEditor.ready(function(K) {
           </span>
           <div class="clear"></div>
         </div>
+
         <div class="rows" id="PaymenteRate">
           <label>结算比例</label>
           <span class="input">
@@ -299,6 +306,7 @@ KindEditor.ready(function(K) {
           </span>
           <div class="clear"></div>
         </div>
+
         <div class="rows">
           <label>状态</label>
           <span class="input">

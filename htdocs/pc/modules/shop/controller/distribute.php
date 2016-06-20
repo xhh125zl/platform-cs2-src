@@ -7,9 +7,11 @@ class distributeController extends controllController {
 		$this->check_login();
 		$user_model = model('user');
 		$rsUser = $user_model->field('Is_Distribute')->where(array('User_ID'=>$_SESSION[$this->UsersID . 'User_ID']))->find();
+
 		//$rsDisAccount = model('shop_distribute_account')->field('Account_ID,Is_Dongjie,Is_Delete,Is_Audit,status,balance,Enable_Tixian,Total_Income,Group_Num')->where(array('User_ID'=>$_SESSION[$this->UsersID . 'User_ID']))->find();
 		$rsDisAccount = model('distribute_account')->field('Account_ID,Is_Dongjie,Is_Delete,Is_Audit,status,balance,Enable_Tixian,Total_Income,Group_Num')->where(array('User_ID'=>$_SESSION[$this->UsersID . 'User_ID']))->find();
                 $this->rsDisAccount = $rsDisAccount;
+
 		if($rsDisAccount){
 			if($rsDisAccount['Is_Dongjie'] == 1 || $rsDisAccount['Is_Delete'] == 1) {//账号被冻结
 				header('location:' . url('distribute/distribute_dongjie'));
@@ -49,12 +51,14 @@ class distributeController extends controllController {
 		if(IS_AJAX) {
 			if($filter != 'all') {
 				if($filter == 'self') {
+
 				    $sql1 = 'SELECT COUNT(*) as count FROM distribute_account_record as a LEFT JOIN distribute_record as r ON a.Ds_Record_ID=r.Record_ID LEFT JOIN shop_products as p ON p.Products_ID=r.Product_ID WHERE a.Users_ID="' . $this->UsersID . '" AND a.User_ID=' . $_SESSION[$this->UsersID . 'User_ID'] . ' AND r.Owner_ID=' . $_SESSION[$this->UsersID . 'User_ID'] . ' AND a.Record_Type=0';
 				}elseif($filter == 'down') {
 				    $sql1 = 'SELECT COUNT(*) as count FROM distribute_account_record as a LEFT JOIN distribute_record as r ON a.Ds_Record_ID=r.Record_ID LEFT JOIN shop_products as p ON p.Products_ID=r.Product_ID WHERE a.Users_ID="' . $this->UsersID . '" AND a.User_ID=' . $_SESSION[$this->UsersID . 'User_ID'] . ' AND r.Owner_ID!=' . $_SESSION[$this->UsersID . 'User_ID'] . ' AND a.Record_Type=0';
 				}
 			}else {
 			    $sql1 = 'SELECT COUNT(*) as count FROM distribute_account_record as a LEFT JOIN distribute_record as r ON a.Ds_Record_ID=r.Record_ID LEFT JOIN shop_products as p ON p.Products_ID=r.Product_ID WHERE a.Users_ID="' . $this->UsersID . '" AND a.User_ID=' . $_SESSION[$this->UsersID . 'User_ID'] . ' AND a.Record_Type=0';
+
 			}
 			$count = model()->query($sql1, 'find');
 			$num = 12;//每页记录数
@@ -64,6 +68,7 @@ class distributeController extends controllController {
 			$limitpage = ($p-1) * $num;//每次查询取记录
 			if($filter != 'all') {
 				if($filter == 'self') {
+
 				    $sql2 = 'SELECT * FROM distribute_account_record as a LEFT JOIN distribute_record as r ON a.Ds_Record_ID=r.Record_ID LEFT JOIN shop_products as p ON p.Products_ID=r.Product_ID WHERE a.Users_ID="' . $this->UsersID . '" AND a.User_ID=' . $_SESSION[$this->UsersID . 'User_ID'] . ' AND r.Owner_ID=' . $_SESSION[$this->UsersID . 'User_ID'] . ' AND a.Record_Type=0 order by a.Record_ID desc limit ' . $limitpage . ',' . $num;
 					
 				}elseif($filter == 'down') {
@@ -71,6 +76,7 @@ class distributeController extends controllController {
 				}
 			}else {
 				$sql2 = 'SELECT * FROM distribute_account_record as a LEFT JOIN distribute_record as r ON a.Ds_Record_ID=r.Record_ID LEFT JOIN shop_products as p ON p.Products_ID=r.Product_ID WHERE a.Users_ID="' . $this->UsersID . '" AND a.User_ID=' . $_SESSION[$this->UsersID . 'User_ID'] . ' AND a.Record_Type=0  order by a.Record_ID desc limit ' . $limitpage . ',' . $num;	
+
 			}
 			$rsRecords = model()->query($sql2);
 			
@@ -119,6 +125,7 @@ class distributeController extends controllController {
 			$this->assign('self_distribute_count', $self_distribute_count['count']);
 			//下级销售次数
 			$posterity_distribute_count = model()->query('SELECT COUNT(*) as count FROM distribute_account_record as a LEFT JOIN distribute_record as r ON a.Ds_Record_ID=r.Record_ID WHERE a.Users_ID="' . $this->UsersID . '" AND a.User_ID=' . $_SESSION[$this->UsersID . 'User_ID'] . ' AND r.Owner_ID!=' . $_SESSION[$this->UsersID . 'User_ID'] . ' AND a.Record_Type=0','find');
+
 			$this->assign('posterity_distribute_count', $posterity_distribute_count['count']);
 			
 			$this->display('distribute_record.php', 'distribute', 'distribute_layout');
@@ -252,6 +259,7 @@ class distributeController extends controllController {
 				$head_img = $rsUser['User_HeadImg'];
 				if($rsUser['Is_Distribute']){
 					$a = model('distribute_account')->where(array('Users_ID'=>$this->UsersID,'User_ID'=>$_SESSION[$this->UsersID . 'User_ID']))->find();
+
 					if($a){
 						if($a['enable_tixian'] == 1){
 							$fx_enable = 1;
@@ -273,8 +281,9 @@ class distributeController extends controllController {
 		$_SESSION[$this->UsersID . 'HTTP_REFERER'] = url('distribute/distribute_withdraw');
 		$status = !isset($_GET['status']) ? (!isset($_POST['status']) ? 'all' : $_POST['status']) : $_GET['status'];
 		$this->assign('status', $status);
-		
+
 		$dis_account_record_model = model('distribute_account_record');
+
 		if(IS_AJAX) {
             $condition = array(
 			    'User_ID'=>$_SESSION[$this->UsersID . 'User_ID'],
@@ -324,6 +333,7 @@ class distributeController extends controllController {
 			if($this->rsDisAccount['Enable_Tixian'] == 0){
 				if($this->shopConfig['withdraw_type'] == 0){//无限制
 					$data['Enable_Tixian'] = 1;
+
 					model('distribute_account')->where(array('User_ID'=>$_SESSION[$this->UsersID . 'User_ID']))->update($data);
 				}elseif($this->shopConfig['withdraw_type'] == 1){//佣金限制
 					if($this->shopConfig['withdraw_limit'] == 0){			
@@ -333,6 +343,7 @@ class distributeController extends controllController {
 						if($this->rsDisAccount['Total_Income'] >= $this->shopConfig['withdraw_limit']){
 							$data['Enable_Tixian'] = 1;
 					        model('distribute_account')->where(array('User_ID'=>$_SESSION[$this->UsersID . 'User_ID']))->update($data);
+
 						}else{
 							header('location:' . url('distribute/withdraw_apply'));
 						}
@@ -374,8 +385,10 @@ class distributeController extends controllController {
 		$rsUser = model('user')->field('*')->where(array('Users_ID'=>$this->UsersID,'User_ID'=>$_SESSION[$this->UsersID . 'User_ID']))->find();
 		if($rsUser['Is_Distribute'] == 1){
 			$poster_path = SITE_PATH . '/data/poster/' . $this->UsersID . $this->owner['id'] . '.png';	
+
                         $poster_web_path = '/data/poster/' . $this->UsersID . $this->owner['id'] . '.png';
 			$rsAccount = model('distribute_account')->field('*')->where(array('Users_ID'=>$this->UsersID,'User_ID'=>$_SESSION[$this->UsersID . 'User_ID']))->find();
+
 			$this->assign('rsUser', $rsUser);
 			$this->assign('rsAccount', $rsAccount);
 			$this->assign('rsConfig', $this->shopConfig);
@@ -389,7 +402,9 @@ class distributeController extends controllController {
 	public function distribute_groupOp() {
 		$_SESSION[$this->UsersID . 'HTTP_REFERER'] = url('distribute/distribute_group');
 		$this->assign('title', '我的团队');
+
 		$rsAccount = model('distribute_account')->field('*')->where(array('Users_ID'=>$this->UsersID,'User_ID'=>$_SESSION[$this->UsersID . 'User_ID']))->find();
+
 		$this->assign('rsAccount', $rsAccount);
 		$level_config = $this->shopConfig['dis_level'];
 		$posterity_list = getPosterity($this->UsersID, $_SESSION[$this->UsersID . 'User_ID'], $level_config);
@@ -419,11 +434,13 @@ class distributeController extends controllController {
 			header('location:' . url('distribute/distribute_withdraw'));exit;
 		}else{
 			if($this->shopConfig['withdraw_type'] == 0){
+
 				model('distribute_account')->where(array('Users_ID'=>$this->UsersID,'Account_ID'=>$this->rsDisAccount['Account_ID']))->update(array('Enable_Tixian'=>1));
 				header('location:' . url('distribute/distribute_withdraw'));exit;
 			}elseif($this->shopConfig['withdraw_type'] == 1){
 				if($this->rsDisAccount['Total_Income'] >= $this->shopConfig['withdraw_limit']){
 					model('distribute_account')->where(array('Users_ID'=>$this->UsersID,'Account_ID'=>$this->rsDisAccount['Account_ID']))->update(array('Enable_Tixian'=>1));
+
 				    header('location:' . url('distribute/distribute_withdraw'));exit;
 				}else{
 					$html_mes = '<div class="join_tip">当您所得佣金满<span>' . $this->shopConfig['withdraw_limit'] . '</span>元时，即可拥有提现权利；您当前获得佣金<span>' . $this->rsDisAccount['Total_Income'] . '</span>元</div>';
@@ -468,16 +485,20 @@ class distributeController extends controllController {
 		$this->assign('total_sales', $total_sales?:'0.00');
 		
 		//直销人数
+
 		$user_count = model('distribute_account')->where(array('invite_id'=>$_SESSION[$this->UsersID . 'User_ID']))->total();
+
 		$this->assign('user_count', $user_count);
 		$ex_bonus = array(
 			'total' => 0.00,
 			'pay' => 0.00,
 			'payed' => 0.00
 		);
+
 		//$dis_account_record_list = model('distribute_account_record')->field('Nobi_Money,Record_Status,Nobi_Status')->where(array('User_ID'=>$_SESSION[$this->UsersID . 'User_ID'],'Nobi_Money >'=>0))->select();
 		$dis_account_record_list = model('distribute_account_record')->field('Nobi_Money,Record_Status')->where(array('User_ID'=>$_SESSION[$this->UsersID . 'User_ID'],'Nobi_Money >'=>0))->select();
                 foreach($dis_account_record_list as $k => $r){
+
 			if($r['Record_Status'] == 2){
 				$ex_bonus['payed'] += $r['Nobi_Money'];
 			}else{

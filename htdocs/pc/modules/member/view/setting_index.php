@@ -155,7 +155,9 @@ $(document).ready(function() {
 					<div class="clear"></div>
 				</div>
 				<div class="rows">
+
 					<label>注册二维码</label>
+
 					<span class="input"> <span class="upload_file">
 					<div>
 						<div class="up_input">

@@ -6,6 +6,7 @@ if (isset($dis_config) && !empty($dis_config['Sha_Rate']))
 	$Sha_Rate = json_decode($dis_config['Sha_Rate'], true);
 }
 
+
 //判断是不是股东
 $DisRs = $DB->GetRs('distribute_account','sha_level,Enable_Agent',"where Users_ID='".$UsersID."' and User_ID=".$_SESSION[$UsersID.'User_ID']);
 $shaInfo = $DB->GetRs('sha_order', '*', ' where `Users_ID`="' .$UsersID. '" AND `User_ID`="' .$User_ID. '" AND `Order_Status` not in(2,3)');
@@ -17,6 +18,7 @@ if (empty($shaInfo))
 }
 
 $header_title = '我的股东申请信息'; 
+
 require_once('header.php');
 ?>
 
@@ -113,7 +115,9 @@ $(document).ready(function(){
 				}
 				?>
 			</span></dd>
+
                         <dd><b>申请级别：</b><?php echo !empty($Sha_Rate['sha'][$shaInfo['Applyfor_level']]['name']) ? $Sha_Rate['sha'][$shaInfo['Applyfor_level']]['name'] : ''; ?></dd>
+
 			<?php if($shaInfo['Order_Status'] == '4'): ?>
 			<dd><b>拒绝原因：</b><?php echo $shaInfo['Refuse_Be']; ?></dd>
 			<?php endif; ?>
@@ -124,6 +128,7 @@ $(document).ready(function(){
 
 		<div class="disAction">
 			<?php if($shaInfo['Order_Status'] == 1): ?>
+
                             <?php 
                             if($shaInfo['Order_TotalPrice']==0 && !empty($shaInfo['Applyfor_level'])){
                                 $flaga = $DB->Set('distribute_account', array('Enable_Agent' => 1,'sha_level'=>$shaInfo['Applyfor_level']), ' WHERE `Users_ID`="' .$shaInfo['Users_ID']. '" AND `User_ID` = '.$shaInfo['User_ID']);
@@ -133,6 +138,7 @@ $(document).ready(function(){
                                 }
                             }
                             ?>
+
 			<a href="javascript:void(0);" class="pay payaction" data-value="<?php echo $shaInfo['Order_TotalPrice']; ?>">马上付款</a>
 			<?php endif; ?>
 			<?php if($shaInfo['Order_Status'] != 2 && $shaInfo['Order_Status'] != 3): ?>
@@ -143,7 +149,9 @@ $(document).ready(function(){
 
 	<div class="show_detail_link">
 		<a href="/api/<?=$UsersID?>/distribute/my_sha_info/" class="">我的股东分红明细</a>
+
                 <a style="float:right">当前身份:<?=!empty($DisRs['sha_level'])?$Sha_Rate['sha'][$DisRs['sha_level']]['name']:'不是股东';?></a>
+
 	</div>
 
 	<?php if (!empty($Sha_Rate)) : ?>
@@ -177,6 +185,7 @@ $(document).ready(function(){
                     <?php    
                         }
                     ?>        
+
 	  </tbody></table> 
     </div>
 	<?php endif; ?>

@@ -18,7 +18,9 @@ class OrderObserver {
 		$flag_a = $this->handle_user_info();
 		
 		$flag_b = $flag_c = $flag_d = true;
+
 		$disAccountRecord = model()->query('SELECT COUNT(*) as count FROM distribute_account_record AS a RIGHT JOIN distribute_record AS r ON a.Ds_Record_ID=r.Record_ID WHERE r.Order_ID=' . $this->order['order_id'], 'find');
+
 		if($disAccountRecord['count']){
 			//更改分销账户得钱记录状态
 			$flag_b = $this->handle_dis_record_info();  
@@ -128,7 +130,9 @@ class OrderObserver {
 	 * 处理分销记录信息
 	 */
 	private function handle_dis_record_info() {
+
 		$distribute_record_model = model('distribute_record');
+
 		$distribute_records = $distribute_record_model->field('Record_ID')->where(array('Order_ID'=>$this->order['order_id']))->select();
 		$Record_IDS = array();
 		foreach($distribute_records as $k => $v) {
@@ -137,7 +141,9 @@ class OrderObserver {
 		// 将分销记录设置为完成
 		$flag_a = $distribute_record_model->where(array('Order_ID'=>$this->order['order_id']))->update(['status' => 1]);
 		// 将分销账号记录置为完成
+
 		$flag_b = model('distribute_account_record')->where(array('Ds_Record_ID'=>$Record_IDS))->update(['Record_Status' => 2]);
+
 		return $flag_a && $flag_b;
 	}
 	
@@ -145,9 +151,11 @@ class OrderObserver {
 	 * 增加分销账号余额,总销售额
 	 */
 	private function handle_dis_account_info() {
+
 		$distribute_account_record_model = model('distribute_account_record');
 		$distribute_record_model = model('distribute_record');
 		$distribute_account_model = model('distribute_account');
+
 		$distribute_records = $distribute_record_model->field('Record_ID')->where(array('Order_ID'=>$this->order['order_id']))->select();
 		$Record_IDS = array();
 		foreach($distribute_records as $k => $v) {
@@ -287,7 +295,9 @@ class OrderObserver {
 	*添加代理记录
 	*/
 	private function do_agent_award($root_id, $record_money){		
+
 	    $dis_account_model = model('distribute_account');
+
 		
 		$UsersID = $this->order['users_id'];
 		

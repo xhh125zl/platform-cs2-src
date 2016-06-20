@@ -43,6 +43,7 @@ while($r=$DB->Fetch_assoc()){
 	$groups[$r["Group_ID"]] = $r;
 }
 
+
 $salesman_array = array();
 $is_salesman_array = array();
 $DB->Get("distribute_account","Real_Name,Invitation_Code,Is_Salesman","where Users_ID='".$_SESSION["Users_ID"]."' and Invitation_Code <> ''");
@@ -52,6 +53,7 @@ while($row = $DB->fetch_assoc()){
 	$is_salesman_array[$row['Invitation_Code']] = $row['Is_Salesman'];
     }
 }
+
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -124,12 +126,14 @@ while($row = $DB->fetch_assoc()){
           <tr>
             <td width="8%" nowrap="nowrap">ID</td>
             <td width="10%" nowrap="nowrap">登录账号</td>
+
              <td width="5%" nowrap="nowrap">邀请码</td>
             <td width="7%" nowrap="nowrap">业务员</td>
             <td width="15%" nowrap="nowrap">商家名称</td>
             <td width="10%" nowrap="nowrap">所属分组</td>
             <td width="7%" nowrap="nowrap">联系人</td>
             <td width="8%" nowrap="nowrap">联系电话</td>
+
             <td width="12%" nowrap="nowrap">添加时间</td>
             <td width="10%" nowrap="nowrap">状态</td>
             <td width="8%" nowrap="nowrap" class="last">操作</td>
@@ -151,6 +155,7 @@ while($row = $DB->fetch_assoc()){
             <td><?php echo $rsBiz["Biz_Account"] ?></td>
             <td><?php echo $rsBiz['Invitation_Code']; ?></td>
             <td><?php if(!empty($rsBiz["Invitation_Code"])){if($is_salesman_array[$rsBiz["Invitation_Code"]]!= 1){echo '业务员被删除';}else{echo strlen($salesman_array[$rsBiz["Invitation_Code"]])>0?$salesman_array[$rsBiz["Invitation_Code"]]:'无昵称';} }?></td>
+
             <td><?php echo $rsBiz["Biz_Name"] ?></td>
             <td><?php echo empty($groups[$rsBiz["Group_ID"]]["Group_Name"]) ? "" : $groups[$rsBiz["Group_ID"]]["Group_Name"]; ?></td>
             <td nowrap="nowrap"><?php echo $rsBiz['Biz_Contact']; ?></td>

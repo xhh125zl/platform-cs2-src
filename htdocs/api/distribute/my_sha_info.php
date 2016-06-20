@@ -7,6 +7,7 @@ if (isset($dis_config) && !empty($dis_config['Sha_Rate']))
 	$Sha_Rate = json_decode($dis_config['Sha_Rate'], true);
 }
 
+
 //$shaInfo = $DB->Get('distribute_sha_rec', '*', ' where `Users_ID`="' .$UsersID. '" AND Account_ID='.$rsAccount['Account_ID']);
 $shaInfo = $DB->Get('distribute_sha_rec', '*', ' where `Users_ID`="' .$UsersID. '" order by Order_CreateTime desc'); 
 $shaList = array();
@@ -15,6 +16,7 @@ while ($row = $DB->fetch_assoc()) {
         if(in_array($rsAccount['Account_ID'],$Accountid)){
             $shaList[] = $row;
         }
+
 }
 $header_title = '我的股东分红明细';
 require_once('header.php');
@@ -86,7 +88,9 @@ $(document).ready(function(){
 			<dd><b>订单编号：</b><?php echo date("Ymd",$s["Order_CreateTime"]).$s["Order_ID"] ?></dd>
 			<dd><b>商品名称：</b><?php echo $s['Products_Name']; ?></dd>
 			<dd><b>商品价格：</b><?php echo $s['Products_PriceX']; ?></dd>
+
 <!--			<dd><b>股东佣金比例：</b><?php //echo $s['sha_Reward']."%"; ?></dd>-->
+
 			<dd><b>购买数量：</b><?php echo $s['Products_Qty']; ?></dd>
 			<dd><b>佣金：</b><font color="#ef363e">¥<?php echo number_format(($s['Record_Money']/$s['Sha_Qty']),2,'.',''); ?></font></dd>
 		</div>

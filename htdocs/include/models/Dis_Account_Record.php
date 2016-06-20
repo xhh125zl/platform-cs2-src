@@ -58,6 +58,7 @@ class Dis_Account_Record extends Illuminate\Database\Eloquent\Model {
 		if (strlen($Record_Status) > 0) {
 			//$builder->where('Record_Status', $Record_Status);
 			$builder->where('Record_Status','>=',$Record_Status);
+
 		}
 		
 

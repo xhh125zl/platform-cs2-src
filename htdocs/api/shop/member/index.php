@@ -77,8 +77,10 @@ if(!empty($rsConfig1["UserLevel"])){
 		}else{
 			echo '暂无';
 		}
+
 	?>
     </br>  ID：<?php echo $rsUser['User_ID'];?></span>
+
 	<div class="clearfix"></div>
    </div>   
    <div class="clearfix"></div>

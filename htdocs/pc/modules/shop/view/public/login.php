@@ -75,7 +75,9 @@ var RESOURCE_SITE_URL = 'http://<?php echo $output['_site_url']?>/static/pc';
 			</form>
 			<dl class="mt10 mb10">
 				<dt>&nbsp;</dt>
+
 				<dd>还不是本站会员？立即<a title="" href="javascript:void(0)" id="reg" url="<?php echo url('public/register',array('UsersID'=>$output['UsersID']));?>" class="register">注册</a></dd>
+
 			</dl>
 		</div>
 		<div class="pre-login-bottom"></div>
@@ -84,6 +86,7 @@ var RESOURCE_SITE_URL = 'http://<?php echo $output['_site_url']?>/static/pc';
 <script src="<?php echo $output['_site_url'];?>/static/pc/shop/js/jquery-1.7.2.min.js"></script>
 <script src="<?php echo $output['_site_url'];?>/static/pc/public/js/jquery.validation.min.js"></script>
 <script src="<?php echo $output['_site_url'];?>/static/js/plugin/layer/layer.js"></script> 
+
 <script>
 $(document).ready(function() {
 	$("#login_form").validate({
@@ -102,6 +105,7 @@ $(document).ready(function() {
 			password: "密码不能为空",
 		}
 	});
+
         
         $("#reg").click(function(){
             var url = $("#reg").attr('url');
@@ -113,6 +117,7 @@ $(document).ready(function() {
             });
             
         })
+
 });
 </script>
 </body>

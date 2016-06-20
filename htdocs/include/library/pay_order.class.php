@@ -54,6 +54,7 @@ class pay_order{
 		$Data = array(
 			"Order_Status" => 2
 		);
+
                 $this->update_order($orderid, $Data);
                 //更改业务提成状态为已付款
                 require_once($_SERVER["DOCUMENT_ROOT"].'/include/compser_library/Salesman_ Commission.php');
@@ -61,6 +62,7 @@ class pay_order{
 		$sales_man->up_sales_status($orderid,1);
                 
 		
+
 		
 		if(strpos($rsOrder["Order_Type"],'zhongchou')>-1){
 			$url = '/api/'.$rsOrder["Users_ID"].'/zhongchou/orders/';

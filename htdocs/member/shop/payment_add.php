@@ -9,11 +9,13 @@ require_once($_SERVER["DOCUMENT_ROOT"].'/include/helper/balance.class.php');
 $balance = new balance($DB,$_SESSION["Users_ID"]);
 
 if($_POST){
+
 	$BizRs = $DB->GetRS('biz','Users_ID,UserID',"where Users_ID='".$_SESSION["Users_ID"]."' and BIZ_ID=".$_POST["BizID"]);
 	if(empty($BizRs['UserID'])){
 		echo '<script language="javascript">alert("该商家没有绑定前台会员,暂不能结款!");history.back();</script>';
 		exit;
 	}
+
 	$Time=empty($_POST["Time"])?array(time(),time()):explode(" - ",$_POST["Time"]);
 	$StartTime=strtotime($Time[0]);
 	$EndTime=strtotime($Time[1]);

@@ -45,6 +45,7 @@ if(!empty($rsBiz['Biz_Area'])){
         <li><a href="account_edit.php">修改资料</a></li>
 		<li><a href="address_edit.php">收货地址</a></li>
                 <li><a href="bind_user.php">绑定会员</a></li>
+
         <li><a href="account_password.php">修改密码</a></li>
       </ul>
     </div>
@@ -111,10 +112,12 @@ if(!empty($rsBiz['Biz_Area'])){
             <td><?php echo $rsBiz["Finance_Rate"];?> %</td>
           </tr>
 		  <?php }?>
+
            <tr>
             <td nowrap>结算比例：</td>
             <td><?php echo $rsBiz["PaymenteRate"];?>% &nbsp;&nbsp;注：商家财务结算时,按照结算比例款项一部分转向商家指定的卡号,剩下的部分转入商家绑定的前台会员的余额中。</td>
           </tr>
+
           <tr>
             <td nowrap>加入时间：</td>
             <td><?php echo date("Y-m-d H:i:s",$rsBiz["Biz_CreateTime"]);?></td>

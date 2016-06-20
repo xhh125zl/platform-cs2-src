@@ -46,7 +46,9 @@ class DisAccountObserver {
 
 
 	public function up_professional_title_by_group_num($UserID) {
+
 		$ds_account_obj = model('distribute_account');
+
 		$Users_ID = $this->cur_ds_account['Users_ID'];
 		$pro_titles = get_dis_pro_title($Users_ID);
 

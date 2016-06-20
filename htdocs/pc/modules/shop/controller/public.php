@@ -13,11 +13,13 @@ class publicController extends commonController {
 		}else {
 			$this->error('缺少必要的参数');
 		}
+
 		//$wap_config = model('shop_config')->where(array('Users_ID'=>$this->UsersID))->find();
                 $wap_config = model()->query("SELECT * FROM shop_config where Users_ID='".$this->UsersID."' limit 0,1");
                 $dis_config = model()->query("SELECT * FROM distribute_config where Users_ID='".$this->UsersID."' limit 0,1");
 		$pc_setting = model('pc_setting')->where(array('Users_ID'=>$this->UsersID,'module'=>'shop'))->find();
 		$config = array_change_key_case(array_merge($wap_config[0],$dis_config[0],$pc_setting));
+
 		$this->shopConfig = $config;
 		$this->owner = get_owner($this->shopConfig, $this->UsersID);
 		$this->assign('shopConfig', $config);

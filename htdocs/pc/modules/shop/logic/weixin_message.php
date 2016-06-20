@@ -91,7 +91,9 @@ class weixin_message{
 					'User_OpenID'=>$u['User_OpenID'],
 					'User_NickName'=>$u['User_NickName']
 				);
+
 				$account = model('distribute_account')->field('Enable_Tixian')->where(array('Users_ID'=>$this->usersid,'User_ID'=>$uid))->find();
+
 				
 				if($account['Enable_Tixian']==1){
 					$data['boss'] = 1;
@@ -109,8 +111,10 @@ class weixin_message{
 	}
 	
 	private function get_bonus($orderid, $uid){
+
 		$distribute_account_record_model = model('distribute_account_record');
 		$distribute_record_model = model('distribute_record');
+
 		$distribute_records = $distribute_record_model->field('Record_ID')->where(array('Order_ID'=>$orderid))->select();
 		$Record_IDS = array();
 		foreach($distribute_records as $k => $v) {
@@ -148,7 +152,9 @@ class weixin_message{
 	}
 	
 	public function sendorder($money, $orderid){//佣金提醒
+
 		$rsConfig = model('distribute_config')->field('Withdraw_Type,Withdraw_Limit')->where(array('Users_ID'=>$this->usersid))->find();
+
 		
 		$msg = '';
 

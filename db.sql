@@ -3918,7 +3918,7 @@ CREATE TABLE `biz_menu` (
   `Biz_ID` int(10) DEFAULT NULL,
   `menu_sort` int(10) DEFAULT NULL COMMENT '排序',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of biz_menu
@@ -5311,7 +5311,7 @@ CREATE TABLE `kanjia` (
   `Kanjia_Createtime` varchar(10) DEFAULT NULL,
   `is_recommend` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`Kanjia_ID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of kanjia
@@ -6093,7 +6093,7 @@ CREATE TABLE `shop_attribute` (
   `Biz_ID` int(10) DEFAULT '0',
   PRIMARY KEY (`Attr_ID`),
   KEY `Type_ID` (`Type_ID`)
-) ENGINE=MyISAM AUTO_INCREMENT=53 DEFAULT CHARSET=utf8 COMMENT='商城产品属性列表';
+) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=utf8 COMMENT='商城产品属性列表';
 
 -- ----------------------------
 -- Records of shop_attribute
@@ -6475,7 +6475,7 @@ CREATE TABLE `shop_products_attr` (
   PRIMARY KEY (`Product_Attr_ID`),
   KEY `products_id` (`Products_ID`),
   KEY `attr_id` (`Attr_ID`)
-) ENGINE=MyISAM AUTO_INCREMENT=69 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=69 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of shop_products_attr
@@ -6548,7 +6548,7 @@ CREATE TABLE `shop_product_type` (
   `Status` tinyint(1) NOT NULL DEFAULT '1',
   `Biz_ID` int(10) DEFAULT '0',
   PRIMARY KEY (`Type_ID`)
-) ENGINE=MyISAM AUTO_INCREMENT=78 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=78 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of shop_product_type
@@ -6902,7 +6902,7 @@ CREATE TABLE `sms` (
   `code` varchar(255) NOT NULL DEFAULT '',
   `usersid` varchar(50) NOT NULL DEFAULT '',
   PRIMARY KEY (`itemid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='短信记录';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='短信记录';
 
 -- ----------------------------
 -- Records of sms
@@ -7329,7 +7329,7 @@ CREATE TABLE `users_menu` (
   `Users_ID` varchar(10) DEFAULT NULL,
   `menu_sort` int(10) DEFAULT NULL COMMENT '排序',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of users_menu
@@ -7731,7 +7731,7 @@ CREATE TABLE `user_favourite_products` (
   `Products_ID` int(11) unsigned NOT NULL,
   `Is_Attention` tinyint(1) NOT NULL,
   PRIMARY KEY (`FAVOURITE_ID`)
-) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of user_favourite_products

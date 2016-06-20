@@ -1,5 +1,6 @@
 <?php
 define('MAIN_SITE', 'www.103hb.cc');
+
 //网站根域名
 define('SITE_URL', 'http://'.$_SERVER['HTTP_HOST']);
 //入口文件 根目录

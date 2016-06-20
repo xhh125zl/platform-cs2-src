@@ -1,16 +1,24 @@
 <?php
+<<<<<<< HEAD
 
 ini_set ( "display_errors", "On" );
 require_once('sha_orders_global.php');
+=======
+ini_set ( "display_errors", "On" );
+require_once('agent_orders_global.php');
+>>>>>>> a8f68f7ec97960961bfc2bda979e3cae9789ef5a
 require_once($_SERVER["DOCUMENT_ROOT"].'/include/helper/url.php');
 $OrderID=empty($_REQUEST['OrderID'])?0:$_REQUEST['OrderID'];
 $rsOrder=$DB->GetRs("sha_order","*","where Users_ID='".$_SESSION['Users_ID']."' and Order_ID=".$OrderID);
 $Order_Status=array("待审核","待付款","已付款",'已取消','已拒绝');
 $curid = 1;
+<<<<<<< HEAD
 if (isset($dis_config) && !empty($dis_config['Sha_Rate'])) 
 {
     $Sha_Rate = json_decode($dis_config['Sha_Rate'], true);
 }
+=======
+>>>>>>> a8f68f7ec97960961bfc2bda979e3cae9789ef5a
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -49,10 +57,13 @@ if (isset($dis_config) && !empty($dis_config['Sha_Rate']))
               <td><?php echo date("Y-m-d H:i:s",$rsOrder["Order_CreateTime"]) ?></td>
             </tr>
             <tr>
+<<<<<<< HEAD
               <td nowrap>申请级别：</td>
               <td><?=!empty($Sha_Rate['sha'][$rsOrder["Applyfor_level"]]['name'])?$Sha_Rate['sha'][$rsOrder["Applyfor_level"]]['name']:'未知' ?></td>
             </tr>
             <tr>
+=======
+>>>>>>> a8f68f7ec97960961bfc2bda979e3cae9789ef5a
               <td nowrap>订单状态：</td>
               <td><?=$Order_Status[$rsOrder["Order_Status"]]?></td>
             </tr>
