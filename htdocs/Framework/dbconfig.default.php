@@ -1,0 +1,9 @@
+<?php 
+$host="127.0.0.1";
+//$user="user_2016053003";
+//$pass="pass_2016053003";
+//$data="2016053003";
+$user="root";
+$pass="root";
+$data="103hbqw999";
+?>

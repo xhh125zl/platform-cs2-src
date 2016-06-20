@@ -1,0 +1,14 @@
+@charset "utf-8";
+/* CSS Document */
+img{width:100%;}
+#div1{ width:100%; max-width: 640px; height:auto; position:relative; overflow:hidden; margin: 0 auto;}
+#ul1{ position:absolute; left:0; top: 0px; z-index:1000;}
+#ul1 li{ width:100%; list-style:none;text-align:center; overflow:hidden;}
+#ul1 li img{ width:100%; height:100%;}
+#ul1 li a{-webkit-tap-highlight-color:rgba(255,0,0,0);}
+#notice{position:absolute; width:120px; height:120px; left:50%; top:50%; margin-left:-60px; margin-top:-60px; background:#fff; z-index:1001; text-align:center;}
+#arrow{ position:absolute; width:30px; left:50%;bottom:10px; margin-left:-15px;z-index:1001;}
+#music{ position:absolute; width:100px; right:20px;bottom:20px;z-index:1001;}
+#music span:nth-of-type(1){ float:right;  width:30px;}
+#music span:nth-of-type(2){ color:#fff; float:right; width:40px; font-size:16px; line-height:30px; margin-right:5px; display:none;}
+

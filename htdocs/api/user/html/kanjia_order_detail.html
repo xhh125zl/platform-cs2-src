@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" />
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta content="telephone=no" name="format-detection" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>{{$title}}</title>
+<link href='{{$base_url}}static/css/global.css' rel='stylesheet' type='text/css' />
+<link href='{{$base_url}}static/api/css/user.css' rel='stylesheet' type='text/css' />
+<script type='text/javascript' src='{{$base_url}}static/js/jquery-1.7.2.min.js'></script>
+<script type='text/javascript' src='{{$base_url}}static/api/js/global.js'></script>
+<script type='text/javascript' src='{{$base_url}}static/api/js/user.js'></script>
+</head>
+
+<body>
+<script type="text/javascript">$(document).ready(user_obj.message_init);</script>
+<div id="message">
+  <div class="t"><img src="/static/api/kanjia/image/axe.png" />{{$title}}</div>
+  <!-- 订单状态选择器 begin -->
+  <ul id="member_nav">
+  
+    <li ><a href="/api/{{$UsersID}}/user/kanjia_order/status/0/?wxref=mp.weixin.qq.com">待付款</a></li>
+    <li ><a href="/api/{{$UsersID}}/user/kanjia_order/status/1/?wxref=mp.weixin.qq.com">待确认</a></li>
+    <li ><a href="/api/{{$UsersID}}/user/kanjia_order/status/2/?wxref=mp.weixin.qq.com">已付款</a></li>
+    <li ><a href="/api/{{$UsersID}}/user/kanjia_order/status/3/?wxref=mp.weixin.qq.com">已完成</a></li>
+  </ul>
+  <!-- 订单状态选择器 end -->
+  
+  <!-- 订单详情 begin -->
+	<div id="order_detail">
+    <div class="item">
+      <ul>
+        <li>订单编号：{{$OrderSn}}</li>
+        <li>订单时间: {{$OrderTime}}</li>
+        <li>订单状态: {{$Status_List.$Status}}</li>
+                <li>订单总价: <strong class="fc_red">￥{{$Order.Order_TotalAmount}}</strong></li>
+		        <li>订单备注:{{$Order.Order_Remark}} </li>
+      </ul>
+    </div>
+    <div class="item">
+      <ul>
+        <li>收货地址: :{{$Order.Address_Province}}{{$Order.Address_City}}{{$Order.Address_Area}}{{$Order.Address_Detailed}}【{{$Order.Address_Name}}，{{$Order.Address_Mobile}}】</li>
+        <li>配送方式: {{$Shipping.Express}}
+					{{if $Shipping.Price gt 0}}
+                    <strong class="fc_red">&yen;{{$Shipping.Price}}</strong>
+                    {{else}}
+                    <strong class="fc_red">免运费</strong>
+                    {{/if}}
+					
+		</li>
+        
+        {{if !empty($Order.Order_ShippingID)}}
+         <li>快递单号：{{$Order.Order_ShippingID}}</li>
+        {{/if}}
+              </ul>
+    </div>
+    
+    <!-- 支付方式begin -->
+  
+    {{if !empty($Order.Order_PaymentMethod)}}
+    <div class="item">
+      <ul>
+      				
+        <li>支付方式:{{$Order.Order_PaymentMethod}}</li>
+        {{if $Order.Order_PaymentMethod eq "线下支付" }}
+        <li>支付信息: {{$Order.Order_PaymentInfo}}
+        	
+        {{/if}}
+      </ul>
+    </div>
+	{{/if}}
+    <!-- 支付方式end -->
+    <div class="item">
+			{{foreach from=$CartList key=Product_ID item=Product_List}}
+ 			{{foreach from=$Product_List  item=Product}}
+            <div class="pro">
+			<div class="img"><img src="{{$Product.ImgPath}}" width="100" height="100"></div>
+			<dl class="info">
+				<dd class="name">{{$Product.ProductsName}}</dd>
+				<dd>价格:￥{{$Product.Cur_Price}}×{{$Product.Qty}}=￥{{$Product.Cur_Price*$Product.Qty}}</dd></dl>
+			<div class="clear"></div>
+			</div>
+          	{{/foreach}}
+        {{/foreach}}
+            
+            <div class="total_price">共计:<span>&yen;{{$Order.Order_TotalAmount}}</span></div>
+	    </div>
+        
+        {{if $Order.Order_Status eq 0}}
+    <div class="payment"><a href="/api/{{$UsersID}}/user/payment/{{$Order.Order_ID}}/?wxref=mp.weixin.qq.com">付款</a></div>	      </div>
+  		{{/if}}
+        
+        {{if $show_comment_btn eq 1 }}
+        <div class="payment"><a href="/api/{{$UsersID}}/user/commit/{{$Order.Order_ID}}/">评论</a></div>
+        {{/if}}
+        
+  <!-- 订单详情 end -->
+  
+  
+  </div>
+<div id="footer_user_points"></div>
+{{include file="lbi/footer_user.html"}}
+  
+<script language='javascript'>var KfIco='/static/kf/ico/00.png'; var OpenId='1l8obisr35rh22l0hnva910te7'; var UsersID='u768jrowps'; </script>
+<script type='text/javascript' src='/kf/js/webchat.js?t=1425524604'></script>
+</body>
+</html>

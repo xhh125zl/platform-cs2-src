@@ -1,0 +1,9 @@
+body a{cursor:pointer;}
+.wrap{width:100%; margin:0 auto; clear:both; overflow:hidden;}
+
+#header{background:#1C2628; height:40px;}
+#header ul li{float:left; height:40px; width:80px; text-align:center; background:url(../images/app_estate/bg.png) -310px -303px no-repeat;}
+#header ul li a{display:block; width:21px; height:21px; margin:0 auto; margin-top:10px; background:url(../images/app_estate/bg.png) 1px -92px no-repeat; cursor:pointer;}
+#header ul li.first{background:none;}
+#header ul li.home a{background-position:-21px -92px;}
+#header ul li.tel a{background-position:-43px -92px;}

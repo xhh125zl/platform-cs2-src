@@ -1,0 +1,25 @@
+.web_wrap img{vertical-align:top;}
+.b1{background:#e3a001;}
+.b2{background:#f06398;}
+.b3{background:#73ac03;}
+.r1{background:#e3a001; border-bottom:1px #996c02 solid; border-right:1px #996c02 solid; border-top:1px #996c02 solid;}
+.r2{background:#f06398; border-bottom:1px #c8316a solid; border-right:1px #c8316a solid; border-top:1px #c8316a solid;}
+.r3{background:#73ac03; border-bottom:1px #547e01 solid; border-right:1px #547e01 solid; border-top:1px #547e01 solid;}
+
+#web_skin_index{width:100%; height:100%; overflow:hidden; background:#86150c;}
+#web_skin_index .web_skin_index_list{overflow:hidden; position:relative; z-index:1}
+#web_skin_index img{width:100%; height:auto;}
+#web_skin_index .banner{width:100%; height:175px; overflow:hidden;}
+#web_skin_index .banner *{width:100%; height:100%; overflow:hidden;}
+.web_wrap{width:92.65625%; margin:0 auto; padding-bottom:20px;}
+.web_wrap .section{width:100%; margin-top:15px; border-radius:5px; overflow:hidden;}
+.web_wrap .section .section-left{float:left; width:58%; border-right:1px #996c02 solid; border-radius:5px 0px 0px 5px; overflow:hidden;}
+.web_wrap .section .section-left img{width:100%;}
+.web_wrap .section .section-right{float:left; width:41%; border-radius:0px 5px 5px 0px; overflow:hidden;}
+
+.web_wrap .section .section-right .section-name{width:90%; margin-top:10px; margin-left:10%;}
+.web_wrap .section .section-right .section-name p{margin:0px; padding:0px}
+.web_wrap .section .section-right .section-desc{width:88%; margin-left:10%; line-height:18px; overflow:hidden; height:85px; text-overflow:ellipsis;}
+.web_wrap .section .section-right .section-icon{width:15px; height:15px; margin-top:5px; margin-left:10%;}
+.web_wrap .section a{color:#fff;}
+.web_wrap .section a:hover{ text-decoration:none}

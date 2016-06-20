@@ -1,0 +1,20 @@
+@media all and (min-width:360px){
+	#web_skin_index .toper{height:48px; background-size:5px 48px;}
+	#web_skin_index .toper .img{height:48px;}
+	#web_skin_index .banner{height:150px;}
+}
+@media all and (min-width:420px){
+	#web_skin_index .toper{height:55px; background-size:5px 55px;}
+	#web_skin_index .toper .img{height:55px;}
+	#web_skin_index .banner{height:175px;}
+}
+@media all and (min-width:480px){
+	#web_skin_index .toper{height:63px; background-size:7px 63px;}
+	#web_skin_index .toper .img{height:63px;}
+	#web_skin_index .banner{height:200px;}
+}
+@media all and (min-width:640px){
+	#web_skin_index .toper{height:84px; background-size:9px 84px;}
+	#web_skin_index .toper .img{height:84px;}
+	#web_skin_index .banner{height:266px;}
+}

@@ -1,0 +1,7 @@
+#footer{background:none}
+#footer ul li{width:33.3%; height:42px; line-height:42px; float:left; font-size:14px; text-indent:38px; text-align:left}
+#footer ul li a{font-size:14px;}
+#footer ul li.footer01{background:url('footer01.png') no-repeat 15px center;}
+#footer ul li.footer01 a{color:#ff0000}
+#footer ul li.footer02{background:url('footer02.png') no-repeat 15px center}
+#footer ul li.footer03{background:url('footer03.png') no-repeat 15px center}

@@ -1,0 +1,63 @@
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  background:#FFF;
+  margin-bottom: 0px;
+}
+
+.salse_index_btns{width:100%;}
+.salse_index_btns ul{margin:0px; padding:0px}
+.salse_index_btns ul li{width:50%; height:120px; float:left; padding:0px; margin:0px; border-bottom:1px #dfdfdf solid; box-sizing:border-box;}
+.salse_index_btns ul li.border_r{border-right:1px #dfdfdf solid;} 
+.salse_index_btns ul li a{display:block; width:100%; height:100%; color:#333; font-size:14px;}
+.salse_index_btns ul li .images{display:block; width:100%; height:75px;}
+.salse_index_btns ul li .images img{display:block}
+.salse_index_btns ul li span{height:30px; line-height:30px; width:100%; display:block; text-align:center}
+
+.sales_company{width:100%;}
+.sales_company .items{width:100%; height:80px; padding-left:86px; box-sizing:border-box; margin-top:10px; border-bottom:1px #dfdfdf solid; position:relative}
+.sales_company .items .img{position:absolute; left:8px; top:0px; width:70px; max-height:70px; overflow:hidden}
+.sales_company .items .img img{width:70px; display:block}
+.sales_company .items p{margin:0px; padding:0px; font-size:12px; height:22px; color:#787878}
+.sales_company .items p.biz_title{margin-top:8px; font-size:14px; color:#333}
+.sales_company .sales_page{width:100%; text-align:center}
+
+.sales_record{width:100%}
+.sales_record td{border-bottom:1px #dfdfdf solid; height:86px;}
+.sales_record img{width:70px; max-height:70px;}
+.sales_record p{margin:0px; padding:0px; max-height:40px; overflow:hidden; line-height:20px; font-size:12px; color:#999}
+.sales_record p.pro_name{font-size:14px; color:#333}
+.sales_record span{display:block; width:100%; text-align:center}
+.sales_record .record_price{color:#ff0000; font-family:"Times New Roman"; margin-bottom:5px;}
+.my_money{display:block; height:50px; line-height:50px; text-indent:30px; font-size: 15px; border-top:1px solid #E1E1E1; border-bottom:1px solid #E1E1E1; position:relative; padding-right:20px; color:#000; background:#FFF none repeat scroll 0% 0%;}
+.dline{height:8px; width:100%; font-size:1px; background:#ededed}
+
+.my_tjm{position:absolute; top:3px; right:0px; height:30px; font-size:12px; border:1px #f09078 solid; border-radius:15px 0px 0px 15px; width:110px; background:rgba(255,255,255,0.1); z-index:999; font-family:"Times New Roman"}
+.my_tjm a{display:block; width:110px; margin:5px 0px 0px 10px; height:20px; text-indent:23px; line-height:20px; font-size:12px; font-family:"Times New Roman"; color:#FFF; background:url('my_tjm.png') no-repeat left center; background-size:20px;}
+
+.sales_my_tjm{width:100%; border:1px #dfdfdf solid; border-top:none}
+.sales_my_tjm td{border-bottom:1px #dfdfdf solid; padding-top:8px; padding-bottom:8px;}
+.sales_my_tjm .td_l{width:100px; text-align:right; padding-right:10px; border-right:1px #dfdfdf solid}
+.sales_my_tjm .td_r{text-align:left; padding-right:10px; padding-left:10px;}
+
+.select_item{height:40px; width:100%; padding:0px; margin:0px}
+.select_item li{width:33.33333%; box-sizing:border-box; border-left:1px #dfdfdf solid; border-top:1px #dfdfdf solid; border-bottom:1px #dfdfdf solid; float:left}
+.select_item li.first{border-left:none}
+.select_item li a{display:block; width:100%; text-align:center; height:40px; line-height:40px; font-size:14px;}
+.select_item li a.cur{color:#F60; font-weight:bold}
+
+.join_header{width:100%}
+.join_header img{display:block; margin:0px auto; max-width:100%}
+.join_content{width:100%; padding:15px 20px 8px; font-size:14px; color:#333; box-sizing:border-box}
+.join_content span{color:#fe0000; font-weight:bold; padding:0px 2px}
+.join_content a{display:block; height:40px; line-height:40px; width:95%; margin:10px auto 0px; background:#fe0000; color:#FFF; text-align:center; font-size:14px; font-weight:bold; border-radius:5px;}
+
+.join_intro{margin:0px; padding:0px 0px 8px 0px; border-bottom:1px #cecece solid; background:#FFF}
+.join_intro h2{height:32px; line-height:32px; font-size:16px; color:#666; border-bottom:1px #cecece solid; text-indent:15px; background:#f5f5f5}
+.join_intro p{margin:0px; padding:5px 0px 5px 85px; height:55px; background-size:50px; font-size:12px; color:#656565;}
+.join_intro p strong{display:block; height:32px; line-height:32px; font-size:16px; color:#343434}
+.join_intro p.weidian{background:url('weidian.png') no-repeat 8px center; margin-bottom:8px;}
+.join_intro p.yongjin{background:url('yongjin.png') no-repeat 8px center; margin-top:8px;}
+.join_intro .join_dline{height:1px; width:95%; border-top:1px #cecece dotted; margin:0px auto}

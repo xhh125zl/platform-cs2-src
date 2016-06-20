@@ -1,0 +1,32 @@
+@charset "utf-8";
+/* CSS Document */
+
+#distribute_brief{background:#ffffff;border-top:1px solid #dfdfdf;border-bottom:1px solid #dfdfdf;padding:10px 0;font-family:"Microsoft Yahei"}
+#distribute_brief .col-xs-1{padding-right:0px;}
+#distribute_brief .col-xs-5{line-height:25px;font-size:16px;padding-left:10px;font-weight:500;}
+#distribute_brief .col-xs-5 p {margin-bottom:0px;}
+
+#distribute_talk{margin-top:10px;}
+#distribute_talk .col-xs-2{padding-right:0px;}
+#distribute_talk .col-xs-5{padding-left:0px;}
+
+#distribute_product{margin-top:10px;margin-bottom:10px;}
+
+.qrcode_image{margin:10px 0;border-radius:10px;}
+.button-panel{text-align:center;padding:10px 0;}
+#distribute-btn{width:80%;}
+
+
+.activity-image{position:relative;}
+a.deadline { color:#D3D3D4; background-color:rgba(0,0,0,0.8);
+filter:progid:DXImageTransform.Microsoft.Gradient(GradientType=0, StartColorStr='#A0000000', EndColorStr='#A0000000');
+padding:5px 2%;
+position: absolute;
+left:0;right:0;bottom:0;
+width: 96%;
+text-decoration: none;
+font: 14px Microsoft YaHei, Verdana;
+color:#fff;
+}
+.deadline i{font-size:16px;padding-right:5px;}
+.deadline strong{color:red;}

@@ -1,0 +1,3 @@
+#reserve .search{padding:10px; background:#f7f7f7; border:1px solid #ddd; margin-bottom:8px; font-size:12px;}
+#reserve .search *{font-size:12px;}
+#reserve .search .search_btn{background:#1584D5; color:white; border:none; height:22px; line-height:22px; width:50px;}

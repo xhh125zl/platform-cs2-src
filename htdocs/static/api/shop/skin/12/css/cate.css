@@ -1,0 +1,8 @@
+html,body{background:#FFF;}
+#catelist{width:100%; margin-top:2px;}
+#catelist dl{margin:0px; padding:0px}
+#catelist dl dt{margin:0px; padding:0px; height:36px; text-indent:5px; line-height:36px; background:url('cate_pre.png') no-repeat 8px center; border-bottom:1px #a5a5a5 solid; font-size:16px;}
+#catelist dl dt a{color:#5a5a5a; font-size:16px;font-weight:300;}
+#catelist dl dt img{float:right; margin:11px 10px 0px 0px;}
+#catelist dl dd{margin:0px; padding:5px; background:#d3d3d2; display:none}
+#catelist dl dd a{display:block; background:#fafafa; padding:3px 8px; margin:5px 5px; float:left; border-radius:3px}

@@ -1,0 +1,290 @@
+RewriteEngine on
+RewriteBase /
+
+#RewriteRule ^(.*)$ /home/index.php[L,R=301]
+RewriteRule ^api/([0-9a-z]+)/$ /api/index.php?UsersID=$1
+RewriteRule ^api/([0-9a-z]+)$ /api/index.php?UsersID=$1
+
+RewriteRule ^api/([0-9a-z]+)/user/$ /api/user/index.php?UsersID=$1
+RewriteRule ^api/([0-9a-z]+)/user/logout/$ /api/user/index.php?UsersID=$1&action=logout
+RewriteRule ^api/([0-9a-z]+)/user/ajax/$ /api/user/ajax.php?UsersID=$1
+RewriteRule ^api/([0-9a-z]+)/user/login/$ /api/user/login.php?UsersID=$1
+RewriteRule ^api/([0-9a-z]+)/user/([0-9]+)/login/$ /api/user/login.php?UsersID=$1&OwnerID=$2
+RewriteRule ^api/([0-9a-z]+)/user/create/$ /api/user/create.php?UsersID=$1
+RewriteRule ^api/([0-9a-z]+)/user/([0-9]+)/create/$ /api/user/create.php?UsersID=$1&OwnerID=$2
+
+RewriteRule ^api/([0-9a-z]+)/user/message/$ /api/user/message.php?UsersID=$1
+RewriteRule ^api/([0-9a-z]+)/user/mycard/$ /api/user/mycard.php?UsersID=$1
+RewriteRule ^api/([0-9a-z]+)/user/my/$ /api/user/my.php?UsersID=$1
+RewriteRule ^api/([0-9a-z]+)/user/my/address/$ /api/user/my_address.php?UsersID=$1
+RewriteRule ^api/([0-9a-z]+)/user/my/address/([0-9]+)/$ /api/user/my_address.php?UsersID=$1&AddressID=$2
+RewriteRule ^api/([0-9a-z]+)/user/my/address/edit/$ /api/user/my_address_edit.php?UsersID=$1
+RewriteRule ^api/([0-9a-z]+)/user/my/address/edit/([0-9]+)/$ /api/user/my_address_edit.php?UsersID=$1&AddressID=$2
+RewriteRule ^api/([0-9a-z]+)/user/my/address/del/([0-9]+)/$ /api/user/my_address.php?UsersID=$1&action=del&AddressID=$2
+RewriteRule ^api/([0-9a-z]+)/user/my/profile/$ /api/user/my_profile.php?UsersID=$1
+RewriteRule ^api/([0-9a-z]+)/user/integral/$ /api/user/integral.php?UsersID=$1
+RewriteRule ^api/([0-9a-z]+)/user/integral_record/$ /api/user/integral_record.php?UsersID=$1
+RewriteRule ^api/([0-9a-z]+)/user/gift/$ /api/user/gift.php?UsersID=$1
+RewriteRule ^api/([0-9a-z]+)/user/gift/([0-9]+)/$ /api/user/gift.php?UsersID=$1&TypeID=$2
+RewriteRule ^api/([0-9a-z]+)/user/coupon/$ /api/user/coupon.php?UsersID=$1
+RewriteRule ^api/([0-9a-z]+)/user/coupon/([0-9]+)/$ /api/user/coupon.php?UsersID=$1&TypeID=$2
+RewriteRule ^api/([0-9a-z]+)/user/complete/$ /api/user/complete.php?UsersID=$1
+RewriteRule ^api/([0-9a-z]+)/user/money/$ /api/user/money.php?UsersID=$1
+RewriteRule ^api/([0-9a-z]+)/user/charge_record/$ /api/user/charge_record.php?UsersID=$1
+RewriteRule ^api/([0-9a-z]+)/user/money_record/$ /api/user/money_record.php?UsersID=$1
+RewriteRule ^api/([0-9a-z]+)/user/payword/$ /api/user/payword.php?UsersID=$1
+RewriteRule ^api/([0-9a-z]+)/user/paymoney/$ /api/user/paymoney.php?UsersID=$1
+RewriteRule ^api/([0-9a-z]+)/user/charge/$ /api/user/charge.php?UsersID=$1
+RewriteRule ^api/([0-9a-z]+)/user/zhuanzhang/$ /api/user/zhuanzhang.php?UsersID=$1
+RewriteRule ^api/([0-9a-z]+)/user/chargepay/([0-9]+)/([0-9]+)/$ /api/user/chargepay.php?UsersID=$1&ItemID=$2&Method=$3
+RewriteRule ^api/([0-9a-z]+)/user/coupon/([0-9]+)/([0-9a-zA-Z_-]+)/$ /api/user/coupon.php?UsersID=$1&TypeID=$2
+RewriteRule ^api/([0-9a-z]+)/user/commit/([0-9]+)/$ /api/user/commit.php?UsersID=$1&OrderID=$2
+RewriteRule ^api/([0-9a-z]+)/user/kanjia_order/$ /api/user/kanjia_order.php?UsersID=$1
+RewriteRule ^api/([0-9a-z]+)/user/kanjia_order/status/([0-9]+)/$ /api/user/kanjia_order.php?UsersID=$1&status=$2
+RewriteRule ^api/([0-9a-z]+)/user/kanjia_order/detail/([0-9]+)/$ /api/user/kanjia_order_detail.php?UsersID=$1&OrderID=$2
+RewriteRule ^api/([0-9a-z]+)/user/payment/([0-9]+)/$ /api/user/payment.php?UsersID=$1&OrderID=$2
+RewriteRule ^api/([0-9a-z]+)/user/kanjia_ajax/$ /api/user/kanjia_ajax.php?UsersID=$1
+RewriteRule ^api/([0-9a-z]+)/user/pay/([0-9]+)/([0-9]+)/$ /api/user/pay.php?UsersID=$1&OrderID=$2&Method=$3
+
+RewriteRule ^api/([0-9a-z]+)/user/([0-9a-zA-Z_-]+)/$ /api/user/index.php?UsersID=$1&OpenID=$2
+RewriteRule ^api/([0-9a-z]+)/web/$ /api/web/index.php?UsersID=$1
+RewriteRule ^api/([0-9a-z]+)/web/lbs/$ /api/web/lbs.php?UsersID=$1
+RewriteRule ^api/([0-9a-z]+)/web/lbs.php /api/web/lbs.php?UsersID=$1
+RewriteRule ^api/([0-9a-z]+)/web/article/([0-9]+)/$ /api/web/article.php?UsersID=$1&ArticleID=$2
+RewriteRule ^api/([0-9a-z]+)/web/article/([0-9]+)/ajax/$ /api/web/article_ajax.php?UsersID=$1&ArticleID=$2
+RewriteRule ^api/([0-9a-z]+)/web/column/([0-9]+)/$ /api/web/column.php?UsersID=$1&ColumnID=$2
+RewriteRule ^api/([0-9a-z]+)/web/column/([0-9]+)/ajax/$ /api/web/column_ajax.php?UsersID=$1&ColumnID=$2
+RewriteRule ^api/([0-9a-z]+)/web/([0-9a-zA-Z_-]+)/$ /api/web/index.php?UsersID=$1&OpenID=$2
+
+RewriteRule ^api/([0-9a-z]+)/shop/$ /api/shop/index.php?UsersID=$1
+RewriteRule ^api/([0-9a-z]+)/shop/yiyuan/$ /api/shop/yiyuan.php?UsersID=$1
+RewriteRule ^api/([0-9a-z]+)/shop/yiyuan/([0-9a-zA-Z_-]+)/$ /api/shop/yiyuan.php?UsersID=$1
+RewriteRule ^api/([0-9a-z]+)/shop/allcategory/$ /api/shop/allcategory.php?UsersID=$1
+RewriteRule ^api/([0-9a-z]+)/shop/([0-9]+)/allcategory/$ /api/shop/allcategory.php?UsersID=$1&OwnerID=$2
+RewriteRule ^api/([0-9a-z]+)/shop/category/$ /api/shop/allcategory.php?UsersID=$1
+RewriteRule ^api/([0-9a-z]+)/shop/category/([0-9]+)/$ /api/shop/category.php?UsersID=$1&CategoryID=$2
+RewriteRule ^api/([0-9a-z]+)/shop/category/([0-9]+)/([0-9]+)/$ /api/shop/category.php?UsersID=$1&CategoryID=$2&page=$3
+RewriteRule ^api/([0-9a-z]+)/shop/products/([0-9]+)/$ /api/shop/products.php?UsersID=$1&ProductsID=$2
+RewriteRule ^api/([0-9a-z]+)/shop/products_virtual/([0-9]+)/$ /api/shop/products_virtual.php?UsersID=$1&ProductsID=$2
+RewriteRule ^api/([0-9a-z]+)/shop/description/([0-9]+)/$ /api/shop/description.php?UsersID=$1&ProductsID=$2
+RewriteRule ^api/([0-9a-z]+)/shop/commit/([0-9]+)/$ /api/shop/commit.php?UsersID=$1&ProductsID=$2
+RewriteRule ^api/([0-9a-z]+)/shop/cart/$ /api/shop/cart/index.php?UsersID=$1
+
+
+RewriteRule ^api/([0-9a-z]+)/shop/cart/ajax/$ /api/shop/cart/ajax.php?UsersID=$1
+RewriteRule ^api/([0-9a-z]+)/shop/cart/checkout/([0-9]+)/$ /api/shop/cart/checkout.php?UsersID=$1&AddressID=$2
+RewriteRule ^api/([0-9a-z]+)/shop/cart/checkout/([0-9]+)/$ /api/shop/cart/checkout.php?UsersID=$1&needcart=$2
+RewriteRule ^api/([0-9a-z]+)/shop/cart/checkout/([0-9]+)/([0-9]+)/$ /api/shop/cart/checkout.php?UsersID=$1&needcart=$2&AddressID=$3
+RewriteRule ^api/([0-9a-z]+)/shop/cart/checkout/$ /api/shop/cart/checkout.php?UsersID=$1
+RewriteRule ^api/([0-9a-z]+)/shop/cart/checkout_direct/$ /api/shop/cart/checkout_direct.php?UsersID=$1
+RewriteRule ^api/([0-9a-z]+)/shop/cart/checkout_direct/([0-9]+)/$ /api/shop/cart/checkout_direct.php?UsersID=$1&AddressID=$2
+RewriteRule ^api/([0-9a-z]+)/shop/cart/checkout_virtual/$ /api/shop/cart/checkout_virtual.php?UsersID=$1
+RewriteRule ^api/([0-9a-z]+)/shop/cart/payment/([0-9]+)/$ /api/shop/cart/payment.php?UsersID=$1&OrderID=$2
+RewriteRule ^api/([0-9a-z]+)/shop/cart/payment/([0-9a-zA-Z_-]+)/$ /api/shop/cart/payment.php?UsersID=$1&OrderID=$2
+RewriteRule ^api/([0-9a-z]+)/shop/cart/complete_pay/([a-z]+)/([0-9]+)/$ /api/shop/cart/complete_pay.php?UsersID=$1&Paymethod=$2&OrderID=$3
+RewriteRule ^api/([0-9a-z]+)/shop/cart/complete_pay/([a-z]+)/([0-9a-zA-Z_-]+)/$ /api/shop/cart/complete_pay.php?UsersID=$1&Paymethod=$2&OrderID=$3
+
+RewriteRule ^api/([0-9a-z]+)/shop/cart/pay/([0-9]+)/([0-9]+)/$ /api/shop/cart/pay.php?UsersID=$1&OrderID=$2&Method=$3
+RewriteRule ^api/([0-9a-z]+)/shop/cart/pay/([0-9a-zA-Z_-]+)/([0-9]+)/$ /api/shop/cart/pay.php?UsersID=$1&OrderID=$2&Method=$3
+RewriteRule ^api/([0-9a-z]+)/shop/member/$ /api/shop/member/index.php?UsersID=$1
+RewriteRule ^api/([0-9a-z]+)/shop/([0-9]+)/member/$ /api/shop/member/index.php?UsersID=$1&OwnerID=$2
+RewriteRule ^api/([0-9a-z]+)/shop/member/ajax/$ /api/shop/member/ajax.php?UsersID=$1
+RewriteRule ^api/([0-9a-z]+)/shop/member/status/([0-9]+)/$ /api/shop/member/orders.php?UsersID=$1&Status=$2
+RewriteRule ^api/([0-9a-z]+)/shop/member/detail/([0-9]+)/$ /api/shop/member/detail.php?UsersID=$1&OrderID=$2
+RewriteRule ^api/([0-9a-z]+)/shop/member/address/$ /api/shop/member/address.php?UsersID=$1
+RewriteRule ^api/([0-9a-z]+)/shop/member/address/add/$ /api/shop/member/address_add.php?UsersID=$1
+RewriteRule ^api/([0-9a-z]+)/shop/member/address/edit/([0-9]+)/$ /api/shop/member/address_edit.php?UsersID=$1&AddressID=$2
+RewriteRule ^api/([0-9a-z]+)/shop/member/address/del/([0-9]+)/$ /api/shop/member/address.php?UsersID=$1&action=del&AddressID=$2
+RewriteRule ^api/([0-9a-z]+)/shop/member/commit/([0-9]+)/$ /api/shop/member/commit.php?UsersID=$1&OrderID=$2
+RewriteRule ^api/([0-9a-z]+)/shop/member/favourite/$ /api/shop/member/favourite.php?UsersID=$1
+RewriteRule ^api/([0-9a-z]+)/shop/member/favourite/del/([0-9]+)/$ /api/shop/member/favourite.php?UsersID=$1&favour_id=$2&action=del
+
+
+
+RewriteRule ^api/([0-9a-z]+)/shop/([0-9]+)/$ /api/shop/index.php?UsersID=$1&OwnerID=$2
+RewriteRule ^api/([0-9a-z]+)/shop/([0-9]+)/yiyuan/$ /api/shop/yiyuan.php?UsersID=$1&OwnerID=$2
+RewriteRule ^api/([0-9a-z]+)/shop/([0-9]+)/yiyuan/([0-9a-zA-Z_-]+)/$ /api/shop/yiyuan.php?UsersID=$1&OwnerID=$2
+RewriteRule ^api/([0-9a-z]+)/shop/([0-9]+)/category/([0-9]+)/$ /api/shop/category.php?UsersID=$1&OwnerID=$2&CategoryID=$3
+RewriteRule ^api/([0-9a-z]+)/shop/([0-9]+)/products/([0-9]+)/$ /api/shop/products.php?UsersID=$1&OwnerID=$2&ProductsID=$3
+RewriteRule ^api/([0-9a-z]+)/shop/([0-9]+)/products_virtual/([0-9]+)/$ /api/shop/products_virtual.php?UsersID=$1&OwnerID=$2&ProductsID=$3
+RewriteRule ^api/([0-9a-z]+)/shop/([0-9]+)/description/([0-9]+)/$ /api/shop/description.php?UsersID=$1&OwnerID=$2&ProductsID=$3
+RewriteRule ^api/([0-9a-z]+)/shop/([0-9]+)/commit/([0-9]+)/$ /api/shop/commit.php?UsersID=$1&OwnerID=$2&ProductsID=$3
+RewriteRule ^api/([0-9a-z]+)/shop/products/([0-9]+)/provider/([0-9]+)/$ /api/shop/products.php?UsersID=$1&ProductsID=$2&PrividerID=$3
+RewriteRule ^api/([0-9a-z]+)/shop/products_virtual/([0-9]+)/provider/([0-9]+)/$ /api/shop/products_virtual.php?UsersID=$1&ProductsID=$2&PrividerID=$3
+
+#分销中心
+RewriteRule ^api/([0-9a-z]+)/distribute/$ /api/distribute/index.php?UsersID=$1
+RewriteRule ^api/([0-9a-z]+)/distribute/join/$ /api/distribute/join.php?UsersID=$1
+RewriteRule ^api/([0-9a-z]+)/distribute/detaillist/$ /api/distribute/detaillist.php?UsersID=$1
+RewriteRule ^api/([0-9a-z]+)/distribute/detaillist/([a-z]+)/$ /api/distribute/detaillist.php?UsersID=$1&filter=$2
+RewriteRule ^api/([0-9a-z]+)/distribute/detaillist/([a-z]+)/([0-9]+)$ /api/distribute/detaillist.php?UsersID=$1&filter=$2&page=$3
+RewriteRule ^api/([0-9a-z]+)/distribute/buylevellist/$ /api/distribute/buylevellist.php?UsersID=$1
+RewriteRule ^api/([0-9a-z]+)/distribute/buylevellist/([a-z]+)/$ /api/distribute/buylevellist.php?UsersID=$1&filter=$2
+RewriteRule ^api/([0-9a-z]+)/distribute/buylevellist/([a-z]+)/([0-9]+)/$ /api/distribute/buylevellist.php?UsersID=$1&filter=$2&page=$3
+RewriteRule ^api/([0-9a-z]+)/distribute/edit_shop/$ /api/distribute/edit_shop.php?UsersID=$1
+RewriteRule ^api/([0-9a-z]+)/distribute/edit_headimg/$ /api/distribute/edit_headimg.php?UsersID=$1
+RewriteRule ^api/([0-9a-z]+)/distribute/qrcodehb/$ /api/distribute/qrcodehb.php?UsersID=$1
+RewriteRule ^api/([0-9a-z]+)/distribute/bind_mobile/$ /api/distribute/bind_mobile.php?UsersID=$1
+RewriteRule ^api/([0-9a-z]+)/distribute/change_bind/$ /api/distribute/change_bind.php?UsersID=$1
+RewriteRule ^api/([0-9a-z]+)/distribute/forget_pwd/$ /api/distribute/forget_pwd.php?UsersID=$1
+RewriteRule ^api/([0-9a-z]+)/distribute/bankcards/$ /api/distribute/bankcards.php?UsersID=$1
+RewriteRule ^api/([0-9a-z]+)/distribute/account/$ /api/distribute/account.php?UsersID=$1
+RewriteRule ^api/([0-9a-z]+)/distribute/msg/$ /api/distribute/msg.php?UsersID=$1
+RewriteRule ^api/([0-9a-z]+)/distribute/fanben_detail/$ /api/distribute/fanben_detail.php?UsersID=$1
+RewriteRule ^api/([0-9a-z]+)/distribute/withdraw_record/$ /api/distribute/withdraw_record.php?UsersID=$1
+RewriteRule ^api/([0-9a-z]+)/distribute/withdraw_apply/$ /api/distribute/withdraw_apply.php?UsersID=$1
+RewriteRule ^api/([0-9a-z]+)/distribute/withdraw_record/status/([0-9]+)/$ /api/distribute/withdraw_record.php?UsersID=$1&status=$2
+RewriteRule ^api/([0-9a-z]+)/distribute/ajax/$ /api/distribute/ajax.php?UsersID=$1
+RewriteRule ^api/([0-9a-z]+)/distribute/distribute_goods/([0-9]+)/$ /api/distribute/distribute_goods.php?UsersID=$1&ProductID=$2
+RewriteRule ^api/([0-9a-z]+)/distribute/group/$ /api/distribute/group.php?UsersID=$1
+RewriteRule ^api/([0-9a-z]+)/distribute/my_distribute/$ /api/distribute/my_distribute.php?UsersID=$1
+RewriteRule ^api/([0-9a-z]+)/distribute/income/$ /api/distribute/income.php?UsersID=$1
+RewriteRule ^api/([0-9a-z]+)/distribute/withdraw/$ /api/distribute/withdraw.php?UsersID=$1
+RewriteRule ^api/([0-9a-z]+)/distribute/dongjie/$ /api/distribute/dongjie.php?UsersID=$1
+RewriteRule ^api/([0-9a-z]+)/distribute/agent_info/$ /api/distribute/agent_info.php?UsersID=$1
+RewriteRule ^api/([0-9a-z]+)/distribute/income_list/$ /api/distribute/income_list.php?UsersID=$1
+RewriteRule ^api/([0-9a-z]+)/distribute/generate_poster/$ /api/distribute/generate_poster.php?UsersID=$1
+RewriteRule ^api/([0-9a-z]+)/distribute/myposter/$ /api/distribute/myposter.php?UsersID=$1
+RewriteRule ^api/([0-9a-z]+)/distribute/pro_title/$ /api/distribute/pro_title.php?UsersID=$1
+RewriteRule ^api/([0-9a-z]+)/distribute/upgrade/$ /api/distribute/upgrade.php?UsersID=$1
+RewriteRule ^api/([0-9a-z]+)/distribute/my_term/([0-9]+)/$ /api/distribute/my_term.php?UsersID=$1&levelId=$2
+RewriteRule ^api/([0-9a-z]+)/distribute/([0-9]+)/$ /api/distribute/index.php?UsersID=$1&OwnerID=$2
+RewriteRule ^api/([0-9a-z]+)/distribute/([0-9]+)/join/$ /api/distribute/join.php?UsersID=$1&OwnerID=$2
+RewriteRule ^api/([0-9a-z]+)/distribute/([0-9]+)/generate_poster/$ /api/distribute/generate_poster.php?UsersID=$1&OwnerID=$2
+RewriteRule ^api/([0-9a-z]+)/distribute/recommend/$ /api/distribute/recommend.php?UsersID=$1
+RewriteRule ^api/([0-9a-z]+)/distribute/agreement/$ /api/distribute/agreement.php?UsersID=$1
+
+RewriteRule ^api/([0-9a-z]+)/distribute/area_proxy(/)?([0-9]+)?/$ /api/distribute/area_proxy.php?UsersID=$1&stepid=$3
+RewriteRule ^api/([0-9a-z]+)/distribute/my_area_proxy/$ /api/distribute/my_area_proxy.php?UsersID=$1
+
+RewriteRule ^api/([0-9a-z]+)/distribute/sha/$ /api/distribute/sha.php?UsersID=$1
+RewriteRule ^api/([0-9a-z]+)/distribute/my_sha/$ /api/distribute/my_sha.php?UsersID=$1
+RewriteRule ^api/([0-9a-z]+)/distribute/my_sha_info/$ /api/distribute/my_sha_info.php?UsersID=$1
+
+RewriteRule ^api/([0-9a-z]+)/shop/articles/$ /api/shop/articles.php?UsersID=$1
+RewriteRule ^api/([0-9a-z]+)/shop/articles/category/([0-9]+)/$ /api/shop/articles.php?UsersID=$1&CategoryID=$2
+RewriteRule ^api/([0-9a-z]+)/shop/articles/([0-9]+)/$ /api/shop/articles.php?UsersID=$1&page=$2
+RewriteRule ^api/([0-9a-z]+)/shop/articles/category/([0-9]+)/([0-9]+)/$ /api/shop/articles.php?UsersID=$1&CategoryID=$2&page=$3
+RewriteRule ^api/([0-9a-z]+)/shop/article/([0-9]+)/$ /api/shop/article.php?UsersID=$1&ID=$2
+
+RewriteRule ^api/([0-9a-z]+)/shop/([0-9]+)/articles/$ /api/shop/articles.php?UsersID=$1&OwnerID=$2
+RewriteRule ^api/([0-9a-z]+)/shop/([0-9]+)/articles/category/([0-9]+)/$ /api/shop/articles.php?UsersID=$1&OwnerID=$2&CategoryID=$3
+RewriteRule ^api/([0-9a-z]+)/shop/([0-9]+)/articles/([0-9]+)/$ /api/shop/articles.php?UsersID=$1&OwnerID=$2&page=$3
+RewriteRule ^api/([0-9a-z]+)/shop/([0-9]+)/articles/category/([0-9]+)/([0-9]+)/$ /api/shop/articles.php?UsersID=$1&OwnerID=$2&CategoryID=$3&page=$4
+RewriteRule ^api/([0-9a-z]+)/shop/([0-9]+)/article/([0-9]+)/$ /api/shop/article.php?UsersID=$1&OwnerID=$2&ID=$3
+
+RewriteRule ^api/([0-9a-z]+)/distribute/sales/join/$ /api/distribute/sales/join.php?UsersID=$1
+RewriteRule ^api/([0-9a-z]+)/distribute/sales/$ /api/distribute/sales/index.php?UsersID=$1
+RewriteRule ^api/([0-9a-z]+)/distribute/sales/company/$ /api/distribute/sales/company.php?UsersID=$1
+RewriteRule ^api/([0-9a-z]+)/distribute/sales/profit/$ /api/distribute/sales/profit.php?UsersID=$1
+RewriteRule ^api/([0-9a-z]+)/distribute/sales/tjm/$ /api/distribute/sales/tjm.php?UsersID=$1
+RewriteRule ^api/([0-9a-z]+)/distribute/sales/profit/([a-z]+)/$ /api/distribute/sales/profit.php?UsersID=$1&action=$2
+RewriteRule ^api/([0-9a-z]+)/shop/sjrz/$ /api/shop/sjrz.php?UsersID=$1
+RewriteRule ^api/([0-9a-z]+)/shop/sjrz/([0-9]+)/([0-9]+)/$ /api/shop/sjrz.php?UsersID=$1&typeid=$2&CategoryID=$3
+RewriteRule ^api/([0-9a-z]+)/shop/sjrz/code/([0-9A-Z]+)/$ /api/shop/sjrz.php?UsersID=$1&Invitation_Code=$2
+
+
+#商家店铺
+RewriteRule ^api/([0-9a-z]+)/biz/([0-9]+)/$ /api/biz/index.php?UsersID=$1&BizID=$2
+RewriteRule ^api/([0-9a-z]+)/biz/([0-9]+)/allcate/$ /api/biz/allcate.php?UsersID=$1&BizID=$2
+RewriteRule ^api/([0-9a-z]+)/biz/([0-9]+)/products/([0-9]+)/$ /api/biz/products.php?UsersID=$1&BizID=$2&CategoryID=$3
+RewriteRule ^api/([0-9a-z]+)/biz/([0-9]+)/intro/$ /api/biz/intro.php?UsersID=$1&BizID=$2
+
+RewriteRule ^api/([0-9a-z]+)/([0-9]+)/biz/([0-9]+)/$ /api/biz/index.php?UsersID=$1&OwnerID=$2&BizID=$3
+RewriteRule ^api/([0-9a-z]+)/([0-9]+)/biz/([0-9]+)/allcate/$ /api/biz/allcate.php?UsersID=$1&OwnerID=$2&BizID=$3
+RewriteRule ^api/([0-9a-z]+)/([0-9]+)/biz/([0-9]+)/products/([0-9]+)/$ /api/biz/products.php?UsersID=$1&OwnerID=$2&BizID=$3&CategoryID=$4
+RewriteRule ^api/([0-9a-z]+)/([0-9]+)/biz/([0-9]+)/intro/$ /api/biz/intro.php?UsersID=$1&OwnerID=$2&BizID=$3
+
+
+#商城退货部分
+RewriteRule ^api/([0-9a-z]+)/shop/member/backup/$ /api/shop/member/backup.php?UsersID=$1
+RewriteRule ^api/([0-9a-z]+)/shop/member/backup/([0-9]+)/$ /api/shop/member/backup.php?UsersID=$1&OrderID=$2
+RewriteRule ^api/([0-9a-z]+)/shop/member/backup/([0-9_]+)/$ /api/shop/member/backup.php?UsersID=$1&pama=$2
+RewriteRule ^api/([0-9a-z]+)/shop/member/backup/status/([0-9]+)/$ /api/shop/member/mybackup.php?UsersID=$1&status=$2
+RewriteRule ^api/([0-9a-z]+)/shop/member/backup/detail/([0-9]+)/$ /api/shop/member/backup_detail.php?UsersID=$1&BackID=$2
+RewriteRule ^api/([0-9a-z]+)/shop/member/backup/detail_send/([0-9]+)/$ /api/shop/member/backup_detail_send.php?UsersID=$1&BackID=$2
+RewriteRule ^api/([0-9a-z]+)/shop/([0-9a-zA-Z_-]+)/$ /api/shop/index.php?UsersID=$1&OpenID=$2
+RewriteRule ^api/([0-9a-z]+)/shop/(?:(\?.*))* /api/shop/index.php$2&UsersID=$1
+
+#shop end
+
+RewriteRule ^api/([0-9a-z]+)/scratch/$ /api/scratch/index.php?UsersID=$1
+RewriteRule ^api/([0-9a-z]+)/scratch/([0-9a-zA-Z_-]+)/$ /api/scratch/index.php?UsersID=$1&OpenID=$2
+
+RewriteRule ^api/([0-9a-z]+)/turntable/$ /api/turntable/index.php?UsersID=$1
+RewriteRule ^api/([0-9a-z]+)/turntable/([0-9a-zA-Z_-]+)/$ /api/turntable/index.php?UsersID=$1&OpenID=$2
+
+RewriteRule ^api/([0-9a-z]+)/fruit/$ /api/fruit/index.php?UsersID=$1
+RewriteRule ^api/([0-9a-z]+)/fruit/([0-9a-zA-Z_-]+)/$ /api/fruit/index.php?UsersID=$1&OpenID=$2
+
+RewriteRule ^api/([0-9a-z_-]+)/battle/$ /api/battle/index.php?UsersID=$1
+RewriteRule ^api/([0-9a-z_-]+)/battle/([0-9]+)/$ /api/battle/index.php?UsersID=$1&BattleID=$2
+RewriteRule ^api/([0-9a-z_-]+)/battle/question/([0-9]+)/$ /api/battle/question.php?UsersID=$1&BattleID=$2
+RewriteRule ^api/([0-9a-z_-]+)/battle/question/([0-9]+)/([0-9a-zA-Z_-]+)/$ /api/battle/question.php?UsersID=$1&BattleID=$2&OpenID=$3
+RewriteRule ^api/([0-9a-z_-]+)/battle/get_exam/$ /api/battle/get_exam.php?UsersID=$1
+RewriteRule ^api/([0-9a-z_-]+)/battle/result/([0-9]+)/$ /api/battle/result.php?UsersID=$1&BattleID=$2
+RewriteRule ^api/([0-9a-z_-]+)/battle/([0-9a-zA-Z_-]+)/$ /api/battle/index.php?UsersID=$1&OpenID=$2
+RewriteRule ^api/([0-9a-z_-]+)/battle/([0-9]+)/([0-9a-zA-Z_-]+)/$ /api/battle/index.php?UsersID=$1&BattleID=$2&OpenID=$3
+
+RewriteRule ^api/([0-9a-z]+)/kanjia/$ /api/kanjia/index.php?UsersID=$1
+RewriteRule ^api/([0-9a-z]+)/kanjia/activity/([0-9]+)/$ /api/kanjia/activity.php?UsersID=$1&KanjiaID=$2
+RewriteRule ^api/([0-9a-z]+)/kanjia/activity/([0-9]+)/$ /api/kanjia/activity.php?UsersID=$1&KanjiaID=$2
+RewriteRule ^api/([0-9a-z]+)/kanjia/activity/([0-9]+)/userid/([0-9]+)/$ /api/kanjia/activity.php?UsersID=$1&KanjiaID=$2&UserID=$3
+RewriteRule ^api/([0-9a-z]+)/kanjia/buy/([0-9]+)/$ /api/kanjia/buy.php?UsersID=$1&KanjiaID=$2&UserID=$3
+RewriteRule ^api/([0-9a-z]+)/kanjia/product/([0-9]+)/$ /api/kanjia/detail.php?UsersID=$1&ProductID=$2
+RewriteRule ^api/([0-9a-z]+)/kanjia/([0-9a-zA-Z_-]+)/$ /api/kanjia/index.php?UsersID=$1
+
+RewriteRule ^api/([0-9a-z]+)/share_recieve/([0-9]+)/$ /api/share_recieve.php?UsersID=$1&RecordID=$2
+RewriteRule ^api/([0-9a-z]+)/([0-9]+)/share_recieve/([0-9]+)/$ /api/share_recieve.php?UsersID=$1&OwnerID=$2&RecordID=$3
+
+RewriteRule ^api/([0-9a-z]+)/hongbao/$ /api/hongbao/index.php?UsersID=$1
+RewriteRule ^api/([0-9a-z]+)/hongbao/rules/$ /api/hongbao/rules.php?UsersID=$1
+RewriteRule ^api/([0-9a-z]+)/hongbao/mycenter/$ /api/hongbao/mycenter.php?UsersID=$1
+RewriteRule ^api/([0-9a-zA-Z_-]+)/hongbao/detail/$ /api/hongbao/detail.php?UsersID=$1
+RewriteRule ^api/([0-9a-z]+)/hongbao/([0-9]+)/([0-9a-zA-Z_-]+)/$ /api/hongbao/index.php?UsersID=$1
+RewriteRule ^api/([0-9a-z]+)/hongbao/([0-9a-zA-Z_-]+)/$ /api/hongbao/index.php?UsersID=$1
+
+RewriteRule ^api/([0-9a-z]+)/games/$ /api/games/index.php?UsersID=$1
+RewriteRule ^api/([0-9a-z]+)/games/detail/([0-9]+)/$ /api/games/detail.php?UsersID=$1&GamesID=$2
+RewriteRule ^api/([0-9a-z]+)/games/game/([0-9]+)/$ /api/games/game.php?UsersID=$1&GamesID=$2
+RewriteRule ^api/([0-9a-z]+)/games/result/([0-9]+)/$ /api/games/result.php?UsersID=$1&ResultID=$2
+RewriteRule ^api/([0-9a-z]+)/games/([0-9a-zA-Z_-]+)/$ /api/games/index.php?UsersID=$1&OpenID=$2
+RewriteRule ^api/([0-9a-z]+)/games/detail/([0-9]+)/([0-9a-zA-Z_-]+)/$ /api/games/detail.php?UsersID=$1&GamesID=$2&OpenID=$3
+
+RewriteRule ^api/([0-9a-z]+)/votes/$ /api/votes/index.php?UsersID=$1
+RewriteRule ^api/([0-9a-z]+)/votes/([0-9]+)/$ /api/votes/index.php?UsersID=$1&VotesID=$2
+RewriteRule ^api/([0-9a-z]+)/votes/detail/([0-9]+)/([0-9]+)/$ /api/votes/detail.php?UsersID=$1&VotesID=$2&ItemID=$3
+RewriteRule ^api/([0-9a-z]+)/votes/result/([0-9]+)/([0-9]+)/$ /api/votes/result.php?UsersID=$1&VotesID=$2&ItemID=$3
+RewriteRule ^api/([0-9a-z]+)/votes/ajax/([0-9]+)/([0-9]+)/$ /api/votes/ajax.php?UsersID=$1&VotesID=$2&ItemID=$3
+RewriteRule ^api/([0-9a-z]+)/votes/([0-9a-zA-Z_-]+)/$ /api/votes/index.php?UsersID=$1&OpenID=$2
+
+RewriteRule ^api/([0-9a-z]+)/web/$ /api/web/index.php?UsersID=$1
+RewriteRule ^api/([0-9a-z]+)/web/lbs/$ /api/web/lbs.php?UsersID=$1
+RewriteRule ^api/([0-9a-z]+)/web/lbs.php /api/web/lbs.php?UsersID=$1
+RewriteRule ^api/([0-9a-z]+)/web/article/([0-9]+)/$ /api/web/article.php?UsersID=$1&ArticleID=$2
+RewriteRule ^api/([0-9a-z]+)/web/article/([0-9]+)/ajax/$ /api/web/article_ajax.php?UsersID=$1&ArticleID=$2
+RewriteRule ^api/([0-9a-z]+)/web/column/([0-9]+)/$ /api/web/column.php?UsersID=$1&ColumnID=$2
+RewriteRule ^api/([0-9a-z]+)/web/column/([0-9]+)/ajax/$ /api/web/column_ajax.php?UsersID=$1&ColumnID=$2
+RewriteRule ^api/([0-9a-z]+)/web/article/([0-9]+)/([0-9a-zA-Z_-]+)/$ /api/web/article.php?UsersID=$1&ArticleID=$2
+RewriteRule ^api/([0-9a-z]+)/web/([0-9a-zA-Z_-]+)/$ /api/web/index.php?UsersID=$1&OpenID=$2
+
+RewriteRule ^api/([0-9a-z]+)/zhuli/$ /api/zhuli/index.php?UsersID=$1
+RewriteRule ^api/([0-9a-z]+)/zhuli/([0-9a-zA-Z_-]+)/$ /api/zhuli/index.php?UsersID=$1
+
+RewriteRule ^api/([0-9a-z]+)/zhongchou/$ /api/zhongchou/index.php?UsersID=$1
+RewriteRule ^api/([0-9a-z]+)/zhongchou/detail/([0-9]+)/$ /api/zhongchou/detail.php?UsersID=$1&itemid=$2
+RewriteRule ^api/([0-9a-z]+)/zhongchou/description/([0-9]+)/$ /api/zhongchou/description.php?UsersID=$1&itemid=$2
+RewriteRule ^api/([0-9a-z]+)/zhongchou/checkpay/([0-9]+)/$ /api/zhongchou/checkpay.php?UsersID=$1&itemid=$2
+RewriteRule ^api/([0-9a-z]+)/zhongchou/check/([0-9]+)/([0-9]+)/$ /api/zhongchou/check.php?UsersID=$1&itemid=$2&prizeid=$3
+RewriteRule ^api/([0-9a-z]+)/zhongchou/ajax/$ /api/zhongchou/ajax.php?UsersID=$1
+RewriteRule ^api/([0-9a-z]+)/zhongchou/pay/([0-9]+)/$ /api/zhongchou/pay.php?UsersID=$1&OrderID=$2
+RewriteRule ^api/([0-9a-z]+)/zhongchou/orders/$ /api/zhongchou/orders.php?UsersID=$1
+RewriteRule ^api/([0-9a-z]+)/zhongchou/orders/([0-9]+)/$ /api/zhongchou/orders.php?UsersID=$1&Status=$2
+RewriteRule ^api/([0-9a-z]+)/zhongchou/([0-9a-zA-Z_-]+)/$ /api/zhongchou/index.php?UsersID=$1
+
+RewriteRule ^api/([0-9a-z]+)/stores/$ /api/stores/index.php?UsersID=$1
+RewriteRule ^api/([0-9a-z]+)/stores/([0-9a-zA-Z_-]+)/$ /api/stores/index.php?UsersID=$1&OpenID=$2
+
+RewriteRule ^api/([0-9a-z]+)/biz_apply/$ /api/biz_apply.php?UsersID=$1
+
+RewriteRule ^member/(.*)$ /member/control.php

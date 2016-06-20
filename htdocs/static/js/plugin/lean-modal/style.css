@@ -1,0 +1,6 @@
+
+
+#lean_overlay{position:fixed; z-index:10; top:0px; left:0px; height:100%; width:100%; background:#000; display:none;}
+.lean-modal{width:515px; position:absolute; left:0; top:0; display:none; background:#fff;}
+.lean-modal .h{background:url(bg.png) 0 0 repeat-x; height:32px; line-height:32px; font-size:14px; font-weight:bold; text-indent:12px; color:#000;}
+.lean-modal .h .modal_close{position:absolute; top:8px; right:12px; display:block; width:16px; height:16px; background:url(bg.png) 0 -34px no-repeat; z-index:2000;}

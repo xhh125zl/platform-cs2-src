@@ -1,0 +1,121 @@
+@charset "utf-8";
+
+#setemplate .tips_info{background:#f7f7f7; border-radius:5px; border:1px solid #ddd; line-height:22px; padding:10px 10px; margin-bottom:10px; font-size:12px;}
+#setemplate .tips_info strong{color:#444;}
+
+.ncsc-form-checkbox-list { font-size: 0; *word-spacing:-1px/*IE6、7*/;}
+.ncsc-form-checkbox-list li { font-size: 12px; vertical-align: top; letter-spacing: normal; word-spacing: normal; display: inline-block; *display: inline/*IE6,7*/; margin-right: 30px; *zoom: 1/*IE6,7*/;}
+.ncsc-form-checkbox-list li { width: 20%; margin: 0;}
+.ncsc-form-checkbox-list li input[type="checkbox"],
+.ncsc-form-checkbox-list li .checkbox { vertical-align: middle; margin-right: 4px;}
+.ncsc-form-checkbox-list li .label,
+.ncsc-form-checkbox-list li i { vertical-align: middle; display: inline-block; *display: inline; *zoom: 1;}
+.ncsc-form-checkbox-list li i { font-size: 14px; margin-left: 4px; color: #999;}
+
+/* 运单模板设置 */
+.ncsc-form-default {}
+.ncsc-form-default h3 { font-size: 12px; font-weight: 600; line-height: 22px; color: #555; clear: both; background-color: #F5F5F5; padding: 5px 0 5px 12px; border-bottom: solid 1px #E7E7E7;}
+.ncsc-form-default dl { font-size: 0; *word-spacing:-1px/*IE6、7*/; line-height: 20px; clear: both; padding: 0; margin: 0; border-bottom: dotted 1px #E6E6E6; overflow: hidden;}
+.ncsc-form-default dl:hover { background-color: #FCFCFC;}
+.ncsc-form-default dl:hover .hint { color: #666;}
+.ncsc-form-default dl.bottom { border-bottom-width: 0px;}
+.ncsc-form-default dl dt { font-size: 12px; line-height: 32px; vertical-align: top; letter-spacing: normal; word-spacing: normal; text-align: right; display: inline-block; width: 19%; padding: 10px 1% 10px 0; margin: 0;}
+.ncsc-form-default dl dt { *display: inline/*IE6,7*/;}
+.ncsc-form-default dl dt i.required { font: 12px/16px Tahoma; color: #F30; vertical-align: middle; margin-right: 4px;}
+.ncsc-form-default dl dd { font-size: 12px; line-height: 32px; vertical-align: top; letter-spacing: normal; word-spacing: normal; display: inline-block; width: 79%; padding: 10px 0 10px 0; }
+.ncsc-form-default dl dd { *display: inline/*IE6,7*/; zoom: 1;}
+.ncsc-form-default dl dd span { *line-height: 20px; *display: inline; *height: 20px; *margin-top: 6px; *zoom:1;}
+.ncsc-form-default dl dd p { clear: both;}
+.ncsc-form-default div.bottom { text-align: center;}
+.ncsc-form-default .handle { height: 30px; margin: 10px 0;}
+
+.submit-border { display: inline-block; *display: inline/*IE6,7*/; zoom:1;}
+input[type="submit"], input.submit, a.submit { font-size: 12px; font-weight: bold; color: #FFF; background:#3AA0EB; display: block; height: 32px; padding: 0 30px 2px 30px; border: 0; cursor: pointer;  border-radius:5px;}
+input[type="submit"]:hover, input.submit:hover, a.submit:hover { text-decoration: none; color: #FFF; background-color: #3AA0EB;}
+
+/* 发货单打印页面 */
+.print-layout { font-size:12px; background:#FAFAFA; border: solid 1px #CCC; position:relative; width:210mm; height:297mm; padding:5mm 50mm 5mm 5mm ; margin: 20px auto; box-shadow: 2px 2px 2px rgba(204,204,204,0.5); }
+.print-layout .print-btn {background:#FFF; border:  solid 1px #ccc;  position: absolute; z-index: 3; top:10mm; right:10mm; line-height:32px; padding:5px 10px; border-radius: 5px; box-shadow: 2px 2px 0 rgba(153,153,153,0.2); cursor: pointer;}
+.print-layout .print-btn:hover {  background: #555; box-shadow: none; border-color: #555;}
+.print-layout .print-btn i { background: url(../images/seller/ncsc_bg_img.png)scroll no-repeat 0 -460px; vertical-align: middle; display: inline-block; width: 32px; height: 32px;}
+.print-layout .print-btn a { font-family:"microsoft yahei"; font-size: 20px;padding: 0 0 0 10px; color: #555; font-weight:600; display:inline-block; vertical-align: middle;}
+.print-layout .print-btn:hover a, .print-layout .print-btn a:hover { color: #FFF;  text-decoration:none;}
+.print-layout .a5-size, .print-layout .a4-size { background:#FFF; border: dashed 1px #ccc; width: 210mm; position:absolute; top:5mm; left:5mm; padding:1px;}
+.print-layout .a5-size { height:148mm;  z-index:2;}
+.print-layout .a4-size { height:297mm; z-index:1;}
+.print-layout .a5-tip, .print-layout .a4-tip{ color:#333; width:36mm; position: absolute; z-index:2; right:8mm;}
+.print-layout .a5-tip { top:50mm;}
+.print-layout .a4-tip { top:160mm;}
+.print-layout dl dt h1 { font-family:"Arial Black", Gadget, sans-serif; font-size:72px; line-height:72px;}
+.print-layout dl dt em { font-family: Arial; font-size:11px; line-height:20px; background: #333; color: #FFF; padding: 0 8px; height:20px; border-radius:10px; -webkit-text-size-adjust:none;}
+.print-layout .a5-tip dd, .print-layout .a4-tip dd { line-height:24px;}
+.print-layout .print-page { width: 210mm; height:297mm; position:absolute; z-index:3; top:5mm; left:5mm; margin:1px;  overflow:auto;}
+.orderprint { background: #FFF; width: 190mm; height:100%; margin-bottom:20px;padding:10mm 10mm 8mm 10mm; color:#000000; position:relative;}
+.orderprint .top { font-family:"microsoft yahei"; line-height:60px; width:190mm; height:60px; overflow:hidden; font-size:24px;}
+.orderprint .top .logo { width:200px; height:60px; float:left;}
+.orderprint .top .logo-title { text-align: left; width:450px; height: 60px; float:left; margin-left:10px; overflow:hidden;}
+.orderprint .top .full-title { width:100%; text-align:center;}
+.orderprint .explain { color: #555; line-height: 20px; width:100%;}
+.orderprint .seal {  position: absolute; top:120px; right:50px; }
+.orderprint .page { line-height:18px; color:#999; position: absolute; bottom:0px; left:50%; margin-left:-30px;}
+.orderprint table { font-family:Arial, Helvetica, sans-serif;  font-size:12px; line-height:18px; width:100%; border-collapse: collapse;}
+.buyer-info { margin: 15px 0;}
+.order-info thead th { font-weight:normal;background: #E7E7E7; text-align:center; border-bottom: solid 2px #000; border-top: solid 2px #000; padding:2px 0;}
+.order-info thead tr td {}
+.order-info tbody tr th {  background: #F7F7F7; text-align:left; padding:8px 0; text-align:center; font-weight:600;  border-bottom: solid 2px #000; border-top: solid 2px #000;}
+.order-info tbody tr td { padding: 8px 0; text-align: center;}
+.order-info tfoot tr th { border-bottom: solid 2px #000; padding: 6px 0;text-align:left;font-weight:normal;}
+.order-info tfoot tr th span { line-height:20px; white-space:nowrap; display:inline-block; width: 24%; height: 20px; padding:0; margin:0; border:0; overflow:hidden; text-overflow:ellipsis; }
+.orderprint th{ font-variant:normal; text-align:left}
+.w200 {
+    width: 200px !important;
+}
+.tl {
+    text-align: left !important;
+}
+.w70 {
+    width: 70px !important;
+}
+.w40 {
+    width: 40px !important;
+}
+
+/* 运单打印
+-------------------------------------------*/
+
+.waybill-img-thumb {
+    background-color: #fff;
+    border: 1px solid #e6e6e6;
+    display: inline-block;
+    height: 45px;
+    padding: 1px;
+    vertical-align: top;
+    width: 70px;
+}
+.waybill-img-thumb a {
+    display: table-cell;
+    height: 45px;
+    line-height: 0;
+    overflow: hidden;
+    text-align: center;
+    vertical-align: middle;
+    width: 70px;
+}
+.waybill-img-thumb a img {
+    max-height: 45px;
+    max-width: 70px;
+}
+.waybill-img-size {
+    color: #777;
+    display: inline-block;
+    line-height: 20px;
+    margin-left: 10px;
+    vertical-align: top;
+}
+
+
+
+.waybill_item { background-color: #FEF5E6; position: absolute; left: 0; top: 0; width: 90px; height: 20px; padding: 1px 5px 4px 5px; border-color: #FFBEBC; border-style: solid; border-width: 1px 1px 1px 1px; cursor: move;}
+.waybill_item:hover { padding: 1px 5px 1px 5px; border-color: #FF7A73; border-width: 1px 1px 4px 1px;}
+
+

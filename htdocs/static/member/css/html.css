@@ -1,0 +1,15 @@
+/*
+Powered by ly200.com		http://www.ly200.com
+广州联雅网络科技有限公司		020-83226791
+*/
+
+.r_con_wrap .vedio_tips{line-height:24px; overflow:hidden; color:#666; padding:20px;}
+.r_con_wrap .vedio_tips strong{font-size:16px; color:#F00;}
+.r_con_wrap .vedio li{width:232px; height:278px; margin:15px 40px 15px 0; float:left; overflow:hidden;}
+
+.wechat_wrap{padding:0;}
+.wechat_wrap li{width:60px; height:60px; overflow:hidden; float:left; _display:inline; margin:15px 12px;}
+.wechat_wrap li img{width:60px; height:60px;}
+.wechat_wrap .wechat-list{padding:20px; background:url(../images/html/material/wechat-bg.jpg) bottom left repeat-x #fff;}
+.wechat_wrap .nav-list{padding:20px; background:url(../images/html/material/nav-bg.jpg) top left repeat-x #fff;}
+.wechat_wrap .nav-list li{background:#979797;}

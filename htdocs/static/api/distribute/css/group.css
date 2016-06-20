@@ -1,0 +1,25 @@
+@charset "utf-8";
+/* CSS Document */
+.page-title{text-align:center;}
+
+
+
+#distribute_group{margin:0px; border-bottom:1px #dfdfdf solid; border-top:1px #dfdfdf solid; background:#FFF; width:100%;padding-left:0px;}
+#distribute_group li.item{display:block; padding:8px 0px; height:30px; line-height:30px; float:left; width:33.3%; text-align:center; background:url(../images/border_r.jpg) no-repeat right top; font-size:18px; color:#000}
+#distribute_group li.cur a{color:#188EEE;}
+
+.list_item{padding:0; margin-bottom:12px;}
+.list_item a{text-decoration:none;}
+.list_item .dline{height:11px; border-bottom:1px solid #dfdfdf;}
+.list_item .item{display:block; height:50px; line-height:50px; text-indent:20px; font-size:15px; border-bottom:1px #dfdfdf solid; position:relative; padding-right:20px; color:#000; background:#FFF}
+.list_item .item .ico{width:50px; height:100%; display:block; position:absolute; left:0; top:0;}
+.list_item .item .jt{position:absolute; right:8px; top:18px; width:8px; height:15px; background:url(../images/jt.png) center no-repeat; background-size:100%;}
+.list_item .item .jt_down{position:absolute; right:8px; top:20px; width:12px; height:8px; background:url(../images/jt_down.png) center no-repeat; background-size:100%;}
+.list_item .item .jt_up{position:absolute; right:8px; top:20px; width:12px; height:8px; background:url(../images/jt_up.png) center no-repeat; background-size:100%;}
+.list_item .item_0 .ico{background:url(../images/ico_0.png) no-repeat center;}
+.list_item .item_1 .ico{background:url(../images/ico_1.png) no-repeat center;}
+.list_item .item_2 .ico{background:url(../images/ico_2.png) no-repeat center;}
+
+.distribute_list{padding-left:0px;margin-bottom:0;}
+.distribute_list li{border-bottom:1px solid #dfdfdf;height:50px;line-height:50px;padding:0 5px;text-indent:20px;}
+

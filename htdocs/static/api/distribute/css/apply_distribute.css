@@ -1,0 +1,25 @@
+@charset "utf-8";
+/* CSS Document */
+
+.apply-image{position:relative;}
+a.deadline { color:#D3D3D4;
+padding:10px 2%;
+position: absolute;
+left:0;right:0;
+bottom:10px;
+width: 96%;
+text-decoration: none;
+font: 20px Microsoft YaHei, Verdana;
+color:#333232;
+font-weight:600;
+}
+
+.apply_title{background:#F0EFF4;}
+#apply_form_panel {border-radius:0px;margin-bottom:0px;}
+#apply_form_panel input[type="text"]{border:0px;}
+#apply_form_panel #submit-btn{width:90%;background:#3396FE;color:#ffffff; height:30px; line-height:30px; margin:0px auto}
+#apply_form_panel #submit-btn:hover{width:90%;background:#3396FE;color:#ffffff;}
+#apply_form_panel #submit-btn:focus{width:90%;background:#3396FE;color:#ffffff;}
+
+#submit-btn{float:none;}
+#ask-list{margin-bottom:0px;}

@@ -1,0 +1,30 @@
+@media all and (min-width:360px){
+	#web_skin_index .banner{height:202px;}
+	#web_skin_index .box .l_img, #web_skin_index .box .r_img{height:192px;}
+	#web_skin_index .box .l_img .list{height:64px;}
+	#web_skin_index .i4{height:84px;}
+	#web_skin_index .i5, #web_skin_index .i5 .pic, #web_skin_index .i5 .link, #web_skin_index .i6, #web_skin_index .i6 .pic, #web_skin_index .i6 .link{height:90px;}
+}
+@media all and (min-width:420px){
+	#web_skin_index .banner{height:236px;}
+	#web_skin_index .box .l_img, #web_skin_index .box .r_img{height:225px;}
+	#web_skin_index .box .l_img .list{height:75px;}
+	#web_skin_index .i4{height:98px;}
+	#web_skin_index .i5, #web_skin_index .i5 .pic, #web_skin_index .i5 .link, #web_skin_index .i6, #web_skin_index .i6 .pic, #web_skin_index .i6 .link{height:105px;}
+}
+@media all and (min-width:480px){
+	#web_skin_index .banner{height:270px;}
+	#web_skin_index .box .l_img, #web_skin_index .box .r_img{height:255px;}
+	#web_skin_index .box .l_img .list{height:85px;}
+	#web_skin_index .i4{height:112px;}
+	#web_skin_index .i5, #web_skin_index .i5 .pic, #web_skin_index .i5 .link, #web_skin_index .i6, #web_skin_index .i6 .pic, #web_skin_index .i6 .link{height:120px;}
+}
+
+
+@media all and (min-width:640px){
+	#web_skin_index .banner{height:360px;}
+	#web_skin_index .box .l_img, #web_skin_index .box .r_img{height:336px;}
+	#web_skin_index .box .l_img .list{height:112px;}
+	#web_skin_index .i4{height:150px;}
+	#web_skin_index .i5, #web_skin_index .i5 .pic, #web_skin_index .i5 .link, #web_skin_index .i6, #web_skin_index .i6 .pic, #web_skin_index .i6 .link{height:160px;}
+}

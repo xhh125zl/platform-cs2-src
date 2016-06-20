@@ -1,0 +1,22 @@
+#household .banner{width:100%; height:160px; overflow:hidden;}
+#household .banner img{width:100%; height:100%;}
+#household .box{margin:8px; overflow:hidden; border:1px solid #eeedec; border-radius:5px;}
+#household .box h3{width:100%; height:36px; padding:6px 8px; line-height:24px; box-sizing:border-box; background:#FBFBFB; font-weight:bold}
+#household .box li{width:100%; border-top:1px solid #eeedec;}
+#household .box li a{display:block; min-height:52px; text-decoration:none; position:relative; color:#666; cursor:pointer;}
+#household .box li a.list{padding:10px 10px 0; background:url(../imgs/jt.png) no-repeat;}
+#household .box li a.list strong{color:#252E32; line-height:23px;}
+#household .box li a.list span{color:#74A3A5; line-height:23px;}
+#household .box li a.list em{display:block; font-style:normal;}
+#household .box li a.list::after{position:absolute; right:15px; top:28px; content:""; display:block; width:13px; height:10px; background:url(../images/app_estate/jt.png) no-repeat; -webkit-background-size:13px auto;}
+#household .box li a.list.cur::after{background:url(../images/app_estate/jt.png) no-repeat 0 -9px; -webkit-background-size:13px auto;}
+#household .box li .house_arrow::before{position:absolute; content:""; width:0; height:0; overflow:hidden; border:8px solid transparent; border-bottom-color:#E2E1E0; left:50%; margin-left:-10px; top:-15px;}
+#household .box li .house_arrow::after{position:absolute; content:""; width:0; height:0; overflow:hidden; border:8px solid transparent; border-bottom-color:#F8F7F7; left:50%; margin-left:-10px; top:-14px;}
+#household .box li .house_photo{height:52px; background-color:#F8F7F7; box-shadow:0 -1px 2px rgba(0, 0, 0, 0.1) inset,0 1px 1px rgba(0, 0, 0, 0.1) inset; position:relative;}
+#household .box li .house_photo a{-webkit-box-flex:1; text-align:center; line-height:52px;}
+#household .box li .house_photo a::before{content:" "; display:inline-block; margin-right:5px; width:22px; height:18px; vertical-align:middle;}
+#household .box li .house_photo a.ico_type::before{background:url(../images/app_estate/ico_type.png) no-repeat; -webkit-background-size:20px 16px;}
+#household .box li .house_photo a.ico_360::before{background:url(../images/app_estate/ico_360.png) no-repeat; -webkit-background-size:20px 18px;}
+#household .box li .house_photo a{-webkit-box-flex:1; text-align:center; line-height:52px;}
+#household .box li .house_photo a::after{right:0; top:12px; width:1px; height:30px; border-left:1px solid #E8E5E5; font-size:0; line-height:0; background:#FDFDFD none; position:absolute; content:""; display:block;}
+#household .box li .house_photo a:last-child::after{display:none;}

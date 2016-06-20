@@ -1,0 +1,36 @@
+#shop_skin_index{width:100%; overflow:hidden; margin:0 auto; background:#f6f6f6}
+#shop_skin_index .img{height:100%; overflow:hidden;}
+#shop_skin_index .img img{width:100%; height:auto}
+#shop_skin_index .shop_skin_index_list{ overflow:hidden; position:relative; z-index:1;}
+#shop_skin_index .banner{height:158px; width:100%;}
+#shop_skin_index .banner *{width:100%; height:100%;}
+
+
+/*search*/
+.search_box{width:92%; height:49px; border:solid 1px #ff7271; margin:0 auto; padding:0px; background:#FFF;}
+.search_box .input{float:left; height:49px; width:75%; background:none; border:none; display:block; background:url(search.png) 3% center no-repeat; text-indent:35px;}
+.search_box .submit{float:left; height:49px; width:25%; display:block; background:#ff7271; text-align:center; border:none; color:#FFF;}
+
+
+#shop_skin_index .h2{width:100%; height:43px; background:#f6f6f6 url(t1.jpg) no-repeat center center; text-align:center; line-height:43px; background-size:92%;}
+#shop_skin_index .index-h{width:92%; margin:0 auto; margin-bottom:8px;}
+#shop_skin_index .index-h .items{float:left; width:33.33333333%;}
+#shop_skin_index .index-h .items .img img{width:100%}
+
+.ad1{width:92%; margin:0 auto;}
+.ad2{width:92%; margin:0 auto;}
+
+/*products_list*/
+.products_list{margin-bottom:10px; width:92%; margin:0 auto; margin-top:2px;}
+.products_list li{float:left; width:50%; height:95px;overflow:hidden;box-sizing:border-box; -moz-box-sizing:border-box; -webkit-box-sizing:border-box; background:#FFF; padding:10px;}
+.products_list li.btm_bor{border-bottom:1px solid #f6f6f6;}
+.products_list li.right_bor{border-right:1px solid #f6f6f6;}
+
+.products_list li .name{ width:40%; height:90%; float:left; padding:5px; font-size:12px;}
+.products_list li .txt{ height:38px; line-height:19px; text-overflow:clip;overflow:hidden;width:100%}
+.products_list li .pic{ width:50%;height:100%;float:left;text-align:center; overflow:hidden; margin-top:2%}
+.products_list li .pic img{ width:100%; height:auto}
+.products_list li .price{ color:#ef7786; font-weight:bold; line-height:20px;}
+.products_list li.big{height:190px; background:#FFF;}
+.products_list li.big .name,.products_list li.big .pic{ float:none; width:95%; height:auto; padding:0; margin:0 auto;}
+.products_list li.big .pic{ width:120px; height:120px; text-align:center;}

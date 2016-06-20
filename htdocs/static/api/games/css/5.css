@@ -1,0 +1,49 @@
+td,th,div,input,select,textarea,li,ol,dt,dd,h1,h2,h3,h4,h5,h6{font-size:12px; color:#333;}
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,blockquote{padding:0; margin:0;}
+body,span{ font-family:"微软雅黑";}
+h1,h2,h3,h4,h5,h6{font-weight:normal;}
+li{list-style-type:none;}
+img{ border:none; vertical-align:top;}
+textarea{ resize:none; overflow:auto; outline:none;}
+
+/* 定位 start */
+.fl{ float:left;}
+.fr{ float:right;}
+.mt5{ margin-top:5px;}
+.mt10{margin-top:10px;}
+.ml10{margin-left:10px;}
+.pt30{ padding-top:30px;}
+/* 定位 end */
+
+/* 字体 start */
+.fz_10{font-size:10px;}
+.fz_12{font-size:12px;}
+.fz_14{font-size:14px;}
+.fz_16{font-size:16px;}
+.fz_18{font-size:18px;}
+.fz_20{font-size:20px;}
+.fz_22{font-size:22px;}
+.fc_white{ color:#fff;}
+/* 字体 end */
+
+a{ color:#333; text-decoration:none;}
+a:hover{ color:#333;}
+img{border:none; vertical-align:top;}
+.picpath{text-align:center;}
+.picpath img{vertical-align:middle;}
+.picpath span{vertical-align:middle; height:100%; display:inline-block;}
+.line{border-bottom:1px dashed #ccc; height:1px; overflow:hidden;}
+.border{border:1px solid #ccc;}
+.clean{zoom:1;}
+.clean:after{display:block; content:''; clear:both;}
+.hand{ cursor:pointer;}
+
+
+body,html{ height:100%;}
+img{ vertical-align:top;}
+#box{ width:93.256%; max-width:640px; background-color:rgba(0,0,0,.5); margin:10px auto; position:relative;border-radius:5px; }
+#box .item{border-radius:5px; text-align:center; font-size:40px; float:left; background-size:100% 100%; box-shadow:2px 2px 2px #000;}
+#source{ width:93.256%; height:40px; background:rgba(0,0,0,.5); max-width:640px;border-radius:5px; margin:0 auto; display:table;}
+#source .source_title1{ width:25%; height:40px; margin-left:10px; display:table-cell;vertical-align:middle; text-align:center; padding-left:10px;}
+#source .source_title1 img{ width:90%;}
+#source .source_title2{ width:25%; height:40px; margin-left:10px; display:table-cell;vertical-align:middle; color:#fff; font-size:26px; text-shadow:2px 2px 2px #000;}

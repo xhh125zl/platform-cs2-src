@@ -1,0 +1,20 @@
+#web_skin_index{width:100%; height:100%; overflow:hidden; background-color:#000000}
+#web_skin_index .web_skin_index_list{overflow:hidden; position:relative; z-index:1}
+#web_skin_index img{width:100%; height:auto;}
+#web_skin_index .banner{width:100%; height:205px; overflow:hidden;}
+#web_skin_index .banner *{width:100%; height:100%; overflow:hidden;}
+
+#column_index .items{width:100%; padding-left:10px; box-sizing:border-box; -moz-box-sizing:border-box; -webkit-box-sizing:border-box;}
+#column_index .items a{display:block; width:100%;}
+#column_index .items a:hover{text-decoration:none}
+#column_index .items .cont{background:url(list_bg.jpg) repeat-x; background-size:auto 100%; margin:0 auto; width:100%; min-height:53px; overflow:hidden; padding:8px}
+#column_index .items .lbar{width:70%; float:left}
+#column_index .items .rbar{width:16px; height:16px; float:right; background:url(list_icon.png) no-repeat; margin:15px 20px 0 0; background-size:100% 100%;}
+#column_index .items .name{font-size:16px; color:#fff; font-weight:bold; margin-bottom:2px}
+#column_index .items *{color:#ccc}
+#column_index .items .intro{font-size:12px; height:75px; overflow:hidden}
+#column_index .bgcolor_0{background:#2664b7;}
+#column_index .bgcolor_1{background:#16a3da;}
+#column_index .bgcolor_2{background:#62a9c5;}
+#column_index .bgcolor_3{background:#abd5e4;}
+#column_index .bgcolor_4{background:#d7e1e4;}

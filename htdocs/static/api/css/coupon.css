@@ -1,0 +1,36 @@
+html, body{background:url(../images/coupon/coupon_bg.jpg) repeat; background-size:16px 16px;}
+
+#coupon{max-width:640px; margin:0 auto; overflow:hidden;}
+#coupon .none{display:none;}
+#coupon .toper{background:url(../images/coupon/bg.jpg) center top repeat-y #874c2e; background-size:100% 12px; overflow:hidden; position:relative; height:160px;}
+#coupon .coupon_img{width:100%; padding:20px 16px 8px; box-sizing:border-box; position:absolute; top:0px; left:0px; text-align:center;}
+#coupon .coupon_img img{max-width:100%;}
+#coupon .contents{padding:16px; margin:0 auto; overflow:hidden;}
+#coupon .contents .button{width:100%; height:36px; line-height:36px; border-radius:5px; text-align:center; margin:0 auto; margin-top:5px; background:#fff; font-size:14px; color:#646464; background-image:linear-gradient(bottom, #d4d4d4 0, #fff 100%); background-image:-moz-linear-gradient(bottom, #d4d4d4 0, #fff 100%); background-image:-webkit-linear-gradient(bottom, #d4d4d4 0, #fff 100%); text-decoration:none; border:1px solid #c3c3c3; font-size:16px;}
+#coupon .contents .usetimes{padding:5px 0; text-align:center; font-size:14px;}
+#coupon .cp{border:1px solid #ddd; border-radius:5px; background:#f5f5f5; margin-top:12px;}
+#coupon .cp>h3{padding:8px 0; text-indent:8px; font-weight:bold; font-size:16px; color:#555;}
+#coupon .cp>div{font-size:14px; color:#666; line-height:150%; padding:12px 8px; zoom:1; border-top:1px dotted #ddd;}
+#coupon .cp>div.form{border:none;}
+
+#coupon_use_form div, #coupon_use_form input{width:99%; margin:5px 0;}
+#coupon_use_form .txt{height:18px; line-height:18px; padding:7px 0; border:1px solid #ddd; border-radius:5px; background:#f0f0f0; text-indent:5px;}
+#coupon_use_form .submit{width:70%; height:36px; line-height:36px; background:#F60; border:none; color:#fff; font-size:16px; border-radius:5px; text-align:center; float:left;}
+#coupon_use_form .back{width:27%; height:36px; line-height:36px; background:#999; border:none; color:#fff; font-size:16px; border-radius:5px; text-align:center; float:right;}
+
+@media all and (min-width:360px){
+	html, body{background-size:360px 12px;}
+	#coupon .toper{height:180px;}
+}
+@media all and (min-width:420px){
+	html, body{background-size:420px 12px;}
+	#coupon .toper{height:210px;}
+}
+@media all and (min-width:480px){
+	html, body{background-size:480px 12px;}
+	#coupon .toper{height:240px;}
+}
+@media all and (min-width:640px){
+	html, body{background-size:640px 12px;}
+	#coupon .toper{height:320px;}
+}

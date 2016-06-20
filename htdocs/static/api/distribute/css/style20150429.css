@@ -1,0 +1,182 @@
+/*全局样式*/
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  /* Margin bottom by footer height */
+  background:#F3F3F3;
+  margin-bottom: 0px;
+}
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: auto;
+  background-color: #f5f5f5;
+}
+
+
+.text-center{text-align:center;};
+/* Custom page CSS
+-------------------------------------------------- */
+/* Not required for template or sticky footer method. */
+
+.container .text-muted {
+  margin: 20px 0;
+}
+
+.footer > .container {
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+code {
+  font-size: 80%;
+}
+
+a:hover{text-decoration:none;}
+
+li{list-style:none;}
+.fr{float:right;}
+.fl{float:left;}
+.blue {color:#188eee;}
+.red {color:#ef363e;}
+.grey{color:#D1D1D1;}
+.golden{color:#FE9802;}
+.shallow_grey{color:#b5b5b5;}
+.btn-danger{background:#EF363E;}
+.btn-warning{background:#FF8A00;}
+
+
+a {color:#333333;}
+a:hover {color:#000000;}
+
+.error {color:red;}
+/*底部导航样式*/
+.navbar-default {
+  background:rgba(0,0,0,0.8);
+  border-color: #000000;
+}
+
+.home-title {text-align:center;background:#ffffff;}
+.product-list {background:#ffffff;}
+
+
+/*分享层样式*/
+.share_layer{width:100%; height:100%; overflow:hidden; text-align:right; position:fixed; top:0px; left:0px; display:none; z-index:100000;}
+.share_layer img{max-width:600px; width:100%; position:relative;}
+.b10{height:10px; font-size:1px; width:100%;}
+
+/*订单页面样式*/
+.order_info {padding-top:10px;padding-bottom:10px;background:#f5f5f5;}
+.order_info .well{margin-left:5px;margin-right:5px;padding:5px;background:#ffffff;border:1px solid #ddd;margin-bottom:10px;}
+.order_info h5{font-weight:bold;}
+.order_info hr{margin:5px 0;}
+.order_info .table {margin-bottom:5px;}
+.order_info #order_remark{padding-bottom:30px;}
+.order_sum .col-xs-5 {padding-left:0px;padding-right:0px;}
+.order_sum #submit{width:100%;}   
+#address_info ul{padding-left:10px;}
+#new_address_info{display:none;margin-left:10px;margin-right:10px;}
+#order_form .form-control{width:90%;}
+#diqu .form-control{width:auto;}
+
+/*产品详细页样式*/
+#detail #description{margin:8px;}
+#detail #description .contents{line-height:180%; overflow:hidden; min-height:250px;}
+#detail #description div img{
+	width:100%;
+}
+
+#detail .productshow_title { padding:10px 0px;}
+#detail #description{margin:8px;}
+#detail #description .contents{line-height:180%; overflow:hidden; min-height:250px;}
+#detail #description div img{
+	width:100%;
+}
+
+#detail h5{height:35px;border:1px solid #e7e7e7; line-height:35px; border-left:0; border-right:0; width:100%; margin:0px 0px 5px 0px; padding:0px; color:#ff0000; text-align:center}
+#detail .desc{padding:5px 0px;border-bottom:0px;}
+#detail .desc h5 span{display:block; height:35px; line-height:35px; text-align:center; width:50%;box-sizing:border-box;-moz-box-sizing:border-box;-webkit-box-sizing:border-box; float:left; cursor:pointer; color:#000}
+#detail .desc h5 span.cur{color:#ff0000}
+
+.commit_list{ margin:8px 5px;}
+.commit_list table{margin:0px 0px 8px 0px; border-bottom:1px #ddd dotted}
+.commit_list table td{line-height:26px;}
+.commit_list .commit_time{padding-left:8px; font-size:14px; font-family:"Times New Roman"; color:#F60}
+.commit_list .commit_note{padding:0px 16px; font-size:12px; color:#696969; line-height:20px}
+.commit_list .commit_score{color:#7d0000; text-align:right; padding-right:8px; font-size:16px; font-family:"Arial, Helvetica, sans-serif"}
+
+
+.btn-blue{background:#008DF7;}
+.btn-blue:focus{background:#008DF7;}
+.btn-blue:hover{background:#008DF7;}
+
+.bar{right:0;left:0;z-index:10;height:44px;padding-right:10px;padding-left:10px;background-color:white;border-bottom:1px solid #ddd;-webkit-backface-visibility:hidden;backface-visibility:hidden}
+
+.bar-nav {top: 0;}
+.title{position:absolute;display:block;width:100%;padding:0;margin:0 -10px;font-size:17px;font-weight:500;line-height:44px;color:#000;text-align:center;white-space:nowrap}
+.bar .btn.pull-right {
+  margin-left: 10px;
+}
+
+.bar .btn.pull-left {
+  margin-right: 10px;
+}
+
+.bar .fa {
+  position: relative;
+  z-index: 20;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  font-size: 24px;
+}
+
+.bar-tab {
+  bottom: 0;
+  display: table;
+  width: 100%;
+  height: 50px;
+  padding: 0;
+  table-layout: fixed;
+  border-top: 1px solid #ddd;
+  border-bottom: 0;
+}
+.bar-tab .tab-item {
+  display: table-cell;
+  width: 1%;
+  height: 50px;
+  color: #929292;
+  text-align: center;
+  vertical-align: middle;
+}
+.bar-tab .tab-item.active, .bar-tab .tab-item:active {
+  color: #428bca;
+}
+.bar-tab .tab-item .fa {
+  top: 3px;
+  width: 24px;
+  height: 24px;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+.bar-tab .tab-item .fa ~ .tab-label {
+  display: block;
+  font-size: 11px;
+}
+
+.conver_favourite{width:100%; height:100%; overflow:hidden; text-align:right; position:fixed; top:0px; left:0px; display:none; background:#000; filter:alpha(opacity=80); -moz-opacity:0.8; -khtml-opacity: 0.8; opacity: 0.8; z-index:100000;}
+.conver_favourite img{width:100%; position:relative;}
+
+#footer_points{height:53px; clear:both;}
+#footer{height:45px; border-top:1px solid #cfccc3; width:100%; margin:0 auto; position:fixed; z-index:1000; bottom:0; background:#FFF; padding:0px}
+#footer ul {padding-left:0px;}
+#footer ul li{height:45px; padding-top:0px; width:25%; float:left;}
+#footer ul li>a{color:#565654; line-height:70px; font-size:12px; width:45px; height:40px; margin:0 auto; display:block; white-space:nowrap; text-align:center; text-decoration:none; }
+#footer ul li.sitemap a{background:url('/static/api/distribute/images/sitemap.png') center 8px no-repeat; text-align:center; text-indent:0px; background-size:20px 18px;}
+#footer ul li.home a{background:url('/static/api/distribute/images/home.png') center 6px no-repeat; background-size:22px 22px;}
+#footer ul li.cart a{background:url('/static/api/distribute/images/cart.png') center 6px no-repeat; background-size:22px 22px;}
+#footer ul li.user a{background:url('/static/api/distribute/images/user.png') center 7px no-repeat; background-size:22px 22px;}
+

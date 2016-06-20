@@ -1,0 +1,29 @@
+/*
+Powered by ly200.com		http://www.ly200.com
+广州联雅网络科技有限公司		020-83226791
+*/
+
+body, html{background:url(../images/stores/bg.jpg) top center no-repeat #0143A1; background-size:100%; min-height:100%;}
+
+#your_address{margin:8px; display:none;}
+#your_address dt{border-top-left-radius:5px; border-top-right-radius:5px; padding:6px; font-size:16px; font-weight:bold; color:#fff; text-align:center; background-image:linear-gradient(bottom, #076404 0, #4FBA4D 100%); background-image:-moz-linear-gradient(bottom, #076404 0, #4FBA4D 100%); background-image:-webkit-linear-gradient(bottom, #076404 0, #4FBA4D 100%);}
+#your_address dd{background:#fff; border-bottom-left-radius:5px; border-bottom-right-radius:5px; padding:12px; font-size:14px; text-align:center;}
+
+#stores{margin:8px; clear:both;}
+#stores *{font-size:14px; text-decoration:none;}
+#stores .store{margin-bottom:8px;}
+#stores .store h1{height:32px; line-height:32px; padding:0 8px; background:#ccc; border-top-left-radius:5px; border-top-right-radius:5px;}
+#stores .store h1 .store_name{display:block; float:left; font-weight:bold; color:#fff; max-width:260px; overflow:hidden;}
+#stores .store h1 .dis{display:none; float:right;}
+#stores .store .addr{background:#fff;}
+#stores .store .item{background:#fff; position:relative; padding:8px 0; border-bottom:1px solid #ddd;}
+#stores .store .item .address_ico{width:16px; height:16px; background:url(../images/stores/bg.png) -1px 0 no-repeat; position:absolute; left:5px; top:12px;}
+#stores .store .item .address{width:auto; padding:4px 35px 4px 22px;}
+#stores .store .item .lbs{width:16px; height:16px; position:absolute; right:10px; top:13px; background:url(../images/stores/bg.png) -1px -35px no-repeat;}
+#stores .store .item .lbs a{display:block; width:16px; height:16px;}
+#stores .store .item .tel_ico{width:16px; height:18px; background:url(../images/stores/bg.png) -3px -16px no-repeat; position:absolute; left:5px; top:12px;}
+#stores .store .item .telephone{width:auto; padding-left:22px; padding-right:35px;}
+#stores .store .item .telephone li{width:90%; float:left; padding:5px 0}
+#stores .store  .last{border:none; border-bottom-left-radius:5px; border-bottom-right-radius:5px;}
+#stores .nearest h1{background-image:linear-gradient(bottom, #FE7002 0, #FEAC00 100%); background-image:-moz-linear-gradient(bottom, #FE7002 0, #FEAC00 100%); background-image:-webkit-linear-gradient(bottom, #FE7002 0, #FEAC00 100%);}
+#stores .nearest h1 .dis{color:#fff; font-weight:bold;}

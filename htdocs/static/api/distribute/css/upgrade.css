@@ -1,0 +1,40 @@
+html,body{padding:0px; background:#FFF}
+.upgrade_head{width:100%; margin:0px 0px 8px; padding:0px}
+.upgrade_head img{display:block; width:100%; padding:0px; margin:0px}
+
+.upgrade_form{margin:0px; padding:0px; width:100%}
+.upgrade_form .level_list{width:100%; margin-top:10px; box-sizing:border-box; border:1px #dfdfdf solid}
+.upgrade_form .level_list h2{width:100%; height:36px; line-height:36px; background:#ececec; text-indent:10px; font-size:14px; font-weight:normal; border-bottom:1px #dfdfdf solid}
+.upgrade_form .level_list ul{width:95%; margin:0px auto}
+.upgrade_form .level_list ul li{height:80px; overflow:hidden; width:100%; position:relative; padding-left:120px; box-sizing:border-box; border-top:1px #dfdfdf dotted}
+.upgrade_form .level_list ul li.cur{background:url('../images/join_cur.png') no-repeat right center; background-size:36px;}
+.upgrade_form .level_list ul li img{position:absolute; top:10px; left:10px; max-width:100px; display:block}
+.upgrade_form .level_list ul li strong{display:block; height:30px; font-size:16px; line-height:30px; font-weight:normal; margin-top:10px;}
+.upgrade_form .level_list ul li b{display:block; height:30px; font-size:16px; line-height:30px; font-weight:normal; color:#F00; font-family:"Times New Roman"}
+.upgrade_form .level_total{width:100%; box-sizing:border-box; text-align:right; font-size:12px; height:40px; line-height:40px; display:none}
+.upgrade_form .level_total span{padding:0px 10px 0px 3px; font-size:16px; color:#F00; font-family:"Times New Roman"}
+.upgrade_form .level_submit{width:100%; height:44px; margin-top:5px; display:none} 
+.upgrade_form .level_submit input.submit{display:block; width:95%; margin:0px auto; background:#4F93CE; font-size:16px; color:#FFF; height:44px; line-height:42px; border:none; border-radius:8px;}
+
+.body_bg{width:100%; background:rgba(0,0,0,0.8); position:fixed; bottom:0px; left:0px; z-index:9998; display:none}
+.upgrade_form .pay_select_list{position:fixed; bottom:0px; left:0px; width:100%; box-sizing:border-box; z-index:9999; background:#FFF; padding-bottom:5px; display:none}
+.upgrade_form .pay_select_list h2{margin:0px 0px 5px; padding:0px; height:40px; text-indent:10px; line-height:38px; font-size:14px; color:#FFF; background:#4F93CE;}
+.upgrade_form .pay_select_list h2 span{float:right; padding:0px 10px}
+.upgrade_form .pay_select_list h3{margin:0px auto 5px; padding:0px; height:40px; line-height:38px; font-size:14px; width:90%;}
+.upgrade_form .pay_select_list h3 span{padding:0px 5px; font-size:16px; color:#F00}
+.upgrade_form .pay_select_list a{display:block; width:90%; margin:8px auto 0px; height:34px; line-height:32px; color:#FFF; text-align:center; border:none}
+.upgrade_form .pay_select_list a#wzf{background:#31C800}
+.upgrade_form .pay_select_list a#zfb{background:#FF6400}
+.upgrade_form .pay_select_list a#money{background:#0058A8}
+.upgrade_form .pay_select_list .money_info{display:none}
+
+.upgrade_form .products_list_tobuy{position:fixed; bottom:0px; left:0px; width:100%; box-sizing:border-box; z-index:9999; background:#FFF; padding-bottom:5px; display:none}
+.upgrade_form .products_list_tobuy h2{margin:0px 0px 5px; padding:0px; height:40px; text-indent:10px; line-height:38px; font-size:14px; color:#FFF; background:#4F93CE;}
+.upgrade_form .products_list_tobuy h2 span{float:right; padding:0px 10px}
+.upgrade_form .products_list_tobuy .products_list_content{width:100%}
+.upgrade_form .products_list_tobuy .products_list_content .items{float:left; width:50%}
+.upgrade_form .products_list_tobuy .products_list_content .items ul{width:90%; margin:0px auto}
+.upgrade_form .products_list_tobuy .products_list_content .items ul li.img img{display:block; max-width:100%; margin:0px; padding:0px}
+.upgrade_form .products_list_tobuy .products_list_content .items ul li.price{font-size:16px; color:#F00; font-family:"Times New Roman"; padding:5px 0px}
+.upgrade_form .products_list_tobuy .products_list_content .items ul li.price span{font-size:14px; color:#999; text-decoration:line-through; padding-left:5px;}
+.upgrade_form .products_list_tobuy .products_list_content .items ul li.name{padding-bottom:5px; line-height:20px; font-size:14px;}

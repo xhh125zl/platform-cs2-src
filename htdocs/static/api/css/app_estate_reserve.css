@@ -1,0 +1,27 @@
+/*
+Powered by ly200.com		http://www.ly200.com
+广州联雅网络科技有限公司		020-83226791
+*/
+
+body,html{background:#ECECEC;}
+
+#reserve_success{display:none; width:80%; height:80px; line-height:80px; margin:0 auto; position:fixed; bottom:0; left:0; right:0; z-index:10000; border:1px solid #0B8E00; border-radius:8px; filter:alpha(opacity=0); -moz-opacity:0; -khtml-opacity:0; opacity:0; text-align:center; font-weight:bold; background:#1EA400; font-size:20px; color:#fff;}
+#reserve *{font-size:16px; text-decoration:none;}
+#reserve .header_img img{width:100%;}
+#reserve form{margin:0 auto; padding:3px 8px;}
+#reserve .cp{border:1px solid #ddd; border-radius:5px; background:#fff; margin-bottom:8px; padding:5px;}
+#reserve .cp h2{border-bottom:1px dotted #ddd; padding-bottom:3px; text-indent:2px; font-weight:bold;}
+#reserve .cp>div{color:#666; line-height:150%; padding-top:5px; padding-left:2px; zoom:1;}
+#reserve .cp div h3{float:left; width:50%; height:26px; line-height:26px; overflow:hidden; color:#888;}
+#reserve .cp div h3 img{margin-top:5px;}
+#reserve .cp div h3 a{color:#666; text-decoration:none;}
+#reserve .cp .address{background:url(../images/app_estate/lbs.png) 3px 8px no-repeat; padding-left:20px;}
+#reserve .cp .address a{text-decoration:none; color:#666;}
+#reserve .reserve_table{border:1px solid #ddd; border-radius:5px; background:#fff;}
+#reserve .reserve_table td{color:#a1a1a1; height:44px; padding:0 8px;}
+#reserve .reserve_table thead td{background-image:linear-gradient(bottom, #e6e6e6 0, #f9f9f9 100%); background-image:-moz-linear-gradient(bottom, #e6e6e6 0, #f9f9f9 100%); background-image:-webkit-linear-gradient(bottom, #e6e6e6 0, #f9f9f9 100%); color:#818181; border-top-left-radius:5px; border-top-right-radius:5px; height:32px;}
+#reserve .reserve_table .label{width:65px; color:#333;}
+#reserve .reserve_table .form_input{border:1px solid #EDEDED; color:#a1a1a1; border-radius:5px; width:100%; height:32px; line-height:32px; padding:0 5px; box-sizing:border-box;}
+#reserve .reserve_table select{height:32px; border:1px solid #ddd; border-radius:5px; padding:5px; width:100%; background:#fff; color:#a1a1a1;}
+#reserve .reserve_table select.reserve_time{width:60px;}
+#reserve .submit{width:100%; margin:5px auto; margin-bottom:12px; box-sizing:border-box; -webkit-box-sizing:border-box; -moz-box-sizing:border-box; background-color:#179F00; padding:8px; font-size:18px; border:1px solid #0B8E00; background-image:linear-gradient(bottom, #179F00 0, #5DD300 100%); background-image:-moz-linear-gradient(bottom, #179F00 0, #5DD300 100%); background-image:-webkit-linear-gradient(bottom, #179F00 0, #5DD300 100%); box-shadow:0 1px 0 #94E700 inset, 0 1px 2px rgba(0,0,0,0.5); border-radius:5px; color:#fff; text-shadow:0 1px rgba(0,0,0,0.2);}

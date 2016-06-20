@@ -1,0 +1,21 @@
+/*
+Powered by ly200.com		http://www.ly200.com
+广州联雅网络科技有限公司		020-83226791
+*/
+
+#panoramic .item{border:1px solid #ddd; background:#f7f7f7; overflow:hidden; margin-bottom:10px;}
+#panoramic .item .t{height:18px; line-height:18px; overflow:hidden; border-bottom:1px solid #ccc; padding:10px; cursor:move;}
+#panoramic .item .t .dot{width:8px; height:8px; background:#2D6C9F; float:left; margin-top:6px;}
+#panoramic .item .t .i{height:18px; line-height:18px; overflow:hidden; text-indent:8px; font-weight:bold; color:#666;}
+#panoramic .item .t .i a{padding:0 1px;}
+#panoramic .item ul{padding:10px; min-height:48px; _height:48px; cursor:default;}
+#panoramic .item ul li{width:179px; height:24px; line-height:24px; overflow:hidden; margin-right:5px; float:left; border:1px solid #f7f7f7;}
+#panoramic .item ul li:hover{background:#e6e6e6;}
+#panoramic .item ul li.placeHolder{border:dashed 1px #1584D5; background:#fff;}
+#panoramic .item ul li .title{height:24px; line-height:24px; float:left; overflow:hidden; white-space:nowrap; width:100px; text-overflow:ellipsis; cursor:move; font-size:12px;}
+#panoramic .item ul li .opt{float:right; padding-top:3px; padding-right:10px; display:none; cursor:move;}
+#panoramic .rows .input .upload_file .img img{ max-width:100px; margin-left:10px;}
+#panoramic .placeHolder{border:dashed 1px #1584D5; background:#fff;}
+#panoramic #Option_rows .input{color:#888; font-size:12px;}
+#panoramic #Option_rows .input *{font-size:12px;}
+#panoramic select{height:32px; border:1px solid #ddd; padding:5px; vertical-align:middle; border-radius:5px;}

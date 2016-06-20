@@ -1,0 +1,18 @@
+html, body{background:none;}
+
+@media all and (min-width:360px){
+	#web_skin_index .banner{height:212px;}
+	#web_skin_index .box .web_skin_index_list{height:98px;}
+}
+@media all and (min-width:420px){
+	#web_skin_index .banner{height:248px;}
+	#web_skin_index .box .web_skin_index_list{height:114px;}
+}
+@media all and (min-width:480px){
+	#web_skin_index .banner{height:282px;}
+	#web_skin_index .box .web_skin_index_list{height:130px;}
+}
+@media all and (min-width:640px){
+	#web_skin_index .banner{height:376px;}
+	#web_skin_index .box .web_skin_index_list{height:172px;}
+}

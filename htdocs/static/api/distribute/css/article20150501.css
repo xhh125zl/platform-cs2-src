@@ -1,0 +1,17 @@
+@charset "utf-8";
+/* CSS Document */
+
+#article .productshow_title { padding:10px;}
+#article #description{margin:8px;}
+#article #description .contents{line-height:180%; overflow:hidden; min-height:250px;}
+#article #description div img{
+	width:100%;
+}
+
+#articles{margin:8px 0px;min-height:340px;}
+#articles ul{list-style:none; margin:0px; padding:0px; display:block; width:100%}
+#articles ul li{height:32px; padding:0px 8px; line-height:32px; font-size:14px; font-weight:normal; color:#333; box-sizing:border-box;-moz-box-sizing:border-box;-webkit-box-sizing:border-box; overflow:hidden; border-bottom:1px #dfdfdf dotted}
+#articles ul li a{color:#333; font-size:14px; font-weight:normal;}
+#articles ul li a:hover{color:#F60}
+
+

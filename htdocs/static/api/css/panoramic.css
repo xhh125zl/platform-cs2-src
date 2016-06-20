@@ -1,0 +1,17 @@
+/*
+Powered by ly200.com		http://www.ly200.com
+广州联雅网络科技有限公司		020-83226791
+*/
+
+body,html{background:#f1f1f1;}
+
+#footer{width:100%; margin:0 auto; height:36px; position:fixed; z-index:1000; bottom:0; border-top:1px solid #777;}
+#footer .bg{position:absolute; left:0; top:0; width:100%; height:100%; background:#000; filter:alpha(opacity=30); -moz-opacity:0.3; -khtml-opacity:0.3; opacity:0.3;}
+#footer *{color:#fff; text-decoration:none;}
+#footer ul{margin-top:0px;}
+#footer ul li{position:relative; float:left; height:36px; line-height:36px; width:80px; text-align:center; color:#fff; box-sizing:border-box; border-left:1px solid #777;}
+#footer ul li.first{border:none;}
+#footer ul li>div, #footer ul li a{height:36px; line-height:36px; overflow:hidden; font-size:16px; cursor:pointer; display:block;}
+#footer ul dl{bottom:36px; position:absolute; width:100%; display:none;}
+#footer ul dl dd{height:36px; line-height:36px; overflow:hidden; border-bottom:1px solid #777; position:relative;}
+#footer ul dl dd a{display:block; position:absolute; left:0; top:0; width:100%; height:100%; text-align:center;}

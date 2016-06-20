@@ -1,0 +1,4 @@
+#description{margin-top:8px; box-sizing:border-box; padding:8px; background:#FFF;}
+#description .contents{line-height:180%; overflow:hidden; min-height:250px;}
+.description_title{height:40px; line-height:40px; background:#FFF; font-size:16px; text-align:center; position:relative}
+.description_title a{display:block; position:absolute; top:0px; left:5px; height:40px; line-height:40px; background:url('../images/back.png') no-repeat right center; padding:0px 10px}

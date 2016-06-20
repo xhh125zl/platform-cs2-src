@@ -1,0 +1,16 @@
+/*
+Powered by ly200.com		http://www.ly200.com
+广州联雅网络科技有限公司		020-83226791
+*/
+
+#businesscard .tips_info{background:#f7f7f7; border-radius:5px; border:1px solid #ddd; height:30px; line-height:30px; padding:0 10px; margin-bottom:8px; float:left;}
+#businesscard strong{color:#444;}
+
+#businesscard-list-type{height:170px; margin-top:9px;}
+#businesscard-list-type li{float:left; width:110px; height:170px; overflow:hidden; padding-right:8px; cursor:pointer;}
+#businesscard-list-type li .item{position:relative; width:140px; height:170px;}
+#businesscard-list-type li .item .img{position:absolute; width:110px; height:170px; z-index:1;}
+#businesscard-list-type li .item .filter{position:absolute; width:110px; height:170px; z-index:2;}
+#businesscard-list-type li .item .bg{position:absolute; width:110px; height:170px; z-index:3;}
+#businesscard-list-type li .item_on .filter{background:#000; filter:alpha(opacity=70); -moz-opacity:0.7; -khtml-opacity:0.7; opacity:0.7;}
+#businesscard-list-type li .item_on .bg{background:url(../images/businesscard/selected-icon.png) 20px center no-repeat;}

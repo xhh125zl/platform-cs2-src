@@ -1,0 +1,6 @@
+@charset "utf-8";
+/*银行卡列表样式*/
+#bank-card-list{margin-left:2px;margin-right:2px;}
+#bank-card-list .item{background: none repeat scroll 0 0 #EFEFEF;border: 1px solid #ddd;border-radius: 5px;margin:5px 0;overflow: hidden;padding:8px;position:relative;}
+#bank-card-list .item p{margin:0;padding:0;}  
+#bank-card-list .item h1{font-size:16px;margin-bottom:5px;margin-top:5px;}  

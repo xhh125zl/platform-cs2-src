@@ -1,0 +1,11 @@
+#products{margin:0 auto; width:100%;}
+#products .station{height:32px; line-height:32px; overflow:hidden; background:#ddd; text-indent:8px; margin-bottom:8px;}
+#products .list{width:98%; margin:0 auto;}
+#products .list .item{float:left; width:50%; overflow:hidden; margin-bottom:8px;}
+#products .list .item ul{width:92%; margin:0 auto; background:#fff; overflow:hidden; margin-bottom:5px; border:1px solid #eee; box-shadow:2px 2px 3px #ccc;}
+#products .list .item ul .img{height:144px; overflow:hidden; padding:1px; box-sizing:border-box;}
+#products .list .item ul .img img{width:100%;}
+#products .list .item ul .name{text-align:center; height:22px; line-height:22px; overflow:hidden;}
+#products .list .item ul .name a{color:#777;}
+#products .list .item ul .price{color:#C62E3A; height:22px; line-height:22px; text-align:center;}
+#products #turn_page{padding-bottom:8px;}

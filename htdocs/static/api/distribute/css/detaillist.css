@@ -1,0 +1,13 @@
+@charset "utf-8";
+/* CSS Document */
+
+/*分销信息简单统计*/
+ul#distribute-brief-info{margin:0px; border-bottom:1px #dfdfdf solid;background:#ffffff;width:100%;padding-left:0px;}
+ul#distribute-brief-info  li.item{display:block; padding:8px 0px; height:auto; line-height:16px; float:left; width:33.3%; text-align:center; background:url(../images/border_r.jpg) no-repeat right top; font-size:15px; color:#000}
+ul#distribute-brief-info  span{font-size:18px;}
+ul#distribute-brief-info .bold{font-weight:bold;}
+
+#record-panel {margin-top:10px;border-radius:0px;}
+#record-panel p{margin-bottom:0px;}
+#record-panel p.record-description{margin-bottom:5px;}
+#record-panel .record-time{float:right;}

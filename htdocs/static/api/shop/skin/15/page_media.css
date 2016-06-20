@@ -1,0 +1,12 @@
+@media all and (min-width:360px){
+	#shop_skin_index .banner{height:147px;}
+}
+@media all and (min-width:480px){
+	#shop_skin_index .banner{height:197px;}
+}
+@media all and (min-width:560px){
+	#shop_skin_index .banner{height:230px;}
+}
+@media all and (min-width:640px){
+	#shop_skin_index .banner{height:262px;}
+}

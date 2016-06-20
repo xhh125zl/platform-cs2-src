@@ -1,0 +1,32 @@
+@charset "utf-8";
+/* CSS Document */
+.push_right{float:right}
+.sky_blue{color:#3396FE;}
+
+.withdraw-panel{margin:0 auto;width:97%;margin-bottom:10px;}
+.withdraw-panel .list{padding-left:0px;}
+.withdraw-panel .list .item{height:50px;border-bottom:1px solid #dfdfdf;}
+
+.withdraw-panel span.fa{font-size:18px;}
+
+.withdraw-panel a.operate{display:block;margin:0 5px;}
+.withdraw-panel input[type="text"]{border:0px;font-size:14px;}
+.withdraw-panel select{height:30px;width:180px;border:0px;font-size:14px;}
+.withdraw-panel select option{height:30px;border:0px;font-size:14px;}
+.withdraw-panel .submit-btn{width:80%;background:#3396FE;color:#ffffff;}
+.withdraw-panel .submit-btn:hover{width:80%;background:#3396FE;color:#ffffff;}
+.withdraw-panel .submit-btn:focus{width:80%;background:#3396FE;color:#ffffff;}
+
+#withdraw_tip {color:red;}
+
+#withdraw-apply-btn{float:none;}
+#add-card{width:90%;border:1px dotted #dfdfdf;}
+#manage-card{width:90%;border:1px dotted #dfdfdf;}
+#add_card_panel {display:none;}
+
+/*分销信息简单统计*/
+ul#distribute-brief-info{margin:0px; border-bottom:1px #dfdfdf solid;background:#ffffff;width:100%;padding-left:0px;}
+ul#distribute-brief-info  li.item{display:block; padding:8px 0px; height:auto; line-height:16px; float:left; width:33.3%; text-align:center; background:url(../images/border_r.jpg) no-repeat right top; font-size:15px; color:#000}
+ul#distribute-brief-info  span{font-size:18px;}
+ul#distribute-brief-info .bold{font-weight:bold;}
+

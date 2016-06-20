@@ -1,0 +1,21 @@
+@media all and (min-width:360px){
+	#web_skin_index .banner{height:216px;}
+	#web_skin_index .box .list .img,#web_skin_index .box .list_0 .img{height:110px;}
+	#web_skin_index .box .list_1 .img{height:97px;}
+}
+@media all and (min-width:420px){
+	#web_skin_index .banner{height:252px;}
+	#web_skin_index .box .list .img,#web_skin_index .box .list_0 .img{height:128px;}
+	#web_skin_index .box .list_1 .img{height:113px;}
+}
+@media all and (min-width:480px){
+	#web_skin_index .banner{height:288px;}
+	#web_skin_index .box .list .img,#web_skin_index .box .list_0 .img{height:146px;}
+	#web_skin_index .box .list_1 .img{height:130px;}
+	
+}
+@media all and (min-width:640px){
+	#web_skin_index .banner{height:384px;}
+	#web_skin_index .box .list .img,#web_skin_index .box .list_0 .img{height:195px;}
+	#web_skin_index .box .list_1 .img{height:173px;}
+}

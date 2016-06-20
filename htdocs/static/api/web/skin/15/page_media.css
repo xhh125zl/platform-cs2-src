@@ -1,0 +1,11 @@
+html, body{background:#E6E1C3;}
+
+@media all and (min-width:360px){
+	#web_skin_index .box .list{height:118px;}
+}
+@media all and (min-width:420px){
+	#web_skin_index .box .list{height:137px;}
+}
+@media all and (min-width:480px){
+	#web_skin_index .box .list{height:157px;}
+}

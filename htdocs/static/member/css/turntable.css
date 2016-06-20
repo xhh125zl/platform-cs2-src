@@ -1,0 +1,15 @@
+/*
+Powered by ly200.com		http://www.ly200.com
+广州联雅网络科技有限公司		020-83226791
+*/
+
+#turntable .tips{background:#f7f7f7; border-radius:5px; border:1px solid #ddd; height:30px; line-height:30px; float:left; padding:0 10px;}
+#turntable strong{color:#444;}
+
+#sncode .tips{width: 93%; -webkit-border-image: none; background: #f5f5f5; border-radius: 4px; border:1px solid #ddd; font-size: 14px; line-height: 24px; margin-bottom: 20px; padding:8px 35px 8px 14px; text-shadow: rgba(255, 255, 255, 0.496094) 0px 1px 0px;}
+#sncode .search{padding:10px; background:#f7f7f7; border:1px solid #ddd; margin-bottom:8px; font-size:12px;}
+#sncode .search *{font-size:12px;}
+#sncode .search strong{color:#444; margin-right:20px;}
+#sncode .search .search_btn{background:#1584D5; color:white; border:none; height:22px; line-height:22px; width:80px; cursor:pointer;}
+
+#wheel .none{display:none;}

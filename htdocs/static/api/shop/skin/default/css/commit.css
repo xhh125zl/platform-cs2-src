@@ -1,0 +1,8 @@
+.commit_title{background:#FFF; margin:8px 5px; border:1px #dfdfdf solid; border-radius:5px; height:36px; line-height:36px; font-size:16px; text-align:center}
+.commit_list{background:#FFF; margin:8px 5px; border:1px #dfdfdf solid; border-radius:5px;}
+.commit_list h2{height:40px; line-height:40px; margin:0px; padding:0px 0px 0px 5px; border-bottom:1px #DDD solid}
+.commit_list table{margin:0px 0px 8px 0px; border-bottom:1px #ddd dotted}
+.commit_list table td{line-height:26px;}
+.commit_list .commit_time{padding-left:8px; font-size:14px; font-family:"Times New Roman"; color:#F60}
+.commit_list .commit_note{padding:0px 16px; font-size:12px; color:#696969; line-height:20px}
+.commit_list .commit_score{color:#7d0000; text-align:right; padding-right:8px; font-size:16px; font-family:"Arial, Helvetica, sans-serif"}

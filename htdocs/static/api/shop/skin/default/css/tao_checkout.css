@@ -1,0 +1,176 @@
+@charset "utf-8";
+/* CSS Document */
+
+/*全局样式*/
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  /* Margin bottom by footer height */
+  background:#ffffff;
+ 
+  font-family:"Microsoft YaHei";
+
+}
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: auto;
+  background-color: #f5f5f5;
+}
+
+ .html-body-overflow
+  {
+    overflow-x:hidden;
+    overflow-y:hidden;
+  }
+
+.juice{color:#E00102;}
+.text-center{text-align:center;};
+/* Custom page CSS
+-------------------------------------------------- */
+/* Not required for template or sticky footer method. */
+
+.container .text-muted {
+  margin: 20px 0;
+}
+
+.footer > .container {
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+code {
+  font-size: 80%;
+}
+
+a:hover{text-decoration:none;}
+
+li{list-style:none;}
+.fr{float:right;}
+.fl{float:left;}
+.orange{color:#EA6101;}
+.blue {color:#188eee;}
+.red {color:#ef363e;}
+.grey{color:#D1D1D1;}
+.golden{color:#FE9802;}
+.shallow_grey{color:#b5b5b5;}
+.btn-danger{background:#EF363E;}
+.btn-warning{background:#FF8A00;}
+
+.fa18 {font-size:18px;text-indent:2px;}
+.fa25 {font-size:25px;font-weight:900;}
+a {color:#333333;}
+a:hover {color:#000000;}
+
+.tip{color:#33B16A;}
+.error {color:red;}
+
+/*标题栏样式*/
+.bar{right:0;left:0;z-index:10;height:44px;padding-right:10px;padding-left:10px;background-color:white;border-bottom:1px solid #ddd;-webkit-backface-visibility:hidden;backface-visibility:hidden}
+.bar-nav {top: 0;}
+.bar-nav a{padding-top:8px;}
+.title{display:block;width:80%;padding:0;margin:0 auto;font-size:17px;font-weight:500;line-height:44px;color:#000;text-align:center;white-space:nowrap;}
+.bar .btn.pull-right {
+  margin-left: 10px;
+}
+
+.bar .btn.pull-left {
+  margin-right: 10px;
+}
+
+.bar .fa {
+  position: relative;
+  z-index: 20;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  font-size: 24px;
+}
+
+
+.b15 {height:10px;widht:100%;background:#eee;}
+.b5{height:15px;widht:100%;background:#eee;}
+.shop-btn{display: block;text-align: center;color: #FFF;height: 40px;line-height: 40px;font-size: 15px;}
+.btn-orange{background: #EB6100 none repeat scroll 0% 0%;}
+.btn-grey{background: #999999 none repeat scroll 0% 0%;}
+
+#wrap .list-group {margin-bottom:0px;}
+#wrap .list-group-item:first-child{border-top-left-radius: 0px;border-top-right-radius: 0px;}
+#wrap .list-group-item:last-child{border-bottom-left-radius: 0px;border-bottom-right-radius: 0px;}
+/*用户地址样式*/
+#receiver-info {padding:8px 10px 0 10px;border-bottom:1px solid #DBDBDB;}
+#receiver-info .col-xs-1{padding-left:5px;padding-right:5px;} 
+#receiver-info .col-xs-9{padding-left:5px;padding-right:5px;}
+#receiver-info .col-xs-1{padding-left:0px;padding-right:5px;}
+
+/*产品列表样式*/
+#product-list {border-top:1px solid #DBDBDB;border-bottom:1px solid #DBDBDB;}
+#product-list .product{margin-bottom:10px;}
+.simple-info dl{margin-top:8px;margin-bottom:8px;}
+.simple-info .col-xs-2{padding-left:5px;padding-right:5px;}
+.simple-info .col-xs-7{padding-left:8px;padding-right:8px;}
+.simple-info .thumb {width:100%;margin-left:8px;margin-right:8px;}
+.simple-info h5{margin-top:0px;margin-bottom:0px;}
+.simple-info .price{text-align:right;}
+.simple-info .option{color:#999999;margin-top:8px;}
+
+.product .list-group{margin-bottom:0px;margin-left:10px;margin-right:10px;}
+.product .list-group-item{padding-left:5px;padding-right:5px;}
+.product .list-group-item span{line-height:25px;}
+
+.product .qty_container{padding:0 10px;margin:0 auto;}
+.product .qty_selector input{text-align: center;height: 28px;padding-top: 0px;vertical-align: bottom;}
+.product .qty_selector .btn{border-radius:0px;font-size:15px;padding:2px 15px;}
+.product .qty_selector a.disabled{background:#dfdfdf;}
+.product .sub_total{margin-left:10px;margin-right:10px;}
+.product .sub_total p{text-align:right;margin-top:10px;}
+
+#shipping_method{line-height:45px;height:45px;border-bottom:1px solid #dfdfdf;padding:0 10px;}
+.order_extra_info {float:none;margin:0 auto;}
+.order_extra_info textarea{width:100%;height:60px;}
+.order_extra_info #Mobile_Input{width:95%;height:25px;padding:5px;}
+#wrap #order-whole-info{margin-bottom:20px;}
+#order_total_info{margin-right:20px;}
+#submit-btn {width:40%;margin-right:20px;border:0px;height:43px;font-size:17px;vertical-align:middle;}
+#btn-panel {margin-bottom:30px;}
+/*底部导航样式*/
+.navbar-default {
+  background:rgba(0,0,0,0.8);
+  border-color: #000000;
+}
+
+
+
+.home-title {text-align:center;background:#ffffff;}
+.product-list {background:#ffffff;}
+
+.b5{height:5px; width:100%; font-size:1px; background:#eeeeee;}
+#shipping-modal .modal-dialog{width:80%;margin:0 auto;}
+.modal-content{border-radius:0px;box-shadow:none;}
+.modal-body{padding:10px;}
+.modal-header {min-height: 16.4286px; padding: 8px; border-bottom: 1px solid #E5E5E5;}
+.modal-footer {padding:0px;margin-top:0px;}
+
+/*模态框底部按钮*/
+.modal-footer  a.modal-btn {
+    display: block;
+    height: 35px;
+    line-height: 35px;
+    text-transform: uppercase;
+	text-align:center;
+    transition: background-color 0.2s ease 0s;
+	width:50%;
+}
+
+.modal-footer  a.modal-btn:first-child{
+ 	border-right:1px solid #E5E5E5;
+	background:#F65327;
+	color:#eee;
+}
+
+#shipping-company-list {margin-bottom:0px;} 
+#shipping-company-list dd{font-size:15px;line-height:25px;}    
+   

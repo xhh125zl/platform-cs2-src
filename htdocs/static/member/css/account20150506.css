@@ -1,0 +1,39 @@
+#home .welcome{background:url(../images/account/sound.png) no-repeat left center; padding-left:22px; margin-left:33px; height:30px; line-height:30px; font-size:16px; font-family:"Times New Roman"; color:#f56059}
+#home .info{margin-top:15px; width:1137px;}
+#home .info .data{overflow:hidden;}
+#home .info .data div{width:276px; height:110px; overflow:hidden; float:left; margin-right:11px;}
+#home .info .data div a{display:block; text-decoration:none; cursor:pointer;}
+#home .info .data .d0{background:url(../images/account/data-bg-0.jpg);}
+#home .info .data .d1{background:url(../images/account/data-bg-1.jpg);}
+#home .info .data .d2{background:url(../images/account/data-bg-2.jpg);}
+#home .info .data .d3{background:url(../images/account/data-bg-3.jpg); margin-right:0px;}
+#home .info .data h1{margin:25px 0px 0px 136px; padding:0px; font-size:28px; color:#fff}
+#home .info .data h2{margin:0px 0px 0px 136px; padding:0px; color:#fff; font-size:12px; font-family:"宋体"}
+
+#home .account_middle{margin-top:12px;}
+#home .account_middle .chats{width:680px; height:392px; border:1px #e7e7e7 solid; background:#fff}
+#home .account_middle .chats h2{margin:0px; padding:0px 0px 0px 46px; height:44px; line-height:44px; border-bottom:1px #e7e7e7 solid; color:#424242; background:url(../images/account/chat.png) no-repeat 22px center #fff; font-size:14px;}
+#home .account_middle .chats .chart{background:#fff; margin:0px 10px 0px 5px}
+#home .account_middle .orderlist{width:563px;}
+#home .account_middle .orderlist h2{margin:0px; padding:0px 0px 0px 46px; height:42px; line-height:42px; border:1px #e7e7e7 solid; color:#424242; background:url(../images/account/orderlist.png) no-repeat 22px center #fff; font-size:14px;}
+#home .account_middle .orderlist table{margin-top:12px; border:1px #e7e7e7 solid; width:561px;}
+#home .account_middle .orderlist table th{height:41px; line-height:41px; background:#fff; font-size:12px; color:#000; font-family:"宋体"; font-weight:normal}
+#home .account_middle .orderlist table td{height:41px; line-height:41px; font-size:12px; color:#8e908f; font-family:"宋体"; font-weight:normal; text-align:center}
+#home .account_middle .orderlist table td.f_order{color:#38a0e7}
+
+#home .account_bottom{margin-top:12px;}
+#home .account_bottom .announce{width:561px; height:307px; border:1px #e7e7e7 solid; background:#fff}
+#home .account_bottom .announce .h22{margin:0px; padding:0px 0px 0px 46px; height:42px; line-height:42px; border-bottom:1px #e7e7e7 solid; color:#424242; background:url(../images/account/announce.png) no-repeat 18px center; font-size:14px;}
+#home .account_bottom .announce .h23{margin:0px; padding:0px 0px 0px 46px; height:42px; line-height:42px; border-bottom:1px #e7e7e7 solid; color:#424242; background:url(../images/account/question.png) no-repeat 18px center; font-size:14px;}
+#home .account_bottom .announce h2 span{float:right; margin-right:15px; font-size:12px; font-family:"Times New Roman";}
+#home .account_bottom .announce h2 span a{color:#3ca0eb}
+#home .account_bottom .announce h2 span a:hover{text-decoration:underline}
+#home .account_bottom .announce ul{margin:0px 10px; padding:0px}
+#home .account_bottom .announce ul li{height:43px; line-height:43px; padding-left:40px; font-size:12px; border-bottom:1px #ddd dotted; background:url(../images/account/announce_li.jpg) no-repeat 10px center;}
+#home .account_bottom .announce ul li.new{background:url(../images/account/announce_li_new.jpg) no-repeat 10px center;}
+#home .account_bottom .announce ul li.last{border-bottom:none}
+#home .account_bottom .announce ul li a{color:#909090; font-family:"宋体";}
+#home .account_bottom .announce ul li.new a{color:#3ca0eb; font-family:"宋体";}
+#home .account_bottom .announce ul li a:hover{text-decoration:underline}
+#home .account_bottom .announce ul li span{float:right; font-family:"Times New Roman"; margin-right:9px; font-size:12px; color:#909090;}
+#home .account_bottom .announce ul li.new span{color:#3ca0eb;}

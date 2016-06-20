@@ -1,0 +1,28 @@
+
+#lsmax .f_red{color:red}
+#lsmax .search{padding:10px; height:22px; background:#f7f7f7; border:1px solid #ddd; margin-bottom:8px; font-size:12px;}
+#lsmax .search *{font-size:12px;}
+#lsmax .search .search_btn{background:#1584D5; color:white; border:none; height:22px; line-height:22px; width:80px; cursor:pointer;}
+#lsmax .search .l{float:left;}
+#lsmax .search .r{float:right;}
+#lsmax .face{width:90px; max-height:90px;}
+#lsmax .dis_none{display:none}
+#lsmax #upload_img li{margin-top:5px; height:125px; float:left; _display:inline; width:160px; overflow:hidden; margin:5px}
+#lsmax #upload_img li .img{float:left; border:1px solid #ddd; background:#fff; width:160px; height:120px; overflow:hidden; position:relative;}
+#lsmax #upload_img li .img img{width:100%; min-height:120px;}
+#lsmax #upload_img li .img .del{position:absolute; bottom:0; height:22px; line-height:22px; text-align:center; background:#000; width:100%; color:#fff; filter:alpha(opacity=70); -moz-opacity:0.7; -khtml-opacity:0.7; opacity:0.7; cursor:pointer;}
+#lsmax #upload_img li .info{float:left; margin-left:15px;}
+#lsmax #upload_img li .info input{vertical-align:middle;}
+#lsmax #upload_img li .info textarea{vertical-align:middle; width:280px; height:70px;}
+#lsmax .rows .input .copy,#lsmax #for_awards,#lsmax #for_wheel,#lsmax #for_vote{display:none;}
+#lsmax .reverve_field_table td .form_input{width:auto;}
+#lsmax .r_con_table .contents img{width:80%;}
+#lsmax .r_con_table .img img{width:100px;}
+#lsmax .awards_add, #lsmax .wheel_add, #lsmax .vote_add{cursor:pointer;}
+#lsmax #votebox li{margin-bottom:5px;}
+
+#sncode .tips{width:93%; -webkit-border-image:none; background:#f5f5f5; border-radius:4px; border:1px solid #ddd; line-height:24px; margin-bottom:20px; padding:8px 35px 8px 14px; text-shadow:rgba(255, 255, 255, 0.496094) 0px 1px 0px;}
+#sncode .search{padding:10px; background:#f7f7f7; border:1px solid #ddd; margin-bottom:8px; font-size:12px;}
+#sncode .search *{font-size:12px;}
+#sncode .search strong{color:#444; margin-right:20px;}
+#sncode .search .search_btn{background:#1584D5; color:white; border:none; height:22px; line-height:22px; width:80px; cursor:pointer;}

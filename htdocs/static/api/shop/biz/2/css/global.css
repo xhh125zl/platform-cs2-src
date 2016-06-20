@@ -1,0 +1,68 @@
+@charset "utf-8";
+/* CSS Document */
+/*清理默认样式*/
+body,h1,h2,h3,h4,h5,h6,hr,p,blockquote,dl,dt,dd,ul,ol,li,pre,fieldset,lengend,button,input,textarea,th,td{margin:0;padding:0}
+address,cite,dfn,em,var{font-style:normal}
+code,kbd,pre,samp,tt{font-family:"Courier New",Courier,monospace}
+small{font-size:12px}
+ul,ol{list-style:none}
+a{text-decoration:none}
+a:hover{text-decoration:underline}
+abbr[title],acronym[title]{border-bottom:1px dotted;cursor:help}
+q:before,q:after{content:''}
+legend{color:#000}
+fieldset,img{border:0}
+button,input,select,textarea{font-size:100%}
+table{border-collapse:collapse;border-spacing:0}
+hr{border:0;height:1px}
+html{overflow-y:scroll}
+
+
+body {background:#f5f5f5;font-family:Arial,Helvetica,sans-serif;}
+.bar-nav {background-color: #1391c3;}
+.bar-nav h2.title {color:#ffffff;}
+.bar-nav a{color:#ffffff;margin-top:10px;}
+.bar-tab .icon {font-size:2em;}
+/*返回链接*/
+
+/*按钮全局样式*/
+button {
+	outline: none;	
+	border: none;
+	background: none;
+}
+
+.icon{
+
+	background-size:150px 350px;
+	display:inline-block;
+}
+
+.i-add-food{
+	width:27px;
+	height:27px;
+	background-position:-15px 0;
+}
+
+.i-remove-food{
+	width:27px;
+	height:27px;
+	background-position:-15px -30px;
+}
+
+.i-arrow-up-flat{
+	width:9px;
+	height:4px;
+	background-position:-16px -62px;
+	background-color:#ffffff;
+}
+
+[class^="icon-"],[class*=" icon-"]{
+	display:inline-block;
+}
+
+
+.bar-nav a{width:20%;}
+.bar-nav a:hover{text-decoration:none;}
+.bar-nav h2.title{position:relative;margin:0 auto;width:50%;}
+

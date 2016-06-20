@@ -1,0 +1,255 @@
+body,html{background:#fafafa;}
+a:hover{text-decoration: none;}
+.grey{color:#c4c4c4;}
+.red{color:#ED4747;}
+.green{color:#00E21D;}
+.bar{right:0;left:0;z-index:10;height:44px;padding-right:10px;padding-left:10px;background-color:white;border-bottom:1px solid #ddd;-webkit-backface-visibility:hidden;backface-visibility:hidden}
+
+.bar-nav {top: 0;}
+.title{position:absolute;display:block;width:100%;padding:0;margin:0 -10px;font-size:17px;font-weight:500;line-height:44px;color:#000;text-align:center;white-space:nowrap}
+.bar .btn.pull-right {
+  margin-left: 10px;
+}
+
+.bar .btn.pull-left {
+  margin-right: 10px;
+}
+
+.bar .icon {
+  position: relative;
+  z-index: 20;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  font-size: 24px;
+}
+
+.bar-tab {
+  bottom: 0;
+  display: table;
+  width: 100%;
+  height: 50px;
+  padding: 0;
+  table-layout: fixed;
+  border-top: 1px solid #ddd;
+  border-bottom: 0;
+}
+.bar-tab .tab-item {
+  display: table-cell;
+  width: 1%;
+  height: 50px;
+  color: #929292;
+  text-align: center;
+  vertical-align: middle;
+}
+.bar-tab .tab-item.active, .bar-tab .tab-item:active {
+  color: #428bca;
+}
+.bar-tab .tab-item .icon {
+  top: 3px;
+  width: 24px;
+  height: 24px;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+.bar-tab .tab-item .icon ~ .tab-label {
+  display: block;
+  font-size: 11px;
+}
+
+
+#distribute_header h2{height:36px; line-height:36px; background:#efefef; font-size:16px; width:100%; text-align:center; color:#000; padding:0px; margin:0px}
+#distribute_header .header_r{float:right; padding-top:60px; padding-right:20px;}
+#distribute_header .header_l{height:60px; padding:15px 0px}
+#distribute_header .header_l span{float:left; display:block;}
+#distribute_header .header_l span.img{width:60px; height:60px; margin-left:15px;}
+#distribute_header .header_l span.img img{width:100%; height:100%; border-radius:50%}
+#distribute_header .header_l span.nickname{padding:10px 0px 0px 8px; font-size:14px; color:#000}
+
+#footer_points{height:42px; clear:both;}
+.footer .col-xs-2{text-align:center;}
+#footer_nav{padding:10px 0 5px;background:#ffffff;margin-bottom:0px;border-top:1px solid #dfdfdf;} 
+#footer_nav li.item{text-align:center;width:25%;float:left;} 
+.footer a{color:#555555;font-size:12px;} 
+
+#commit dl{margin:8px; padding:8px; border:1px solid #ddd; border-radius:5px; background:#fff;}
+#commit dl dd{padding-bottom:8px; color:#666;}
+#commit dl dd textarea{border:1px solid #ddd; border-radius:5px; width:100%; box-sizing:border-box; height:72px; line-height:24px; color:#666; margin:5px 0px}
+#commit dl dd select{height:32px; border:1px solid #ddd; border-radius:5px; padding:5px; margin:5px 0px 5px 10px; background:#fff; margin-bottom:5px; color:#666; width:33%;box-sizing:border-box;-moz-box-sizing:border-box;-webkit-box-sizing:border-box;}
+#commit dl dt{text-align:center; padding:5px;}
+#commit dl dt .submit{height:36px; color:#fff; text-align:center; border-radius:5px; width:150px; font-weight:bold; font-size:16px; background-color:#F00019; border:1px solid #c10001; background-image:linear-gradient(bottom, #E20018 0, #DC3749 100%); background-image:-moz-linear-gradient(bottom, #E20018 0, #DC3749 100%);background-image:-webkit-linear-gradient(bottom, #E20018 0, #DC3749 100%); box-shadow:0 1px 0 #D95260 inset, 0 1px 2px rgba(0,0,0,0.5);}
+#commit dl dt .back{height:36px; text-align:center; border-radius:5px; width:60px; background:#f7f7f7; margin-left:8px; font-weight:bold; font-size:16px;}
+
+#friend-list {margin:10px;padding:8px;border-radius: 5px;border:1px solid #ccc;}
+
+/*表格样式*/
+table {
+    *border-collapse: collapse; /* IE7 and lower */
+    border-spacing: 0;
+    width: 100%;    
+}
+
+    
+.bordered th{
+  border-left: 1px solid #ccc;
+    padding: 10px;
+    text-align: left;    
+}
+
+.bordered td {
+    border-left: 1px solid #ccc;
+    border-top: 1px solid #ccc;
+    padding: 10px;
+    text-align: left;    
+}
+
+
+.bordered td:first-child, .bordered th:first-child {
+    border-left: none;
+}
+
+.bordered th:only-child{
+    -moz-border-radius: 6px 6px 0 0;
+    -webkit-border-radius: 6px 6px 0 0;
+    border-radius: 6px 6px 0 0;
+}
+
+.bordered tr:last-child td:first-child {
+    -moz-border-radius: 0 0 0 6px;
+    -webkit-border-radius: 0 0 0 6px;
+    border-radius: 0 0 0 6px;
+}
+
+.bordered tr:last-child td:last-child {
+    -moz-border-radius: 0 0 6px 0;
+    -webkit-border-radius: 0 0 6px 0;
+    border-radius: 0 0 6px 0;
+}
+
+
+/*修改账户表单样式*/
+#account {margin-top:10px;}
+#account_form .input{clear:both;}
+#account_form .input input{height:38px; line-height:40px; border:1px solid #ddd; border-radius:5px; width:99%; text-indent:5px; font-size:16px; margin-bottom:12px; box-sizing:border-box;}
+#account #account_form  {border-radius:5px; padding:0 10px 12px 10px; margin:0 8px; margin-bottom:12px; width:auto; min-height:250px;}
+#account #account_form  .profile{text-align:center; background:#FFF; height:50px; line-height:50px; overflow:hidden; font-size:18px; font-weight:bold;}
+#account #account_form  .profile img{vertical-align:middle; height:30px; padding-right:10px;}
+#account #account_form  #edit-bankcard-btn{width:99%;}
+
+/*账户明细样式*/
+#account_record{padding:0; padding-bottom:8px;}
+#account_record ul{border-radius:5px; background:#fff; padding:5px 0; min-height:150px;}
+#account_record ul li{height:56px; line-height:28px;padding:5px;overflow:hidden;border-bottom:1px solid #dfdfdf;}
+
+/*分销中心样式*/
+#distribute-content{position:relative;width:100%;margin:10px 0;}
+#distribute-zhe{color:#d3d3d4;background-color:rgba(0,0,0,0.6);filter:progid:DXImageTransform.Microsoft.Gradient(GradientType=0,StartColorStr='#A0000000',EndColorStr='#A0000000');position:absolute;bottom:0;width:100%;text-decoration:none;font:16px Microsoft YaHei,Verdana;color:#fff;height:100%}
+#member_distribute_nav{margin:10px 0 0 0;border-bottom:1px #dfdfdf solid; border-top:1px #dfdfdf solid; background:#FFF; width:100%}
+#member_distribute_nav a{display:block; padding:8px 0px; height:auto; line-height:20px; float:left; width:25%; text-align:center; background:url(../images/border_r.jpg) no-repeat right top; font-size:14px; color:#000}
+
+#distribute-panel{margin-top:10px;border-top:1px #dfdfdf solid;}
+#distribute-panel  .t{padding-left:20px;}
+#distribute-panel  .t i{color:#ff337a;}
+ul#distribute-brief-info{margin:0px; border-bottom:1px #dfdfdf solid; border-top:1px #dfdfdf solid; background:#FFF; width:100%}
+ul#distribute-brief-info  li.item{display:block; padding:8px 0px; height:auto; line-height:16px; float:left; width:25%; text-align:center; background:url(../images/border_r.jpg) no-repeat right top; font-size:15px; color:#000}
+ul#distribute-brief-info  span{font-size:18px;}
+ul#distribute-brief-info .bold{font-weight:bold;}
+
+#withdraw-panel{margin-top:10px;}
+#withdraw-form {width:100%;float:right;margin-bottom:10px;}
+#withdraw-panel label{padding: 0px 8px;font-size:16px;}
+#withdraw-panel input{width:100px;height:32px;line-height: normal;padding: 0px 8px;margin-right:10px;box-sizing: border-box;border-radius: 5px;}
+
+
+/*申请成为分销商表格样式*/
+#join-distribute-panel {margin:5px 20px;}
+#join-distribute-panel h3{font-size:18px;}
+#join-distribute-panel h4{font-size:16px;}
+#join-distribute-panel p{text-align:center;}
+#join-distribute-panel #join-distribute-btn{width:100%;margin:0 auto;}
+#join-distribute-panel input{width:95%;height:32px;line-height: normal;padding: 0px 8px;box-sizing: border-box;border-radius: 5px;}
+
+/*消息中心样式*/
+#message-list .item{background: none repeat scroll 0 0 #EFEFEF;border: 1px solid #ddd;border-radius: 5px;margin: 8px;overflow: hidden;padding:8px;position: relative;}
+#message-list .item p{margin:0;padding:0;}  
+#message-list .item h1{font-size:16px;margin-bottom:5px;}  
+
+/*查看所有提现记录*/
+.go-detail{background:#FFF; margin-top:8px; border-radius:5px; font-size:16px;margin-right:10px;}
+.go-detail a{font-size:16px; color:#5a5a5a; display:block; width:100%; text-indent:10px; padding:8px 0px}
+.go-detail a span{float:right; margin-right:8px; background:url('../image/right-arrow.png') no-repeat right center; padding:0px 10px}
+    
+/*提现记录样式*/
+ul#withdraw-record-nav{margin:0px; border-bottom:1px #dfdfdf solid;background:#FFF; width:100%}
+ul#withdraw-record-nav  li.item{display:block; padding:8px 0px; height:auto; line-height:16px; float:left; width:25%; text-align:center; background:url(../images/border_r.jpg) no-repeat right top; font-size:15px; color:#000}
+ul#withdraw-record-nav  span{font-size:15px;}
+ul#withdraw-record-nav .bold{font-weight:bold;}
+ul#withdraw-record-nav  li.cur a{color:#F60;}
+
+
+.table-view {
+  padding-left: 0;
+  margin-top: 0;
+  margin-bottom: 15px;
+  list-style: none;
+  background-color: #fff;
+  border-bottom: 1px solid #ddd;
+}
+
+.table-view-cell {
+  position: relative;
+  padding: 11px 11px 11px 15px;
+  overflow: hidden;
+  border-bottom: 1px solid #ddd;
+}
+
+.table-view-cell:last-child {
+  border-bottom: 0;
+}
+
+.table-view-cell p {
+  margin-bottom: 0;
+}
+
+#withdraw-list  .table-view-cell span.icon{float:right;margin-right:10px;}
+#withdraw-list div.detail{width:100%;height:100px;display:none;border-bottom:1px solid #DDD;padding-bottom:10px;}
+
+#withdraw-list .detail{padding-left:20px;padding-right:20px;}
+#withdraw-list .detail p{linne-height:22px;margin:5px 0;}
+
+/*申请成为分销用户页面样式*/
+
+#join-distribute-form input[type="text"],#join-distribute-form input[type="email"],#join-distribute-form input[type="tel"],#join-distribute-form input[type="url"],#join-distribute-form textarea,#join-distribute-form button[type="submit"]{font:400 12px/16px "Open Sans",Helvetica,Arial,sans-serif}
+#join-distribute-form{margin:5px 0;padding:0 25px;background:#f9f9f9}
+#join-distribute-form h3{display:block;color:#F96;font-weight:400;font-size:18px}
+#join-distribute-form h4{display:block;margin:5px 0 15px;font-size:13px}
+fieldset{margin:0 0 10px;padding:0;width:100%;min-width:100%;border:medium none!important}
+#join-distribute-form input[type="text"],#join-distribute-form input[type="email"],#join-distribute-form input[type="tel"],#join-distribute-form input[type="url"],#join-distribute-form textarea{margin:0 0 5px;padding:10px;width:88%;border:1px solid #CCC;background:#FFF}
+#join-distribute-form input[type="text"]:hover,#join-distribute-form input[type="email"]:hover,#join-distribute-form input[type="tel"]:hover,#join-distribute-form input[type="url"]:hover,#join-distribute-form textarea:hover{border:1px solid #AAA;-webkit-transition:border-color .3s ease-in-out;-moz-transition:border-color .3s ease-in-out;transition:border-color .3s ease-in-out}
+#join-distribute-form textarea{height:100px;max-width:100%;resize:none}
+#join-distribute-form button[type="submit"]{margin:0 0 5px;padding:10px;width:100%;border:0;background:#0CF;color:#FFF;font-size:15px;cursor:pointer}
+#join-distribute-form button[type="submit"]:hover{background:#09C;-webkit-transition:background .3s ease-in-out;-moz-transition:background .3s ease-in-out;transition:background-color .3s ease-in-out}
+#join-distribute-form button[type="submit"]:active{box-shadow:inset 0 1px 3px rgba(0,0,0,0.5)}
+#join-distribute-form input:focus,#join-distribute-form textarea:focus{outline:0;border:1px solid #999}
+::-webkit-input-placeholder{color:#888}
+:-moz-placeholder{color:#888}
+::-moz-placeholder{color:#888}
+:-ms-input-placeholder{color:#888}
+#join-distribute-form #join-distribute-btn{width:95%;}
+#join-distribute-form input.error{border:1px solid red;}
+#join-distribute-form label.error{color:red;}
+#desc{padding:0 25px;background:#f9f9f9;}
+#desc .tip_content>li{font-size:12px;}
+
+#join_title{width:65%;float:left;margin-bottom:20px;}
+#see_regulation {width:26%;float:right;text-align:center;margin-right:5px;}
+/*弹出框样式*/
+.pop_form{position:fixed; width:100%; z-index:10001; display:none; top:50px;}
+.pop_form .pop_form_content{background:#fff; padding:5px 12px; margin:12px;border-radius:5px;}
+.pop_form h1{font-size:16px; font-weight:bold; padding-top:5px;}
+.pop_form .input{height:18px; line-height:18px; padding:7px 0; border:1px solid #ddd; border-radius:5px; background:#f0f0f0; text-indent:5px; width:100%; margin:8px 0;}
+.pop_form .btn{margin:8px 0; overflow:hidden}
+.pop_form .btn .submit{width:70%; height:36px; line-height:36px; background:#F60; border:none; color:#fff; font-size:16px; border-radius:5px; text-align:center; float:left;}
+.pop_form .btn .cancel{width:27%; height:36px; line-height:36px; background:#999; border:none; color:#fff; font-size:16px; border-radius:5px; text-align:center; float:right;}
+.pop_form .sms{height:50px;}
+.pop_form .sms input{width:50%; float:left;}
+.pop_form .sms .sms_button{width:49%; float:left; padding:0; height:34px; background:#D1E4D1; color:#777;}

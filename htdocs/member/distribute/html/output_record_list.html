@@ -1,0 +1,30 @@
+<!-- 记录列表  begin -->
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>分销商</th>
+      <th>流水号</th>
+      <th>金额</th>
+      <th>状态</th>
+      <th>时间</th>
+    </tr>
+  </thead>
+  <tbody>
+  
+  {{foreach from=$output_record_list key=key item=item}}
+  <tr>
+    <td>{{$item.Record_ID}}</td>
+    <td>{{$item.User_NickName}}</td>
+    <td>{{$item.Record_Sn}} </td>
+    <td class="red">&yen;{{$item.Record_Money}}</td>
+    <td>{{$item.Record_Status}}</td>
+     <td>{{$item.Record_CreateTime}}</td>
+ 
+  </tr>
+  {{/foreach}}
+    </tbody>
+  
+</table>
+
+<!-- 记录列表 end-->

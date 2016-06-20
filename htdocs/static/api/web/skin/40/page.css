@@ -1,0 +1,12 @@
+#web_skin_index{width:100%; height:100%; position:relative; overflow:hidden; z-index:1; background:#fff8ba}
+#web_skin_index .web_skin_index_list{overflow:hidden; position:relative;}
+#web_skin_index .banner{width:100%;  overflow:hidden; height:100%;z-index:2;position:relative; }
+#web_skin_index .banner *{ width:100%;}
+#web_skin_index .box{ width:96%; margin:5px auto}
+#web_skin_index .box li{ width:151px; height:64px; float:left; overflow:hidden; border:none; background:#fed70b; box-sizing:border-box; margin-bottom:5px}
+#web_skin_index .box li .img{height:64px; width:92px; float:left; overflow:hidden; text-align:center;  }
+#web_skin_index .box li .img img{ height:100%;}
+#web_skin_index .box li .text{text-align:center; font-size:12px;float:left; width:59px; line-height:64px}
+#web_skin_index .box li .text a{ color:#fe8312}
+
+.mar_l{ margin-left:5px;}

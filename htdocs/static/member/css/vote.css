@@ -1,0 +1,17 @@
+/*
+Powered by ly200.com		http://www.ly200.com
+广州联雅网络科技有限公司		020-83226791
+*/
+
+#vote .opt_btn a{height:32px; line-height:32px; background:#1584D5; color:white; width:120px; display:block; text-align:center; text-decoration:none; margin-bottom:8px; border-radius:5px; float:left; margin-right:8px;}
+#vote .opt_btn .search{float:right; padding-top:5px; font-size:12px;}
+#vote .search{padding:10px; background:#f7f7f7; border:1px solid #ddd; margin-bottom:8px; display:none; font-size:12px;}
+#vote .search *{font-size:12px;}
+#vote .search .search_btn{background:#1584D5; color:white; border:none; height:22px; line-height:22px; width:50px;}
+#vote .r_con_table .proimg{width:90px;}
+#vote .r_con_table del{color:#888;}
+#vote .input .img{margin-top:5px;}
+#vote .input .img div{width:100px; height:76px; border:1px solid #ddd; float:left; position:relative; margin-right:8px;}
+#vote .input .img div img{width:100px; height:56px; position:absolute;}
+#vote .input .img div span{width:100px; display:block; height:20px; line-height:20px; text-align:center; position:absolute; top:56px; background:#000; color:#fff; font-size:12px; filter:alpha(opacity=70); -moz-opacity:0.7; -khtml-opacity:0.7; opacity:0.7; cursor:pointer;}
+

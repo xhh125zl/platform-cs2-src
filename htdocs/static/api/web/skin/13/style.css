@@ -1,0 +1,6 @@
+@import url('art_list.css');
+
+body,html{background:#ECECEC;}
+
+#web_page_contents{padding:8px;}
+#column{border:1px solid #ddd; background:#fff; border-radius:5px; min-height:100px;}

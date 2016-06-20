@@ -1,0 +1,19 @@
+#web_skin_index{width:100%; height:500px; overflow:hidden; position:relative; z-index:1;}
+#web_skin_index .web_skin_index_list{float:left; _display:inline; overflow:hidden; position:relative;}
+#web_skin_index .img{height:100%; overflow:hidden;}
+#web_skin_index .img img{width:100%;}
+#web_skin_index .banner{width:100%; height:100%; overflow:hidden; position:absolute; left:0; top:0; z-index:1;}
+#web_skin_index .banner *{width:100%; height:100%; overflow:hidden;}
+#web_skin_index .box{width:100%; margin:0 auto; box-sizing:border-box; background:#E6E1C3; clear:both; padding-top:1px; position:absolute; left:0; bottom:0; z-index:10;}
+#web_skin_index .box .list{height:105px; box-sizing:border-box;}
+#web_skin_index table{width:100%;}
+#web_skin_index .cp-left{position:relative; padding-right:1px;}
+#web_skin_index .cp-left .bg{position:absolute; bottom:0; width:99.5%; background:#000; height:26px; filter:alpha(opacity=40); -moz-opacity:0.4; -khtml-opacity:0.4; opacity:0.4;}
+#web_skin_index .cp-left .text{position:absolute; bottom:0; width:100%; height:26px; line-height:26px; overflow:hidden; text-align:center;}
+#web_skin_index .cp-left .text a{color:#fff;}
+
+#skin_index_menu{position:absolute; width:150px; left:10px; top:0px; display:none; z-index:10;}
+#skin_index_menu li{margin:10px 0; height:40px; overflow:hidden; position:relative;}
+#skin_index_menu li .bg{position:absolute; filter:alpha(opacity=70); -moz-opacity:0.7; -khtml-opacity:0.7; opacity:0.7; width:100%; height:100%;}
+#skin_index_menu li a{color:#fff; text-decoration:none; position:absolute; display:block; height:40px; line-height:38px; width:100%; text-indent:10px; font-size:16px;}
+#skin_index_menu li a img{width:20px; height:20px; margin-right:5px;}

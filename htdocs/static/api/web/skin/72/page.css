@@ -1,0 +1,18 @@
+#web_skin_index{width:100%; height:100%; overflow:hidden; background:#eee;}
+#web_skin_index .web_skin_index_list{overflow:hidden; position:relative; z-index:1}
+#web_skin_index img{width:100%; height:auto;}
+#web_skin_index .banner{width:100%; height:175px; overflow:hidden;}
+#web_skin_index .banner *{width:100%; height:100%; overflow:hidden;}
+#web_skin_index .web_warp .m0{margin-left:2%;}
+.web_warp{width:96.875%; margin:0px auto;}
+.web_warp .item{width:100%; margin-top:10px;}
+.web_warp .item .box{width:32%; float:left;}
+.web_warp .item .box .img{width:90%; margin:0 auto;}
+
+.web_nav{width:93%; margin:0px auto; padding-bottom:20px;}
+.web_nav .item{width:100%; margin-top:10px;}
+.web_nav .item .box{width:25%; float:left; *width:24.5%;}
+.web_nav .item .box .img{width:90%; margin:0 auto;}
+.web_nav .item .box .text{width:100%; text-align:center;}
+.web_nav .item .box .text a{color:#333;}
+.web_nav .item .box .text a:hover{text-decoration:none; color:#333;}

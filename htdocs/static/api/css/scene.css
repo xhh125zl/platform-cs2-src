@@ -1,0 +1,86 @@
+/*
+Powered by ly200.com		http://www.ly200.com
+广州联雅网络科技有限公司		020-83226791
+*/
+
+body, html{background:#eee;}
+a{-webkit-tap-highlight-color:rgba(255,0,0,0);}
+#albums *{text-decoration:none;}
+#albums .ablums_name{background:-webkit-linear-gradient(#eeeeee, #cfcfcf); height:40px; overflow:hidden; position:relative; border-bottom:1px solid #c2bcb6;}
+#albums .ablums_name .home{position:absolute; left:10px; top:8px;}
+#albums .ablums_name .home img{width:54px;}
+#albums .ablums_name .title{line-height:40px; font-weight:bold; color:#000000; text-align:center; font-size:20px;}
+#albums .none{padding:50px 0; text-align:center; font-size:16px; color:#bbb;}
+#albums .list_type_0 .item{width:50%; float:left; overflow:hidden; position:relative; margin-bottom:-4px; box-sizing:border-box;}
+#albums .list_type_0 .item .img{padding:1px;}
+#albums .list_type_0 .item .img img{width:100%;}
+#albums .list_type_0 .item .bg{position:absolute; bottom:4px; background:#000; height:28px; overflow:hidden; width:100%; filter:alpha(opacity=70); -moz-opacity:0.7; -khtml-opacity:0.7; opacity:0.7; border-right:1px solid #fff; border-left:1px solid #fff; box-sizing:border-box;}
+#albums .list_type_0 .item .txt{position:absolute; bottom:4px; color:#fff; text-align:center; height:28px; line-height:28px; overflow:hidden; width:100%; border-right:1px solid #fff; box-sizing:border-box;}
+
+#albums .list_type_1{background:#ECECEC; padding:8px;}
+#albums .list_type_1 ul{border:1px solid #ddd; background:#fff; border-radius:5px; min-height:100px;}
+#albums .list_type_1 .item{border-top:1px dotted #ddd; padding:7px 0;}
+#albums .list_type_1 .item .img{width:38%; text-align:center; min-height:75px; float:left;}
+#albums .list_type_1 .item .img img{width:105px;}
+#albums .list_type_1 .item .info{overflow:hidden; float:right; width:60%;}
+#albums .list_type_1 .item .info h1{height:16px; line-height:16px; overflow:hidden; margin-bottom:3px; font-weight:bold;}
+#albums .list_type_1 .item .info h2{min-height:55px; line-height:150%; color:#888; font-size:12px;}
+#albums .list_type_1 .first{border:none;}
+
+#albums .list-type-2{width:100%; box-sizing:border-box; padding:7px 1px; padding-bottom:0;}
+#albums .list-type-2 .list{width:99%; margin:0 auto;}
+#albums .list-type-2 .item{float:left; width:50%; overflow:hidden;}
+#albums .list-type-2 .item div{background:#fff; margin:0 4px; margin-bottom:7px;}
+#albums .list-type-2 .item ul{width:94%; overflow:hidden; margin:0 auto; padding:4px 0; position:relative;}
+#albums .list-type-2 .item ul .img{height:100px; overflow:hidden;}
+#albums .list-type-2 .item ul .img img{width:100%;}
+#albums .list-type-2 .spe .item ul .img{height:200px;}
+#albums .list-type-2 .item ul .bg{height:26px; position:absolute; bottom:4px; width:100%; -moz-opacity:0.7; -khtml-opacity:0.7; opacity:0.7; background:#000;}
+#albums .list-type-2 .item ul .title{height:26px; line-height:26px; text-align:center; overflow:hidden; position:absolute; bottom:4px; width:100%; color:#fff;}
+#albums .list-type-2 .item ul .title a{color:#fff;}
+
+#albums .list-type-3{width:100%; height:auto; position:relative; overflow:hidden; margin: 0 auto;}
+#ul1{ position:absolute; left:0; top: 0px; z-index:1000;}
+#ul1 li{ width:100%; text-align:center; overflow:hidden;}
+#ul1 li img{width: 100%;}
+#albums .list-type-3 .music{width:55px; height:25px; position:absolute; z-index:1001; right:20px; top:20px;}
+#albums .list-type-3 .music .obtn{width:30px; height:25px; float:left; color:#fff; line-height:25px;}
+#albums .list-type-3 .music .img{width:25px; height:25px;  float:right;}
+#albums .list-type-3 .music .img img{width:100%;}
+#albums .list-type-3 .u-arrow{ width:30px; position:absolute; z-index:1001; left:50%; margin-left:-15px; bottom:30px;}
+#albums .list-type-3 .u-arrow img{width:100%;}
+#albums #turn_page{margin-bottom:9px;}
+@media all and (min-width:360px){
+	#albums .list-type-2 .item ul .img{height:113px;}/*((360-2)×0.99×0.5-4*2)×0.94÷1.4*/
+	#albums .list-type-2 .spe .item ul .img{height:230px;}
+}
+@media all and (min-width:420px){
+	#albums .list-type-2 .item ul .img{height:133px;}
+	#albums .list-type-2 .spe .item ul .img{height:260px;}
+}
+@media all and (min-width:480px){
+	#albums .list-type-2 .item ul .img{height:153px;}
+	#albums .list-type-2 .spe .item ul .img{height:300px;}
+}
+
+/* 拖动相册 新增效果 start */
+#scroll-item{ width:100%; height:auto; overflow: hidden;}
+#scroll-item .photo-item{ width:48%; float:left; border-left:1px #fff solid;border-top:1px #fff solid; margin-left:1%; margin-top:4px;}
+#scroll-item .photo-item img{ vertical-align:top; width:100%;}
+
+#photo-list{ width:0; height:auto; background-color:rgba(0,0,0,0.8); position:absolute; left:0px; top:0px; z-index:1002; overflow:hidden;}
+#photo-list .photo-title{ width:100%; height:30px; background:#333; color:#fff; font-size:16px; line-height:30px;}
+#photo-list .photo-title span:nth-of-type(1){ float:right; margin-right:10px; width:10%; margin-top:3px;}
+
+#nav-list{ width:0; height:auto; background-color:rgba(0,0,0,0.8); position:absolute; right:0px; top:0px; z-index:1002; overflow:hidden;}
+#nav-list .nav-title{ width:100%; height:30px; background:#333; color:#fff;}
+#nav-list .nav-title span:nth-of-type(1){ float:left; margin-left:10px; width:10%; height:23px; padding-top:5px;}
+#nav-list .list-item{ width:95%; padding-bottom:10px; border-bottom:1px rgba(255,255,255,.1) solid; margin:0 auto; }
+#nav-list .list-item .list-icon{ width:25px; height:25px; float:left; margin-left:10px; margin-top:13px;}
+#nav-list .list-item .list-title{ float:left; line-height:35px; margin-left:12px; margin-top:8px; font-size:16px;}
+#nav-list .list-item .list-title a{ color:#fff;}
+#nav-list .list-item .list-title a:hover{ text-decoration:none;}
+
+#div1 .icon1{ width:30px; height:30px; position:absolute; left:20px; top:20px; z-index:1002;}
+#div1 .icon2{ width:30px; height:30px; position:absolute; right:20px; top:20px; z-index:1001;}
+/* 拖动相册 新增效果 end */

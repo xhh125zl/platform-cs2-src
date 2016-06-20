@@ -1,0 +1,37 @@
+#shop_skin_index{width:100%; overflow:hidden; margin:0 auto; background:#ededed}
+#shop_skin_index .img{height:100%; overflow:hidden;}
+#shop_skin_index .img img{width:100%; height:100%;}
+#shop_skin_index .shop_skin_index_list{ overflow:hidden; position:relative; z-index:1;}
+#shop_skin_index .banner{height:157px; width:100%;}
+#shop_skin_index .banner *{width:100%; height:100%;}
+
+
+.index-h{padding:10px 0; min-height:75px; overflow:hidden}
+.index-h div.items{ display:inline-block; width:25%;text-align:center; box-sizing:border-box; -moz-box-sizing:border-box; -webkit-box-sizing:border-box; text-align:center; float:left}
+.index-h div.items img{ width:56px; height:56px}
+
+/*products_cont*/
+.products_cont{ width:96%; margin:0 auto 10px auto;}
+.products_cont .title{ height:30px; line-height:30px; color:#fff; border-top-left-radius:5px;border-top-right-radius:5px; text-indent:1em}
+.products_cont .title .more{ float:right; margin-right:15px; color:#fff;}
+.products_cont .title .more:hover{ text-decoration:none}
+.products_cont .bg_blue{ background-color:#88bef0}
+.products_cont .bg_f8ca5a{ background-color:#f8ca5a}
+.products_cont .bg_ee7884{ background-color:#ee7884}
+.products_cont .cont{ background:#fff; padding:0}
+
+
+/*products_list*/
+.products_list{margin-bottom:10px}
+.products_list li{ float:left; width:50%;*width:49%;height:95px;overflow:hidden;box-sizing:border-box; -moz-box-sizing:border-box; -webkit-box-sizing:border-box}
+.products_list li.btm_bor{border-bottom:1px solid #dfdfdf;}
+.products_list li.right_bor{border-right:1px solid #dfdfdf;}
+
+.products_list li .name{ width:40%; height:90%; float:left; padding:5px; font-size:12px;}
+.products_list li .txt{ height:38px; line-height:19px; text-overflow:clip;overflow:hidden;width:100%}
+.products_list li .pic{ width:50%;height:100%;float:left;text-align:center; overflow:hidden; margin-top:2%}
+.products_list li .pic img{ width:100%; height:auto}
+.products_list li .price{ color:#ef7786; font-weight:bold; line-height:20px;}
+.products_list li.big{height:190px}
+.products_list li.big .name,.products_list li.big .pic{ float:none; width:95%; height:auto; padding:0; margin:0 auto;}
+.products_list li.big .pic{ width:120px; height:120px; text-align:center;}

@@ -1,0 +1,22 @@
+.body_bg{width:100%; background:rgba(0,0,0,0.8); position:fixed; bottom:0px; left:0px; z-index:9998; display:none}
+.pay_select_list{position:fixed; bottom:0px; left:0px; width:100%; box-sizing:border-box; z-index:9999; background:#FFF; padding-bottom:5px; display:none}
+.pay_select_list h2{margin:0px 0px 5px; padding:0px; height:40px; text-indent:10px; line-height:38px; font-size:14px; color:#FFF; background:#4F93CE;}
+.pay_select_list h2 span{float:right; padding:0px 10px}
+.pay_select_list h3{margin:0px auto 5px; padding:0px; height:40px; line-height:38px; font-size:14px; width:90%;}
+.pay_select_list h3 span{padding:0px 5px; font-size:16px; color:#F00}
+.pay_select_list a{display:block; width:90%; margin:8px auto 0px; height:34px; line-height:32px; color:#FFF; text-align:center; border:none}
+.pay_select_list a#wzf{background:#31C800}
+.pay_select_list a#zfb{background:#FF6400}
+.pay_select_list a#money{background:#0058A8}
+.pay_select_list .money_info{display:none}
+
+.products_list_tobuy{position:fixed; bottom:0px; left:0px; width:100%; box-sizing:border-box; z-index:9999; background:#FFF; padding-bottom:5px; display:none}
+.products_list_tobuy h2{margin:0px 0px 5px; padding:0px; height:40px; text-indent:10px; line-height:38px; font-size:14px; color:#FFF; background:#4F93CE;}
+.products_list_tobuy h2 span{float:right; padding:0px 10px}
+.products_list_tobuy .products_list_content{width:100%}
+.products_list_tobuy .products_list_content .items{float:left; width:50%}
+.products_list_tobuy .products_list_content .items ul{width:90%; margin:0px auto}
+.products_list_tobuy .products_list_content .items ul li.img img{display:block; max-width:100%; margin:0px; padding:0px}
+.products_list_tobuy .products_list_content .items ul li.price{font-size:16px; color:#F00; font-family:"Times New Roman"; padding:5px 0px}
+.products_list_tobuy .products_list_content .items ul li.price span{font-size:14px; color:#999; text-decoration:line-through; padding-left:5px;}
+.products_list_tobuy .products_list_content .items ul li.name{padding-bottom:5px; line-height:20px; font-size:14px;}

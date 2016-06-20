@@ -1,0 +1,12 @@
+#web_skin_index{width:100%; height:100%; overflow:hidden;}
+#web_skin_index .web_skin_index_list{float:left; _display:inline; overflow:hidden; position:relative;}
+#web_skin_index .img{height:100%; overflow:hidden;}
+#web_skin_index .img img{width:100%;}
+#web_skin_index .banner{width:100%; height:100%; overflow:hidden; margin:0;}
+#web_skin_index .banner *{width:100%; overflow:hidden;}
+
+#skin_index_menu{position:absolute; width:160px; left:10px; top:10px; display:none;}
+#skin_index_menu li{width:70px; height:85px; float:left; margin:0 10px 10px 0; overflow:hidden; position:relative;}
+#skin_index_menu li .bg{background:#000; left:0; top:0; filter:alpha(opacity=40); -moz-opacity:0.4; -khtml-opacity:0.4; opacity:0.4; width:100%; height:100%;}
+#skin_index_menu li a{position:absolute; left:0; top:0; padding-top:13px; display:block; text-align:center; width:100%; height:100%; color:#fff; text-decoration:none;}
+#skin_index_menu li a img{width:44px; height:44px; padding-bottom:5px;}

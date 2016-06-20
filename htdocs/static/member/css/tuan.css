@@ -1,0 +1,44 @@
+/*
+Powered by ly200.com		http://www.ly200.com
+广州联雅网络科技有限公司		020-83226791
+*/
+
+#products .opt_btn a{height:32px; line-height:32px; background:#1584D5; color:white; width:120px; display:block; text-align:center; text-decoration:none; margin-bottom:8px; border-radius:5px; float:left; margin-right:8px;}
+#products .opt_btn .search{float:right; padding-top:5px; font-size:12px;}
+#products .search{padding:10px; background:#f7f7f7; border:1px solid #ddd; margin-bottom:8px; display:none; font-size:12px;}
+#products .search *{font-size:12px;}
+#products .search .search_btn{background:#1584D5; color:white; border:none; height:22px; line-height:22px; width:50px;}
+#products .r_con_table .proimg{width:90px;}
+#products .r_con_table del{color:#888;}
+#products .price, #products .attr{font-size:12px; color:#888; height:32px; line-height:28px;}
+#products .input .img{margin-top:5px;}
+#products .input .img div{width:100px; height:76px; border:1px solid #ddd; float:left; position:relative; margin-right:8px;}
+#products .input .img div img{width:100px; height:56px; position:absolute;}
+#products .input .img div span{width:100px; display:block; height:20px; line-height:20px; text-align:center; position:absolute; top:56px; background:#000; color:#fff; font-size:12px; filter:alpha(opacity=70); -moz-opacity:0.7; -khtml-opacity:0.7; opacity:0.7; cursor:pointer;}
+
+#orders .search{padding:10px; background:#f7f7f7; border:1px solid #ddd; margin-bottom:8px; font-size:12px;}
+#orders .search *{font-size:12px;}
+#orders .search .search_btn{background:#1584D5; color:white; border:none; height:22px; line-height:22px; width:80px;}
+#orders .r_con_table del{color:#888; font-size:12px;}
+#orders .r_con_table tbody td{font-size:12px;}
+#orders .cp_title{height:28px; border-left:1px solid #ddd;}
+#orders .cp_title div{border:1px solid #ddd; border-bottom:none; border-left:none; background:#fff; width:130px; height:27px; line-height:27px; text-align:center; font-weight:bold; float:left; cursor:pointer;}
+#orders .cp_title div.cur{background:#f1f1f1;}
+#orders .detail_card{border:1px solid #ddd; padding:15px;}
+#orders .detail_card .order_info{border-collapse:collapse;}
+#orders .detail_card .order_info *{font-size:12px;}
+#orders .detail_card .order_info td{padding:10px 7px; border-bottom:1px solid #ddd; empty-cells:show;}
+#orders .detail_card .order_info td input{height:28px; line-height:28px; border:1px solid #ddd; border-radius:5px;}
+#orders .detail_card .order_info td textarea{vertical-align:top; border-radius:5px; width:350px; height:80px; padding:5px; line-height:150%;}
+#orders .detail_card .order_info td select{height:32px; border:1px solid #ddd; padding:5px; vertical-align:middle; border-radius:5px;}
+#orders .detail_card .cp_item_mod{display:none;}
+#orders .detail_card .cp_item_mod td input{border:0; height:30px; line-height:30px;}
+#orders .item_info{height:20px; line-height:20px; font-weight:bold;}
+#orders .order_item_list{border:1px solid #ddd; margin:5px 0; border-collapse:collapse;}
+#orders .order_item_list td{empty-cells:show; font-size:12px;}
+#orders .order_item_list .tb_title td{border-right:1px solid #ddd; height:32px; font-weight:bold; text-align:center; background:#f1f1f1;}
+#orders .order_item_list .tb_title td.last{border-right:none;}
+#orders .order_item_list .item_list td{padding:7px 5px; border-top:1px solid #ddd; background:#fff;}
+#orders .order_item_list .item_list td img{width:100px;}
+#orders .order_item_list .item_list:hover td{background:#E4F1FC;}
+#orders .order_item_list .total td{height:26px; background:#efefef; text-align:center; color:#B50C08; font-weight:bold;}

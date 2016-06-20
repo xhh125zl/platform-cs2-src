@@ -1,0 +1,76 @@
+/*
+Powered by ly200.com		http://www.ly200.com
+广州联雅网络科技有限公司		020-83226791
+*/
+
+.r_con_config .img{margin-top:5px;}
+.r_con_config .img div{width:90px; height:90px; border:1px solid #ddd; float:left; position:relative; margin-right:8px;}
+.r_con_config .img div img{width:90px; height:90px; position:absolute;}
+.r_con_config .img div span{width:90px; display:block; height:20px; line-height:20px; text-align:center; position:absolute; top:70px; background:#000; color:#fff; font-size:12px; filter:alpha(opacity=70); -moz-opacity:0.7; -khtml-opacity:0.7; opacity:0.7; cursor:pointer;}
+.r_con_config .upload_file{margin-top:10px;}
+
+#card_style{border:1px solid #ddd; background:#f5f5f5; padding:17px; margin-top:5px; height:135px;}
+#card_style .file{float:left; width:50%; position:relative;}
+#card_style .file .input{ background:#FFF;}
+#card_style .file .tips{margin-top:5px; color:#999;}
+#card_style .file .img{width:180px; height:80px; position:absolute; left:130px; top:43px; overflow:hidden; border:1px solid #ddd; background:#fff;}
+#card_style .file .img img{width:100%;}
+#card_style .style{float:left; width:269px; border:1px solid #ddd; border-radius:5px; min-height:161px; background:#fff; text-align:center; padding-bottom:8px;}
+#card_style .style img{width:267px; height:161px;}
+#card_style_list .list{height:450px; overflow:auto;}
+#card_style_list table{background:#fff; width:460px;}
+#card_style_list table td{text-align:center; padding:15px;}
+#card_style_list table td:hover{background:#ddd;}
+#card_style_list table td a{width:200px; height:120px; overflow:hidden; display:block; border:3px solid #fff; border-radius:10px;}
+#card_style_list table td a.cur{border:3px solid #F60;}
+#card_style_list table td a img{width:100%; height:100%;}
+
+#category_style{border:1px solid #ddd; background:#f5f5f5; padding:17px; margin-top:5px; height:135px;}
+#category_style .file{float:left; width:50%; position:relative;}
+#category_style .file .input{ background:#FFF;}
+#category_style .file .tips{margin-top:5px; color:#999;}
+#category_style .file .img{width:180px; height:80px; position:absolute; left:130px; top:43px; overflow:hidden; border:1px solid #ddd; background:#fff;}
+#category_style .file .img img{width:100%;}
+#category_style .style{float:left; width:269px; border:1px solid #ddd; border-radius:5px; min-height:161px; background:#fff; text-align:center; padding-bottom:8px;}
+#category_style .style img{width:267px; height:161px;}
+
+#owner_style{border:1px solid #ddd; background:#f5f5f5; padding:17px; margin-top:5px; height:135px;}
+#owner_style .file{float:left; width:50%; position:relative;}
+#owner_style .file .input{ background:#FFF;}
+#owner_style .file .tips{margin-top:5px; color:#999;}
+#owner_style .file .img{width:180px; height:80px; position:absolute; left:130px; top:43px; overflow:hidden; border:1px solid #ddd; background:#fff;}
+#owner_style .file .img img{width:100%;}
+#owner_style .style{float:left; width:269px; border:1px solid #ddd; border-radius:5px; min-height:161px; background:#fff; text-align:center; padding-bottom:8px;}
+#owner_style .style img{width:267px; height:161px;}
+
+#products .category .m_lefter{float:left; width:385px; padding:10px; border:1px solid #ddd; background:#f7f7f7; min-height:400px; _height:400px; overflow:hidden;}
+#products .category .m_lefter dd{border:1px solid #f7f7f7; border-bottom:1px solid #ddd; background:#f7f7f7;}
+#products .category .m_lefter dd.placeHolder{border:dashed 1px #1584D5; background:#fff;}
+#products .category .m_lefter dd div.category{height:30px; line-height:30px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis; cursor:move;}
+#products .category .m_lefter dd div.no_ext{height:50px; line-height:50px;}
+#products .category .m_lefter dd ul{padding-left:40px;}
+#products .category .m_lefter ul li{float:left; width:162px; margin-right:5px; height:24px; line-height:24px; overflow:hidden; font-size:12px; border:1px solid #f7f7f7;}
+#products .category .m_lefter ul li:hover{background:#e6e6e6;}
+#products .category .m_lefter ul li.placeHolder{border:dashed 1px #1584D5; background:#fff;}
+#products .category .m_lefter ul li .title{height:24px;line-height:24px;float:left;overflow:hidden; white-space:nowrap; width:100px; text-overflow:ellipsis; cursor:move; font-size:12px;}
+#products .category .m_lefter ul li .opt{float:right; padding-top:3px; padding-right:10px; display:none; cursor:move;}
+#products .category .m_righter{float:left; width:340px; margin-left:20px;}
+#products .category .m_righter form{padding:10px; border:1px solid #ddd; background:#f7f7f7; zoom:1;}
+#products .category .m_righter .mod_form{border:1px dotted red;}
+#products .category .m_righter h1{font-weight:bold; padding-bottom:5px;}
+#products .category .m_righter .opt_item{padding:5px 0;}
+#products .category .m_righter .opt_item label{float:left; width:70px; height:28px; line-height:28px;}
+#products .category .m_righter .opt_item .input{float:left; width:240px; display:block; line-height:28px;}
+#products .category .m_righter .opt_item .input .form_input{border:1px solid #ddd; border-radius:5px; height:28px; line-height:28px; text-indent:2px;}
+#products .category .m_righter .opt_item .input select{height:32px; border:1px solid #ddd; border-radius:5px; padding:5px; width:220px; overflow:hidden;}
+#products .category .m_righter .opt_item #pro-list-type{height:135px; margin-top:7px;}
+#products .category .m_righter .opt_item #pro-list-type li{float:left; width:100px; height:135px; overflow:hidden; padding-right:10px;}
+#products .category .m_righter .opt_item #pro-list-type li .item{position:relative; width:100px; height:135px;}
+#products .category .m_righter .opt_item #pro-list-type li .item .img{position:absolute; width:100px; height:135px; z-index:1;}
+#products .category .m_righter .opt_item #pro-list-type li .item .filter{position:absolute; width:100px; height:135px; z-index:2;}
+#products .category .m_righter .opt_item #pro-list-type li .item .bg{position:absolute; width:100px; height:135px; z-index:3;}
+#products .category .m_righter .opt_item #pro-list-type li .item_on .filter{background:#000; filter:alpha(opacity=70); -moz-opacity:0.7; -khtml-opacity:0.7; opacity:0.7;}
+#products .category .m_righter .opt_item #pro-list-type li .item_on .bg{background:url(../images/shop/selected-icon.png) center center no-repeat;}
+#CategoryImgDetail img{ width:139px;}
+
+#products .r_con_search_form{display:none;}

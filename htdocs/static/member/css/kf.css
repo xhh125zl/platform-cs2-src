@@ -1,0 +1,5 @@
+#kf_web .table, #kf_web .ico_list{width:50%; float:left;}
+#kf_web .ico_list table{margin-left:12px;}
+#kf_web table img{cursor:pointer;}
+#kf_web .ico_list table img{border:1px solid #ddd; margin:0 2px;}
+#kf_web .ico_list table img.cur{border:1px solid #ff6600;}

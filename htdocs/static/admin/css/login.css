@@ -1,0 +1,12 @@
+body{background:#01b9f7;overflow:hidden;}
+#login{width:1200px; margin:0 auto; overflow:hidden; background:url('../images/login/login_bg.jpg') no-repeat left 150px}
+#login form{width:347px; float:right; clear:both; margin-top:210px; padding:0px 0 25px;}
+#login form .login_form{width:347px; background:#FFF; overflow:hidden; padding-top:25px;}
+#login form .login_form .t{height:16px; background:url('../images/login/login_t.jpg') no-repeat 33px center}
+#login form .login_form .form{width:282px; margin:0px auto}
+#login form .login_form .rows{padding:28px 0px 0px 0px; overflow:hidden;}
+#login form .login_form .rows span{display:block; _display:block; width:282px; overflow:hidden;}
+#login form .login_form .rows span input{width:270px; height:40px; line-height:40px; border:1px solid #d4d4d4; padding:0 5px; margin:0; border-radius:5px;}
+#login form .login_form .submit{width:282px; margin:28px auto 80px; height:40px;}
+#login form .login_form .submit input{margin:0; width:282px; height:40px; background:url('../images/login/login_btn.jpg') no-repeat left top; border:none;}
+#login form .login_form .login_msg{height:20px; line-height:20px; color:red; text-align:center; margin-top:8px; display:none;}

@@ -1,0 +1,99 @@
+/*
+Powered by ly200.com		http://www.ly200.com
+广州联雅网络科技有限公司		020-83226791
+*/
+
+body,html{background:url(../images/bg.jpg) left 65px; background-size:100%;}
+
+#header{height:65px; width:100%; background:url(../images/h-bg.jpg) no-repeat; background-size:100% 65px;}
+#header div{padding:7px; padding-left:10px; width:120px; height:50px;}
+#header div img{width:100%; height:100%;}
+
+#game_list{margin:0 10px;}
+#game_list .item{background:#fff; border-radius:5px; margin-bottom:10px; border-right:2px solid #ddd; border-bottom:2px solid #ddd;}
+#game_list .item .img img{width:100%; border-radius:5px 5px 0 0; float:left;}
+#game_list .item .go{height:36px; line-height:36px; position:relative;}
+#game_list .item .go div{overflow:hidden; left:0; top:0; text-indent:8px; padding-right:50%; font-size:16px;}
+#game_list .item .go a{display:block; width:45%; font-weight:bold; font-size:16px; position:absolute; right:0; top:0; background:#01c303; text-decoration:none; color:#fff; text-align:center; border-radius:0 0 3px 0;}
+
+#detail{padding:0 10px;}
+#detail .start{height:55px;}
+#detail .start div{text-align:center; background:#01c303; color:#fff; height:36px; line-height:36px; text-align:center; width:80%; font-size:20px; font-weight:bold; margin:0 auto; margin-top:5px; border-radius:5px;}
+
+#detail .nostart{height:55px;}
+#detail .nostart div{text-align:center; background:#666666; color:#000000; height:36px; line-height:36px; text-align:center; width:80%; font-size:20px; font-weight:bold; margin:0 auto; margin-top:5px; border-radius:5px;}
+
+#detail .img img{width:100%; border-radius:5px;}
+#detail .box{background:#fff; border-radius:5px;}
+#detail .box h1{font-size:16px; font-weight:bold; height:36px; line-height:36px; text-indent:10px; border-bottom:1px dotted #ddd;}
+#detail .box .txt{padding:10px; line-height:200%; min-height:100px;}
+#detail .box .zhandou span{font-size:16px; font-family:Verdana, Geneva, sans-serif; color:#8a581d; font-weight:bold;}
+#detail .box .integral li{height:32px; line-height:32px; text-indent:36px;}
+#detail .box .integral li.i0{background:url(../images/1.png) 10px center no-repeat; background-size:20px;}
+#detail .box .integral li.i1{background:url(../images/2.png) 10px center no-repeat; background-size:20px;}
+#detail .box .integral li.i2{background:url(../images/3.png) 10px center no-repeat; background-size:20px;}
+#detail .box .integral li.i3{background:url(../images/4.png) 10px center no-repeat; background-size:20px;}
+#detail .box .integral li.i4{background:url(../images/5.png) 10px center no-repeat; background-size:20px;}
+
+#member{position:absolute; left:10px; top:55px;}
+#member .zhandou{width:60px; height:50px; background:url(../images/zhandou_bg.png); background-size:100% 100%;}
+#member .zhandou div{padding-top:35px; color:#fff; text-align:center; font-size:12px;}
+#member .zhandou div .cur{font-weight:bold; font-size:14px;}
+#member .zhandou_img{width:26px; height:33px; background:url(../images/zhandou.png); background-size:100% 100%; position:absolute; left:17px; top:5px; display:none;}
+#member .timer{height:14px; line-height:14px; text-align:center; color:#fff; font-size:9px; font-weight:bold;}
+
+#result .over{text-align:center; padding-top:10px;}
+#result .over img{width:80%;}
+#result .result_f{margin:10px;}
+#result .result_f div{text-align:center; font-size:20px; padding:5px 0;}
+#result .link{margin-top:20px; margin-right:5%;}
+#result .link li{width:45%; margin-left:5%; float:left; margin-bottom:15px;}
+#result .link li a{text-decoration:none; display:block; width:100%; margin:0 auto; height:36px; line-height:36px; background:#fff; text-indent:32%; font-size:16px; border-radius:5px; color:#333;}
+#result .link li a.share{background:url(../images/ico-share.jpg) 12px center no-repeat #fff; background-size:25px;}
+#result .link li a.again{background:url(../images/ico-again.jpg) 12px center no-repeat #fff; background-size:25px;}
+#result .link li a.stat{background:url(../images/ico-stat.jpg) 12px center no-repeat #fff; background-size:25px;}
+#result .link li a.integral{background:url(../images/ico-integral.jpg) 12px center no-repeat #fff; background-size:25px;}
+#result .link li a.more{background:url(../images/ico-more.jpg) 12px center no-repeat #fff; background-size:25px;}
+
+.shareimg{display:none}
+.share_layer{width:100%; height:100%; overflow:hidden; text-align:right; position:fixed; top:0px; left:0px; display:none; background:#000; background:rgba(0,0,0,0.8); filter:alpha(opacity=80); -moz-opacity:0.8; -khtml-opacity: 0.8; opacity: 0.8; z-index:100000;}
+.share_layer img{max-width:600px; width:100%; position:relative;}
+
+#rank{margin:0 5%; background:#fff; border-radius:5px;}
+#rank h1{font-size:16px; font-weight:bold; height:36px; line-height:36px; text-indent:10px; border-bottom:1px dotted #ddd;}
+#rank ul{min-height:100px; padding-bottom:1px;}
+#rank ul li{margin:5px 0; height:35px; line-height:40px; overflow:hidden; position:relative;}
+#rank ul li.f{background:#f7f7f7;}
+#rank ul li div{float:left; overflow:hidden;}
+#rank ul li div.num{width:40px; text-align:center; font-size:16px;}
+#rank ul li div.good{color:#ff0000; font-weight:bold; font-style:italic;}
+#rank ul li div.name{position:absolute; left:80px; padding-right:130px;}
+#rank ul li div.wheel{position:absolute; right:10px; width:120px; text-align:center;}
+#rank ul li img{width:35px; height:35px;}
+
+#subscribe{position:fixed; bottom:0; height:65px;}
+#subscribe img{width:100%; height:100%;}
+
+.blank{height:80px;}
+#submit_name{position:fixed; width:100%; z-index:10001; top:180px; display:none;}
+#submit_name form{background:#fff; padding:5px 12px; margin:12px; border-bottom:3px solid #174D8B; border-radius:5px;}
+#submit_name h1{font-size:16px; font-weight:bold; padding-top:5px;}
+#submit_name .input{height:18px; line-height:18px; padding:7px 0; border:1px solid #ddd; border-radius:5px; background:#f0f0f0; text-indent:5px; width:100%; margin:8px 0;}
+#submit_name .btn{margin:8px 0;}
+#submit_name .btn .sub_button{width:70%; height:36px; line-height:36px; background:#F60; border:none; color:#fff; font-size:16px; border-radius:5px; text-align:center; float:left;}
+#submit_name .btn .cancel{width:27%; height:36px; line-height:36px; background:#999; border:none; color:#fff; font-size:16px; border-radius:5px; text-align:center; float:right;}
+#submit_name .sms{height:50px;}
+#submit_name .sms input{width:50%; float:left;}
+#submit_name .sms .sms_button{width:49%; float:left; padding:0; height:34px; background:#D1E4D1; color:#777;}
+
+.flash{-webkit-animation:flash .2s 3; animation:flash .2s 3;}
+@-ms-keyframes flash{
+	0%{opacity:1;}
+	50%{opacity:0;}
+	100%{opacity:1;}
+}
+@-webkit-keyframes flash{
+	0%{opacity:1;} 
+	50%{opacity:0;}
+	100%{opacity:1;}
+}

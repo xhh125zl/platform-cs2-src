@@ -1,0 +1,14 @@
+body,html{background:#fee8d0;}
+body *{font-size:14px;}
+body a{cursor:pointer;}
+.wrap{width:100%; margin:0 auto; clear:both; overflow:hidden;}
+
+#shop_page_contents{width:100%;}
+.shareimg{display:none}
+
+.share_layer{width:100%; height:100%; overflow:hidden; text-align:right; position:fixed; top:0px; left:0px; display:none; background:#000; background:rgba(0,0,0,0.8); filter:alpha(opacity=80); -moz-opacity:0.8; -khtml-opacity: 0.8; opacity: 0.8; z-index:100000;}
+.share_layer img{max-width:600px; width:100%; position:relative;}
+
+#description{padding:0px; margin:0px;}
+#description .contents{padding:0px; margin:0px;}
+#description .contents img{display:block; margin:0px; padding:0px; max-width:100%}

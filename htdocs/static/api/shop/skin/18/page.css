@@ -1,0 +1,23 @@
+body{background:#f3f3f3; font-family:"宋体"}
+#shop_skin_index{width:100%; overflow:hidden; margin:0 auto;}
+#shop_skin_index .img img{width:100%; height:100%;}
+#shop_skin_index .shop_skin_index_list{overflow:hidden; position:relative; z-index:1;}
+#shop_skin_index .banner{width:100%; height:131px; line-height:160px;}
+#shop_skin_index .banner *{width:100%; height:100%; overflow:hidden;}
+
+.index_cate{width:100%; margin-top:8px; background:#FFF; padding-top:3px;}
+.index_cate ul li{width:25%; float:left;}
+.index_cate ul li a{display:block; width:60px; height:60px; margin:0px auto; overflow:hidden}
+.index_cate ul li a img{width:100%; height:100%; border-radius:50%; background:#e5e5e5}
+.index_cate ul li p{margin:0px auto; padding:5px 0px 0px; height:30px; width:90%; font-size:14px;}
+
+.index_products .items{width:100%; background:#FFF; margin-top:8px; padding:10px 0px;}
+.index_products .items ul li{float:left; box-sizing:border-box;}
+.index_products .items ul li.cell_l{width:45%}
+.index_products .items ul li.cell_r{width:55%}
+.index_products .items ul li img{width:90%; margin:0px auto; display:block; border:0px;}
+.index_products .items ul li p{margin:0px; padding:0px; width:90%; margin:0px auto; text-align:center}
+.index_products .items .products_title{line-height:22px; font-size:14px; padding:20x 0px 8px}
+.index_products .items .products_title a{color:#333; font-family:"宋体"}
+.index_products .items .products_price{padding:0px 0px 10px; font-size:16px; font-family:"Times New Roman"; color:red; font-weight:bold}
+.index_products .items .btns a{display:block; width:60%; height:30px; line-height:28px; color:#FFF; font-family:"宋体"; text-align:center; background:#237fd4; border-radius:5px; margin:0px auto}

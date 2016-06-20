@@ -1,0 +1,12 @@
+@charset "utf-8";
+/* CSS Document */
+#warp{width:100%; max-width:640px; margin:0 auto; position:relative; padding-top:10px;}
+#ctrl {width:98%; height:80px; margin:0 auto;}
+#step {width:80px;height:80px;float:left;}
+#step img{ width:80px; height:80px; border-radius:5px;}
+#ctrl .section1{ width:65%; height:80px; float:right;}
+#return{width:100%;height:35px;color:#fff;font-size:20px; margin-top:10px; text-align:center; background:#ed995b; line-height:35px; border-radius:5px;}
+#time {width:100%;height:35px;font-size:20px; color:#fff;line-height:35px; text-align:center; background:#bbada0; border-radius:5px;}
+#warp ul{ width:96%;  height:360px; position:absolute; left:50%; top:100px; -webkit-box-sizing:border-box; border-radius:5px; overflow:hidden;}
+#warp ul li{ width:0; height:0;float:left;-webkit-box-sizing:border-box;}
+.clean:after{display:block; content:''; clear:both;}

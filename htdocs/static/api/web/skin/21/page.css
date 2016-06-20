@@ -1,0 +1,11 @@
+#web_skin_index{width:100%; height:100%; overflow:hidden;}
+#web_skin_index .web_skin_index_list{float:left; _display:inline; overflow:hidden; position:relative;}
+#web_skin_index .img{height:100%; overflow:hidden;}
+#web_skin_index .img img{width:100%; height:100%;}
+#web_skin_index .banner{width:100%; height:100%; overflow:hidden; margin:0;}
+#web_skin_index .banner *{width:100%; overflow:hidden;}
+
+#skin_index_menu{position:fixed; bottom:10px; width:300px; left:0;}
+#skin_index_menu li{float:left; width:140px; padding-right:10px; margin-bottom:10px; height:36px; position:relative;}
+#skin_index_menu li .bg{background:#fff; left:0; top:0; filter:alpha(opacity=75); -moz-opacity:0.75; -khtml-opacity:0.75; opacity:0.75; width:100%; height:100%; border-radius:5px; box-shadow:0 0 3px #000;}
+#skin_index_menu li a{position:absolute; left:0; top:0; display:block; width:100%; height:100%; line-height:36px; text-decoration:none; text-align:center; color:#656565; font-size:16px; font-weight:bold;}

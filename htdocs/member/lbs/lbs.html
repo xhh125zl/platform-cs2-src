@@ -1,0 +1,90 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<title>微易宝</title>
+<link href='/static/css/global.css' rel='stylesheet' type='text/css' />
+<link href='/static/member/css/main.css' rel='stylesheet' type='text/css' />
+<script type='text/javascript' src='/static/js/jquery-1.7.2.min.js'></script>
+<script type='text/javascript' src='/static/member/js/global.js'></script>
+</head>
+
+<body>
+<!--[if lte IE 9]><script type='text/javascript' src='/static/js/plugin/jquery/jquery.watermark-1.3.js'></script>
+<![endif]-->
+<style type="text/css">
+body, html{background:url(/static/member/images/main/main-bg.jpg) left top fixed no-repeat;}
+</style>
+<div id="iframe_page">
+  <div class="iframe_content">
+    <link href='/static/member/css/stores.css' rel='stylesheet' type='text/css' />
+    <script type='text/javascript' src='/static/member/js/stores.js'></script>
+    <div class="r_nav">
+      <ul>
+        <li class=""><a href="../../?m=stores&a=index">基本设置</a></li>
+        <li class="cur"><a href="../../?m=stores&a=stores">门店管理</a></li>
+      </ul>
+    </div>
+    <div id="stores" class="r_con_wrap"> 
+      <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=<?php echo $ak_baidu;?>"></script>
+      <link href='/static/js/plugin/operamasks/operamasks-ui.css' rel='stylesheet' type='text/css' />
+      <script type='text/javascript' src='/static/js/plugin/operamasks/operamasks-ui.min.js'></script> 
+      <script language="javascript">$(document).ready(stores_obj.stores_init);</script>
+      <form id="stores_form" class="r_con_form" method="post" action="../../?m=stores&a=stores">
+        <div class="rows">
+          <label>门店名称</label>
+          <span class="input">
+          <input name="StoresName" value="aaa" type="text" class="form_input" size="30" maxlength="100" notnull>
+          <font class="fc_red">*</font></span>
+          <div class="clear"></div>
+        </div>
+        <div class="rows">
+          <label>门店图片</label>
+          <span class="input"> <span class="upload_file">
+          <div>
+            <div class="up_input">
+              <input name="ImgUpload" id="ImgUpload" type="file" />
+            </div>
+            <div class="tips">图片建议尺寸：640*360px</div>
+            <div class="clear"></div>
+          </div>
+          <div class="img" id="ImgDetail"></div>
+          </span> </span>
+          <div class="clear"></div>
+        </div>
+        <div class="rows">
+          <label>联系电话</label>
+          <span class="input">
+          <div class="tips">如果有多个电话，每行填写一个</div>
+          <textarea name="Telephone">12121212</textarea>
+          </span>
+          <div class="clear"></div>
+        </div>
+        <div class="rows">
+          <label>详细地址</label>
+          <span class="input">
+          <input name="Address" id="Address" value="郑州市动物园" type="text" class="form_input" size="45" maxlength="100" notnull>
+          <span class="primary" id="Primary">定位</span> <font class="fc_red">*</font><br />
+          <div class="tips">如果输入地址后点击定位按钮无法定位，请在地图上直接点击选择地点</div>
+          <div id="map"></div>
+          </span>
+          <div class="clear"></div>
+        </div>
+        <div class="rows">
+          <label></label>
+          <span class="input">
+          <input type="submit" class="btn_green" name="submit_button" value="提交保存" />
+          <a href="" class="btn_gray">返回</a></span>
+          <div class="clear"></div>
+        </div>
+        <input type="hidden" name="PrimaryLng" value="113.691504">
+        <input type="hidden" name="PrimaryLat" value="34.794930">
+        <input type="hidden" name="ImgPath" value="" />
+        <input type="hidden" name="SId" value="1048" />
+        <input type="hidden" name="do_action" value="stores.stores_edit">
+      </form>
+    </div>
+  </div>
+</div>
+</body>
+</html>

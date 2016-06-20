@@ -1,0 +1,13 @@
+#shop_skin_index{width:100%; overflow:hidden; margin:0 auto; background:#e7e7e7;}
+#shop_skin_index .img img{width:100%; height:100%;}
+#shop_skin_index .shop_skin_index_list{overflow:hidden; position:relative; z-index:1;}
+#shop_skin_index .banner{width:100%; height:160px;}
+#shop_skin_index .banner *{width:100%; height:100%;}
+#shop_skin_index .list{width:100%; height:58px;}
+
+#shop_skin_index .box{width:100%; height:58px; padding:8px; box-sizing:border-box; overflow:hidden;}
+#shop_skin_index .box>div{padding:6px 50px 6px 6px; height:42px; border:1px solid #c6c6c6; position:relative; box-sizing:border-box; background:#ffffff; border-radius:5px;}
+#shop_skin_index .box .search{height:24px; border-radius:5px; border:1px solid #d9d9d9; overflow:hidden; background:#ffffff; position:relative;}
+#shop_skin_index .box .search .input{width:100%; height:18px; line-height:18px; padding:0 48px 0 8px; box-sizing:border-box; margin:3px 0; border:none;}
+#shop_skin_index .box .search .submit{width:40px; height:24px; overflow:hidden; position:absolute; top:0px; right:-1px; background:url(search_btn.jpg) center center no-repeat #e7e7e7; background-size:16px 16px; cursor:pointer;  border-top-right-radius:5px;  border-bottom-right-radius:5px; border:none;}
+#shop_skin_index .box a.category{display:block; width:32px; height:24px; overflow:hidden; background:url(category.png) center center no-repeat; background-size:22px 19px; position:absolute; right:6px; top:7px;}

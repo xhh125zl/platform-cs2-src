@@ -1,0 +1,34 @@
+@charset "utf-8";
+body{background:#FFF; padding:0px; margin:0px;_background-attachment:fixed;}
+img{border:none;}
+.clear{clear:both}
+ul,ol{padding:0px; margin:0px}
+
+.common{width:100%; overflow:hidden}
+.common .content{margin:0px auto; padding:0px; width:1020px;}
+.common img{float:left; margin:0px; padding:0px}
+
+.bg1{background:#fff9e6; height:1027px;}
+
+.bg2{background:#FFF; height:250px;}
+
+.content2{width:994px; margin:0px auto;}
+.content2 h2{width:100%; background:url('bg1.png') no-repeat left bottom; height:69px; margin:0px; padding:0px;}
+.content2 h2 p{padding:0px; margin:0px auto; width:954px;}
+.content2 h2 p span{display:block; float:left; width:318px; height:60px; line-height:56px; text-align:center; color:#FFF; background:#0078ce; font-size:24px; letter-spacing:1px; font-family:"微软雅黑"; font-weight:normal; cursor:pointer}
+.content2 h2 p span.s_left{border-radius:8px 0px 0px 8px;}
+.content2 h2 p span.s_right{border-radius:0px 8px 8px 0px;}
+.content2 .cur{background:#00528c}
+
+.content2 .items{width:962px; border:1px #00528c solid; border-top:none; padding:15px; margin-bottom:100px;}
+.content2 .items p{padding:0px; margin:0px; line-height:28px; font-size:16px;}
+
+.bg3{background:#0078ce; height:213px;}
+.content3{width:694px; margin:0px auto 123px; padding:0px;}
+.content3 .rows{height:52px; width:100%; margin-top:30px;}
+.content3 .rows label{display:block; width:100px; height:52px; line-height:52px; font-size:20px; color:#FFF; text-align:right; float:left; padding-right:10px;}
+.content3 .rows .input_text{display:block; width:575px; height:52px; line-height:52px; font-size:16px; color:#454545; float:left; padding-left:5px; border:none; background:#FFF;}
+.content3 .rows .input_submit{display:block; width:360px; height:60px; line-height:58px; font-size:24px; color:#FFF; border:none; margin:0px auto; text-align:center; background:#eb6100; border-radius:8px; cursor:pointer}
+.content3 .rows select{display:block; width:575px; height:52px; line-height:52px; font-size:16px; color:#454545; float:left; padding-left:5px; border:none; background:#FFF;}
+
+.bg4{background:#0078ce;}

@@ -1,0 +1,95 @@
+{{include file="lbi/header.html"}}
+
+  </head>
+  <body>
+     <!-- 导航栏begin -->
+	{{include file="lbi/top_nav.html"}}
+    <!-- 导航栏end -->
+	
+	<!-- 标题栏begin -->
+     {{include file="lbi/title_bar.html"}} 
+	<!-- 标题栏end -->
+
+	<!-- 主题内容begin -->
+    <div class="content container">
+    	
+       	<div class="row">
+        <div class="activity-image">
+		<img  width="100%" src="{{$base_url}}{{$product['thumb']}}"/>
+		</div>
+       </div>
+      <div class="row">
+       		<div class="desc">
+       		<h4>{{$product.Products_Name}}</h4>
+                <span class="cur_price">当前价格:<strong class="red">&yen;{{$cur_price}}</strong></span>
+                底价: &yen;{{$activity.Bottom_Price}}
+                <span class="grey">|</span>
+                原价: &yen;{{$product.Products_PriceX}} 
+       			
+        	</div>
+       </div> 
+       
+      {{if $helped neq 1}}
+      <div class="row">
+          <div class="help_desc container">
+           
+            <p>您的好友<span class="red">{{$nick_name}}</span>相中了这款产品,正在砍价中，亲爱的小伙伴们怎么能袖手旁观，帮助您的好友快来砍价吧。</p>
+          </div>
+      </div> 
+        {{if $cur_price gt $activity.Bottom_Price}}	
+		<div class="row ">
+              <div class="button-panel container">
+                	<button id="help_kan" class="btn btn-danger  col-xs-10" href="{{$base_url}}api/kanjia/help.php?UsersID={{$UsersID}}&KanjiaID={{$KanjiaID}}&action=help_kan&help_user_id={{$help_user_id}}" role="button">点击帮助好友砍价</button>
+            	</div>
+		</div>   
+	    {{else}}
+			<p >
+      			<h4 style="text-align:center;margin-top:10px;">此产品已经到底价,您下手太慢了</h4>
+      		</p>	
+		{{/if}}
+	  {{else}}
+      <div class="row">
+      	<div class="help_desc container">
+        <br/>
+        	<p>您帮助已经帮助{{$nick_name}}砍掉了<span class="red">{{$Record_Reduce}}</span>元</p>
+        </div>
+      </div>
+      {{/if}}
+       <div class="row">
+          <div class="join_desc container">
+          <p>如果您也想以便宜的价格买到这款产品,点击下方按钮，即可参与。</p>
+          </div>
+
+       </div>
+
+         <div class="row ">
+              <div class="button-panel container">
+                  <a id="help_kan" class="btn btn-warning  col-xs-10" href="{{$kanjia_url}}activity/{{$KanjiaID}}/userid/{{$User_ID}}/" role="button">我要参与</a>
+              </div>
+       </div> 
+     
+     
+
+    </div>
+    
+    
+	<!-- 主题内容end -->
+	
+    <!-- 固定footer begin -->
+    
+  
+    <!-- 固定footer end -->
+	
+
+
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="{{$public}}js/kanjia.js"></script>
+<script type="text/javascript">
+	var base_url = "{{$base_url}}";
+	var Kanjia_ID = "{{$KanjiaID}}";
+	var help_user_id = "{{$help_user_id}}";
+    kanjia_obj.help_init();
+</script>
+    
+  </body>
+</html>

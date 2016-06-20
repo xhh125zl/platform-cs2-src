@@ -1,0 +1,106 @@
+
+
+body, html{background:url(/static/api/images/app_wedding/bg.jpg) repeat;}
+.none{display:none;}
+
+#wedding *{font-size:14px; text-decoration:none;}
+#wedding .toper{width:100%; height:91px; background:#fd4672; position:relative;}
+#wedding .toper .title{width:100%; height:35px; overflow:hidden; border-bottom:1px solid #cf2a52; position:relative; text-align:center;}
+#wedding .toper .title img{width:135px; height:24px; margin:5px 0;}
+#wedding .toper .title a{display:block; width:35px; height:35px; overflow:hidden; position:absolute; left:0; top:0; background:url(/static/api/images/app_wedding/home.png) center center no-repeat; background-size:12px 20px;}
+#wedding .toper .title label{display:block; width:35px; height:35px; overflow:hidden; position:absolute; right:0; top:0; background:url(/static/api/images/app_wedding/nomusic.png) center center no-repeat; background-size:21px 20px; cursor:pointer;}
+#wedding .toper .title label.on{background:url(/static/api/images/app_wedding/music.png) center center no-repeat; background-size:21px 20px;}
+#wedding .toper .contents{width:100%; height:54px; overflow:hidden; border-top:1px solid #FE5D84;}
+#wedding .toper .contents li{height:54px; line-height:54px; overflow:hidden; float:left; _display:inline; text-align:center; font-size:16px; color:#FFF;}
+#wedding .toper .contents li.male, #wedding .toper .contents li.female{width:44%;}
+#wedding .toper .contents li.ring{width:11%; background:url(/static/api/images/app_wedding/ring.png) center 6px no-repeat; background-size:36px 45px;}
+#wedding .toper .contents li img{ width:auto; max-height:32px; vertical-align:middle;}
+#wedding .toper .b{width:100%; height:6px; overflow:hidden; background:url(/static/api/images/app_wedding/bottom.png) left top repeat-x; background-size:9px 6px; position:absolute; top:90px; left:0;}
+
+#wedding .banner{width:100%; text-align:center; overflow:hidden;}
+#wedding .banner img{max-width:100%;}
+#wedding .video{ width:90%; margin:10px auto; border:8px solid #FFF; background:#000; overflow:hidden; padding:0;}
+#wedding .video video{ width:100%; height:200px; display:inline-block; background:#000;}
+
+#wedding .list{margin:8px; border:1px solid #D6CCD0; border-top:0; background:#FFF;}
+#wedding .list li{border-top:1px solid #D6CCD0; height:50px; overflow:hidden;}
+#wedding .list li a{position:relative; width:83%; padding:0 10px 0 35px; display:block; margin:1px 0; height:48px; line-height:48px; float:left; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+#wedding .list li b{font-size:16px; color:#F63F76; display:inline-block; margin:0; padding:0;}
+#wedding .list li span{font-size:12px; padding:0 10px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; width:68%; color:#888; display:inline-block;}
+#wedding .list li .arrow{right:0; margin:-4px 0 0 0; border-style:solid; position:absolute; border-color:transparent transparent transparent; letter-spacing:0.5em;}
+.arrow.arr-small::after{border-width:3px 3px 0 0; height:8px; width:8px; border-color:#FF89A5;}
+.arrow::after {border-style:solid; content:" "; display:inline-block; vertical-align:middle; transform:rotate(45deg); -webkit-transform:rotate(45deg); border-radius:0 0 0 0;}
+#wedding .list li.title{text-align:center; padding-top:12px; line-height:21px;}
+#wedding .list li.title strong{font-size:14px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; width:100%; color:#888; display:inline-block; font-weight:lighter;}
+#wedding .list li:nth-child(2) a{background:url(/static/api/images/app_wedding/n0.png) no-repeat 10px center; background-size:21px 21px;}
+#wedding .list li:nth-child(3) a{background:url(/static/api/images/app_wedding/n1.png) no-repeat 10px center; background-size:21px 21px;}
+#wedding .list li:nth-child(4) a{background:url(/static/api/images/app_wedding/n2.png) no-repeat 10px center; background-size:21px 21px;}
+#wedding .list li:nth-child(5) a{background:url(/static/api/images/app_wedding/n3.png) no-repeat 10px center; background-size:21px 21px;}
+#wedding .list li:nth-child(6) a{background:url(/static/api/images/app_wedding/n4.png) no-repeat 10px center; background-size:21px 21px;}
+#wedding .list li:nth-child(7) a{background:url(/static/api/images/app_wedding/n5.png) no-repeat 10px center; background-size:21px 21px;}
+#wedding .list li:nth-child(8) a{background:url(/static/api/images/app_wedding/n5.png) no-repeat 10px center; background-size:21px 21px;}
+
+
+
+#wedding .photo{margin:15px 8px 8px;}
+#wedding .photo>div{width:99%; margin:0 auto;}
+#wedding .photo .item{float:left; width:50%; overflow:hidden;}
+#wedding .photo .item div{background:#fff; margin:0 4px; margin-bottom:7px;}
+#wedding .photo .item ul{width:94%; overflow:hidden; margin:0 auto; padding:4px 0; position:relative;}
+#wedding .photo .item ul .img{height:100px; overflow:hidden;}
+#wedding .photo .item ul .img img{width:100%;}
+@media all and (min-width:360px){
+	#wedding .photo .item ul .img{height:113px;}/*((360-2)×0.99×0.5-4*2)×0.94÷1.4*/
+}
+@media all and (min-width:420px){
+	#wedding .photo .item ul .img{height:133px;}
+}
+@media all and (min-width:480px){
+	#wedding .photo .item ul .img{height:153px;}
+}
+
+#wedding .wish{margin:15px 8px 8px;}
+#wedding .wish li{display:block; overflow:hidden; padding:8px; word-spacing:normal; word-break:normal; word-break:break-all; font-size:12px; color:#444; border:1px solid #D6CCD0; background:#FFF; margin:10px auto;}
+#wedding .wish li .hd{width:20%; float:left; color:#FF89A5; text-align:center; overflow:hidden;}
+#wedding .wish li .hd img{max-height:40px; border:1px solid #FF89A5;}
+#wedding .wish li .hd span{width:100%; display:inline-block;}
+#wedding .wish li .bd{width:78%; float:right; line-height:20px; margin:0; padding:0;}
+#wedding .wish li .bd .p-wall{border-radius:5px; padding:5px; background:#F3F3F3; min-height:29px; margin:0; font-size:12px;}
+#wedding .wish li .bd .p-time{text-align:right; height:24px; line-height:24px; margin:0; font-size:12px;}
+#wedding .wish .more{padding:8px; text-align:center; overflow:hidden;}
+#wedding .wish .more a{color:#999; height:30px; line-height:30px; margin:0 0 10px 0; background-size:20px 20px; display:block; padding:0px;}
+#wedding .wish .loading{background:url(/static/api/images/loading.gif) no-repeat 0 center; color:#999; width:45px; height:30px; line-height:30px; margin:0 auto; margin-bottom:10px; padding:8px 0 8px 35px; font-size:12px; display:none;}
+#wedding .wish .comment{padding-top:10px;}
+#wedding .wish .form{border:1px solid #d6ccd0; background:#fff; overflow:hidden;}
+#wedding .wish .form .hd{ width:20%; color:#ff91ab; float:left; overflow:hidden; text-align:center;}
+#wedding .wish .form .bd{ width:70%; float:right; margin:0 5% 0 0;}
+#wedding .wish .form .hd img{ max-height:39px; border:1px solid #ff91ab; margin:5px 0 0 0;}
+#wedding .wish .form .hd input{border:1px solid #dbdbdb; width:12px; height:12px; margin:0 5px 0 0;}
+#wedding .wish .form .hd label{ font-size:12px; color:#888;}
+#wedding .wish .form .box-form label{width:20%; display:inline-block;}
+#wedding .wish .form .box-form input{color:#666; border:1px solid #DBDBDB; padding:0 10px; height:28px; border-radius:0; width:68%; margin:0 1%;}
+#wedding .wish .form .box-form textarea{width:90%; border:1px solid #DBDBDB; padding:10px; resize:none; color:#666;}
+#wedding .wish .form .box-form input, #wedding .wish .form .box-form textarea{ border-radius:5px;}
+#wedding .wish .form p{padding:10px 0;}
+#wedding .wish .submit{overflow:hidden; width:100%; text-align:center;}
+#wedding .wish .submit input{width:50%; background:#FE4773; color:white; font:16px "微软雅黑E\8F6F\96C5\9ED1"; display:inline-block; border:1px solid #CE2D54; border-radius:5px; margin:10px auto; height:30px; line-height:30px; box-shadow:0 1px 5px #888; text-align:center;}
+
+#wedding .story{margin:15px 8px 8px; border:1px solid #ddd; padding:8px; background:#FFF;}
+#wedding .story h1{height:40px; line-height:40px; overflow:hidden; text-align:center; font-size:16px; color:#F63F76; font-weight:bold; border-bottom:1px dashed #FF89A5;}
+#wedding .story .contents{padding:8px 4px; line-height:180%; min-height:200px;}
+
+#wedding .address{margin:15px 8px 8px; border:1px solid #ddd; padding:12px; background:#FFF;}
+#wedding .address>div{background:url(/static/api/images/app_wedding/location.png) no-repeat left center; background-size:12px 16px; padding:0 0 0 18px; font-size:14px;}
+#wedding .address img{width:100%; max-width:100%; margin-top:12px;}
+#wedding .gps{margin:40px 8px 20px;}
+#wedding .gps a{display:block; color:#fff; text-decoration:none;}
+#wedding .gps .btn-nav{width:100%; height:35px; line-height:35px; position:relative; overflow:visible; text-decoration: none;}
+#wedding .gps .btn{background:#FE4773; color:white; font:16px "微软雅黑E\8F6F\96C5\9ED1"; display:inline-block; border:1px solid #CE2D54; border-radius:5px; box-shadow:0 1px 5px #888; text-align:center;}
+#wedding .gps .btn-nav span, #wedding .gps .btn-nav i, #wedding .gps .btn-nav em{position:absolute; display: inline-block;}
+#wedding .gps .btn-nav span{width:100%; height:35px; line-height:35px; left:0; top:0;}
+#wedding .gps .btn-nav i{border-width:22px; border-color:transparent transparent #CE2D54; top:-44px; margin:0 0 0 -22px;}
+#wedding .gps .btn-nav i, #wedding .gps .btn-nav em{border-style:dashed dashed solid; width:0px; height:0px; left:50%;}
+#wedding .gps .btn-nav em{border-width:20px; border-color:transparent transparent #FE4773; top:-40px; margin:0 0 0 -20px;}
+
+#footer{position:relative; height:30px; line-height:30px; clear:both; text-align:center; width:100%; display: inline-block; color:#888; font-size:14px;}
+#footer a{color:#F60; font-size:14px; text-decoration:underline;}

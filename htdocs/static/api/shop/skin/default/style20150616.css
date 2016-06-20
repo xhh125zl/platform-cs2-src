@@ -1,0 +1,59 @@
+body,html{background:#f7f7f7;}
+body *{font-size:14px;}
+body a{cursor:pointer;}
+.wrap{width:100%; margin:0 auto; clear:both; overflow:hidden;}
+
+#shop_page_contents{width:100%;}
+#cover_layer{width:100%; height:100%; top:0px; display:none; z-index:100000; background:#000; filter:alpha(opacity=20); opacity:0.2; -moz-opacity:0.2; position:fixed; overflow:hidden;}
+
+.shareimg{display:none}
+.conver_favourite{width:100%; height:100%; overflow:hidden; text-align:right; position:fixed; top:0px; left:0px; display:none; background:#000; filter:alpha(opacity=80); -moz-opacity:0.8; -khtml-opacity: 0.8; opacity: 0.8; z-index:100000;}
+.conver_favourite img{width:100%; position:relative;}
+
+.label{display: inline;padding:0 0.1em;font-size:10px;font-weight: 700;line-height: 1;color: #FFF;text-align: center;white-space: nowrap;}
+.label-info{background-color:#318AE6;}
+
+
+/*收藏与分享，样式*/
+#detail .info .detail_share{float:right; margin-right:5px; margin-top:10px; clear:both; width:100px; background:url('distribute.jpg') no-repeat left top;}
+#detail .info .detail_share b{height:30px; line-height:30px; margin-left:30px; width:70px; display:block; text-align:center; color:#ff4800; font-size:12px; font-weight:normal}
+#favorite{background:url('favorate.png') no-repeat center 2px;}
+#favorited{background:url('favorated.png') no-repeat center 2px;}
+
+.clear{clear:both}
+
+#shop_info{height:40px; line-height:40px; position:relative; float:left; width:100%; box-sizing:border-box; background:#FFF}
+#shop_info span{display:block; width:20%; height:40px; line-height:40px; overflow:hidden; float:left; font-size:13px;}
+#shop_info span a{display:block; text-align:center; height:40px; line-height:40px; float:left; width:100%; font-size:12px;}
+#shop_info span a img{width:14px; border:0px; vertical-align:middle}
+#shop_info span.allcategory{width:23%}
+#shop_info span.favourite{width:17%;}
+#shop_info span.favourite a{color:#e60012}
+#shop_info .shop_img{display:block;  position:absolute; left:5px; top:-30px; z-index:999; width:25%; max-width:60px; border-radius:50%;}
+
+.header_search{padding:6px 0; overflow:hidden; position:relative; background:#FFF;}
+.header_search .search_form{height:30px; border-radius:5px; border:1px solid #dfdfdf; overflow:hidden; background:#fff; position:relative; margin:0 6px;}
+.header_search .search_form .input{width:100%; height:18px; line-height:18px; padding:0 48px 0 8px; box-sizing:border-box; margin:6px 0; border:none;}
+.header_search .search_form .submit{width:40px; height:30px; overflow:hidden; position:absolute; top:0px; right:0px; background:url(search_btn.jpg) center center no-repeat #e7e7e7; background-size:16px 16px; cursor:pointer;  border-top-right-radius:5px;  border-bottom-right-radius:5px;}
+.header_search .bottom_div0{height:6px; width:100%; background:#FFF; font-size:1px}
+.header_search .bottom_div{height:8px; width:100%; background:#f3f3f3; font-size:1px}
+
+.support{height:16px; line-height:18px; overflow:hidden; width:100%; background:#f3f3f3; color:#aaa; font-size:10px; text-align:center; border-bottom:1px solid #f3f3f3;}
+.support a{font-size:10px; color:#aaa;}
+
+#footer_points{height:50px; clear:both;}
+#footer{height:50px; width:100%; margin:0 auto; position:fixed; z-index:1000; bottom:0; background:#FFF;border-top:1px solid #CFCCC3;}
+
+#footer ul li{height:50px; padding-top:0px; width:25%; float:left;}
+#footer ul li>a{color:#565654; line-height:80px; font-size:12px; width:45px; height:40px; margin:0 auto; display:block; white-space:nowrap; text-align:center; text-decoration:none; }
+#footer ul li.sitemap a{background:url('/static/api/distribute/images/sitemap.png') center 8px no-repeat; text-align:center; text-indent:0px; background-size:27px 25px;}
+#footer ul li.home a{background:url('/static/api/distribute/images/home.png') center 6px no-repeat; background-size:27px 27px;}
+#footer ul li.cart a{background:url('/static/api/distribute/images/cart.png') center 6px no-repeat; background-size:27px 27px;}
+#footer ul li.user a{background:url('/static/api/distribute/images/user.png') center 7px no-repeat; background-size:27px 29px;}
+
+.list_sorts{width:100%; margin:0px auto 8px; background:#FFF; border-radius:2px; border-top:1px #f1f1f1 solid; border-bottom:1px #f0f0f0 solid}
+.list_sorts ul{list-style:none;}
+.list_sorts ul li{width:33.3333%; height:30px; line-height:30px; font-size:16px; box-sizing:border-box; border-left:1px #f0f0f0 solid; text-align:center; float:left}
+.list_sorts ul li:nth-child(1){border-left:none}
+.list_sorts ul li a{color:#5a5a5a; display:block; width:100%; height:100%; box-sizing:border-box;}
+.list_sorts ul li a.cur{color:red}

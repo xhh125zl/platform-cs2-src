@@ -1,0 +1,7 @@
+#web_skin_index{width:100%; height:100%; position:relative; overflow:hidden; z-index:1;}
+#web_skin_index .web_skin_index_list{overflow:hidden; position:relative;}
+#web_skin_index .banner{width:100%; overflow:hidden; height:100%; z-index:2; position:relative;}
+#web_skin_index .banner *{width:100%; height:auto;}
+#web_skin_index .web_contents{position:absolute; right:20px; top:20px; z-index:100; width:56.25%;}
+#web_skin_index .web_contents .item{width:44.444444%; float:left; margin-left:5.5%; margin-top:15px;}
+#web_skin_index .web_contents .item img{width:100%;}

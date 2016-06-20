@@ -1,0 +1,12 @@
+#web_skin_index{width:100%; height:100%; overflow:hidden;}
+#web_skin_index .web_skin_index_list{overflow:hidden; position:relative;}
+#web_skin_index .banner{width:100%;overflow:hidden; height:157px; margin:0;}
+#web_skin_index .banner *{width:100%; height:auto; overflow:hidden;}
+#web_skin_index .banner img{width:100%;}
+
+#web_skin_index .box{width:100%; padding:5px 0px; overflow:hidden; box-sizing:border-box;}
+#web_skin_index .box li{width:33%; float:left; overflow:hidden; border:none; padding:8px 0px; box-sizing:border-box;}
+#web_skin_index .box li .img{height:81px;margin-bottom:5px; overflow:hidden; text-align:center;}
+#web_skin_index .box li .img img{ height:100%;}
+#web_skin_index .box li .text{text-align:center; font-size:14px;}
+

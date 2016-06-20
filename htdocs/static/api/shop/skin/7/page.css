@@ -1,0 +1,43 @@
+#shop_skin_index{width:100%; overflow:hidden; margin:0 auto;max-width:640px; background:#eeeeee;}
+#shop_skin_index .img img{width:100%; height:100%; }
+#shop_skin_index .shop_skin_index_list{overflow:hidden; position:relative; z-index:1;}
+#shop_skin_index .banner{width:300px; height:100px; margin:0 auto; margin-bottom:5px}
+#shop_skin_index .banner *{width:100%; height:100%; overflow:hidden;}
+
+
+/*index_header*/
+#index_header{ padding:10px 0}
+#index_header .lbar,#index_header .rbar{ width:50%;}
+
+.logo{ margin-left:10px;width:125px; height:32px;}
+
+/*head_menu*/
+.head_menu{ text-align:right; height:16px; margin-top:12px; padding-right:10px}
+.head_menu img{ width:100%; height:auto}
+.head_menu a{ display:inline-block; margin-left:10px}
+.head_menu .cart{ width:19px; height:20px; }
+.head_menu .cate{ width:19px; height:20px}
+.head_menu .search{ width:19px; height:20px}
+
+
+/*products_cont*/
+.products_cont{ padding:0 10px; margin-bottom:3px}
+.products_cont li{  display:inline-block; width:97px; height:97px; float:left;box-sizing:border-box; -moz-box-sizing:border-box; /* Firefox */ -webkit-box-sizing:border-box; overflow:hidden; position:relative}
+.products_cont li img{ width:100%; height:auto}
+.products_cont .column{ width:198px; height:97px; background:url(arrow_icon.png)  90% 80% no-repeat; background-size:22px 22px; padding:23px 0 0 24px; font-size:16px; color:#FFFFFF}
+.products_cont .column a{ display:block; width:100%; height:100%; color:#fff}
+.products_cont .column a:hover{ text-decoration:none}
+.products_cont li .price{ position:absolute; bottom:0px; height:20px; width:100%; right:0}
+.products_cont li .price .bg{ background:black; opacity:0.4; height:20px; width:100%;}
+.products_cont li .price .cont{ height:20px; width:100%; line-height:20px; color:#fff; position:absolute; top:0; left:0}
+.products_cont .big{ width:198px; height:198px;}
+.products_cont .mar_lb{ margin:0 0 4px 4px}
+.products_cont .mar_b{ margin:0 0 4px 0px}
+.products_cont .bg_blue{ background-color:#20c1cb}
+.products_cont .bg_ff8b3e{ background-color:#ff8b3e}
+.products_cont .bg_78c92e{ background-color:#78c92e}
+
+/*search*/
+.search_box{height:25px;position:relative; display:none; padding-top:5px}
+.search_box .input{width:80%; height:25px; line-height:normal; padding:0 8px;box-sizing:border-box; -moz-box-sizing:border-box;-webkit-box-sizing:border-box;  border-radius:5px;}
+.search_box .submit{width:19px; height:20px; overflow:hidden;  background:url(search_btn.png) no-repeat; background-size:19px 20px; border:0px}
