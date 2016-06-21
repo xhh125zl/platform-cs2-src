@@ -1,12 +1,6 @@
 <?php
-/*$UA = strtoupper($_SERVER['HTTP_USER_AGENT']);
+define('MAIN_SITE', 'cs2git.cc');
 
-if(strpos($UA, 'WINDOWS NT') == false){
-	header("location:/wap/index.php");
-}else{
-	header("location:/member/index.php");
-}*/
-define('MAIN_SITE', 'www.103hb.cc');
 //网站根域名
 define('SITE_URL', 'http://'.$_SERVER['HTTP_HOST']);
 //入口文件 根目录
@@ -33,5 +27,4 @@ define ( 'RUNTIME_PATH', APP_PATH . 'runtime' );
  * FF亦可移动到WEB以外的目录
  */
 require SITE_PATH.'/Framework/FF/core.php';
-
 ?>
