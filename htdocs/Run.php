@@ -2,7 +2,7 @@
 require_once($_SERVER["DOCUMENT_ROOT"].'/Framework/Conn.php');
 require_once($_SERVER["DOCUMENT_ROOT"].'/include/library/pay_order.class.php');
 set_time_limit(0);
-ignore_user_abort(true);   //计划任务，定时执行
+ignore_user_abort(true);
 
 Task::Run(function($flag){
     global $DB;
@@ -19,13 +19,12 @@ Task::Run(function($flag){
         {
             $schedule[] = $res;
         }
-        $curTime = time();          //当前时间
+        $curTime = time();
         $curTime = date("H:i:00",$curTime);
         if(!empty($schedule)){
             foreach ($schedule as $k =>$v)
             {
                 if($v['StartRunTime']===$curTime){
-                    //要执行的内容
                     $SalesPayment = new SalesPayment($DB,$v['Users_ID']);
                     $SalesPayment->payfor();
                 }
@@ -37,7 +36,6 @@ Task::Run(function($flag){
 },true);
 class Task
 {
-    //要执行的任务
     public static function Run($callable, $flag = false)
     {
         if ($flag == true)
@@ -110,29 +108,4 @@ class SalesPayment
             }
         }
     }
-}
-
-function createPayment($users_id,$biz_id)
-{
-    global $DB;
-    $startTime = strtotime(date("Y-m-01"));
-    $stopTime = time();
-    $where = "WHERE Users_ID='{$users_id}' and Biz_ID='{$biz_id}' and Record_CreateTime>='{$startTime}' and Record_CreateTime<='{$stopTime}' and Record_Status=0";
-    $balance = new balance($DB, $users_id);
-    $paymentinfo = $balance->create_payment($where);
-    $createtime = time();
-    $Data = array(
-        "FromTime" => $startTime,
-        "EndTime" => $stopTime,
-        "Payment_Type" => 1,
-        "Amount" => $paymentinfo["alltotal"],
-        "Diff" => $paymentinfo["cash"],
-        "Web" => $paymentinfo["web"] - $paymentinfo["bonus"],
-        "Bonus" => $paymentinfo["bonus"],
-        "Total" => $paymentinfo["supplytotal"],
-        "CreateTime" => $createtime,
-        "Biz_ID" => $biz_id,
-        "Users_ID" => $users_id
-    );
-    $Data['OpenID'] = $_POST["OpenID"];
 }
