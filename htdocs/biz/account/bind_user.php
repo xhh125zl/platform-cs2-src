@@ -48,7 +48,6 @@ if($_POST){
 <body>
 <!--[if lte IE 9]><script type='text/javascript' src='/static/js/plugin/jquery/jquery.watermark-1.3.js'></script>
 <![endif]-->
-
 <div id="iframe_page">
   <div class="iframe_content">
     <link href='/static/member/css/weicbd.css' rel='stylesheet' type='text/css' />
@@ -58,9 +57,10 @@ if($_POST){
       <ul>
         <li><a href="account.php">商家资料</a></li>
         <li><a href="account_edit.php">修改资料</a></li>
-		<li><a href="address_edit.php">收货地址</a></li>
-                 <li class="cur"><a href="bind_user.php">绑定会员</a></li>
+        <li><a href="address_edit.php">收货地址</a></li>
+        <li class="cur"><a href="bind_user.php">绑定会员</a></li>
         <li><a href="account_password.php">修改密码</a></li>
+        <li><a href="account_payconfig.php">结算配置</a></li>
       </ul>
     </div>
     <div id="bizs" class="r_con_wrap">

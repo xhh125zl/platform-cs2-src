@@ -668,84 +668,99 @@ class pay_order{
 			return array("status"=>0,"msg"=>$return_msg);
 		}
 	}
-	public function withdraws($UsersID,$UserID,$money){//佣金提现(微信红包、微信转账
-	
-		$rsUser = $this->db->GetRs("user","User_OpenID","where User_ID=".$UserID);
-		if(empty($rsUser["User_OpenID"])){
-			return array('status'=>0,'msg'=>'用户未授权');
-		}
-		
-		$rsUsers = $this->db->GetRs("users","Users_ID,Users_WechatAppId,Users_WechatAppSecret","where Users_ID='".$UsersID."'");
-		if(empty($rsUsers["Users_WechatAppId"]) || empty($rsUsers["Users_WechatAppSecret"])){
-			return array('status'=>0,'msg'=>'系统还未设置AppId和AppSecret');
-		}
-		
-		$rsPay = $this->db->GetRs("users_payconfig","PaymentWxpayPartnerId,PaymentWxpayPartnerKey,PaymentWxpayCert,PaymentWxpayKey","where Users_ID='".$UsersID."'");
-		if(empty($rsPay["PaymentWxpayPartnerId"]) || empty($rsPay["PaymentWxpayPartnerKey"]) || empty($rsPay["PaymentWxpayCert"]) || empty($rsPay["PaymentWxpayKey"])){
-			return array('status'=>0,'msg'=>'系统支付信息配置不全');
-		}
-		
-		$shop_sonfig = $this->db->GetRs('shop_config','ShopName','where Users_ID="'.$UsersID.'"');
-		//必需OrderID无关参数		
-		$OrderID=0;
-		
-		include_once($_SERVER["DOCUMENT_ROOT"].'/pay/wxpay2/WxPay.pub.config.php');
-		include_once($_SERVER["DOCUMENT_ROOT"].'/pay/wxpay2/WxPayPubHelper.php');
-		$mch_billno = MCHID.date('YmdHis').rand(1000, 9999);
-		
-		// $rsRecord = $this->db->GetRs("distribute_withdraw_record","Record_Money","where Record_ID=".$RecordID);		
-		// $money = strval($rsRecord["Record_Money"]*100);
-		$money = strval($money);
-		
-		$weixinzhuanzhang = new Wxpay_client_pub();
-		//参数设定
-		$weixinzhuanzhang->setParameter("partner_trade_no",$mch_billno);
-		//$weixinzhuanzhang->setParameter("device_info",'');
-		$weixinzhuanzhang->setParameter("openid",$rsUser["User_OpenID"]);
-		$weixinzhuanzhang->setParameter("check_name",'NO_CHECK');
-		//$weixinzhuanzhang->setParameter("re_user_name",'');
-		$weixinzhuanzhang->setParameter("amount",$money);
-		$weixinzhuanzhang->setParameter("spbill_create_ip",$this->getIp());
-		$weixinzhuanzhang->setParameter("desc",$shop_sonfig["ShopName"]."提现");//描述
-		
-		$weixinzhuanzhang->url = "https://api.mch.weixin.qq.com/mmpaymkttransfers/promotion/transfers";
-		$weixinzhuanzhang->curl_timeout = 30;
-		$return_xml = $weixinzhuanzhang->postXmlSSL_zhuanzhang();
-		
-		
-		$responseObj = simplexml_load_string($return_xml, 'SimpleXMLElement', LIBXML_NOCDATA);
-		$return_code = trim($responseObj->return_code);
-		echo '<pre>';
-		print_r($mch_billno."---");
-		print_r($rsUser["User_OpenID"]."---");
-		print_r($money."---");
-		print_r($this->getIp()."---");
-		print_r($shop_sonfig["ShopName"]."---");
-		print_r($return_xml);
-		exit;
-		$return_msg = trim($responseObj->return_msg);
-		if($return_code=='SUCCESS'){
-			$result_code = trim($responseObj->result_code);
-			
-			if($result_code=='SUCCESS'){
-				//处理提现记录
-				$record_data = array(
-					"Record_Status"=>1,
-					"Record_SendID"=>$mch_billno,
-					"Record_SendTime"=>strtotime(trim($responseObj->payment_time)),
-					"Record_WxID"=>trim($responseObj->payment_no),
-					"Record_SendType"=>$type
-				);
-				// $condition = "where Record_ID=".$RecordID;
-				// $this->db->Set("distribute_withdraw_record",$record_data,$condition);
-				return array("status"=>1);
-			}else{echo '111222';exit;
-				return array("status"=>0,"msg"=>trim($responseObj->err_code_des));
-			}
-		}else{
-			return array("status"=>0,"msg"=>$return_msg);
-		}
-	}
+    public function withdraws($UsersID, $OpenID, $money)
+    { // 佣金提现(微信红包、微信转账
+        $rsUser = $this->db->GetRs("user", "User_OpenID", "WHERE Users_ID='{$UsersID}' and User_OpenID='{$OpenID}'");
+        if (empty($rsUser)) {
+            return array(
+                'status' => 0,
+                'msg' => '用户未授权'
+            );
+        }
+        
+        $rsUsers = $this->db->GetRs("users", "Users_ID,Users_WechatAppId,Users_WechatAppSecret", "WHERE Users_ID='" . $UsersID . "'");
+        if (empty($rsUsers["Users_WechatAppId"]) || empty($rsUsers["Users_WechatAppSecret"])) {
+            return array(
+                'status' => 0,
+                'msg' => '系统还未设置AppId和AppSecret'
+            );
+        }
+        
+        $rsPay = $this->db->GetRs("users_payconfig", "PaymentWxpayPartnerId,PaymentWxpayPartnerKey,PaymentWxpayCert,PaymentWxpayKey", "WHERE Users_ID='" . $UsersID . "'");
+        if (empty($rsPay["PaymentWxpayPartnerId"]) || empty($rsPay["PaymentWxpayPartnerKey"]) || empty($rsPay["PaymentWxpayCert"]) || empty($rsPay["PaymentWxpayKey"])) {
+            return array(
+                'status' => 0,
+                'msg' => '系统支付信息配置不全'
+            );
+        }
+        
+        $shop_sonfig = $this->db->GetRs('shop_config', 'ShopName', 'WHERE Users_ID="' . $UsersID . '"');
+        // 必需OrderID无关参数
+        $OrderID = 0;
+        
+        include_once ($_SERVER["DOCUMENT_ROOT"] . '/pay/wxpay2/WxPay.pub.config.php');
+        include_once ($_SERVER["DOCUMENT_ROOT"] . '/pay/wxpay2/WxPayPubHelper.php');
+        $mch_billno = MCHID . date('YmdHis') . rand(1000, 9999);
+        
+        // $rsRecord = $this->db->GetRs("distribute_withdraw_record","Record_Money","WHERE Record_ID=".$RecordID);
+        // $money = strval($rsRecord["Record_Money"]*100);
+        $money = strval($money * 100);
+        
+        $weixinzhuanzhang = new Wxpay_client_pub();
+        // 参数设定
+        $weixinzhuanzhang->setParameter("partner_trade_no", $mch_billno);
+        // $weixinzhuanzhang->setParameter("device_info",'');
+        $weixinzhuanzhang->setParameter("openid", $rsUser["User_OpenID"]);
+        $weixinzhuanzhang->setParameter("check_name", 'NO_CHECK');
+        // $weixinzhuanzhang->setParameter("re_user_name",'');
+        $weixinzhuanzhang->setParameter("amount", $money);
+        $weixinzhuanzhang->setParameter("spbill_create_ip", $this->getIp());
+        $weixinzhuanzhang->setParameter("desc", $shop_sonfig["ShopName"] . "财务结算"); // 描述
+        
+        $weixinzhuanzhang->url = "https://api.mch.weixin.qq.com/mmpaymkttransfers/promotion/transfers";
+        $weixinzhuanzhang->curl_timeout = 30;
+        $return_xml = $weixinzhuanzhang->postXmlSSL_zhuanzhang();
+        
+        $responseObj = simplexml_load_string($return_xml, 'SimpleXMLElement', LIBXML_NOCDATA);
+        $return_code = trim($responseObj->return_code);
+        
+        $return_msg = trim($responseObj->return_msg);
+        if ($return_code == 'SUCCESS') {
+            $result_code = trim($responseObj->result_code);
+            
+            if ($result_code == 'SUCCESS') {
+                // 处理提现记录
+                $record_data = array(
+                    "Users_ID"=>$UsersID,
+                    "User_ID"=>$rsUser["User_ID"],
+                    "Method_Name"=>"微信转账",
+                    "Method_Account"=>$rsUser["User_OpenID"],
+                    "Record_Total"=>$money/100,
+                    "Record_Status" => 1,
+                    "Record_CreateTime" => time(),
+                    "No_Record_Desc" => "微信财务结算转账",
+                    "Record_SendID" => $mch_billno,
+                    "Record_SendTime" => strtotime(trim($responseObj->payment_time)),
+                    "Record_WxID" => trim($responseObj->payment_no),
+                    "Record_SendType" => "wx_zhuanzhang"
+                );
+                $this->db->Add("distribute_withdraw_record",$record_data);
+                return array(
+                    "status" => 1
+                );
+            } else {
+                return array(
+                    "status" => 0,
+                    "msg" => trim($responseObj->err_code_des)
+                );
+            }
+        } else {
+            return array(
+                "status" => 0,
+                "msg" => $return_msg
+            );
+        }
+    }
 	public function checkhongbao($UsersID,$mch_billno){//佣金提现(微信红包、微信转账
 		$rsUsers = $this->db->GetRs("users","Users_ID,Users_WechatAppId,Users_WechatAppSecret","where Users_ID='".$UsersID."'");
 		if(empty($rsUsers["Users_WechatAppId"]) || empty($rsUsers["Users_WechatAppSecret"])){
