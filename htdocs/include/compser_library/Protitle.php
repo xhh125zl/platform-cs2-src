@@ -127,32 +127,26 @@ class ProTitle {
 			array_push($ancestors,$this->User_ID);
 			$ancestors = array_reverse($ancestors);
 			foreach($ancestors as $UID){
-				$user_distribute_account = Dis_Account::Multiwhere(array('Users_ID'=>$this->Users_ID,'User_ID'=>$UID))
-						 ->first(array('Professional_Title'));
-				//if($user_distribute_account->Professional_Title == count($protitless)){//已经是最高级
-						//continue;
-				//}elseif($user_distribute_account->Professional_Title > count($protitless)){//大于最高级
-						//Dis_Account::Multiwhere(array('Users_ID'=>$this->Users_ID,'User_ID'=>$UID))->update(array('Professional_Title'=>count($protitless)));
-						//continue;
-				//}else{
+				$user_distribute_account = Dis_Account::Multiwhere(array('Users_ID'=>$this->Users_ID,'User_ID'=>$UID))->first(array('Professional_Title'));
+				 
 					//自身消费额
-
 					//$Consume = Order::where(array('User_ID'=>$UID,'Order_Status'=>4))->sum('Order_TotalPrice');
-					$Consume = Order::where(array('User_ID'=>$UID,'Order_Status'=>$dis_config->Pro_Title_Status))->sum('Order_TotalPrice');
+					$Consume = Order::where(array('User_ID'=>$UID))->where('Order_Status','>=',$dis_config->Pro_Title_Status)->sum('Order_TotalPrice');
+					
 					//自身销售额
-					$Sales_Self = Order::where(array('Owner_ID'=>$UID,'Order_Status'=>$dis_config->Pro_Title_Status))->sum('Order_TotalPrice');
+					$Sales_Self = Order::where(array('Owner_ID'=>$UID))->where('Order_Status','>=',$dis_config->Pro_Title_Status)->sum('Order_TotalPrice');
 
 					//下级会员
 					$childs = $this->get_sons($dis_config->Dis_Level,$UID);
 
 					if(!empty($childs)){
-							$Sales_Group = Order::where(array('Order_Status'=>$dis_config->Pro_Title_Status))->whereIn('Owner_ID',$childs)->sum('Order_TotalPrice');
+							$Sales_Group = Order::where('Order_Status','>=',$dis_config->Pro_Title_Status)->whereIn('Owner_ID',$childs)->sum('Order_TotalPrice');
 					}else{
 							$Sales_Group = 0;
 					}
 
 					$level = 0;
-					//print_r($Sales_Group);echo "<br>";print_r($Sales_Self);echo "<br>";print_r($Consume);echo "<br>";
+					 
 					foreach($protitless as $key=>$item){
 							if($item['Sales_Group']<=$Sales_Group && $item['Sales_Self']<=$Sales_Self && $item['Consume']<=$Consume){
 
@@ -160,12 +154,10 @@ class ProTitle {
 									//break;
 							}
 					}
-							//print_R($level); 
-					//if($level > $user_distribute_account->Professional_Title){
+							 
 						Dis_Account::Multiwhere(array('Users_ID'=>$this->Users_ID,'User_ID'=>$UID))->update(array('Professional_Title'=>$level));
 						continue;
-						//}
-				//}
+				
 			}
 
 			return true;
