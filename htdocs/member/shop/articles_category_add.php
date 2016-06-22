@@ -96,7 +96,7 @@ if($_POST){
               <span class="input">
               <select name="Type">
                    <option value="单页">单页</option>
-				   <option value="列表">列表</option>
+				   <option value="列表" selected>列表</option>
               </select>
               <font class="fc_red">*</font>
 			  </span>
@@ -124,6 +124,7 @@ if($_POST){
   </div>
 </div>
 <script>
+    $("#content").hide();
     $('select[name=Type]').change(function(){
 	    if($(this).val() == '单页'){
 		    $('#content').show();

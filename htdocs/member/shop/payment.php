@@ -54,39 +54,40 @@ while($r=$DB->Fetch_assoc()){
 }
 $_STATUS = array('<font style="color:red">未收款</font>','<font style="color:blue">已收款</font>');
 if($_POST){
+    $Payment_ID = intval($_POST['Payment_ID']);
 
-  
-	$bankmobile = empty($_POST['BankMobile'])?0:$_POST['BankMobile'];
-
-	$payment_object = $DB->GetRs("user","Users_ID,User_ID,User_Mobile,User_OpenID","where User_Mobile=".$bankmobile);
-	if(empty($payment_object)){
-		echo 0;
-		exit;
-	}	
-	$pay_price = $_POST["price"];
-	if($pay_price<0){
-		echo '<script language="javascript">alert("金额必须大于零才可使用微信转帐");history.back();</script>';
-		exit;
-	}
-	require_once($_SERVER["DOCUMENT_ROOT"].'/include/library/pay_order.class.php');
-	$pay_order = new pay_order($DB, 0);
-
-	$Data = $pay_order->withdraws($payment_object["Users_ID"],$payment_object['User_ID'],$pay_price); 
-
-	if($Data["status"]==1){
-		$DB->Set("shop_sales_payment",array("Status"=>1),"where Payment_ID=".$paymentid);
-		unset($_Get);
-		echo '<script language="javascript">alert("操作成功");window.location="withdraw.php";</script>';
-		exit;
-	}else{
-		unset($_Get);
-
-                echo '<script language="javascript">alert("'.$Data["msg"].'");window.location="withdraw.php";</script>';
-
-		exit;
-	}	
-	// echo '<pre>';
-	// print_R($payment_object);exit;
+    if(!$Payment_ID){
+        echo '<script language="javascript">alert("Payment_ID丢失");history.back();</script>';
+        exit;
+    }
+    $sPayment = $DB->GetRs("shop_sales_payment","*","WHERE Payment_ID='{$Payment_ID}'");
+    if(empty($sPayment)){
+        echo '<script language="javascript">alert("付款单不存在");history.back();</script>';
+        exit;
+    }
+    $pay_price = $sPayment['Total'];
+    if($pay_price<0){
+        echo '<script language="javascript">alert("金额必须大于零");history.back();</script>';
+        exit;
+    }
+    if ($sPayment['Payment_Type'] ==1)
+    {
+        require_once($_SERVER["DOCUMENT_ROOT"].'/include/library/pay_order.class.php');
+        $pay_order = new pay_order($DB, 0);
+        $BizID = $sPayment['Biz_ID'];
+        $Data = $pay_order->withdraws($sPayment["Users_ID"],$sPayment["OpenID"],$pay_price);
+        if($Data["status"]==1){
+            $DB->Set("shop_sales_payment",array("Status"=>1),"where Payment_ID='{$Payment_ID}'");
+            $DB->Set("shop_sales_record",array("Record_Status"=>1),"where Payment_ID='{$Payment_ID}'");
+            unset($_Get);
+            echo '<script language="javascript">alert("操作成功");window.location="payment.php";</script>';
+            exit;
+        }else{
+            unset($_Get);
+            echo '<script language="javascript">alert("'.$Data["msg"].'");window.location="payment.php";</script>';
+            exit;
+        }
+    }
 }
   
 ?>
@@ -179,20 +180,12 @@ if($_POST){
             <td width="7%" nowrap="nowrap">结算金额</td>
             <td width="7%" nowrap="nowrap">状态</td>
             <td width="10%" nowrap="nowrap">支付</td>
-
-	    <td width="10%" nowrap="nowrap">生成时间</td>
-
+			<td width="10%" nowrap="nowrap">生成时间</td>
             <td width="10%" nowrap="nowrap">操作</td>
           </tr>
         </thead>
         <tbody>
          <?php
-
-        $DB->Get('biz','*',"where Users_ID='".$_SESSION["Users_ID"]."'");
-        while($BizRs = $DB->fetch_assoc()){
-             $BizPayRate[$BizRs["Biz_ID"]] = empty($BizRs['PaymenteRate'])?'100':$BizRs['PaymenteRate'];    
-        }
-
           foreach($lists as $paymentid=>$value){
 			  if($value["Biz_ID"]==0){
 				  $value["Biz_Name"] = "本站供货";
@@ -215,13 +208,7 @@ if($_POST){
             <td nowrap="nowrap"><?php echo $value["Diff"];?></td>
             <td nowrap="nowrap"><?php echo $value["Web"];?></td>
             <td nowrap="nowrap"><?php echo $value["Bonus"];?></td>
-
-            <td nowrap="nowrap"><font style="color:blue"><?php echo $value["Total"];?></font><br>(转账
-           <span><?php echo $value["Total"]*$BizPayRate[$value["Biz_ID"]]/100;?></span>
-           <?php echo"+转向余额";echo $value["Total"]-($value["Total"]*$BizPayRate[$value["Biz_ID"]]/100); echo ")"
-           ?> 
-            </td>
-
+            <td nowrap="nowrap"><font style="color:blue"><?php echo $value["Total"];?></font></td>
             <td nowrap="nowrap"><?php echo $_STATUS[$value["Status"]];?></td>
 			<td nowrap="nowrap">
 			<?php if($value["Status"]==0){?>
@@ -251,23 +238,15 @@ if($_POST){
 </html>
 <script type='text/javascript'>
 	$(".weixin").click(function(){
-		 // var  price = $(this).parent().prev().prev().children().html(); 
-                  var  price = $(this).parent().prev().prev().children().next().next().html(); 
-
 		  var Payment_ID = $(this).parent().next().html();
-		  var Payment_Sn = $(this).parent().next().next().html();
-		  var BankMobile = $(this).parent().next().next().next().html();
-		  //var BankMobile = 222222222;
-		  if(confirm("您确定要用微信支付吗？")){
+		  if(confirm("您确定需要支付吗？")){
 			$.ajax({
                type: "POST",
                url: "?",
-               data: {"price" : price,"Payment_ID":Payment_ID,"Payment_Sn":Payment_Sn,"BankMobile":BankMobile},
-               dataType: 'json',
+               data: {"Payment_ID":Payment_ID},
+               dataType: 'html',
                success: function(data){
-                    if(data == 0){
-					   alert('手机号码不一致，请联系商家！！');
-					}
+                    document.write(data);
                }
 			}); 
 		  }
