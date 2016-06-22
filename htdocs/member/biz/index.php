@@ -154,8 +154,13 @@ while($row = $DB->fetch_assoc()){
             <td nowrap="nowrap"><?php echo $rsBiz["Biz_ID"] ?></td>
             <td><?php echo $rsBiz["Biz_Account"] ?></td>
             <td><?php echo $rsBiz['Invitation_Code']; ?></td>
-            <td><?php if(!empty($rsBiz["Invitation_Code"])){if($is_salesman_array[$rsBiz["Invitation_Code"]]!= 1){echo '业务员被删除';}else{echo strlen($salesman_array[$rsBiz["Invitation_Code"]])>0?$salesman_array[$rsBiz["Invitation_Code"]]:'无昵称';} }?></td>
-
+             <td><?php 	if(!empty($rsBiz["Invitation_Code"]) && isset($salesman_array[$rsBiz["Invitation_Code"]])){
+							if($is_salesman_array[$rsBiz["Invitation_Code"]]!= 1){
+								echo '业务员被删除';
+							}else{
+								echo strlen($salesman_array[$rsBiz["Invitation_Code"]])>0?$salesman_array[$rsBiz["Invitation_Code"]]:'无昵称';
+							} 
+			}?></td>
             <td><?php echo $rsBiz["Biz_Name"] ?></td>
             <td><?php echo empty($groups[$rsBiz["Group_ID"]]["Group_Name"]) ? "" : $groups[$rsBiz["Group_ID"]]["Group_Name"]; ?></td>
             <td nowrap="nowrap"><?php echo $rsBiz['Biz_Contact']; ?></td>
