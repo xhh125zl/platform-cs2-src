@@ -154,7 +154,7 @@ if($_POST){
               <font class="fc_red">* (用微信扫描二维码绑定OpenID) </font> 
               </span>
               <div style="position:absolute;left:52%;z-index:9999;">
-              <span class="tips"><img src="<?=$qrcode ?>" width="100"/></span>
+              <span class="tips"><img src="<?=$qrcode ?>" width="180"/></span>
               </div>
               <div class="clear"></div>
             </div>
@@ -180,19 +180,19 @@ if($_POST){
               <div class="clear"></div>
             </div>
             <div class="rows">
-              <label>付款账户</label>
-              <span class="input">
-              <input name="aliPayNo" value="<?php if(!empty($biz_PayConfig) && $biz_PayConfig['PaymentID'] ==3){ echo $biz_PayConfig['config']['aliPayNo']; } ?>" type="text" class="form_input" size="40" maxlength="100" notnull>
-              <font class="fc_red">*</font></span>
-              <div class="clear"></div>
-            </div>
-            <div class="rows">
-              <label>付款账户名</label>
-              <span class="input">
-              <input name="aliPayName" value="<?php if(!empty($biz_PayConfig) && $biz_PayConfig['PaymentID'] ==3){ echo $biz_PayConfig['config']['aliPayName']; } ?>" type="text" class="form_input" size="40" maxlength="100" notnull>
-              <font class="fc_red">*</font></span>
-              <div class="clear"></div>
-            </div>
+						<label>付款账户</label> <span class="input"> <input name="aliPayNo"
+							value="<?php if(!empty($biz_PayConfig) && $biz_PayConfig['PaymentID'] ==3){ echo isset($biz_PayConfig['config']['aliPayNo'])?$biz_PayConfig['config']['aliPayNo']:""; } ?>"
+							type="text" class="form_input" size="40" maxlength="100" notnull>
+							<font class="fc_red">*</font></span>
+						<div class="clear"></div>
+					</div>
+					<div class="rows">
+						<label>付款账户名</label> <span class="input"> <input name="aliPayName"
+							value="<?php if(!empty($biz_PayConfig) && $biz_PayConfig['PaymentID'] ==3){ echo isset($biz_PayConfig['config']['aliPayName'])?$biz_PayConfig['config']['aliPayName']:""; } ?>"
+							type="text" class="form_input" size="40" maxlength="100" notnull>
+							<font class="fc_red">*</font></span>
+						<div class="clear"></div>
+					</div>
             <div class="rows">
               <label>收款人手机</label>
               <span class="input">

@@ -174,14 +174,14 @@ body, html {
 					</div>
 					<div class="rows">
 						<label>付款账户</label> <span class="input"> <input name="aliPayNo"
-							value="<?php if(!empty($biz_PayConfig) && $biz_PayConfig['PaymentID'] ==3){ echo $biz_PayConfig['config']['aliPayNo']; } ?>"
+							value="<?php if(!empty($biz_PayConfig) && $biz_PayConfig['PaymentID'] ==3){ echo isset($biz_PayConfig['config']['aliPayNo'])?$biz_PayConfig['config']['aliPayNo']:""; } ?>"
 							type="text" class="form_input" size="40" maxlength="100" notnull>
 							<font class="fc_red">*</font></span>
 						<div class="clear"></div>
 					</div>
 					<div class="rows">
 						<label>付款账户名</label> <span class="input"> <input name="aliPayName"
-							value="<?php if(!empty($biz_PayConfig) && $biz_PayConfig['PaymentID'] ==3){ echo $biz_PayConfig['config']['aliPayName']; } ?>"
+							value="<?php if(!empty($biz_PayConfig) && $biz_PayConfig['PaymentID'] ==3){ echo isset($biz_PayConfig['config']['aliPayName'])?$biz_PayConfig['config']['aliPayName']:""; } ?>"
 							type="text" class="form_input" size="40" maxlength="100" notnull>
 							<font class="fc_red">*</font></span>
 						<div class="clear"></div>
