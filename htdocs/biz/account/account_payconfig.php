@@ -20,7 +20,7 @@ if(isset($_POST['action']) && $_POST['action']=='ajax'){
         );
         die(json_encode($Data));
     }else{
-        $DB->Set("biz", array('Biz_Flag' => 0), "Biz_ID='{$Biz_Id}' and Biz_Flag=1");
+        $DB->Set("biz", array('Biz_Flag' => 0), "WHERE Biz_ID='{$Biz_Id}' and Biz_Flag=1");
         if(!empty($res['Biz_PayConfig'])){
             $biz_PayConfig = json_decode($res['Biz_PayConfig'],true);
         }

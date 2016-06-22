@@ -24,7 +24,9 @@ if(!empty($_SESSION[$UsersID."OpenID"])){
     //openid绑定
     $openid = $_SESSION[$UsersID."OpenID"];
     if($deAuth['Biz_Account'] == $Biz_Info['Biz_Account'] && $deAuth['Users_ID'] == $Biz_Info['Users_ID']){
-        if(!empty($Biz_Info['Biz_PayConfig'])){
+        
+        
+        if(isset($Biz_Info['Biz_PayConfig']) && !empty($Biz_Info['Biz_PayConfig'])){
             $biz_PayConfig = array(
                 "PaymentID" => 1,
                 "config" => array(
@@ -32,8 +34,12 @@ if(!empty($_SESSION[$UsersID."OpenID"])){
                     "PaymentMethod"=>"微信结算"
                 )
             );
-            $Biz_PayConfig = json_encode($Biz_PayConfig,JSON_UNESCAPED_UNICODE);
-            $DB->Set("biz", array("Biz_PayConfig"=>$biz_PayConfig,"Biz_Flag"=>1),"WHERE Biz_ID='{$Biz_ID}'");
+            $PayConfig = json_encode($biz_PayConfig,JSON_UNESCAPED_UNICODE);
+            //$flag = $DB->Set("biz", array("Biz_PayConfig"=>$PayConfig,"Biz_Flag"=>1),"WHERE Biz_ID='{$Biz_ID}'");
+            $flag = $DB->query("update biz set Biz_PayConfig = '{$PayConfig}',Biz_Flag = 1  WHERE Biz_ID='{$Biz_ID}'");
+            if($flag){
+                die("OpenID设置成功");
+            }
         }
     }else{
         die("非法篡改");
