@@ -56,12 +56,12 @@ class OrderObserver {
 		$flag = $flag_a && $flag_b && $flag_c && $flag_d && $sha_Flag;
 	    if(!$flag){
 			back_trans();
-			$response = array(
-				"status"=>0,
-				"msg"=>'确认收货失败'
-			);
+			//$response = array(
+			//	"status"=>0,
+			//	"msg"=>'确认收货失败'
+			//);
 			
-			echo json_encode($response,JSON_UNESCAPED_UNICODE);
+			//echo json_encode($response,JSON_UNESCAPED_UNICODE);
 		}else{
 			global $DB1;
 			require_once($_SERVER["DOCUMENT_ROOT"].'/include/helper/balance.class.php');
