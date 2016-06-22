@@ -84,7 +84,7 @@ $Data = array('Shop_Commision_Reward_Json' => json_encode($_POST, JSON_UNESCAPED
     </script>
     <div class="r_nav">
       <ul>
-        <li class="cur"><a href="products.php">产品列表</a></li>
+        <li class=""><a href="products.php">产品列表</a></li>
         <li class=""><a href="category.php">产品分类</a></li>
         <li class=""><a href="commit.php">产品评论</a></li>
         <li class="cur"><a href="commision_setting.php">佣金设置</a></li>

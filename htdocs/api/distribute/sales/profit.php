@@ -95,6 +95,8 @@ switch($action){
 	break;
 }
 
+$condition .= " order by id desc";
+
 $record_list = array();
 $rsRecords = $DB->getPage("distribute_sales_record","*",$condition,10);
 $record_list = $DB->toArray($rsRecords);
@@ -174,6 +176,7 @@ foreach($record_list as $key=>$record){
 	<td>
 		<p class="pro_name"><?php echo $record['Products_Name'];?></p>
 		<p><?php echo $record['Biz_Name'];?></p>
+		<p><?php echo date('Y-m-d H:m:s',$record['create_time']);?></p>
 	</td>
 	<td width="80"><span class="record_price">￥<?php echo $record['Sales_Money']?></span><span><?php echo $_STATUS[$record['Status']];?></span></td>
  </tr>

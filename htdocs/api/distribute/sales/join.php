@@ -32,7 +32,8 @@ if($is_salesman){
 	exit;
 }
 $rsConfig = $DB->GetRs("distribute_config","Salesman,Salesman_ImgPath","where Users_ID='".$UsersID."'");
-$money = $DB->GetRs("user_order","SUM(Order_TotalPrice) as money","where Order_Status=2 and User_ID=".$_SESSION[$UsersID."User_ID"]);
+$Dis_Account = $DB->GetRs('distribute_account','Salesman_Deltime','where User_ID = '.$_SESSION[$UsersID."User_ID"]);
+$money = $DB->GetRs("user_order","SUM(Order_TotalPrice) as money","where Order_Status>=2 and User_ID=".$_SESSION[$UsersID."User_ID"].' and Order_CreateTime >= '.$Dis_Account['Salesman_Deltime']);
 ?>
 
 
