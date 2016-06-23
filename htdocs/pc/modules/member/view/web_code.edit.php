@@ -126,7 +126,7 @@
 										<?php if (is_array($output['code_category_list']['code_info']['goods_class']) && !empty($output['code_category_list']['code_info']['goods_class'])) { ?>
 										<ul>
 											<?php foreach ($output['code_category_list']['code_info']['goods_class'] as $k => $v) { ?>
-											<li title="<?php echo $v['gc_name'];?>"><a href="javascript:void(0);"><?php echo $v['gc_name'];?></a></li>
+											<li title="<?php echo $v['Category_Name'];?>"><a href="javascript:void(0);"><?php echo $v['Category_Name'];?></a></li>
 											<?php } ?>
 										</ul>
 										<?php }else { ?>
@@ -302,11 +302,13 @@
 		<div class="s-tips">小提示：双击分类名称可删除不想显示的分类</div>
 		<div class="category-list category-list-edit">
 			<dl>
-				<?php if (is_array($output['code_category_list']['code_info']['goods_class']) && !empty($output['code_category_list']['code_info']['goods_class'])) { ?>
-				<?php foreach($output['code_category_list']['code_info']['goods_class'] as $k => $v) { ?>
-				<dd gc_id="<?php echo $v['gc_id'];?>" title="<?php echo $v['gc_name'];?>" ondblclick="del_goods_class(<?php echo $v['gc_id'];?>);"> <i onclick="del_goods_class(<?php echo $v['gc_id'];?>);" style="color:#fff;">x</i><?php echo $v['gc_name'];?>
-					<input name="category_list[goods_class][<?php echo $v['gc_id'];?>][gc_id]" value="<?php echo $v['gc_id'];?>" type="hidden">
-					<input name="category_list[goods_class][<?php echo $v['gc_id'];?>][gc_name]" value="<?php echo $v['gc_name'];?>" type="hidden">
+				<?php //if (is_array($output['code_category_list']['code_info']['goods_class']) && !empty($output['code_category_list']['code_info']['goods_class'])) { 
+                                if (is_array($output['goods_class']) && !empty($output['goods_class'])) { ?>
+				<?php //foreach($output['code_category_list']['code_info']['goods_class'] as $k => $v) { 
+                                foreach($output['goods_class'] as $k => $v) { ?>
+				<dd gc_id="<?php echo $v['Category_ID'];?>" title="<?php echo $v['Category_Name'];?>" ondblclick="del_goods_class(<?php echo $v['Category_ID'];?>);"> <i onclick="del_goods_class(<?php echo $v['Category_ID'];?>);" style="color:#fff;">x</i><?php echo $v['Category_Name'];?>
+					<input name="category_list[goods_class][<?php echo $v['Category_ID'];?>][Category_ID]" value="<?php echo $v['Category_ID'];?>" type="hidden">
+					<input name="category_list[goods_class][<?php echo $v['Category_ID'];?>][Category_Name]" value="<?php echo $v['Category_Name'];?>" type="hidden">
 				</dd>
 				<?php } ?>
 				<?php } ?>
