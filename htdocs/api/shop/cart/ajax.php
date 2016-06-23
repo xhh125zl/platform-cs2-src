@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 require_once($_SERVER["DOCUMENT_ROOT"].'/Framework/Conn.php');
 require_once($_SERVER["DOCUMENT_ROOT"].'/include/helper/shipping.php');
 require_once($_SERVER["DOCUMENT_ROOT"].'/include/helper/tools.php');
@@ -491,7 +491,7 @@ if(empty($action)){//加入购物车
 				}
 
                                 $condition ="where Users_ID='".$UsersID."' and Products_ID=".$kk;
-				$DB->set('shop_products','Products_Sales=Products_Sales+'.$qty.',Products_Count=Products_Count-'.$qty,$condition);
+				$DB->set('shop_products','Products_Sales=Products_Sales+'.$qty,$condition);
                                 $product1 = $vv; 
                                 $fields = ['Products_ID','salesman_ratio','salesman_level_ratio','commission_ratio','Biz_ID','Users_ID','Products_PriceX','platForm_Income_Reward'];
                                 $product2 = Product::Multiwhere(array('Users_ID' => $UsersID, 'Products_ID' => $kk))->first($fields)->toArray();
