@@ -89,12 +89,12 @@ if($_POST){
                  <select name="CategoryID" notnull>
                 <?php
                 	$DB->get("shop_articles_category","*","where Users_ID='".$_SESSION["Users_ID"]."' order by Category_Index asc");
-					while($rsCategory=$DB->fetch_assoc()){
-					if($rsCategory["Category_Type"] == '列表'){
-				?>
-                  <option value="<?php echo $rsCategory["Category_ID"];?>"><?php echo $rsCategory["Category_Name"];?></option>
-                <?php }?>
-				<?php }?>
+                                    while($rsCategory=$DB->fetch_assoc()){
+					//if($rsCategory["Category_Type"] == '列表'){
+		?>
+                                            <option value="<?php echo $rsCategory["Category_ID"];?>"><?php echo $rsCategory["Category_Name"];?></option>
+                                 <?php //}?>
+                            <?php }?>
                  </select>
                 </span>
                 <div class="clear"></div>
