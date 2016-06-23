@@ -92,7 +92,7 @@ input[type="text"], input[type="password"], input.text, input.password {padding:
 							<td class="w120"><em><?php echo $Cart["ProductsPriceX"];?></em></td>
 							<td class="w120 ws0">
 							    <a class="add-substract-key tip" title="减少商品件数" href="JavaScript:void(0);" rel="qty_less">-</a>
-								<input type="text" class="text" value="<?php echo $qty2;?>" style="width:30px;" rel="qty_input"/>
+								<input type="text" class="text" value="<?php echo $qty3;?>" style="width:30px;" rel="qty_input"/>
 								<a class="add-substract-key tip" title="增加商品件数" href="JavaScript:void(0);" rel="qty_add">+</a>
 							</td>
 							<td class="w120"><em wzw_type="eachGoodsTotal"><?php echo $xiaoji;?></em></td>
