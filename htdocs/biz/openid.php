@@ -5,7 +5,6 @@ require_once($_SERVER["DOCUMENT_ROOT"].'/include/helper/AES.php');
 !isset($_GET["Biz_ID"]) && die("Biz_ID缺少参数");
 $auth = $_GET["auth"];
 $Biz_ID = $_GET["Biz_ID"];
-
 $Biz_Info = $DB->GetRs("biz","Biz_ID,Users_ID,Biz_Account,Biz_Name,Biz_PayConfig","WHERE Biz_ID='{$Biz_ID}'");
 //解密
 $auth = str_replace(" ","+",$auth);
@@ -35,10 +34,12 @@ if(!empty($_SESSION[$UsersID."OpenID"])){
                 )
             );
             $PayConfig = json_encode($biz_PayConfig,JSON_UNESCAPED_UNICODE);
-            //$flag = $DB->Set("biz", array("Biz_PayConfig"=>$PayConfig,"Biz_Flag"=>1),"WHERE Biz_ID='{$Biz_ID}'");
+            //$flag = $DB->Set("biz", array("Biz_PayConfig"=>$PayConfig, "Biz_Flag"=>1),"WHERE Biz_ID='{$Biz_ID}'");
             $flag = $DB->query("update biz set Biz_PayConfig = '{$PayConfig}',Biz_Flag = 1  WHERE Biz_ID='{$Biz_ID}'");
             if($flag){
                 die("OpenID设置成功");
+            }else{
+                die("OpenID设置失败");
             }
         }
     }else{
