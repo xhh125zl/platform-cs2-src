@@ -3,7 +3,6 @@
 $rmenu["weixin"] = array(
 	'weixin' => '我的微信',
 	'account' => '系统首页',
-	'setting' => '系统设置',
 	'attention_reply' => '首次关注设置',
 	'menu' => '自定义菜单设置',
 	'keyword_reply' => '关键词回复设置',
@@ -130,10 +129,6 @@ $rmenu["html"] = array(
 //不在右键菜单内的,系统首页
 $rmenusub["wei_account"] = array(
 	'ajax' => 'ajax文件'
-);
-
-$rmenusub["wei_setting"] = array(
-	'sms' => '短信配置'
 );
 
 //自定义菜单设置
