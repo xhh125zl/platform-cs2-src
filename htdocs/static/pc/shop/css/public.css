@@ -224,7 +224,7 @@ span{ display:inline-block;}
 .foot dd{ height:22px; }
 .foot dd a{color:#666666;}
 .foot dd a:hover{color:#D30015;}
-.foot_border{ border-top:1px solid #dcdcdc; margin-top:46px; background:#e8e8e8; padding-bottom:60px; position:relative;}
+.foot_border{ border-top:1px solid #dcdcdc; margin-top:46px; background:#e8e8e8; padding-bottom:60px; position:relative;clear:both;}
 
 .foot .erwema{ position:absolute; right:72px; top:10px; display:none;}
 
