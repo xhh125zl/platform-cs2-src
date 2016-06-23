@@ -18,15 +18,17 @@ class commonController {
     public $_timestamp = '';
     protected function _initialize() {
         $this->view = base\base::instance('base\view');
-        $this->input = base\base::instance('safe\input');
-		$_GET = $this->input->getVar($_GET);
-		$_POST = $this->input->getVar($_POST);
-		$_COOKIE = $this->input->getVar($_COOKIE);
-	    $this->safe();
         $this->_site_url = SITE_URL;
         $this->_module = base\dispatcherUrl::getModule();
         $this->_controller = base\dispatcherUrl::getController();
         $this->_action = base\dispatcherUrl::getAction();
+		if($this->_module == 'shop'){
+			$this->input = base\base::instance('safe\input');
+			$_GET = $this->input->getVar($_GET);
+			$_POST = $this->input->getVar($_POST);
+			$_COOKIE = $this->input->getVar($_COOKIE);
+			$this->safe();
+		}
         $this->_timestamp = TIMESTAMP;
         $this->assign('_site_url', $this->_site_url);
         $this->assign('_controller', $this->_controller);
