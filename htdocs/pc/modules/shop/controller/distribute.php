@@ -7,7 +7,9 @@ class distributeController extends controllController {
 		$this->check_login();
 		$user_model = model('user');
 		$rsUser = $user_model->field('Is_Distribute')->where(array('User_ID'=>$_SESSION[$this->UsersID . 'User_ID']))->find();
-
+                if(!$rsUser || ($rsUser['Is_Distribute'] == 0)) {
+                    $this->error('您还不是分销商...');            
+		}
 		//$rsDisAccount = model('shop_distribute_account')->field('Account_ID,Is_Dongjie,Is_Delete,Is_Audit,status,balance,Enable_Tixian,Total_Income,Group_Num')->where(array('User_ID'=>$_SESSION[$this->UsersID . 'User_ID']))->find();
 		$rsDisAccount = model('distribute_account')->field('Account_ID,Is_Dongjie,Is_Delete,Is_Audit,status,balance,Enable_Tixian,Total_Income,Group_Num')->where(array('User_ID'=>$_SESSION[$this->UsersID . 'User_ID']))->find();
                 $this->rsDisAccount = $rsDisAccount;
@@ -135,7 +137,8 @@ class distributeController extends controllController {
 		$this->assign('title', '立即成为分销商');
 		$_SESSION[$this->UsersID . 'HTTP_REFERER'] = url('distribute/distribute_join');
 		$rsUser = model('user')->field('*')->where(array('User_ID'=>$_SESSION[$this->UsersID . 'User_ID']))->find();
-		$error_msg = pre_add_distribute_account($this->shopConfig, $this->UsersID);
+		//$error_msg = pre_add_distribute_account($this->shopConfig, $this->UsersID);
+                $error_msg = '';
 		$html_mes = '';
 		if($error_msg != '4'){
 			switch($error_msg){

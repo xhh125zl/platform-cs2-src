@@ -13,6 +13,7 @@ class controllController extends \common\controller\shopController {
 		if(!isset($this->shopConfig['site_status'])) {
 			$this->error('电脑端未配置开启！');
 		}
+                
 		if(!$this->shopConfig['site_status']) exit($this->shopConfig['closed_reason']);
 		$this->assign('main_nav', $this->get_main_nav());
 		$p_c = $this->categoryTree();//分类与产品
@@ -29,7 +30,7 @@ class controllController extends \common\controller\shopController {
 		$this->url_parsing($this->owner['id']);//pc于手机友好跳转
 		//分销商处理
 		if($_SERVER['REQUEST_METHOD'] == 'GET') {
-			$error_msg = pre_add_distribute_account($this->shopConfig, $this->UsersID);
+			//$error_msg = pre_add_distribute_account($this->shopConfig, $this->UsersID);
 		}
 
                     if($this->shopConfig['fuxiao_open'] == 1) {
