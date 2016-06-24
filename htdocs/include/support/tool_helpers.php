@@ -59,9 +59,11 @@ if ( ! function_exists('shop_config'))
 		
 		$builder = Shop_Config::where('Users_ID',$UsersID);
 		if(count($fields) >0 ){
+		    if(!$builder->first($fields)) return false;
 			$shop_config = $builder->first($fields)
 			                       ->toArray();	
 		}else{
+		    if(!$builder->first()) return false;
 			$shop_config = $builder->first()
 			                       ->toArray();
 		}			
@@ -82,9 +84,11 @@ if ( ! function_exists('dis_config'))
 		
 		$builder = Dis_Config::where('Users_ID',$UsersID);
 		if(count($fields) >0 ){
+		    if(!$builder->first($fields)) return false;
 			$dis_config = $builder->first($fields)
 			                       ->toArray();	
 		}else{
+		    if(!$builder->first()) return false;
 			$dis_config = $builder->first()
 			                       ->toArray();
 		}			
@@ -106,13 +110,12 @@ if ( ! function_exists('shop_user_config'))
 		
 		$builder = User_Config::where('Users_ID',$UsersID);
 		if(count($fields) >0 ){
-			$shop_user_config = $builder->first($fields)
-			                       ->toArray();	
+		    if(!$builder->first($fields)) return false;
+			$shop_user_config = $builder->first($fields)->toArray();	
 		}else{
-			$shop_user_config = $builder->first()
-			                       ->toArray();	
-		}			
-		
+		    if(!$builder->first()) return false;
+			$shop_user_config = $builder->first()->toArray();	
+		}
 		return !empty($shop_user_config)?$shop_user_config:false;
 	}
 }
