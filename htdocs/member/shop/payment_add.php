@@ -24,6 +24,11 @@ if(isset($_POST['action']) && $_POST['action'] == 'ajax')
 }
 
 if ($_POST) {
+	$BizRs = $DB->GetRS('biz','Users_ID,UserID',"where Users_ID='".$_SESSION["Users_ID"]."' and BIZ_ID=".$_POST["BizID"]);
+	if(empty($BizRs['UserID'])){
+		echo '<script language="javascript">alert("该商家没有绑定前台会员,暂不能结款!");history.back();</script>';
+		exit;
+	}
     $DB->showErr = false;
     if (empty($_SESSION["Users_Account"])) {
         header("location:/member/login.php");
