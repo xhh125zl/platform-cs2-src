@@ -10,7 +10,7 @@
 	  	 if(!empty($f["child"])){
 		 foreach($f["child"] as $s){
 	  ?>
-       	<a href="<?php echo $biz_url;?>products/<?php echo $s["Category_ID"];?>/" class="<?php echo $i%2==1 ? 'mulu_left' : ''?>"><?php echo $s["Category_Name"];?></a>
+       	<a href="<?php echo $biz_url;?>products/<?php echo $s["Category_ID"];?>/" class="mulu_left"><?php echo $s["Category_Name"];?></a>
       <?php }}?>
       <div class="clear"></div>
       </dd>

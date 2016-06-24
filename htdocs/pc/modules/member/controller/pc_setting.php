@@ -105,7 +105,7 @@ class pc_settingController extends controllController {
 				'menu_sort'=>$_POST['sort'],
 			);
 			$flag = model('users_menu')->where(array('id'=>$_POST['id']))->update($Data);
-			if($flag){
+			if(false !== $flag){
 				$this->success('保存成功');
 			}else{
 				$this->error('保存失败');

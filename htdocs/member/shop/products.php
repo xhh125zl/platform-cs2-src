@@ -14,7 +14,7 @@ if(isset($_GET['search'])){
 	}
 	if($_GET['SearchCateId']>0){
 		$catid = $_GET['SearchCateId'];
-		$condition .= " and Products_Category=".$catid;
+                $condition .= " and Products_Category like '%,".$catid.",%'";
 	}
 	if($_GET['Status']>0){
 		$condition .= " and Products_Status=".($_GET["Status"]-1);

@@ -1,8 +1,13 @@
-<link href='<?php echo $output['_site_url'];?>/static/pc/shop/css/cart.css' rel="stylesheet" type="text/css" />
+<link href='<?php echo $output['_site_url'];?>/static/pc/shop/css/cart.css' rel="stylesheet" type="text/css?t=<?=time()?>" />
 <script src='<?php echo $output['_site_url'];?>/static/pc/shop/js/payment.js'></script>
 <script>
 	$(document).ready(payment_obj.payment_init);
 </script>
+<style>
+    input[type="text"]{
+        padding: 0px 0px;
+    }
+</style>
 <div class="comtent">
 	<?php include(__DIR__ . '/_menu.php');?>
 </div>

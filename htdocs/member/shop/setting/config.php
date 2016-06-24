@@ -208,13 +208,11 @@ KindEditor.ready(function(K) {
           </tr>
           
           <tr>
-            <td width="50%" valign="top">
+             <td width="50%" valign="top">
               <h1><strong>订单手机短信通知</strong>
                 <input type="checkbox" name="SendSms" value="1"<?php echo empty($rsConfig["SendSms"])?"":" checked"; ?> />
                 <span class="tips">启用（填接收短信的手机号）</span></h1>
-
-              <input type="text" class="input" name="MobilePhone" style="width:120px" value="<?php echo $rsConfig["MobilePhone"] ?>" maxlength="11" /><span class="tips"> 短信剩余 <font style="color:red"><?php echo $item["Users_Sms"];?></font> 条</span>
-
+              <input type="text" class="input" name="MobilePhone" style="width:120px" value="<?php echo $rsConfig["MobilePhone"] ?>" maxlength="11" /><span class="tips"> 短信剩余 <font style="color:red"><?php echo $item["Users_Sms"];?></font> 条&nbsp;&nbsp;<a href="/member/sms/sms_add.php" style="color:#F60; text-decoration:underline">点击购买</a></span>
             </td>
             <td width="50%" valign="top">
             	<h1><strong>商城关注提醒</strong>

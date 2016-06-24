@@ -52,7 +52,7 @@
 	<ul>
 	<?php if(!empty($output['block_list'])){?>
 	<?php foreach($output['block_list']  as $k => $v){?>
-		<li ret="<?php echo $k;?>" style="overflow:hidden;"> <a class="num" href="#f<?php echo $v['web_id']?>"><?php echo $v['web_name']?></a> <a class="word" href="#f<?php echo $v['web_id']?>" ><?php echo $v['web_name']?></a> </li>
+		<li style="width:auto" ret="<?php echo $k;?>" style="overflow:hidden;"> <a class="num" href="#f<?php echo $v['web_id']?>"><?php echo $v['web_name']?></a> <a class="word" href="#f<?php echo $v['web_id']?>" ><?php echo $v['web_name']?></a> </li>
 	<?php }?>
 	<?php }?>
 	</ul>

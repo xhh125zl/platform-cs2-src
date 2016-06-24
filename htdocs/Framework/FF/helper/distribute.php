@@ -230,7 +230,7 @@ if (!function_exists('create_distribute_acccount')) {
 	 *创建分销商
 	 */
 
-	function create_distribute_acccount($rsConfig, $UserID, $Real_Name, $ownerid, $Account_Mobile, $status = 0,$LevelID) {
+	function create_distribute_acccount($rsConfig, $UserID, $Real_Name, $ownerid, $Account_Mobile, $status = 0) {
 
 		/*获取此店铺的配置信息*/
 		$UsersID = $rsConfig['users_id'];
@@ -255,7 +255,7 @@ if (!function_exists('create_distribute_acccount')) {
 		$Account_Data = array(
 		    'Users_ID'=>$UsersID,
 			'User_ID'=>$UserID,
-			'Level_ID'=>$LevelID,
+			//'Level_ID'=>$LevelID,
 
 			'Real_Name'=>$Real_Name,
 			'Shop_Name'=>$user['User_NickName'] . '的店',
@@ -384,8 +384,8 @@ if (!function_exists('pre_add_distribute_account')) {
 
 				global $DB1;
 				//获得分销级别
-				$level_data = get_dis_level($DB1,$UsersID);
-				$LevelID = get_user_distribute_level($shop_config,$level_data,$_SESSION[$UsersID . 'User_ID']);//获得该用户应得的分销级别
+				//$level_data = get_dis_level($DB1,$UsersID);
+				//$LevelID = get_user_distribute_level($shop_config,$level_data,$_SESSION[$UsersID . 'User_ID']);//获得该用户应得的分销级别
 
 				if ($user['is_distribute'] == 0) {
 					$ownerid = $user['owner_id'];
@@ -393,14 +393,14 @@ if (!function_exists('pre_add_distribute_account')) {
 					switch ($shop_config['distribute_type']) {
 						case '0': //自动成为分销商																				
 
-							$flag = create_distribute_acccount( $shop_config, $_SESSION[$UsersID . 'User_ID'], $truename, $ownerid, '', 1,$LevelID);
+							$flag = create_distribute_acccount( $shop_config, $_SESSION[$UsersID . 'User_ID'], $truename, $ownerid, '', 1);
 
 							$error_msg = $flag ? 'OK' : '会员自动成为分销商失败';
 							break;
 						case '1': //积分限制
 							if ($user['user_totalintegral'] >= $shop_config['distribute_limit']) {
 
-								$flag = create_distribute_acccount( $shop_config, $_SESSION[$UsersID . 'User_ID'], $truename, $ownerid, '', 1,$LevelID);
+								$flag = create_distribute_acccount( $shop_config, $_SESSION[$UsersID . 'User_ID'], $truename, $ownerid, '', 1);
 
 								$error_msg = $flag ? 'OK' : '会员成为分销商失败';
 							} else {
@@ -412,7 +412,7 @@ if (!function_exists('pre_add_distribute_account')) {
 							$arr_temp[1] = !empty($arr_temp[1]) ? intval($arr_temp[1]) : 0;
 							if ($arr_temp[0] == 0 && $user['user_cost'] >= $arr_temp[1]) {
 
-								$flag = create_distribute_acccount($shop_config, $_SESSION[$UsersID . 'User_ID'], $truename, $ownerid, '', 1,$LevelID);
+								$flag = create_distribute_acccount($shop_config, $_SESSION[$UsersID . 'User_ID'], $truename, $ownerid, '', 1);
 
 								$error_msg = $flag ? 'OK' : '会员成为分销商失败';
 							} else {
@@ -438,6 +438,7 @@ if (!function_exists('pre_add_distribute_account')) {
 }
 
 /*-20160603add--start--*/
+/*
 if(!function_exists('get_dis_level')){
 	function get_dis_level($DB1,$UsersID){
 		$file_path = $_SERVER["DOCUMENT_ROOT"].'/data/cache/'.$UsersID.'dis_level.php';
@@ -494,6 +495,7 @@ if(!function_exists('get_user_distribute_level')){//根据消费额获得分销�
 		return $LevelID;
 	}
 }
+ */
 /*-20160603add--end--*/
 
 if (!function_exists('deal_distribute_fuxiao_record')) {

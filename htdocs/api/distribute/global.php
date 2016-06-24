@@ -62,7 +62,7 @@ if($accountObj->status==0){
 }
 			   
 $rsAccount = $accountObj->toArray(); 
-if($rsConfig["Withdraw_Type"]==3){
+if($rsConfig["Withdraw_Type"]==3 || $rsConfig["Withdraw_Type"]==2 || $rsConfig["Withdraw_Type"]==1){
     $accountObj->Enable_Tixian = 0;
 	$accountObj->save();
 }
