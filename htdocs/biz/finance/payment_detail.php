@@ -4,15 +4,15 @@ require_once($_SERVER["DOCUMENT_ROOT"].'/include/helper/balance.class.php');
 $balance = new balance($DB,$rsBiz["Users_ID"]);
 
 $paymentid=empty($_REQUEST['paymentid'])?0:$_REQUEST['paymentid'];
-$rsPayment=$DB->GetRs("shop_sales_payment","*","where Users_ID='".$rsBiz["Users_ID"]."' and Payment_ID='".$paymentid."' and Biz_ID=".$_SESSION["BIZ_ID"]);
+$rsPayment=$DB->GetRs("shop_sales_payment","*","WHERE Users_ID='".$rsBiz["Users_ID"]."' AND Payment_ID='".$paymentid."' AND Biz_ID=".$_SESSION["BIZ_ID"]);
 if(!$rsPayment){
 	echo '<script language="javascript">alert("暂无信息！");history.back();</script>';
 	exit;
 }
 $rsPayment["Biz"] = $rsBiz["Biz_Name"];
-$condition = "where Users_ID='".$rsBiz["Users_ID"]."' and Biz_ID=".$_SESSION["BIZ_ID"]." and Payment_ID=".$paymentid.' order by Record_ID desc';
+$condition = "WHERE Users_ID='".$rsBiz["Users_ID"]."' AND Biz_ID=".$_SESSION["BIZ_ID"]." AND Payment_ID=".$paymentid.' order by Record_ID desc';
 
-$DB->Get('biz','*',"where Users_ID='".$rsBiz["Users_ID"]."'");
+$DB->Get('biz','*',"WHERE Users_ID='".$rsBiz["Users_ID"]."'");
 while($BizRs = $DB->fetch_assoc()){
      $BizPayRate[$BizRs["Biz_ID"]] = empty($BizRs['PaymenteRate'])?'100':$BizRs['PaymenteRate'];    
 }

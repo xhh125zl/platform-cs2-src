@@ -19,7 +19,7 @@ if ($_POST) {
     ) : explode(" - ", $_POST["Time"]);
     $StartTime = strtotime($Time[0]);
     $EndTime = strtotime($Time[1]);
-    $condition = "where Biz_ID=" . $_SESSION["BIZ_ID"] . " and Users_ID='" . $rsBiz["Users_ID"] . "' and Record_CreateTime>=" . $StartTime . " and Record_CreateTime<=" . $EndTime . " and Record_Status=0";
+    $condition = "WHERE Biz_ID=" . $_SESSION["BIZ_ID"] . " AND Users_ID='" . $rsBiz["Users_ID"] . "' AND Record_CreateTime>=" . $StartTime . " AND Record_CreateTime<=" . $EndTime . " AND Record_Status=0";
     $paymentinfo = $balance->create_payment($condition);
     if ($paymentinfo["products_num"] == 0) {
         echo '<script language="javascript">alert("暂无结算数据");history.back();</script>';
@@ -69,7 +69,7 @@ if ($_POST) {
         $Payment_Sn = $createtime . $paymentid;
         $DB->Set("shop_sales_payment", array(
             "Payment_Sn" => $Payment_Sn
-        ), "where Payment_ID=" . $paymentid);
+        ), "WHERE Payment_ID=" . $paymentid);
         echo '<script language="javascript">window.location.href="payment_detail.php?paymentid=' . $paymentid . '";</script>';
     } else {
         echo '<script language="javascript">alert("生成失败！");history.back();</script>';
@@ -153,11 +153,12 @@ body, html {
 					</div>
 					<div id="nickname" class="rows">
                 <?php  if(isset($biz_PayConfig['config']['headimgurl']) && $biz_PayConfig['config']['headimgurl']){ ?>
-                <label>微信昵称</label>
-                <span class="input" style="font-size:20px;"><img src="<?=$biz_PayConfig['config']['headimgurl'] ?>" width="22"/> <?=$biz_PayConfig['config']['nickname'] ?></span>
+                <label>微信昵称</label> <span class="input"
+							style="font-size: 20px;"><img
+							src="<?=$biz_PayConfig['config']['headimgurl'] ?>" width="22" /> <?=$biz_PayConfig['config']['nickname'] ?></span>
                 <?php } ?>
                 <div class="clear"></div>
-            </div>
+					</div>
 					<div class="rows">
 						<label>银行类型</label> <span class="input"> <input name="Bank"
 							value="<?php if(!empty($biz_PayConfig) && $biz_PayConfig['PaymentID'] ==3){ echo $biz_PayConfig['config']['Bank']; } ?>"
