@@ -128,6 +128,13 @@ KindEditor.ready(function(K) {
 })
 
 $(document).ready(config_obj.protitle_config);
+$(function(){
+	$("#dis_pro_title_table tbody tr td img").css({"max-width":"60px"});
+	$("#dis_pro_title_table tbody tr td img").click(function(){
+		$(this).parent().next("input").val("");
+		$(this).remove();
+	});
+});
 </script>
 </head>
 
@@ -174,37 +181,19 @@ $(document).ready(config_obj.protitle_config);
 				<tr  fieldtype="text">
                     <td><?=$i?></td>
                     <td>
-                        <input class="form_input" value="<?php echo empty($dis_title_level[$i]['Name']) ? '' : $dis_title_level[$i]['Name'];?>" name="Dis_Pro_Title[Name][]" 
-						<?php if($i == 1):?>
-						notnull
-						<?php endif;?>
-
-						type="text">
+                        <input class="form_input" value="<?php echo empty($dis_title_level[$i]['Name']) ? '' : $dis_title_level[$i]['Name'];?>" name="Dis_Pro_Title[Name][]"  type="text">
                     </td>
                     <td>
-                        <input class="form_input title_val" value="<?php echo empty($dis_title_level[$i]['Consume']) ? '' : $dis_title_level[$i]['Consume'];?>"  name="Dis_Pro_Title[Consume][]"  <?php if($i == 1):?>
-						notnull
-						<?php endif;?> type="text">
+                        <input class="form_input title_val" value="<?php echo empty($dis_title_level[$i]['Consume']) ? '' : $dis_title_level[$i]['Consume'];?>"  name="Dis_Pro_Title[Consume][]"    type="text">
                     </td>
 					<td>
-                        <input class="form_input title_val" value="<?php echo empty($dis_title_level[$i]['Sales_Self']) ? '' : $dis_title_level[$i]['Sales_Self'];?>"  name="Dis_Pro_Title[Sales_Self][]"  <?php if($i == 1):?>
-						notnull
-						<?php endif;?> type="text">
+                        <input class="form_input title_val" value="<?php echo empty($dis_title_level[$i]['Sales_Self']) ? '' : $dis_title_level[$i]['Sales_Self'];?>"  name="Dis_Pro_Title[Sales_Self][]"   type="text">
                     </td>
                     <td>
-                    	 <input class="form_input Group_Num" value="<?php echo empty($dis_title_level[$i]['Sales_Group']) ? '' : $dis_title_level[$i]['Sales_Group'];?>"  name="Dis_Pro_Title[Sales_Group][]"
-						
-						 <?php if($i == 1):?>
-						notnull
-						<?php endif;?>
-						
-						 type="text">
+                    	 <input class="form_input Group_Num" value="<?php echo empty($dis_title_level[$i]['Sales_Group']) ? '' : $dis_title_level[$i]['Sales_Group'];?>"  name="Dis_Pro_Title[Sales_Group][]" type="text">
                     </td>
                     <td>
-                        <input class="form_input bonus" value="<?php echo empty($dis_title_level[$i]['Bonus']) ? '' : $dis_title_level[$i]['Bonus'];?>" name="Dis_Pro_Title[Bonus][]" 
- <?php if($i == 1):?>
-						notnull
-						<?php endif;?>						type="text">
+                        <input class="form_input bonus" value="<?php echo empty($dis_title_level[$i]['Bonus']) ? '' : $dis_title_level[$i]['Bonus'];?>" name="Dis_Pro_Title[Bonus][]"  type="text">
                     </td>
                  <td> 
                       <label>
