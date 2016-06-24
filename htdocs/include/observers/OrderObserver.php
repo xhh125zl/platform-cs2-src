@@ -38,9 +38,9 @@ class OrderObserver {
 		$flag_b = $flag_c = $flag_d = $sha_Flag =true;
 		if($order->disAccountRecord()->count() > 0){
 			//更改分销账户得钱记录状态
-			$flag_b = $this->handle_dis_record_info();  
+			$flag_b = $this->handle_dis_record_info();
 			//处理分销账号信息，增加余额，总收入，以及晋级操作
-			$flag_c = $this->handle_dis_account_info();  
+			$flag_c = $this->handle_dis_account_info(); 
 		}
 		
 		//获取本店分销配置
@@ -426,7 +426,7 @@ class OrderObserver {
              
             
 
-	    if (count($Sha_Rate_Count) <= 0) { return; }
+	    if (count($Sha_Rate_Count) <= 0) { return true; }
 	    $cartProduct = json_decode($order->Order_CartList, true);
 	    $User_ID = $order->User_ID;
 	    $user = $this->user = User::find($User_ID);

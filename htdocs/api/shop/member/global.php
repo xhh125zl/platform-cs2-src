@@ -13,8 +13,14 @@ $shop_url = shop_url();
 
 //商城配置信息
 $rsConfig = shop_config($UsersID);
+if(!$rsConfig){
+    die("商城没有配置");
+}
 //分销相关设置
 $dis_config = dis_config($UsersID);
+if(!$rsConfig){
+    $dis_config = array();
+}
 //合并参数
 $rsConfig = array_merge($rsConfig,$dis_config);
 
