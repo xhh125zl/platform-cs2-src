@@ -26,7 +26,9 @@ if(isset($_POST['action']) && $_POST['action']=='ajax'){
         }
         $Data=array(
             'status' => 1,
-            'openid' => isset($biz_PayConfig['config']['OpenID'])?$biz_PayConfig['config']['OpenID']:''
+            'openid' => isset($biz_PayConfig['config']['OpenID'])?$biz_PayConfig['config']['OpenID']:'',
+            'nickname'=>isset($biz_PayConfig['config']['nickname'])?$biz_PayConfig['config']['nickname']:'',
+            'nickname'=>isset($biz_PayConfig['config']['headimgurl'])?$biz_PayConfig['config']['headimgurl']:''
         );
         die(json_encode($Data));
     }
@@ -158,6 +160,13 @@ if($_POST){
               </div>
               <div class="clear"></div>
             </div>
+            <div id="nickname" class="rows">
+                <?php  if(isset($biz_PayConfig['config']['headimgurl']) && $biz_PayConfig['config']['headimgurl']){ ?>
+                <label>微信昵称</label>
+                <span class="input" style="font-size:20px;"><img src="<?=$biz_PayConfig['config']['headimgurl'] ?>" width="22"/> <?=$biz_PayConfig['config']['nickname'] ?></span>
+                <?php } ?>
+                <div class="clear"></div>
+            </div>
             <div class="rows">
               <label>银行类型</label>
               <span class="input">
@@ -223,7 +232,7 @@ $(function(){
           window.clearInterval(instance);
 					alert("微信openid已设置成功");
 					var openid = data.openid;
-					$("input[name='OpenID']").val(openid);
+					location.reload();
 				}
 			},"json");
 		},3000);
@@ -298,6 +307,7 @@ function call()
     		$("input[name='BankNo']").parent().parent().hide();
     		$("input[name='BankName']").parent().parent().hide();
     		$("input[name='BankMobile']").parent().parent().hide();
+    		$("#nickname").show();
     		break;
     	}
     	case 2:		//支付宝支付
@@ -309,6 +319,7 @@ function call()
     		$("input[name='BankName']").parent().parent().hide();
     		$("input[name='BankNo']").parent().parent().hide();
     		$("input[name='BankMobile']").parent().parent().hide();
+    		$("#nickname").hide();
     		break;
     	}
     	case 3:
@@ -320,6 +331,7 @@ function call()
     		$("input[name='BankNo']").parent().parent().show();
     		$("input[name='BankName']").parent().parent().show();
     		$("input[name='BankMobile']").parent().parent().show();
+    		$("#nickname").hide();
     		break;
     	}
 	}

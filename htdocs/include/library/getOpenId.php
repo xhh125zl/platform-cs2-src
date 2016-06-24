@@ -28,7 +28,7 @@ if(strpos($_SERVER['REQUEST_URI'],"state=") !== false){//微信通信回来
 		}
 
 		$u->getOpenid($codebyurl);
-
+    $wechatInfo = $u->getuserinfo($codebyurl);
 	}else{//用户不同意授权
 		die("必须同意授权");
 	}	

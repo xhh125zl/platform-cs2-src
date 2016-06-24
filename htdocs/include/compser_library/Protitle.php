@@ -111,6 +111,7 @@ class ProTitle {
 			}
 
 			$protitles = json_decode($dis_config->Pro_Title_Level,true);
+			$protitless = array();
 			$protitles_temp = array_reverse($protitles,true);
 			foreach($protitles as $pk=>$pv){
 					if(!empty($pv['Name'])){

@@ -151,6 +151,13 @@ body, html {
 							<font class="fc_red">*</font> <span class="tips">商家微信OpenID</span></span>
 						<div class="clear"></div>
 					</div>
+					<div id="nickname" class="rows">
+                <?php  if(isset($biz_PayConfig['config']['headimgurl']) && $biz_PayConfig['config']['headimgurl']){ ?>
+                <label>微信昵称</label>
+                <span class="input" style="font-size:20px;"><img src="<?=$biz_PayConfig['config']['headimgurl'] ?>" width="22"/> <?=$biz_PayConfig['config']['nickname'] ?></span>
+                <?php } ?>
+                <div class="clear"></div>
+            </div>
 					<div class="rows">
 						<label>银行类型</label> <span class="input"> <input name="Bank"
 							value="<?php if(!empty($biz_PayConfig) && $biz_PayConfig['PaymentID'] ==3){ echo $biz_PayConfig['config']['Bank']; } ?>"
@@ -270,6 +277,7 @@ function call()
     		$("input[name='BankNo']").parent().parent().hide();
     		$("input[name='BankName']").parent().parent().hide();
     		$("input[name='BankMobile']").parent().parent().hide();
+    		$("#nickname").show();
     		break;
     	}
     	case 2:		//支付宝支付
@@ -281,6 +289,7 @@ function call()
     		$("input[name='BankName']").parent().parent().hide();
     		$("input[name='BankNo']").parent().parent().hide();
     		$("input[name='BankMobile']").parent().parent().hide();
+    		$("#nickname").hide();
     		break;
     	}
     	case 3:
@@ -292,6 +301,7 @@ function call()
     		$("input[name='BankNo']").parent().parent().show();
     		$("input[name='BankName']").parent().parent().show();
     		$("input[name='BankMobile']").parent().parent().show();
+    		$("#nickname").hide();
     		break;
     	}
 	}

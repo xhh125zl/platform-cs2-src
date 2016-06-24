@@ -161,6 +161,7 @@ class balance{
 	}
 	
 	function echo_payment_info($condition,$array){
+	    
 		$data = $this->get_sales_record($condition);
 		if(count($data)==0){
 			echo "";
@@ -188,8 +189,33 @@ class balance{
 		<tr>
 		  <td style="text-align:center; height:30pt; width:25%; border-right:1px #000 solid; border-bottom:1px #000 solid; font-family:宋体;font-size:12pt; color:#000">合计金额</td>
 		  <td colspan="3" style="text-align:left; padding-left:15px; height:30pt; border-bottom:1px #000 solid; font-family:宋体; font-size:12pt; color:#000">人民币：（大写）'.$this->rmb_format($array["Total"],false).'  ￥'.$array["Total"].'</td>
-		</tr>
-		<tr>
+		</tr>';
+		if($array['Payment_Type']==1){
+		    global $DB;
+		    $rsBiz = $DB->GetRs('biz','*',"WHERE Users_ID='".$array["Users_ID"]."' AND Biz_ID = '{$array['Biz_ID']}'");
+		    $config = json_decode($rsBiz['Biz_PayConfig'],true);
+		    //微支付
+		    $html.='<tr>
+		  <td style="text-align:center; height:30pt; width:25%; border-right:1px #000 solid; border-bottom:1px #000 solid; font-family:宋体;font-size:12pt; color:#000">收款类型</td>
+		  <td style="text-align:center; height:30pt; width:25%; border-right:1px #000 solid; border-bottom:1px #000 solid; font-family:宋体; font-size:12pt; color:#000">微支付</td>
+		  <td style="text-align:center; height:30pt; width:25%; border-right:1px #000 solid; border-bottom:1px #000 solid; font-family:宋体; font-size:12pt; color:#000">微信昵称</td>
+		  <td style="text-align:center; height:28pt; width:25%; border-bottom:1px #000 solid; font-family:宋体; font-size:12pt; color:#000"><img src="'.$config['config']["headimgurl"].'" width="20"/>'.$config['config']["nickname"].'</td>
+		</tr>';
+		    
+		}else if($array['Payment_Type']==2){
+		    global $DB;
+		    $rsBiz = $DB->GetRs('biz','*',"WHERE Users_ID='".$array["Users_ID"]."' AND Biz_ID = '{$array['Biz_ID']}'");
+		    $config = json_decode($rsBiz['Biz_PayConfig'],true);
+		    //微支付
+		    $html.='<tr>
+		  <td style="text-align:center; height:30pt; width:25%; border-right:1px #000 solid; border-bottom:1px #000 solid; font-family:宋体;font-size:12pt; color:#000">收款类型</td>
+		  <td style="text-align:center; height:30pt; width:25%; border-right:1px #000 solid; border-bottom:1px #000 solid; font-family:宋体; font-size:12pt; color:#000">支付宝</td>
+		  <td style="text-align:center; height:30pt; width:25%; border-right:1px #000 solid; border-bottom:1px #000 solid; font-family:宋体; font-size:12pt; color:#000">付款账户名</td>
+		  <td style="text-align:center; height:28pt; width:25%; border-bottom:1px #000 solid; font-family:宋体; font-size:12pt; color:#000"><img src="'.$config["headimgurl"].'" width="20"/>'.$config['config']["nickname"].'</td>
+		</tr>';
+		    
+		}else{
+		    $html.='<tr>
 		  <td style="text-align:center; height:30pt; width:25%; border-right:1px #000 solid; border-bottom:1px #000 solid; font-family:宋体;font-size:12pt; color:#000">收款银行</td>
 		  <td style="text-align:center; height:30pt; width:25%; border-right:1px #000 solid; border-bottom:1px #000 solid; font-family:宋体; font-size:12pt; color:#000">'.$array["Bank"].'</td>
 		  <td style="text-align:center; height:30pt; width:25%; border-right:1px #000 solid; border-bottom:1px #000 solid; font-family:宋体; font-size:12pt; color:#000">银行卡号</td>
@@ -200,8 +226,11 @@ class balance{
 		  <td style="text-align:center; height:30pt; width:25%; border-right:1px #000 solid; border-bottom:1px #000 solid; font-family:宋体; font-size:12pt; color:#000">'.$array["BankName"].'</td>
 		  <td style="text-align:center; height:30pt; width:25%; border-right:1px #000 solid; border-bottom:1px #000 solid; font-family:宋体; font-size:12pt; color:#000">收款人手机</td>
 		  <td style="text-align:center; height:28pt; width:25%; border-bottom:1px #000 solid; font-family:宋体; font-size:12pt; color:#000">'.$array["BankMobile"].'</td>
-		</tr>
-		<tr>
+		</tr>';
+		}
+		
+		
+		$html.='<tr>
 		    <td style="text-align:center; height:30pt; width:25%; border-right:1px #000 solid; border-bottom:1px #000 solid; font-family:宋体;font-size:12pt; color:#000">备注</td>
 		    <td style="text-align:center; height:30pt; width:25%; border-bottom:1px #000 solid; font-family:宋体; font-size:12pt; color:#000" colspan="3"></td>
 		</tr>

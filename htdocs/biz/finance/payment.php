@@ -22,7 +22,7 @@ if(isset($_GET["search"])){
 		}
 	}
 }
-
+$BizPayRate = array();
 $DB->Get('biz','*',"where Users_ID='".$rsBiz["Users_ID"]."'");
 while($BizRs = $DB->fetch_assoc()){
      $BizPayRate[$BizRs["Biz_ID"]] = empty($BizRs['PaymenteRate'])?'100':$BizRs['PaymenteRate'];    
@@ -36,27 +36,10 @@ if(isset($_GET["action"])){
                     echo '<script language="javascript">alert("此收款单已完成,不可再次操作!");window.location.href="payment.php";</script>';
                     exit;
                 }
-		$DB->Set("shop_sales_payment",array("Status"=>1),"where Payment_ID=".$paymentid);
-                
+		        $DB->Set("shop_sales_payment",array("Status"=>1),"where Payment_ID=".$paymentid);
+		        $DB->Set("shop_sales_record",array("Record_Status"=>1),"where Payment_ID='{$paymentid}'");
                 $Biz_ID = $DB->GetRs("shop_sales_payment",'Biz_ID,Total',"where Payment_ID=".$paymentid);
-                $usermoney = $Biz_ID["Total"]-($Biz_ID["Total"]*$BizPayRate[$Biz_ID["Biz_ID"]]/100);
-                $usermoney = !empty($usermoney)?$usermoney:'0';        
-                $UserID = $DB->GetRs("biz",'UserID',"where Biz_ID=".$Biz_ID['Biz_ID']);
-                $flag = $DB->Set("user",'User_Money=User_Money+'.$usermoney,"where User_ID=".$UserID['UserID']);
-                $rsUser=$DB->GetRs("user","User_Money","where Users_ID='".$rsBiz["Users_ID"]."' and User_ID='".$UserID["UserID"]."'");
-                if($flag){
-                    //增加资金流水
-                    $Data=array(
-                            'Users_ID'=>$rsBiz['Users_ID'],
-                            'User_ID'=>$UserID['UserID'],				
-                            'Type'=>3,
-                            'Amount'=>$usermoney,
-                            'Total'=>$rsUser['User_Money'],
-                            'Note'=>"财务结算余额+".$usermoney,
-                            'CreateTime'=>time()			
-                    );
-                    $Add=$DB->Add('user_money_record',$Data);
-                }
+                
 
 		echo '<script language="javascript">window.location.href="payment.php";</script>';
 	}
@@ -174,9 +157,12 @@ $_STATUS = array('<font style="color:red">未收款</font>','<font style="color:
             <td nowrap="nowrap"><?php echo date("Y-m-d H:i:s",$value["CreateTime"]);?></td>
             <td nowrap="nowrap">
             	<a href="payment_detail.php?paymentid=<?php echo $paymentid;?>">[查看详情]</a>
-                <?php if($value["Status"]==0){?>
+                <?php if($value["Status"]==2){?>
                 <a href="?action=getpay&paymentid=<?php echo $paymentid;?>">[确定收款]</a>&nbsp;
-                <a href="?action=del&paymentid=<?php echo $paymentid;?>">[删除]</a><?php }?>
+                <?php } ?>
+                <?php if($value["Status"]==0){?>
+                <a href="?action=del&paymentid=<?php echo $paymentid;?>">[删除]</a>
+                <?php }?>
 
             </td>
           </tr>

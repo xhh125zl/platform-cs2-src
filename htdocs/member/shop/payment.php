@@ -77,8 +77,8 @@ if($_POST){
         $BizID = $sPayment['Biz_ID'];
         $Data = $pay_order->withdraws($sPayment["Users_ID"],$sPayment["OpenID"],$pay_price);
         if($Data["status"]==1){
-            $DB->Set("shop_sales_payment",array("Status"=>1),"where Payment_ID='{$Payment_ID}'");
-            $DB->Set("shop_sales_record",array("Record_Status"=>1),"where Payment_ID='{$Payment_ID}'");
+            $DB->Set("shop_sales_payment",array("Status"=>2),"where Payment_ID='{$Payment_ID}'");
+            //$DB->Set("shop_sales_record",array("Record_Status"=>2),"where Payment_ID='{$Payment_ID}'");
             unset($_Get);
             echo '<script language="javascript">alert("操作成功");window.location="payment.php";</script>';
             exit;
