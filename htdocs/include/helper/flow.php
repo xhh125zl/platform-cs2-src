@@ -1,4 +1,71 @@
 <?php
+//生成二维码
+function createQrcode($url)
+{
+    global $DB;
+    if(!isset($_SESSION["BIZ_ID"])){
+        return "";
+    }
+    $Biz_Id = $_SESSION["BIZ_ID"];
+    require_once($_SERVER["DOCUMENT_ROOT"].'/include/library/phpqrcode/phpqrcode.php');
+    // 生成的文件名
+    $filepath = $_SERVER["DOCUMENT_ROOT"].'/uploadfiles/biz/'.$Biz_Id.'/qrcode/';
+    if(!file_exists($filepath)){
+        if(file_exists($filepath.DIRECTORY_SEPARATOR.'qrcode.png')){
+            @unlink($filepath.DIRECTORY_SEPARATOR.'qrcode.png');
+        }
+        @mkdir($filepath, 0777, true);
+    }
+    $filename = $filepath.DIRECTORY_SEPARATOR.'qrcode.png';
+    // 纠错级别：L、M、Q、H
+    $errorCorrectionLevel = 'H';
+    // 点的大小：1到10
+    $matrixPointSize = 3;
+    //创建一个二维码文件
+    QRcode::png($url, $filename, $errorCorrectionLevel, $matrixPointSize, 2);
+    return 'http://'.$_SERVER['HTTP_HOST'].'/uploadfiles/biz/'.$Biz_Id.'/qrcode/qrcode.png';
+}
+
+/*
+ *  获取支付配置信息
+ *  @param $UsersID 商家ID
+ */
+//
+function getPayConfig ($UsersID, $isChoose = false)
+{
+    global $DB;
+
+    if(!$UsersID)  return array();
+    $payConfig = $DB->GetRs("users_payconfig","*","WHERE Users_ID = '{$UsersID}'");
+    if ($isChoose)
+    {
+        $pay = array();
+        if($payConfig['PaymentWxpayEnabled'] == 1)
+        {
+            $pay['WxPay']['Pay'] = "WxPay";
+            $pay['WxPay']['Name'] = "微信支付";
+            $pay['WxPay']['ID'] = 1;
+        }
+        if($payConfig['Payment_AlipayEnabled'] == 1)
+        {
+            $pay['AliPay']['Pay'] = "AliPay";
+            $pay['AliPay']['Name'] = "支付宝支付";
+            $pay['AliPay']['ID'] = 2;
+        }
+        /*
+        if($payConfig['PaymentYeepayEnabled'] == 1)
+        {
+            $pay['YeePay']['Pay'] = "YeePay";
+            $pay['YeePay']['Name'] = "易宝支付";
+            $pay['YeePay']['ID'] = 4;
+        }*/
+        return $pay;
+    }
+
+    return $payConfig;
+}
+
+
 /**
  *确定需要多少运费
  *

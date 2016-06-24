@@ -13,8 +13,8 @@ if($_POST)
 		"Category_Name"=>trim($_POST["Name"]),
 		"Users_ID"=>$_SESSION["Users_ID"],
 		"Category_Type"=>$_POST["Type"],
-		"Category_Content"=>!empty($_POST['Content']) ? $_POST['Content'] : '',
-		'mob_show'=>$_POST['mob_show']
+		"mob_show" =>$_POST["mob_show"],
+		"Category_Content"=>!empty($_POST['Content']) ? $_POST['Content'] : ''
 	);
 	$Flag=$DB->Set("shop_articles_category",$Data,"where Users_ID='".$_SESSION["Users_ID"]."' and Category_ID=".$CategoryID);
 	if($Flag)
@@ -79,12 +79,12 @@ if($_POST)
               <font class="fc_red">*</font>请输入数字</span>
               <div class="clear"></div>
             </div>
-			<div class="opt_item">
+			     <div class="opt_item">
                 <label>显示在:</label>
                 <span class="input">
-				    <label><input name="mob_show" type="radio" value="0"<?php if($rsCategory['mob_show'] == 0){ echo 'checked';}?>>手机端</label>
-                    <label><input name="mob_show" type="radio" value="1"<?php if($rsCategory['mob_show'] == 1){ echo 'checked';}?>>电脑端</label>
-					<label><input name="mob_show" type="radio" value="2"<?php if($rsCategory['mob_show'] == 2){ echo 'checked';}?>>全部</label>
+				    <label><input name="mob_show" type="radio" value="0"<?php if(isset($rsCategory['mob_show']) && $rsCategory['mob_show'] == 0){ echo 'checked';}?>>手机端</label>
+                    <label><input name="mob_show" type="radio" value="1"<?php if(isset($rsCategory['mob_show']) && $rsCategory['mob_show'] == 1){ echo 'checked';}?>>电脑端</label>
+					<label><input name="mob_show" type="radio" value="2"<?php if(isset($rsCategory['mob_show']) && $rsCategory['mob_show'] == 2){ echo 'checked';}?>>全部</label>
                 </span>
                 <div class="clear"></div>
             </div>

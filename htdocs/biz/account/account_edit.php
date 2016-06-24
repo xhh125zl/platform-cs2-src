@@ -102,6 +102,7 @@ KindEditor.ready(function(K) {
                 <li><a href="bind_user.php">绑定会员</a></li>
 
         <li><a href="account_password.php">修改密码</a></li>
+        <li><a href="account_payconfig.php">结算配置</a></li>
       </ul>
     </div>
     <div id="bizs" class="r_con_wrap">
