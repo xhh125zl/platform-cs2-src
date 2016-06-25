@@ -72,7 +72,7 @@ if ($_POST) {
         "CreateTime" => $createtime,
         "Biz_ID" => $_POST["BizID"],
         "Users_ID" => $_SESSION["Users_ID"],
-        "Status" => 2
+        "Status" => 3
     );
     switch ($_POST['PaymentID']) {
         case 1:
@@ -101,7 +101,7 @@ if ($_POST) {
     if ($Flag) {
         $DB->Set("shop_sales_record", array(
             "Payment_ID" => $paymentid,
-            "Record_Status"=>2
+            "Record_Status"=>3
         ), $condition);
         $Payment_Sn = $createtime . $paymentid;
         $DB->Set("shop_sales_payment", array(
