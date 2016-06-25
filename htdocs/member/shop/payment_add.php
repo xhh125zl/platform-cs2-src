@@ -21,11 +21,22 @@ if(isset($_POST['action']) && $_POST['action'] == 'ajax')
         );
         die(json_encode($Data,JSON_UNESCAPED_UNICODE));
     }
+    $Data=array(
+        'status' => 0,
+        'msg' => '结算配置没有设置',
+        'config' => $res['Biz_PayConfig']
+    );
+    die(json_encode($Data,JSON_UNESCAPED_UNICODE));
+    exit;
 }
 
 if ($_POST) {
+    if(!isset($_POST["BizID"])){
+        echo '<script language="javascript">alert("无效的BIZ_ID!");history.back();</script>';
+        exit;
+    }
 	$BizRs = $DB->GetRS('biz','Users_ID',"where Users_ID='".$_SESSION["Users_ID"]."' and BIZ_ID=".$_POST["BizID"]);
-	if(empty($BizRs['UserID'])){
+	if(!$BizRs){
 		echo '<script language="javascript">alert("该商家没有绑定前台会员,暂不能结款!");history.back();</script>';
 		exit;
 	}
@@ -60,7 +71,8 @@ if ($_POST) {
         "Total" => $paymentinfo["supplytotal"],
         "CreateTime" => $createtime,
         "Biz_ID" => $_POST["BizID"],
-        "Users_ID" => $_SESSION["Users_ID"]
+        "Users_ID" => $_SESSION["Users_ID"],
+        "Status" => 2
     );
     switch ($_POST['PaymentID']) {
         case 1:
@@ -88,13 +100,14 @@ if ($_POST) {
     $paymentid = $DB->insert_id();
     if ($Flag) {
         $DB->Set("shop_sales_record", array(
-            "Payment_ID" => $paymentid
+            "Payment_ID" => $paymentid,
+            "Record_Status"=>2
         ), $condition);
         $Payment_Sn = $createtime . $paymentid;
         $DB->Set("shop_sales_payment", array(
             "Payment_Sn" => $Payment_Sn
         ), "where Payment_ID=" . $paymentid);
-        echo '<script language="javascript">window.location.href="payment_detail.php?paymentid=' . $paymentid . '";</script>';
+        echo '<script language="javascript">alert("生成成功");window.location.href="payment_detail.php?paymentid=' . $paymentid . '";</script>';
         exit();
     } else {
         echo '<script language="javascript">alert("生成失败！");history.back();</script>';
@@ -243,7 +256,7 @@ body, html {
 			var BizID = $("select[name='BizID']").val();
 			$.post("/member/shop/payment_add.php",{action:'ajax',Biz_ID:BizID},function(data){
 				if(data.status==0){
-					top.location.href = data.url; 
+					alert(data.msg);
 				}else if(data.status==1){	//成功获取并更改openid
 					
 					var config = eval('('+data.config+')');

@@ -219,17 +219,19 @@ if ($_POST) {
 							<td nowrap="nowrap"><?php echo $value["Bonus"];?></td>
 							<td nowrap="nowrap"><font style="color: blue"><?php echo $value["Total"];?></font></td>
 							<td nowrap="nowrap"><?php echo $_STATUS[$value["Status"]];?></td>
-							<td nowrap="nowrap">
-			<?php if($value["Status"]==0){?>
+							<td nowrap="nowrap" style="text-align: center;">
+			<?php if($value["Status"]==0 && $value['Payment_Type']==1){?>
 				<a href="#" class="btn_green btn_w_120 weixin"
 								style="width: 70px; margin: 0px;">微信转账</a>
 							</td>
-			<?php }else{?>
+			<?php }else if($value['Payment_Type']==1){?>
 				<a href="#" class="btn_greens"
 								style="width: 70px; margin: 0px; color: #FFF; background-color: #494A4A;">微信转账</a>
 							</td>
-			<?php } ?>
-			
+			<?php }else{ ?>
+					银行转账
+			</td>
+			<?php }?>
 			<td nowrap="nowrap" style="display: none;"><?php echo $value["Payment_ID"];?></td>
 							<td nowrap="nowrap" style="display: none;"><?php echo $value["Payment_Sn"];?></td>
 							<td nowrap="nowrap" style="display: none;"><?php echo $value["BankMobile"];?></td>
