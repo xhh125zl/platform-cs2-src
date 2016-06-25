@@ -1,2 +1,2 @@
-ALTER TABLE users_schedule add LastRunTime int(11) DEFAULT 0 COMMENT "×îºóÖ´ĞĞÊ±¼ä";
-ALTER TABLE users_schedule add day tinyint(2) DEFAULT 0 COMMENT "¼ä¸ôÖ´ĞĞµÄÌìÊı";
+ALTER TABLE users_schedule add LastRunTime int(11) DEFAULT 0 COMMENT "æœ€åæ‰§è¡Œæ—¶é—´";
+ALTER TABLE users_schedule add day tinyint(2) DEFAULT 0 COMMENT "é—´éš”æ‰§è¡Œçš„å¤©æ•°";

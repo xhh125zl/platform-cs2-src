@@ -1,1 +1,1 @@
-ALTER TABLE distribute_config add TxCustomize tinyint(1) DEFAULT 1 COMMENT 'ÌáÏÖÉóºË¿ª¹Ø';
+ALTER TABLE distribute_config add TxCustomize tinyint(1) DEFAULT 1 COMMENT 'æç°å®¡æ ¸å¼€å…³';
