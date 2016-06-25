@@ -24,24 +24,32 @@ if (! empty($_SESSION[$UsersID . "OpenID"])) {
     $openid = $_SESSION[$UsersID . "OpenID"];
     if ($deAuth['Biz_Account'] == $Biz_Info['Biz_Account'] && $deAuth['Users_ID'] == $Biz_Info['Users_ID']) {
         
-        if (isset($Biz_Info['Biz_PayConfig']) && ! empty($Biz_Info['Biz_PayConfig'])) {
-            $biz_PayConfig = array(
-                "PaymentID" => 1,
-                "config" => array(
-                    "OpenID" => $openid,
-                    "PaymentMethod" => "微信结算"
-                )
-            );
-            $PayConfig = json_encode($biz_PayConfig, JSON_UNESCAPED_UNICODE);
-            // $flag = $DB->Set("biz", array("Biz_PayConfig"=>$PayConfig, "Biz_Flag"=>1),"WHERE Biz_ID='{$Biz_ID}'");
-            $flag = $DB->query("UPDATE biz SET Biz_PayConfig = '{$PayConfig}',Biz_Flag = 1  WHERE Biz_ID='{$Biz_ID}'");
-            if ($flag) {
-                die("OpenID设置成功");
-            } else {
-                die("OpenID设置失败");
-            }
+        // if(isset($Biz_Info['Biz_PayConfig'])){
+        $biz_PayConfig = array(
+            "PaymentID" => 1,
+            "config" => array(
+                "OpenID" => $openid,
+                "PaymentMethod" => "微信结算",
+                "nickname" => $wechatInfo["nickname"],
+                "headimgurl" => $wechatInfo["headimgurl"]
+            )
+        );
+        
+        $PayConfig = json_encode($biz_PayConfig, JSON_UNESCAPED_UNICODE);
+        // $flag = $DB->Set("biz", array("Biz_PayConfig"=>$PayConfig, "Biz_Flag"=>1),"WHERE Biz_ID='{$Biz_ID}'");
+        $flag = $DB->query("update biz set Biz_PayConfig = '{$PayConfig}',Biz_Flag = 1  WHERE Biz_ID='{$Biz_ID}'");
+        if ($flag) {
+            die("OpenID设置成功");
+        } else {
+            die("OpenID设置失败");
         }
+        // }else{
+        // die("BizConfig不存在");
+        // }
     } else {
         die("非法篡改");
     }
+} else {
+    print_r($_SESSION);
+    die("Session丢失");
 }
