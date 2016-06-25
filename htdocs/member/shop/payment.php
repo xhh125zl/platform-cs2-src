@@ -58,7 +58,8 @@ while ($r = $DB->Fetch_assoc()) {
 $_STATUS = array(
     '<font style="color:red">未收款</font>',
     '<font style="color:blue">已收款</font>',
-    '<font style="color:red">已结算（等待商家确认）</font>'
+    '<font style="color:red">已结算（等待商家确认）</font>',
+    '<font style="color:red">申请中</font>'
 );
 if ($_POST) {
     $Payment_ID = intval($_POST['Payment_ID']);
@@ -220,7 +221,7 @@ if ($_POST) {
 							<td nowrap="nowrap"><font style="color: blue"><?php echo $value["Total"];?></font></td>
 							<td nowrap="nowrap"><?php echo $_STATUS[$value["Status"]];?></td>
 							<td nowrap="nowrap" style="text-align: center;">
-			<?php if($value["Status"]==0 && $value['Payment_Type']==1){?>
+			<?php if(($value["Status"]==0 || $value["Status"]==2) && $value['Payment_Type']==1){?>
 				<a href="#" class="btn_green btn_w_120 weixin"
 								style="width: 70px; margin: 0px;">微信转账</a>
 							</td>
@@ -238,7 +239,7 @@ if ($_POST) {
 							<td nowrap="nowrap"><?php echo date("Y-m-d H:i:s",$value["CreateTime"]);?></td>
 							<td nowrap="nowrap"><a
 								href="payment_detail.php?paymentid=<?php echo $paymentid;?>">[查看详情]</a>
-                <?php if($value["Status"]==0){?><a
+                <?php if($value["Status"]==0 || $value["Status"]==2){?><a
 								href="?action=del&paymentid=<?php echo $paymentid;?>">[删除]</a><?php }?>
             </td>
 						</tr>
