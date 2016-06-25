@@ -57,7 +57,8 @@ while ($r = $DB->Fetch_assoc()) {
 }
 $_STATUS = array(
     '<font style="color:red">未收款</font>',
-    '<font style="color:blue">已收款</font>'
+    '<font style="color:blue">已收款</font>',
+    '<font style="color:red">已结算（等待商家确认）</font>'
 );
 if ($_POST) {
     $Payment_ID = intval($_POST['Payment_ID']);
@@ -85,7 +86,7 @@ if ($_POST) {
             $DB->Set("shop_sales_payment", array(
                 "Status" => 2
             ), "WHERE Payment_ID='{$Payment_ID}'");
-            // $DB->Set("shop_sales_record",array("Record_Status"=>2),"WHERE Payment_ID='{$Payment_ID}'");
+            $DB->Set("shop_sales_record",array("Record_Status"=>2),"WHERE Payment_ID='{$Payment_ID}'");
             unset($_Get);
             echo '<script language="javascript">alert("操作成功");window.location="payment.php";</script>';
             exit();
@@ -137,6 +138,7 @@ if ($_POST) {
 				<ul>
 					<li><a href="sales_record.php">销售记录</a></li>
 					<li class="cur"><a href="payment.php">付款单</a></li>
+					<li><a href="/member/shop/setting/config.php?cfgPay=1">自动结算配置</a></li>
 				</ul>
 			</div>
 			<link href='/static/js/plugin/operamasks/operamasks-ui.css'
