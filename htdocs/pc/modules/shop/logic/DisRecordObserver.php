@@ -19,9 +19,11 @@ class DisRecordObserver{
                 $this->DisRecord = model('distribute_record')->field('*')->where(array('Record_ID'=>$Record_ID))->find();
 
 		$account_records = $this->generateDistributeAccountRecord();//二维数组
+                //
 		//爵位奖
 		$comm = new \shop\logic\Commission();
-		$nobi = $comm->handout_dis_commission($this->Order_ID, $this->Product, $this->Qty);
+                $nobi = $comm->handout_dis_commission($this->Order_ID, $this->Product, $this->Qty);
+                
 		$final_account_records = $this->combine_records($account_records, $nobi);
 		//组装批量插入sql语句
 		if($final_account_records){
@@ -48,7 +50,12 @@ class DisRecordObserver{
 
 		foreach($account_records as $key => $recordItem){
 			
-			$nobiItem = $nobi[$recordItem['User_ID']];
+                if(empty($this->shop_config['Pro_Title_Level'])){
+                    $nobiItem = array();
+                 }else{
+                    $nobiItem = $nobi[$recordItem['User_ID']];
+                 }
+			
 			
 			$recordItem = array_merge($recordItem,$nobiItem);
 
@@ -105,6 +112,7 @@ class DisRecordObserver{
 		$Distribute_List = $Product['Distribute_List'];
 
 		foreach ($ancestors_rsort as $key => $value) {
+                    
 			if ($Buyer_ID == $value) {//自销
 				//自己获取佣金                                
 				$Record_Description = '自己销售自己购买' . $Product['Products_Name'] . '&yen;' . $Product['Products_Price']. '成功，获取奖金';
@@ -120,9 +128,11 @@ class DisRecordObserver{
 				}
 				//上级分销商获取佣金
 				
-
-				$Record_Money = !empty($Distribute_List[$my_level][$key]) ? $Distribute_List[$my_level][$key] * $Qty : 0;
-				$Record_Price = !empty($Distribute_List[$my_level][$key]) ? $Distribute_List[$my_level][$key] : 0;
+                                $distribute_account = model('distribute_account')->field('*')->where(array('Users_ID'=>$UsersID,'User_ID'=>$value))->find();
+                                $Level_ID = $distribute_account['Level_ID'];
+				$Record_Money = !empty($Distribute_List[$Level_ID][$key]) ? $Distribute_List[$Level_ID][$key] * $Qty : 0;
+				$Record_Price = !empty($Distribute_List[$Level_ID][$key]) ? $Distribute_List[$Level_ID][$key] : 0;
+                                 
 			}
 			 
 
