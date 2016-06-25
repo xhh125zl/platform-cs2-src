@@ -49,7 +49,7 @@ if($_POST){
 	$dis_config->Withdraw_PerLimit = empty($_POST['PerLimit']) ? 0 : $_POST['PerLimit'];
 	$dis_config->Balance_Ratio = empty($_POST['Balance_Ratio']) ? 0 : $_POST['Balance_Ratio'];
 	$dis_config->Poundage_Ratio = empty($_POST['Poundage_Ratio']) ? 0 : $_POST['Poundage_Ratio'];
-	
+	$dis_config->TxCustomize = empty($_POST['TxCustomize']) ? 0 : $_POST['TxCustomize'];
 	$Flag = $dis_config->save();
 	
 	if($Flag){
@@ -235,7 +235,15 @@ if($_POST){
           </span>
           <div class="clear"></div>
         </div>
-        
+		<div class="rows">
+          <label>提现是否审核</label>
+          <span class="input">
+          <input type="radio" name="TxCustomize" id="c_0" value="0"<?php echo $rsConfig["TxCustomize"]==0 ? ' checked' : '';?>/><label for="c_0"> 关闭</label>&nbsp;&nbsp;
+           <input type="radio" name="TxCustomize" id="c_1" value="1"<?php echo $rsConfig["TxCustomize"]==1 ? ' checked' : '';?>/><label for="c_1"> 开启</label><span class="tips">&nbsp;&nbsp;注:仅对微信红包及转账有效</span>
+          </span>
+          <div class="clear"></div>
+        </div>
+		
         
         <div class="rows">
           <label></label>
