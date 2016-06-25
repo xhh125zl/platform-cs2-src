@@ -221,7 +221,7 @@ if ($_POST) {
 							<td nowrap="nowrap"><font style="color: blue"><?php echo $value["Total"];?></font></td>
 							<td nowrap="nowrap"><?php echo $_STATUS[$value["Status"]];?></td>
 							<td nowrap="nowrap" style="text-align: center;">
-			<?php if(($value["Status"]==0 || $value["Status"]==2 ||  $value["Status"]==3) && $value['Payment_Type']==1){?>
+			<?php if(($value["Status"]==0  ||  $value["Status"]==3) && $value['Payment_Type']==1){?>
 				<a href="#" class="btn_green btn_w_120 weixin"
 								style="width: 70px; margin: 0px;">微信转账</a>
 							</td>
