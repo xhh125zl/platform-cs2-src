@@ -100,8 +100,9 @@ class SalesPayment
             {
                 $Data = $this->pay_order->withdraws($this->Users_ID,$v["OpenID"],$v['Total']);
                 if($Data["status"]==1){
-                    $DB->Set("shop_sales_payment",array("Status"=>1),"where Payment_ID='{$v['Payment_ID']}'");
-                    $DB->Set("shop_sales_record",array("Record_Status"=>1),"where Payment_ID='{$v['Payment_ID']}'");
+                    $DB->Set("shop_sales_payment",array("Status"=>2),"where Payment_ID='{$v['Payment_ID']}'");
+                    //$DB->Set("shop_sales_record",array("Record_Status"=>1),"where Payment_ID='{$v['Payment_ID']}'");
+                    
                 }else{
                     $DB->Set("shop_sales_payment",array("Msg"=>$Data["msg"]),"where Payment_ID='{$v['Payment_ID']}'");
                 }

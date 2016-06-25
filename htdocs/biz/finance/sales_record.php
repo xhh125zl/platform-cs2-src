@@ -29,7 +29,11 @@ while($r=$DB->Fetch_assoc()){
 	$lists[$r["Record_ID"]] = $r;
 }
 $lists = $balance->repeat_list($lists);
-$_STATUS = array('<font style="color:red">未结算</font>','<font style="color:blue">已结算</font>');
+$_STATUS = array(
+    '<font style="color:red">未收款</font>',
+    '<font style="color:blue">已收款</font>',
+    '<font style="color:red">已结算（等待商家确认）</font>'
+);
 ?>
 <!DOCTYPE HTML>
 <html>

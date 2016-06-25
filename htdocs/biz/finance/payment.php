@@ -72,7 +72,8 @@ while ($r = $DB->Fetch_assoc()) {
 }
 $_STATUS = array(
     '<font style="color:red">未收款</font>',
-    '<font style="color:blue">已收款</font>'
+    '<font style="color:blue">已收款</font>',
+    '<font style="color:red">已结算（等待商家确认）</font>'
 );
 ?>
 <!DOCTYPE HTML>

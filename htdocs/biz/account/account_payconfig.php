@@ -68,6 +68,8 @@ if ($_POST) {
             {
                 $Data['OpenID'] = $_POST["OpenID"];
                 $Data['PaymentMethod'] = "微信结算";
+                $Data['nickname'] = $_POST["nickname"];
+                $Data['headimgurl'] = $_POST["headimgurl"];
                 break;
             }
         case 2:
@@ -172,7 +174,9 @@ if ($_POST) {
 							style="font-size: 20px;"><img
 							src="<?=$biz_PayConfig['config']['headimgurl'] ?>" width="22" /> <?=$biz_PayConfig['config']['nickname'] ?></span>
                 <?php } ?>
-                <div class="clear"></div>
+                		<input type="hidden" name="nickname" value="<?=$biz_PayConfig['config']['nickname'] ?>" />
+                		<input type="hidden" name="headimgurl" value="<?=$biz_PayConfig['config']['headimgurl'] ?>" />
+                		<div class="clear"></div>
 					</div>
 					<div class="rows">
 						<label>银行类型</label> <span class="input"> <input name="Bank"
@@ -255,7 +259,8 @@ $(function(){
 		var paymentid = parseInt($("select[name='PaymentID']").val());
 		if(paymentid===1){
 			var openid = $("input[name='OpenID']").val();
-			
+			var nickname = $("input[name='nickname']").val();
+			var headimgurl = $("input[name='headimgurl']").val();
 			if(openid=="" || openid==null){
 				alert("微信识别码OpenID 不能为空");
 				return false;

@@ -36,7 +36,11 @@ while($r=$DB->Fetch_assoc()){
 	$lists[$r["Record_ID"]] = $r;
 }
 $lists = $balance->repeat_list($lists);
-$_STATUS = array('<font style="color:red">未结算</font>','<font style="color:blue">已结算</font>');
+$_STATUS = array(
+    '<font style="color:red">未收款</font>',
+    '<font style="color:blue">已收款</font>',
+    '<font style="color:red">已结算（等待商家确认）</font>'
+);
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -62,6 +66,7 @@ $_STATUS = array('<font style="color:red">未结算</font>','<font style="color:
       <ul>
         <li class="cur"><a href="sales_record.php">销售记录</a></li>
         <li><a href="payment.php">付款单</a></li>
+        <li><a href="/member/shop/setting/config.php?cfgPay=1">自动结算配置</a></li>
       </ul>
     </div>
     <link href='/static/js/plugin/operamasks/operamasks-ui.css' rel='stylesheet' type='text/css' />
