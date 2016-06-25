@@ -8,32 +8,72 @@ if($rsConfig["Withdraw_Type"]==3){
 }
 if($rsAccount["Enable_Tixian"] == 0){
 	if($rsConfig["Withdraw_Type"]==0){//无限制
-		$accountObj->Enable_Tixian = 1;
-		$accountObj->save();
+            $accountObj->Enable_Tixian = 1;
+            $accountObj->save();
 	}elseif($rsConfig["Withdraw_Type"]==1){//佣金限制
-		if($rsConfig["Withdraw_Limit"]==0){			
-			$accountObj->Enable_Tixian = 1;
-			$accountObj->save();			
-		}else{
-			if($rsAccount['Total_Income'] >= $rsConfig["Withdraw_Limit"]){
-				$accountObj->Enable_Tixian = 1;
-				$accountObj->save();
-			}else{
-				header("location:".distribute_url()."withdraw_apply/");
-			}
-		}
-	}elseif($rsConfig["Withdraw_Type"]==3){//等级限制
-		if($rsConfig["Withdraw_Limit"]==0){			
-			$accountObj->Enable_Tixian = 1;
-			$accountObj->save();			
-		}else{
-			if($rsAccount['Level_ID'] >= $rsConfig["Withdraw_Limit"]){
-				$accountObj->Enable_Tixian = 1;
-				$accountObj->save();
-			}else{
-				header("location:".distribute_url()."withdraw_apply/");
-			}
-		}
+            if($rsConfig["Withdraw_Limit"]==0){			
+                $accountObj->Enable_Tixian = 1;
+                $accountObj->save();			
+            }else{
+                if($rsAccount['Total_Income'] >= $rsConfig["Withdraw_Limit"]){
+                    $accountObj->Enable_Tixian = 1;
+                    $accountObj->save();
+                }else{
+                    header("location:".distribute_url()."withdraw_apply/");
+                }
+            }
+        } elseif ($rsConfig['Withdraw_Type']==2){
+            $Withdraw_Limt = !empty($rsConfig['Withdraw_Limit'])?explode('|',$rsConfig['Withdraw_Limit']):'array(0)';
+            if ($Withdraw_Limt[0] == 0){
+                $row = $DB->GetRs('user_order','Order_ID',"where Users_ID='".$UsersID."' and User_ID= '".$_SESSION[$UsersID.'User_ID']."'");
+                if ($row) {
+                    $accountObj->Enable_Tixian = 1;
+                    $accountObj->save();	
+                }
+                 
+            }else{
+                if (empty($Withdraw_Limt[1])) {
+                    $row = $DB->GetRs('user_order','Order_ID',"where Users_ID='".$UsersID."' and User_ID= '".$_SESSION[$UsersID.'User_ID']."'");
+                    if ($row) {
+                        $accountObj->Enable_Tixian = 1;
+                        $accountObj->save();	
+                    } else {
+                        header("location:".distribute_url()."withdraw_apply/");
+                    }
+                }else{
+                    $id_array = explode(',',$Withdraw_Limt[1]);  
+                    
+                    $rs = $DB->Get('user_order','Order_CartList',"where Users_ID='".$UsersID."' and User_ID= '".$_SESSION[$UsersID.'User_ID']."'");
+                    $orderlist = $DB->toArray($rs); 
+                    $flag = '';
+                    foreach ($orderlist as $k => $v) {
+                        $Order_CartList = json_decode($v['Order_CartList'],true);
+                        foreach ($Order_CartList as $ks => $vs) {
+                            if (in_array($ks,$id_array)){
+                                $flag = 1;
+                                $accountObj->Enable_Tixian = 1;
+                                $accountObj->save();
+                                break 2;
+                            }
+                        }
+                    }
+                    if($flag != 1){
+                        header("location:".distribute_url()."withdraw_apply/");
+                    }
+                }
+            }  
+        }elseif($rsConfig["Withdraw_Type"]==3){//等级限制
+            if($rsConfig["Withdraw_Limit"]==0){			
+                $accountObj->Enable_Tixian = 1;
+                $accountObj->save();			
+            }else{
+                if($rsAccount['Level_ID'] >= $rsConfig["Withdraw_Limit"]){
+                        $accountObj->Enable_Tixian = 1;
+                        $accountObj->save();
+                }else{
+                        header("location:".distribute_url()."withdraw_apply/");
+                }
+            }
 	}else{
 		header("location:".distribute_url()."withdraw_apply/");
 	}
@@ -42,7 +82,6 @@ if($rsAccount["Enable_Tixian"] == 0){
 //提现方式列表
 $rsUserMethods = $DB->Get("distribute_withdraw_methods","*","where Users_ID='".$UsersID."' and User_ID= '".$_SESSION[$UsersID.'User_ID']."'");
 $user_method_list = $DB->toArray($rsUserMethods);
-
 //获取帮助此用户的记录
 $condition = "where Users_ID='".$UsersID."' and User_ID= '".$_SESSION[$UsersID.'User_ID']."'";
 
