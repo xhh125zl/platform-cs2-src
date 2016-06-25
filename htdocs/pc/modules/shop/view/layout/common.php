@@ -39,10 +39,10 @@
 		</div>
 		<?php if(empty($_SESSION[$output['UsersID'] . 'User_ID'])) {?>
 
-		<div class="top_left"><em>您好，欢迎来到<a href="<?php echo url('index/index');?>"><?php echo $output['shopConfig']['shopname'];?></a>网上商城</em><a href="<?php echo url('public/login');?>" class="login">请登录</a><a  href='javascript:void(0)' id='reg' url="<?php echo url('public/register',array('UsersID'=>$output['UsersID']));?>" class="sign">免费注册</a>&nbsp;&nbsp;<a href="<?php echo url('distribute/distribute_invite');?>" style="color:#d30015;">邀请返利</a></div>
+		<div class="top_left"><em>您好，欢迎来到<a href="<?php echo url('index/index');?>"><?php echo $output['shopConfig']['shopname'];?></a>网上商城</em><a href="<?php echo url('public/login');?>" class="login">请登录</a><a  href='javascript:void(0)' id='reg' url="<?php echo url('public/register',array('UsersID'=>$output['UsersID']));?>" class="sign">免费注册</a>&nbsp;&nbsp;<!--<a href="<?php //echo url('distribute/distribute_invite');?>" style="color:#d30015;">邀请返利</a>--></div>
 
 	    <?php }else {?>
-		<div class="top_left"><em>您好，<a href="<?php echo url('member/index');?>"><?php echo $_SESSION[$output['UsersID'] . 'User_Name'];?></a>欢迎来到&nbsp;<a href="<?php echo url('index/index');?>"><?php echo $output['shopConfig']['shopname'];?></a>&nbsp;网上商城</em><a href="<?php echo url('public/logout',array('UsersID'=>$output['UsersID']));?>" class="sign">[退出]</a>&nbsp;&nbsp;<a href="<?php echo url('distribute/distribute_invite');?>" style="color:#d30015;">邀请返利</a></div>
+		<div class="top_left"><em>您好，<a href="<?php echo url('member/index');?>"><?php echo $_SESSION[$output['UsersID'] . 'User_Name'];?></a>欢迎来到&nbsp;<a href="<?php echo url('index/index');?>"><?php echo $output['shopConfig']['shopname'];?></a>&nbsp;网上商城</em><a href="<?php echo url('public/logout',array('UsersID'=>$output['UsersID']));?>" class="sign">[退出]</a>&nbsp;&nbsp;<!--<a href="<?php //echo url('distribute/distribute_invite');?>" style="color:#d30015;">邀请返利</a>--></div>
 		<?php }?>
 	</div>
 </div>
