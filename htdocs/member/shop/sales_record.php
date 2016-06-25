@@ -43,7 +43,8 @@ $lists = $balance->repeat_list($lists);
 $_STATUS = array(
     '<font style="color:red">未收款</font>',
     '<font style="color:blue">已收款</font>',
-    '<font style="color:red">已结算（等待商家确认）</font>'
+    '<font style="color:red">已结算（等待商家确认）</font>',
+    '<font style="color:red">申请中</font>'
 );
 ?>
 <!DOCTYPE HTML>
