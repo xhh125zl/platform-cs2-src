@@ -670,7 +670,7 @@ class pay_order{
 	}
     public function withdraws($UsersID, $OpenID, $money)
     { // 佣金提现(微信红包、微信转账
-        $rsUser = $this->db->GetRs("user", "User_OpenID", "WHERE Users_ID='{$UsersID}' and User_OpenID='{$OpenID}'");
+        $rsUser = $this->db->GetRs("user", "*", "WHERE Users_ID='{$UsersID}' and User_OpenID='{$OpenID}'");
         if (empty($rsUser)) {
             return array(
                 'status' => 0,
@@ -761,6 +761,7 @@ class pay_order{
             );
         }
     }
+    
 	public function checkhongbao($UsersID,$mch_billno){//佣金提现(微信红包、微信转账
 		$rsUsers = $this->db->GetRs("users","Users_ID,Users_WechatAppId,Users_WechatAppSecret","where Users_ID='".$UsersID."'");
 		if(empty($rsUsers["Users_WechatAppId"]) || empty($rsUsers["Users_WechatAppSecret"])){
