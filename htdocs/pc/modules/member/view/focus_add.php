@@ -23,9 +23,8 @@ KindEditor.ready(function(K) {
 			});
 		});
 	});
-	
-	K('#PicDetail div span').click(function(){
-		K(this).parent().remove();
+	$('#PicDetail').on('click','div span',function() {
+            $(this).parent().remove();
 	});
 })	
 </script>

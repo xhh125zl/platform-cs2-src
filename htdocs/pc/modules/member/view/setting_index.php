@@ -57,7 +57,10 @@ KindEditor.ready(function(K) {
 		});
 	});
 })
-$(document).ready(function() {
+$(document).ready(function() {PicDetail
+        $('#PicDetail').on('click','div span',function() {
+		$(this).parent().remove();
+	});
 	$('#PicDetail2').on('click','div span',function() {
 		$(this).parent().remove();
 	});
