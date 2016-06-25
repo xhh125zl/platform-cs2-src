@@ -55,7 +55,7 @@ if ($_POST) {
     $EndTime = strtotime($Time[1]);
     $condition = "where Biz_ID=" . $_POST["BizID"] . " and Users_ID='" . $_SESSION["Users_ID"] . "' and Record_CreateTime>=" . $StartTime . " and Record_CreateTime<=" . $EndTime . " and Record_Status=0";
     $paymentinfo = $balance->create_payment($condition);
-    if ($paymentinfo["products_num"] == 0) {
+    if (!$paymentinfo || $paymentinfo["products_num"] == 0) {
         echo '<script language="javascript">alert("暂无结算数据");history.back();</script>';
         exit();
     }
