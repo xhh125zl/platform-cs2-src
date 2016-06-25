@@ -146,22 +146,42 @@ if($action == 'withdraw_appy'){
 					$Flag = $Flag && $DB->Set('user',$Data,"where Users_ID='".$UsersID."' and User_ID=".$_SESSION[$UsersID.'User_ID']);
 				}
 				if($Flag){
-					if($UserMethod["Method_Type"]=='wx_hongbao' || $UserMethod["Method_Type"]=='wx_zhuanzhang'){
-						require_once($_SERVER["DOCUMENT_ROOT"].'/include/library/pay_order.class.php');
-						$pay_order = new pay_order($DB, 0);
-						$Data = $pay_order->withdraw($UsersID,$_SESSION[$UsersID.'User_ID'],$recordid,$UserMethod["Method_Type"]);
-						if($Data['status']==1){
-							if($UserMethod["Method_Type"]=='wx_hongbao'){
-								$response = array('status'=>1,'msg'=>'提现成功，请查看微信红包');
-							}else{
-								$response = array('status'=>1,'msg'=>'提现成功，请查看微信转账');
-							}
-						}else{
-							$response = array('status'=>0,'msg'=>$Data['msg']);
-						}
-					}else{
-						$response = array('status'=>1,'msg'=>'提现申请提交成功,预计2个工作日内申请通过');
-					}
+				    if($rsConfig["TxCustomize"]){
+				        if($UserMethod["Method_Type"]=='wx_hongbao' && $UserMethod["Method_Type"]=='wx_zhuanzhang'){
+				            require_once($_SERVER["DOCUMENT_ROOT"].'/include/library/pay_order.class.php');
+				            $pay_order = new pay_order($DB, 0);
+				            $Data = $pay_order->withdraw($UsersID,$_SESSION[$UsersID.'User_ID'],$recordid,$UserMethod["Method_Type"]);
+				            if($Data['status']==1){
+				                if($UserMethod["Method_Type"]=='wx_hongbao'){
+				                    $response = array('status'=>1,'msg'=>'提现成功，请查看微信红包');
+				                }else{
+				                    $response = array('status'=>1,'msg'=>'提现成功，请查看微信转账');
+				                }
+				            }else{
+				                $response = array('status'=>0,'msg'=>$Data['msg']);
+				            }
+				        }else{
+				            $response = array('status'=>1,'msg'=>'提现申请提交成功,预计2个工作日内申请通过');
+				        }
+				    }else{
+				        if($UserMethod["Method_Type"]=='wx_hongbao' || $UserMethod["Method_Type"]=='wx_zhuanzhang'){
+				            require_once($_SERVER["DOCUMENT_ROOT"].'/include/library/pay_order.class.php');
+				            $pay_order = new pay_order($DB, 0);
+				            $Data = $pay_order->withdraw($UsersID,$_SESSION[$UsersID.'User_ID'],$recordid,$UserMethod["Method_Type"]);
+				            if($Data['status']==1){
+				                if($UserMethod["Method_Type"]=='wx_hongbao'){
+				                    $response = array('status'=>1,'msg'=>'提现成功，请查看微信红包');
+				                }else{
+				                    $response = array('status'=>1,'msg'=>'提现成功，请查看微信转账');
+				                }
+				            }else{
+				                $response = array('status'=>0,'msg'=>$Data['msg']);
+				            }
+				        }else{
+				            $response = array('status'=>1,'msg'=>'提现申请提交成功,预计2个工作日内申请通过');
+				        }
+				    }
+				    
 				}else{
 					$response = array('status'=>0,'msg'=>'发生位置错误，申请提交失败');
 				}

@@ -35,6 +35,8 @@
         } else {
             $DB->Add("users_schedule", $data);
         }
+        echo "<script> alert(\"修改成功\");history.go(-1);</script>";
+        exit;
     }
     ?>
 <!DOCTYPE HTML>
@@ -83,6 +85,7 @@ body, html {
 				<script language="javascript">$(document).ready(payment.payment_edit_init);</script>
 				<form id="payment_form" class="r_con_form" method="post" action="/member/shop/setting/config.php?cfgPay=1">
 					<?php $sch = $DB->GetRs("users_schedule", "*", "WHERE Users_ID='{$_SESSION['Users_ID']}'");
+					       $type = 2;
 					       if($sch){
 					           $type = $sch['RunType'];
 					           $time = $sch['StartRunTime'];
@@ -102,12 +105,12 @@ body, html {
 					</div>
 					<div class="rows">
 						<label>选择结算时间</label> <span class="input time"> <input name="Time"
-							type="text" value="<?=$time ?>" class="form_input"
+							type="text" value="<?=isset($time)?$time:date('H:i:s') ?>" class="form_input"
 							size="40" notnull /> <font class="fc_red">*</font> <span
 							class="tips">需要结算的销售记录的时间段</span></span>
 						<div class="clear"></div>
 						<label>结算天数</label> <span class="input time"> <input name="day"
-							type="text" value="<?php echo $day; ?>" class="form_input" size="40" notnull /> <font
+							type="text" value="<?php echo isset($day)?$day:2; ?>" class="form_input" size="40" notnull /> <font
 							class="fc_red">*</font> <span class="tips">每隔N天进行结算</span></span>
 					</div>
 					<div class="rows">

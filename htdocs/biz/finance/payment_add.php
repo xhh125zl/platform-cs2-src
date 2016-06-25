@@ -69,7 +69,8 @@ if ($_POST) {
     $paymentid = $DB->insert_id();
     if ($Flag) {
         $DB->Set("shop_sales_record", array(
-            "Payment_ID" => $paymentid
+            "Payment_ID" => $paymentid,
+            "Record_Status"=>2
         ), $condition);
         $Payment_Sn = $createtime . $paymentid;
         $DB->Set("shop_sales_payment", array(
