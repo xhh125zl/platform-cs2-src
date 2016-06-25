@@ -174,8 +174,8 @@ if ($_POST) {
 							style="font-size: 20px;"><img
 							src="<?=$biz_PayConfig['config']['headimgurl'] ?>" width="22" /> <?=$biz_PayConfig['config']['nickname'] ?></span>
                 <?php } ?>
-                		<input type="hidden" name="nickname" value="<?=$biz_PayConfig['config']['nickname'] ?>" />
-                		<input type="hidden" name="headimgurl" value="<?=$biz_PayConfig['config']['headimgurl'] ?>" />
+                		<input type="hidden" name="nickname" value="<?=isset($biz_PayConfig['config']['nickname'])?$biz_PayConfig['config']['nickname']:'' ?>" />
+                		<input type="hidden" name="headimgurl" value="<?=isset($biz_PayConfig['config']['headimgurl'])?$biz_PayConfig['config']['headimgurl']:'' ?>" />
                 		<div class="clear"></div>
 					</div>
 					<div class="rows">
