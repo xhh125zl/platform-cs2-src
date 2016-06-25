@@ -71,7 +71,7 @@ input[type="text"], input[type="password"], input.text, input.password {padding:
 								
 								$xiaoji += $Cart['Qty'] * $Cart['ProductsPriceX'];
 								$qty3 += $Cart['Qty'];
-						?>
+						?><?php //echo $qty."<br>";echo $qty2."<br>"; echo $qty3."<br>"; echo $Cart['Qty']."<br>";?>
 						<tr class="shop-list" BizID="<?php echo $BizID;?>" ProductsID="<?php echo $ProductsID;?>" CartID="<?php echo $CartID;?>">
 							<td>&nbsp;&nbsp;</td>
 							<td class="w60"><a class="wzw-goods-thumb" target="_blank" href="<?php echo url('goods/index', array('id'=>$ProductsID));?>"><img alt="<?php echo $Cart['ProductsName'];?>" src="<?php echo $Cart['ImgPath'];?>"></a></td>
@@ -92,15 +92,15 @@ input[type="text"], input[type="password"], input.text, input.password {padding:
 							<td class="w120"><em><?php echo $Cart["ProductsPriceX"];?></em></td>
 							<td class="w120 ws0">
 							    <a class="add-substract-key tip" title="减少商品件数" href="JavaScript:void(0);" rel="qty_less">-</a>
-								<input type="text" class="text" value="<?php echo $qty3;?>" style="width:30px;" rel="qty_input"/>
+								<input type="text" class="text" value="<?php echo $Cart['Qty'];?>" style="width:30px;" rel="qty_input"/>
 								<a class="add-substract-key tip" title="增加商品件数" href="JavaScript:void(0);" rel="qty_add">+</a>
 							</td>
-							<td class="w120"><em wzw_type="eachGoodsTotal"><?php echo $xiaoji;?></em></td>
+							<td class="w120"><em wzw_type="eachGoodsTotal"><?php echo $Cart['Qty'] * $Cart['ProductsPriceX'];?></em></td>
 							<td class="w80">
 								<a href="javascript:void(0)" class="delCart">删除</a>
 							</td>
 						</tr>
-						<?php }?>
+						<?php } echo "<br>";?>
 						<?php }?>
 						<tr>
 							<td colspan="20" class="tr">

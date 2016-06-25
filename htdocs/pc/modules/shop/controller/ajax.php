@@ -225,7 +225,16 @@ class ajaxController extends controllController {
             );
         }
         $_SESSION[$cart_key] = json_encode($CartList, JSON_UNESCAPED_UNICODE);
-		
+        
+        $total_price = 0;
+        foreach ($CartList as $ks => $vs) {
+            foreach ($vs as $k1 => $v1){
+                foreach ($v1 as $k2 => $v2){
+                    $total_price += $v2['ProductsPriceX']*$v2['Qty'];
+                }
+            }
+        }
+
         //以下是为添加购物车服务的代码
 		$qty = 0;
 		if($cart_key == $this->UsersID . 'CartList') {
@@ -239,7 +248,7 @@ class ajaxController extends controllController {
 		}
         $Data = array(
             'status' => 1,
-            'total_price' => $cur_price * $qty,
+            'total_price' => $total_price,
             'qty' => $qty
         );
         return $Data;
