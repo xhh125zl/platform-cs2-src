@@ -34,6 +34,10 @@ $lists = array();
 $DB->GetPage("shop_sales_record","*",$condition,20);
 while($r=$DB->Fetch_assoc()){
 	$lists[$r["Record_ID"]] = $r;
+        $flag = strpos($r['Order_Json'],'&amp');
+        if ($flag) {
+            $lists[$r["Record_ID"]]['Order_Json'] = htmlspecialchars_decode($r['Order_Json']);
+        }
 }
 $lists = $balance->repeat_list($lists);
 $_STATUS = array(
@@ -70,7 +74,7 @@ $_STATUS = array(
       </ul>
     </div>
     <link href='/static/js/plugin/operamasks/operamasks-ui.css' rel='stylesheet' type='text/css' />
-    <script type='text/javascript' src='/static/js/plugin/operamasks/operamasks-ui.min.js'></script> 
+    <script type='text/javascript' src='/static/js/plugin/operamasks/operamasks-ui.min.js'></script>
     <div id="orders" class="r_con_wrap">
       <form class="search" id="search_form" method="get" action="?">
         是否结算：
@@ -116,8 +120,10 @@ $_STATUS = array(
         </thead>
         <tbody>
          <?php
+
 		  $i = 0;
           foreach($lists as $recordid=>$value){
+
 			  $i++;
 			  $b0 += $value["product_amount"];
 			  $b1 += $value["Order_Shipping"];
@@ -142,7 +148,7 @@ $_STATUS = array(
             <td nowrap="nowrap"><?php echo $i;?></td>
             <td nowrap="nowrap"><?php echo $value["Biz_Name"];?></td>
             <td nowrap="nowrap"><?php echo $value["orderno"];?></td>
-            <td nowrap="nowrap"><?php echo $value["product_amount"];?></td>
+            <td nowrap="nowrap"><?php echo  $value["product_amount"];?></td>
             <td nowrap="nowrap"><?php echo $value["Order_Shipping"];?></td>
             <td nowrap="nowrap"><font style="color:#F60"><?php echo $value["Order_Amount"];?></font></td>
             <td nowrap="nowrap"><font style="color:#FF0000"><?php echo $value["Order_TotalPrice"];?></font></td>
