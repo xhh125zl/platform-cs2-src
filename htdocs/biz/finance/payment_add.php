@@ -3,8 +3,8 @@ require_once ('../global.php');
 require_once ($_SERVER["DOCUMENT_ROOT"] . '/include/helper/flow.php');
 require_once ($_SERVER["DOCUMENT_ROOT"] . '/include/helper/balance.class.php');
 
-$BizRs = $DB->GetRS('biz','Users_ID,UserID',"where Users_ID='".$rsBiz["Users_ID"]."' and BIZ_ID=".$_SESSION["BIZ_ID"]);
-if(empty($BizRs['UserID'])){
+$BizRs = $DB->GetRS('biz','Users_ID',"where Users_ID='".$rsBiz["Users_ID"]."' and BIZ_ID=".$_SESSION["BIZ_ID"]);
+if(!$BizRs){
     echo '<script language="javascript">alert("您没有绑定前台会员,暂不能结款!");history.back();</script>';
     exit;
 }
@@ -26,7 +26,7 @@ if ($_POST) {
     $EndTime = strtotime($Time[1]);
     $condition = "WHERE Biz_ID=" . $_SESSION["BIZ_ID"] . " AND Users_ID='" . $rsBiz["Users_ID"] . "' AND Record_CreateTime>=" . $StartTime . " AND Record_CreateTime<=" . $EndTime . " AND Record_Status=0";
     $paymentinfo = $balance->create_payment($condition);
-    if ($paymentinfo["products_num"] == 0) {
+    if (!$paymentinfo || $paymentinfo["products_num"] == 0) {
         echo '<script language="javascript">alert("暂无结算数据");history.back();</script>';
         exit();
     }
@@ -42,7 +42,8 @@ if ($_POST) {
         "Total" => $paymentinfo["supplytotal"],
         "CreateTime" => $createtime,
         "Biz_ID" => $_SESSION["BIZ_ID"],
-        "Users_ID" => $_SESSION["Users_ID"]
+        "Users_ID" => $_SESSION["Users_ID"],
+        "Status" => 2
     );
     switch ($_POST['PaymentID']) {
         case 1:

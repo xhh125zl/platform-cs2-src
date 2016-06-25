@@ -53,29 +53,32 @@ class balance
         $lists = $this->get_sales_record($condition);
         $products = array();
         $products_num = $sales = $alltotal = $cash = $total = $bonus = $web_total = $logistic = 0;
+        if(empty($lists)) return false;
         foreach ($lists as $key => $value) {
             $cartlist = json_decode(htmlspecialchars_decode($value["Order_Json"]), true);
-            foreach ($cartlist as $kk => $vv) {
-                foreach ($vv as $k => $v) {
-                    if (empty($products[$kk])) {
-                        $products[$kk]["num"] = $v["Qty"];
-                        $products[$kk]["total"] = $v["Qty"] * $v["ProductsPriceX"];
-                        $products[$kk]["web"] = $v["Qty"] * $v["ProductsProfit"];
-                    } else {
-                        $products[$kk]["num"] += $v["Qty"];
-                        $products[$kk]["total"] += $v["Qty"] * $v["ProductsPriceX"];
-                        $products[$kk]["web"] += $v["Qty"] * $v["ProductsProfit"];
+            if(!empty($cartlist)){
+                foreach ($cartlist as $kk => $vv) {
+                    foreach ($vv as $k => $v) {
+                        if (empty($products[$kk])) {
+                            $products[$kk]["num"] = $v["Qty"];
+                            $products[$kk]["total"] = $v["Qty"] * $v["ProductsPriceX"];
+                            $products[$kk]["web"] = $v["Qty"] * $v["ProductsProfit"];
+                        } else {
+                            $products[$kk]["num"] += $v["Qty"];
+                            $products[$kk]["total"] += $v["Qty"] * $v["ProductsPriceX"];
+                            $products[$kk]["web"] += $v["Qty"] * $v["ProductsProfit"];
+                        }
+                        $sales += $v["Qty"];
+                        $web_total += $v["Qty"] * $v["ProductsProfit"];
                     }
-                    $sales += $v["Qty"];
-                    $web_total += $v["Qty"] * $v["ProductsProfit"];
                 }
             }
-            
             $alltotal += $value["Order_Amount"];
             $cash += $value["Order_Diff"];
             $bonus = $value["Bonus"];
             $total += $value["Order_TotalPrice"];
             $logistic += $value["Order_Shipping"];
+            
         }
         
         $data = array(
