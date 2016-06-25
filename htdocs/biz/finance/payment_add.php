@@ -19,7 +19,7 @@ if ($_POST) {
     ) : explode(" - ", $_POST["Time"]);
     $StartTime = strtotime($Time[0]);
     $EndTime = strtotime($Time[1]);
-    $condition = "where Biz_ID=" . $_SESSION["BIZ_ID"] . " and Users_ID='" . $rsBiz["Users_ID"] . "' and Record_CreateTime>=" . $StartTime . " and Record_CreateTime<=" . $EndTime . " and Record_Status=0";
+    $condition = "WHERE Biz_ID=" . $_SESSION["BIZ_ID"] . " AND Users_ID='" . $rsBiz["Users_ID"] . "' AND Record_CreateTime>=" . $StartTime . " AND Record_CreateTime<=" . $EndTime . " AND Record_Status=0";
     $paymentinfo = $balance->create_payment($condition);
     if ($paymentinfo["products_num"] == 0) {
         echo '<script language="javascript">alert("暂无结算数据");history.back();</script>';
@@ -69,7 +69,7 @@ if ($_POST) {
         $Payment_Sn = $createtime . $paymentid;
         $DB->Set("shop_sales_payment", array(
             "Payment_Sn" => $Payment_Sn
-        ), "where Payment_ID=" . $paymentid);
+        ), "WHERE Payment_ID=" . $paymentid);
         echo '<script language="javascript">window.location.href="payment_detail.php?paymentid=' . $paymentid . '";</script>';
     } else {
         echo '<script language="javascript">alert("生成失败！");history.back();</script>';
@@ -150,6 +150,14 @@ body, html {
 							type="text" class="form_input" size="40" maxlength="100" notnull>
 							<font class="fc_red">*</font> <span class="tips">商家微信OpenID</span></span>
 						<div class="clear"></div>
+					</div>
+					<div id="nickname" class="rows">
+                <?php  if(isset($biz_PayConfig['config']['headimgurl']) && $biz_PayConfig['config']['headimgurl']){ ?>
+                <label>微信昵称</label> <span class="input"
+							style="font-size: 20px;"><img
+							src="<?=$biz_PayConfig['config']['headimgurl'] ?>" width="22" /> <?=$biz_PayConfig['config']['nickname'] ?></span>
+                <?php } ?>
+                <div class="clear"></div>
 					</div>
 					<div class="rows">
 						<label>银行类型</label> <span class="input"> <input name="Bank"
@@ -270,6 +278,7 @@ function call()
     		$("input[name='BankNo']").parent().parent().hide();
     		$("input[name='BankName']").parent().parent().hide();
     		$("input[name='BankMobile']").parent().parent().hide();
+    		$("#nickname").show();
     		break;
     	}
     	case 2:		//支付宝支付
@@ -281,6 +290,7 @@ function call()
     		$("input[name='BankName']").parent().parent().hide();
     		$("input[name='BankNo']").parent().parent().hide();
     		$("input[name='BankMobile']").parent().parent().hide();
+    		$("#nickname").hide();
     		break;
     	}
     	case 3:
@@ -292,6 +302,7 @@ function call()
     		$("input[name='BankNo']").parent().parent().show();
     		$("input[name='BankName']").parent().parent().show();
     		$("input[name='BankMobile']").parent().parent().show();
+    		$("#nickname").hide();
     		break;
     	}
 	}
