@@ -123,9 +123,11 @@
 										<a href="JavaScript:show_dialog('category_list');"><i class="icon-th"></i>编辑</a>
 									</dt>
 									<dd class="category-list">
-										<?php if (is_array($output['code_category_list']['code_info']['goods_class']) && !empty($output['code_category_list']['code_info']['goods_class'])) { ?>
+                                                                                <?php //if (is_array($output['code_category_list']['code_info']['goods_class']) && !empty($output['code_category_list']['code_info']['goods_class'])) { 
+                                                                                if (is_array($output['goods_class']) && !empty($output['goods_class'])) { ?>
 										<ul>
-											<?php foreach ($output['code_category_list']['code_info']['goods_class'] as $k => $v) { ?>
+                                                                                        <?php //foreach($output['code_category_list']['code_info']['goods_class'] as $k => $v) { 
+                                                                                        foreach($output['goods_class'] as $k => $v) { ?>
 											<li title="<?php echo $v['Category_Name'];?>"><a href="javascript:void(0);"><?php echo $v['Category_Name'];?></a></li>
 											<?php } ?>
 										</ul>
