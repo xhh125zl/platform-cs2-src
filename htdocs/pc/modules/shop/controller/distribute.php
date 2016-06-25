@@ -374,8 +374,8 @@ class distributeController extends controllController {
 		$_SESSION[$this->UsersID . 'HTTP_REFERER'] = url('distribute/distribute_withdraw_method');
         $this->assign('title', '提现方式管理');
 		//获取此用户可用的提现方式 
-        $condition = array('Users_ID'=>$this->UsersID,'Status'=>1);
-        $enabled_method_list = model('shop_withdraw_method')->field('*')->where($condition)->select();
+        $condition = array('Users_ID'=>$this->UsersID);
+        $enabled_method_list = model('distribute_withdraw_methods')->field('*')->where($condition)->select(); 
 		$this->assign('enabled_method_list', $enabled_method_list);
         //银行账号列表
 		$method_list = model('shop_user_withdraw_methods')->field('*')->where(array('Users_ID'=>$this->UsersID,'User_ID'=>$_SESSION[$this->UsersID . 'User_ID']))->select();
