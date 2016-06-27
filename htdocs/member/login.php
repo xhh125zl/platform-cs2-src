@@ -74,27 +74,30 @@ if($_POST){
 					'status'=>0
 				);
 		}
-
 		if($rsUsers){
-			if($rsUsers["Users_Status"]==0){
-				$Data=array(
-					'status'=>0
-				);
-
-			}else{				
-
-					$Data=array(
-						'status'=>1
-					);
-					$_SESSION["Users_ID"]=$rsUsers["Users_ID"];
-					$_SESSION["Users_WechatToken"]=$rsUsers["Users_WechatToken"];
-					$_SESSION["Users_Account"]=$rsUsers["Users_Account"];
-
-			}
+                    if($rsUsers["Users_Status"]==0){
+                        $Data=array(
+                            'status'=>0
+                        );
+                    }else{
+                        
+                        if($rsUsers["Users_ExpireDate"]<time()){
+                            $Data=array(
+                                'status'=>2
+                            );
+			}else{
+                            $Data=array(
+                                'status'=>1
+                            );
+                            $_SESSION["Users_ID"]=$rsUsers["Users_ID"];
+                            $_SESSION["Users_WechatToken"]=$rsUsers["Users_WechatToken"];
+                            $_SESSION["Users_Account"]=$rsUsers["Users_Account"];
+                        }
+                    }
 		}else{
-			$Data=array(
-				'status'=>3
-			);
+                    $Data=array(
+                        'status'=>3
+                    );
 		}
 		if($Flag){
 			mysql_query("commit");
