@@ -55,7 +55,8 @@ class balance
         $products_num = $sales = $alltotal = $cash = $total = $bonus = $web_total = $logistic = 0;
         if(empty($lists)) return false;
         foreach ($lists as $key => $value) {
-            $cartlist = json_decode(htmlspecialchars_decode($value["Order_Json"]), true);
+            $cartlists = str_replace('&amp;quot;','"',$value["Order_Json"]);
+            $cartlist = json_decode($cartlists, true); 
             if(!empty($cartlist)){
                 foreach ($cartlist as $kk => $vv) {
                     foreach ($vv as $k => $v) {
