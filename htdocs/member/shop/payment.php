@@ -102,7 +102,7 @@ if ($_POST) {
     
     $pay_price = $sPayment['Total']*$PaymenteRate/100;
     
-    print_r($pay_price);die;
+ 
     if ($pay_price < 0) {
         echo '<script language="javascript">alert("金额必须大于零");history.back();</script>';
         exit();
