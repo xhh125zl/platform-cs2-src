@@ -77,8 +77,9 @@ if(!empty($rsBiz['Biz_RecieveArea'])){
         <li>退款总价：<strong class="fc_red">￥<?php echo $rsBackup["Back_Amount"] ?></strong></li>
         <li>账号：<?php echo $rsBackup["Back_Account"] ?></li>
         <li>退款状态：<?php echo $_STATUS[$rsBackup["Back_Status"]] ?></li>
-		<li>商家收货地址：<?php echo $Province.$City.$Area.'【'.$rsBiz["Biz_RecieveAddress"].' ， '.$rsBiz["Biz_RecieveName"].'，'.$rsBiz["Biz_RecieveMobile"].'】';?></li>
+		
 		<?php if($rsBackup["Back_Status"]==1){?>
+                        <li>商家收货地址：<?php echo $Province.$City.$Area.'【'.$rsBiz["Biz_RecieveAddress"].' ， '.$rsBiz["Biz_RecieveName"].'，'.$rsBiz["Biz_RecieveMobile"].'】';?></li>
         <li><a href="<?php echo $base_url;?>api/<?php echo $UsersID;?>/shop/member/backup/detail_send/<?php echo $BackID;?>/" style="display:block; width:100px; height:30px; line-height:28px; color:#FFF; background:#F60; border-radius:8px; text-align:center; font-size:12px; font-weight:normal; margin:3px auto">我要发货</a></li>
 		<?php }?>
       </ul>
