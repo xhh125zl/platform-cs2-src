@@ -315,7 +315,7 @@ body, html{background:url(/static/member/images/main/main-bg.jpg) left top fixed
             <td nowrap="nowrap" class="upd_points" field="3"><span class="upd_txt"><?php echo $rsUser['User_Integral'] ?></span></td>
 			<td nowrap="nowrap" class="upd_money" field="4"><span class="upd_txt"><?php echo $rsUser['User_Money'] ?></span></td>
             <td nowrap="nowrap"><?php echo date("Y-m-d H:i:s",$rsUser['User_CreateTime']) ?></td>
-            <td nowrap="nowrap" class="last"><?php echo $rsUser['User_From']!=0?'<a href="#modpass"><img src="/static/member/images/ico/mod.gif" align="absmiddle" /></a> ':'' ?><a href="user_view.php?UserID=<?php echo $rsUser['User_ID'] ?>"><img src="/static/member/images/ico/view.gif" align="absmiddle" /></a></td>
+            <td nowrap="nowrap" class="last"><a href="#modpass"><img src="/static/member/images/ico/mod.gif" align="absmiddle" /></a><a href="user_view.php?UserID=<?php echo $rsUser['User_ID'] ?>"><img src="/static/member/images/ico/view.gif" align="absmiddle" /></a></td>
 		  </tr>
           <?php $i++;
 		  }?>
