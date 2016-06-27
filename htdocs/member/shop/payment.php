@@ -46,6 +46,21 @@ if (isset($_GET["action"])) {
         $DB->Del("shop_sales_payment", "Payment_ID=" . $paymentid);
         echo '<script language="javascript">window.location.href="payment.php";</script>';
     }
+    
+    if ($_GET["action"] == "okpay") {
+        $paymentid = empty($_GET['paymentid']) ? 0 : $_GET['paymentid'];
+        $item = $DB->GetRs("shop_sales_payment", "Status", "WHERE Payment_ID=" . $paymentid);
+        if ($item["Status"] != 3) {
+            echo '<script language="javascript">alert("该收款单已确认打款，不得删除");history.back();</script>';
+            exit();
+        }
+        $DB->Set("shop_sales_payment", array(
+                "Status" => 2
+            ), "WHERE Payment_ID='{$paymentid}'");
+            $DB->Set("shop_sales_record",array("Record_Status"=>2),"WHERE Payment_ID='{$paymentid}'");
+
+        echo '<script language="javascript">window.location.href="payment.php";</script>';
+    }
 }
 
 $condition .= " order by Payment_ID desc";
@@ -252,8 +267,12 @@ if ($_POST) {
 							<td nowrap="nowrap"><?php echo date("Y-m-d H:i:s",$value["CreateTime"]);?></td>
 							<td nowrap="nowrap"><a
 								href="payment_detail.php?paymentid=<?php echo $paymentid;?>">[查看详情]</a>
-                <?php if($value["Status"]==0 || $value["Status"]==2){?><a
+                			<?php if($value["Status"]==0 || $value["Status"]==3){?><a
 								href="?action=del&paymentid=<?php echo $paymentid;?>">[删除]</a><?php }?>
+							<?php if(($value["Status"]==3 && $value['Payment_Type']==3)){?>
+                <a
+								href="?action=okpay&paymentid=<?php echo $paymentid;?>">[确认打款]</a>&nbsp;
+							<?php } ?>
             </td>
 						</tr>
          <?php }?>

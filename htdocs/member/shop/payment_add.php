@@ -176,11 +176,18 @@ body, html {
 						<div class="clear"></div>
 					</div>
 					<div class="rows">
+						<?php $pay = getPayConfig($_SESSION["Users_ID"], true); ?>
 						<label>付款方式</label> <span class="input time"> <select
 							name='PaymentID'>
-								<option value="1" selected>微信支付</option>
-								<option value="2">支付宝支付</option>
-								<option value="3">银行转账</option>
+          				<?php $count = 0; ?>
+                  		<?php foreach ($pay as $key => $value): ?>
+                  		<?php
+                        $selected = $count == 0 ? "selected" : "";
+                        $count ++;
+                        ?>
+                  		<option value="<?=$value['ID'] ?>" <?=$selected ?>><?=$value['Name'] ?></option>
+                  		<?php endforeach;?>
+        		  		<option value="3">银行转账</option>
 						</select>&nbsp; <font class="fc_red">*</font></span>
 						<div class="clear"></div>
 					</div>
