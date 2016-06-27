@@ -4,7 +4,8 @@ require_once ($_SERVER["DOCUMENT_ROOT"] . '/include/helper/flow.php');
 require_once ($_SERVER["DOCUMENT_ROOT"] . '/include/helper/balance.class.php');
 
 $BizRs = $DB->GetRS('biz','Users_ID',"where Users_ID='".$rsBiz["Users_ID"]."' and BIZ_ID=".$_SESSION["BIZ_ID"]);
-if(!$BizRs){
+        
+if(empty($BizRs['UserID'])){
     echo '<script language="javascript">alert("您没有绑定前台会员,暂不能结款!");history.back();</script>';
     exit;
 }

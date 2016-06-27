@@ -36,7 +36,7 @@ if ($_POST) {
         exit;
     }
 	$BizRs = $DB->GetRS('biz','Users_ID',"where Users_ID='".$_SESSION["Users_ID"]."' and BIZ_ID=".$_POST["BizID"]);
-	if(!$BizRs){
+	if(empty($BizRs['UserID'])){
 		echo '<script language="javascript">alert("该商家没有绑定前台会员,暂不能结款!");history.back();</script>';
 		exit;
 	}
