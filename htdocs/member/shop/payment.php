@@ -88,7 +88,21 @@ if ($_POST) {
         echo '<script language="javascript">alert("付款单不存在");history.back();</script>';
         exit();
     }
-    $pay_price = $sPayment['Total'];
+    
+    if ($sPayment['Biz_ID'] < 0) {
+        echo '<script language="javascript">alert("付款单有误");history.back();</script>';
+        exit();
+    }
+    $BizRs = $DB->GetRs("biz", "Biz_ID,PaymenteRate", "WHERE Users_ID='" . $_SESSION["Users_ID"] . "' and Biz_ID = ".$sPayment['Biz_ID']);
+    if ($BizRs['PaymenteRate'] < 0 || $BizRs['PaymenteRate'] > 100) {
+        echo '<script language="javascript">alert("结算比例不正确");history.back();</script>';
+        exit();
+    }
+    $PaymenteRate = !empty($BizRs['PaymenteRate'])?$BizRs['PaymenteRate']:'100';
+    
+    $pay_price = $sPayment['Total']*$PaymenteRate/100;
+    
+    print_r($pay_price);die;
     if ($pay_price < 0) {
         echo '<script language="javascript">alert("金额必须大于零");history.back();</script>';
         exit();
