@@ -35,8 +35,14 @@ if (isset($_GET["action"])) {
     if ($_GET["action"] == "del") {
         $paymentid = empty($_GET['paymentid']) ? 0 : $_GET['paymentid'];
         $item = $DB->GetRs("shop_sales_payment", "Status", "WHERE Payment_ID=" . $paymentid);
-        if ($item["Status"] != 0) {
+         
+        if ($item["Status"] == 1) {
+          
             echo '<script language="javascript">alert("该收款单已确认收款，不得删除");history.back();</script>';
+            exit();
+        }
+        if ($item["Status"] == 2) {
+            echo '<script language="javascript">alert("该收款单已打款，商家确认收款状态，不得删除");history.back();</script>';
             exit();
         }
         $DB->Set("shop_sales_record", array(
@@ -102,7 +108,7 @@ if ($_POST) {
     
     $pay_price = $sPayment['Total']*$PaymenteRate/100;
     
-    print_r($pay_price);die;
+ 
     if ($pay_price < 0) {
         echo '<script language="javascript">alert("金额必须大于零");history.back();</script>';
         exit();

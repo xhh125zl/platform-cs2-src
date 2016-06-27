@@ -41,7 +41,11 @@ if (isset($_GET["action"])) {
         $Biz_ID = $DB->GetRs("shop_sales_payment", 'Biz_ID,Total', "WHERE Payment_ID=" . $paymentid);
         $usermoney = $Biz_ID["Total"]-($Biz_ID["Total"]*$BizPayRate[$Biz_ID["Biz_ID"]]/100);
                 $usermoney = !empty($usermoney)?$usermoney:'0';        
-                $UserID = $DB->GetRs("biz",'UserID',"where Biz_ID=".$Biz_ID['Biz_ID']);
+                $UserID = $DB->GetRs("biz",'UserID,',"where Biz_ID=".$Biz_ID['Biz_ID']);
+                if (empty($UserID["UserID"])) {
+                    echo '<script language="javascript">alert("您没有绑定前台会员,暂不能结款!");history.back();</script>';
+                    exit();
+                }
                 $flag = $DB->Set("user",'User_Money=User_Money+'.$usermoney,"where User_ID=".$UserID['UserID']);
                 $rsUser=$DB->GetRs("user","User_Money","where Users_ID='".$rsBiz["Users_ID"]."' and User_ID='".$UserID["UserID"]."'");
                 if($flag){
@@ -63,8 +67,14 @@ if (isset($_GET["action"])) {
     if ($_GET["action"] == "del") {
         $paymentid = empty($_GET['paymentid']) ? 0 : $_GET['paymentid'];
         $item = $DB->GetRs("shop_sales_payment", "Status", "WHERE Payment_ID=" . $paymentid);
-        if ($item["Status"] != 0) {
+       
+        if ($item["Status"] == 1) {
+          
             echo '<script language="javascript">alert("该收款单已确认收款，不得删除");history.back();</script>';
+            exit();
+        }
+        if ($item["Status"] == 2) {
+            echo '<script language="javascript">alert("该收款单已打款，商家确认收款状态，不得删除");history.back();</script>';
             exit();
         }
         $DB->Set("shop_sales_record", array(
@@ -191,7 +201,8 @@ echo "+转向余额";
                 <?php if($value["Status"]==0 || $value["Status"]==3){?>
                     <a href="?action=del&paymentid=<?php echo $paymentid;?>">[删除]</a>
                 <?php }?>
-
+<?php
+?>
             </td>
 						</tr>
          <?php }?>
