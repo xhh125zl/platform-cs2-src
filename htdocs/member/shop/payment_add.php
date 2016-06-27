@@ -35,7 +35,7 @@ if ($_POST) {
         echo '<script language="javascript">alert("无效的BIZ_ID!");history.back();</script>';
         exit;
     }
-	$BizRs = $DB->GetRS('biz','Users_ID',"where Users_ID='".$_SESSION["Users_ID"]."' and BIZ_ID=".$_POST["BizID"]);
+	$BizRs = $DB->GetRS('biz','Users_ID,UserID',"where Users_ID='".$_SESSION["Users_ID"]."' and BIZ_ID=".$_POST["BizID"]);
 	if(empty($BizRs['UserID'])){
 		echo '<script language="javascript">alert("该商家没有绑定前台会员,暂不能结款!");history.back();</script>';
 		exit;
