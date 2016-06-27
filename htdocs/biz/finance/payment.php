@@ -41,7 +41,7 @@ if (isset($_GET["action"])) {
         $Biz_ID = $DB->GetRs("shop_sales_payment", 'Biz_ID,Total', "WHERE Payment_ID=" . $paymentid);
         $usermoney = $Biz_ID["Total"]-($Biz_ID["Total"]*$BizPayRate[$Biz_ID["Biz_ID"]]/100);
                 $usermoney = !empty($usermoney)?$usermoney:'0';        
-                $UserID = $DB->GetRs("biz",'UserID,',"where Biz_ID=".$Biz_ID['Biz_ID']);
+                $UserID = $DB->GetRs("biz",'UserID',"where Biz_ID=".$Biz_ID['Biz_ID']);
                 if (empty($UserID["UserID"])) {
                     echo '<script language="javascript">alert("您没有绑定前台会员,暂不能结款!");history.back();</script>';
                     exit();
