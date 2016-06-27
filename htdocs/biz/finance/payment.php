@@ -173,11 +173,11 @@ echo "+转向余额";
             </td>
             <td nowrap="nowrap"><?php echo $_STATUS[$value["Status"]];?></td>
             <td nowrap="nowrap"><?php echo date("Y-m-d H:i:s",$value["CreateTime"]);?></td>
-            <td nowrap="nowrap">
+            <td nowrap="nowrap"> 
                 <a href="payment_detail.php?paymentid=<?php echo $paymentid;?>">[查看详情]</a>
-                <?php if($value["Status"]==2){?>
+                <?php if(($value["Status"]==3 && $value['Payment_Type']==3) || $value["Status"]==2){?>
                     <a href="?action=getpay&paymentid=<?php echo $paymentid;?>">[确定收款]</a>&nbsp;<?php } ?>
-                <?php if($value["Status"]==0 || ($value["Status"]==3 && $value['Payment_Type']==3)){?>
+                <?php if($value["Status"]==0 || $value["Status"]==3 && $value['Payment_Type']==3){?>
                     <a href="?action=del&paymentid=<?php echo $paymentid;?>">[删除]</a>
                 <?php }?>
 
