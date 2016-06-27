@@ -16,4 +16,4 @@ CREATE TABLE `users_schedule` (
   `RunType` tinyint(1) DEFAULT '1' COMMENT '执行方式：1、定时执行  2、按天执行  3、按月执行',
   `Status` tinyint(1) DEFAULT '0' COMMENT '计划任务执行状态：0、未执行  1、执行过',
   PRIMARY KEY (`ID`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
