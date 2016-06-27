@@ -196,6 +196,10 @@ if ($_POST) {
 					</thead>
 					<tbody>
          <?php
+        $DB->Get('biz','*',"where Users_ID='".$_SESSION["Users_ID"]."'");
+        while($BizRs = $DB->fetch_assoc()){
+             $BizPayRate[$BizRs["Biz_ID"]] = empty($BizRs['PaymenteRate'])?'100':$BizRs['PaymenteRate'];    
+        }
         foreach ($lists as $paymentid => $value) {
             if ($value["Biz_ID"] == 0) {
                 $value["Biz_Name"] = "本站供货";
@@ -218,7 +222,16 @@ if ($_POST) {
 							<td nowrap="nowrap"><?php echo $value["Diff"];?></td>
 							<td nowrap="nowrap"><?php echo $value["Web"];?></td>
 							<td nowrap="nowrap"><?php echo $value["Bonus"];?></td>
-							<td nowrap="nowrap"><font style="color: blue"><?php echo $value["Total"];?></font></td>
+							
+                                                        
+                                                        
+                                                        <td nowrap="nowrap"><font style="color:blue"><?php echo $value["Total"];?></font><br>(转账
+           <span><?php echo $value["Total"]*$BizPayRate[$value["Biz_ID"]]/100;?></span>
+           <?php echo"+转向余额";echo $value["Total"]-($value["Total"]*$BizPayRate[$value["Biz_ID"]]/100); echo ")"
+           ?> 
+            </td>
+                                                        
+                                                        
 							<td nowrap="nowrap"><?php echo $_STATUS[$value["Status"]];?></td>
 							<td nowrap="nowrap" style="text-align: center;">
 			<?php if(($value["Status"]==0  ||  $value["Status"]==3) && $value['Payment_Type']==1){?>
