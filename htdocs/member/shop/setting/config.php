@@ -1,9 +1,17 @@
 <?php if(isset($_GET['cfgPay']) && $_GET['cfgPay']==1){?>
 <?php
-
     require_once ($_SERVER["DOCUMENT_ROOT"] . '/Framework/Conn.php');
     require_once ($_SERVER["DOCUMENT_ROOT"] . '/include/helper/flow.php');
-
+    require_once ($_SERVER["DOCUMENT_ROOT"] . '/cron/windowSchedule.php');
+    if(isset($_GET['action']) && $_GET['action'] == 'taskRemove'){
+        $Users_Id = isset($_SESSION["Users_ID"]) ? $_SESSION["Users_ID"] : '';
+        $taskName = $_SESSION["Users_ID"]."_Task";
+        $task = new Task();
+        $task->remove($taskName);
+        $DB->Del("users_schedule","Users_ID='{$Users_Id}'");
+        echo "<script> alert(\"删除计划任务成功\");history.go(-1); </script>";
+        exit;
+    }
     if ($_POST) {
         $RunType = $_POST['RunType'];
         $day = intval($_POST['day']);
@@ -29,10 +37,47 @@
             'LastRunTime' => strtotime(date("Y-m-d",time())),
             'day' =>$day
         );
+        //添加计划任务
+
         $sch = $DB->GetRs("users_schedule", "*", "WHERE Users_ID='{$Users_Id}'");
         if ($sch) {
+            $taskName = $_SESSION["Users_ID"]."_Task";
+            $task = new Task();
+            $type = "";
+            if($RunType == 1){  //按周
+                $task->add("mo",1);
+                $type = "WEEKLY";
+            }else if($RunType ==2 ){  //按天
+                $task->add("mo",$day);
+                $type = "DAILY";
+            }else{  //按月
+                $task->add("mo",1);
+                $type = "MONTHLY";
+            }
+            $task->add("st",$Time);
+            $task->add("ru",'"System"');
+            $task->remove($taskName);
+            $task->create($taskName ,"cmd /c " .$_SERVER["DOCUMENT_ROOT"]."/cron/Run.bat");
+            $task->getXML($taskName);
             $DB->Set("users_schedule", $data, "WHERE Users_ID='{$Users_Id}'");
         } else {
+            $taskName = $_SESSION["Users_ID"]."_Task";
+            $task = new Task();
+            $type = "";
+            if($RunType == 1){  //按周
+                $task->add("mo",1);
+                $type = "WEEKLY";
+            }else if($RunType ==2 ){  //按天
+                $task->add("mo",$day);
+                $type = "DAILY";
+            }else{  //按月
+                $task->add("mo",1);
+                $type = "MONTHLY";
+            }
+            $task->add("st",$Time);
+            $task->add("ru",'"System"');
+            $task->create($taskName ,"cmd /c " .$_SERVER["DOCUMENT_ROOT"]."/cron/Run.bat");
+            $task->getXML($taskName);
             $DB->Add("users_schedule", $data);
         }
         echo "<script> alert(\"修改成功\");history.go(-1);</script>";
@@ -115,7 +160,8 @@ body, html {
 					</div>
 					<div class="rows">
 						<label></label> <span class="input"> <input type="submit"
-							class="btn_green" value="确定" name="submit_btn"></span>
+							class="btn_green" value="确定" name="submit_btn">   <input type="button"
+							class="btn_green" value="删除计划任务" name="removeTask"></span>
 						<div class="clear"></div>
 					</div>
 				</form>
@@ -124,6 +170,10 @@ body, html {
 	</div>
 	<script type="text/javascript">
 	$(function(){
+		$("input[name='removeTask']").click(function(){
+			location.href = "/member/shop/setting/config.php?cfgPay=1&action=taskRemove";
+		});
+		
 		$("select[name='RunType']").change(function(){
 
 			var RunType = $("select[name='RunType']").val();
@@ -138,7 +188,7 @@ body, html {
 	</script>
 </body>
 </html>
-<?php } ?>
+<?php die(); } ?>
 
 <?php
 $DB->showErr = false;
