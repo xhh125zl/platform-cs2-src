@@ -138,7 +138,7 @@ body, html {
 	</script>
 </body>
 </html>
-<?php } ?>
+<?php die; } ?>
 
 <?php
 $DB->showErr = false;
