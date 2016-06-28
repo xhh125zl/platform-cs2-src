@@ -133,6 +133,42 @@ class weixin_message{
 				if(is_array($u3)){
 					$text = "您的三级会员".$name."关注了本公众号";
 					$this->sendmessage($u3["User_OpenID"],$text);
+					$u4 = $this->getownerinfo($u3["Owner_Id"]);
+					if(is_array($u4)){
+						$text = "您的四级会员".$name."关注了本公众号";
+						$this->sendmessage($u4["User_OpenID"],$text);
+						$u5 = $this->getownerinfo($u4["Owner_Id"]);
+						if(is_array($u5)){
+							$text = "您的五级会员".$name."关注了本公众号";
+							$this->sendmessage($u5["User_OpenID"],$text);
+							$u6 = $this->getownerinfo($u5["Owner_Id"]);
+							if(is_array($u6)){
+								$text = "您的六级会员".$name."关注了本公众号";
+								$this->sendmessage($u6["User_OpenID"],$text);
+								$u7 = $this->getownerinfo($u6["Owner_Id"]);
+								if(is_array($u7)){
+									$text = "您的七级会员".$name."关注了本公众号";
+									$this->sendmessage($u7["User_OpenID"],$text);
+									$u8 = $this->getownerinfo($u7["Owner_Id"]);
+								
+								}
+								if(is_array($u8)){
+									$text = "您的八级会员".$name."关注了本公众号";
+									$this->sendmessage($u8["User_OpenID"],$text);
+									$u9 = $this->getownerinfo($u8["Owner_Id"]);
+								
+								}
+								if(is_array($u9)){
+									$text = "您的九级会员".$name."关注了本公众号";
+									$this->sendmessage($u8["User_OpenID"],$text);
+
+								}
+							}
+						
+						}
+					
+					}
+		
 				}
 			}
 		}
@@ -163,12 +199,47 @@ class weixin_message{
 				$bonus = $this->get_bonus($orderid, $u1["Owner_Id"]);
 				$text = "您推荐的二级会员".$name."下单成功，支付了".$money."元，您将获取佣金".$bonus."元";
 				$this->sendmessage($u2["User_OpenID"],$text);
-				
 				$u3 = $this->getownerinfo($u2["Owner_Id"]);
 				if(is_array($u3)){
 					$bonus = $this->get_bonus($orderid, $u2["Owner_Id"]);
 					$text = "您推荐的三级会员".$name."下单成功，支付了".$money."元，您将获取佣金".$bonus."元";
 					$this->sendmessage($u3["User_OpenID"],$text);
+					$u3 = $this->getownerinfo($u3["Owner_Id"]);
+					if(is_array($u4)){
+						$bonus = $this->get_bonus($orderid, $u3["Owner_Id"]);
+						$text = "您推荐的四级会员".$name."下单成功，支付了".$money."元，您将获取佣金".$bonus."元";
+						$this->sendmessage($u4["User_OpenID"],$text);
+						$u3 = $this->getownerinfo($u4["Owner_Id"]);
+						if(is_array($u5)){
+							$bonus = $this->get_bonus($orderid, $u4["Owner_Id"]);
+							$text = "您推荐的五级会员".$name."下单成功，支付了".$money."元，您将获取佣金".$bonus."元";
+							$this->sendmessage($u5["User_OpenID"],$text);
+							$u3 = $this->getownerinfo($u5["Owner_Id"]);
+							if(is_array($u6)){
+								$bonus = $this->get_bonus($orderid, $u5["Owner_Id"]);
+								$text = "您推荐的六级会员".$name."下单成功，支付了".$money."元，您将获取佣金".$bonus."元";
+								$this->sendmessage($u6["User_OpenID"],$text);
+								$u3 = $this->getownerinfo($u6["Owner_Id"]);
+								if(is_array($u7)){
+									$bonus = $this->get_bonus($orderid, $u6["Owner_Id"]);
+									$text = "您推荐的七级会员".$name."下单成功，支付了".$money."元，您将获取佣金".$bonus."元";
+									$this->sendmessage($u7["User_OpenID"],$text);
+									$u3 = $this->getownerinfo($u7["Owner_Id"]);
+									if(is_array($u8)){
+										$bonus = $this->get_bonus($orderid, $u7["Owner_Id"]);
+										$text = "您推荐的八级会员".$name."下单成功，支付了".$money."元，您将获取佣金".$bonus."元";
+										$this->sendmessage($u8["User_OpenID"],$text);
+										$u3 = $this->getownerinfo($u8["Owner_Id"]);
+										if(is_array($u9)){
+											$bonus = $this->get_bonus($orderid, $u8["Owner_Id"]);
+											$text = "您推荐的九级会员".$name."下单成功，支付了".$money."元，您将获取佣金".$bonus."元";
+											$this->sendmessage($u9["User_OpenID"],$text);
+										}
+									}
+								}
+							}
+						}
+					}
 				}
 			}
 		}
