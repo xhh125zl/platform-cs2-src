@@ -36,22 +36,45 @@ if (isset($_GET["action"])) {
             echo '<script language="javascript">alert("此收款单已完成,不可再次操作!");window.location.href="payment.php";</script>';
             exit();
         }
-        $DB->Set("shop_sales_payment", array(
-            "Status" => 1
-        ), "WHERE Payment_ID=" . $paymentid);
-        $DB->Set("shop_sales_record", array(
-            "Record_Status" => 1
-        ), "WHERE Payment_ID='{$paymentid}'");
+        $DB->Set("shop_sales_payment", array("Status" => 1), "WHERE Payment_ID=" . $paymentid);
+        $DB->Set("shop_sales_record", array("Record_Status" => 1), "WHERE Payment_ID='{$paymentid}'");
         $Biz_ID = $DB->GetRs("shop_sales_payment", 'Biz_ID,Total', "WHERE Payment_ID=" . $paymentid);
-        
+        $usermoney = $Biz_ID["Total"]-($Biz_ID["Total"]*$BizPayRate[$Biz_ID["Biz_ID"]]/100);
+                $usermoney = !empty($usermoney)?$usermoney:'0';        
+                $UserID = $DB->GetRs("biz",'UserID',"where Biz_ID=".$Biz_ID['Biz_ID']);
+                if (empty($UserID["UserID"])) {
+                    echo '<script language="javascript">alert("您没有绑定前台会员,暂不能结款!");history.back();</script>';
+                    exit();
+                }
+                $flag = $DB->Set("user",'User_Money=User_Money+'.$usermoney,"where User_ID=".$UserID['UserID']);
+                $rsUser=$DB->GetRs("user","User_Money","where Users_ID='".$rsBiz["Users_ID"]."' and User_ID='".$UserID["UserID"]."'");
+                if($flag){
+                    //增加资金流水
+                    $Data=array(
+                            'Users_ID'=>$rsBiz['Users_ID'],
+                            'User_ID'=>$UserID['UserID'],				
+                            'Type'=>3,
+                            'Amount'=>$usermoney,
+                            'Total'=>$rsUser['User_Money'],
+                            'Note'=>"财务结算余额+".$usermoney,
+                            'CreateTime'=>time()			
+                    );
+                    $Add=$DB->Add('user_money_record',$Data);
+                }
         echo '<script language="javascript">window.location.href="payment.php";</script>';
     }
     
     if ($_GET["action"] == "del") {
         $paymentid = empty($_GET['paymentid']) ? 0 : $_GET['paymentid'];
         $item = $DB->GetRs("shop_sales_payment", "Status", "WHERE Payment_ID=" . $paymentid);
-        if ($item["Status"] != 0) {
+       
+        if ($item["Status"] == 1) {
+          
             echo '<script language="javascript">alert("该收款单已确认收款，不得删除");history.back();</script>';
+            exit();
+        }
+        if ($item["Status"] == 2) {
+            echo '<script language="javascript">alert("该收款单已打款，商家确认收款状态，不得删除");history.back();</script>';
             exit();
         }
         $DB->Set("shop_sales_record", array(
@@ -178,7 +201,8 @@ echo "+转向余额";
                 <?php if($value["Status"]==0 || $value["Status"]==3){?>
                     <a href="?action=del&paymentid=<?php echo $paymentid;?>">[删除]</a>
                 <?php }?>
-
+<?php
+?>
             </td>
 						</tr>
          <?php }?>

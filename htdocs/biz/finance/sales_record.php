@@ -25,9 +25,15 @@ $condition .= " order by Record_ID desc";
 $b0 = $b1 = $b2 = $b3 = $b4 = $b5 = $b6 = $b7 = 0;
 $lists = array();
 $DB->GetPage("shop_sales_record","*",$condition,20);
+
 while($r=$DB->Fetch_assoc()){
 	$lists[$r["Record_ID"]] = $r;
+        $flag = strpos($r['Order_Json'],'&amp');
+        if ($flag) {
+            $lists[$r["Record_ID"]]['Order_Json'] = htmlspecialchars_decode($r['Order_Json']);
+        }
 }
+
 $lists = $balance->repeat_list($lists);
 $_STATUS = array(
     '<font style="color:red">未收款</font>',

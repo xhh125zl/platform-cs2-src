@@ -35,8 +35,14 @@ if (isset($_GET["action"])) {
     if ($_GET["action"] == "del") {
         $paymentid = empty($_GET['paymentid']) ? 0 : $_GET['paymentid'];
         $item = $DB->GetRs("shop_sales_payment", "Status", "WHERE Payment_ID=" . $paymentid);
-        if ($item["Status"] != 0) {
+         
+        if ($item["Status"] == 1) {
+          
             echo '<script language="javascript">alert("该收款单已确认收款，不得删除");history.back();</script>';
+            exit();
+        }
+        if ($item["Status"] == 2) {
+            echo '<script language="javascript">alert("该收款单已打款，商家确认收款状态，不得删除");history.back();</script>';
             exit();
         }
         $DB->Set("shop_sales_record", array(
@@ -88,7 +94,21 @@ if ($_POST) {
         echo '<script language="javascript">alert("付款单不存在");history.back();</script>';
         exit();
     }
-    $pay_price = $sPayment['Total'];
+    
+    if ($sPayment['Biz_ID'] < 0) {
+        echo '<script language="javascript">alert("付款单有误");history.back();</script>';
+        exit();
+    }
+    $BizRs = $DB->GetRs("biz", "Biz_ID,PaymenteRate", "WHERE Users_ID='" . $_SESSION["Users_ID"] . "' and Biz_ID = ".$sPayment['Biz_ID']);
+    if ($BizRs['PaymenteRate'] < 0 || $BizRs['PaymenteRate'] > 100) {
+        echo '<script language="javascript">alert("结算比例不正确");history.back();</script>';
+        exit();
+    }
+    $PaymenteRate = !empty($BizRs['PaymenteRate'])?$BizRs['PaymenteRate']:'100';
+    
+    $pay_price = $sPayment['Total']*$PaymenteRate/100;
+    
+ 
     if ($pay_price < 0) {
         echo '<script language="javascript">alert("金额必须大于零");history.back();</script>';
         exit();
@@ -196,21 +216,25 @@ if ($_POST) {
 						<tr>
 							<td width="6%" nowrap="nowrap">序号</td>
 							<td width="12%" nowrap="nowrap">商家</td>
-							<td width="10%" nowrap="nowrap">付款单号</td>
+							<td width="8%" nowrap="nowrap">付款单号</td>
 							<td width="10%" nowrap="nowrap">结算时间</td>
-							<td width="7%" nowrap="nowrap">应收总额</td>
-							<td width="7%" nowrap="nowrap">优惠金额</td>
-							<td width="7%" nowrap="nowrap">网站所得</td>
-							<td width="7%" nowrap="nowrap">分销佣金</td>
-							<td width="7%" nowrap="nowrap">结算金额</td>
-							<td width="7%" nowrap="nowrap">状态</td>
-							<td width="10%" nowrap="nowrap">支付</td>
+							<td width="5%" nowrap="nowrap">应收总额</td>
+<!--							<td width="7%" nowrap="nowrap">优惠金额</td>-->
+							<td width="5%" nowrap="nowrap">网站所得</td>
+							<td width="5%" nowrap="nowrap">分销佣金</td>
+							<td width="5%" nowrap="nowrap">结算金额</td>
+							<td width="5%" nowrap="nowrap">状态</td>
+							<td width="7%" nowrap="nowrap">支付</td>
 							<td width="10%" nowrap="nowrap">生成时间</td>
 							<td width="10%" nowrap="nowrap">操作</td>
 						</tr>
 					</thead>
 					<tbody>
          <?php
+        $DB->Get('biz','*',"where Users_ID='".$_SESSION["Users_ID"]."'");
+        while($BizRs = $DB->fetch_assoc()){
+             $BizPayRate[$BizRs["Biz_ID"]] = empty($BizRs['PaymenteRate'])?'100':$BizRs['PaymenteRate'];    
+        }
         foreach ($lists as $paymentid => $value) {
             if ($value["Biz_ID"] == 0) {
                 $value["Biz_Name"] = "本站供货";
@@ -230,10 +254,19 @@ if ($_POST) {
 							<td nowrap="nowrap"><?php echo $value["Payment_Sn"];?></td>
 							<td nowrap="nowrap"><?php echo date("Y-m-d H:i:s",$value["FromTime"]);?><br />~<br /><?php echo date("Y-m-d H:i:s",$value["EndTime"]);?></td>
 							<td nowrap="nowrap"><font style="color: #F60"><?php echo $value["Amount"];?></font></td>
-							<td nowrap="nowrap"><?php echo $value["Diff"];?></td>
+							<!--<td nowrap="nowrap"><?php //echo $value["Diff"];?></td>-->
 							<td nowrap="nowrap"><?php echo $value["Web"];?></td>
 							<td nowrap="nowrap"><?php echo $value["Bonus"];?></td>
-							<td nowrap="nowrap"><font style="color: blue"><?php echo $value["Total"];?></font></td>
+							
+                                                        
+                                                        
+                                                        <td nowrap="nowrap"><font style="color:blue"><?php echo $value["Total"];?></font><br>(转账
+           <span><?php echo $value["Total"]*$BizPayRate[$value["Biz_ID"]]/100;?></span>
+           <?php echo"+转向余额";echo $value["Total"]-($value["Total"]*$BizPayRate[$value["Biz_ID"]]/100); echo ")"
+           ?> 
+            </td>
+                                                        
+                                                        
 							<td nowrap="nowrap"><?php echo $_STATUS[$value["Status"]];?></td>
 							<td nowrap="nowrap" style="text-align: center;">
 			<?php if(($value["Status"]==0  ||  $value["Status"]==3) && $value['Payment_Type']==1){?>
