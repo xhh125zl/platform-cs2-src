@@ -172,26 +172,27 @@ class OrderObserver {
 	/**
 	 * 处理分销记录信息
 	 */
-	private function handle_dis_record_info() {
-		
-		global $DB1;
-		//$rsRecord = $DB1->GetRs('distribute_record','Record_ID',' WHERE `Order_ID`='.$this->order['Order_ID']);
-		$rsRecord = $DB1->GetRs('distribute_record','Record_ID,Order_ID',' WHERE `Order_ID`='.$this->order['Order_ID']);
-		if($rsRecord){
-			 
-			//$flag_a = $DB1->Set('distribute_record', array('status' => 1), ' WHERE `Record_ID`='.$rsRecord['Record_ID']);
-			$flag_a = $DB1->Set('distribute_record', array('status' => 1), ' WHERE `Order_ID`='.$rsRecord['Order_ID']);
-			
-			$flag_b = $DB1->Set('distribute_account_record', array('Record_Status' => 2), ' WHERE `Ds_Record_ID`='.$rsRecord['Record_ID']);
+private function handle_dis_record_info() {
 
+        // 将分销账号记录置为完成
+        global $DB1;
 
-			return $flag_a && $flag_b;
-		}else{
-			return true;
-		}
-		
-		
-	}
+        // 获取订单的多个商品信息(多个商品），而非一个商品（单个商品)
+        $rsRecord = $DB1->Get('distribute_record','Record_ID,Order_ID',' WHERE `Order_ID`=' . $this->order['Order_ID']);
+
+        if ($rsRecord) {
+            $flag_a = $DB1->Set('distribute_record', array('status' => 1), ' WHERE `Order_ID`=' . $this->order['Order_ID']);
+
+            while ($row = $DB1->fetch_assoc($rsRecord)) {
+                $flag_b = $DB1->Set('distribute_account_record', array('Record_Status' => 2),  ' WHERE `Ds_Record_ID`='.$row['Record_ID']);
+            }
+
+            return $flag_a && $flag_b;
+        } else {
+            return true;
+        }
+    }
+
 	
 	/**
 	 * 增加分销账号余额,总销售额

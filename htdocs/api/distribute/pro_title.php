@@ -8,17 +8,53 @@ require_once($_SERVER["DOCUMENT_ROOT"].'/include/compser_library/Protitle.php');
 $front_title = get_dis_pro_title($DB,$UsersID);
 
 $dis_config = Dis_Config::where('Users_ID',$UsersID)->first();
-$user_consue = Order::where(array('User_ID'=>$_SESSION[$UsersID.'User_ID'],'Order_Status'=>4))->sum('Order_TotalPrice');
-$user_count = Order::where(array('Owner_ID'=>$_SESSION[$UsersID.'User_ID'],'Order_Status'=>4))->sum('Order_TotalPrice');
+
+
+//自身消费额
+$user_consue = Order::where(array('User_ID'=>$_SESSION[$UsersID.'User_ID']))
+					->where('Order_Status','>=', $dis_config->Pro_Title_Status)
+					->sum('Order_TotalPrice');
+
 
 $ProTitle = new ProTitle($UsersID, $_SESSION[$UsersID.'User_ID']);
+
+
+//自身销售额(直接下级普通用户 + 自身消费金额)
+$user_count = Order::where(array('Owner_ID'=>$_SESSION[$UsersID.'User_ID']))
+					->where('Order_Status','>=', $dis_config->Pro_Title_Status)
+					->sum('Order_TotalPrice');
+
+//团队销售额计算使用
+$Sales_Group_2 = $user_count;
+
+//获取所有直接下级分销商用户销售额
+$sess_userid = $_SESSION[$UsersID.'User_ID'];
+$sons_dis_userid = $ProTitle->get_sons_dis_userid($sess_userid);
+if ($sons_dis_userid) {
+	// $user_dis_sale_amount = Order::where('Order_Status', '>=', $dis_config->Pro_Title_Status)
+	// 					->whereIn('User_ID', $sons_dis_userid)
+	// 					->sum('Order_TotalPrice');
+	// 	
+	//这里使用User_ID=Owner_ID 条件可以避免从普通用户升级到分销商里，避免一些订单被重复统计
+	$user_dis_sale_amount = $ProTitle->get_dis_sale_amount($sons_dis_userid);
+
+	$user_count = $user_count + $user_dis_sale_amount;
+}
+unset($sons_dis_userid);
+
+//团队销售额
 $childs = $ProTitle->get_sons($dis_config->Dis_Level,$_SESSION[$UsersID.'User_ID']);
 
 if(!empty($childs)){
-	$Sales_Group = Order::where(array('Order_Status'=>4))->whereIn('Owner_ID',$childs)->sum('Order_TotalPrice');
+	$Sales_Group = Order::where('Order_Status', '>=', $dis_config->Pro_Title_Status)
+						->whereIn('Owner_ID',$childs)
+						->sum('Order_TotalPrice');
 }else{
 	$Sales_Group = 0;
 }
+
+//修正团队销售客未包含“自身消费额”和“自身销售额”,而在"自身销售额"里已经包含过了 自身消费额，所以直接加上“自身销售额”就可以了。
+$Sales_Group = $Sales_Group + $Sales_Group_2;
 
 $ex_bonus = array(
 	"total"=>0,
