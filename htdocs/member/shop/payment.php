@@ -216,14 +216,14 @@ if ($_POST) {
 						<tr>
 							<td width="6%" nowrap="nowrap">序号</td>
 							<td width="12%" nowrap="nowrap">商家</td>
-							<td width="10%" nowrap="nowrap">付款单号</td>
+							<td width="8%" nowrap="nowrap">付款单号</td>
 							<td width="10%" nowrap="nowrap">结算时间</td>
-							<td width="7%" nowrap="nowrap">应收总额</td>
+							<td width="5%" nowrap="nowrap">应收总额</td>
 <!--							<td width="7%" nowrap="nowrap">优惠金额</td>-->
-							<td width="7%" nowrap="nowrap">网站所得</td>
-							<td width="7%" nowrap="nowrap">分销佣金</td>
-							<td width="7%" nowrap="nowrap">结算金额</td>
-							<td width="7%" nowrap="nowrap">状态</td>
+							<td width="5%" nowrap="nowrap">网站所得</td>
+							<td width="5%" nowrap="nowrap">分销佣金</td>
+							<td width="5%" nowrap="nowrap">结算金额</td>
+							<td width="5%" nowrap="nowrap">状态</td>
 							<td width="7%" nowrap="nowrap">支付</td>
 							<td width="10%" nowrap="nowrap">生成时间</td>
 							<td width="10%" nowrap="nowrap">操作</td>
