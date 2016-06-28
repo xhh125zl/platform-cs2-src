@@ -219,12 +219,12 @@ if ($_POST) {
 							<td width="10%" nowrap="nowrap">付款单号</td>
 							<td width="10%" nowrap="nowrap">结算时间</td>
 							<td width="7%" nowrap="nowrap">应收总额</td>
-							<td width="7%" nowrap="nowrap">优惠金额</td>
+<!--							<td width="7%" nowrap="nowrap">优惠金额</td>-->
 							<td width="7%" nowrap="nowrap">网站所得</td>
 							<td width="7%" nowrap="nowrap">分销佣金</td>
 							<td width="7%" nowrap="nowrap">结算金额</td>
 							<td width="7%" nowrap="nowrap">状态</td>
-							<td width="10%" nowrap="nowrap">支付</td>
+							<td width="7%" nowrap="nowrap">支付</td>
 							<td width="10%" nowrap="nowrap">生成时间</td>
 							<td width="10%" nowrap="nowrap">操作</td>
 						</tr>
@@ -254,7 +254,7 @@ if ($_POST) {
 							<td nowrap="nowrap"><?php echo $value["Payment_Sn"];?></td>
 							<td nowrap="nowrap"><?php echo date("Y-m-d H:i:s",$value["FromTime"]);?><br />~<br /><?php echo date("Y-m-d H:i:s",$value["EndTime"]);?></td>
 							<td nowrap="nowrap"><font style="color: #F60"><?php echo $value["Amount"];?></font></td>
-							<td nowrap="nowrap"><?php echo $value["Diff"];?></td>
+							<!--<td nowrap="nowrap"><?php //echo $value["Diff"];?></td>-->
 							<td nowrap="nowrap"><?php echo $value["Web"];?></td>
 							<td nowrap="nowrap"><?php echo $value["Bonus"];?></td>
 							
