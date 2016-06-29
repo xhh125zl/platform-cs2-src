@@ -19,7 +19,7 @@ if($_POST){
 $rsConfig=$DB->GetRs("shop_config","ShopName,NeedShipping","where Users_ID='".$_SESSION["Users_ID"]."'");
 
 $Status=$rsOrder["Order_Status"];
-$Order_Status=array("待确认","待付款","已付款","已发货","已完成");
+$Order_Status=array("待确认","待付款","已付款","已发货","已完成", "申请退款中");
 $CartList=json_decode(htmlspecialchars_decode($rsOrder["Order_CartList"]),true);
 $amount = $fee = 0;
 
@@ -91,8 +91,15 @@ $_STATUS = array('<font style="color:#F00; font-size:12px;">申请中</font>','<
               <td><?php echo date("Y-m-d H:i:s",$rsOrder["Order_CreateTime"]) ?></td>
             </tr>
             <tr>
+            <?php
+            print_r($Order_Status);
+            ?>
               <td nowrap>订单状态：</td>
-              <td><?php if($rsOrder["Order_TotalPrice"]<=$rsOrder["Back_Amount"]){?><font style="color:#999; text-decoration:line-through">已退款</font><?php }else{?><?php echo $Order_Status[$rsOrder["Order_Status"]] ?><?php }?></td>
+              <td><?php if($rsOrder["Order_TotalPrice"]<=$rsOrder["Back_Amount"]){?><font style="color:#999; text-decoration:line-through">已退款</font><?php }else{?>
+              	<?php
+echo $rsOrder["Order_Status"];
+
+              	 echo $Order_Status[$rsOrder["Order_Status"]] ?><?php }?></td>
             </tr>
             <tr>
               <td nowrap>支付方式：</td>
