@@ -310,7 +310,7 @@ body, html{background:url(/static/member/images/main/main-bg.jpg) left top fixed
             <td nowrap="nowrap" class="upd_rows" field="1"><span class="upd_txt"><?php echo $rsUser['User_Name'] ?></span></td>
             <td nowrap="nowrap">&yen;&nbsp;<?php echo $rsUser['User_Cost']?></td>
             <td nowrap="nowrap"><?php echo $rsUser['User_Money'] ? '<img src="'.$rsUser['User_HeadImg'].'" width="60" height="60" />' : "";?></td>
-            <td nowrap="nowrap" class="upd_rows" field="0">No. <span class="upd_txt"><?php echo $rsUser['User_No'] ?></span></td>
+            <td nowrap="nowrap" class="upd_rows" field="0">No. <span class=""><?php echo $rsUser['User_No'] ?></span></td>
             <td nowrap="nowrap" class="upd_select" field="5"><span class="upd_txt"><?php echo empty($UserLevel[$rsUser["User_Level"]]["Name"]) ? '' : $UserLevel[$rsUser["User_Level"]]["Name"]; ?></span></td>
             <td nowrap="nowrap" class="upd_points" field="3"><span class="upd_txt"><?php echo $rsUser['User_Integral'] ?></span></td>
 			<td nowrap="nowrap" class="upd_money" field="4"><span class="upd_txt"><?php echo $rsUser['User_Money'] ?></span></td>
