@@ -404,7 +404,7 @@ private function handle_dis_record_info() {
     private function handle_dis_sha_info()
 	{
             global $DB1;
-            
+            $Sha_Rate = array();
             if(!empty($this->shop_config['Sha_Rate'])){
                 $sha_config = $this->shop_config['Sha_Rate'];
                 $Sha_Rate = json_decode($sha_config, true);
