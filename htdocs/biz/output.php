@@ -6,9 +6,9 @@ require_once($_SERVER["DOCUMENT_ROOT"].'/include/helper/balance.class.php');
 require_once($_SERVER["DOCUMENT_ROOT"].'/include/helper/url.php');
 $rsBiz = $DB->GetRs('biz','*','where Biz_ID='.$_SESSION["BIZ_ID"]);
 $balance = new balance($DB,$rsBiz["Users_ID"]);
-
-$UsersID = $_SESSION['BIZ_ID'];
-
+ 
+$UsersID = $rsBiz['Users_ID'];
+ 
 $type = $_REQUEST['type'];
 
 if($type == 'product_gross_info'){
@@ -68,7 +68,7 @@ if($type == 'product_gross_info'){
 	
 }elseif($type == 'order_detail_list'){
 	
-	$condition = "where Users_ID='".$_SESSION["Users_ID"]."' and Biz_ID=".$rsBiz['Biz_ID']." and Order_Type='shop'";
+	$condition = "where Users_ID='".$UsersID."' and Biz_ID=".$rsBiz['Biz_ID']." and Order_Type='shop'";
 
 	if(!empty($_GET["Keyword"])){
 		$condition .= " and Order_CartList like '%".$_GET["Keyword"]."%'";
