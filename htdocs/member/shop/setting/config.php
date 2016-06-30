@@ -531,8 +531,7 @@ KindEditor.ready(function(K) {
 								<div class="reply_msg">
 
 									<div class="m_left">
-										<span class="fc_red">*</span> 触发关键词<span class="tips_key">（有多个关键词请用
-											<font style="color: red">"|"</font> 隔开）
+										<span class="fc_red">*</span> 触发关键词<span class="tips_key">
 										</span><br /> <input type="text" class="input" name="Keywords"
 											value="<?php echo $rsKeyword["Reply_Keywords"] ?>"
 											maxlength="100" notnull /> <br /> <br /> <br /> <span

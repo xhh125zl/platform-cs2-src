@@ -9,7 +9,7 @@ define('CARD_ABNORMAL', '已使用');
 
 if (isset($_GET['action'])) {
   if ($_GET['action'] == 'del') {
-    $Flag=$DB->Del("shop_virtual_card","User_ID='".$_SESSION["Users_ID"]."' AND Biz_ID='" .$_SESSION['BIZ_ID']. "' and id=".$_GET["CardId"]);
+    $Flag=$DB->Del("shop_virtual_card","User_ID='".$_SESSION["Users_ID"]."' AND Biz_ID='" .$_SESSION['BIZ_ID']. "' and Card_Id=".$_GET["CardId"]);
     if($Flag){
       echo '<script language="javascript">alert("删除成功");window.location="'.$_SERVER['HTTP_REFERER'].'";</script>';
     }else{

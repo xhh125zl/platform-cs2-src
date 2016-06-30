@@ -161,7 +161,7 @@
 				<div id="product-thumb"> <img width="80px" height="80px" src="<?=$rsProducts['ImgPath']?>" /> </div>
 				<div id="info-txt">
 					<p><span>
-						<?=$rsProducts['Products_Name']?>
+						<?=mb_substr($rsProducts['Products_Name'],0,45,'utf-8')?>
 						</span> </p>
 					<p class="orange">&yen;<span id="cur-price-txt">
 						<?=$cur_price?>
