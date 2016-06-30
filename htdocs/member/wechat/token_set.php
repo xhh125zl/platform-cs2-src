@@ -113,7 +113,7 @@ body, html{background:url(/static/member/images/main/main-bg.jpg) left top fixed
           <label>公众号名称</label>
           <span class="input">
           <input name="WechatName" id="WechatName" value="<?php echo $rsUsers["Users_WechatName"]; ?>" type="text" class="form_input" size="35" maxlength="100" notnull>
-          <span class="tips">例如：网中网</span></span>
+          </span>
           </span>
           <div class="clear"></div>
         </div>
@@ -121,21 +121,21 @@ body, html{background:url(/static/member/images/main/main-bg.jpg) left top fixed
           <label>公众号邮箱</label>
           <span class="input">
           <input name="WechatEmail" id="WechatEmail" value="<?php echo $rsUsers["Users_WechatEmail"]; ?>" type="text" class="form_input" size="35" maxlength="100" notnull>
-          <span class="tips">例如：1580435795@qq.com</span></span>
+          </span>
           <div class="clear"></div>
         </div>
         <div class="rows">
           <label>公众号原始ID</label>
           <span class="input">
           <input name="WechatID" id="WechatID" value="<?php echo $rsUsers["Users_WechatID"]; ?>" type="text" class="form_input" size="35" maxlength="100" notnull>
-          <span class="tips">例如：gh_69cee2d10997</span></span> </span>
+          </span> </span>
           <div class="clear"></div>
         </div>
         <div class="rows">
           <label>微信号</label>
           <span class="input">
           <input name="WechatAccount" id="WechatAccount" value="<?php echo $rsUsers["Users_WechatAccount"]; ?>" type="text" class="form_input" size="35" maxlength="100" notnull>
-          <span class="tips">例如：wangzhongwang</span></span> </span>
+          </span> </span>
           </span>
           <div class="clear"></div>
         </div>
