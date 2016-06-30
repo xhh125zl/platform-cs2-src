@@ -246,7 +246,7 @@ if ($_POST) {
                     $value["Biz_Name"] = "已被删除";
                 }
             }
-            
+            $BizPayRate[$value["Biz_ID"]] = isset($BizPayRate[$value["Biz_ID"]])?$BizPayRate[$value["Biz_ID"]]:1;
             ?>
          <tr>
 							<td nowrap="nowrap" class="paymentid"><?php echo $paymentid;?></td>

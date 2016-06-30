@@ -1,3 +1,3 @@
-@off
+@echo off
 set cron=%cd%
-php.exe -q %cron%\command.php
+%cd%\curl.exe %1 -s

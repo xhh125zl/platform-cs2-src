@@ -57,7 +57,7 @@
             $task->add("st",$Time);
             $task->add("ru",'"System"');
             $task->remove($taskName);
-            $task->create($taskName ,"cmd /c " .$_SERVER["DOCUMENT_ROOT"]."/cron/Run.bat");
+            $task->create($taskName ,"cmd /c " .$_SERVER["DOCUMENT_ROOT"]."/cron/Run.bat http://".$_SERVER['HTTP_HOST']."/cron/Run.php");
             $task->getXML($taskName);
             $DB->Set("users_schedule", $data, "WHERE Users_ID='{$Users_Id}'");
         } else {
@@ -76,7 +76,7 @@
             }
             $task->add("st",$Time);
             $task->add("ru",'"System"');
-            $task->create($taskName ,"cmd /c " .$_SERVER["DOCUMENT_ROOT"]."/cron/Run.bat");
+            $task->create($taskName ,"cmd /c " .$_SERVER["DOCUMENT_ROOT"]."/cron/Run.bat http://".$_SERVER['HTTP_HOST']."/cron/Run.php");
             $task->getXML($taskName);
             $DB->Add("users_schedule", $data);
         }
