@@ -145,11 +145,12 @@ $(document).ready(function(e) {
 </script>
 <?php }?>
 <script>
-    $(function(){
+	  $(function(){
 		// 导航左侧栏js效果 start
 		$('.pullDownList li').hover(function(){
 		    var showID = '#'+$(this).attr('rel');
 			if($(showID).length){
+			    $('.yMenuListCon').hide();
 			    $(showID).show();
 			}else{
 			    $('.yMenuListCon').hide();
@@ -176,4 +177,5 @@ $(document).ready(function(e) {
 		})
 		// 导航左侧栏js效果  end
 	});
+
 </script>
