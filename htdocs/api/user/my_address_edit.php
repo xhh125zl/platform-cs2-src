@@ -107,7 +107,7 @@ if($rsAdressNum['num'] == 0){
 
 <header class="bar bar-nav">
         <a href="javascript:history.go(-1)" class="pull-left"><img src="/static/api/shop/skin/default/images/black_arrow_left.png" /></a>
-        <a href="/api/yd0tcni067/shop/cart/" class="pull-right"><img src="/static/api/shop/skin/default/images/cart_two_points.png" /></a>
+        <a href="/api/<?=$UsersID?>/shop/cart/" class="pull-right"><img src="/static/api/shop/skin/default/images/cart_two_points.png" /></a>
         <h1 class="title" id="page_title"><?=$title?></h1>
 </header>
     
