@@ -186,7 +186,7 @@ class weixin_message{
 	
 	public function sendorder($money,$orderid){//佣金提醒
 		$rsConfig = $this->db->GetRs("distribute_config","Withdraw_Type,Withdraw_Limit,Dis_Level","where Users_ID='".$this->usersid."'");
-                $dis_level = $disRes['Dis_Level'];
+                $dis_level = $rsConfig['Dis_Level'];
 		$msg = '';
 		
 		$u0 = $this->db->GetRs("user","Owner_Id,User_NickName,User_OpenID","where Users_ID='".$this->usersid."' and User_ID=".$this->userid);
