@@ -189,56 +189,59 @@ if(!empty($user_id_array)){
           </tr>
         </thead>
         <tbody>
-	<?php foreach($record_list as $key=>$rsRecord):?>
-           <tr UserID="<?php echo $rsRecord['Record_ID'] ?>">
-          	<td nowarp="nowrap"><?=$rsRecord['Record_ID']?></td>
-			<td nowrap="nowrap"><?php echo date("Ymd",$rsRecord["Record_CreateTime"]).$rsRecord["Order_ID"] ?></td>
-            <td nowarp="nowrap" field=1><?php 
-			echo empty($user_dropdown[$rsRecord['Owner_ID']]) ? '' : $user_dropdown[$rsRecord['Owner_ID']];?></td>
-            <td nowarp="nowrap"><?php echo empty($user_dropdown[$rsRecord['Buyer_ID']]) ? '' : $user_dropdown[$rsRecord['Buyer_ID']];?></td>
-            <td nowarp="nowrap">
-		
-            <?=!empty($rsRecord['Product_Name'])?$rsRecord['Product_Name']:'产品已删'; ?>
-
-            </td>
-            <td nowarp="nowrap">
-            	<?php
+		<?php foreach($record_list as $key=>$rsRecord):?>
+ 			<?php if(!empty($rsRecord['dis_account_record'])){?>
+ 				<tr UserID="<?php echo $rsRecord['Record_ID'] ?>">
+ 					<td nowarp="nowrap"><?=$rsRecord['Record_ID']?></td>
+ 					<td nowrap="nowrap"><?php echo date("Ymd",$rsRecord["Record_CreateTime"]).$rsRecord["Order_ID"] ?></td>
+ 					<td nowarp="nowrap" field=1><?php 
+ 					echo empty($user_dropdown[$rsRecord['Owner_ID']]) ? '' : $user_dropdown[$rsRecord['Owner_ID']];?></td>
+ 					<td nowarp="nowrap"><?php echo empty($user_dropdown[$rsRecord['Buyer_ID']]) ? '' : $user_dropdown[$rsRecord['Buyer_ID']];?></td>
+ 					<td nowarp="nowrap">
+ 				
+ 					<?=!empty($rsRecord['Product_Name'])?$rsRecord['Product_Name']:'产品已删'; ?>
+ 
+ 					</td>
+ 					<td nowarp="nowrap">
+ 						<?php
+ 							
+ 
+ 							$level_name = array(1=>'一级',2=>'二级',3=>'三级',
+ 												4=>'四级',5=>'五级',6=>'六级',
+ 												7=>'七级',8=>'八级',9=>'九级',
+ 												10=>'十级');
+ 							
+ 							foreach($rsRecord['dis_account_record'] as $key=>$account_record){
+ 								if($rsRecord['Buyer_ID']==$account_record['User_ID']){
+ 									echo '<font style="color:blue">自销</font>&nbsp;&nbsp;';
+ 								}else{
+ 									echo $level_name[$account_record['level']].'&nbsp;&nbsp;';
+ 								}
+ 								
+ 								echo !empty($user_dropdown[$account_record['User_ID']])?$user_dropdown[$account_record['User_ID']]:'无昵称'.'&nbsp;&nbsp;';
+ 								
+ 								echo '<span class="red">&yen;'.round_pad_zero($account_record['Record_Money'],2).($account_record['Record_Money']<0 ? '用户退款减少佣金' : '').'</span><br/>';
+ 								
+ 								echo ($account_record['Nobi_Money']>0)?$account_record['Nobi_Level']:$account_record['Nobi_Description'].'<br>';
+ 								
+ 								echo (($account_record['Nobi_Money']>0)?'<span class="red">&nbsp;&nbsp;&yen;'.$account_record['Nobi_Money'].'</span><br/>':'');
+ 
+ 							}
+ 						?>
+ 					</td>
+	
+ 					<td nowrap="nowrap"> 
+ 					<?php if($rsRecord['status'] == 0):?>
+ 						未完成
+ 					<?php else:?>
+ 						已完成
+ 					<?php endif;?>
 					
-
-					$level_name = array(1=>'一级',2=>'二级',3=>'三级',
-										4=>'四级',5=>'五级',6=>'六级',
-										7=>'七级',8=>'八级',9=>'九级',
-										10=>'十级');
-					
-					foreach($rsRecord['dis_account_record'] as $key=>$account_record){
-						if($rsRecord['Buyer_ID']==$account_record['User_ID']){
-							echo '<font style="color:blue">自销</font>&nbsp;&nbsp;';
-						}else{
-							echo $level_name[$account_record['level']].'&nbsp;&nbsp;';
-						}
-						
-						echo !empty($user_dropdown[$account_record['User_ID']])?$user_dropdown[$account_record['User_ID']]:'无昵称'.'&nbsp;&nbsp;';
-						
-						echo '<span class="red">&yen;'.round_pad_zero($account_record['Record_Money'],2).($account_record['Record_Money']<0 ? '用户退款减少佣金' : '').'</span><br/>';
-						
-						echo ($account_record['Nobi_Money']>0)?$account_record['Nobi_Level']:$account_record['Nobi_Description'].'<br>';
-						
-						echo (($account_record['Nobi_Money']>0)?'<span class="red">&nbsp;&nbsp;&yen;'.$account_record['Nobi_Money'].'</span><br/>':'');
-
-					}
-				?>
-            </td>
-            <td nowrap="nowrap">
-            <?php if($rsRecord['status'] == 0):?>
-            	未完成
-			<?php else:?>
-                已完成
-			<?php endif;?>
-            
-            </td>
-            <td nowrap="nowrap"><?php echo date("Y-m-d H:i:s",$rsRecord['Record_CreateTime']) ?></td>            
-          </tr>
-      <?php endforeach; ?>
+					</td>
+ 					<td nowrap="nowrap"><?php echo date("Y-m-d H:i:s",$rsRecord['Record_CreateTime']) ?></td>            
+ 				</tr>
+ 			<?php } ?>
+         <?php endforeach; ?>
         </tbody>
       </table>
       <div class="page"><?=$page_links?></div>
