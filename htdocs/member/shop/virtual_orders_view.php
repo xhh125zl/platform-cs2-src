@@ -92,12 +92,10 @@ $_STATUS = array('<font style="color:#F00; font-size:12px;">申请中</font>','<
             </tr>
             <tr>
             <?php
-            print_r($Order_Status);
             ?>
               <td nowrap>订单状态：</td>
               <td><?php if($rsOrder["Order_TotalPrice"]<=$rsOrder["Back_Amount"]){?><font style="color:#999; text-decoration:line-through">已退款</font><?php }else{?>
               	<?php
-echo $rsOrder["Order_Status"];
 
               	 echo $Order_Status[$rsOrder["Order_Status"]] ?><?php }?></td>
             </tr>
