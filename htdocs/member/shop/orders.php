@@ -96,6 +96,38 @@ var orders_status=["待付款","待确认","已付款","已发货","已完成","
 $(document).ready(shop_obj.orders_init);
 </script>
 <script>
+$(function(){
+	  $("#checkall").click(function(){
+	     if($(this).prop("checked")==true){
+	      $("input[name='OrderID[]']").attr("checked","checked");
+	      }else{
+	        $("input[name='OrderID[]']").removeAttr("checked");
+	      }
+	  });
+	  $("#print").click(function(){
+	      var ids = new Array;
+	      $("input[name='OrderID[]']:checked").each(function(){
+	          ids.push($(this).val());
+	      });
+	      if(ids.length<2)
+	      {
+	          alert("至少选择2个");
+	          return false;
+	      }
+	      var idlist = "";
+	      for(var i=0;i<ids.length;i++)
+	      {
+	          if(i==ids.length-1){
+	              idlist +=ids[i];
+	          }else{
+	              idlist +=ids[i]+",";
+	          }
+	          
+	      }
+	      location.href = "/member/shop/order_print.php?OrderID="+idlist;
+	  });
+	});
+
 function CheckAll(form1){
 	for(var i=0;i<form1.elements.length;i++){
 		var e = form1.elements[i];
@@ -153,6 +185,7 @@ function SelectThis(index){
       <table border="0" cellpadding="5" cellspacing="0" class="r_con_table" id="order_list">
         <thead>
           <tr>
+            <td width="6%" nowrap="nowrap"><input type="checkbox" id="checkall"/></td>
             <td width="5%" nowrap="nowrap">序号</td>
             <td width="10%" nowrap="nowrap">订单号</td>
             <td width="15" nowrap="nowrap">商家</td>
@@ -177,6 +210,7 @@ $Shipping=json_decode(htmlspecialchars_decode($rsOrder["Order_Shipping"]), true)
 
 
           <tr class="<?php echo empty($rsOrder["Order_IsRead"])?"is_not_read":"" ?>" IsRead="<?php echo $rsOrder["Order_IsRead"] ?>" OrderId="<?php echo $rsOrder["Order_ID"] ?>">
+            <td nowrap="nowrap"><input type="checkbox" name="OrderID[]" value="<?php echo $rsOrder["Order_ID"];?>" /></td>
             <td nowrap="nowrap"><?php echo $rsOrder["Order_ID"] ?></td>
          
             <td nowrap="nowrap"><?php echo date("Ymd",$rsOrder["Order_CreateTime"]).$rsOrder["Order_ID"] ?></td>
@@ -221,6 +255,9 @@ $Shipping=json_decode(htmlspecialchars_decode($rsOrder["Order_Shipping"]), true)
           <?php $i++;}?>
         </tbody>
       </table>
+      <div style="height:10px; width:100%;"></div>
+       <label style="display:block; width:120px; border-radius:5px; height:32px; line-height:30px; background:#3AA0EB; color:#FFF; text-align:center; font-size:12px; cursor:pointer" id="print">打印发货单</label>
+       <input type="hidden" name="templateid" value="" />
 	  </form>
       <div class="blank20"></div>
       <?php $DB->showPage(); ?>
