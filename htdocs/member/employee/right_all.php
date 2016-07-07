@@ -125,6 +125,10 @@ $rmenu["html"] = array(
 	'spread'=>'推广技巧'
 );
 
+$rmenu['update'] = array(
+	'update' => '系统升级',
+	'index' => '系统升级',
+);
 
 //不在右键菜单内的,系统首页
 $rmenusub["wei_account"] = array(
