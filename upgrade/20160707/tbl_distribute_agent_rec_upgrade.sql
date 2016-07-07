@@ -1,1 +1,1 @@
-ALTER TABLE distribute_agent_rec MODIFY Record_Money Numeric(10,2);
+ALTER TABLE distribute_agent_rec MODIFY Record_Money decimal(10,2);
