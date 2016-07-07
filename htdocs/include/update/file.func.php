@@ -15,7 +15,7 @@ if(!function_exists('file_put_contents')) {
 }
 
 function msg($msg = errmsg, $forward = 'goback', $time = '1') {
-	include $_SERVER['DOCUMENT_ROOT'].'/admin/update/msg.php';
+	include $_SERVER['DOCUMENT_ROOT'].'/include/update/msg.php';
     exit;
 }
 
