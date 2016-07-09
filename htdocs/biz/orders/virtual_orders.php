@@ -13,6 +13,7 @@ if(isset($_GET["action"])){
 			exit;
 		}else{
 			$rsOrder = $DB->GetRs("user_order","*","where Users_ID='".$rsBiz["Users_ID"]."' and Order_Code='".$_GET["code"]."' and Biz_ID=".$_SESSION["BIZ_ID"]);
+			$rsBack = $DB->GetRs("user_back_order","*","where Users_ID='".$rsBiz["Users_ID"]."' and Biz_ID=".$_SESSION["BIZ_ID"]." AND Order_ID={$rsOrder['Order_ID']}  Order By Back_ID desc");
 			if(!$rsOrder){
 				echo '<script language="javascript">alert("该订单不存在");history.back();</script>';
 				exit;
@@ -26,7 +27,7 @@ if(isset($_GET["action"])){
 					$lists_back[] = $b;
 				}
 			}
-			$_STATUS = array('<font style="color:#F00; font-size:12px;">申请中</font>','<font style="color:#F60; font-size:12px;">卖家同意</font>','<font style="color:#0F3; font-size:12px;">买家发货</font>','<font style="color:#600; font-size:12px;">卖家收货并确定退款价格</font>','<font style="color:blue; font-size:12px;">完成</font>','<font style="color:#999; font-size:12px; text-decoration:line-through;">卖家拒绝退款</font>');
+			$_STATUS = array('<font style="color:#F00; font-size:12px;">申请退款中</font>','<font style="color:#F60; font-size:12px;">卖家同意</font>','<font style="color:#0F3; font-size:12px;">买家发货</font>','<font style="color:#600; font-size:12px;">卖家收货并确定退款价格</font>','<font style="color:blue; font-size:12px;">完成</font>','<font style="color:#999; font-size:12px; text-decoration:line-through;">卖家拒绝退款</font>');
 		}
 	}
 }
@@ -107,7 +108,7 @@ if($_POST){
             </tr>
             <tr>
               <td nowrap>订单总价：</td>
-              <td>￥<?php echo $rsOrder["Order_TotalPrice"] ?><?php echo $rsOrder["Back_Amount"]>0 ? '&nbsp;&nbsp;<font style="text-decoration:line-through; color:#999">&nbsp;退款金额：￥'.$rsOrder["Back_Amount"].'&nbsp;</font>&nbsp;&nbsp;' : "";?></td>
+              <td>￥<?php echo $rsOrder["Order_TotalPrice"] ?><?php echo $rsOrder["Back_Amount"]>0 && $rsOrder['Is_Backup']==1? '&nbsp;&nbsp;<font style="text-decoration:line-through; color:#999">&nbsp;退款金额：￥'.$rsOrder["Back_Amount"].'&nbsp;</font>&nbsp;&nbsp;' : "";?></td>
             </tr>
 			<?php if($rsOrder["Coupon_ID"]>0){?>
 			<tr>
@@ -140,7 +141,7 @@ if($_POST){
             </tr>
             <tr>
               <td></td>
-              <td><?php if($rsOrder["Order_Status"]==2 && $rsOrder["Back_Amount"]<=$rsOrder["Order_TotalPrice"]){?><input type="submit" class="btn_green" name="submit_button" value="确认消费" /><?php }else{?><font style="color:#F00">此订单为“<?php echo $_STATUS[$rsOrder["Order_Status"]]?>”状态或已退款，不能消费</font><?php }?></td>
+              <td><?php if($rsOrder["Order_Status"]==2 && $rsOrder["Back_Amount"]<=$rsOrder["Order_TotalPrice"]){?><input type="submit" class="btn_green" name="submit_button" value="确认消费" /><?php }else{?><font style="color:#F00">此订单为“<?php echo $_STATUS[$rsBack["Back_Status"]]?>”状态或已退款，不能消费</font><?php }?></td>
             </tr>
           </table>
         <?php if($rsOrder["Order_Status"]==2){?>

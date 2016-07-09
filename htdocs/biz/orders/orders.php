@@ -165,7 +165,7 @@ while($rsTemplate = $DB->fetch_assoc()){
 			}
 			?></td>
             <td><?php echo $rsOrder["Address_Name"] ?></td>
-            <td nowrap="nowrap">￥<?php echo $rsOrder["Order_TotalPrice"] ?><?php echo $rsOrder["Back_Amount"]>0 ? '<br /><font style="text-decoration:line-through; color:#999">&nbsp;退款金额：￥'.$rsOrder["Back_Amount"].'&nbsp;</font>' : "";?></td> 
+            <td nowrap="nowrap">￥<?php echo $rsOrder["Order_TotalPrice"] ?><?php echo $rsOrder["Back_Amount"]>0 && $rsOrder['Is_Backup']==1? '<br /><font style="text-decoration:line-through; color:#999">&nbsp;退款金额：￥'.$rsOrder["Back_Amount"].'&nbsp;</font>' : "";?></td> 
             <td nowrap="nowrap"><?php		
 				if(empty($Shipping)){
 					echo "免运费";
@@ -177,7 +177,7 @@ while($rsTemplate = $DB->fetch_assoc()){
 					}
 				}
 			?></td>	
-            <td nowrap="nowrap"><?php if($rsOrder["Order_TotalPrice"]<=$rsOrder["Back_Amount"]){?><font style="color:#999; text-decoration:line-through">已退款</font><?php }else{?><?php echo $Order_Status[$rsOrder["Order_Status"]] ?><?php }?></td>
+            <td nowrap="nowrap"><?php if($rsOrder["Order_TotalPrice"]<=$rsOrder["Back_Amount"] && $rsOrder['Is_Backup']==1){?><font style="color:#999; text-decoration:line-through">已退款</font><?php }else{?><?php echo $Order_Status[$rsOrder["Order_Status"]] ?><?php }?></td>
             <td nowrap="nowrap"><?php echo date("Y-m-d H:i:s",$rsOrder["Order_CreateTime"]) ?></td>
             <td class="last" nowrap="nowrap">
             <a href="<?php echo $rsOrder["Order_IsVirtual"]==1 ? 'virtual_' : '';?>orders_view.php?OrderID=<?php echo $rsOrder["Order_ID"] ?>">[详情]</a>
