@@ -184,7 +184,7 @@ if ($_POST) {
 				rel='stylesheet' type='text/css' />
 			<script type='text/javascript'
 				src='/static/js/plugin/operamasks/operamasks-ui.min.js'></script>
-			<div id="orders" class="r_con_wrap" style="width:150%; height:auto;">
+			<div id="orders" class="r_con_wrap" style="width:; height:auto;">
 				<form class="search" id="search_form" method="get" action="?">
 					<select name="Fields">
 						<option value="Bank">银行类型</option>
@@ -217,18 +217,18 @@ if ($_POST) {
 					class="r_con_table" id="order_list">
 					<thead>
 						<tr>
-							<td width="6%" nowrap="nowrap">序号</td>
-							<td width="12%" nowrap="nowrap">商家</td>
-							<td width="8%" nowrap="nowrap">付款单号</td>
-							<td width="10%" nowrap="nowrap">结算时间</td>
-							<td width="5%" nowrap="nowrap">应收总额</td>
+							<td width="2%" nowrap="nowrap">序号</td>
+							<td width="2%" nowrap="nowrap">商家</td>
+							<td width="2%" nowrap="nowrap">付款单号</td>
+							<td width="2%" nowrap="nowrap">结算时间</td>
+							<td width="2%" nowrap="nowrap">应收总额</td>
 <!--							<td width="7%" nowrap="nowrap">优惠金额</td>-->
-							<td width="5%" nowrap="nowrap">网站所得</td>
-							<td width="5%" nowrap="nowrap">分销佣金</td>
-							<td width="5%" nowrap="nowrap">结算金额</td>
-							<td width="5%" nowrap="nowrap">状态</td>
-							<td width="7%" nowrap="nowrap">支付</td>
-							<td width="10%" nowrap="nowrap">生成时间</td>
+							<td width="2%" nowrap="nowrap">网站所得</td>
+							<td width="2%" nowrap="nowrap">分销佣金</td>
+							<td width="2%" nowrap="nowrap">结算金额</td>
+							<td width="2%" nowrap="nowrap">状态</td>
+							<td width="2%" nowrap="nowrap">支付</td>
+							<td width="2%" nowrap="nowrap">生成时间</td>
 							<td width="10%" nowrap="nowrap">操作</td>
 						</tr>
 					</thead>
@@ -259,15 +259,10 @@ if ($_POST) {
 							<td nowrap="nowrap"><font style="color: #F60"><?php echo $value["Amount"];?></font></td>
 							<!--<td nowrap="nowrap"><?php //echo $value["Diff"];?></td>-->
 							<td nowrap="nowrap"><?php echo $value["Web"];?></td>
-							<td nowrap="nowrap"><?php echo $value["Bonus"];?></td>
-							
-                                                        
-                                                        
-                                                        <td nowrap="nowrap"><font style="color:blue"><?php echo $value["Total"];?></font><br>(转账
-           <span><?php echo $value["Total"]*$BizPayRate[$value["Biz_ID"]]/100;?></span>
-           <?php echo"+转向余额";echo $value["Total"]-($value["Total"]*$BizPayRate[$value["Biz_ID"]]/100); echo ")"
-           ?> 
-            </td>
+							<td nowrap="nowrap"><?php echo $value["Bonus"];?></td>                 
+                            <td nowrap="nowrap"><font style="color:blue"><?php echo $value["Total"];?></font><!--<br>(转账<span><?php //echo $value["Total"]*$BizPayRate[$value["Biz_ID"]]/100;?></span>
+           <?php //echo"+转向余额";echo $value["Total"]-($value["Total"]*$BizPayRate[$value["Biz_ID"]]/100); echo ")"?>--> 
+							</td>
                                                         
                                                         
 							<td nowrap="nowrap"><?php echo $_STATUS[$value["Status"]];?></td>
