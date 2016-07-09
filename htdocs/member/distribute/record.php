@@ -215,8 +215,8 @@ $dis_config = dis_config($_SESSION["Users_ID"]);
 												4=>'四级',5=>'五级',6=>'六级',
 												7=>'七级',8=>'八级',9=>'九级',
 												10=>'十级');
-							$i = 1;
-							$j = 1;
+							$i = 0;
+							$j = 0;
 							foreach($rsRecord['dis_account_record'] as $key=>$account_record){
 						
 								if ($account_record['Record_Money'] >= 0 && ($account_record['Nobi_Money'] >= 0)) {
@@ -230,6 +230,8 @@ $dis_config = dis_config($_SESSION["Users_ID"]);
 								}						
 
 								if($rsRecord['Buyer_ID']==$account_record['User_ID']){
+									$i++;
+									$j++;
 									echo '<font style="color:blue">自销</font>&nbsp;&nbsp;';
 								}else{
 									echo $level_name[$account_record['level']].'&nbsp;&nbsp;';
