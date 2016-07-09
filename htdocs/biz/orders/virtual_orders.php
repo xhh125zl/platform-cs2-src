@@ -141,7 +141,7 @@ if($_POST){
             </tr>
             <tr>
               <td></td>
-              <td><?php if($rsOrder["Order_Status"]==2 && $rsOrder["Back_Amount"]<=$rsOrder["Order_TotalPrice"]){?><input type="submit" class="btn_green" name="submit_button" value="确认消费" /><?php }else{?><font style="color:#F00">此订单为“<?php echo $_STATUS[$rsBack["Back_Status"]]?>”状态或已退款，不能消费</font><?php }?></td>
+              <td><?php if($rsOrder["Order_Status"]==2 && $rsOrder["Back_Amount"]<=$rsOrder["Order_TotalPrice"]){?><input type="submit" class="btn_green" name="submit_button" value="确认消费" /><?php }else{?><font style="color:#F00">此订单为“<?php if($rsOrder['Is_Backup']==1) { echo $_STATUS[$rsBack["Back_Status"]]; }else{  echo "已消费认证";  }?>”状态或已退款，不能消费</font><?php }?></td>
             </tr>
           </table>
         <?php if($rsOrder["Order_Status"]==2){?>

@@ -236,7 +236,7 @@ class balance
 		  <td style="text-align:center; height:30pt; width:25%; border-right:1px #000 solid; border-bottom:1px #000 solid; font-family:宋体;font-size:12pt; color:#000">收款类型</td>
 		  <td style="text-align:center; height:30pt; width:25%; border-right:1px #000 solid; border-bottom:1px #000 solid; font-family:宋体; font-size:12pt; color:#000">微支付</td>
 		  <td style="text-align:center; height:30pt; width:25%; border-right:1px #000 solid; border-bottom:1px #000 solid; font-family:宋体; font-size:12pt; color:#000">微信昵称</td>
-		  <td style="text-align:center; height:28pt; width:25%; border-bottom:1px #000 solid; font-family:宋体; font-size:12pt; color:#000"><img src="' . $config['config']["headimgurl"] . '" width="20"/>' . $config['config']["nickname"] . '</td>
+		  <td style="text-align:center; height:28pt; width:25%; border-bottom:1px #000 solid; font-family:宋体; font-size:12pt; color:#000"><img src="' . isset($config['config']["headimgurl"])?$config['config']["headimgurl"]:'' . '" width="20"/>' . isset($config['config']["nickname"])?$config['config']["nickname"]:'' . '</td>
 		</tr>';
         } else 
             if ($array['Payment_Type'] == 2) {

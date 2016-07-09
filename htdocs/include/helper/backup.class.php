@@ -78,8 +78,9 @@ class backup{
 			}
 		}else{
 			$data = array(
-				'Order_Status'=>5,
+			    'Order_Status'=>5,
 			    'Is_Backup'=>1,
+			    'Front_Order_Status'=>$rsOrder['Order_Status'],
 				'Order_CartList'=>json_encode($CartList,JSON_UNESCAPED_UNICODE),
 				'Back_Amount'=>$rsOrder["Back_Amount"]+$amount
 			);
@@ -100,7 +101,7 @@ class backup{
 		$backinfo = $this->db->GetRs("user_back_order","*","where Back_ID=".$backid);
 		switch($action){
 			case 'seller_agree'://卖家同意
-				$detail = '卖家同意退款，等待买家发货';
+				$detail = '卖家同意退款';
 				
 				//增加流程
 				$this->add_record($backid,1,$detail,$time);
@@ -154,7 +155,7 @@ class backup{
 					}
 				}
 				if($back['Back_Status'] == 5){
-				    if($Order['Order_IsVirtual']==1){
+				    if($Order['Order_IsVirtual']==1){  //虚拟商品
 				        $Data = array(
 				            'Is_Backup'=>0,
 				            'Order_Status'=>2,
@@ -162,9 +163,10 @@ class backup{
 				            'Back_Amount'=>$Order["Back_Amount"]-$back["Back_Amount"]
 				        );
 				    }else{
+				        
     				    $Data = array(
+    				        'Order_Status'=>$Order['Front_Order_Status'],
     				        'Is_Backup'=>0,
-    				        'Order_Status'=>3,
     				        'Order_CartList'=>json_encode($CartList,JSON_UNESCAPED_UNICODE),
     				        'Back_Amount'=>$Order["Back_Amount"]-$back["Back_Amount"]
     				    );

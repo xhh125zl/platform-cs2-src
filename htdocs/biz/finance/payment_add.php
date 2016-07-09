@@ -42,7 +42,7 @@ if ($_POST) {
         "Total" => $paymentinfo["supplytotal"],
         "CreateTime" => $createtime,
         "Biz_ID" => $_SESSION["BIZ_ID"],
-        "Users_ID" => $_SESSION["Users_ID"],
+        "Users_ID" => $rsBiz["Users_ID"],
         "Status" => 3
     );
     switch ($_POST['PaymentID']) {
