@@ -92,8 +92,14 @@ class DisRecordObserver{
 		}else{
 			$this->DisAccount =  Dis_Account::Multiwhere(array('Users_ID'=>$UsersID,'User_ID'=>$Owner_ID))
 					 ->first();
-			$level_parent = $level-1;
-			$ancestors = $this->DisAccount->getAncestorIds($level_parent,0);
+			// fix bug by sxf
+			if ($level > 1) {
+			    $level_parent = $level-1;
+			    $ancestors = $this->DisAccount->getAncestorIds($level_parent,0);
+			} else {
+			    //直接使用上级分销商id
+			    $ancestors = array();
+			}
 			array_push($ancestors,$Owner_ID);
 			$ancestors = array_reverse($ancestors);
 			$meet_ancestors = $ancestors;

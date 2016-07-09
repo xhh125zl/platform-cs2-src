@@ -14,7 +14,7 @@ foreach($dsAgentArea as $key=>$AgentArea){
 
 $Total_Agent_Money = Dis_Agent_Record::multiWhere(array('Users_ID'=>$UsersID,'Account_ID'=>$rsAccount['Account_ID']))
                                       ->sum('Record_Money');
-$records = Dis_AGent_Record::multiWhere(array('Users_ID'=>$UsersID,'Account_ID'=>$rsAccount['Account_ID']))
+$records = Dis_AGent_Record::multiWhere(array('Users_ID'=>$UsersID,'Account_ID'=>$rsAccount['Account_ID']))->orderBy('Order_ID','desc')
                                       ->get();
 
 $record_list = array();				

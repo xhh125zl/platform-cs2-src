@@ -22,6 +22,64 @@ class Commission {
 			return $cc;
 		}
 		
+		//数组倒序排列键值不变
+		function array_reverse_order($array){
+ 			$array_key = array_keys($array);
+ 			$array_value = array_values($array);
+
+ 			$array_return = array();
+ 			for($i=1, $size_of_array=sizeof($array_key);$i<=$size_of_array;$i++){
+ 			    $array_return[$array_key[$size_of_array-$i]] = $array_value[$size_of_array-$i];
+ 			}
+
+ 			return $array_return;
+		}
+		//得到爵位佣金的上级数组
+		function delete_commission($array){
+ 			$max = 0;
+ 			$commission_array = array();
+ 			foreach($array as $key=>$vv){
+ 			    $i = 1;
+ 			    if($i == 1){
+
+ 			        $conn = $vv;
+ 			    }else{
+ 			        $conn = $max;
+ 			    }
+ 			    $conn = $max;
+ 			    if($conn >= $vv){
+ 			        $commission_array[$key] = $array[$key];
+ 			        unset($array[$key]);
+ 			    }
+ 			    $max = $vv;
+ 			    $i++;
+ 			}
+ 			return $array;
+		}
+		
+			
+		//没有得到爵位佣金的上级数组
+		function remove_commission($array){
+ 			$max = 0;
+ 			$commission_array = array();
+ 			foreach($array as $key=>$vv){
+ 			    $i = 1;
+ 			    if($i == 1){
+ 			        $conn = $vv;
+ 			    }else{
+ 			        $conn = $max;
+ 			    }
+ 			    $conn = $max;
+ 			    if($conn >= $vv){
+ 			        $commission_array[$key] = $array[$key];
+ 			        unset($array[$key]);
+ 			    }
+ 			    $max = $vv;
+ 			    $i++;
+ 			}
+ 			return $commission_array;
+		}
+		
 		//分销级别佣金/爵位奖发放
 		/*
 		*	$orderid 可为订单id 或订单内容
@@ -41,6 +99,8 @@ class Commission {
 			}elseif($nobi_ratio<0){
 				$nobi_ratio = 0;
 			}
+			
+			
 			$profit = $qty*$products['Products_Profit'];
 			$nobility = $profit*$nobi_ratio*0.01*($products['platForm_Income_Reward']/100);//爵位奖励    $products['platForm_Income_Reward'] => 平台利润的发放比例
 			
@@ -62,15 +122,20 @@ class Commission {
 			
 			$psars = array_reverse($psa);			
 			$nobility_level_bak = Dis_Account::wherein('User_ID',$psars)->where('Users_ID',$UsersID)->get(array('User_ID','Professional_Title'))->toArray();
+			
+			$nobility_ziji = Dis_Account::wherein('User_ID',array($_SESSION[$UsersID.'User_ID']))->where('Users_ID',$UsersID)->get(array('User_ID','Professional_Title'))->toArray();
 			$nobility_level = array();			
 			foreach($nobility_level_bak as $k=>$v){
 				$nobility_level[$v['User_ID']] = $v['Professional_Title'];
 			}
-
+            
+			$nobility_level = $this->array_reverse_order($nobility_level);
+			$nobility_level_max = $this->delete_commission($nobility_level);
+			$nobility_level_min = $this->remove_commission($nobility_level);
 			$nobility_commission = array();
 			//临时变量
 			$level_temp = $bonus_temp = 0;
-			foreach($nobility_level as $key=>$value){
+			foreach($nobility_level_max as $key=>$value){
 				if($profit==0){
 					$nobility_commission[$key] = array('User_ID'=>$key,'Nobi_Description'=>'该商品无爵位奖','Nobi_Money'=>0,'Nobi_Level'=>'该商品无爵位奖');
 					continue;
@@ -86,11 +151,6 @@ class Commission {
 					continue;
 				}
 				
-				if($value<=$level_temp){
-					$nobility_commission[$key] = array('User_ID'=>$key,'Nobi_Description'=>'你的下级爵位级别比你的高，无爵位奖金','Nobi_Money'=>0,'Nobi_Level'=>$Pro_Title_Level[$value]['Name']);
-					continue;
-				}
-				
 				$money_temp = $nobility*$Pro_Title_Level[$value]['Bonus']*0.01;
 				$nobility_commission[$key] = array(
 					'User_ID'=>$key,
@@ -103,6 +163,24 @@ class Commission {
 					$bonus_temp = $money_temp;
 				}
 				
+			}
+			
+			foreach($nobility_level_min as $key=>$value){
+			    if($value==0){
+			        $nobility_commission[$key] = array('User_ID'=>$key,'Nobi_Description'=>'您还没有爵位','Nobi_Money'=>0,'Nobi_Level'=>'无爵位');
+			        continue;
+			    }
+			    	
+			    if(empty($Pro_Title_Level[$value]['Name'])){
+			        $nobility_commission[$key] = array('User_ID'=>$key,'Nobi_Description'=>'商家未设置该爵位奖','Nobi_Money'=>0,'Nobi_Level'=>'爵位有误');
+			        continue;
+			    }
+			    	
+			    if($value>0){
+			
+			        $nobility_commission[$key] = array('User_ID'=>$key,'Nobi_Description'=>'你的下级爵位级别比你的高，无爵位奖金','Nobi_Money'=>0,'Nobi_Level'=>$Pro_Title_Level[$value]['Name']);
+			        continue;
+			    }
 			}
 			
 			return $nobility_commission;

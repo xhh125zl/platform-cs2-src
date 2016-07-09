@@ -455,7 +455,7 @@ function insertRow(){
 
         <style type="text/css">
 		.disnone { display: none; background: #EEE; }
-		.custom { position: fixed; top: 30%; background: blue; color: #FFF; padding: 5px 10px; right: 25px; width: 100px; height: 30px; line-height: 30px; overflow: hidden; }
+		.custom { position: fixed; top: 30%; background: blue; color: #FFF; padding: 5px 10px; right: 25px; width: 90px; height: 30px; line-height: 30px; overflow: hidden; }
 		.custom a { color: #FFF; }
         </style>
         <div class="custom"><a href="javascript:void(0);" class="show_commision">显示佣金设置</a><a href="javascript:void(0);" class="close_commision">隐藏佣金设置</a></div>
