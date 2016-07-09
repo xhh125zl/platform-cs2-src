@@ -64,6 +64,7 @@ class backup{
 			if($rsOrder['Order_Status'] == 2){
 				$data = array(
 					'Order_Status'=>2,
+				    'Front_Order_Status'=>2,
 				    'Is_Backup'=>1,
 					'Order_CartList'=>json_encode($CartList,JSON_UNESCAPED_UNICODE),
 					'Back_Amount'=>$rsOrder["Back_Amount"]+$amount
@@ -71,6 +72,7 @@ class backup{
 			}elseif($rsOrder['Order_Status'] == 3){
 				$data = array(
 					'Order_Status'=>3,
+				    'Front_Order_Status'=>3,
 				    'Is_Backup'=>1,
 					'Order_CartList'=>json_encode($CartList,JSON_UNESCAPED_UNICODE),
 					'Back_Amount'=>$rsOrder["Back_Amount"]+$amount
