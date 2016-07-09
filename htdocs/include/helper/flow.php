@@ -377,9 +377,11 @@ function get_order_total_info($UsersID, $CartList, $rsConfig, $Shipping_IDS, $Ci
 		if(!empty($Biz_Default_Shipping[$Shipping_ID])){
 
 			$Template_ID = $Biz_Default_Shipping[$Shipping_ID];
-			$Biz_Total_Info = get_biz_total_info($UsersID, $item, $Biz_ID, $Template_ID, $City_Code);	
-			$Biz_Total_Info['Shipping_ID'] = $Shipping_ID;
-			$Biz_Total_Info['Shipping_Name'] = $biz_company_dropdown[$Shipping_ID];			
+			$Biz_Total_Info = get_biz_total_info($UsersID, $item, $Biz_ID, $Template_ID, $City_Code);
+			if(!empty($Biz_Total_Info)){
+			     $Biz_Total_Info['Shipping_ID'] = $Shipping_ID;
+			     $Biz_Total_Info['Shipping_Name'] = isset($biz_company_dropdown[$Shipping_ID])?$biz_company_dropdown[$Shipping_ID]:"";	
+			}
 		}else{
 			$Biz_Total_Info = array(
 			    'error'=>1,
@@ -387,10 +389,10 @@ function get_order_total_info($UsersID, $CartList, $rsConfig, $Shipping_IDS, $Ci
 			);
 			$Biz_Total_Info['Shipping_ID'] = 0;
 		}
-		
-		$Biz_Total_Info['Biz_Config'] = $Biz_Config_Dropdown[$Biz_ID];
-		$order_total_info[$Biz_ID] = $Biz_Total_Info;
-		
+		if(!empty($Biz_Total_Info)){
+		  $Biz_Total_Info['Biz_Config'] = $Biz_Config_Dropdown[$Biz_ID];
+		  $order_total_info[$Biz_ID] = $Biz_Total_Info;
+		}
 		if(empty($Biz_Total_Info['error'])){		
 			$total += $Biz_Total_Info['total'];
 			$total_shipping_fee += $Biz_Total_Info['total_shipping_fee'];

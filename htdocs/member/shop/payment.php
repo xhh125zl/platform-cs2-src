@@ -164,7 +164,10 @@ if ($_POST) {
 	<!--[if lte IE 9]><script type='text/javascript' src='/static/js/plugin/jquery/jquery.watermark-1.3.js'></script>
 <![endif]-->
 
-	<div id="iframe_page">
+	<div id="iframe_page" style="
+    overflow-x: scroll;
+    overflow-y: scroll;
+">
 		<div class="iframe_content">
 			<link href='/static/member/css/shop.css' rel='stylesheet'
 				type='text/css' />
@@ -181,7 +184,7 @@ if ($_POST) {
 				rel='stylesheet' type='text/css' />
 			<script type='text/javascript'
 				src='/static/js/plugin/operamasks/operamasks-ui.min.js'></script>
-			<div id="orders" class="r_con_wrap">
+			<div id="orders" class="r_con_wrap" style="width:150%;">
 				<form class="search" id="search_form" method="get" action="?">
 					<select name="Fields">
 						<option value="Bank">银行类型</option>
