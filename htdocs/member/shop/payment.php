@@ -184,7 +184,7 @@ if ($_POST) {
 				rel='stylesheet' type='text/css' />
 			<script type='text/javascript'
 				src='/static/js/plugin/operamasks/operamasks-ui.min.js'></script>
-			<div id="orders" class="r_con_wrap" style="width:150%;">
+			<div id="orders" class="r_con_wrap" style="width:150%; height:auto;">
 				<form class="search" id="search_form" method="get" action="?">
 					<select name="Fields">
 						<option value="Bank">银行类型</option>
