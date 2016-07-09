@@ -60,7 +60,8 @@ class ProTitle
         $protitless = array();
         $protitles_temp = array_reverse($protitles, true);
 
-        //过滤不启用的爵位(名称为空)        
+        //过滤不启用的爵位(名称为空)  
+        $protitless = array();      
         foreach ($protitles as $pk => $pv) {
             if (! empty($pv['Name'])) {
                 $protitless[$pk] = $pv;
