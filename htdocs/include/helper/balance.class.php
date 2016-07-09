@@ -206,7 +206,11 @@ class balance
         }
         
         $data = $this->repeat_list($data);
-        
+		foreach ($data as $ks => $vs) {
+			$total_money[] = $vs['supplytotal']; 
+		}
+		$totalmoney = array_sum($total_money);
+       
         $html = '<div id="printPage"><table cellspacing="0" cellpadding="0" width="90%" style="border:2px #000 solid;">';
         
         /* */
@@ -264,10 +268,10 @@ class balance
 		  <td style="text-align:center; height:28pt; width:25%; border-bottom:1px #000 solid; font-family:宋体; font-size:12pt; color:#000">' . $array["BankMobile"] . '</td>
 		</tr>';
             }
-        
+       
         $html .= '<tr>
 		    <td style="text-align:center; height:30pt; width:25%; border-right:1px #000 solid; border-bottom:1px #000 solid; font-family:宋体;font-size:12pt; color:#000">备注</td>
-		    <td style="text-align:center; height:30pt; width:25%; border-bottom:1px #000 solid; font-family:宋体; font-size:12pt; color:#000" colspan="3"></td>
+		    <td style="text-align:center; height:30pt; width:25%; border-bottom:1px #000 solid; font-family:宋体; font-size:12pt; color:#000" colspan="3">总计:'.$totalmoney.'(转账'.$array["Total"].'+转向余额'.($totalmoney-$array["Total"]).')</td>
 		</tr>
 		<tr>
 		    <td style="text-align:center; height:30pt; width:25%; border-right:1px #000 solid; font-family:宋体;font-size:12pt; color:#000">审批</td>
@@ -318,5 +322,7 @@ class balance
         $html .= '</table></div>';
         echo $html;
     }
-}
+	//
+}			 
 ?>
+
