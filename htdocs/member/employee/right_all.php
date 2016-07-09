@@ -81,8 +81,10 @@ $rmenu["user"] = array(
 
 $rmenu["kf"] = array(
 	'kf' => '在线客服',
-	'config' => '客服设置'
+	'config' => '客服设置',
+	'weixin_config' => '微信客服设置'
 );
+
 
 $rmenu["stores"] = array(
 	'stores' => '门店定位',
