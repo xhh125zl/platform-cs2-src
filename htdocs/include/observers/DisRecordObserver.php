@@ -39,7 +39,12 @@ class DisRecordObserver{
 	
 	}
 	
-	
+	/**
+	 * 合并分销记录与爵位记录，如果爵位记录过多可能会分销的级别限制截断
+	 * @param  [type] $account_records [description]
+	 * @param  [type] $nobi            [description]
+	 * @return [type]                  [description]
+	 */	
 	private function combine_records($account_records,$nobi){
 		foreach($account_records as $key=>$recordItem){
 			if(empty($nobi[$recordItem['User_ID']])){
@@ -55,6 +60,71 @@ class DisRecordObserver{
 
 			$account_records[$key] = $recordItem;
 		}
+
+		//add by sxf 201622 09:38
+		//将分销等级截断后的爵位记录补齐
+		if (count($account_records) < count($nobi)) {
+			
+			//将用户ID作为数据键名,方便下面过滤操作
+			$acct_record = $account_records;
+			if ($acct_record) {
+				foreach ($acct_record as $row) {
+					$acct_record[$row['User_ID']] = $row;
+				}
+			}
+
+			$nobi_array = [];
+			foreach ($nobi as $k => $item) {
+				if (isset($acct_record[$k])) {
+					unset($nobi[$k]);
+					continue;
+				}
+			}
+
+			//处理差异爵位记录
+			if (count($nobi) > 0) {
+				$UsersID = $this->DisRecord->Users_ID;
+				$Owner_ID = $this->DisRecord->Owner_ID;
+				$User_ID = $this->DisRecord->Buyer_ID;
+				
+
+				$Product = self::$Product;
+				$Qty = self::$Qty;
+
+				$Ds_Record_ID = $this->DisRecord->Record_ID;
+
+
+				foreach ($nobi as $item) {				
+					$key = $key + 1;
+				
+					$dis_account_record = new Dis_Account_Record();
+					$dis_account_record->Record_Description = '';
+					
+					$dis_account_record->Users_ID = $UsersID;
+					$dis_account_record->Ds_Record_ID = $Ds_Record_ID;
+					$dis_account_record->User_ID = $item['User_ID'];
+					$dis_account_record->Record_Sn = build_withdraw_sn();
+					$dis_account_record->level = $key + 1;
+					$dis_account_record->Record_Qty = $Qty;
+					$dis_account_record->Record_Price = 0;
+					$dis_account_record->Record_Money = 0;
+					$dis_account_record->Record_CreateTime = time();
+					$dis_account_record->Record_Type = 0;
+					$dis_account_record->Record_Status = 0;
+					$dis_account_record->CartID = $Product['CartID'];
+
+					//爵位的三个相关字段
+					$dis_account_record->Nobi_Description = $item['Nobi_Description'];
+					$dis_account_record->Nobi_Money = $item['Nobi_Money'];
+					$dis_account_record->Nobi_Level = $item['Nobi_Level'];
+
+					//$dis_account_records[] = $dis_account_record->toArray();
+				
+					$account_records[] = $dis_account_record->toArray();
+				}
+				//merge array
+			}
+		}		
 		
 		return $account_records;
 	}
