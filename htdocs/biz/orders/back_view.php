@@ -15,7 +15,9 @@ if(!empty($_GET["action"])){
 		if($Status<>0){
 			echo '<script language="javascript">alert("操作错误");history.back();</script>';
 		}else{
-			$backup->update_backup("seller_agree",$BackID);
+		    if($rsOrder['Order_Status']==3){//已发货
+			    $backup->update_backup("seller_agree",$BackID);
+		    }
 			if($rsOrder['Order_Status']==2){
 				$backup->update_backup("seller_recieve",$BackID,$rsBack['Back_Amount']."||%$%买家付款后申请退款");
 			}
