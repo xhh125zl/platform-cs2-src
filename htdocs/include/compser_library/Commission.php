@@ -156,7 +156,8 @@ class Commission {
 				$nobility_level[$v['User_ID']] = $v['Professional_Title'];
 			}
             
-			$nobility_level = $this->array_reverse_order($nobility_level);
+			//$nobility_level = $this->array_reverse_order($nobility_level);
+			$nobility_level = array_reverse($nobility_level, TRUE);
 			
 			//$nobility_level_max = $this->delete_commission($nobility_level);
 			//$nobility_level_min = $this->remove_commission($nobility_level);
