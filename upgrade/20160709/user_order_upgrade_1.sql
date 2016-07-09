@@ -1,0 +1,1 @@
+alter table user_order add Front_Order_Status tiny(1) DEFAULT 0 COMMENT '存储退货前的订单状态';
