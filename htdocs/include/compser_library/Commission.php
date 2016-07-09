@@ -34,6 +34,33 @@ class Commission {
 
  			return $array_return;
 		}
+
+		/**
+		 * 获取“得到爵位佣金的”和“没有得到爵位佣金"的上级数组
+		 * @param  array $array [description]
+		 * @return array        [description]
+		 */
+		function deal_nobility_level($array) {
+			$max = 0;
+			$commission_array = array();
+
+			foreach ($array as $key => $value) {
+				if ($max >= $value) {
+					$commission_array[$key] = $value;
+					unset($array[$key]);
+				} else {
+					$max = $value;
+				}
+			}
+
+			$result = array(
+				'max' => $array,	//有爵位数组
+				'min' => $commission_array,	//没有爵位数组
+			);
+
+			return $result;
+		}
+
 		//得到爵位佣金的上级数组
 		function delete_commission($array){
  			$max = 0;
@@ -130,27 +157,29 @@ class Commission {
 			}
             
 			$nobility_level = $this->array_reverse_order($nobility_level);
-			$nobility_level_max = $this->delete_commission($nobility_level);
-			$nobility_level_min = $this->remove_commission($nobility_level);
+			
+			//$nobility_level_max = $this->delete_commission($nobility_level);
+			//$nobility_level_min = $this->remove_commission($nobility_level);
+			$deal_nobility_level = $this->deal_nobility_level($nobility_level);
+			$nobility_level_max = $deal_nobility_level['max'];
+			$nobility_level_min = $deal_nobility_level['min'];
+						
 			$nobility_commission = array();
 			//临时变量
 			$level_temp = $bonus_temp = 0;
 			foreach($nobility_level_max as $key=>$value){
-				if($profit==0){
+				if($nobility==0){
 					$nobility_commission[$key] = array('User_ID'=>$key,'Nobi_Description'=>'该商品无爵位奖','Nobi_Money'=>0,'Nobi_Level'=>'该商品无爵位奖');
 					continue;
 				}
-				
 				if($value==0){
 					$nobility_commission[$key] = array('User_ID'=>$key,'Nobi_Description'=>'您还没有爵位','Nobi_Money'=>0,'Nobi_Level'=>'无爵位');
 					continue;
 				}
-				
-				if(empty($Pro_Title_Level[$value]["Name"])){
+				if(empty($Pro_Title_Level[$value]['Name'])){
 					$nobility_commission[$key] = array('User_ID'=>$key,'Nobi_Description'=>'商家未设置该爵位奖','Nobi_Money'=>0,'Nobi_Level'=>'爵位有误');
 					continue;
 				}
-				
 				$money_temp = $nobility*$Pro_Title_Level[$value]['Bonus']*0.01;
 				$nobility_commission[$key] = array(
 					'User_ID'=>$key,
@@ -164,23 +193,23 @@ class Commission {
 				}
 				
 			}
-			
+
+
 			foreach($nobility_level_min as $key=>$value){
-			    if($value==0){
-			        $nobility_commission[$key] = array('User_ID'=>$key,'Nobi_Description'=>'您还没有爵位','Nobi_Money'=>0,'Nobi_Level'=>'无爵位');
-			        continue;
-			    }
-			    	
-			    if(empty($Pro_Title_Level[$value]['Name'])){
-			        $nobility_commission[$key] = array('User_ID'=>$key,'Nobi_Description'=>'商家未设置该爵位奖','Nobi_Money'=>0,'Nobi_Level'=>'爵位有误');
-			        continue;
-			    }
-			    	
-			    if($value>0){
-			
-			        $nobility_commission[$key] = array('User_ID'=>$key,'Nobi_Description'=>'你的下级爵位级别比你的高，无爵位奖金','Nobi_Money'=>0,'Nobi_Level'=>$Pro_Title_Level[$value]['Name']);
-			        continue;
-			    }
+				if($value==0){
+					$nobility_commission[$key] = array('User_ID'=>$key,'Nobi_Description'=>'您还没有爵位','Nobi_Money'=>0,'Nobi_Level'=>'无爵位');
+					continue;
+				}
+				
+				if(empty($Pro_Title_Level[$value]['Name'])){
+					$nobility_commission[$key] = array('User_ID'=>$key,'Nobi_Description'=>'商家未设置该爵位奖','Nobi_Money'=>0,'Nobi_Level'=>'爵位有误');
+					continue;
+				}
+				
+				if($value>0){
+					$nobility_commission[$key] = array('User_ID'=>$key,'Nobi_Description'=>'你的下级爵位级别比你的高，无爵位奖金','Nobi_Money'=>0,'Nobi_Level'=>$Pro_Title_Level[$value]['Name']);
+					continue;
+				}
 			}
 			
 			return $nobility_commission;
