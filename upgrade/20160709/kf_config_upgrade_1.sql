@@ -1,1 +1,1 @@
-alter table kf_config add Wx_keyword varchar(100) DEFAULT NULL COMMENT '微客服触发关键词' after kftype
+alter table kf_config add Wx_keyword varchar(100) DEFAULT NULL COMMENT '微客服触发关键词' after KF_Icon;
