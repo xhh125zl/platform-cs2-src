@@ -1,4 +1,4 @@
-_notes
+﻿_notes
 /htdocs/Framework/dbconfig.php
 /htdocs/pc/log.htm
 /htdocs/nbproject
@@ -7,3 +7,4 @@ _notes
 htdocs/test.php
 htdocs/pc.php
 /htdocs/pc/modules/member/view/复件 web_code.edit.php
+!*.exe

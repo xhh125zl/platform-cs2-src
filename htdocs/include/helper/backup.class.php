@@ -13,13 +13,23 @@ class backup{
 		$CartList=json_decode(htmlspecialchars_decode($rsOrder["Order_CartList"]),true);
 		$ShippingList=json_decode(htmlspecialchars_decode($rsOrder["Order_Shipping"]),true);
 		$item = $CartList[$productid][$cartid];
-		$ShippingMoney = $ShippingList['Price'];
+		
+		$product = $this->db->GetRs("shop_products","Products_IsVirtual","WHERE Products_ID=". intval($productid));
+		//虚拟产品物流费用为0
+		if ($product['Products_IsVirtual'] == 1) {
+		 			$ShippingMoney = 0;
+		} else {
+		 			$ShippingMoney = $ShippingList['Price'];
+		
+		}
+		unset($product);
+		
 		$item["Qty"] = $qty;
 		if($rsOrder['Order_Status'] == 2){
-		$amount = $qty * $item["ProductsPriceX"];
+		  $amount = $qty * $item["ProductsPriceX"];
 		}else{
-		$amount = $qty * $item["ProductsPriceX"];
-		$amount = $amount + $ShippingMoney;
+		  $amount = $qty * $item["ProductsPriceX"];
+		  $amount = $amount + $ShippingMoney;
 		}
 		$time = time();
 		$data = array(
@@ -43,32 +53,29 @@ class backup{
 		$recordid = $this->db->insert_id();
 		//增加退款流程记录
 		$this->add_record($recordid,0,$detail,$time);
-		
-		//更改订单
-		$CartList[$productid][$cartid]["Qty"] = $CartList[$productid][$cartid]["Qty"] - $qty;
-		if($CartList[$productid][$cartid]["Qty"]==0){
-			unset($CartList[$productid][$cartid]);
+		if(!empty($CartList)){
+		    //更改订单
+		    $CartList[$productid][$cartid]["Qty"] = $CartList[$productid][$cartid]["Qty"] - $qty;
+		    $data = array(
+    		            'Is_Backup'=>0,
+    		            'Order_Status'=>5,
+    		            'Order_CartList'=>json_encode($CartList,JSON_UNESCAPED_UNICODE),
+    		            'Back_Amount'=>$rsOrder["Back_Amount"]+$amount
+    		);
 		}
-		if(count($CartList[$productid])==0){
-			unset($CartList[$productid]);
-		}
 		
-		$data = array(
-			'Is_Backup'=>1,
-			'Order_Status'=>5,
-			'Order_CartList'=>json_encode($CartList,JSON_UNESCAPED_UNICODE),
-			'Back_Amount'=>$rsOrder["Back_Amount"]+$amount
-		);
 		$this->db->set("user_order",$data,"where Order_ID=".$rsOrder["Order_ID"]);
+		/*
 		if($rsOrder["Order_Status"]==2 && $rsOrder["Order_IsVirtual"]==0){//已付款,商家未发货订单退款
 			$this->update_backup("seller_recieve",$recordid,$amount."||%$%已付款/商家未发货订单退款，系统自动完成");		
-		}
+		}*/
 		//增加退款佣金记录
 		$this->update_distribute_money($rsOrder["Order_ID"],$productid,$cartid,$qty,0);
 	}
 	
 	public function update_backup($action,$backid,$reason=''){
 		$time = time();
+		$backinfo = $this->db->GetRs("user_back_order","*","where Back_ID=".$backid);
 		switch($action){
 			case 'seller_agree'://卖家同意
 				$detail = '卖家同意退款，等待买家发货';
@@ -76,12 +83,23 @@ class backup{
 				//增加流程
 				$this->add_record($backid,1,$detail,$time);
 				
-				//更新退款单
-				$Data = array(
-					"Back_Status"=>1,
-					"Buyer_IsRead"=>0,
-					"Back_UpdateTime"=>$time
-				);
+		        if($backinfo['Order_Status'] == 3){
+ 					$Data = array(
+ 						'Is_Backup'=>0,
+ 						'Order_Status'=>3,
+ 						'Order_CartList'=>json_encode($CartList,JSON_UNESCAPED_UNICODE),
+ 						'Back_Amount'=>$Order["Back_Amount"]-$back["Back_Amount"]
+ 					);
+ 					
+ 				}else{
+ 					$Data = array(
+	
+ 						'Is_Backup'=>0,
+ 						'Order_Status'=>2,
+ 						'Order_CartList'=>json_encode($CartList,JSON_UNESCAPED_UNICODE),
+ 						'Back_Amount'=>$Order["Back_Amount"]-$back["Back_Amount"]
+ 					);
+ 				}
 				$this->db->Set("user_back_order",$Data,"where Back_ID=".$backid);
 			break;
 			case 'seller_reject'://卖家驳回
@@ -112,11 +130,31 @@ class backup{
 						$CartList[$back["ProductID"]][$back["Back_CartID"]]["Qty"] = $CartList[$back["ProductID"]][$back["Back_CartID"]]["Qty"] + $backjson["Qty"];
 					}
 				}
-				
-				$Data = array(
-					'Order_CartList'=>json_encode($CartList,JSON_UNESCAPED_UNICODE),
-					'Back_Amount'=>$Order["Back_Amount"]-$back["Back_Amount"]
-				);
+				if($back['Back_Status'] == 5){
+				    if($Order['Order_IsVirtual']==1){
+				        $Data = array(
+				            'Is_Backup'=>0,
+				            'Order_Status'=>2,
+				            'Order_CartList'=>json_encode($CartList,JSON_UNESCAPED_UNICODE),
+				            'Back_Amount'=>$Order["Back_Amount"]-$back["Back_Amount"]
+				        );
+				    }else{
+    				    $Data = array(
+    				        'Is_Backup'=>0,
+    				        'Order_Status'=>3,
+    				        'Order_CartList'=>json_encode($CartList,JSON_UNESCAPED_UNICODE),
+    				        'Back_Amount'=>$Order["Back_Amount"]-$back["Back_Amount"]
+    				    );
+				    }	
+				}else{
+				    $Data = array(
+				        'Is_Backup'=>0,
+				        'Order_Status'=>2,
+				        'Order_CartList'=>json_encode($CartList,JSON_UNESCAPED_UNICODE),
+				        'Back_Amount'=>$Order["Back_Amount"]-$back["Back_Amount"]
+				    );
+				}
+
 				$this->db->Set("user_order",$Data,"where Order_ID=".$back["Order_ID"]);
 				
 				//增加退款佣金记录
@@ -172,9 +210,10 @@ class backup{
 				$this->db->Set("user_order",$Data,"where Order_ID=".$backinfo["Order_ID"]);
 			break;
 			case 'admin_backmoney'://卖家同意
-			$backinfo = $this->db->GetRs("user_back_order","Back_Amount,Order_ID","where Back_ID=".$backid);
-				$detail = '管理员已退款给买家';
-				
+			    $backinfo = $this->db->GetRs("user_back_order","Back_Amount,Order_ID","where Back_ID=".$backid);
+			    $Order = $this->db->GetRs("user_order","*","where Order_ID=".$backinfo["Order_ID"]);
+			    $detail = '管理员已退款给买家';
+				$CartList=json_decode(htmlspecialchars_decode($Order["Order_CartList"]),true);
 				//增加流程
 				$this->add_record($backid,4,$detail,$time);
 				
@@ -186,10 +225,12 @@ class backup{
 					"Back_UpdateTime"=>$time
 				);
 				$this->db->Set("user_back_order",$Data,"where Back_ID=".$backid);
-				$Data1 = array(
-					"Order_Status"=>4
-				);
-				$this->db->Set("user_order",$Data1,"where Order_ID=".$backinfo["Order_ID"]);
+		        if(empty($CartList)){
+ 					$Data1 = array(
+ 						"Order_Status"=>4
+ 					);
+ 					$this->db->Set("user_order",$Data1,"where Order_ID=".$backinfo["Order_ID"]);
+ 				}
 			break;
 		}
 	}
