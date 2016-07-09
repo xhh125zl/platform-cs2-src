@@ -53,15 +53,37 @@ class backup{
 		$recordid = $this->db->insert_id();
 		//增加退款流程记录
 		$this->add_record($recordid,0,$detail,$time);
-		if(!empty($CartList)){
-		    //更改订单
-		    $CartList[$productid][$cartid]["Qty"] = $CartList[$productid][$cartid]["Qty"] - $qty;
-		    $data = array(
-    		            'Is_Backup'=>0,
-    		            'Order_Status'=>5,
-    		            'Order_CartList'=>json_encode($CartList,JSON_UNESCAPED_UNICODE),
-    		            'Back_Amount'=>$rsOrder["Back_Amount"]+$amount
-    		);
+		$CartList[$productid][$cartid]["Qty"] = $CartList[$productid][$cartid]["Qty"] - $qty;
+		if($CartList[$productid][$cartid]["Qty"]==0){
+		    unset($CartList[$productid][$cartid]);
+		}
+		if(count($CartList[$productid])==0){
+		    unset($CartList[$productid]);
+		}
+	    if(!empty($CartList)){
+			if($rsOrder['Order_Status'] == 2){
+				$data = array(
+					'Order_Status'=>2,
+				    'Is_Backup'=>1,
+					'Order_CartList'=>json_encode($CartList,JSON_UNESCAPED_UNICODE),
+					'Back_Amount'=>$rsOrder["Back_Amount"]+$amount
+				);
+			}elseif($rsOrder['Order_Status'] == 3){
+				$data = array(
+					'Order_Status'=>3,
+				    'Is_Backup'=>1,
+					'Order_CartList'=>json_encode($CartList,JSON_UNESCAPED_UNICODE),
+					'Back_Amount'=>$rsOrder["Back_Amount"]+$amount
+				);
+			}
+		}else{
+			$data = array(
+				'Order_Status'=>5,
+			    'Is_Backup'=>1,
+				'Order_CartList'=>json_encode($CartList,JSON_UNESCAPED_UNICODE),
+				'Back_Amount'=>$rsOrder["Back_Amount"]+$amount
+			);
+			
 		}
 		
 		$this->db->set("user_order",$data,"where Order_ID=".$rsOrder["Order_ID"]);
@@ -83,25 +105,26 @@ class backup{
 				//增加流程
 				$this->add_record($backid,1,$detail,$time);
 				
-		        if($backinfo['Order_Status'] == 3){
- 					$Data = array(
- 						'Is_Backup'=>0,
- 						'Order_Status'=>3,
- 						'Order_CartList'=>json_encode($CartList,JSON_UNESCAPED_UNICODE),
- 						'Back_Amount'=>$Order["Back_Amount"]-$back["Back_Amount"]
- 					);
- 					
- 				}else{
- 					$Data = array(
-	
- 						'Is_Backup'=>0,
- 						'Order_Status'=>2,
- 						'Order_CartList'=>json_encode($CartList,JSON_UNESCAPED_UNICODE),
- 						'Back_Amount'=>$Order["Back_Amount"]-$back["Back_Amount"]
- 					);
- 				}
+		        $Data = array(
+					"Back_Status"=>1,
+					"Buyer_IsRead"=>0,
+					"Back_UpdateTime"=>$time
+				);
 				$this->db->Set("user_back_order",$Data,"where Back_ID=".$backid);
 			break;
+			case 'seller_agrees'://卖家同意
+			    $detail = '卖家同意退款';
+			    //增加流程
+			    $this->add_record($backid,1,$detail,$time);
+			    //更新退款单
+			    $Data = array(
+			        "Back_Status"=>3,
+			        "Biz_IsRead"=>0,
+			        "Back_UpdateTime"=>$time,
+			        	
+			    );
+			    $this->db->Set("user_back_order",$Data,"where Back_ID=".$backid);
+			    break;
 			case 'seller_reject'://卖家驳回
 				$detail = '卖家驳回退款申请，驳回理由：'.$reason;
 				
