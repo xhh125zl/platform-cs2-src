@@ -62,6 +62,7 @@ if($_POST){
     <div class="r_nav">
       <ul>
         <li class="cur"><a href="config.php">客服设置</a></li>
+		<li><a href="weixin_config.php">微信客服设置</a></li>
       </ul>
     </div>
     <div id="kf_web" class="r_con_wrap">

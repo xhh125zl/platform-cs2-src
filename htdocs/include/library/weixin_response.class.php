@@ -35,6 +35,7 @@ class weixin_response{
 			$msgType = 'text';
 			$textTpl = $Tpl[$msgType];
 			$contentStr='';
+			$gotiao = 3;
 			if($postObj->MsgType=='event'){
 				if($postObj->Event=='subscribe'){
 					$guanzhu = $ownerid = $productsid = 0;
@@ -42,10 +43,16 @@ class weixin_response{
 					if(!empty($postObj->EventKey)){
 						if(strpos($postObj->EventKey,"_user_")>-1){
 							$ownerid = intval(str_replace('qrscene_user_','',$postObj->EventKey));
+							if(!$ownerid){
+							$gotiao = 1;
+							$contentStr = '关注有错，请取消关注后重新关注！';	
+							}
 						}
 						 
 						if(strpos($postObj->EventKey,"_products_")>-1){
-							$guanzhu = 1;
+							$gotiao = 1;
+							$contentStr = '图片关注有错，请取消关注后重新关注！';
+							/* $guanzhu = 1;
 							$strtemp = str_replace('qrscene_products_','',$postObj->EventKey);
 							$arrTemp = explode("_",$strtemp);
 							$ownerid = $arrTemp[0];
@@ -56,9 +63,10 @@ class weixin_response{
 							}else{
 								$JSON = json_decode($item['Products_JSON'],TRUE);
 								$item["img"] = isset($JSON["ImgPath"]) ? $JSON["ImgPath"][0] : '';
-							}
+							} */
 						}
 					}
+					if($gotiao == 3){
 					$info = $this->registeruser($ownerid);
 					if($guanzhu==1){
 						$array = array();
@@ -116,6 +124,7 @@ class weixin_response{
 							exit;
 						}	
 					}
+					}
 				}elseif($postObj->Event=="SCAN"){
 					
 					$guanzhu = $ownerid = $productsid = 0;
@@ -123,10 +132,16 @@ class weixin_response{
 					
 					if(strpos($postObj->EventKey,"user_")>-1){
 						$ownerid = intval(str_replace('user_','',$postObj->EventKey));
+						if(!$ownerid){
+							$gotiao = 1;
+							$contentStr = '关注有错，请取消关注后重新关注！';	
+							}
 					}
 					
 					if(strpos($postObj->EventKey,"products_")>-1){
-						$guanzhu = 1;
+						$gotiao = 1;
+						$contentStr = '图片关注有错，请取消关注后重新关注！';
+						/* $guanzhu = 1;
 						$strtemp = str_replace('products_','',$postObj->EventKey);
 						$arrTemp = explode("_",$strtemp);
 						$ownerid = $arrTemp[0];
@@ -137,9 +152,9 @@ class weixin_response{
 						}else{
 							$JSON = json_decode($item['Products_JSON'],TRUE);
 							$item["img"] = isset($JSON["ImgPath"]) ? $JSON["ImgPath"][0] : '';
-						}
+						}*/
 					}
-					
+					if($gotiao == 3){
 					$info = $this->registeruser($ownerid);
 					
 					if($guanzhu==1){
@@ -166,6 +181,7 @@ class weixin_response{
 					}else{
 						echo "";
 						exit;
+					}
 					}
 				}elseif($postObj->Event=="unsubscribe"){
 					$contentStr = "取消订阅成功！";
@@ -226,8 +242,25 @@ class weixin_response{
 			}elseif($postObj->MsgType=="text"){
 				$msgType = "text";
 				$textTpl = $Tpl[$msgType];
+				$rsConfig = $this->db->GetRs("kf_config","*","where Users_ID='".$this->usersid."'");
+				$Wx_keyword = array_filter(explode('|',$rsConfig['Wx_keyword']));
+				foreach($Wx_keyword as $key=>$value){
+					if(strstr($keyword, $value)){
+						$Wx_status = true;
+						break;
+					}else{
+						$Wx_status = false;
+						continue;
+					}
+				}
 				if(empty($keyword)){
 					$contentStr = "请说些什么...";
+				}elseif($Wx_status){
+							$msgType = "transfer_customer_service";								
+							$transferTpl = $Tpl[$msgType];							
+							$result = sprintf($transferTpl, $this->openid, $toUsername, $time,$msgType);
+							echo $result;
+							exit;
 				}else{
 					$rsReply=$this->db->GetRs("wechat_keyword_reply","Reply_TextContents,Reply_MsgType,Reply_MaterialID","where Users_ID='".$this->usersid."' and Reply_PatternMethod=0 and Reply_Keywords='".$keyword."' order by Reply_Table desc,Reply_ID desc");
 					if(!$rsReply){
@@ -256,7 +289,7 @@ class weixin_response{
 							$contentStr = $rsReply["Reply_TextContents"]; 
 						}										  									  
 					}else{
-						echo "";
+						$contentStr = '关键词不对亲！';
 						exit;
 					}
 				}
@@ -393,7 +426,13 @@ class weixin_response{
 						</item>",
 				"Footer"=>"</Articles>
 						</xml>"
-			)
+			),
+			"transfer_customer_service"=>"<xml>
+					<ToUserName><![CDATA[%s]]></ToUserName>
+					<FromUserName><![CDATA[%s]]></FromUserName>
+					<CreateTime>%s</CreateTime>
+					<MsgType><![CDATA[%s]]></MsgType>					
+					</xml>"
 		);
 		return $array;
 	}
