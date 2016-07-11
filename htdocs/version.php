@@ -5,6 +5,6 @@ $version = array(
 	'version' => '4.1.3',
 	'release' => '2016011',
 	'product' => 2,
-	'type' => 'multi'
+	'type' => 'simple'
 );
 ?>  
