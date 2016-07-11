@@ -298,7 +298,18 @@ class backup{
 				$data["Record_Description"] = $type==0 ? '用户退款，减少佣金'.$amount.'元' : '用户退款被驳回，增加佣金'.$amount.'元';
 				$data["Record_CreateTime"] = time();
 				$data["Owner_ID"] = 0;
-				$data['Nobi_Money'] = 0;
+				//$data['Nobi_Money'] = 0;
+				//edit sxf 修正用户退款，爵位奖励未退款bug
+				if ($type == 0) {
+					$data['Nobi_Description'] = '用户退款，减少爵位奖金' . $data['Nobi_Money'] . '元';
+					if ($data['Nobi_Money'] > 0) {
+						$data['Nobi_Money'] = -$data['Nobi_Money'];	
+					}					
+				} else {
+					$data['Nobi_Description'] = '用户退款被驳回，增加爵位奖金' . $data['Nobi_Money'] . '元';
+					$data['Nobi_Money'] = $data['Nobi_Money'];	
+				}
+								
 				$this->db->Add('distribute_account_record', $data);
 			}
 		}
