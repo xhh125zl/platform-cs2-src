@@ -26,8 +26,20 @@ class backup{
 		
 		$item["Qty"] = $qty;
 		if($rsOrder['Order_Status'] == 2){    //已付款
-		  $amount = $qty * $item["ProductsPriceX"];
-		  $amount += $ShippingMoney;
+		    $cpyCarList = $CartList;
+		    $cpyCarList[$productid][$cartid]["Qty"] = $cpyCarList[$productid][$cartid]["Qty"] - $qty;
+		    if($cpyCarList[$productid][$cartid]["Qty"]==0){
+		        unset($cpyCarList[$productid][$cartid]);
+		    }
+		    if(count($cpyCarList[$productid])==0){
+		        unset($cpyCarList[$productid]);
+		    }
+		    if(!empty($cpyCarList)){
+		        $amount = $qty * $item["ProductsPriceX"];
+		    }else{
+		        $amount = $qty * $item["ProductsPriceX"];
+		        $amount += $ShippingMoney;
+		    }
 		}else{    //已发货
 		  $amount = $qty * $item["ProductsPriceX"];
 		}
