@@ -15,10 +15,10 @@ if(!empty($_GET["action"])){
 		if($Status<>0){
 			echo '<script language="javascript">alert("操作错误");history.back();</script>';
 		}else{
-		    if($rsOrder['Order_Status']==3 || $rsOrder['Front_Order_Status']==3 || $rsBack['Back_Status']==0){//已发货
+		    if($rsOrder['Front_Order_Status']==3 && $rsBack['Back_Status']==0){//已发货的状态下
 			    $backup->update_backup("seller_agree",$BackID);
 		    }
-			if($rsOrder['Order_Status']==2 ||  $rsOrder['Front_Order_Status']==2 || $rsBack['Back_Status']==0){
+			if($rsOrder['Front_Order_Status']==2 && $rsBack['Back_Status']==0){  //已付款未发货的状态下
 				$backup->update_backup("seller_recieve",$BackID,$rsBack['Back_Amount']."||%$%买家付款后申请退款");
 			}
 			echo '<script language="javascript">alert("操作成功");window.location="back_view.php?BackID='.$BackID.'";</script>';
