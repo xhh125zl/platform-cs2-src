@@ -31,6 +31,23 @@ $_STATUS = array('<font style="color:#F00">申请中</font>','<font style="color
 <script type='text/javascript' src='/static/api/js/global.js'></script>
 <script type='text/javascript' src='/static/api/shop/js/shop.js'></script>
 <script language="javascript">$(document).ready(shop_obj.page_init);</script>
+<style>
+#footer ul#footer-nav li b {
+    background: red;
+    border-radius: 50%;
+    display: block;
+    height: 15px;
+    position: absolute;
+    right: 28%;
+    top: 5px;
+    width: 15px;
+    font-size: 12px;
+    text-align: center;
+    line-height: 15px;
+    color: #ffffff;
+    font-style: normal;
+}
+</style>
 </head>
 
 <body>
