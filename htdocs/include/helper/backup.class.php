@@ -26,14 +26,15 @@ class backup{
 		
 		$item["Qty"] = $qty;
 		if($rsOrder['Order_Status'] == 2){    //已付款
-		    $CartList[$productid][$cartid]["Qty"] = $CartList[$productid][$cartid]["Qty"] - $qty;
-		    if($CartList[$productid][$cartid]["Qty"]==0){
-		        unset($CartList[$productid][$cartid]);
+		    $cpyCarList = $CartList;
+		    $cpyCarList[$productid][$cartid]["Qty"] = $cpyCarList[$productid][$cartid]["Qty"] - $qty;
+		    if($cpyCarList[$productid][$cartid]["Qty"]==0){
+		        unset($cpyCarList[$productid][$cartid]);
 		    }
-		    if(count($CartList[$productid])==0){
-		        unset($CartList[$productid]);
+		    if(count($cpyCarList[$productid])==0){
+		        unset($cpyCarList[$productid]);
 		    }
-		    if(!empty($CartList)){
+		    if(!empty($cpyCarList)){
 		        $amount = $qty * $item["ProductsPriceX"];
 		    }else{
 		        $amount = $qty * $item["ProductsPriceX"];
