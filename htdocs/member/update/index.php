@@ -4,7 +4,7 @@ defined('IN_UPDATE') or exit('No Access');
 
 require($_SERVER['DOCUMENT_ROOT'] . '/include/update/file.func.php');
 
-$url = 'http://down.haofenxiao.net/version_list.php?product='.$version['product'].'&type='.$version['type'];
+$url = 'http://down.haofenxiao.net/version_list2.php?product='.$version['product'].'&type='.$version['type'];
 $code = @file_get_contents($url);
 if($code){
 	if(substr($code, 0, 8) == 'StatusOK') {
