@@ -25,11 +25,11 @@ class backup{
 		unset($product);
 		
 		$item["Qty"] = $qty;
-		if($rsOrder['Order_Status'] == 2){
+		if($rsOrder['Order_Status'] == 2){    //已付款
 		  $amount = $qty * $item["ProductsPriceX"];
-		}else{
+		  $amount += $ShippingMoney;
+		}else{    //已发货
 		  $amount = $qty * $item["ProductsPriceX"];
-		  $amount = $amount + $ShippingMoney;
 		}
 		$time = time();
 		$data = array(
@@ -222,7 +222,7 @@ class backup{
 				//增加流程
 				$this->add_record($backid,1,$detail,$time);
 				
-				//更新退款单
+				//更新退款单 
 				$Data = array(
 					"Back_Status"=>3,
 					"Buyer_IsRead"=>0,
