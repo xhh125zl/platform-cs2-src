@@ -16,7 +16,7 @@ switch($action) {
 		}
 		$PHP_URL = @get_cfg_var('allow_url_fopen');
 		if(!$PHP_URL) msg('当前服务器不支持URL打开文件，请修改php.ini中allow_url_fopen = on');
-		$url = 'http://down.haofenxiao.net/update.php?product='.$version['product'].'&type='.$version['type'].'&release='.$release;
+		$url = 'http://down.haofenxiao.net/update2.php?product='.$version['product'].'&type='.$version['type'].'&release='.$release;
 		$code = @file_get_contents($url);
 		if($code) {
 			if(substr($code, 0, 8) == 'StatusOK') {
@@ -87,7 +87,7 @@ switch($action) {
 		msg('系统还原成功', '?');
 	break;
 	case 'getdown':
-		$url = 'http://down.haofenxiao.net/down.php?product=' . $version['product'].'&type='.$version['type'].'&release='.$release;
+		$url = 'http://down.haofenxiao.net/down2.php?product=' . $version['product'].'&type='.$version['type'].'&release='.$release;
 		$code = @file_get_contents($url);
 		if($code){
 			if(substr($code, 0, 8) == 'StatusOK') {
