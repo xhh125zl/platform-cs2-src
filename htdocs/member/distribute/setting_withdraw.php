@@ -14,7 +14,7 @@ if(isset($_GET["action"])){
 	    $keyword = $_GET['keyword'];
 	    $condition = "where Users_ID = '".$_SESSION['Users_ID']."'";
 	   
-	    if(strlen($cate_id)>0){
+	   if(strlen($cate_id)>0){
 			$condition .= " and Products_Category like '%".','.$cate_id.','."%'";
 	   }
 	   
@@ -37,7 +37,8 @@ if($_POST){
 	$Menu = array();
 	$dis_config = Dis_Config::find($_SESSION["Users_ID"]);
 	
-	//提现门槛
+	//提现门槛 
+        $dis_config->Withdraw_Switch = empty($_POST['Withdraw_Switch']) ? 0 : $_POST['Withdraw_Switch'];
 	$dis_config->Withdraw_Type = $_POST['Type'];
 	if($_POST['Type']==2){
 		$dis_config->Withdraw_Limit = $_POST["Fanwei"].'|'.(empty($_POST['Limit'][$_POST['Type']]) ? '' : substr($_POST['Limit'][$_POST['Type']],1,-1));
@@ -90,7 +91,6 @@ if($_POST){
 		$withdraw_limit = explode("|",$rsConfig["Withdraw_Limit"]);
 	}
 }
-
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -126,20 +126,30 @@ if($_POST){
     </div>
     <div class="r_con_wrap">
       <form id="distribute_config_form" class="r_con_form" method="post" action="?">
-		<div class="rows">
+        <div class="rows">
+          <label>分销商提现开关</label>
+          <span class="input">
+              <input type="radio" name="Withdraw_Switch" onclick="withdrawshow(this)" <?php echo $rsConfig["Withdraw_Switch"]==1 ? ' checked' : '';?> value="1"> <label for="c_0">开启</label>&nbsp;
+              <input type="radio" name="Withdraw_Switch" onclick="withdrawshow(this)" <?php echo $rsConfig["Withdraw_Switch"]==0 ? ' checked' : '';?> value="0"> <label for="c_0">关闭</label>
+          </span>
+          <div class="clear"></div>
+        </div>
+        
+        
+        <div class="rows switch" style="display:<?php if($rsConfig["Withdraw_Switch"]==0){echo "none";}?>"> 
           <label>分销商提现门槛</label>
           <span class="input">
           	<select name="Type">
              	<option value="0"<?php echo $rsConfig["Withdraw_Type"]==0 ? ' selected' : '';?>>无限制</option>
                 <option value="1"<?php echo $rsConfig["Withdraw_Type"]==1 ? ' selected' : '';?>>所得佣金限制</option>
                 <option value="2"<?php echo $rsConfig["Withdraw_Type"]==2 ? ' selected' : '';?>>购买商品</option>
-				<option value="3"<?php echo $rsConfig["Withdraw_Type"]==3 ? ' selected' : '';?>>等级限制</option>
+		<option value="3"<?php echo $rsConfig["Withdraw_Type"]==3 ? ' selected' : '';?>>等级限制</option>
            	</select>
           </span>
           <div class="clear"></div>
         </div>
-        <div id="type_1"<?php echo $rsConfig["Withdraw_Type"] != 1 ? ' style="display:none"' : '';?>>
-            <div class="rows">
+        <div id="type_1" <?php echo $rsConfig["Withdraw_Type"] != 1 ? ' style="display:none"' : '';?>>
+            <div class="rows switch" style="display:<?php if($rsConfig["Withdraw_Switch"]==0){echo "none";}?>">
               <label>最低佣金</label>
               <span class="input">
               <input type="text" name="Limit[1]" value="<?php echo $rsConfig["Withdraw_Type"]==1 ? $rsConfig["Withdraw_Limit"] : 0;?>" class="form_input" size="5" maxlength="10" /> <span class="tips">&nbsp;注:当分销商佣金达到此额度时才能有提现功能.</span>
@@ -212,7 +222,7 @@ if($_POST){
             </div>
         </div>
         
-        <div class="rows">
+        <div class="rows switch" style="display:<?php if($rsConfig["Withdraw_Switch"]==0){echo "none";}?>">
           <label>每次提现最小金额</label>
           <span class="input">
           <input type="text" name="PerLimit" value="<?php echo $rsConfig["Withdraw_PerLimit"];?>" class="form_input" size="5" maxlength="10" /> <span class="tips">&nbsp;注:分销商每次申请提现时，所填写金额不得小于该值</span>
@@ -220,7 +230,7 @@ if($_POST){
           <div class="clear"></div>
         </div>
 		
-		<div class="rows">
+	<div class="rows switch" style="display:<?php if($rsConfig["Withdraw_Switch"]==0){echo "none";}?>">
           <label>提现余额分配比例</label>
           <span class="input">
           <input type="text" name="Balance_Ratio" value="<?php echo empty($rsConfig["Balance_Ratio"]) ? '' :$rsConfig["Balance_Ratio"];?>" class="form_input" size="5" maxlength="10" />% <span class="tips">&nbsp;注:提现时，以此百分比计算的金额发放到余额，此金额无法提现</span>
@@ -228,14 +238,14 @@ if($_POST){
           <div class="clear"></div>
         </div>
 		
-		<div class="rows">
+	<div class="rows switch" style="display:<?php if($rsConfig["Withdraw_Switch"]==0){echo "none";}?>">
           <label>提现手续费</label>
           <span class="input">
           <input type="text" name="Poundage_Ratio" value="<?php echo empty($rsConfig["Poundage_Ratio"]) ? '' :$rsConfig["Poundage_Ratio"];?>" class="form_input" size="5" maxlength="10" />% <span class="tips">&nbsp;注:提现时，扣除用户以此百分比计算的手续费</span>
           </span>
           <div class="clear"></div>
         </div>
-		<div class="rows">
+	<div class="rows switch" style="display:<?php if($rsConfig["Withdraw_Switch"]==0){echo "none";}?>">
           <label>提现是否审核</label>
           <span class="input">
           <input type="radio" name="TxCustomize" id="c_0" value="0"<?php echo $rsConfig["TxCustomize"]==0 ? ' checked' : '';?>/><label for="c_0"> 关闭</label>&nbsp;&nbsp;
@@ -243,7 +253,7 @@ if($_POST){
           </span>
           <div class="clear"></div>
         </div>
-		
+ 
         
         <div class="rows">
           <label></label>
@@ -256,5 +266,14 @@ if($_POST){
     </div>
   </div>
 </div>
+    <script>
+        function withdrawshow (the) {
+             if (the.value == 1){
+                $('.rows').show();
+             } else {
+                $('.switch').hide();
+             }
+        }
+    </script>
 </body>
 </html>
