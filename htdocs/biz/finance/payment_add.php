@@ -12,6 +12,7 @@ $biz_PayConfig = array();
 if (! empty($rsBiz['Biz_PayConfig'])) {
     $biz_PayConfig = json_decode($rsBiz['Biz_PayConfig'], true);
 }
+
 $Biz_Users_ID = $rsBiz["Users_ID"];
 $Biz_Name = $rsBiz["Biz_Name"];
 $pay = getPayConfig($Biz_Users_ID, true);
@@ -151,7 +152,7 @@ body, html {
 							class="fc_red">*</font> <span class="tips">需要结算的销售记录的时间段</span></span>
 						<div class="clear"></div>
 					</div>
-					<div class="rows">
+					<div class="rows" id="bind_weixin">
 						<label>微信识别码</label> <span class="input"> 
 						<?php if(!isset($biz_PayConfig['config']['OpenID']) || !$biz_PayConfig['config']['OpenID']){ ?>
 						<a href = "/biz/account/account_payconfig.php" class="btn_green">请绑定OpenId</a>
@@ -213,13 +214,13 @@ body, html {
 							<font class="fc_red">*</font></span>
 						<div class="clear"></div>
 					</div>
-					<?php if(isset($biz_PayConfig['config']['OpenID']) && $biz_PayConfig['config']['OpenID']){ ?>
+					<?php //if(isset($biz_PayConfig['config']['OpenID']) && $biz_PayConfig['config']['OpenID']){ ?>
 					<div class="rows">
 						<label></label> <span class="input"> <input type="submit"
 							class="btn_green" value="一键生成" name="submit_btn"></span>
 						<div class="clear"></div>
 					</div>
-					<?php } ?>
+					<?php //} ?>
 				</form>
 			</div>
 		</div>
@@ -230,11 +231,13 @@ $(function(){
 	$("select[name='PaymentID']").change(function(){
 		call();
 	});
-	$("input[name='submit_btn']").submit(function(){
+	$("input[name='submit_btn']").click(function(){
+
 		var paymentid = parseInt($("select[name='PaymentID']").val());
+
 		if(paymentid===1){
 			var openid = $("input[name='OpenID']").val();
-			
+
 			if(openid=="" || openid==null){
 				alert("微信识别码OpenID 不能为空");
 				return false;
@@ -293,6 +296,7 @@ function call()
     		$("input[name='BankName']").parent().parent().hide();
     		$("input[name='BankMobile']").parent().parent().hide();
     		$("#nickname").show();
+    		$("#bind_weixin").show();
     		break;
     	}
     	case 2:		//支付宝支付
@@ -305,6 +309,7 @@ function call()
     		$("input[name='BankNo']").parent().parent().hide();
     		$("input[name='BankMobile']").parent().parent().hide();
     		$("#nickname").hide();
+    		$("#bind_weixin").hide();
     		break;
     	}
     	case 3:
@@ -316,6 +321,7 @@ function call()
     		$("input[name='BankNo']").parent().parent().show();
     		$("input[name='BankName']").parent().parent().show();
     		$("input[name='BankMobile']").parent().parent().show();
+    		$("#bind_weixin").hide();
     		$("#nickname").hide();
     		break;
     	}
