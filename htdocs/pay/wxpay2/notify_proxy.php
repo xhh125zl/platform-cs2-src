@@ -6,12 +6,11 @@ require_once($_SERVER["DOCUMENT_ROOT"].'/include/helper/tools.php');
 require_once($_SERVER["DOCUMENT_ROOT"].'/Framework/Ext/sms.func.php');
 require_once($_SERVER["DOCUMENT_ROOT"].'/include/library/pay_order.class.php');
 ini_set("display_errors","On"); 
-
-if(isset($GLOBALS['HTTP_RAW_POST_DATA'])){
+$xml = isset($GLOBALS['HTTP_RAW_POST_DATA']) && !empty(isset($GLOBALS['HTTP_RAW_POST_DATA']))?$GLOBALS['HTTP_RAW_POST_DATA']:file_get_contents("php://input");
+if($xml){
 	
 	include_once("WxPayPubHelper.php");
 	$notify = new Notify_pub();
-	$xml = $GLOBALS['HTTP_RAW_POST_DATA'];
 	$notify->saveData($xml);
 	$OrderID = $notify->data["out_trade_no"];
 	
@@ -64,7 +63,6 @@ if(isset($GLOBALS['HTTP_RAW_POST_DATA'])){
 	}
 }else{
 	$OrderID = isset($_GET["OrderID"]) ? $_GET["OrderID"] : 0;
-	
 	$rsOrder=$DB->GetRs("agent_order","Users_ID,Order_Status","where Order_ID='".$OrderID."'");
 	if(!$rsOrder){
 		echo "订单不存在";
