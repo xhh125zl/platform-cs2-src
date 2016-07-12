@@ -22,7 +22,15 @@ $pay_total = strval(floatval($pay_fee)*100);
 $pay_orderno = strval($rsOrder["Order_CreateTime"].$OrderID);
 $pay_subject = '购买'.$rsOrder['AreaMark'];
 
-include_once("WxPay.pub.config.php");
+define("APPID" , trim($rsUsers["Users_WechatAppId"]));
+define("APPSECRET", trim($rsUsers["Users_WechatAppSecret"]));
+define("MCHID",trim($rsPay["PaymentWxpayPartnerId"]));
+define("KEY",trim($rsPay["PaymentWxpayPartnerKey"]));
+define("JS_API_CALL_URL","http://".$_SERVER['HTTP_HOST']."/pay/wxpay2/sendto_proxy.php?UsersID=".$UsersID."_".$OrderID);
+define("NOTIFY_URL","http://".$_SERVER['HTTP_HOST']."/pay/wxpay2/notify_proxy.php");
+define("CURL_TIMEOUT",30);
+define("SSLCERT_PATH",$_SERVER["DOCUMENT_ROOT"].$rsPay["PaymentWxpayCert"]);
+define("SSLKEY_PATH",$_SERVER["DOCUMENT_ROOT"].$rsPay["PaymentWxpayKey"]);
 include_once("WxPayPubHelper.php");
 $jsApi = new JsApi_pub();
 if (!isset($_GET['code'])){
@@ -38,7 +46,7 @@ $unifiedOrder->setParameter("openid","$openid");
 $unifiedOrder->setParameter("body","$pay_subject");
 $unifiedOrder->setParameter("out_trade_no","$pay_orderno");
 $unifiedOrder->setParameter("total_fee","$pay_total");
-$unifiedOrder->setParameter("notify_url","http://".$_SERVER['HTTP_HOST']."/pay/wxpay2/notify_distribute.php");
+$unifiedOrder->setParameter("notify_url","http://".$_SERVER['HTTP_HOST']."/pay/wxpay2/notify_proxy.php");
 $unifiedOrder->setParameter("trade_type","JSAPI");
 $prepay_id = $unifiedOrder->getPrepayId();
 
@@ -64,7 +72,7 @@ $jsApiParameters = $jsApi->getParameters();
 				function(res){
 					WeixinJSBridge.log(res.err_msg);
 					if(res.err_msg=='get_brand_wcpay_request:ok'){
-						window.location.href = 'http://<?php echo $_SERVER['HTTP_HOST'];?>/pay/wxpay2/notify_distribute.php?OrderID=<?php echo $OrderID;?>';
+						window.location.href = 'http://<?php echo $_SERVER['HTTP_HOST'];?>/pay/wxpay2/notify_proxy.php?OrderID=<?php echo $OrderID;?>';
 					}
 				}
 			);
