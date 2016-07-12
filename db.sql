@@ -1,5 +1,5 @@
 -- ----------------------------
--- Table structure for action_num_record
+-- Table structure for `action_num_record`
 -- ----------------------------
 DROP TABLE IF EXISTS `action_num_record`;
 CREATE TABLE `action_num_record` (
@@ -18,7 +18,7 @@ CREATE TABLE `action_num_record` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for ad_advertising
+-- Table structure for `ad_advertising`
 -- ----------------------------
 DROP TABLE IF EXISTS `ad_advertising`;
 CREATE TABLE `ad_advertising` (
@@ -39,7 +39,7 @@ CREATE TABLE `ad_advertising` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for ad_list
+-- Table structure for `ad_list`
 -- ----------------------------
 DROP TABLE IF EXISTS `ad_list`;
 CREATE TABLE `ad_list` (
@@ -58,7 +58,7 @@ CREATE TABLE `ad_list` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for ad_model
+-- Table structure for `ad_model`
 -- ----------------------------
 DROP TABLE IF EXISTS `ad_model`;
 CREATE TABLE `ad_model` (
@@ -82,7 +82,7 @@ INSERT INTO `ad_model` VALUES ('7', '抢红包邀请好友页面', '640', '60', 
 INSERT INTO `ad_model` VALUES ('8', '抢红包好友帮助页面', '640', '60', '好友帮助拆红包页面');
 
 -- ----------------------------
--- Table structure for agent
+-- Table structure for `agent`
 -- ----------------------------
 DROP TABLE IF EXISTS `agent`;
 CREATE TABLE `agent` (
@@ -110,7 +110,7 @@ CREATE TABLE `agent` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for agent_back_tie
+-- Table structure for `agent_back_tie`
 -- ----------------------------
 DROP TABLE IF EXISTS `agent_back_tie`;
 CREATE TABLE `agent_back_tie` (
@@ -127,9 +127,8 @@ CREATE TABLE `agent_back_tie` (
 -- Records of agent_back_tie
 -- ----------------------------
 
-
 -- ----------------------------
--- Table structure for agent_level
+-- Table structure for `agent_level`
 -- ----------------------------
 DROP TABLE IF EXISTS `agent_level`;
 CREATE TABLE `agent_level` (
@@ -149,7 +148,7 @@ CREATE TABLE `agent_level` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for agent_order
+-- Table structure for `agent_order`
 -- ----------------------------
 DROP TABLE IF EXISTS `agent_order`;
 CREATE TABLE `agent_order` (
@@ -184,7 +183,7 @@ CREATE TABLE `agent_order` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for anli
+-- Table structure for `anli`
 -- ----------------------------
 DROP TABLE IF EXISTS `anli`;
 CREATE TABLE `anli` (
@@ -199,7 +198,7 @@ CREATE TABLE `anli` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for announce
+-- Table structure for `announce`
 -- ----------------------------
 DROP TABLE IF EXISTS `announce`;
 CREATE TABLE `announce` (
@@ -218,7 +217,7 @@ CREATE TABLE `announce` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for announce_category
+-- Table structure for `announce_category`
 -- ----------------------------
 DROP TABLE IF EXISTS `announce_category`;
 CREATE TABLE `announce_category` (
@@ -232,7 +231,7 @@ CREATE TABLE `announce_category` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for area
+-- Table structure for `area`
 -- ----------------------------
 DROP TABLE IF EXISTS `area`;
 CREATE TABLE `area` (
@@ -3582,7 +3581,7 @@ INSERT INTO `area` VALUES ('5024', '五家渠市', '492', '0', '3', null, '0');
 INSERT INTO `area` VALUES ('45055', '海外', '35', '0', '2', null, '0');
 
 -- ----------------------------
--- Table structure for battle
+-- Table structure for `battle`
 -- ----------------------------
 DROP TABLE IF EXISTS `battle`;
 CREATE TABLE `battle` (
@@ -3620,7 +3619,7 @@ CREATE TABLE `battle` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for battle_act
+-- Table structure for `battle_act`
 -- ----------------------------
 DROP TABLE IF EXISTS `battle_act`;
 CREATE TABLE `battle_act` (
@@ -3637,7 +3636,7 @@ CREATE TABLE `battle_act` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for battle_exam
+-- Table structure for `battle_exam`
 -- ----------------------------
 DROP TABLE IF EXISTS `battle_exam`;
 CREATE TABLE `battle_exam` (
@@ -3658,7 +3657,7 @@ CREATE TABLE `battle_exam` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for battle_sn
+-- Table structure for `battle_sn`
 -- ----------------------------
 DROP TABLE IF EXISTS `battle_sn`;
 CREATE TABLE `battle_sn` (
@@ -3682,7 +3681,7 @@ CREATE TABLE `battle_sn` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for bianmin_server
+-- Table structure for `bianmin_server`
 -- ----------------------------
 DROP TABLE IF EXISTS `bianmin_server`;
 CREATE TABLE `bianmin_server` (
@@ -3709,7 +3708,7 @@ CREATE TABLE `bianmin_server` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for biz
+-- Table structure for `biz`
 -- ----------------------------
 DROP TABLE IF EXISTS `biz`;
 CREATE TABLE `biz` (
@@ -3752,6 +3751,8 @@ CREATE TABLE `biz` (
   `UserID` int(11) DEFAULT NULL COMMENT '前台绑定会员',
   `PaymenteRate` decimal(10,2) DEFAULT '100.00' COMMENT '结算比例',
   `Invitation_Code` varchar(10) DEFAULT NULL COMMENT '邀请码',
+  `Biz_PayConfig` varchar(255) DEFAULT NULL,
+  `Biz_Flag` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`Biz_ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
@@ -3760,7 +3761,7 @@ CREATE TABLE `biz` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for biz_apply
+-- Table structure for `biz_apply`
 -- ----------------------------
 DROP TABLE IF EXISTS `biz_apply`;
 CREATE TABLE `biz_apply` (
@@ -3782,7 +3783,7 @@ CREATE TABLE `biz_apply` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for biz_category
+-- Table structure for `biz_category`
 -- ----------------------------
 DROP TABLE IF EXISTS `biz_category`;
 CREATE TABLE `biz_category` (
@@ -3800,7 +3801,7 @@ CREATE TABLE `biz_category` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for biz_config
+-- Table structure for `biz_config`
 -- ----------------------------
 DROP TABLE IF EXISTS `biz_config`;
 CREATE TABLE `biz_config` (
@@ -3818,7 +3819,7 @@ CREATE TABLE `biz_config` (
 INSERT INTO `biz_config` VALUES ('1', 'pl2hu3uczz', '测试1', '测试2', '测试3');
 
 -- ----------------------------
--- Table structure for biz_group
+-- Table structure for `biz_group`
 -- ----------------------------
 DROP TABLE IF EXISTS `biz_group`;
 CREATE TABLE `biz_group` (
@@ -3836,7 +3837,7 @@ CREATE TABLE `biz_group` (
 INSERT INTO `biz_group` VALUES ('1', 'pl2hu3uczz', '测试分组', '0', '0');
 
 -- ----------------------------
--- Table structure for biz_home
+-- Table structure for `biz_home`
 -- ----------------------------
 DROP TABLE IF EXISTS `biz_home`;
 CREATE TABLE `biz_home` (
@@ -3861,7 +3862,7 @@ INSERT INTO `biz_home` VALUES ('7', 'pl2hu3uczz', '7', '1', '[{\"ContentsType\":
 INSERT INTO `biz_home` VALUES ('8', 'pl2hu3uczz', '8', '1', '[{\"ContentsType\":\"1\",\"Title\":[\"\",\"\",\"\",\"\",\"\"],\"ImgPath\":[\"/api/shop/biz/1/banner.jpg\",\"\",\"\",\"\",\"\"],\"Url\":[\"\",\"\",\"\",\"\",\"\"],\"Postion\":\"t01\",\"Width\":\"640\",\"Height\":\"320\",\"NeedLink\":\"1\"}]');
 
 -- ----------------------------
--- Table structure for biz_menu
+-- Table structure for `biz_menu`
 -- ----------------------------
 DROP TABLE IF EXISTS `biz_menu`;
 CREATE TABLE `biz_menu` (
@@ -3880,7 +3881,7 @@ CREATE TABLE `biz_menu` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for biz_skin
+-- Table structure for `biz_skin`
 -- ----------------------------
 DROP TABLE IF EXISTS `biz_skin`;
 CREATE TABLE `biz_skin` (
@@ -3898,7 +3899,7 @@ CREATE TABLE `biz_skin` (
 INSERT INTO `biz_skin` VALUES ('1', 't47djimutm', '模板1', '/static/member/images/shop/biz/skin001.jpg', '[{\"ContentsType\":\"1\",\"Title\":[\"\",\"\",\"\",\"\",\"\"],\"ImgPath\":[\"/api/shop/biz/1/banner.jpg\",\"\",\"\",\"\",\"\"],\"Url\":[\"\",\"\",\"\",\"\",\"\"],\"Postion\":\"t01\",\"Width\":\"640\",\"Height\":\"320\",\"NeedLink\":\"1\"}]');
 
 -- ----------------------------
--- Table structure for cloud_category
+-- Table structure for `cloud_category`
 -- ----------------------------
 DROP TABLE IF EXISTS `cloud_category`;
 CREATE TABLE `cloud_category` (
@@ -3916,7 +3917,7 @@ CREATE TABLE `cloud_category` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for cloud_products
+-- Table structure for `cloud_products`
 -- ----------------------------
 DROP TABLE IF EXISTS `cloud_products`;
 CREATE TABLE `cloud_products` (
@@ -3957,7 +3958,7 @@ CREATE TABLE `cloud_products` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for cloud_products_detail
+-- Table structure for `cloud_products_detail`
 -- ----------------------------
 DROP TABLE IF EXISTS `cloud_products_detail`;
 CREATE TABLE `cloud_products_detail` (
@@ -3982,7 +3983,7 @@ CREATE TABLE `cloud_products_detail` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for cloud_record
+-- Table structure for `cloud_record`
 -- ----------------------------
 DROP TABLE IF EXISTS `cloud_record`;
 CREATE TABLE `cloud_record` (
@@ -4001,7 +4002,7 @@ CREATE TABLE `cloud_record` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for cloud_shopcodes
+-- Table structure for `cloud_shopcodes`
 -- ----------------------------
 DROP TABLE IF EXISTS `cloud_shopcodes`;
 CREATE TABLE `cloud_shopcodes` (
@@ -4022,7 +4023,7 @@ CREATE TABLE `cloud_shopcodes` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for cloud_slide
+-- Table structure for `cloud_slide`
 -- ----------------------------
 DROP TABLE IF EXISTS `cloud_slide`;
 CREATE TABLE `cloud_slide` (
@@ -4040,7 +4041,7 @@ CREATE TABLE `cloud_slide` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for comein
+-- Table structure for `comein`
 -- ----------------------------
 DROP TABLE IF EXISTS `comein`;
 CREATE TABLE `comein` (
@@ -4061,7 +4062,7 @@ CREATE TABLE `comein` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for distribute_account
+-- Table structure for `distribute_account`
 -- ----------------------------
 DROP TABLE IF EXISTS `distribute_account`;
 CREATE TABLE `distribute_account` (
@@ -4117,7 +4118,7 @@ CREATE TABLE `distribute_account` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for distribute_account_message
+-- Table structure for `distribute_account_message`
 -- ----------------------------
 DROP TABLE IF EXISTS `distribute_account_message`;
 CREATE TABLE `distribute_account_message` (
@@ -4136,7 +4137,7 @@ CREATE TABLE `distribute_account_message` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for distribute_account_record
+-- Table structure for `distribute_account_record`
 -- ----------------------------
 DROP TABLE IF EXISTS `distribute_account_record`;
 CREATE TABLE `distribute_account_record` (
@@ -4168,7 +4169,7 @@ CREATE TABLE `distribute_account_record` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for distribute_agent_areas
+-- Table structure for `distribute_agent_areas`
 -- ----------------------------
 DROP TABLE IF EXISTS `distribute_agent_areas`;
 CREATE TABLE `distribute_agent_areas` (
@@ -4188,7 +4189,7 @@ CREATE TABLE `distribute_agent_areas` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for distribute_agent_rec
+-- Table structure for `distribute_agent_rec`
 -- ----------------------------
 DROP TABLE IF EXISTS `distribute_agent_rec`;
 CREATE TABLE `distribute_agent_rec` (
@@ -4197,7 +4198,7 @@ CREATE TABLE `distribute_agent_rec` (
   `Account_ID` int(10) DEFAULT '0',
   `Real_Name` varchar(400) DEFAULT NULL COMMENT '真实姓名',
   `Account_Mobile` varchar(11) DEFAULT NULL,
-  `Record_Money` float(10,2) DEFAULT NULL,
+  `Record_Money` decimal(10,2) DEFAULT NULL,
   `Record_Type` tinyint(1) DEFAULT '0' COMMENT '代理类型 1 省代理 2城市代理 3县（区）代理',
   `area_id` int(10) DEFAULT NULL COMMENT '代理地区ID',
   `Record_CreateTime` int(10) DEFAULT NULL,
@@ -4215,7 +4216,7 @@ CREATE TABLE `distribute_agent_rec` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for distribute_config
+-- Table structure for `distribute_config`
 -- ----------------------------
 DROP TABLE IF EXISTS `distribute_config`;
 CREATE TABLE `distribute_config` (
@@ -4259,6 +4260,8 @@ CREATE TABLE `distribute_config` (
   `Distribute_ShopOpen` tinyint(1) DEFAULT '0' COMMENT '成为分销商才能进入商城 0 关闭 1 开启',
   `Salesman` int(10) DEFAULT '0' COMMENT '业务员限制',
   `Salesman_ImgPath` varchar(255) DEFAULT '',
+  `TxCustomize` tinyint(1) DEFAULT '1' COMMENT '提现审核开关',
+  `Withdraw_Switch` tinyint(3) DEFAULT '1' COMMENT '提现开关：1开启0关闭',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=302 DEFAULT CHARSET=utf8;
 
@@ -4267,7 +4270,7 @@ CREATE TABLE `distribute_config` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for distribute_fanben_record
+-- Table structure for `distribute_fanben_record`
 -- ----------------------------
 DROP TABLE IF EXISTS `distribute_fanben_record`;
 CREATE TABLE `distribute_fanben_record` (
@@ -4285,7 +4288,7 @@ CREATE TABLE `distribute_fanben_record` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for distribute_fuxiao
+-- Table structure for `distribute_fuxiao`
 -- ----------------------------
 DROP TABLE IF EXISTS `distribute_fuxiao`;
 CREATE TABLE `distribute_fuxiao` (
@@ -4309,7 +4312,7 @@ CREATE TABLE `distribute_fuxiao` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for distribute_level
+-- Table structure for `distribute_level`
 -- ----------------------------
 DROP TABLE IF EXISTS `distribute_level`;
 CREATE TABLE `distribute_level` (
@@ -4334,7 +4337,7 @@ CREATE TABLE `distribute_level` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for distribute_order
+-- Table structure for `distribute_order`
 -- ----------------------------
 DROP TABLE IF EXISTS `distribute_order`;
 CREATE TABLE `distribute_order` (
@@ -4357,6 +4360,7 @@ CREATE TABLE `distribute_order` (
   `Order_CreateTime` int(10) DEFAULT '0' COMMENT '下单时间',
   `Order_Type` tinyint(1) DEFAULT '0' COMMENT '订单类型 0 购买级别  1 在线升级',
   `UpgradeDistributes` varchar(255) DEFAULT '' COMMENT '升级佣金明细',
+  `Order_Peas` int(11) DEFAULT '0' COMMENT '赠送豆豆',
   PRIMARY KEY (`Order_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -4365,7 +4369,7 @@ CREATE TABLE `distribute_order` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for distribute_order_record
+-- Table structure for `distribute_order_record`
 -- ----------------------------
 DROP TABLE IF EXISTS `distribute_order_record`;
 CREATE TABLE `distribute_order_record` (
@@ -4389,7 +4393,7 @@ CREATE TABLE `distribute_order_record` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for distribute_record
+-- Table structure for `distribute_record`
 -- ----------------------------
 DROP TABLE IF EXISTS `distribute_record`;
 CREATE TABLE `distribute_record` (
@@ -4416,7 +4420,7 @@ CREATE TABLE `distribute_record` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for distribute_sales_record
+-- Table structure for `distribute_sales_record`
 -- ----------------------------
 DROP TABLE IF EXISTS `distribute_sales_record`;
 CREATE TABLE `distribute_sales_record` (
@@ -4444,7 +4448,7 @@ CREATE TABLE `distribute_sales_record` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for distribute_sha_rec
+-- Table structure for `distribute_sha_rec`
 -- ----------------------------
 DROP TABLE IF EXISTS `distribute_sha_rec`;
 CREATE TABLE `distribute_sha_rec` (
@@ -4473,7 +4477,7 @@ CREATE TABLE `distribute_sha_rec` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for distribute_withdraw_method
+-- Table structure for `distribute_withdraw_method`
 -- ----------------------------
 DROP TABLE IF EXISTS `distribute_withdraw_method`;
 CREATE TABLE `distribute_withdraw_method` (
@@ -4491,7 +4495,7 @@ CREATE TABLE `distribute_withdraw_method` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for distribute_withdraw_methods
+-- Table structure for `distribute_withdraw_methods`
 -- ----------------------------
 DROP TABLE IF EXISTS `distribute_withdraw_methods`;
 CREATE TABLE `distribute_withdraw_methods` (
@@ -4513,7 +4517,7 @@ CREATE TABLE `distribute_withdraw_methods` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for distribute_withdraw_record
+-- Table structure for `distribute_withdraw_record`
 -- ----------------------------
 DROP TABLE IF EXISTS `distribute_withdraw_record`;
 CREATE TABLE `distribute_withdraw_record` (
@@ -4543,7 +4547,7 @@ CREATE TABLE `distribute_withdraw_record` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for fruit
+-- Table structure for `fruit`
 -- ----------------------------
 DROP TABLE IF EXISTS `fruit`;
 CREATE TABLE `fruit` (
@@ -4580,7 +4584,7 @@ CREATE TABLE `fruit` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for fruit_config
+-- Table structure for `fruit_config`
 -- ----------------------------
 DROP TABLE IF EXISTS `fruit_config`;
 CREATE TABLE `fruit_config` (
@@ -4595,7 +4599,7 @@ CREATE TABLE `fruit_config` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for fruit_sn
+-- Table structure for `fruit_sn`
 -- ----------------------------
 DROP TABLE IF EXISTS `fruit_sn`;
 CREATE TABLE `fruit_sn` (
@@ -4620,7 +4624,7 @@ CREATE TABLE `fruit_sn` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for games
+-- Table structure for `games`
 -- ----------------------------
 DROP TABLE IF EXISTS `games`;
 CREATE TABLE `games` (
@@ -4647,7 +4651,7 @@ CREATE TABLE `games` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for games_config
+-- Table structure for `games_config`
 -- ----------------------------
 DROP TABLE IF EXISTS `games_config`;
 CREATE TABLE `games_config` (
@@ -4662,7 +4666,7 @@ CREATE TABLE `games_config` (
 INSERT INTO `games_config` VALUES ('pl2hu3uczz', '游戏中心', '');
 
 -- ----------------------------
--- Table structure for games_model
+-- Table structure for `games_model`
 -- ----------------------------
 DROP TABLE IF EXISTS `games_model`;
 CREATE TABLE `games_model` (
@@ -4681,7 +4685,7 @@ INSERT INTO `games_model` VALUES ('4', '全民拼图');
 INSERT INTO `games_model` VALUES ('5', '宠物碰碰对');
 
 -- ----------------------------
--- Table structure for games_result
+-- Table structure for `games_result`
 -- ----------------------------
 DROP TABLE IF EXISTS `games_result`;
 CREATE TABLE `games_result` (
@@ -4701,7 +4705,7 @@ CREATE TABLE `games_result` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for guide
+-- Table structure for `guide`
 -- ----------------------------
 DROP TABLE IF EXISTS `guide`;
 CREATE TABLE `guide` (
@@ -4719,7 +4723,7 @@ CREATE TABLE `guide` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for hongbao_act
+-- Table structure for `hongbao_act`
 -- ----------------------------
 DROP TABLE IF EXISTS `hongbao_act`;
 CREATE TABLE `hongbao_act` (
@@ -4740,7 +4744,7 @@ CREATE TABLE `hongbao_act` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for hongbao_config
+-- Table structure for `hongbao_config`
 -- ----------------------------
 DROP TABLE IF EXISTS `hongbao_config`;
 CREATE TABLE `hongbao_config` (
@@ -4758,7 +4762,7 @@ CREATE TABLE `hongbao_config` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for hongbao_prize
+-- Table structure for `hongbao_prize`
 -- ----------------------------
 DROP TABLE IF EXISTS `hongbao_prize`;
 CREATE TABLE `hongbao_prize` (
@@ -4777,7 +4781,7 @@ CREATE TABLE `hongbao_prize` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for hongbao_record
+-- Table structure for `hongbao_record`
 -- ----------------------------
 DROP TABLE IF EXISTS `hongbao_record`;
 CREATE TABLE `hongbao_record` (
@@ -4794,7 +4798,7 @@ CREATE TABLE `hongbao_record` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for http_raw_post_data
+-- Table structure for `http_raw_post_data`
 -- ----------------------------
 DROP TABLE IF EXISTS `http_raw_post_data`;
 CREATE TABLE `http_raw_post_data` (
@@ -4809,7 +4813,7 @@ CREATE TABLE `http_raw_post_data` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for industry
+-- Table structure for `industry`
 -- ----------------------------
 DROP TABLE IF EXISTS `industry`;
 CREATE TABLE `industry` (
@@ -4874,7 +4878,7 @@ INSERT INTO `industry` VALUES ('178', '其他', '0', '', '0', '1430457697', '0')
 INSERT INTO `industry` VALUES ('179', '其他', '178', '', '0', '1430457707', '0');
 
 -- ----------------------------
--- Table structure for kanjia
+-- Table structure for `kanjia`
 -- ----------------------------
 DROP TABLE IF EXISTS `kanjia`;
 CREATE TABLE `kanjia` (
@@ -4899,7 +4903,7 @@ CREATE TABLE `kanjia` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for kanjia_helper_record
+-- Table structure for `kanjia_helper_record`
 -- ----------------------------
 DROP TABLE IF EXISTS `kanjia_helper_record`;
 CREATE TABLE `kanjia_helper_record` (
@@ -4920,7 +4924,7 @@ CREATE TABLE `kanjia_helper_record` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for kanjia_member
+-- Table structure for `kanjia_member`
 -- ----------------------------
 DROP TABLE IF EXISTS `kanjia_member`;
 CREATE TABLE `kanjia_member` (
@@ -4939,7 +4943,7 @@ CREATE TABLE `kanjia_member` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for kf_account
+-- Table structure for `kf_account`
 -- ----------------------------
 DROP TABLE IF EXISTS `kf_account`;
 CREATE TABLE `kf_account` (
@@ -4958,7 +4962,7 @@ CREATE TABLE `kf_account` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for kf_config
+-- Table structure for `kf_config`
 -- ----------------------------
 DROP TABLE IF EXISTS `kf_config`;
 CREATE TABLE `kf_config` (
@@ -4968,6 +4972,7 @@ CREATE TABLE `kf_config` (
   `KF_IsShop` tinyint(1) DEFAULT '1' COMMENT '商城是否启用 0 否  1 是',
   `KF_IsUser` tinyint(1) DEFAULT '1' COMMENT '会员中心是否启用 0 否  1 是',
   `KF_Icon` varchar(50) DEFAULT NULL,
+  `Wx_keyword` varchar(100) DEFAULT NULL COMMENT '微客服触发关键词',
   `KF_Code` text,
   PRIMARY KEY (`KF_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='客服设置存储表';
@@ -4977,7 +4982,7 @@ CREATE TABLE `kf_config` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for kf_language
+-- Table structure for `kf_language`
 -- ----------------------------
 DROP TABLE IF EXISTS `kf_language`;
 CREATE TABLE `kf_language` (
@@ -4994,7 +4999,7 @@ CREATE TABLE `kf_language` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for kf_message
+-- Table structure for `kf_message`
 -- ----------------------------
 DROP TABLE IF EXISTS `kf_message`;
 CREATE TABLE `kf_message` (
@@ -5012,7 +5017,7 @@ CREATE TABLE `kf_message` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for message_model
+-- Table structure for `message_model`
 -- ----------------------------
 DROP TABLE IF EXISTS `message_model`;
 CREATE TABLE `message_model` (
@@ -5034,7 +5039,7 @@ INSERT INTO `message_model` VALUES ('8', '微商城下订单!', 'user_order', 's
 INSERT INTO `message_model` VALUES ('10', '积分变更通知', 'user_order', 'user_integral');
 
 -- ----------------------------
--- Table structure for message_template
+-- Table structure for `message_template`
 -- ----------------------------
 DROP TABLE IF EXISTS `message_template`;
 CREATE TABLE `message_template` (
@@ -5052,7 +5057,7 @@ CREATE TABLE `message_template` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for module
+-- Table structure for `module`
 -- ----------------------------
 DROP TABLE IF EXISTS `module`;
 CREATE TABLE `module` (
@@ -5088,7 +5093,7 @@ INSERT INTO `module` VALUES ('17', 'category', '栏目分类', '16', 'url', '0')
 INSERT INTO `module` VALUES ('18', 'lists', '内容列表', '16', 'url', '0');
 
 -- ----------------------------
--- Table structure for mycount
+-- Table structure for `mycount`
 -- ----------------------------
 DROP TABLE IF EXISTS `mycount`;
 CREATE TABLE `mycount` (
@@ -5109,7 +5114,7 @@ CREATE TABLE `mycount` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for newtable
+-- Table structure for `newtable`
 -- ----------------------------
 DROP TABLE IF EXISTS `newtable`;
 CREATE TABLE `newtable` (
@@ -5143,7 +5148,7 @@ CREATE TABLE `newtable` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for node
+-- Table structure for `node`
 -- ----------------------------
 DROP TABLE IF EXISTS `node`;
 CREATE TABLE `node` (
@@ -5166,7 +5171,7 @@ CREATE TABLE `node` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for pc_focus
+-- Table structure for `pc_focus`
 -- ----------------------------
 DROP TABLE IF EXISTS `pc_focus`;
 CREATE TABLE `pc_focus` (
@@ -5186,7 +5191,7 @@ CREATE TABLE `pc_focus` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for pc_index
+-- Table structure for `pc_index`
 -- ----------------------------
 DROP TABLE IF EXISTS `pc_index`;
 CREATE TABLE `pc_index` (
@@ -5207,7 +5212,7 @@ CREATE TABLE `pc_index` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for pc_setting
+-- Table structure for `pc_setting`
 -- ----------------------------
 DROP TABLE IF EXISTS `pc_setting`;
 CREATE TABLE `pc_setting` (
@@ -5234,7 +5239,7 @@ CREATE TABLE `pc_setting` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for pc_user_message
+-- Table structure for `pc_user_message`
 -- ----------------------------
 DROP TABLE IF EXISTS `pc_user_message`;
 CREATE TABLE `pc_user_message` (
@@ -5251,7 +5256,7 @@ CREATE TABLE `pc_user_message` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for pifa_category
+-- Table structure for `pifa_category`
 -- ----------------------------
 DROP TABLE IF EXISTS `pifa_category`;
 CREATE TABLE `pifa_category` (
@@ -5270,7 +5275,7 @@ CREATE TABLE `pifa_category` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for pifa_config
+-- Table structure for `pifa_config`
 -- ----------------------------
 DROP TABLE IF EXISTS `pifa_config`;
 CREATE TABLE `pifa_config` (
@@ -5288,7 +5293,7 @@ CREATE TABLE `pifa_config` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for pifa_products
+-- Table structure for `pifa_products`
 -- ----------------------------
 DROP TABLE IF EXISTS `pifa_products`;
 CREATE TABLE `pifa_products` (
@@ -5326,7 +5331,7 @@ CREATE TABLE `pifa_products` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for scratch
+-- Table structure for `scratch`
 -- ----------------------------
 DROP TABLE IF EXISTS `scratch`;
 CREATE TABLE `scratch` (
@@ -5366,7 +5371,7 @@ CREATE TABLE `scratch` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for scratch_config
+-- Table structure for `scratch_config`
 -- ----------------------------
 DROP TABLE IF EXISTS `scratch_config`;
 CREATE TABLE `scratch_config` (
@@ -5382,7 +5387,7 @@ CREATE TABLE `scratch_config` (
 INSERT INTO `scratch_config` VALUES ('pl2hu3uczz', '刮刮卡', '0');
 
 -- ----------------------------
--- Table structure for scratch_sn
+-- Table structure for `scratch_sn`
 -- ----------------------------
 DROP TABLE IF EXISTS `scratch_sn`;
 CREATE TABLE `scratch_sn` (
@@ -5407,7 +5412,7 @@ CREATE TABLE `scratch_sn` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for setting
+-- Table structure for `setting`
 -- ----------------------------
 DROP TABLE IF EXISTS `setting`;
 CREATE TABLE `setting` (
@@ -5435,7 +5440,7 @@ CREATE TABLE `setting` (
 INSERT INTO `setting` VALUES ('1', '好分销', '/uploadfiles/1001/image/554097f011.png', '', 'zaq2EHvUKKnudzEmsHwU8PVM', '{\"1\":\"6500\",\"2\":\"11000\",\"3\":\"14000\"}', null, '2088011781995263', 'jcd91vx39h182qrzjl6v5u0ei8fyhgfh', '965607844@qq.com', '0', 'wangzhongwang', '5926172', '【好分销】', '[{\"min\":\"0\",\"max\":\"2000\",\"price\":\"0.1\"},{\"min\":\"2000\",\"max\":\"20000\",\"price\":\"0.08\"},{\"min\":\"20000\",\"max\":\"50000\",\"price\":\"0.06\"}]');
 
 -- ----------------------------
--- Table structure for share_click
+-- Table structure for `share_click`
 -- ----------------------------
 DROP TABLE IF EXISTS `share_click`;
 CREATE TABLE `share_click` (
@@ -5453,7 +5458,7 @@ CREATE TABLE `share_click` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for share_record
+-- Table structure for `share_record`
 -- ----------------------------
 DROP TABLE IF EXISTS `share_record`;
 CREATE TABLE `share_record` (
@@ -5477,7 +5482,7 @@ CREATE TABLE `share_record` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for sha_account_record
+-- Table structure for `sha_account_record`
 -- ----------------------------
 DROP TABLE IF EXISTS `sha_account_record`;
 CREATE TABLE `sha_account_record` (
@@ -5495,7 +5500,7 @@ CREATE TABLE `sha_account_record` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for sha_order
+-- Table structure for `sha_order`
 -- ----------------------------
 DROP TABLE IF EXISTS `sha_order`;
 CREATE TABLE `sha_order` (
@@ -5525,7 +5530,7 @@ CREATE TABLE `sha_order` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for shipping_orders
+-- Table structure for `shipping_orders`
 -- ----------------------------
 DROP TABLE IF EXISTS `shipping_orders`;
 CREATE TABLE `shipping_orders` (
@@ -5559,7 +5564,7 @@ CREATE TABLE `shipping_orders` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for shipping_orders_commit
+-- Table structure for `shipping_orders_commit`
 -- ----------------------------
 DROP TABLE IF EXISTS `shipping_orders_commit`;
 CREATE TABLE `shipping_orders_commit` (
@@ -5582,7 +5587,7 @@ CREATE TABLE `shipping_orders_commit` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for shipping_template_section
+-- Table structure for `shipping_template_section`
 -- ----------------------------
 DROP TABLE IF EXISTS `shipping_template_section`;
 CREATE TABLE `shipping_template_section` (
@@ -5598,7 +5603,7 @@ CREATE TABLE `shipping_template_section` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for shop_articles
+-- Table structure for `shop_articles`
 -- ----------------------------
 DROP TABLE IF EXISTS `shop_articles`;
 CREATE TABLE `shop_articles` (
@@ -5620,7 +5625,7 @@ CREATE TABLE `shop_articles` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for shop_articles_category
+-- Table structure for `shop_articles_category`
 -- ----------------------------
 DROP TABLE IF EXISTS `shop_articles_category`;
 CREATE TABLE `shop_articles_category` (
@@ -5639,7 +5644,7 @@ CREATE TABLE `shop_articles_category` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for shop_attribute
+-- Table structure for `shop_attribute`
 -- ----------------------------
 DROP TABLE IF EXISTS `shop_attribute`;
 CREATE TABLE `shop_attribute` (
@@ -5662,7 +5667,7 @@ CREATE TABLE `shop_attribute` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for shop_bank_card
+-- Table structure for `shop_bank_card`
 -- ----------------------------
 DROP TABLE IF EXISTS `shop_bank_card`;
 CREATE TABLE `shop_bank_card` (
@@ -5680,7 +5685,7 @@ CREATE TABLE `shop_bank_card` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for shop_category
+-- Table structure for `shop_category`
 -- ----------------------------
 DROP TABLE IF EXISTS `shop_category`;
 CREATE TABLE `shop_category` (
@@ -5700,7 +5705,7 @@ CREATE TABLE `shop_category` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for shop_config
+-- Table structure for `shop_config`
 -- ----------------------------
 DROP TABLE IF EXISTS `shop_config`;
 CREATE TABLE `shop_config` (
@@ -5736,6 +5741,7 @@ CREATE TABLE `shop_config` (
   `ShareIntro` varchar(255) DEFAULT '',
   `ShopMenuJson` text COMMENT '商城菜单配置json格式',
   `Shop_Commision_Reward_Json` text COMMENT '网站佣金比例配置',
+  `Icon_Color` varchar(255) DEFAULT NULL COMMENT '图标颜色切换',
   PRIMARY KEY (`Users_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -5743,8 +5749,9 @@ CREATE TABLE `shop_config` (
 -- Records of shop_config
 -- ----------------------------
 INSERT INTO `shop_config` VALUES ('pl2hu3uczz', null, '/static/api/images/user/face.jpg', '1', '0', null, '3', null, null, null, null, null, null, '0', '0', '10', '100', null, '0', '', null, '', '0', '', '0', '0', '0', '0', '', '', null, '{\"platForm_Income_Reward\":\"80\",\"noBi_Reward\":\"10\",\"area_Proxy_Reward\":\"10\",\"sha_Reward\":\"10\",\"salesman_ratio\":\"10\",\"commission_Reward\":\"60\",\"Distribute\":{\"392\":[\"80\"]},\"salesman_level_ratio\":[\"10\",\"10\",\"10\"]}', null);
+
 -- ----------------------------
--- Table structure for shop_distribute_account
+-- Table structure for `shop_distribute_account`
 -- ----------------------------
 DROP TABLE IF EXISTS `shop_distribute_account`;
 CREATE TABLE `shop_distribute_account` (
@@ -5793,7 +5800,7 @@ CREATE TABLE `shop_distribute_account` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for shop_distribute_account_record
+-- Table structure for `shop_distribute_account_record`
 -- ----------------------------
 DROP TABLE IF EXISTS `shop_distribute_account_record`;
 CREATE TABLE `shop_distribute_account_record` (
@@ -5825,7 +5832,7 @@ CREATE TABLE `shop_distribute_account_record` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for shop_distribute_config
+-- Table structure for `shop_distribute_config`
 -- ----------------------------
 DROP TABLE IF EXISTS `shop_distribute_config`;
 CREATE TABLE `shop_distribute_config` (
@@ -5840,7 +5847,7 @@ CREATE TABLE `shop_distribute_config` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for shop_distribute_fuxiao
+-- Table structure for `shop_distribute_fuxiao`
 -- ----------------------------
 DROP TABLE IF EXISTS `shop_distribute_fuxiao`;
 CREATE TABLE `shop_distribute_fuxiao` (
@@ -5864,7 +5871,7 @@ CREATE TABLE `shop_distribute_fuxiao` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for shop_distribute_msg
+-- Table structure for `shop_distribute_msg`
 -- ----------------------------
 DROP TABLE IF EXISTS `shop_distribute_msg`;
 CREATE TABLE `shop_distribute_msg` (
@@ -5883,7 +5890,7 @@ CREATE TABLE `shop_distribute_msg` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for shop_distribute_record
+-- Table structure for `shop_distribute_record`
 -- ----------------------------
 DROP TABLE IF EXISTS `shop_distribute_record`;
 CREATE TABLE `shop_distribute_record` (
@@ -5906,7 +5913,7 @@ CREATE TABLE `shop_distribute_record` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for shop_dis_agent_areas
+-- Table structure for `shop_dis_agent_areas`
 -- ----------------------------
 DROP TABLE IF EXISTS `shop_dis_agent_areas`;
 CREATE TABLE `shop_dis_agent_areas` (
@@ -5926,7 +5933,7 @@ CREATE TABLE `shop_dis_agent_areas` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for shop_dis_agent_rec
+-- Table structure for `shop_dis_agent_rec`
 -- ----------------------------
 DROP TABLE IF EXISTS `shop_dis_agent_rec`;
 CREATE TABLE `shop_dis_agent_rec` (
@@ -5944,7 +5951,7 @@ CREATE TABLE `shop_dis_agent_rec` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for shop_home
+-- Table structure for `shop_home`
 -- ----------------------------
 DROP TABLE IF EXISTS `shop_home`;
 CREATE TABLE `shop_home` (
@@ -5960,7 +5967,7 @@ CREATE TABLE `shop_home` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for shop_products
+-- Table structure for `shop_products`
 -- ----------------------------
 DROP TABLE IF EXISTS `shop_products`;
 CREATE TABLE `shop_products` (
@@ -6016,7 +6023,7 @@ CREATE TABLE `shop_products` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for shop_products_attr
+-- Table structure for `shop_products_attr`
 -- ----------------------------
 DROP TABLE IF EXISTS `shop_products_attr`;
 CREATE TABLE `shop_products_attr` (
@@ -6036,7 +6043,7 @@ CREATE TABLE `shop_products_attr` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for shop_products_copy
+-- Table structure for `shop_products_copy`
 -- ----------------------------
 DROP TABLE IF EXISTS `shop_products_copy`;
 CREATE TABLE `shop_products_copy` (
@@ -6090,7 +6097,7 @@ CREATE TABLE `shop_products_copy` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for shop_product_type
+-- Table structure for `shop_product_type`
 -- ----------------------------
 DROP TABLE IF EXISTS `shop_product_type`;
 CREATE TABLE `shop_product_type` (
@@ -6109,7 +6116,7 @@ CREATE TABLE `shop_product_type` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for shop_property
+-- Table structure for `shop_property`
 -- ----------------------------
 DROP TABLE IF EXISTS `shop_property`;
 CREATE TABLE `shop_property` (
@@ -6128,7 +6135,7 @@ CREATE TABLE `shop_property` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for shop_sales_payment
+-- Table structure for `shop_sales_payment`
 -- ----------------------------
 DROP TABLE IF EXISTS `shop_sales_payment`;
 CREATE TABLE `shop_sales_payment` (
@@ -6149,6 +6156,11 @@ CREATE TABLE `shop_sales_payment` (
   `BankMobile` varchar(50) DEFAULT '',
   `Status` tinyint(1) DEFAULT '0',
   `CreateTime` int(10) DEFAULT '0',
+  `Payment_Type` tinyint(1) DEFAULT '0',
+  `OpenID` varchar(100) DEFAULT NULL,
+  `aliPayNo` varchar(100) DEFAULT NULL,
+  `aliPayName` varchar(20) DEFAULT NULL,
+  `Msg` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`Payment_ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
@@ -6157,7 +6169,7 @@ CREATE TABLE `shop_sales_payment` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for shop_sales_record
+-- Table structure for `shop_sales_record`
 -- ----------------------------
 DROP TABLE IF EXISTS `shop_sales_record`;
 CREATE TABLE `shop_sales_record` (
@@ -6175,14 +6187,14 @@ CREATE TABLE `shop_sales_record` (
   `Record_CreateTime` int(10) DEFAULT '0',
   `Payment_ID` int(10) DEFAULT '0' COMMENT '付款单ID',
   PRIMARY KEY (`Record_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of shop_sales_record
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for shop_shipping_company
+-- Table structure for `shop_shipping_company`
 -- ----------------------------
 DROP TABLE IF EXISTS `shop_shipping_company`;
 CREATE TABLE `shop_shipping_company` (
@@ -6204,7 +6216,7 @@ CREATE TABLE `shop_shipping_company` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for shop_shipping_print_template
+-- Table structure for `shop_shipping_print_template`
 -- ----------------------------
 DROP TABLE IF EXISTS `shop_shipping_print_template`;
 CREATE TABLE `shop_shipping_print_template` (
@@ -6229,7 +6241,7 @@ CREATE TABLE `shop_shipping_print_template` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for shop_shipping_template
+-- Table structure for `shop_shipping_template`
 -- ----------------------------
 DROP TABLE IF EXISTS `shop_shipping_template`;
 CREATE TABLE `shop_shipping_template` (
@@ -6252,7 +6264,7 @@ CREATE TABLE `shop_shipping_template` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for shop_skin
+-- Table structure for `shop_skin`
 -- ----------------------------
 DROP TABLE IF EXISTS `shop_skin`;
 CREATE TABLE `shop_skin` (
@@ -6289,7 +6301,7 @@ INSERT INTO `shop_skin` VALUES ('19', '风格19', '[{\"ContentsType\":\"1\",\"Ti
 INSERT INTO `shop_skin` VALUES ('20', '风格20', '[{\"ContentsType\":\"0\",\"Title\":\"\",\"ImgPath\":\"/api/shop/skin/20/logo.png\",\"Url\":null,\"Postion\":\"t01\",\"Width\":\"180\",\"Height\":\"44\",\"NeedLink\":\"1\"},{\"ContentsType\":\"1\",\"Title\":[\"\",\"\",\"\",\"\",\"\"],\"ImgPath\":[\"/api/shop/skin/20/banner.jpg\",\"\",\"\",\"\",\"\"],\"Url\":[\"\",\"\",\"\",\"\",\"\"],\"Postion\":\"t02\",\"Width\":\"640\",\"Height\":\"262\",\"NeedLink\":\"0\"},{\"ContentsType\":\"0\",\"Title\":\"\",\"ImgPath\":\"/api/shop/skin/20/i0.png\",\"Url\":null,\"Postion\":\"t03\",\"Width\":\"108\",\"Height\":\"108\",\"NeedLink\":\"1\"},{\"ContentsType\":\"0\",\"Title\":\"\",\"ImgPath\":\"/api/shop/skin/20/i1.png\",\"Url\":null,\"Postion\":\"t04\",\"Width\":\"108\",\"Height\":\"108\",\"NeedLink\":\"1\"},{\"ContentsType\":\"0\",\"Title\":\"\",\"ImgPath\":\"/api/shop/skin/20/i2.png\",\"Url\":null,\"Postion\":\"t05\",\"Width\":\"108\",\"Height\":\"108\",\"NeedLink\":\"1\"},{\"ContentsType\":\"0\",\"Title\":\"\",\"ImgPath\":\"/api/shop/skin/20/i3.png\",\"Url\":null,\"Postion\":\"t06\",\"Width\":\"108\",\"Height\":\"108\",\"NeedLink\":\"1\"}]', '1', '20');
 
 -- ----------------------------
--- Table structure for shop_user_withdraw_methods
+-- Table structure for `shop_user_withdraw_methods`
 -- ----------------------------
 DROP TABLE IF EXISTS `shop_user_withdraw_methods`;
 CREATE TABLE `shop_user_withdraw_methods` (
@@ -6311,7 +6323,7 @@ CREATE TABLE `shop_user_withdraw_methods` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for shop_virtual_card
+-- Table structure for `shop_virtual_card`
 -- ----------------------------
 DROP TABLE IF EXISTS `shop_virtual_card`;
 CREATE TABLE `shop_virtual_card` (
@@ -6335,7 +6347,7 @@ CREATE TABLE `shop_virtual_card` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for shop_virtual_card_type
+-- Table structure for `shop_virtual_card_type`
 -- ----------------------------
 DROP TABLE IF EXISTS `shop_virtual_card_type`;
 CREATE TABLE `shop_virtual_card_type` (
@@ -6352,7 +6364,7 @@ CREATE TABLE `shop_virtual_card_type` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for shop_withdraw_method
+-- Table structure for `shop_withdraw_method`
 -- ----------------------------
 DROP TABLE IF EXISTS `shop_withdraw_method`;
 CREATE TABLE `shop_withdraw_method` (
@@ -6370,7 +6382,7 @@ CREATE TABLE `shop_withdraw_method` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for slide
+-- Table structure for `slide`
 -- ----------------------------
 DROP TABLE IF EXISTS `slide`;
 CREATE TABLE `slide` (
@@ -6386,7 +6398,7 @@ CREATE TABLE `slide` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for sms
+-- Table structure for `sms`
 -- ----------------------------
 DROP TABLE IF EXISTS `sms`;
 CREATE TABLE `sms` (
@@ -6405,7 +6417,7 @@ CREATE TABLE `sms` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for statistics
+-- Table structure for `statistics`
 -- ----------------------------
 DROP TABLE IF EXISTS `statistics`;
 CREATE TABLE `statistics` (
@@ -6421,7 +6433,7 @@ CREATE TABLE `statistics` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for stores
+-- Table structure for `stores`
 -- ----------------------------
 DROP TABLE IF EXISTS `stores`;
 CREATE TABLE `stores` (
@@ -6442,7 +6454,7 @@ CREATE TABLE `stores` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for stores_config
+-- Table structure for `stores_config`
 -- ----------------------------
 DROP TABLE IF EXISTS `stores_config`;
 CREATE TABLE `stores_config` (
@@ -6456,7 +6468,7 @@ CREATE TABLE `stores_config` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for sysusers
+-- Table structure for `sysusers`
 -- ----------------------------
 DROP TABLE IF EXISTS `sysusers`;
 CREATE TABLE `sysusers` (
@@ -6480,7 +6492,7 @@ CREATE TABLE `sysusers` (
 INSERT INTO `sysusers` VALUES ('1001', '1001', '系统管理员', '女', 'admin', 'f379eaf3c831b04de153469d1bec345e', '', '', '', '1', '');
 
 -- ----------------------------
--- Table structure for sysusers_role
+-- Table structure for `sysusers_role`
 -- ----------------------------
 DROP TABLE IF EXISTS `sysusers_role`;
 CREATE TABLE `sysusers_role` (
@@ -6501,7 +6513,7 @@ INSERT INTO `sysusers_role` VALUES ('1002', '网站管理员', '{\"1003\":{\"100
 INSERT INTO `sysusers_role` VALUES ('1003', '微信管理员', '{\"1002\":{\"100205\":{\"10020501\":\"1\",\"10020502\":\"1\",\"10020503\":\"1\",\"10020504\":\"1\"},\"100206\":{\"10020601\":\"1\",\"10020602\":\"1\",\"10020603\":\"1\",\"10020604\":\"1\"}},\"1005\":{\"100501\":{\"10050101\":\"1\",\"10050102\":\"1\",\"10050103\":\"1\",\"10050104\":\"1\"},\"100502\":{\"10050201\":\"1\",\"10050202\":\"1\",\"10050203\":\"1\",\"10050204\":\"1\"},\"100503\":{\"10050301\":\"1\",\"10050302\":\"1\",\"10050303\":\"1\",\"10050304\":\"1\"},\"100504\":{\"10050401\":\"1\",\"10050402\":\"1\",\"10050403\":\"1\",\"10050404\":\"1\"}}}', '3', '1', '');
 
 -- ----------------------------
--- Table structure for turntable
+-- Table structure for `turntable`
 -- ----------------------------
 DROP TABLE IF EXISTS `turntable`;
 CREATE TABLE `turntable` (
@@ -6541,7 +6553,7 @@ CREATE TABLE `turntable` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for turntable_config
+-- Table structure for `turntable_config`
 -- ----------------------------
 DROP TABLE IF EXISTS `turntable_config`;
 CREATE TABLE `turntable_config` (
@@ -6556,7 +6568,7 @@ CREATE TABLE `turntable_config` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for turntable_sn
+-- Table structure for `turntable_sn`
 -- ----------------------------
 DROP TABLE IF EXISTS `turntable_sn`;
 CREATE TABLE `turntable_sn` (
@@ -6581,7 +6593,7 @@ CREATE TABLE `turntable_sn` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for update
+-- Table structure for `update`
 -- ----------------------------
 DROP TABLE IF EXISTS `update`;
 CREATE TABLE `update` (
@@ -6598,7 +6610,7 @@ CREATE TABLE `update` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for update_category
+-- Table structure for `update_category`
 -- ----------------------------
 DROP TABLE IF EXISTS `update_category`;
 CREATE TABLE `update_category` (
@@ -6613,7 +6625,7 @@ CREATE TABLE `update_category` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for uploadfiles
+-- Table structure for `uploadfiles`
 -- ----------------------------
 DROP TABLE IF EXISTS `uploadfiles`;
 CREATE TABLE `uploadfiles` (
@@ -6633,7 +6645,7 @@ CREATE TABLE `uploadfiles` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for user
+-- Table structure for `user`
 -- ----------------------------
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
@@ -6678,14 +6690,14 @@ CREATE TABLE `user` (
   `Root_ID` int(5) DEFAULT '0' COMMENT '此人的普通代理ID,就是根店ID',
   `User_ExpireTime` bigint(20) DEFAULT '0' COMMENT '会员有效期',
   PRIMARY KEY (`User_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of user
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for users
+-- Table structure for `users`
 -- ----------------------------
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
@@ -6731,10 +6743,10 @@ CREATE TABLE `users` (
 -- ----------------------------
 -- Records of users
 -- ----------------------------
-INSERT INTO `users` VALUES ('pl2hu3uczz', 'admin', 'f379eaf3c831b04de153469d1bec345e', '0', '3', '3tlrqz5yfe', '', '', '', '', 'wx1215001c2958fdcc', 'c7544955ff67b9d52627e23e58231a53', '0', '0', '', '0', '1464431894', '0', '0', null, null, null, '15503724204', null, null, '1', '', null, '0', '1464691094', '{\"web\":[\"web\"],\"kanjia\":[\"kanjia\"],\"zhuli\":[\"zhuli\"],\"zhongchou\":[\"zhongchou\"],\"games\":[\"games\"],\"weicuxiao\":[\"sctrach\",\"fruit\",\"turntable\",\"battle\"],\"votes\":[\"votes\"]}', null, '', '143', '', '0');
+INSERT INTO `users` VALUES ('pl2hu3uczz', 'admin', 'f379eaf3c831b04de153469d1bec345e', '0', '3', '3tlrqz5yfe', '', '', '', '', 'wx1215001c2958fdcc', 'c7544955ff67b9d52627e23e58231a53', '0', '0', '', '0', '1464431894', '0', '0', null, null, null, '15503724204', null, null, '1', '', null, '0', '1494691094', '{\"web\":[\"web\"],\"kanjia\":[\"kanjia\"],\"zhuli\":[\"zhuli\"],\"zhongchou\":[\"zhongchou\"],\"games\":[\"games\"],\"weicuxiao\":[\"sctrach\",\"fruit\",\"turntable\",\"battle\"],\"votes\":[\"votes\"]}', null, '', '143', '', '0');
 
 -- ----------------------------
--- Table structure for users_access_token
+-- Table structure for `users_access_token`
 -- ----------------------------
 DROP TABLE IF EXISTS `users_access_token`;
 CREATE TABLE `users_access_token` (
@@ -6752,7 +6764,7 @@ CREATE TABLE `users_access_token` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for users_employee
+-- Table structure for `users_employee`
 -- ----------------------------
 DROP TABLE IF EXISTS `users_employee`;
 CREATE TABLE `users_employee` (
@@ -6775,7 +6787,7 @@ CREATE TABLE `users_employee` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for users_group
+-- Table structure for `users_group`
 -- ----------------------------
 DROP TABLE IF EXISTS `users_group`;
 CREATE TABLE `users_group` (
@@ -6797,7 +6809,7 @@ CREATE TABLE `users_group` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for users_menu
+-- Table structure for `users_menu`
 -- ----------------------------
 DROP TABLE IF EXISTS `users_menu`;
 CREATE TABLE `users_menu` (
@@ -6815,7 +6827,7 @@ CREATE TABLE `users_menu` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for users_money_record
+-- Table structure for `users_money_record`
 -- ----------------------------
 DROP TABLE IF EXISTS `users_money_record`;
 CREATE TABLE `users_money_record` (
@@ -6836,7 +6848,7 @@ CREATE TABLE `users_money_record` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for users_payconfig
+-- Table structure for `users_payconfig`
 -- ----------------------------
 DROP TABLE IF EXISTS `users_payconfig`;
 CREATE TABLE `users_payconfig` (
@@ -6872,7 +6884,7 @@ CREATE TABLE `users_payconfig` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for users_permit
+-- Table structure for `users_permit`
 -- ----------------------------
 DROP TABLE IF EXISTS `users_permit`;
 CREATE TABLE `users_permit` (
@@ -6908,7 +6920,7 @@ CREATE TABLE `users_permit` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for users_reserve
+-- Table structure for `users_reserve`
 -- ----------------------------
 DROP TABLE IF EXISTS `users_reserve`;
 CREATE TABLE `users_reserve` (
@@ -6941,7 +6953,7 @@ CREATE TABLE `users_reserve` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for users_roles
+-- Table structure for `users_roles`
 -- ----------------------------
 DROP TABLE IF EXISTS `users_roles`;
 CREATE TABLE `users_roles` (
@@ -6961,7 +6973,27 @@ CREATE TABLE `users_roles` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for user_address
+-- Table structure for `users_schedule`
+-- ----------------------------
+DROP TABLE IF EXISTS `users_schedule`;
+CREATE TABLE `users_schedule` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `Users_ID` varchar(20) NOT NULL,
+  `Money` float(11,2) DEFAULT NULL,
+  `StartRunTime` time DEFAULT NULL COMMENT '开始执行时间',
+  `RunType` tinyint(1) DEFAULT '1' COMMENT '执行方式：1、定时执行  2、按天执行  3、按月执行',
+  `Status` tinyint(1) DEFAULT '0' COMMENT '计划任务执行状态：0、未执行  1、执行过',
+  `LastRunTime` int(11) DEFAULT '0' COMMENT '最后执行时间',
+  `day` tinyint(2) DEFAULT '0' COMMENT '间隔执行的天数',
+  PRIMARY KEY (`ID`)
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of users_schedule
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `user_address`
 -- ----------------------------
 DROP TABLE IF EXISTS `user_address`;
 CREATE TABLE `user_address` (
@@ -6976,14 +7008,14 @@ CREATE TABLE `user_address` (
   `Address_Detailed` varchar(255) DEFAULT NULL,
   `Address_Is_Default` tinyint(1) DEFAULT '0' COMMENT '是否是默认地址',
   PRIMARY KEY (`Address_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of user_address
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for user_back_order
+-- Table structure for `user_back_order`
 -- ----------------------------
 DROP TABLE IF EXISTS `user_back_order`;
 CREATE TABLE `user_back_order` (
@@ -7009,14 +7041,14 @@ CREATE TABLE `user_back_order` (
   `Back_IsCheck` tinyint(1) DEFAULT '0',
   `Back_Account` varchar(255) DEFAULT '',
   PRIMARY KEY (`Back_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of user_back_order
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for user_back_order_detail
+-- Table structure for `user_back_order_detail`
 -- ----------------------------
 DROP TABLE IF EXISTS `user_back_order_detail`;
 CREATE TABLE `user_back_order_detail` (
@@ -7033,7 +7065,7 @@ CREATE TABLE `user_back_order_detail` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for user_card_benefits
+-- Table structure for `user_card_benefits`
 -- ----------------------------
 DROP TABLE IF EXISTS `user_card_benefits`;
 CREATE TABLE `user_card_benefits` (
@@ -7053,7 +7085,7 @@ CREATE TABLE `user_card_benefits` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for user_charge
+-- Table structure for `user_charge`
 -- ----------------------------
 DROP TABLE IF EXISTS `user_charge`;
 CREATE TABLE `user_charge` (
@@ -7073,7 +7105,7 @@ CREATE TABLE `user_charge` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for user_config
+-- Table structure for `user_config`
 -- ----------------------------
 DROP TABLE IF EXISTS `user_config`;
 CREATE TABLE `user_config` (
@@ -7100,7 +7132,7 @@ CREATE TABLE `user_config` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for user_coupon
+-- Table structure for `user_coupon`
 -- ----------------------------
 DROP TABLE IF EXISTS `user_coupon`;
 CREATE TABLE `user_coupon` (
@@ -7130,7 +7162,7 @@ CREATE TABLE `user_coupon` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for user_coupon_logs
+-- Table structure for `user_coupon_logs`
 -- ----------------------------
 DROP TABLE IF EXISTS `user_coupon_logs`;
 CREATE TABLE `user_coupon_logs` (
@@ -7152,7 +7184,7 @@ CREATE TABLE `user_coupon_logs` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for user_coupon_record
+-- Table structure for `user_coupon_record`
 -- ----------------------------
 DROP TABLE IF EXISTS `user_coupon_record`;
 CREATE TABLE `user_coupon_record` (
@@ -7178,7 +7210,7 @@ CREATE TABLE `user_coupon_record` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for user_favourite_products
+-- Table structure for `user_favourite_products`
 -- ----------------------------
 DROP TABLE IF EXISTS `user_favourite_products`;
 CREATE TABLE `user_favourite_products` (
@@ -7194,7 +7226,7 @@ CREATE TABLE `user_favourite_products` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for user_gift
+-- Table structure for `user_gift`
 -- ----------------------------
 DROP TABLE IF EXISTS `user_gift`;
 CREATE TABLE `user_gift` (
@@ -7217,7 +7249,7 @@ CREATE TABLE `user_gift` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for user_gift_orders
+-- Table structure for `user_gift_orders`
 -- ----------------------------
 DROP TABLE IF EXISTS `user_gift_orders`;
 CREATE TABLE `user_gift_orders` (
@@ -7245,7 +7277,7 @@ CREATE TABLE `user_gift_orders` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for user_integral_record
+-- Table structure for `user_integral_record`
 -- ----------------------------
 DROP TABLE IF EXISTS `user_integral_record`;
 CREATE TABLE `user_integral_record` (
@@ -7267,7 +7299,7 @@ CREATE TABLE `user_integral_record` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for user_message
+-- Table structure for `user_message`
 -- ----------------------------
 DROP TABLE IF EXISTS `user_message`;
 CREATE TABLE `user_message` (
@@ -7286,7 +7318,7 @@ CREATE TABLE `user_message` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for user_message_record
+-- Table structure for `user_message_record`
 -- ----------------------------
 DROP TABLE IF EXISTS `user_message_record`;
 CREATE TABLE `user_message_record` (
@@ -7303,7 +7335,7 @@ CREATE TABLE `user_message_record` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for user_money_record
+-- Table structure for `user_money_record`
 -- ----------------------------
 DROP TABLE IF EXISTS `user_money_record`;
 CREATE TABLE `user_money_record` (
@@ -7323,7 +7355,7 @@ CREATE TABLE `user_money_record` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for user_operator
+-- Table structure for `user_operator`
 -- ----------------------------
 DROP TABLE IF EXISTS `user_operator`;
 CREATE TABLE `user_operator` (
@@ -7339,7 +7371,7 @@ CREATE TABLE `user_operator` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for user_order
+-- Table structure for `user_order`
 -- ----------------------------
 DROP TABLE IF EXISTS `user_order`;
 CREATE TABLE `user_order` (
@@ -7384,6 +7416,7 @@ CREATE TABLE `user_order` (
   `Back_Amount` decimal(10,2) DEFAULT '0.00',
   `Order_SendTime` int(10) DEFAULT '0',
   `Order_Virtual_Cards` varchar(255) DEFAULT NULL,
+  `Front_Order_Status` tinyint(1) DEFAULT '0' COMMENT '存储退货前的订单状态',
   PRIMARY KEY (`Order_ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=93 DEFAULT CHARSET=utf8;
 
@@ -7392,7 +7425,7 @@ CREATE TABLE `user_order` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for user_order_commit
+-- Table structure for `user_order_commit`
 -- ----------------------------
 DROP TABLE IF EXISTS `user_order_commit`;
 CREATE TABLE `user_order_commit` (
@@ -7415,7 +7448,7 @@ CREATE TABLE `user_order_commit` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for user_pre_order
+-- Table structure for `user_pre_order`
 -- ----------------------------
 DROP TABLE IF EXISTS `user_pre_order`;
 CREATE TABLE `user_pre_order` (
@@ -7435,7 +7468,7 @@ CREATE TABLE `user_pre_order` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for user_profile
+-- Table structure for `user_profile`
 -- ----------------------------
 DROP TABLE IF EXISTS `user_profile`;
 CREATE TABLE `user_profile` (
@@ -7476,7 +7509,7 @@ CREATE TABLE `user_profile` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for user_recieve_address
+-- Table structure for `user_recieve_address`
 -- ----------------------------
 DROP TABLE IF EXISTS `user_recieve_address`;
 CREATE TABLE `user_recieve_address` (
@@ -7494,7 +7527,7 @@ CREATE TABLE `user_recieve_address` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for user_reserve
+-- Table structure for `user_reserve`
 -- ----------------------------
 DROP TABLE IF EXISTS `user_reserve`;
 CREATE TABLE `user_reserve` (
@@ -7517,7 +7550,7 @@ CREATE TABLE `user_reserve` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for user_yielist
+-- Table structure for `user_yielist`
 -- ----------------------------
 DROP TABLE IF EXISTS `user_yielist`;
 CREATE TABLE `user_yielist` (
@@ -7536,7 +7569,7 @@ CREATE TABLE `user_yielist` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for votes
+-- Table structure for `votes`
 -- ----------------------------
 DROP TABLE IF EXISTS `votes`;
 CREATE TABLE `votes` (
@@ -7563,7 +7596,7 @@ CREATE TABLE `votes` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for votes_item
+-- Table structure for `votes_item`
 -- ----------------------------
 DROP TABLE IF EXISTS `votes_item`;
 CREATE TABLE `votes_item` (
@@ -7584,7 +7617,7 @@ CREATE TABLE `votes_item` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for votes_order
+-- Table structure for `votes_order`
 -- ----------------------------
 DROP TABLE IF EXISTS `votes_order`;
 CREATE TABLE `votes_order` (
@@ -7602,7 +7635,7 @@ CREATE TABLE `votes_order` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for web_article
+-- Table structure for `web_article`
 -- ----------------------------
 DROP TABLE IF EXISTS `web_article`;
 CREATE TABLE `web_article` (
@@ -7625,7 +7658,7 @@ CREATE TABLE `web_article` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for web_code
+-- Table structure for `web_code`
 -- ----------------------------
 DROP TABLE IF EXISTS `web_code`;
 CREATE TABLE `web_code` (
@@ -7645,7 +7678,7 @@ CREATE TABLE `web_code` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for web_column
+-- Table structure for `web_column`
 -- ----------------------------
 DROP TABLE IF EXISTS `web_column`;
 CREATE TABLE `web_column` (
@@ -7671,7 +7704,7 @@ CREATE TABLE `web_column` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for web_config
+-- Table structure for `web_config`
 -- ----------------------------
 DROP TABLE IF EXISTS `web_config`;
 CREATE TABLE `web_config` (
@@ -7702,7 +7735,7 @@ CREATE TABLE `web_config` (
 INSERT INTO `web_config` VALUES ('pl2hu3uczz', '微官网', '0', null, null, '0', '1', '0', '0', null, '1', null, '0', null, null, null, null, null);
 
 -- ----------------------------
--- Table structure for web_home
+-- Table structure for `web_home`
 -- ----------------------------
 DROP TABLE IF EXISTS `web_home`;
 CREATE TABLE `web_home` (
@@ -7718,7 +7751,7 @@ CREATE TABLE `web_home` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for web_skin
+-- Table structure for `web_skin`
 -- ----------------------------
 DROP TABLE IF EXISTS `web_skin`;
 CREATE TABLE `web_skin` (
@@ -7808,7 +7841,7 @@ INSERT INTO `web_skin` VALUES ('71', '风格70', '/static/member/images/web/skin
 INSERT INTO `web_skin` VALUES ('72', '风格71', '/static/member/images/web/skin/skin-072.jpg', '0', '[{\"ContentsType\":\"1\",\"Title\":[\"\",\"\",\"\",\"\",\"\"],\"ImgPath\":[\"/api/web/skin/72/banner.jpg\",\"\",\"\",\"\",\"\"],\"Url\":[\"\",\"\",\"\",\"\",\"\"],\"Postion\":\"t01\",\"Width\":\"640\",\"Height\":\"313\",\"NeedLink\":\"1\"},{\"ContentsType\":\"0\",\"Title\":\"\",\"ImgPath\":\"/api/web/skin/72/i0.png\",\"Url\":null,\"Postion\":\"t02\",\"Width\":\"190\",\"Height\":\"280\",\"NeedLink\":\"1\"},{\"ContentsType\":\"0\",\"Title\":\"\",\"ImgPath\":\"/api/web/skin/72/i1.png\",\"Url\":null,\"Postion\":\"t03\",\"Width\":\"190\",\"Height\":\"280\",\"NeedLink\":\"1\"},{\"ContentsType\":\"0\",\"Title\":\"\",\"ImgPath\":\"/api/web/skin/72/i2.png\",\"Url\":null,\"Postion\":\"t04\",\"Width\":\"190\",\"Height\":\"280\",\"NeedLink\":\"1\"},{\"ContentsType\":\"0\",\"Title\":\"家电通讯\",\"ImgPath\":\"/api/web/skin/72/m0.png\",\"Url\":null,\"Postion\":\"t05\",\"Width\":\"120\",\"Height\":\"120\",\"NeedLink\":\"1\"},{\"ContentsType\":\"0\",\"Title\":\"电脑数码\",\"ImgPath\":\"/api/web/skin/72/m1.png\",\"Url\":null,\"Postion\":\"t06\",\"Width\":\"120\",\"Height\":\"120\",\"NeedLink\":\"1\"},{\"ContentsType\":\"0\",\"Title\":\"男女服饰\",\"ImgPath\":\"/api/web/skin/72/m2.png\",\"Url\":null,\"Postion\":\"t07\",\"Width\":\"120\",\"Height\":\"120\",\"NeedLink\":\"1\"},{\"ContentsType\":\"0\",\"Title\":\"时尚鞋包\",\"ImgPath\":\"/api/web/skin/72/m3.png\",\"Url\":null,\"Postion\":\"t08\",\"Width\":\"120\",\"Height\":\"120\",\"NeedLink\":\"1\"},{\"ContentsType\":\"0\",\"Title\":\"居家生活\",\"ImgPath\":\"/api/web/skin/72/m4.png\",\"Url\":null,\"Postion\":\"t09\",\"Width\":\"120\",\"Height\":\"120\",\"NeedLink\":\"1\"},{\"ContentsType\":\"0\",\"Title\":\"食品保健\",\"ImgPath\":\"/api/web/skin/72/m5.png\",\"Url\":null,\"Postion\":\"t10\",\"Width\":\"120\",\"Height\":\"120\",\"NeedLink\":\"1\"},{\"ContentsType\":\"0\",\"Title\":\"图书音像\",\"ImgPath\":\"/api/web/skin/72/m6.png\",\"Url\":null,\"Postion\":\"t11\",\"Width\":\"120\",\"Height\":\"120\",\"NeedLink\":\"1\"},{\"ContentsType\":\"0\",\"Title\":\"服务中心\",\"ImgPath\":\"/api/web/skin/72/m7.png\",\"Url\":null,\"Postion\":\"t12\",\"Width\":\"120\",\"Height\":\"120\",\"NeedLink\":\"1\"}]', '1', '19');
 
 -- ----------------------------
--- Table structure for wechat_attention_reply
+-- Table structure for `wechat_attention_reply`
 -- ----------------------------
 DROP TABLE IF EXISTS `wechat_attention_reply`;
 CREATE TABLE `wechat_attention_reply` (
@@ -7828,7 +7861,7 @@ CREATE TABLE `wechat_attention_reply` (
 INSERT INTO `wechat_attention_reply` VALUES ('301', 'pl2hu3uczz', '0', '非常高兴认识你，新朋友！', '0', '1', '0');
 
 -- ----------------------------
--- Table structure for wechat_keyword_reply
+-- Table structure for `wechat_keyword_reply`
 -- ----------------------------
 DROP TABLE IF EXISTS `wechat_keyword_reply`;
 CREATE TABLE `wechat_keyword_reply` (
@@ -7861,7 +7894,7 @@ INSERT INTO `wechat_keyword_reply` VALUES ('2389', 'pl2hu3uczz', 'games', '0', '
 INSERT INTO `wechat_keyword_reply` VALUES ('2390', 'pl2hu3uczz', 'web', '0', '0', '微官网', '0', '1', null, '2391', '1464683714');
 
 -- ----------------------------
--- Table structure for wechat_material
+-- Table structure for `wechat_material`
 -- ----------------------------
 DROP TABLE IF EXISTS `wechat_material`;
 CREATE TABLE `wechat_material` (
@@ -7891,7 +7924,7 @@ INSERT INTO `wechat_material` VALUES ('2390', 'pl2hu3uczz', 'games', '0', '0', '
 INSERT INTO `wechat_material` VALUES ('2391', 'pl2hu3uczz', 'web', '0', '0', '0', '{\"Title\":\"微官网\",\"ImgPath\":\"/static/api/images/cover_img/web.jpg\",\"TextContents\":\"\",\"Url\":\"/api/pl2hu3uczz/web/\"}', '1464683714');
 
 -- ----------------------------
--- Table structure for wechat_menu
+-- Table structure for `wechat_menu`
 -- ----------------------------
 DROP TABLE IF EXISTS `wechat_menu`;
 CREATE TABLE `wechat_menu` (
@@ -7912,7 +7945,7 @@ CREATE TABLE `wechat_menu` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for wechat_url
+-- Table structure for `wechat_url`
 -- ----------------------------
 DROP TABLE IF EXISTS `wechat_url`;
 CREATE TABLE `wechat_url` (
@@ -7928,7 +7961,7 @@ CREATE TABLE `wechat_url` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for weixin_log
+-- Table structure for `weixin_log`
 -- ----------------------------
 DROP TABLE IF EXISTS `weixin_log`;
 CREATE TABLE `weixin_log` (
@@ -7942,7 +7975,7 @@ CREATE TABLE `weixin_log` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for zhongchou_config
+-- Table structure for `zhongchou_config`
 -- ----------------------------
 DROP TABLE IF EXISTS `zhongchou_config`;
 CREATE TABLE `zhongchou_config` (
@@ -7955,7 +7988,7 @@ CREATE TABLE `zhongchou_config` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for zhongchou_prize
+-- Table structure for `zhongchou_prize`
 -- ----------------------------
 DROP TABLE IF EXISTS `zhongchou_prize`;
 CREATE TABLE `zhongchou_prize` (
@@ -7976,7 +8009,7 @@ CREATE TABLE `zhongchou_prize` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for zhongchou_project
+-- Table structure for `zhongchou_project`
 -- ----------------------------
 DROP TABLE IF EXISTS `zhongchou_project`;
 CREATE TABLE `zhongchou_project` (
@@ -7999,7 +8032,7 @@ CREATE TABLE `zhongchou_project` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for zhuli
+-- Table structure for `zhuli`
 -- ----------------------------
 DROP TABLE IF EXISTS `zhuli`;
 CREATE TABLE `zhuli` (
@@ -8019,7 +8052,7 @@ CREATE TABLE `zhuli` (
 INSERT INTO `zhuli` VALUES ('pl2hu3uczz', '微助力', null, null, null, '1464607202', '1465212002', '/static/api/images/cover_img/zhuli.jpg');
 
 -- ----------------------------
--- Table structure for zhuli_act
+-- Table structure for `zhuli_act`
 -- ----------------------------
 DROP TABLE IF EXISTS `zhuli_act`;
 CREATE TABLE `zhuli_act` (
@@ -8037,7 +8070,7 @@ CREATE TABLE `zhuli_act` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for zhuli_record
+-- Table structure for `zhuli_record`
 -- ----------------------------
 DROP TABLE IF EXISTS `zhuli_record`;
 CREATE TABLE `zhuli_record` (
@@ -8055,32 +8088,3 @@ CREATE TABLE `zhuli_record` (
 -- ----------------------------
 -- Records of zhuli_record
 -- ----------------------------
-ALTER TABLE biz add Biz_PayConfig varchar(255) DEFAULT NULL;
-ALTER TABLE biz add Biz_Flag tinyint(1) DEFAULT 0;
-
-ALTER TABLE shop_sales_payment add Payment_Type tinyint(1) DEFAULT 0;
-ALTER TABLE shop_sales_payment add OpenID varchar(100) DEFAULT NULL;
-ALTER TABLE shop_sales_payment add aliPayNo varchar(100) DEFAULT NULL;
-ALTER TABLE shop_sales_payment add aliPayName varchar(20) DEFAULT NULL;
-ALTER TABLE shop_sales_payment add Msg varchar(100) DEFAULT NULL;
-
-DROP TABLE IF EXISTS `users_schedule`;
-CREATE TABLE `users_schedule` (
-  `ID` int(11) NOT NULL AUTO_INCREMENT,
-  `Users_ID` varchar(20) NOT NULL,
-  `Money` float(11,2) DEFAULT NULL,
-  `StartRunTime` time DEFAULT NULL COMMENT '开始执行时间',
-  `RunType` tinyint(1) DEFAULT '1' COMMENT '执行方式：1、定时执行  2、按天执行  3、按月执行',
-  `Status` tinyint(1) DEFAULT '0' COMMENT '计划任务执行状态：0、未执行  1、执行过',
-  PRIMARY KEY (`ID`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
-
-ALTER TABLE users_schedule add LastRunTime int(11) DEFAULT 0 COMMENT "最后执行时间";
-ALTER TABLE users_schedule add day tinyint(2) DEFAULT 0 COMMENT "间隔执行的天数";
-ALTER TABLE distribute_config add TxCustomize tinyint(1) DEFAULT 1 COMMENT '提现审核开关';
-ALTER TABLE `distribute_order` ADD COLUMN `Order_Peas`  int NULL DEFAULT 0 COMMENT '赠送豆豆' AFTER `UpgradeDistributes`;
-ALTER TABLE `shop_config` ADD COLUMN `Icon_Color`  varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '图标颜色切换';
-ALTER TABLE distribute_agent_rec MODIFY Record_Money decimal(10,2);
-alter table kf_config add Wx_keyword varchar(100) DEFAULT NULL COMMENT '微客服触发关键词' after KF_Icon;
-alter table user_order add Front_Order_Status tinyint(1) DEFAULT 0 COMMENT '存储退货前的订单状态';
-alter table distribute_config add Withdraw_Switch tinyint(3) DEFAULT 1 COMMENT '提现开关：1开启0关闭';
