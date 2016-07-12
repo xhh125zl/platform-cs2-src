@@ -119,7 +119,15 @@ foreach($dis_level as $key=>$value){
 		<?php if(!empty($rsPay["Payment_AlipayEnabled"])){?>
 		<a href="javascript:void(0)" class="btn btn-danger btn-pay direct_pay" id="zfb" data-value="2"><img  src="/static/api/shop/skin/default/alipay.png" width="16px" height="16px"/>&nbsp;支付宝支付</a>
 		<?php }?>
+<?php
+if ($rsPay['Payment_RmainderEnabled'] == 1) {
+?>
 		<a href="javascript:void(0)" class="btn btn-warning  btn-pay" id="money" data-value="余额支付"><img  src="/static/api/shop/skin/default/money.jpg"  width="16px" height="16px"/>&nbsp;余额支付</a>
+<?php
+}
+?>
+
+
         <p class="money_info">
 			<b style="display:block; width:85%; height:40px; line-height:38px; font-size:14px; margin:0px auto; font-weight:normal">您当前余额：<span style="padding:0px 5px; font-size:16px; color:#F00">&yen;<?php echo $rsUser['User_Money'];?></span></b>
         	<input type="password" placeholder="请输入支付密码，默认123456" style="display:block; width:85%; margin:5px auto 0px; border:1px #dfdfdf solid; border-radius:5px; height:40px; line-height:40px;">
