@@ -1,20 +1,3 @@
-/*
-Navicat MySQL Data Transfer
-
-Source Server         : localhost
-Source Server Version : 50540
-Source Host           : localhost:3306
-Source Database       : 103hbqw999
-
-Target Server Type    : MYSQL
-Target Server Version : 50540
-File Encoding         : 65001
-
-Date: 2016-06-20 10:31:40
-*/
-
-SET FOREIGN_KEY_CHECKS=0;
-
 -- ----------------------------
 -- Table structure for action_num_record
 -- ----------------------------
@@ -8100,3 +8083,4 @@ ALTER TABLE `shop_config` ADD COLUMN `Icon_Color`  varchar(255) CHARACTER SET ut
 ALTER TABLE distribute_agent_rec MODIFY Record_Money decimal(10,2);
 alter table kf_config add Wx_keyword varchar(100) DEFAULT NULL COMMENT '微客服触发关键词' after KF_Icon;
 alter table user_order add Front_Order_Status tinyint(1) DEFAULT 0 COMMENT '存储退货前的订单状态';
+alter table distribute_config add Withdraw_Switch tinyint(3) DEFAULT 1 COMMENT '提现开关：1开启0关闭';
