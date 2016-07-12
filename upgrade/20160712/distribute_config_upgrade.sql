@@ -1,1 +1,1 @@
-alter table distribute_config add Withdraw_Switch tinyint(3) DEFAULT 1 COMMENT 'ÌáÏÖ¿ª¹Ø£º1¿ªÆô0¹Ø±Õ';
+alter table distribute_config add Withdraw_Switch tinyint(3) DEFAULT 1 COMMENT 'æç°å¼€å…³ï¼š1å¼€å¯0å…³é—­';
