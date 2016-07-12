@@ -24,7 +24,7 @@ if($_POST)
 		$man_reach = $_POST['man_reach'];
 		$man_award  = $_POST['man_award'];
 		foreach($man_reach as $key=>$item){
-			$man[] = array('reach'=>$item,'award'=>$man_award[$key]);
+                    $man[] = array('reach'=>$item,'award'=>$man_award[$key]);
 		}
 	}
 	
@@ -95,6 +95,7 @@ if($_POST)
     <div class="r_nav">
       <ul>
         <li class=""><a href="config.php">基本设置</a></li>
+        <li class="cur"><a href="other_config.php">积分设置</a></li>
         <li class=""><a href="skin.php">风格设置</a></li>
         <li class=""><a href="home.php">首页设置</a></li>
         <li><a href="menu_config.php">菜单配置</a></li>
@@ -113,23 +114,23 @@ if($_POST)
 	<div class="shopping">
 	  <form id="config_form" class="r_con_form" name="other_config_form" action="ohter_config.php" method="post">
 		<div class="rows">
-          <label>满多少减多少</label>
+          <label>积分赠送规则</label>
           <span class="input">
-			<a href="javascript:void(0);" id="add_man" class="red">添加</a>
-			<ul id="man_panel">
-            <?php if(count($man_list)>0):?>
-				<?php foreach($man_list as $key=>$man):?>
-                <li class="item"> 满：￥
-                <input name="man_reach[]" value="<?=$man['reach']?>" class="form_input" size="3" maxlength="10" type="text">
-                减：￥
-                <input name="man_award[]" value="<?=$man['award']?>" class="form_input" size="3" maxlength="10" type="text">
-                <a><img src="/static/member/images/ico/del.gif" hspace="5"></a>
-                </li>
-                <?php endforeach; ?>
-            <?php endif;?>
-                <li class="clear"></li>
-            </ul>
-			<p>(订单满足多大金额，可以多少免单多少,例满1000元可免单80元,<br/>设置排序由大到小，例如，先设置满1000减200,再设置满500减80)</p>
+                <a href="javascript:void(0);" id="add_man" class="red">添加</a>
+                <ul id="man_panel">
+                <?php if(count($man_list)>0):?>
+                    <?php foreach($man_list as $key=>$man):?>
+                    <li class="item"> 满：￥
+                        <input name="man_reach[]" value="<?=$man['reach']?>" class="form_input" size="3" maxlength="10" type="text">元
+                        减：￥
+                        <input name="man_award[]" value="<?=$man['award']?>" class="form_input" size="3" maxlength="10" type="text">
+                        <a><img src="/static/member/images/ico/del.gif" hspace="5"></a>
+                    </li>
+                    <?php endforeach; ?>
+                <?php endif;?>
+                    <li class="clear"></li>
+                </ul>
+		<p>(订单满足多大金额，可以多少积分,例满100元可送5积分,<br/>设置排序由大到小，例如，先设置满1000送70,再设置满500减30)</p>
           </span>
           <div class="clear"></div>
         </div>

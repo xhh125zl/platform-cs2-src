@@ -21,7 +21,8 @@ $rmenu["material"] = array(
 
 $rmenu['basic'] = array(
 	'basic' => '商城设置',
-	'setting/config' => '基本设置',		
+	'setting/config' => '基本设置',	
+        'setting/other_config' => '积分设置',		
 	'setting/skin' => '风格设置',
 	'setting/home' => '首页设置',
 	'setting/menu_config' => '菜单配置',
