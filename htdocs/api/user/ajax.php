@@ -294,6 +294,17 @@ if(isset($_SESSION[$UsersID."User_ID"])){
 			echo json_encode($Data,JSON_UNESCAPED_UNICODE);
 			exit;
 		}
+
+		//检查是否为自己给自己转账
+		if ($reciever['User_ID'] == $rsUser['User_ID']) {
+			$Data=array(
+				'status'=>0,
+				'msg'=>'自己无法给自己转账',
+			);
+			echo json_encode($Data,JSON_UNESCAPED_UNICODE);
+			exit;	
+		}
+
 		$amount = floatval($_POST["Amount"]);
 		if($amount<=0){
 			$Data=array(
