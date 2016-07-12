@@ -1,0 +1,1 @@
+alter table distribute_config add Withdraw_Switch tinyint(3) DEFAULT 1 COMMENT '提现开关：1开启0关闭';
