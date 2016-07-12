@@ -187,9 +187,9 @@ while($rsTemplate = $DB->fetch_assoc()){
 					$rsBack = $DB->GetRs("user_back_order","Back_Status","where Order_ID=".$rsOrder["Order_ID"]);
 					$backstatus = $rsBack ? $rsBack["Back_Status"] : 0;
 				}
-				if($backstatus<1){
+				if($backstatus<1 ||  $rsOrder["Order_Status"]==2){
 			?>
-			<?php if($rsOrder["Order_TotalPrice"]>$rsOrder["Back_Amount"]){?>
+			<?php if($rsOrder["Order_TotalPrice"]>$rsOrder["Back_Amount"] || $rsOrder["Order_Status"]==2){?>
             <a href="orders_send.php?OrderID=<?php echo $rsOrder["Order_ID"] ?>">[发货]</a><br />
 			<?php }?>
 			<?php }?>

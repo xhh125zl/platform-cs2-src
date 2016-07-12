@@ -7,7 +7,7 @@ $backup = new backup($DB,$rsBiz["Users_ID"]);
 $BackID=empty($_REQUEST['BackID'])?0:$_REQUEST['BackID'];
 $rsBack = $DB->GetRs("user_back_order","*","where Users_ID='".$rsBiz["Users_ID"]."' and Biz_ID=".$_SESSION["BIZ_ID"]." and Back_ID='".$BackID."'");
 $Status=$rsBack["Back_Status"];
-$rsOrder = $DB->GetRs("user_order","Order_IsVirtual,Order_Status","where Order_ID=".$rsBack["Order_ID"]);
+$rsOrder = $DB->GetRs("user_order","Order_IsVirtual,Order_Status,Front_Order_Status","where Order_ID=".$rsBack["Order_ID"]);
 
 if(!empty($_GET["action"])){
 	$action = $_GET["action"];
@@ -15,8 +15,10 @@ if(!empty($_GET["action"])){
 		if($Status<>0){
 			echo '<script language="javascript">alert("操作错误");history.back();</script>';
 		}else{
-			$backup->update_backup("seller_agree",$BackID);
-			if($rsOrder['Order_Status']==2){
+		    if($rsOrder['Front_Order_Status']==3 && $rsBack['Back_Status']==0){//已发货的状态下
+			    $backup->update_backup("seller_agree",$BackID);
+		    }
+			if($rsOrder['Front_Order_Status']==2 && $rsBack['Back_Status']==0){  //已付款未发货的状态下
 				$backup->update_backup("seller_recieve",$BackID,$rsBack['Back_Amount']."||%$%买家付款后申请退款");
 			}
 			echo '<script language="javascript">alert("操作成功");window.location="back_view.php?BackID='.$BackID.'";</script>';

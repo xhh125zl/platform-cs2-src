@@ -152,10 +152,15 @@ body, html {
 						<div class="clear"></div>
 					</div>
 					<div class="rows">
-						<label>微信识别码</label> <span class="input"> <input name="OpenID"
+						<label>微信识别码</label> <span class="input"> 
+						<?php if(!isset($biz_PayConfig['config']['OpenID']) || !$biz_PayConfig['config']['OpenID']){ ?>
+						<a href = "/biz/account/account_payconfig.php" class="btn_green">请绑定OpenId</a>
+						<?php }else{ ?>
+						    <input name="OpenID"
 							value="<?php if(!empty($biz_PayConfig) && $biz_PayConfig['PaymentID'] ==1){ echo $biz_PayConfig['config']['OpenID']; } ?>"
 							type="text" class="form_input" size="40" maxlength="100" notnull>
 							<font class="fc_red">*</font> <span class="tips">商家微信OpenID</span></span>
+					   <?php } ?>
 						<div class="clear"></div>
 					</div>
 					<div id="nickname" class="rows">
@@ -208,11 +213,13 @@ body, html {
 							<font class="fc_red">*</font></span>
 						<div class="clear"></div>
 					</div>
+					<?php if(isset($biz_PayConfig['config']['OpenID']) && $biz_PayConfig['config']['OpenID']){ ?>
 					<div class="rows">
 						<label></label> <span class="input"> <input type="submit"
 							class="btn_green" value="一键生成" name="submit_btn"></span>
 						<div class="clear"></div>
 					</div>
+					<?php } ?>
 				</form>
 			</div>
 		</div>

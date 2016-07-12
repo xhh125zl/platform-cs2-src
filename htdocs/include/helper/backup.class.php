@@ -25,11 +25,23 @@ class backup{
 		unset($product);
 		
 		$item["Qty"] = $qty;
-		if($rsOrder['Order_Status'] == 2){
+		if($rsOrder['Order_Status'] == 2){    //已付款
+		    $cpyCarList = $CartList;
+		    $cpyCarList[$productid][$cartid]["Qty"] = $cpyCarList[$productid][$cartid]["Qty"] - $qty;
+		    if($cpyCarList[$productid][$cartid]["Qty"]==0){
+		        unset($cpyCarList[$productid][$cartid]);
+		    }
+		    if(count($cpyCarList[$productid])==0){
+		        unset($cpyCarList[$productid]);
+		    }
+		    if(!empty($cpyCarList)){
+		        $amount = $qty * $item["ProductsPriceX"];
+		    }else{
+		        $amount = $qty * $item["ProductsPriceX"];
+		        $amount += $ShippingMoney;
+		    }
+		}else{    //已发货
 		  $amount = $qty * $item["ProductsPriceX"];
-		}else{
-		  $amount = $qty * $item["ProductsPriceX"];
-		  $amount = $amount + $ShippingMoney;
 		}
 		$time = time();
 		$data = array(
@@ -64,6 +76,7 @@ class backup{
 			if($rsOrder['Order_Status'] == 2){
 				$data = array(
 					'Order_Status'=>2,
+				    'Front_Order_Status'=>2,
 				    'Is_Backup'=>1,
 					'Order_CartList'=>json_encode($CartList,JSON_UNESCAPED_UNICODE),
 					'Back_Amount'=>$rsOrder["Back_Amount"]+$amount
@@ -71,6 +84,7 @@ class backup{
 			}elseif($rsOrder['Order_Status'] == 3){
 				$data = array(
 					'Order_Status'=>3,
+				    'Front_Order_Status'=>3,
 				    'Is_Backup'=>1,
 					'Order_CartList'=>json_encode($CartList,JSON_UNESCAPED_UNICODE),
 					'Back_Amount'=>$rsOrder["Back_Amount"]+$amount
@@ -220,7 +234,7 @@ class backup{
 				//增加流程
 				$this->add_record($backid,1,$detail,$time);
 				
-				//更新退款单
+				//更新退款单 
 				$Data = array(
 					"Back_Status"=>3,
 					"Buyer_IsRead"=>0,
