@@ -3,7 +3,7 @@ require_once('global.php');
 require_once($_SERVER["DOCUMENT_ROOT"].'/include/helper/url.php');
 require_once($_SERVER["DOCUMENT_ROOT"].'/include/helper/distribute.php');
 if($rsConfig['Withdraw_Switch'] == 0){
-    echo '<script language="javascript">alert("未到体现时间");history.back();</script>';  
+    echo '<script language="javascript">alert("您还未到提现时间");history.back();</script>';  
     exit();
 }
 if($rsConfig["Withdraw_Type"]==3){
