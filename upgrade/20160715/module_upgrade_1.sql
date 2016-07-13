@@ -1,0 +1,1 @@
+INSERT INTO `module` ( `module`, `name`, `parentid`, `type`, `listorder`) VALUES ( 'pintuan', '拼团', '0', 'module', '0');

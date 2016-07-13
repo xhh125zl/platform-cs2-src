@@ -357,7 +357,50 @@ class mysql{
         }
         return $this->rsAll;
     }
+    
+    /******************************************************************
+    函数名：getPages($Table,$Fields,$Condition,$pageSize)
+    作  用：多表查询获取分页信息
+    参  数：$Table 表名(必填)
+           $Fields 字段名，默认所有字段(选填)
+           $Condition 查询条件(选填)
+           $pageSize 每页显示记录条数，默认10条(选填)
+    返回值：字符串
+    实  例：无
+    *******************************************************************/
 
+     public function getPages($Table='', $Fields='*', $Condition='', $pageSize=10) {
+        if (intval($pageSize) > 0) {
+            $this->pageSize = intval($pageSize);
+        }
+
+        if (isset($_GET['page']) && intval($_GET['page'])) {
+            $this->pageNo = intval($_GET['page']);
+        }
+
+        if (empty($Fields)) {
+            $Fields='*';
+        }
+        $sql="SELECT * FROM {$Table} {$Condition}";
+        
+        $this->query($sql);
+        $this->rsAll = $this->num_rows();
+
+        if ($this->rsAll > 0) {
+            $this->pageAll = ceil($this->rsAll / $this->pageSize);
+            if ($this->pageNo < 1) {
+                $this->pageNo=1;
+            }
+            if ($this->pageNo > $this->pageAll) {
+                $this->pageNo = $this->pageAll;
+            }
+            $sql = "SELECT {$Fields} FROM {$Table} {$Condition}" . $this->limit(true);
+            $this->query($sql);
+        }
+
+        return $this->rsAll;
+    }
+    
     // 构造分页limit语句，和getPage()函数搭配使用
     public function limit($str=false){
         $n=($this->pageNo-1)*$this->pageSize;

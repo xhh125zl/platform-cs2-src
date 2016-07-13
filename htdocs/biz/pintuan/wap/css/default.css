@@ -1,0 +1,25 @@
+body,html{background:#f7f7f7;}
+body *{font-size:14px;}
+body a{cursor:pointer;}
+.wrap{width:100%; margin:0 auto; clear:both; overflow:hidden;}
+
+#shop_page_contents{width:100%;}
+#cover_layer{width:100%; height:100%; top:0px; display:none; z-index:100000; background:#000; filter:alpha(opacity=20); opacity:0.2; -moz-opacity:0.2; position:fixed; overflow:hidden;}
+
+#category{width:60%; background:#fff; position:absolute; z-index:100001; left:-100%; top:0px; box-shadow:1px -1px 30px #000; border-right:1px solid #ccc;}
+#category .close{position:absolute; right:7px; top:8px; width:18px; height:17px; background:url(bg.png) -229px -63px no-repeat;}
+#category dl{height:100%;}
+#category dl dt{height:36px; line-height:36px; overflow:hidden; text-indent:22px; white-space:nowrap; text-overflow:ellipsis; border-bottom:1px dotted #ccc; background:url(bg.png) -297px -47px no-repeat;}
+#category dl dt a{font-weight:bold; text-decoration:none; color:#444; font-size:14px;}
+#category dl dd{height:36px; line-height:36px; overflow:hidden; border-bottom:1px dotted #ccc; text-indent:22px; white-space:nowrap; text-overflow:ellipsis;}
+#category dl dd a{color:#666; display:block; text-decoration:none;}
+
+#footer_points{height:40px; clear:both;}
+#footer{width:100%; margin:0 auto; background:url(bg.png) 0 20px repeat-x; height:60px; position:fixed; z-index:1000; bottom:0;}
+#footer ul li{height:38px; width:25%; float:left; padding-top:22px;}
+#footer ul li>a{color:#fff; line-height:62px; font-size:12px; width:45px; height:40px; margin:0 auto; display:block; white-space:nowrap; text-align:center; text-decoration:none; }
+#footer ul li.category{height:60px; padding:0;}
+#footer ul li.category a{width:62px; height:60px; line-height:100px; margin:0; background:url(bg.png) 0 -42px no-repeat; text-align:left; text-indent:13px;}
+#footer ul li.cart a{background:url(cart_icon.png) center top no-repeat;background-size:25px auto;}
+#footer ul li.member a{background:url(member_icon.png) center top no-repeat;background-size:25px auto;}
+#footer ul li.home a{background:url(home_icon.png) center top no-repeat;background-size:25px auto;}
