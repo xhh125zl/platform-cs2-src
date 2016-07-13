@@ -29,11 +29,9 @@ if($_POST)
 	}
 	
 	$Integral_Use_Laws = array();
-	
 	if(!empty($_POST['Integral_Man'])){
 		$integral_man = $_POST['Integral_Man'];
 		$integral_use = $_POST['Integral_Use'];
-		
 		foreach($integral_man as $key=>$item){
 			$Integral_Use_Laws[] = array("man"=>$item,"use"=>$integral_use[$key]);
 		}	
@@ -43,7 +41,7 @@ if($_POST)
 	
 	$Data=array(
 		"Man"=>json_encode($man,JSON_UNESCAPED_UNICODE),
-    	"Integral_Convert"=>isset($_POST["Integral_Convert"])?$_POST["Integral_Convert"]:0,
+                //"Integral_Convert"=>isset($_POST["Integral_Convert"])?$_POST["Integral_Convert"]:0,
 		"Integral_Buy"=>isset($_POST["Integral_Buy"])?$_POST["Integral_Buy"]:0,
 		"Integral_Use_Laws"=>json_encode($Integral_Use_Laws,JSON_UNESCAPED_UNICODE),
 		
@@ -122,15 +120,15 @@ if($_POST)
                     <?php foreach($man_list as $key=>$man):?>
                     <li class="item"> 满：￥
                         <input name="man_reach[]" value="<?=$man['reach']?>" class="form_input" size="3" maxlength="10" type="text">元
-                        减：￥
-                        <input name="man_award[]" value="<?=$man['award']?>" class="form_input" size="3" maxlength="10" type="text">
+                        送：积分
+                        <input name="man_award[]" value="<?=$man['award']?>" class="form_input" size="3" maxlength="10" type="text">个
                         <a><img src="/static/member/images/ico/del.gif" hspace="5"></a>
                     </li>
                     <?php endforeach; ?>
                 <?php endif;?>
                     <li class="clear"></li>
                 </ul>
-		<p>(订单满足多大金额，可以多少积分,例满100元可送5积分,<br/>设置排序由大到小，例如，先设置满1000送70,再设置满500减30)</p>
+		<p>(订单满足多大金额，可以多少积分,例满100元可送5积分,<br/>设置排序由大到小，例如，先设置满1000送70,再设置满500送30)</p>
           </span>
           <div class="clear"></div>
         </div>
@@ -154,14 +152,14 @@ if($_POST)
           </span>
           <div class="clear"></div>
         </div>
-		<div class="rows">
+	<!--<div class="rows">
           <label>积分设置</label>
           <span class="input">
-          每 <input type="text" name="Integral_Convert" size="5" value="<?=$rsConfig['Integral_Convert']?>"/> 元，赠送一分
+          每 <input type="text" name="Integral_Convert" size="5" value="<?//=$rsConfig['Integral_Convert']?>"/> 元，赠送一分
 		  </span>
           <div class="clear"></div>
-        </div>
-		<div class="rows">
+        </div>-->
+	<div class="rows">
           <label>积分抵用设置</label>
           <span class="input">
           每 <input type="text" name="Integral_Buy" size="5" value="<?=$rsConfig['Integral_Buy']?>"/> 积分抵用一元
