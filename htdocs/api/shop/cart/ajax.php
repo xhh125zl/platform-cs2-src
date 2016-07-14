@@ -371,7 +371,7 @@ if(empty($action)){//加入购物车
 	$CartList = json_decode($OrderCart,true);
 	$CartList = get_filter_cart_list($DB, $CartList);
 	//获取每个供货商的运费默认配置
-    $Biz_ID_String = implode(',',array_keys($CartList));
+        $Biz_ID_String = implode(',',array_keys($CartList));
 
 	$condition = "where Users_ID  = '".$UsersID."' and Biz_ID in (".$Biz_ID_String.")";
 	$rsBizConfigs = $DB1->get('biz','Biz_ID,Biz_Name,Shipping,Default_Shipping,Default_Business',$condition);
@@ -524,7 +524,8 @@ if(empty($action)){//加入购物车
 			);
 			$flag = $DB->Add("user_pre_order",$Data);
 			if($flag){
-				$url = "/api/".$UsersID."/shop/cart/payment/".$pre_sn."/";
+				//$url = "/api/".$UsersID."/shop/cart/payment/".$pre_sn."/";
+                                $url = "/api/".$UsersID."/shop/cart/payment/".$neworderid."/";
 				$Data = array(
 					"url" => $url,
 					"status" => 1

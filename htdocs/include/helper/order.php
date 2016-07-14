@@ -223,7 +223,7 @@ function change_user_integral($UsersID,$User_Id,$Integral,$type,$desc,$useless =
 
 	if($Flag_a&&$Flag_b){
 		require_once($_SERVER["DOCUMENT_ROOT"].'/include/library/weixin_message.class.php');
-		$weixin_message = new weixin_message($DB,$UsersID,$User_Id);
+		$weixin_message = new weixin_message($DB1,$UsersID,$User_Id);
 		$contentStr = '购买商品抵用 '.$Integral.' 个积分';
 		$weixin_message->sendscorenotice($contentStr);
 		
