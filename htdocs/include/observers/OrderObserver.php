@@ -85,9 +85,19 @@ class OrderObserver {
 		$User_Level_Config = json_decode ( $User_Level_Json, TRUE );
 		
 		$interval = 0;
-		if (! empty ( $this->shop_config ['Integral_Convert'] )) {
+		/*if (! empty ( $this->shop_config ['Integral_Convert'] )) {
 			$interval = intval ( $order ['Order_TotalPrice'] / abs ( $this->shop_config ['Integral_Convert'] ) );
-		}		
+		}*/
+                $man_list = $this->shop_config['Man'];
+                if (!empty($man_list)) {
+                    $man_array = json_decode($man_list, true);
+                    foreach ($man_array as $k => $v) {
+                        if ($order ['Order_TotalPrice'] >= $v['reach']) {
+                            $interval = $v['award'];
+                            break;
+                        }
+                    }
+                } 
 		$user = $order->User()->getResults();
 		$res = true;
 
