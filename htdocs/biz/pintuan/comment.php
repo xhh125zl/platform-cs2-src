@@ -76,7 +76,7 @@ function get_title($itemid){
       $_Status=array('<font style="color:red">待审核</font>','<font style="color:blue">已审核</font>');
       $_Check = array('check','uncheck');
       $_Title = array('点击通过审核','点击取消审核');
-      $DB->getPage("pintuan_commit","*","where Users_ID='".$_SESSION["Users_ID"]."' order by CreateTime desc","10");
+      $DB->getPage("pintuan_commit","*","where Users_ID='".$_SESSION["Users_ID"]."' AND Biz_ID={$_SESSION['BIZ_ID']} order by CreateTime desc","10");
        while($comment=$DB->fetch_assoc()){
             $lists[]=$comment;
       }

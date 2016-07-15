@@ -10,7 +10,7 @@ if (!empty($_POST)) {
 	$Data = array(
 		'Type_Name' => htmlentities($_POST['Type_Name']),
 		'Type_CreateTime' => time(),
-        'User_Id' => $_SESSION['Users_ID'],
+        'Users_ID' => $_SESSION['Users_ID'],
 	    'Biz_Id' => $_SESSION['BIZ_ID']
 	);
 

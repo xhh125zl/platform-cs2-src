@@ -12,4 +12,4 @@ CREATE TABLE IF NOT EXISTS `pintuan_order` (
   `is_vgoods` tinyint(1) DEFAULT NULL COMMENT '是否是虚拟  0是 1不是',
   `is_ok` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`order_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='活动表(客户拼团表)';
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='拼团订单扩展表(用于存储用户拼团过程中对参团信息的描述)';

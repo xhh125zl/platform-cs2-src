@@ -33,6 +33,7 @@
  * @author JohnKuo
  *
  */
+
 //加载所需类
 include 'PHPExcel.php';
 include 'PHPExcel/Writer/Excel2007.php';
@@ -200,7 +201,7 @@ class OutputExcel {
             '6'=>'已退款',
             '7'=>'手动退款成功'
         );
-        
+
         foreach ($data as $key => $order) {
             $order['Order_TotalPrice'] = $order['Order_TotalPrice'] >= $order['Back_Amount'] ? ($order['Order_TotalPrice'] - $order['Back_Amount']) : 0;
             $objActSheet->setCellValue('A' . $this->cur_row, ($key + 1));
@@ -244,6 +245,7 @@ class OutputExcel {
      */
     private function __outputExcel($objPHPExcel, $type) {
         $objWriter = new PHPExcel_Writer_Excel5($objPHPExcel);
+        ob_end_clean();
         header("Pragma: public");
         header("Expires: 0");
         header("Cache-Control:must-revalidate, post-check=0, pre-check=0");

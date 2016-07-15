@@ -59,4 +59,4 @@ CREATE TABLE IF NOT EXISTS `pintuan_products` (
   `Biz_ID` int(10) DEFAULT NULL,
   `Products_FinanceType` tinyint(1) DEFAULT '0' COMMENT '0 按交易额比例 1 按供货价',
   PRIMARY KEY (`Products_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='拼团商品表，用于存储用户添加的商品记录';

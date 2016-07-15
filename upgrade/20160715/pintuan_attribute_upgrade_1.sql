@@ -10,4 +10,4 @@ CREATE TABLE IF NOT EXISTS `pintuan_attribute` (
   `Attr_Group` varchar(10) NOT NULL,
   `Biz_ID` int(10) DEFAULT NULL,
   PRIMARY KEY (`Attr_ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='拼团商品的属性表用于标注商品中的属性';

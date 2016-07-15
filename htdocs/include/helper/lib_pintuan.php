@@ -2,14 +2,14 @@
 function doUse($UsersID, $Products_Relation_ID)
 {
     global $DB;
-    $res = $DB->Get("pintuan_virtual_card","*","WHERE User_Id='{$UsersID}' AND Products_Relation_ID='{$Products_Relation_ID}' AND Card_Status=0");
+    $res = $DB->Get("pintuan_virtual_card","*","WHERE Users_ID='{$UsersID}' AND Products_Relation_ID='{$Products_Relation_ID}' AND Card_Status=0");
     if($res){
         $vcard = $DB->toArray($res);
         $cardName = "";
         foreach ($vcard as $k => $v)
         {
             $cardName = $v['Card_Name'];
-            $DB->Set("pintuan_virtual_card", [ 'Card_Status' => 1 ], "WHERE User_Id='{$UsersID}' AND Card_Id = '{$v['Card_Id']}'");
+            $DB->Set("pintuan_virtual_card", [ 'Card_Status' => 1 ], "WHERE Users_ID='{$UsersID}' AND Card_Id = '{$v['Card_Id']}'");
             break;
         }
         return $cardName;

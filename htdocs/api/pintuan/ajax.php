@@ -577,6 +577,12 @@ if($action=="ptpinlun"){
 	$Data["Note"] = $_POST["txt"];
 	$Data["Status"] = 0;
     $Data["pingfen"]=$_POST['fenshu'];
+    
+    $rsOrder = $DB->GetRs("user_order","Order_Status,Users_ID,Biz_ID","where Order_ID=".$Data["Order_ID"]);
+    if(!empty($rsOrder) && $rsOrder['Biz_ID'])
+    {
+        $Data['Biz_ID'] = $rsOrder['Biz_ID'];
+    }
 	$Flag = $DB->Add("pintuan_commit", $Data);
 	if($Flag){
 		$pintuan_arr = json_encode(array('code' => '1001', 'orderid' => $Data['Order_ID']), JSON_UNESCAPED_UNICODE);

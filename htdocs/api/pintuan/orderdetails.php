@@ -67,7 +67,7 @@ $goodsInfo = $DB->GetRs("pintuan_products","*","where Products_ID={$goods['Produ
                       <span style="color: #ee0000;font-weight:bold;"><?=$orederInfo['Order_Virtual_Cards']?$orederInfo['Order_Virtual_Cards']:'暂无劵码'; ?></span>
                   </li>
                   <?php }else if( $goods['order_process'] == 2 ){
-                    $vcard = $DB->GetRs("pintuan_virtual_card","*","WHERE User_Id='{$UsersID}' AND Products_Relation_ID='{$goods['Products_ID']}' AND Card_Name='{$orederInfo['Order_Virtual_Cards']}'");
+                    $vcard = $DB->GetRs("pintuan_virtual_card","*","WHERE Users_ID='{$UsersID}' AND Products_Relation_ID='{$goods['Products_ID']}' AND Card_Name='{$orederInfo['Order_Virtual_Cards']}'");
                     if(!empty($vcard)){
     ?>
                   <li>

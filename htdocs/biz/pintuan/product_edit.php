@@ -137,7 +137,7 @@ if($_POST){
       if(isset($_POST["cardids"]) && $_POST["cardids"]){
           $idcards = $_POST["cardids"];
           $idcards = trim($idcards,",");
-          $DB->Set("pintuan_virtual_card", [ 'Products_Relation_ID' => $id ],"WHERE User_ID='{$_SESSION["Users_ID"]}' AND Card_ID IN({$idcards})");
+          $DB->Set("pintuan_virtual_card", [ 'Products_Relation_ID' => $id ],"WHERE Users_ID='{$_SESSION["Users_ID"]}' AND Card_ID IN({$idcards})");
       }
     echo '<script language="javascript">alert("修改成功");window.location="products.php";</script>';
   }else{

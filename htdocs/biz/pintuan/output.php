@@ -59,7 +59,7 @@ if($type == 'product_gross_info'){
 	
 }elseif($type == 'order_detail_list'){
 	
-	$condition = "where Users_ID='".$_SESSION["Users_ID"]."' and (Order_Type='pintuan' or Order_Type='dangou')";
+	$condition = "where Users_ID='".$_SESSION["Users_ID"]."' AND Biz_ID={$_SESSION['BIZ_ID']} and (Order_Type='pintuan' or Order_Type='dangou')";
 
 	if(!empty($_GET["Keyword"])){
 		$condition .= " and Order_CartList like '%".$_GET["Keyword"]."%'";

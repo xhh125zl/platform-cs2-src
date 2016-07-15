@@ -11,4 +11,4 @@ CREATE TABLE IF NOT EXISTS `pintuan_order_detail` (
   `Order_ID` int(11) DEFAULT NULL COMMENT '订单表id',
   `addtime` int(11) DEFAULT NULL COMMENT '添加时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='明细表(每个团内参团的详细记录)';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='商品明细表(用于存储每个团内参团的详细记录)';

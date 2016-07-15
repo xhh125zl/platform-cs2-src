@@ -15,7 +15,7 @@ define('CARD_ABNORMAL', '已使用');
 
 if (isset($_GET['action'])) {
   if ($_GET['action'] == 'del') {
-    $Flag=$DB->Del("pintuan_virtual_card_type","User_ID='".$_SESSION["Users_ID"]."' and Type_id=".$_GET["TypeId"]);
+    $Flag=$DB->Del("pintuan_virtual_card_type","Users_ID='".$_SESSION["Users_ID"]."' and Type_id=".$_GET["TypeId"]);
     if($Flag){
       echo '<script language="javascript">alert("删除成功");window.location="'.$_SERVER['HTTP_REFERER'].'";</script>';
     }else{
@@ -26,7 +26,7 @@ if (isset($_GET['action'])) {
 }
 
 
-$condition = "WHERE `User_ID` = '".$_SESSION['Users_ID']."'";
+$condition = "WHERE `Users_ID` = '".$_SESSION['Users_ID']."'";
 
 
 

@@ -17,7 +17,7 @@ if (!empty($_POST)) {
 		'Card_CreateTime' => time(),
 		'Card_UpadteTime' => time(),
         'Type_Id' => (int)$_POST['Type_Id'],
-        'User_Id' => $_SESSION['Users_ID'],
+        'Users_ID' => $_SESSION['Users_ID'],
 	    'Biz_Id' => $_SESSION['BIZ_ID']
 		);
 
@@ -88,7 +88,7 @@ if (!empty($_POST)) {
               
               <select name="Type_Id">
               <?php 
-                $condition = "WHERE `User_ID` = '".$_SESSION['Users_ID']."'";
+                $condition = "WHERE `Users_ID` = '".$_SESSION['Users_ID']."'";
                 $Type = $DB->Get("pintuan_virtual_card_type","*",$condition);
                 while ($r=$DB->fetch_assoc()) { $List[] = $r; }
                 if (!empty($List)) {

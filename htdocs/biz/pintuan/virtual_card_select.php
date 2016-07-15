@@ -6,7 +6,7 @@ if(empty($_SESSION["Users_Account"]))
 	header("location:/member/login.php");
 }
 
-$condition = "WHERE `User_ID` = '".$_SESSION['Users_ID']."' AND Card_Status=0";
+$condition = "WHERE `Users_ID` = '".$_SESSION['Users_ID']."' AND Card_Status=0";
 
 $productId = "-1";
 if (isset($_GET['productId']) && !empty($productId)) 
@@ -63,7 +63,7 @@ $condition .= " ORDER BY Card_Id DESC";
         <select name='Type_Id'>
           <option value=''>--请选择--</option>
           <?php 
-            $Type_Arr = $DB->Get('pintuan_virtual_card_type', 'Type_Id, Type_Name,User_ID', "WHERE User_ID = '".$_SESSION['Users_ID']."'");
+            $Type_Arr = $DB->Get('pintuan_virtual_card_type', 'Type_Id, Type_Name,Users_ID', "WHERE Users_ID = '".$_SESSION['Users_ID']."'");
             while ($r = $DB->fetch_assoc($Type_Arr)) { 
           ?>
           <option value="<?php echo $r['Type_Id']; ?>"><?php echo $r['Type_Name']; ?></option>

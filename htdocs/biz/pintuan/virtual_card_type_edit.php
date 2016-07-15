@@ -8,14 +8,14 @@ if(empty($_SESSION["Users_Account"]))
 
 $TypeId=empty($_REQUEST['TypeId'])?0:$_REQUEST['TypeId'];
 
-$rsCart = $DB->GetRs("pintuan_virtual_card_type","*","where User_Id='".$_SESSION["Users_ID"]."' and Type_Id=".$TypeId);
+$rsCart = $DB->GetRs("pintuan_virtual_card_type","*","where Users_ID='".$_SESSION["Users_ID"]."' and Type_Id=".$TypeId);
 
 if ($_POST) {
   $Data = array(
     'Type_Name' => $_POST['Type_Name']
   );
 
-  $Flag = $DB->set('pintuan_virtual_card_type', $Data, "where User_ID='".$_SESSION["Users_ID"]."' and Type_Id=".$TypeId);
+  $Flag = $DB->set('pintuan_virtual_card_type', $Data, "where Users_ID='".$_SESSION["Users_ID"]."' and Type_Id=".$TypeId);
   if($Flag)
   {
     echo '<script language="javascript">alert("修改成功");window.location="virtual_card_type.php";</script>';

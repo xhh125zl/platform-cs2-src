@@ -35,7 +35,7 @@ $Pay_List = get_enabled_pays($DB, $_SESSION["Users_ID"]);
 // 取出商城配置信息
 $rsConfig = $DB->GetRs("shop_config", "ShopName,NeedShipping", "WHERE Users_ID='" . $_SESSION["Users_ID"] . "'");
 $condition = " LEFT JOIN pintuan_teamdetail AS p ON u.Order_ID=p.order_id LEFT JOIN pintuan_team as t ON p.teamid=t.id ";
-$condition .= "WHERE u.Users_ID='" . $_SESSION["Users_ID"] . "' AND ( u.Order_Type='pintuan' OR u.Order_Type='dangou') ";
+$condition .= "WHERE u.Users_ID='" . $_SESSION["Users_ID"] . "' AND Biz_ID={$_SESSION['BIZ_ID']} AND ( u.Order_Type='pintuan' OR u.Order_Type='dangou') ";
 if (isset($_GET["search"])) {
     if ($_GET["search"] == 1) {
         if (! empty($_GET["Keyword"])) {
@@ -114,7 +114,7 @@ $(function(){
           }
           
       }
-      location.href = "/member/pintuan/order_print.php?OrderID="+idlist;
+      location.href = "/biz/pintuan/order_print.php?OrderID="+idlist;
   });
 });
 </script>

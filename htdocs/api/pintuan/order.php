@@ -2,7 +2,7 @@
 require_once ($_SERVER["DOCUMENT_ROOT"] . '/Framework/Conn.php');
 require_once ('comm/global.php');
 require_once ($_SERVER["DOCUMENT_ROOT"] . '/include/helper/url.php');
-require_once ($_SERVER["DOCUMENT_ROOT"] . '/include/helper/url.php');
+require_once ($_SERVER["DOCUMENT_ROOT"] . '/include/helper/shipping.php');
 require_once ($_SERVER["DOCUMENT_ROOT"] . '/include/helper/lib_pintuan.php');
 
 $base_url = base_url();

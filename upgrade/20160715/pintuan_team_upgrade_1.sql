@@ -10,4 +10,4 @@ CREATE TABLE IF NOT EXISTS `pintuan_team` (
   `starttime` int(11) DEFAULT NULL COMMENT '拼团开始时间',
   `stoptime` int(11) DEFAULT NULL COMMENT '拼团结束时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='拼团-团';
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='拼团表，只有在用户开团时进行创建，用于存储团的相关信息';
