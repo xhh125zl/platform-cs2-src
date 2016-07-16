@@ -127,7 +127,13 @@
 										if (is_array($output['code_category_list']['code_info']) && !empty($output['code_category_list']['code_info']['goods_class'])) { ?>
 										<ul>
 											<?php foreach ($output['code_category_list']['code_info']['goods_class'] as $k => $v) { ?>
-											<li title="<?php echo $v['gc_name'];?>"><a href="javascript:void(0);"><?php echo $v['gc_name'];?></a></li>
+												<?php
+													$good_key = array_keys($v);	
+													if($good_key[1]=='Category_Name'){ ?>
+													<li title="<?php echo $v['Category_Name'];?>"><a href="javascript:void(0);"><?php echo $v['Category_Name'];?></a></li>
+												<?php }else{  ?>
+													<li title="<?php echo $v['gc_name'];?>"><a href="javascript:void(0);"><?php echo $v['gc_name'];?></a></li>
+												<?php }  ?>
 											<?php } ?>
 										</ul>
 										<?php }else { ?>
@@ -306,12 +312,20 @@
 			
 				<?php //if (is_array($output['code_category_list']['code_info']['goods_class']) && !empty($output['code_category_list']['code_info']['goods_class'])) { 
 				if (is_array($output['code_category_list']['code_info']) && !empty($output['code_category_list']['code_info']['goods_class'])) { ?>
-				<?php foreach($output['code_category_list']['code_info']['goods_class'] as $k => $v) { ?>
-				<dd gc_id="<?php echo $v['gc_id'];?>" title="<?php echo $v['gc_name'];?>" ondblclick="del_goods_class(<?php echo $v['gc_id'];?>);"> <i onclick="del_goods_class(<?php echo $v['gc_id'];?>);" style="color:#fff;">x</i><?php echo $v['gc_name'];?>
-					<input name="category_list[goods_class][<?php echo $v['gc_id'];?>][gc_id]" value="<?php echo $v['gc_id'];?>" type="hidden">
-					<input name="category_list[goods_class][<?php echo $v['gc_id'];?>][gc_name]" value="<?php echo $v['gc_name'];?>" type="hidden">
-				</dd>
-				<?php } ?>
+					<?php foreach($output['code_category_list']['code_info']['goods_class'] as $k => $v) { ?>
+						<?php $good_key = array_keys($v);
+						if($good_key[1]=='gc_name'){ ?>
+							<dd gc_id="<?php echo $v['gc_id'];?>" title="<?php echo $v['gc_name'];?>" ondblclick="del_goods_class(<?php echo $v['gc_id'];?>);"> <i onclick="del_goods_class(<?php echo $v['gc_id'];?>);" style="color:#fff;">x</i><?php echo $v['gc_name'];?>
+								<input name="category_list[goods_class][<?php echo $v['gc_id'];?>][gc_id]" value="<?php echo $v['gc_id'];?>" type="hidden">
+								<input name="category_list[goods_class][<?php echo $v['gc_id'];?>][gc_name]" value="<?php echo $v['gc_name'];?>" type="hidden">
+							</dd>
+						<?php }else{  ?>
+							<dd Category_ID="<?php echo $v['Category_ID'];?>" title="<?php echo $v['Category_Name'];?>" ondblclick="del_goods_class(<?php echo $v['Category_ID'];?>);"> <i onclick="del_goods_class(<?php echo $v['Category_ID'];?>);" style="color:#fff;">x</i><?php echo $v['Category_Name'];?>
+								<input name="category_list[goods_class][<?php echo $v['Category_ID'];?>][Category_ID]" value="<?php echo $v['Category_ID'];?>" type="hidden">
+								<input name="category_list[goods_class][<?php echo $v['Category_ID'];?>][Category_Name]" value="<?php echo $v['Category_Name'];?>" type="hidden">
+							</dd>
+						<?php }  ?>
+					<?php } ?>
 				<?php } ?>
 			</dl>
 		</div>
