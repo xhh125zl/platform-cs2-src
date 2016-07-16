@@ -274,7 +274,7 @@ class backup{
 		}
 	}
 	
-	private function add_record($recordid,$status,$detail,$time){
+	protected function add_record($recordid,$status,$detail,$time){
 		$Data = array(
 			"backid"=>$recordid,
 			"detail"=>$detail,
@@ -284,7 +284,7 @@ class backup{
 		$this->db->Add("user_back_order_detail",$Data);
 	}
 	
-	private function update_distribute_money($orderid,$productid,$cartid,$qty,$type=0){
+	protected function update_distribute_money($orderid,$productid,$cartid,$qty,$type=0){
 		$bonus = array();
 		if($type==0){//减少佣金
 			$descrition = "订单退款，减少佣金。退款数量：".$qty;
@@ -327,7 +327,7 @@ class backup{
 		}
 	}
 	
-	private function add_sales_record($item,$bonus){
+	protected function add_sales_record($item,$bonus){
 		$bonus_1 = empty($bonus[1]) ? 0 : $bonus[1];
 		$bonus_2 = empty($bonus[2]) ? 0 : $bonus[2];
 		$bonus_3 = empty($bonus[3]) ? 0 : $bonus[3];
@@ -350,7 +350,7 @@ class backup{
 		$this->db->Add("shop_sales_record",$Data);
 	}
 	
-	private function build_order_no(){
+	protected function build_order_no(){
     	mt_srand((double) microtime() * 1000000);
    	 	return date('Ymd') . str_pad(mt_rand(1, 99999), 5, '0', STR_PAD_LEFT);
 	}

@@ -1,0 +1,37 @@
+﻿#wrap{
+	width:100%;
+	height:auto;
+	margin:0 auto;
+	}
+#menu{width:20%;float:left; }
+#menu ul{
+}
+#menu li{
+	line-height:70px;
+                border-bottom:1px #dfdfdf solid;
+				text-align:center;
+				font-size:0.825em;
+				background-color:#fff;}
+#menu a{color:#333;}
+#menu   ul li:hover{ background-color:#f8f8f8;}
+#menu  ul  li:hover a{ color:#f61d4b;}
+#content{
+	width:80%;
+	float:left;}
+#content h1{
+	font-size:1em; 
+	font-weight:normal; 
+	margin:0; 
+	padding:0; 
+	margin-bottom:8px;
+	text-align:center;
+	 line-height:30px;}
+#content ul{ }
+#content li{ width:31%; background-color:#fff;
+                         line-height:30px;
+						 text-align:center;
+						 margin:1% 1%; 
+						 font-size:0.825em; }
+#content li img{ width:100%; height:100%;}
+#content li a {color:#333;}
+#copy{clear:both}
