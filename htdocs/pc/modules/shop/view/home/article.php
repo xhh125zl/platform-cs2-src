@@ -43,7 +43,7 @@
 		    <h1><?php echo $output['rsArticles']['Article_Title'];?></h1>
 		    <h2><?php echo date('Y-m-d H:i:s', $output['rsArticles']['Article_CreateTime']);?></h2>
 		    <div class="default">
-			    <p><?php echo $output['rsArticles']['Article_Content'];?></p>
+			    <p><?php echo html_entity_decode($output['rsArticles']['Article_Content']);?></p>
 		    </div>
 		    <div class="more_article"> 
 			    <span class="fl">上一篇：<?php echo empty($output['rsArticles_prev']['Article_Title']) ? '没有符合条件的文章' : '<a href="'.url('article/index', array('id'=>$output['rsArticles_prev']['Article_ID'])).'">'.$output['rsArticles_prev']['Article_Title'].'</a><time>'.date('Y-m-d H:i:s', $output['rsArticles_prev']['Article_CreateTime']).'</time>';?>

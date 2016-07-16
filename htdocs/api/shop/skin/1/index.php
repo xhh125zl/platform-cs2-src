@@ -19,6 +19,7 @@ ad($UsersID, 1, 1);
  <div id="shop_skin_index">
   <?php
   if(isset($json)){
+	  $is = 1;
 	  foreach($json as $key=>$value){
 		$url=explode('|',$value['url']);
 		$pic=explode('|',$value['pic']);
@@ -284,7 +285,7 @@ ad($UsersID, 1, 1);
 		  </div>
 		</div>';
 		}elseif($value['type']=='p4'){//幻灯片
-			echo '<div id="p4_'.$rsSkin['Home_ID'].'" class="packagep4Sprite wrap_content">
+			echo '<div id="p4_'.$rsSkin['Home_ID'].$is.'" class="packagep4Sprite wrap_content">
 		  <ul>';
 		  for($i=0;$i<count($pic);$i++){
 			  if($pic[$i]<>'' && $pic[$i]<>'undefined'){
@@ -293,7 +294,7 @@ ad($UsersID, 1, 1);
 		  }
 		  echo '</ul>
 		</div>
-		<script>$(function(){new Swipe(document.getElementById("p4_'.$rsSkin['Home_ID'].'"), {speed:500,auto:3000})});</script>';
+		<script>$(function(){new Swipe(document.getElementById("p4_'.$rsSkin['Home_ID'].$is.'"), {speed:500,auto:3000})});</script>';
 		}elseif($value['type']=='p5'){//电话拨号
 			echo '<ul style="background:'.$value['bgColor'].'" class="packagep5Sprite wrap_content">';
 			$tels=explode('<br>',$value['txt']);
@@ -315,7 +316,9 @@ ad($UsersID, 1, 1);
 		  </div>
 		</div>';
 		}
+		$is++;
 	  }
+	  
   }
 ?>
  </div>
