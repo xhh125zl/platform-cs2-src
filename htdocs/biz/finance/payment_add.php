@@ -216,6 +216,7 @@ body, html {
 
 					<?php //if(isset($biz_PayConfig['config']['OpenID']) && $biz_PayConfig['config']['OpenID']){ ?>
 					<div class="rows" id="btn_submit">
+
 						<label></label> <span class="input"> <input type="submit"
 							class="btn_green" value="一键生成" name="submit_btn"></span>
 						<div class="clear"></div>
@@ -314,6 +315,7 @@ function call()
     		$("#nickname").hide();
     		$("#weixin").hide();
     		$("#btn_submit").show();
+
     		break;
     	}
     	case 3:
@@ -328,6 +330,7 @@ function call()
     		$("#nickname").hide();
     		$("#weixin").hide();
     		$("#btn_submit").show();
+
     		break;
     	}
 	}
