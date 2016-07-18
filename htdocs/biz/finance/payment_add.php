@@ -283,7 +283,7 @@ $(function(){
 
 function call()
 {
-	var unbindOpenid = <?php if(!isset($biz_PayConfig['config']['OpenID']) || !$biz_PayConfig['config']['OpenID']){ echo 1;}?>;
+	var unbindOpenid = '<?php if(!isset($biz_PayConfig['config']['OpenID']) || !$biz_PayConfig['config']['OpenID']){ echo 1;}?>';
 	var paymentid = parseInt($("select[name='PaymentID']").val());
 	switch(paymentid)
 	{
@@ -298,7 +298,7 @@ function call()
     		$("input[name='BankMobile']").parent().parent().hide();
     		$("#nickname").show();
     		$("#weixin").show();
-    		if (unbindOpenid == 1) {
+    		if (unbindOpenid == '1') {
     			$("#btn_submit").hide();
     		}
     		break;
