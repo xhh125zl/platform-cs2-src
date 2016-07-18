@@ -1,6 +1,6 @@
 <?php
 /*导出表格处理文件*/
-require_once($_SERVER["DOCUMENT_ROOT"].'/Framework/Conn.php');
+require_once($_SERVER["DOCUMENT_ROOT"].'/biz/global.php');
 require_once($_SERVER["DOCUMENT_ROOT"].'/include/library/outputExcel.php');
 require_once($_SERVER["DOCUMENT_ROOT"].'/include/helper/balance.class.php');
 require_once($_SERVER["DOCUMENT_ROOT"].'/include/helper/url.php');

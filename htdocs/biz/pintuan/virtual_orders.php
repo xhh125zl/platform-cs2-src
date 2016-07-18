@@ -1,11 +1,7 @@
 <?php
+require_once($_SERVER["DOCUMENT_ROOT"].'/biz/global.php');
 require_once($_SERVER["DOCUMENT_ROOT"].'/include/helper/order.php');
 require_once($_SERVER["DOCUMENT_ROOT"].'/include/helper/distribute.php');
-ini_set("display_errors","On");  
-
-if(empty($_SESSION["Users_Account"])){
-	header("location:/member/login.php");
-}
 
 $_STATUS=array("待确认","待付款","已付款","已发货","已完成");
 $step = isset($_GET["step"]) ? $_GET["step"] : 0;

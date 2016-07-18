@@ -2,11 +2,6 @@
 require_once($_SERVER["DOCUMENT_ROOT"].'/biz/global.php');
 require_once($_SERVER["DOCUMENT_ROOT"].'/include/helper/tools.php');
 
-if(empty($_SESSION["Users_Account"]))
-{
-	header("location:/member/login.php");
-}
-
 //设置常规固定常量
 define('NO_RELATION_PRODUCTS_STATUS', '未设置关联商品');
 define('RELATION_PRODUCTS_ERROR', '关联产品设置出错');

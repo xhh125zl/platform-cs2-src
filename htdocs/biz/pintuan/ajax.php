@@ -1,6 +1,5 @@
 <?php
-require_once ($_SERVER["DOCUMENT_ROOT"] . '/Framework/Conn.php');
-
+require_once($_SERVER["DOCUMENT_ROOT"].'/biz/global.php');
   if(isset($_POST['price'])) {
         $orderid=$_POST['Order'];
         $DB->get('user_order','*',"where Order_ID = '".$orderid."'");

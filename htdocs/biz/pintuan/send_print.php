@@ -1,10 +1,6 @@
 <?php
-
+require_once($_SERVER["DOCUMENT_ROOT"].'/biz/global.php');
 require_once($_SERVER["DOCUMENT_ROOT"].'/include/helper/url.php');
-if(empty($_SESSION["Users_Account"]))
-{
-	header("location:/member/login.php");
-}
 
 $area_buyer = $area_seller = '';
 $area_json = read_file($_SERVER["DOCUMENT_ROOT"].'/data/area.js');

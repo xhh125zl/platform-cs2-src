@@ -1,11 +1,6 @@
 <?php
-require_once ($_SERVER["DOCUMENT_ROOT"] . '/Framework/Conn.php');
+require_once($_SERVER["DOCUMENT_ROOT"].'/biz/global.php');
 require_once($_SERVER["DOCUMENT_ROOT"].'/include/helper/url.php');
-
-if(empty($_SESSION["Users_Account"]))
-{
-	header("location:/member/login.php");
-}
 
 $OrderID=empty($_REQUEST['OrderID'])?0:$_REQUEST['OrderID'];
 $sql = "select * from user_order as o left join user as u on o.User_ID=u.User_ID where u.Users_ID='".$_SESSION["Users_ID"]."' and o.Order_ID in(".$OrderID.")";

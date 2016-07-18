@@ -4,10 +4,6 @@ require_once($_SERVER["DOCUMENT_ROOT"].'/include/helper/url.php');
 require_once($_SERVER["DOCUMENT_ROOT"].'/include/helper/tools.php');
 require_once($_SERVER["DOCUMENT_ROOT"].'/include/helper/lib_products.php');
 
-if(empty($_SESSION["Users_Account"])){
-  header("location:/member/login.php");
-}
-
 if($_POST){ 
   if($_POST["Isdraw"]==0) {
           if($_POST['T_count']==0 || $_POST['ratio'] ==0 ) 
