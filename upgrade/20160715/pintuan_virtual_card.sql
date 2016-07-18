@@ -11,5 +11,5 @@ CREATE TABLE IF NOT EXISTS  `pintuan_virtual_card` (
   `Card_Description` varchar(200) DEFAULT NULL COMMENT '卡备注',
   `Biz_Id` bigint(20) unsigned DEFAULT '0',
   PRIMARY KEY (`Card_Id`),
-  KEY `userid` (`User_Id`) USING BTREE
+  KEY `Users_ID` (`Users_Id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='虚拟卡表，用于存储选择商品类型为“其他”的表';
