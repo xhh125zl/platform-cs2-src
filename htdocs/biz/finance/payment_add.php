@@ -213,8 +213,10 @@ body, html {
 							<font class="fc_red">*</font></span>
 						<div class="clear"></div>
 					</div>
+
 					<?php //if(isset($biz_PayConfig['config']['OpenID']) && $biz_PayConfig['config']['OpenID']){ ?>
-					<div class="rows">
+					<div class="rows" id="btn_submit">
+
 						<label></label> <span class="input"> <input type="submit"
 							class="btn_green" value="一键生成" name="submit_btn"></span>
 						<div class="clear"></div>
@@ -281,6 +283,7 @@ $(function(){
 
 function call()
 {
+	var unbindOpenid = <?php if(!isset($biz_PayConfig['config']['OpenID']) || !$biz_PayConfig['config']['OpenID']){ echo 1;}?>;
 	var paymentid = parseInt($("select[name='PaymentID']").val());
 	switch(paymentid)
 	{
@@ -295,6 +298,9 @@ function call()
     		$("input[name='BankMobile']").parent().parent().hide();
     		$("#nickname").show();
     		$("#weixin").show();
+    		if (unbindOpenid == 1) {
+    			$("#btn_submit").hide();
+    		}
     		break;
     	}
     	case 2:		//支付宝支付
@@ -308,6 +314,8 @@ function call()
     		$("input[name='BankMobile']").parent().parent().hide();
     		$("#nickname").hide();
     		$("#weixin").hide();
+    		$("#btn_submit").show();
+
     		break;
     	}
     	case 3:
@@ -321,6 +329,8 @@ function call()
     		$("input[name='BankMobile']").parent().parent().show();
     		$("#nickname").hide();
     		$("#weixin").hide();
+    		$("#btn_submit").show();
+
     		break;
     	}
 	}
