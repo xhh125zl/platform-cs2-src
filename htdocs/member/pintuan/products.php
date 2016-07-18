@@ -50,7 +50,7 @@ if (isset($_GET['search']) || isset($_GET['people_num'])){
     <div id="products" class="r_con_wrap"> 
       <script language="javascript">$(document).ready(shop_obj.products_list_init);</script>
       <div class="control_btn">
-      <a href="product_add.php" class="btn_green btn_w_120">添加拼团商品</a> <a href="#search" class="btn_green btn_w_120">商品搜索</a>
+      <a href="#search" class="btn_green btn_w_120">商品搜索</a>
       </div>
 
       <!-- 搜索 -->
