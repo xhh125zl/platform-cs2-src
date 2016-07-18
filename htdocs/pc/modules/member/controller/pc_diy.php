@@ -59,7 +59,6 @@ class pc_diyController extends controllController {
 			$code_list = model('web_code')->where(array('web_id' => $web_id, 'Users_ID'=>$_SESSION['Users_ID']))->order('web_id asc')->select();
 		    $block_info = model('pc_index')->where(array('web_id' => $web_id, 'Users_ID'=>$_SESSION['Users_ID']))->find();
 		}
-		
 		if(!empty($code_list) && is_array($code_list)) {
 			$output = array();
 			$output['style_name'] = $style_name;//颜色风格
@@ -74,29 +73,32 @@ class pc_diyController extends controllController {
 				if(!empty($code_info)){
 					$code_recommend_list = unserialize(htmlspecialchars_decode($code_info));
 					foreach($code_recommend_list as $key => $val) {
-						foreach($val['goods_list'] as $goods_id => $v) {
-							$rsP = model('shop_products')->where(array('Users_ID'=>$_SESSION['Users_ID'],'Products_ID'=>$goods_id,'Products_SoldOut'=>0,'Products_Status'=>1))->find();
-							if(empty($rsP)){
-								if(IS_AJAX){
-									$this->ajaxReturn(array('status'=>0,'msg'=>'更新失败！有产品已经删除！'));
+						if(!empty($val['goods_list'])){
+							foreach($val['goods_list'] as $goods_id => $v) {
+								$rsP = model('shop_products')->where(array('Users_ID'=>$_SESSION['Users_ID'],'Products_ID'=>$goods_id,'Products_SoldOut'=>0,'Products_Status'=>1))->find();
+								if(empty($rsP)){
+									if(IS_AJAX){
+										$this->ajaxReturn(array('status'=>0,'msg'=>'更新失败！有产品已经删除！'));
+									}else{
+										$this->error('更新失败！有产品已经删除！');
+									}
 								}else{
-									$this->error('更新失败！有产品已经删除！');
-								}
-							}else{
-								if($rsP['products_soldout'] == 1) {
-									if(IS_AJAX) {
-									    $this->ajaxReturn(array('status'=>0, 'msg'=>'更新失败！产品“' . $rsP['products_name'] . '”已经下架！'));
-									}else {
-										$this->error('更新失败！产品“' . $rsP['products_name'] . '”已经下架！');
+									if($rsP['products_soldout'] == 1) {
+										if(IS_AJAX) {
+											$this->ajaxReturn(array('status'=>0, 'msg'=>'更新失败！产品“' . $rsP['products_name'] . '”已经下架！'));
+										}else {
+											$this->error('更新失败！产品“' . $rsP['products_name'] . '”已经下架！');
+										}
 									}
 								}
 							}
 						}
 					}
 				}
-			}else if($var_name == 'category_list') {
+			}else if($var_name == 'category_list') { 
 				$code_category_list = unserialize(htmlspecialchars_decode($code_info));
 				foreach($code_recommend_list['goods_class'] as $key => $val) {
+
 					$rsC = model('shop_category')->where(array('Category_ID'=>$key))->find();
 					if(empty($rsC)){
 						if(IS_AJAX){
