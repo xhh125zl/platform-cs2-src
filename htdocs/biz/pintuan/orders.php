@@ -1,11 +1,7 @@
 <?php
-require_once ($_SERVER["DOCUMENT_ROOT"] . '/Framework/Conn.php');
+require_once($_SERVER["DOCUMENT_ROOT"].'/biz/global.php');
 require_once ($_SERVER["DOCUMENT_ROOT"] . '/include/helper/tools.php');
 require_once ($_SERVER["DOCUMENT_ROOT"] . '/include/helper/lib_products.php');
-
-if (empty($_SESSION["Users_Account"])) {
-    header("location:/member/login.php");
-}
 
 // 获取所有分销商列表
 $ds_list = Dis_Account::with('User')->WHERE(array(

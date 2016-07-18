@@ -1,8 +1,6 @@
 <?php
 require_once($_SERVER["DOCUMENT_ROOT"].'/biz/global.php');
-if(empty($_SESSION["Users_Account"])){
-  header("location:/member/login.php");
-}
+
 if(isset($_GET["action"])){
   if($_GET["action"]=="del")
   {

@@ -1,10 +1,6 @@
 <?php  
+require_once($_SERVER["DOCUMENT_ROOT"].'/biz/global.php');
 require_once($_SERVER["DOCUMENT_ROOT"].'/include/helper/tools.php');
-
-if(empty($_SESSION["Users_Account"]))
-{
-	header("location:/member/login.php");
-}
 
 $condition = "WHERE `Users_ID` = '".$_SESSION['Users_ID']."' AND Card_Status=0";
 

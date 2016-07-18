@@ -1,13 +1,9 @@
 <?php
-/*edit in 20160318*/
+require_once($_SERVER["DOCUMENT_ROOT"].'/biz/global.php');
  require_once($_SERVER["DOCUMENT_ROOT"].'/include/helper/url.php');
  require_once($_SERVER["DOCUMENT_ROOT"].'/include/helper/tools.php');
  require_once($_SERVER["DOCUMENT_ROOT"].'/include/helper/lib_products.php');
- 
-if(empty($_SESSION["Users_Account"]))
-{
-	header("location:/member/login.php");
-}
+
 
 $rsTypes =  $DB->get("pintuan_cate","*","where Users_ID='".$_SESSION["Users_ID"]."' order by Type_Index asc");
 $shop_product_type_list = $DB->toArray($rsTypes);

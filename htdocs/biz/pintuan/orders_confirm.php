@@ -1,10 +1,5 @@
 <?php
-require_once ($_SERVER["DOCUMENT_ROOT"] . '/Framework/Conn.php');
-if(empty($_SESSION["Users_Account"]))
-{
-	header("location:/member/login.php");
-}
-
+require_once($_SERVER["DOCUMENT_ROOT"].'/biz/global.php');
 
 require_once($_SERVER["DOCUMENT_ROOT"].'/include/helper/url.php');
 require_once($_SERVER["DOCUMENT_ROOT"].'/include/helper/shipping.php');

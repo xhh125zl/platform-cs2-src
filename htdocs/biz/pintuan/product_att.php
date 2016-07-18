@@ -1,9 +1,5 @@
 <?php 
-/*edit in 20160318*/
-if(empty($_SESSION["Users_Account"]))
-{
-	header("location:/member/login.php");
-}
+require_once($_SERVER["DOCUMENT_ROOT"].'/biz/global.php');
 
 
 if(isset($_GET["action"]))
