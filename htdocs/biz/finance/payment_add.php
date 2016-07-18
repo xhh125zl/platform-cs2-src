@@ -151,7 +151,7 @@ body, html {
 							class="fc_red">*</font> <span class="tips">需要结算的销售记录的时间段</span></span>
 						<div class="clear"></div>
 					</div>
-					<div class="rows">
+					<div class="rows" id="weixin">
 						<label>微信识别码</label> <span class="input"> 
 						<?php if(!isset($biz_PayConfig['config']['OpenID']) || !$biz_PayConfig['config']['OpenID']){ ?>
 						<a href = "/biz/account/account_payconfig.php" class="btn_green">请绑定OpenId</a>
@@ -213,13 +213,13 @@ body, html {
 							<font class="fc_red">*</font></span>
 						<div class="clear"></div>
 					</div>
-					<?php if(isset($biz_PayConfig['config']['OpenID']) && $biz_PayConfig['config']['OpenID']){ ?>
+					<?php //if(isset($biz_PayConfig['config']['OpenID']) && $biz_PayConfig['config']['OpenID']){ ?>
 					<div class="rows">
 						<label></label> <span class="input"> <input type="submit"
 							class="btn_green" value="一键生成" name="submit_btn"></span>
 						<div class="clear"></div>
 					</div>
-					<?php } ?>
+					<?php //} ?>
 				</form>
 			</div>
 		</div>
@@ -239,6 +239,7 @@ $(function(){
 				alert("微信识别码OpenID 不能为空");
 				return false;
 			}
+
 		} else if (paymentid === 2){
 			var aliPayNo = $("input[name='aliPayNo']").val(),
 				aliPayName = $("input[name='aliPayName']").val();
@@ -293,6 +294,7 @@ function call()
     		$("input[name='BankName']").parent().parent().hide();
     		$("input[name='BankMobile']").parent().parent().hide();
     		$("#nickname").show();
+    		$("#weixin").show();
     		break;
     	}
     	case 2:		//支付宝支付
@@ -305,6 +307,7 @@ function call()
     		$("input[name='BankNo']").parent().parent().hide();
     		$("input[name='BankMobile']").parent().parent().hide();
     		$("#nickname").hide();
+    		$("#weixin").hide();
     		break;
     	}
     	case 3:
@@ -317,6 +320,7 @@ function call()
     		$("input[name='BankName']").parent().parent().show();
     		$("input[name='BankMobile']").parent().parent().show();
     		$("#nickname").hide();
+    		$("#weixin").hide();
     		break;
     	}
 	}
