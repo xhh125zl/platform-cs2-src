@@ -10,3 +10,4 @@ htdocs/pc.php
 !*.exe
 /htdocs/.project
 /nbproject/private/
+/nbproject
