@@ -115,7 +115,7 @@ class balance
             }
             $item["web"] = $web;
             $item["product_amount"] = $amount;
-            $item["supplytotal"] = $item["Order_TotalPrice"] - $item["web"]; // 结算价
+            $item["supplytotal"] = $item["Order_Amount"] - $item["web"]; // 结算价
             $lists[$id] = $item;
         }
         return $lists;
