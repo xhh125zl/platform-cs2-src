@@ -158,7 +158,7 @@ if($_POST){
             </div>
         </div>
         <div id="type_2"<?php echo $rsConfig["Withdraw_Type"] != 2 ? ' style="display:none"' : '';?>>
-            <div class="rows">
+            <div class="rows switch" style="display:<?php if($rsConfig["Withdraw_Switch"]==0){echo "none";}?>">
                <label>选择商品</label>
                <span class="input">
                 <input type="radio" name="Fanwei" id="Fanwei_0" value="0"<?php echo $rsConfig["Withdraw_Type"]<>2 || $withdraw_limit[0]==0 ? ' checked' : ''?> /><label> 任意商品</label>&nbsp;&nbsp;<input type="radio" name="Fanwei" id="Fanwei_1" value="1"<?php echo $rsConfig["Withdraw_Type"]==2 && $withdraw_limit[0]==1 ? ' checked' : ''?> /><label> 特定商品</label>
@@ -204,7 +204,7 @@ if($_POST){
             </div>
         </div>
 		<div id="type_3"<?php echo $rsConfig["Withdraw_Type"] != 3 ? ' style="display:none"' : '';?>>
-            <div class="rows">
+            <div class="rows switch" style="display:<?php if($rsConfig["Withdraw_Switch"]==0){echo "none";}?>">
               <label>最低等级</label>
               <span class="input">
               <select name="Limit[3]">

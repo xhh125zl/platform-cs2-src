@@ -102,7 +102,12 @@ if(!empty($rsConfig1["UserLevel"])){
   </div>
   
   <div class="list_item">
-	<div class="dline"></div>    
+	<div class="dline"></div>
+        <a href="/api/<?=$UsersID?>/user/integral/" class="item item_0"><span class="ico"></span>我的积分：<?=$rsUser['User_Integral']?>分
+    <?php if($rsUser['User_UseLessIntegral']>0): ?>
+    	&nbsp;&nbsp;不可用(<?=$rsUser['User_UseLessIntegral']?>分)
+	<?php endif; ?>
+    <span class="jt"></span></a>
 	<a href="/api/<?=$UsersID?>/user/money/" class="item item_1"><span class="ico"></span> 我的余额：<?=$rsUser['User_Money']?> 元<span class="jt"></span></a>
 	<a href="/api/<?=$UsersID?>/user/my/address/" class="item item_3"><span class="ico"></span>收货地址管理<span class="jt"></span></a>
     <a href="/api/<?=$UsersID?>/shop/member/favourite/" class="item item_6"><span class="ico"></span>我的收藏夹<span class="jt"></span></a>

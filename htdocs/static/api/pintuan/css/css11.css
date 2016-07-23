@@ -1,0 +1,198 @@
+/* CSS Document */
+*{margin:0px; padding:0px;}
+ul, li, dt, dd, ol, dl{list-style-type:none;}
+a{color:#333; text-decoration:none;}
+a:hover{color:#f61d4b;}
+.l{float:left;}
+.r{float:right;}
+.clear{clear:both;}
+img{border:none;}
+body{background-color:#f8f8f8; font: normal 100% Helvetica, Arial, sans-serif;}
+.w{width:100%; margin:0 auto; min-width:320px;}
+.t{color:#333;}
+.rslides {
+  position: relative;
+  list-style: none;
+  overflow: hidden;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  }
+
+.rslides li {
+  -webkit-backface-visibility: hidden;
+  position: absolute;
+  display: none;
+  width: 100%;
+  left: 0;
+  top: 0;
+  }
+
+.rslides li:first-child {
+  position: relative;
+  display: block;
+  float: left;
+  }
+
+.rslides img {
+  display: block;
+  height: auto;
+  float: left;
+  width: 100%;
+  border: 0;
+  }
+.slide_container {
+  position: relative;
+  float: left;
+  width: 100%;
+  }
+
+.slide {
+  position: relative;
+  list-style: none;
+  overflow: hidden;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  }
+
+.slide li {
+  position: absolute;
+  width: 100%;
+  left: 0;
+  top: 0;
+  }
+  
+ .slide img {
+  display: block;
+  position: relative;
+  z-index: 1;
+  height: auto;
+  width: 100%;
+  border: 0;
+  }
+
+.slide .caption {
+  display: block;
+  position: absolute;
+  z-index: 2;
+  font-size: 20px;
+  text-shadow: none;
+  color: #fff;
+  background: #000;
+  background: rgba(0,0,0, .8);
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 10px 20px;
+  margin: 0;
+  max-width: none;
+  }
+  
+ .slide_nav {
+  position: absolute;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  top: 52%;
+  left: 0;
+  opacity: 0.7;
+  z-index: 3;
+  text-indent: -9999px;
+  overflow: hidden;
+  text-decoration: none;
+  height: 61px;
+  width: 38px;
+  background: transparent url("../images/themes.gif") no-repeat left top;
+  margin-top: -45px;
+  }
+
+.slide_nav:active {
+  opacity: 1.0;
+  }
+
+.slide_nav.next {
+  left: auto;
+  background-position: right top;
+  right: 0;
+  }
+.dh{margin-bottom:10px; }
+.dh ul{}
+.dh ul li{width:25%; float:left;
+            line-height:30px;
+			text-align:center;
+			margin-top:5px;
+			font-size:0.875em;
+			border-bottom:1px #ccc solid;}
+.dh ul li a{color:#333;}
+.dh ul li img{width:60%; margin-top:10px;}
+.chanpin{background-color:#fff; width:100%; overflow:hidden; border-bottom:1px #ccc solid;}
+.tp{width:50%; }
+.biaoqian{
+			   position:absolute;
+　　top:0;
+　　right:0;
+　　width:200px;}
+.tp img{width:100%;}
+.jianjie{width:50%;}
+.choujiang{margin-top:10px;}
+.t{font-size:0.875em; line-height:30px;}
+.t1{color:#666; font-size:0.75em; line-height:25px;}
+.t2{color:#f61d4b;font-size:0.75em; line-height:25px;}
+.shou{ margin-right:2%;}
+.tuan{background-color:#fff103;
+         height:25px;
+		 text-align:center;
+		 color:#f61d4b;
+		 line-height:25px;
+		 margin-bottom:5px;
+		 margin-right:1%;}
+.tuan-img{background:url(../images/index-1_14.png) no-repeat;
+               width:33px; height:35px;
+			   margin-left:10%;}
+.tuan-r{ margin-left:2%;}
+.tuan-rmb{ margin-left:2%;  font-size:1.125em;
+		 font-weight:bold;}
+.tuan1{background-color:#f61d4b;
+         height:25px;
+		 align:center;
+		 line-height:25px;
+		 margin-bottom:5px;
+		 font-size:1em;
+		 font-weight:bold;
+		 margin-right:1%;
+		 margin:auto;
+		 width:100%;
+}
+.tuan1 a{color:#fff;}
+.kb{ margin-top:50px;}
+.bottom{ position:fixed; width:100%; bottom:0px; left:0; overflow:hidden; z-index:9999; border-top:1px #ccc solid; background-color:#fff;}
+.footer{  width:100%;  margin:0 auto; overflow:hidden;
+          background-image:url(images/2p001_40.jpg);
+		  background-repeat: repeat-x;
+		   height:64px; }
+.footer ul li{ float:left; width:33.33%; 
+                 line-height:75px;
+				  text-align:center;
+				   margin-top:5px; font-size:0.875em;}
+.footer ul li a{ color:#333;}
+.foa{ background-image:url(../images/index-1_2_27.png);
+      background-repeat: no-repeat ;
+	  background-position:center;
+	  width:100%; height:17px;
+	  display:block}
+.fob{ background-image:url(../images/index-1_23.png);
+      background-repeat: no-repeat;
+	 background-position:center;
+	  width:100%; height:17px;
+	  display:block}
+.foc{ background-image:url(../images/index-1_25.png);
+      background-repeat: no-repeat;
+	  background-position:center;
+	  width:100%; height:17px;
+	  display:block}
+.fod{ background-image:url(../images/index-1_27.png);
+      background-repeat: no-repeat;
+	  background-position:center;
+	  width:100%; height:17px;
+	  display:block
+	  }
+	  

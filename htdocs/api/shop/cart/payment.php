@@ -35,6 +35,43 @@ if(strpos($OrderID,"PRE") !== false){
 	$ordersn = date("Ymd",$rsOrder["Order_CreateTime"]).$rsOrder["Order_ID"];
 }
 
+$rsUser = $DB->GetRs("user","*","where Users_ID='".$UsersID."' and User_ID=".$_SESSION[$UsersID."User_ID"]);
+
+//积分抵用
+$diyong_flag = false;
+$diyong_list = json_decode($rsConfig['Integral_Use_Laws'],true);
+
+//用户设置了积分抵用规则，且抵用率大于零 
+if(count($diyong_list) >0 && $rsConfig['Integral_Buy']>0){
+	$diyong_intergral = diyong_act($total,$diyong_list,$rsUser['User_Integral']);
+	//print_R($rsUser['User_Integral']);die;
+	//如果符合抵用规则中的某一个规则,且此订单之前未执行过抵用操作
+	if($diyong_intergral >0 && $rsOrder['Integral_Consumption'] ==0 && $rsUser["User_Integral"]>0){
+		$diyong_flag = true;
+	}
+	
+}
+
+///计算参加抵用后的余额
+function diyong_act($sum,$regulartion,$User_Integral){
+	
+	$diyong_integral = 0;
+	foreach($regulartion as $key=>$item){	
+		if($sum >= $item['man']){
+			$diyong_integral = $item['use'];
+			continue;
+		}
+		 		
+	}
+	
+	//如果用户积分小于最少抵用所需积分
+	if($diyong_integral > $User_Integral){
+		$diyong_integral = $User_Integral;
+	}
+
+	return $diyong_integral;
+}
+//print_r($rsOrder);
 ?>
 <!DOCTYPE html>
 <html>
@@ -68,9 +105,30 @@ $(document).ready(shop_obj.select_payment_init);
 			<div class="info"> 订 单 号：<?php echo $ordersn;?><br />
 				订单总价：<span class="fc_red" id="Order_TotalPrice">￥<?php echo $total;?><br/>
 				</span> 
+                                <?php if($rsOrder['Integral_Money'] > 0):?>
+                                已经用<?=$rsOrder['Integral_Consumption']?>个积分抵用了<span class="fc_red"><?=$rsOrder['Integral_Money']?></span>元
+                                <?php endif; ?>
 			</div>
 		</div>
 		<form id="payment_form" action="/api/<?php echo $UsersID ?>/shop/cart/">
+                    
+                        <!-- 积分抵用活动begin -->
+                        <?php if($diyong_flag):?>  
+                             <input type="hidden" id="User_Integral" name="User_Integral" value="<?=$rsUser['User_Integral']?>"/>
+                             <input type="hidden" id="Integral_Consumption" name="Integral_Consumption" value="0"/>
+                       <div class="diyong i-ture">
+                       <h1 class="t">积分抵用</h1>
+                       <p>
+                              每<span class="fc_red" id="diyong_rate"><?=$rsConfig['Integral_Buy']?></span>积分可抵用一元,您现在有积分<span id="user-integral"><?=$rsUser['User_Integral']?></span>个
+                       </p>
+                       <P>
+                       可使用积分<span id="can-diyong" class="fc_red"><?=$diyong_intergral?></span>个,减&nbsp;<span class="fc_red"><?=$diyong_intergral/$rsConfig['Integral_Buy']?> </span>&nbsp;元
+                       <button style="float:right" class="btn btn-success btn-sm" id="btn-diyong" >抵用</a></button>&nbsp;&nbsp;&nbsp;&nbsp;
+                        </p>
+                       </div>
+                       <?php endif;?>
+                       <!-- 积分抵用活动end -->
+                       
 			<!-- 支付方式选择 begin  -->
 			<div class="i-ture">
 				<h1 class="t">选择支付方式</h1>
@@ -96,6 +154,7 @@ $(document).ready(shop_obj.select_payment_init);
 			
 			<input type="hidden" name="PaymentMethod" id="PaymentMethod_val" value="微支付"/>
 			<input type="hidden" name="OrderID" value="<?php echo $OrderID;?>" />
+                        <input type="hidden" name="total_price" value="<?php echo $rsOrder["Order_TotalPrice"] ?>" />
 			<input type="hidden" name="action" value="payment" />
 			<input type="hidden" name="DefautlPaymentMethod" value="" />
 		</form>

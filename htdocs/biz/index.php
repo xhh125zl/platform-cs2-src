@@ -83,7 +83,13 @@ if(isset($_GET["action"])){
         <div><a href="shipping/template.php" target="iframe">快递模板管理</a></div>
         <div><a href="shipping/printtemplate.php" target="iframe">运单模板管理</a></div>
       </dd>	
-	 
+	 <dt>拼团管理</dt>
+	 <dd>
+	    <div><a href="pintuan/products.php" target="iframe">产品管理</a></div>
+        <div><a href="pintuan/orders.php" target="iframe">订单管理</a></div>
+        <div><a href="pintuan/comment.php" target="iframe">评论管理</a></div>
+        <div><a href="pintuan/virtual_card.php" target="iframe">虚拟卡密管理</a></div>
+      </dd>	
     </dl>
   </div>
   <div class="iframe">

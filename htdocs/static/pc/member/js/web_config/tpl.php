@@ -18,7 +18,8 @@
 			</div>
 			<div class="mb_mune">
 				<ul>
-				<?php if (is_array($output['code_category_list']['code_info']['goods_class']) && !empty($output['code_category_list']['code_info']['goods_class'])) { ?>
+				<?php //if (is_array($output['code_category_list']['code_info']['goods_class']) && !empty($output['code_category_list']['code_info']['goods_class'])) { 
+				if (is_array($output['code_category_list']['code_info']) && !empty($output['code_category_list']['code_info']['goods_class'])) { ?>
 				<?php foreach ($output['code_category_list']['code_info']['goods_class'] as $k => $v) {
 					$rsCategory = model('shop_category')->where(array('Category_ID'=>$k))->find();
 				?>

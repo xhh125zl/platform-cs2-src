@@ -44,10 +44,11 @@ class web_apiController extends controllController {
 		$web_id = intval($_POST['web_id']);
 		$model_web_code = model('web_code');
 		$code = $model_web_code->where(array('code_id'=>$code_id,'web_id'=>$web_id))->find();
+		
 		if (!empty($code)) {
 			$code_type = $code['code_type'];
 			$var_name = $code['var_name'];
-			$code_info = $_POST[$var_name];
+			$code_info = !empty($_POST[$var_name])?$_POST[$var_name]:array();
 			$code_info = $this->get_str($code_info, $code_type);
 			$state = $model_web_code->where(array('code_id'=> $code_id))->update(array('code_info'=> $code_info));
 		}

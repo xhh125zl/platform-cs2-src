@@ -33,6 +33,7 @@
  * @author JohnKuo
  *
  */
+
 //加载所需类
 include 'PHPExcel.php';
 include 'PHPExcel/Writer/Excel2007.php';
@@ -40,7 +41,8 @@ class OutputExcel {
     private $templates = array(
         'product_gross_info' => 'product_gross_info.xls',
         'order_detail_list' => 'order_detail_list.xls',
-        'sales_record_list' => 'sales_record_list.xls'
+        'sales_record_list' => 'sales_record_list.xls',
+        'users_pintuan_list' => 'users_pintuan_list.xls'
     );
     private $_objPHPExcel;
     private $_objReader;
@@ -178,12 +180,72 @@ class OutputExcel {
         $filename = 'sales_record_list' . $beinTime . '_' . $endTime . '.xls';
         $this->__outputExcel($this->_objPHPExcel, $filename);
     }
+    
+    /*导出所有拼团明细列表*/
+    public function order_pintuan_list($beinTime, $endTime, $data) {
+
+        $this->_objPHPExcel = $this->_objReader->load($this->template_path . $this->templates['users_pintuan_list']);
+        $objActSheet = $this->_objPHPExcel->getActiveSheet();
+        //设置日期
+        $objActSheet->setCellValue('B2', $beinTime);
+        $objActSheet->setCellValue('B3', $endTime);
+        //输出信息
+        //填充数据
+        $orderStatus = array(
+            '0'=>'待确认',
+            '1'=>'未付款',
+            '2'=>'已付款',
+            '3'=>'已发货',
+            '4'=>'完成',
+            '5'=>'退款中',
+            '6'=>'已退款',
+            '7'=>'手动退款成功'
+        );
+
+        foreach ($data as $key => $order) {
+            $order['Order_TotalPrice'] = $order['Order_TotalPrice'] >= $order['Back_Amount'] ? ($order['Order_TotalPrice'] - $order['Back_Amount']) : 0;
+            $objActSheet->setCellValue('A' . $this->cur_row, ($key + 1));
+            $objActSheet->setCellValue('B' . $this->cur_row, $order['Users_ID']);
+            $objActSheet->setCellValue('C' . $this->cur_row, $order['Address_Name']);
+            $objActSheet->setCellValue('D' . $this->cur_row, $order['Address_Mobile'].' ');
+            $objActSheet->setCellValue('E' . $this->cur_row, date("Y-m-d H:i:s", $order['Order_CreateTime']));
+            $objActSheet->setCellValue('F' . $this->cur_row, $order['Order_Code'].' ');
+            $objActSheet->setCellValue('G' . $this->cur_row, $order['Order_TotalPrice']);
+            $objActSheet->setCellValue('H' . $this->cur_row, $order['Order_PaymentMethod']);
+            $Shipping = json_decode(htmlspecialchars_decode($order['Order_Shipping']), true);
+            if (!empty($Shipping)) {
+                $Shipping_Name = !empty($Shipping["Express"]) ? $Shipping["Express"] : '';
+            } else {
+                $Shipping_Name = '';
+            }
+    
+            /*循环输出产品*/
+            $cart_num = count($order['Order_CartList']);
+            if ($cart_num > 0) {
+                $temp[] = $order['Order_CartList'];
+                foreach ($temp as $key => $item) {
+                        $objActSheet->setCellValue('I' . $this->cur_row, !empty($item['ProductsName']) ? $item['ProductsName'] : '');
+                        $objActSheet->setCellValue('J' . $this->cur_row, $orderStatus[$order['Order_Status']]);
+                        $objActSheet->setCellValue('K' . $this->cur_row, !empty($item['Qty']) ? $item['Qty'] : 1);
+                        $objActSheet->setCellValue('L' . $this->cur_row, $order['Order_Type']=='dangou'?$item['ProductsPriceD']:$item['ProductsPriceT']);
+                        
+                }
+            }
+            $objActSheet->setCellValue('M' . $this->cur_row, $Shipping_Name);
+            $objActSheet->setCellValue('N' . $this->cur_row, $order['receiver_address']);
+            $this->cur_row = $this->cur_row + 1;
+        }
+        $filename = 'order_detail_list' . $beinTime . '_' . $endTime . '.xls';
+        $this->__outputExcel($this->_objPHPExcel, $filename);
+    }
+    
     /**
      *输出这个表格
      *
      */
     private function __outputExcel($objPHPExcel, $type) {
         $objWriter = new PHPExcel_Writer_Excel5($objPHPExcel);
+        ob_end_clean();
         header("Pragma: public");
         header("Expires: 0");
         header("Cache-Control:must-revalidate, post-check=0, pre-check=0");

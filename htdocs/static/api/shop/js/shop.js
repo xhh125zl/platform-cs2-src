@@ -562,13 +562,14 @@ var shop_obj = {
 
         /*抵用操作*/
         $("#btn-diyong").click(function() {
-            var diyong_rate = parseInt($("#diyong_rate").html());
-            var user_integral = parseInt($("#user-integral").html());
-            var can_diyong = parseInt($("#can-diyong").html());
+            var diyong_rate = parseInt($("#diyong_rate").html()); //积分兑换比例
+            var user_integral = parseInt($("#user-integral").html()); //总积分
+            var can_diyong = parseInt($("#can-diyong").html()); //可使用
 
             if (user_integral >= can_diyong) {
 
                 var money = can_diyong / diyong_rate;
+
                 var total_price = parseFloat($("input[name='total_price']").val());
 
                 $("input[name='total_price']").attr("value", total_price - money);

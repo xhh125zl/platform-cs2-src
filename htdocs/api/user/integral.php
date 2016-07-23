@@ -80,8 +80,8 @@ if(isset($_SESSION[$UsersID."User_ID"])){
   <div class="list_item">
     <div class="dline"></div>
     <!--<a href="#" class="item item_4"><span class="ico"></span>积分抽奖<span class="jt"></span></a>--> 
-    <a href="/api/<?php echo $UsersID ?>/user/gift/" class="item item_4"><span class="ico"></span>我兑换的礼品<span class="jt"></span></a>
-	<a href="/api/<?php echo $UsersID ?>/user/gift/1/" class="item item_5"><span class="ico"></span>积分兑换礼品<span class="jt"></span></a>
+    <!--<a href="/api/<?php echo $UsersID ?>/user/gift/" class="item item_4"><span class="ico"></span>我兑换的礼品<span class="jt"></span></a>
+	<a href="/api/<?php echo $UsersID ?>/user/gift/1/" class="item item_5"><span class="ico"></span>积分兑换礼品<span class="jt"></span></a>-->
 	<a href="/api/<?php echo $UsersID ?>/user/integral_record/" class="item item_0"><span class="ico"></span>查看积分明细记录<span class="jt"></span></a>
 	</div>
 </div>

@@ -1,0 +1,55 @@
+﻿/* CSS Document */
+*{margin:0px; padding:0px;}
+ul, li, dt, dd, ol, dl{list-style-type:none;}
+a{color:#333; text-decoration:none;}
+a:hover{color:#f61d4b;}
+.l{float:left;}
+.r{float:right;}
+.clear{clear:both;}
+img{border:none;}
+body{background-color:#f8f8f8; font: normal 100% Helvetica, Arial, sans-serif;}
+.w{width:100%; margin:0 auto;}
+.t{color:#333;}
+.cp{padding: 2% 2%; width:75%; font-size:0.825em; line-height:24px;}
+.cp1{padding: 2% 2%; width:80%; font-size:0.825em; line-height:24px;}
+.chanpin{border-bottom:1px #dfdfdf solid; overflow:hidden;}
+.chanpin1{background-color:#f8f8f8;overflow:hidden;}
+.chanpin1 img{border:1px #dfdfdf solid; width:100%; height:100%; margin-top:10px; margin-left:5%;}
+.sc img{ border:none;}
+.fanhui{ width:5%;padding-top:8px;}
+.querendd{ width:90%; text-align:center;}
+.dingdan{text-align:center; border-bottom:1px #dfdfdf solid; line-height:35px; font-size:0.875em;}
+.jiage{padding: 2% 2%;font-size:0.75em; color:#f61d4b;}
+.t{ line-height:30px; font-size:0.875em; padding-right:2%;}
+.futime3{float:right;margin-right:3%; font-size:0.875em; line-height:26px;}
+.futime2{float:right; width:96%; margin:0 2%;}
+.futime2 a{ cloor:#333;}
+.futime a:hover{ color:#333; }
+.fuk{ text-align:center;font-size:0.75em;line-height:26px; margin:1%; width:20%; color:#f61d4b; }
+
+.fuk1{background-color:#f61d4b; text-align:center;font-size:0.75em;  line-height:26px;margin:1%; width:20%;}
+.fuk1 a{ color:#fff;}
+.dizhi_bj{ border-bottom:1px #dfdfdf solid; padding-top:15px; overflow:hidden;}
+.dz{margin: 2% 2%; float:left;}
+.dz1{padding: 1% 1%;}
+.dz1 ul{}
+.dz1 ul li{line-height: 21px;
+    margin-bottom: 5px;
+    word-break: break-all;
+    word-wrap: break-word;
+	font-size:0.75em;}
+.more{ line-height:42px; margin-right:1%;}
+.moren{ background:url(../images/2p-33_03.jpg) no-repeat;
+              width:40px; height:17px;
+			  margin-left:9px;}
+.xinz{ position:fixed; width:94%; margin:0 3%; bottom:0px; left:0; overflow:hidden; z-index:9999; background-color:#f61d4b; text-align:center;}
+.xinz a{ color:#fff; font-size:1em; line-height:35px; font-weight:bold;}
+.jiaj{ float:right; margin-bottom:10px;font-size:0.825em; line-height:24px;}
+.chanpin3{ width:15%; }
+.chanpin3 img{ width:100%; }
+
+.cotrs{ width:100%;background:#333; margin:0 auto; overflow:hidden; font-size:0.75em;position:fixed;bottom:0px; left:0; overflow:hidden; z-index:9999;}
+.cotrs a{line-height:20px; color:#fff; text-decoration:none; padding:0 auto; display:block; float:left; width:33.3%; text-align:center; padding-top:2px;}
+.cotrs a:hover{ text-decoration:none; color:#fff; background:#f61d4b;}
+.cotrs a.thisclass{text-decoration:none;color:#fff; background:#f61d4b;}
+.kb{ margin-top:50px;}

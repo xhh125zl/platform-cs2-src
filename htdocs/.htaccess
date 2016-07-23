@@ -288,3 +288,69 @@ RewriteRule ^api/([0-9a-z]+)/stores/([0-9a-zA-Z_-]+)/$ /api/stores/index.php?Use
 RewriteRule ^api/([0-9a-z]+)/biz_apply/$ /api/biz_apply.php?UsersID=$1
 
 RewriteRule ^member/(.*)$ /member/control.php
+
+#拼团 搜索  详情页  流程页   ajax
+RewriteRule ^api/([0-9a-z]+)/pintuan/$ /api/pintuan/index.php?UsersID=$1
+RewriteRule ^api/([0-9a-z]+)/pintuan/([0-9]+)/$ /api/pintuan/index.php?UsersID=$1&BizID=$2
+RewriteRule ^api/([0-9a-z]+)/pintuan/seach/([0-9a-z]+)/$ /api/pintuan/seach.php?UsersID=$1&id=$2
+RewriteRule ^api/([0-9a-z]+)/pintuan/sousuo/([0-9a-z]+)/$ /api/pintuan/sousuo.php?UsersID=$1&id=$2
+RewriteRule ^api/([0-9a-z]+)/pintuan/xiangqing/([0-9a-z]+)/(([0-9a-z]+)/)?$ /api/pintuan/xiangqing.php?UsersID=$1&productid=$2&teamid=$4
+RewriteRule ^api/([0-9a-z]+)/pintuan/xiangqing/([0-9a-z]+)/([0-9a-z]+)/([0-9a-z]+)/([0-9a-z]+)/$ /api/pintuan/xiangqing.php?UsersID=$1&goodsid=$2&orderstype=$3&Draw=$4&teamid=$5
+RewriteRule ^api/([0-9a-z]+)/pintuan/liucheng/$ /api/pintuan/liucheng.html
+RewriteRule ^api/([0-9a-z]+)/pintuan/ajax/$ /api/pintuan/ajax.php
+RewriteRule ^api/([0-9a-z]+)/pintuan/doOrder/$ /api/pintuan/doOrder.php
+#下订单
+RewriteRule ^api/([0-9a-z]+)/pintuan/order/([0-9a-z]+)/$ /api/pintuan/order.php?UsersID=$1&csid=$2
+#下订单
+RewriteRule ^api/([0-9a-z]+)/pintuan/vorder/([0-9a-z]+)/$ /api/pintuan/vorder.php?UsersID=$1&csid=$2
+#我的订单列表
+RewriteRule ^api/([0-9a-z]+)/pintuan/orderlist/([0-4]+)/$ /api/pintuan/orderlist.php?UsersID=$1&Order_Status=$2
+#收藏列表
+RewriteRule ^api/([0-9a-z]+)/pintuan/collectlist/$ /api/pintuan/collectlist.php?UsersID=$1
+#我的收藏
+RewriteRule ^api/([0-9a-z]+)/pintuan/mycart/$ /api/pintuan/mycart.php?UsersID=$1
+#我的团
+RewriteRule ^api/([0-9a-z]+)/pintuan/teamlist/([0-3]+)/$ /api/pintuan/teamlist.php?UsersID=$1&teamstatus=$2
+#我的抽奖
+RewriteRule ^api/([0-9a-z]+)/pintuan/choujiang/([0-2]+)/$ /api/pintuan/choujiang.php?UsersID=$1&teamstatus=$2
+#个人中心
+RewriteRule ^api/([0-9a-z]+)/pintuan/user/$ /api/pintuan/user.php?UsersID=$1
+#支付页面`1
+RewriteRule ^api/([0-9a-z]+)/pintuan/pintuan_payment/([a-z]+)/([0-9]+)/$ /api/pintuan/pintuan_payment.php?UsersID=$1&OrderID=$2
+RewriteRule ^api/([0-9a-z]+)/pintuan/pintuan_complepay/([a-z]+)/([0-9]+)/$ /api/pintuan/pintuan_complepay.php?UsersID=$1&Paymethod=$2&OrderID=$3
+#下订单
+RewriteRule ^api/([0-9a-z]+)/pintuan/order/([0-9a-z]+)/$ /api/pintuan/order.php?UsersID=$1&csid=$2
+#下订单
+RewriteRule ^api/([0-9a-z]+)/pintuan/order/([0-9a-z]+)/([0-9a-z]+)/$ /api/pintuan/order.php?UsersID=$1&csid=$2&addressid=$3
+#下订单
+RewriteRule ^api/([0-9a-z]+)/pintuan/vorder/([0-9a-z]+)/$ /api/pintuan/vorder.php?UsersID=$1&csid=$2
+#订单详情
+RewriteRule ^api/([0-9a-z]+)/pintuan/orderdetails/([0-9]+)/$ /api/pintuan/orderdetails.php?UsersID=$1&orderid=$2
+#支付
+RewriteRule ^api/([0-9a-z]+)/pintuan/cart/$ /api/pintuan/cart/index.php?UsersID=$1
+RewriteRule ^api/([0-9a-z]+)/pintuan/cart/ajax/$ /api/pintuan/cart/ajax.php?UsersID=$1
+RewriteRule ^api/([0-9a-z]+)/pintuan/cart/checkout/([0-9]+)/$ /api/pintuan/cart/checkout.php?UsersID=$1&AddressID=$2
+RewriteRule ^api/([0-9a-z]+)/pintuan/cart/checkout/([0-9]+)/$ /api/pintuan/cart/checkout.php?UsersID=$1&needcart=$2
+RewriteRule ^api/([0-9a-z]+)/pintuan/cart/checkout/([0-9]+)/([0-9]+)/$ /api/pintuan/cart/checkout.php?UsersID=$1&needcart=$2&AddressID=$3
+RewriteRule ^api/([0-9a-z]+)/pintuan/cart/checkout/$ /api/shop/cart/checkout.php?UsersID=$1
+RewriteRule ^api/([0-9a-z]+)/pintuan/cart/checkout_direct/$ /api/pintuan/cart/checkout_direct.php?UsersID=$1
+RewriteRule ^api/([0-9a-z]+)/pintuan/cart/checkout_direct/([0-9]+)/$ /api/pintuan/cart/checkout_direct.php?UsersID=$1&AddressID=$2
+RewriteRule ^api/([0-9a-z]+)/pintuan/cart/checkout_virtual/$ /api/pintuan/cart/checkout_virtual.php?UsersID=$1
+RewriteRule ^api/([0-9a-z]+)/pintuan/cart/payment/([0-9]+)/$ /api/pintuan/cart/payment.php?UsersID=$1&OrderID=$2
+RewriteRule ^api/([0-9a-z]+)/pintuan/cart/payment/([0-9a-zA-Z_-]+)/$ /api/pintuan/cart/payment.php?UsersID=$1&OrderID=$2
+RewriteRule ^api/([0-9a-z]+)/pintuan/cart/complete_pay/([a-z]+)/([0-9]+)/$ /api/pintuan/cart/complete_pay.php?UsersID=$1&Paymethod=$2&OrderID=$3
+RewriteRule ^api/([0-9a-z]+)/pintuan/cart/complete_pay/([a-z]+)/([0-9a-zA-Z_-]+)/$ /api/pintuan/cart/complete_pay.php?UsersID=$1&Paymethod=$2&OrderID=$3
+RewriteRule ^api/([0-9a-z]+)/pintuan/cart/pay/([0-9]+)/([0-9]+)/$ /api/pintuan/cart/pay.php?UsersID=$1&OrderID=$2&Method=$3
+#地址
+RewriteRule ^api/([0-9a-z]+)/pintuan/my/address/$ /api/pintuan/my_address.php?UsersID=$1
+RewriteRule ^api/([0-9a-z]+)/pintuan/my/address/([0-9]+)/$ /api/pintuan/my_address.php?UsersID=$1&AddressID=$2
+RewriteRule ^api/([0-9a-z]+)/pintuan/my/address/edit/$ /api/pintuan/my_address_edit.php?UsersID=$1
+RewriteRule ^api/([0-9a-z]+)/pintuan/my/address/edit/([0-9]+)/$ /api/pintuan/my_address_edit.php?UsersID=$1&AddressID=$2    
+RewriteRule ^api/([0-9a-z]+)/pintuan/my/address/del/([0-9]+)/$ /api/pintuan/my_address.php?UsersID=$1&action=del&AddressID=$2
+#商品的参团列表
+RewriteRule ^api/([0-9a-z]+)/pintuan/cantuan/([0-9]+)/$ /api/pintuan/cantuan.php?UsersID=$1&productid=$2
+#团详情
+RewriteRule ^api/([0-9a-z]+)/pintuan/teamdetail/([0-9]+)/$ /api/pintuan/teamdetail.php?UsersID=$1&teamid=$2
+RewriteRule ^api/([0-9a-z]+)/pintuan/liucheng/$ /api/pintuan/liucheng.html?UsersID=$1
+#异步
+RewriteRule ^api/pintuan/sync$ /api/pintuan/sync.php

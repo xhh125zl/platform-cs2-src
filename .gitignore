@@ -1,4 +1,4 @@
-﻿_notes
+_notes
 /htdocs/Framework/dbconfig.php
 /htdocs/pc/log.htm
 /htdocs/nbproject
@@ -9,3 +9,4 @@ htdocs/pc.php
 /htdocs/pc/modules/member/view/复件 web_code.edit.php
 !*.exe
 /htdocs/.project
+htdocs/static/api/pintuan/js/layer/1.9.3/

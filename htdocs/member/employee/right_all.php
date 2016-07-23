@@ -21,7 +21,8 @@ $rmenu["material"] = array(
 
 $rmenu['basic'] = array(
 	'basic' => '商城设置',
-	'setting/config' => '基本设置',		
+	'setting/config' => '基本设置',	
+        'setting/other_config' => '积分设置',		
 	'setting/skin' => '风格设置',
 	'setting/home' => '首页设置',
 	'setting/menu_config' => '菜单配置',
@@ -339,4 +340,44 @@ $rmenusub["emp_emplist"] = array(
 $rmenusub["emp_charlist"] = array(
 	'char_edit' => '角色修改'
 );
+
+
+/*edit拼团20160423--start--*/
+$rmenu["pintuan"] = array(
+    'pintuan'=>'拼团',
+    'config' => '基本设置',
+    'home' => '首页设置',
+    'products' => '产品管理',
+    'cate' => '拼团分类管理',
+    'orders' => '订单管理',
+    'comment' => '评论管理',
+    'virtual_orders' => '商家认证'
+);
+$rmenusub["pin_virtual_card"] = array(
+    'virtual_card_add' => '添加卡密',
+    'virtual_card_edit' => '修改卡密',
+    'virtual_card_type' => '卡密类型列表',
+    'virtual_card_type_add' => '添加卡密类型',
+    'virtual_card_type_edit' => '修改卡密类型',
+    'virtual_card_select' => '卡密绑定'
+);
+$rmenusub['pin_cate']=array(
+    'cate_add'=>'拼团分类添加',
+    'cate_edit'=>'拼团分类修改',
+    'product_add'=>'拼团商品添加',
+    'product_edit'=>'拼团商品修改',
+    'product_newadd'=>'商城商品添加'
+);
+$rmenusub["pin_orders"] = array(
+    'orders_view' => '订单详情',
+    'orders_send' => '发货',
+    'orders_confirm' => '确认订单',
+    'send_print' => '打印发货单',
+    'order_print' => '详情页面打印订单',
+    'output'=>"导出",
+    'ajax'=>"ajax处理文件"
+);
+
+/*edit拼团20160423--end--*/
+
 ?>

@@ -153,6 +153,7 @@ body, html {
 						<div class="clear"></div>
 					</div>
 					<div class="rows" id="bind_weixin">
+
 						<label>微信识别码</label> <span class="input"> 
 						<?php if(!isset($biz_PayConfig['config']['OpenID']) || !$biz_PayConfig['config']['OpenID']){ ?>
 						<a href = "/biz/account/account_payconfig.php" class="btn_green">请绑定OpenId</a>
@@ -214,8 +215,10 @@ body, html {
 							<font class="fc_red">*</font></span>
 						<div class="clear"></div>
 					</div>
+
+
 					<?php //if(isset($biz_PayConfig['config']['OpenID']) && $biz_PayConfig['config']['OpenID']){ ?>
-					<div class="rows">
+					<div class="rows" id="btn_submit">
 						<label></label> <span class="input"> <input type="submit"
 							class="btn_green" value="一键生成" name="submit_btn"></span>
 						<div class="clear"></div>
@@ -242,6 +245,7 @@ $(function(){
 				alert("微信识别码OpenID 不能为空");
 				return false;
 			}
+
 		} else if (paymentid === 2){
 			var aliPayNo = $("input[name='aliPayNo']").val(),
 				aliPayName = $("input[name='aliPayName']").val();
@@ -283,6 +287,7 @@ $(function(){
 
 function call()
 {
+	var unbindOpenid = '<?php if(!isset($biz_PayConfig['config']['OpenID']) || !$biz_PayConfig['config']['OpenID']){ echo 1;}?>';
 	var paymentid = parseInt($("select[name='PaymentID']").val());
 	switch(paymentid)
 	{
@@ -296,7 +301,12 @@ function call()
     		$("input[name='BankName']").parent().parent().hide();
     		$("input[name='BankMobile']").parent().parent().hide();
     		$("#nickname").show();
+
     		$("#bind_weixin").show();
+    		if (unbindOpenid == '1') {
+    			$("#btn_submit").hide();
+    		}
+
     		break;
     	}
     	case 2:		//支付宝支付
@@ -310,6 +320,8 @@ function call()
     		$("input[name='BankMobile']").parent().parent().hide();
     		$("#nickname").hide();
     		$("#bind_weixin").hide();
+    		$("#btn_submit").show();
+
     		break;
     	}
     	case 3:
@@ -323,6 +335,9 @@ function call()
     		$("input[name='BankMobile']").parent().parent().show();
     		$("#bind_weixin").hide();
     		$("#nickname").hide();
+    		$("#weixin").hide();
+    		$("#btn_submit").show();
+
     		break;
     	}
 	}
