@@ -9,3 +9,4 @@ htdocs/pc.php
 /htdocs/pc/modules/member/view/复件 web_code.edit.php
 !*.exe
 /htdocs/.project
+/nbproject/private/
