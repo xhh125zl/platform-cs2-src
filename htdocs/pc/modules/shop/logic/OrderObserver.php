@@ -63,16 +63,15 @@ class OrderObserver {
 		/*if (! empty ( $this->shop_config ['integral_convert'] )) {
 			$interval = intval ( $order ['order_totalprice'] / abs ( $this->shop_config ['integral_convert'] ) );
 		}*/
-                $man_list = $this->shop_config['Man'];
-                $order_money = $order ['Order_TotalPrice'];
+                $man_list = $this->shop_config['man'];
+                $order_money = $order ['order_totalprice'];
                 if (!empty($man_list)) {
-                    global $DB;
-                    $orderid = $order['Order_ID'];
-                    $is_back = $DB->GetRs('user_back_order','','where Order_ID='.$orderid.' and  Back_Status=4');
+                    $orderid = $order['order_id'];
+                    $is_back = model()->query('SELECT * FROM user_back_order WHERE Order_ID='.$orderid.' and  Back_Status=4','find');
                     if (!empty($is_back)) {
-                        $order_money = $order_money - $is_back['Back_Amount'];  
+                        $order_money = $order_money - $is_back['back_amount'];  
                     }
-                    $man_array = json_decode($man_list, true);
+                    $man_array = json_decode($man_list, true); 
                     foreach ($man_array as $k => $v) {
                         if ($order_money >= $v['reach']) {
                             $interval = $v['award'];
