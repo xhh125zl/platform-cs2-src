@@ -60,9 +60,27 @@ class OrderObserver {
 		$User_Level_Config = json_decode ( $User_Level_Json, TRUE );
 		
 		$interval = 0;
-		if (! empty ( $this->shop_config ['integral_convert'] )) {
+		/*if (! empty ( $this->shop_config ['integral_convert'] )) {
 			$interval = intval ( $order ['order_totalprice'] / abs ( $this->shop_config ['integral_convert'] ) );
-		}
+		}*/
+                $man_list = $this->shop_config['Man'];
+                $order_money = $order ['Order_TotalPrice'];
+                if (!empty($man_list)) {
+                    global $DB;
+                    $orderid = $order['Order_ID'];
+                    $is_back = $DB->GetRs('user_back_order','','where Order_ID='.$orderid.' and  Back_Status=4');
+                    if (!empty($is_back)) {
+                        $order_money = $order_money - $is_back['Back_Amount'];  
+                    }
+                    $man_array = json_decode($man_list, true);
+                    foreach ($man_array as $k => $v) {
+                        if ($order_money >= $v['reach']) {
+                            $interval = $v['award'];
+                            break;
+                        }
+                    }
+                } 
+                
 		$user = model('user')->where(array('User_ID'=>$order['user_id']))->find();
 		if($user){
 			$this->user = $user;
