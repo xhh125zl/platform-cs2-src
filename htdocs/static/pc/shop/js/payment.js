@@ -46,5 +46,28 @@ var payment_obj = {
 				dataType:'json',
 			});
 		}
+        /*同步数据库*/
+        var diyong_sync = function (){
+            var Order_ID = $('input[name=OrderID]').val();
+            var param = {
+                'action': 'diyong',
+                'Order_ID': Order_ID,
+            };
+
+            $.post(shop_ajax_url, param, function(data) {
+                if (data.status == 1) {
+                    $('#Order_TotalPrice').html('&yen;' + data.total_price);
+					alert(data.msg);
+					$('.jifen_box').remove();
+                }else{
+				    alert(data.msg);
+				    location.reload();
+				}
+            }, 'json');
+        }
+		/*抵用操作*/
+        $('#btn-diyong').click(function() {
+		    diyong_sync();
+        });
 	},
 }

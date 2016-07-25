@@ -199,6 +199,16 @@ input[type="text"], input[type="password"], input.text, input.password {padding:
 				</div>
 				<!-- 配送方式end --> 
 				<?php }?>
+                                <!-- 积分begin -->
+				<?php if($output['order_total_info']['man_array']){?>
+				<div class="wzw-receipt-info">
+				    <div class="wzw-receipt-info-title">
+						<h3>此次购物可获得<span id="total_integral" style="color:#F60;"><?=$output['order_total_info']['integral']?></span>个积分</h3>
+						 
+					</div>
+				</div>
+				<?php }?>
+				<!-- 积分end -->
 				<?php if($Shipping_error == false){?>
 				<div class="wzw-all-account">订单总金额：<em><?php echo $output['order_total_info']['total'] + $output['order_total_info']['total_shipping_fee'];?></em>元</div>
 				<div class="wzw-bottom"><a class="wzw-btn wzw-btn-acidblue fr" href="javascript:void(0)" id="order_submit"><i class="icon-pencil"></i>提交订单</a></div>

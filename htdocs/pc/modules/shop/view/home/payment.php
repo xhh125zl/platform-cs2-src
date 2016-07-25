@@ -25,7 +25,7 @@
 				<input type="hidden" name="DefautlPaymentMethod" value="" />
 				<div class="wzw-receipt-info">
 					<div class="wzw-receipt-info-title">
-						<h3>请您及时付款，以便订单尽快处理！在线支付金额：<strong>￥<?php echo $output['total'];?></strong> </h3>
+						<h3>请您及时付款，以便订单尽快处理！在线支付金额：<strong id="Order_TotalPrice">￥<?php echo $output['total'];?></strong> </h3>
 					</div>
 					<table class="wzw-table-style">
 						<thead>
@@ -44,6 +44,22 @@
 						</tbody>
 					</table>
 				</div>
+                                <?php if($output['diyong_flag']) {?> 
+				<div class="wzw-receipt-info jifen_box">
+					<div class="wzw-receipt-info-title">
+						<h3>积分抵用</h3>
+					</div>
+					<table class="wzw-table-style">
+						<tbody>
+							<tr>
+								<td>每<?=$output['shopConfig']['integral_buy']?>积分可抵用一元,您现在有积分<?=$output['rsUser']['User_Integral']?>个</td>
+								<td class="tl">可使用积分<?=$output['diyong_intergral']?>个,减&nbsp;<?=$output['diyong_intergral']/$output['shopConfig']['integral_buy']?>&nbsp;元</td>
+								<td class="tl"><a href="javascript:;" id="btn-diyong" class="wzw-btn wzw-btn-green">抵用</a></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<?php }?>
 				<div class="wzw-receipt-info">
 					<div class="wzw-receipt-info-title">
 						<h3>支付选择</h3>
