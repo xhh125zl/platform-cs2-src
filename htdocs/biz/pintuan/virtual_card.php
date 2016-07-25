@@ -34,7 +34,7 @@ if (isset($_GET['action'])) {
 
 $Type_Arr = $DB->Get('pintuan_virtual_card_type', 'Type_Id, Type_Name', '');
 
-$condition = "WHERE `Users_ID` = '".$_SESSION['Users_ID']."'";
+$condition = "WHERE `Users_ID` = '".$_SESSION['Users_ID']."' AND Biz_ID={$_SESSION["BIZ_ID"]}";
 
 if (isset($_GET['search'])) {
   if($_GET['Card_Name']){

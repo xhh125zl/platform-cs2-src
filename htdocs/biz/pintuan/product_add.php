@@ -79,6 +79,7 @@ if($_POST){
     "Products_CreateTime"=>time(),    
     // "Products_Parameter"=>json_encode(empty($_POST["Products_Parameter"]) ? 0: $_POST["Products_Parameter"],JSON_UNESCAPED_UNICODE),
     "Products_Parameter"=>'',
+    "Products_Weight" => $_POST['Weight']?$_POST['Weight']:0,
     "order_process"=>$_POST["ordertype"],
     "is_buy"=>$_POST["Isbuy"],
     "Is_Draw"=>$_POST["Isdraw"],
@@ -87,7 +88,7 @@ if($_POST){
     "people_num"=>$_POST["Peoplenum"],
     "Products_Sales"=>$_POST["Psales"], 
     "starttime"=>strtotime($StartTime),
-    "stoptime"=>strtotime($EndTime),
+    "stoptime"=>strtotime($EndTime) + 86398,
     "people_once"=>isset($_POST["people_once"])?$_POST["people_once"]:1,
     "Products_pinkage"=>!isset($_POST["pinkage"])?0:$_POST["pinkage"],
     "Products_refund"=>!isset($_POST["refund"])?0:$_POST["refund"],
@@ -99,27 +100,34 @@ if($_POST){
   $Data["Biz_ID"] = $_SESSION['BIZ_ID'];
   //产品结算形式
 
-  if($_POST["FinanceType"]==0){//商品按交易额比例
-      if(!is_numeric($_POST["FinanceRate"]) || $_POST["FinanceRate"]<=0){
-          echo '<script language="javascript">alert("网站提成比例必须大于零！");history.back();</script>';
-          exit();
-      }
+  if($rsBiz["Finance_Type"]==0){//商品按交易额比例
       $Data["Products_FinanceType"] = 0;
-      $Data["Products_FinanceRate"] = $_POST["FinanceRate"];
-      $Data["Products_PriceSd"] = number_format($_POST['PriceD'] * (1-$_POST["FinanceRate"]/100),2,'.','');
-      $Data["Products_PriceSt"] = number_format($_POST['PriceT'] * (1-$_POST["FinanceRate"]/100),2,'.','');
+      $Data["Products_FinanceRate"] = $rsBiz["Finance_Rate"];
+      $Data["Products_PriceSd"] = number_format($_POST['PriceD'] * (1-$rsBiz["Finance_Rate"]/100),2,'.','');
+      $Data["Products_PriceSt"] = number_format($_POST['PriceT'] * (1-$rsBiz["Finance_Rate"]/100),2,'.','');
   }else{//商品按供货价
-      if(!is_numeric($_POST["PriceS"]) || $_POST["PriceS"]<=0 || $_POST["PriceS"]>$_POST['PriceT']){
-          echo '<script language="javascript">alert("供货价格必须大于零，且小于团购价格！");history.back();</script>';
-          exit();
+      if($_POST["FinanceType"]==0){//商品按交易额比例
+          if(!is_numeric($_POST["FinanceRate"]) || $_POST["FinanceRate"]<=0){
+              echo '<script language="javascript">alert("网站提成比例必须大于零！");history.back();</script>';
+              exit();
+          }
+          $Data["Products_FinanceType"] = 0;
+          $Data["Products_FinanceRate"] = $_POST["FinanceRate"];
+          $Data["Products_PriceSd"] = number_format($_POST['PriceD'] * (1-$_POST["FinanceRate"]/100),2,'.','');
+          $Data["Products_PriceSt"] = number_format($_POST['PriceT'] * (1-$_POST["FinanceRate"]/100),2,'.','');
+      }else{//商品按供货价
+          if(!is_numeric($_POST["PriceS"]) || $_POST["PriceS"]<=0 || $_POST["PriceS"]>$_POST['PriceT']){
+              echo '<script language="javascript">alert("供货价格必须大于零，且小于团购价格！");history.back();</script>';
+              exit();
+          }
+          if(!is_numeric($_POST["PriceS"]) || $_POST["PriceS"]<=0 || $_POST["PriceS"]>$_POST['PriceD']){
+              echo '<script language="javascript">alert("供货价格必须大于零，且小于单购购价格！");history.back();</script>';
+              exit();
+          }
+          $Data["Products_FinanceType"] = 1;
+          $Data["Products_PriceSd"] = $_POST['PriceS'];
+          $Data["Products_PriceSt"] = $_POST['PriceS'];
       }
-      if(!is_numeric($_POST["PriceS"]) || $_POST["PriceS"]<=0 || $_POST["PriceS"]>$_POST['PriceD']){
-          echo '<script language="javascript">alert("供货价格必须大于零，且小于单购购价格！");history.back();</script>';
-          exit();
-      }
-      $Data["Products_FinanceType"] = 1;
-      $Data["Products_PriceSd"] = $_POST['PriceS'];
-      $Data["Products_PriceSt"] = $_POST['PriceS'];
   }
   $Flag=$DB->Add("pintuan_products",$Data);
   $product_id = mysql_insert_id();
@@ -333,6 +341,7 @@ $(document).ready(function(){
           </span>
           <div class="clear"></div>
         </div>
+        <?php if($rsBiz["Finance_Type"]==1){?>
         <div class="rows">
           <label>财务结算类型</label>
           <span class="input">
@@ -355,7 +364,7 @@ $(document).ready(function(){
           </span>
           <div class="clear"></div>
         </div>
-		
+		<?php }?>
         <div class="rows">
           <label>产品重量</label>
           <span class="input">

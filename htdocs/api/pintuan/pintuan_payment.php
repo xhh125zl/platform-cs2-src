@@ -1,42 +1,23 @@
 <?php 
-require_once($_SERVER["DOCUMENT_ROOT"].'/Framework/Conn.php');
-require_once($_SERVER["DOCUMENT_ROOT"].'/include/helper/url.php');
-require_once($_SERVER["DOCUMENT_ROOT"].'/include/helper/distribute.php');
+require_once($_SERVER["DOCUMENT_ROOT"].'/include/update/common.php');
 
-$base_url = base_url();
-$shop_url = shop_url();
-
-if(isset($_GET["UsersID"])){
-	$UsersID = $_GET["UsersID"];
-}else{
-	echo '缺少必要的参数';
-	exit;
-}
-$userid=$_SESSION[$UsersID."User_ID"];
-$rsConfig = $DB->GetRs("shop_config", "*", "where Users_ID='" . $UsersID . "'");
-
-$share_flag = 0;
-$signature = '';
-
-$is_login=1;
-require_once($_SERVER["DOCUMENT_ROOT"].'/include/library/wechatuser.php');
 
 $OrderID = $_GET['OrderID'];
 $rsPay = $DB->GetRs("users_payconfig","*","where Users_ID='".$UsersID."'");
 
 if(strpos($OrderID,"PRE") !== false){
-	$rsOrder=$DB->GetRs("user_pre_order","*","where usersid='".$UsersID."' and userid='".$userid."' and pre_sn='".$OrderID."'");
+	$rsOrder=$DB->GetRs("user_pre_order","*","where usersid='".$UsersID."' and userid='".$UserID."' and pre_sn='".$OrderID."'");
 	$total = $rsOrder['total'];
 	$ordersn = $rsOrder['pre_sn'];
 }else{
-	$rsOrder=$DB->GetRs("user_order","*","where Users_ID='".$UsersID."' and User_ID='".$userid."' and Order_ID='".$OrderID."'");
+	$rsOrder=$DB->GetRs("user_order","*","where Users_ID='".$UsersID."' and User_ID='".$UserID."' and Order_ID='".$OrderID."'");
 
 	$total = $rsOrder['Order_TotalPrice'];
 	$ordersn = date("Ymd",$rsOrder["Order_CreateTime"]).$rsOrder["Order_ID"];
 
 }
 
-$rsUser = $DB->GetRs("user","*","where Users_ID='".$UsersID."' and User_ID=".$userid);
+$rsUser = $DB->GetRs("user","*","where Users_ID='".$UsersID."' and User_ID=".$UserID);
 
 /*///计算参加抵用后的余额
 function diyong_act($sum,$regulartion,$User_Integral){

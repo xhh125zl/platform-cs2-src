@@ -1,6 +1,6 @@
 <?php
-require_once($_SERVER["DOCUMENT_ROOT"].'/Framework/Conn.php');
-$UsersID=$_SESSION['Users_ID'];
+require_once($_SERVER["DOCUMENT_ROOT"].'/include/update/common.php');
+
 //拿到session的  Address_ID的数组  看数组中是否有address_id  这个值
 if (isset($_SESSION['Address_ID '])) {
 	$arr=$_SESSION['Address_ID '];

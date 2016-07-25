@@ -1,14 +1,7 @@
 <?PHP
-require_once('comm/global.php');
-require_once($_SERVER["DOCUMENT_ROOT"].'/include/helper/url.php');
-require_once($_SERVER["DOCUMENT_ROOT"].'/include/helper/shipping.php');
-require_once($_SERVER["DOCUMENT_ROOT"].'/include/helper/tools.php');
-require_once($_SERVER["DOCUMENT_ROOT"].'/include/helper/lib_products.php');
-
-isset($_GET["UsersID"]) || die("缺少必要的参数");
+require_once($_SERVER["DOCUMENT_ROOT"].'/include/update/common.php');
 isset($_GET["orderid"]) || die("缺少必要的参数");
 
-$UsersID=$_GET["UsersID"];
 $orderid=$_GET["orderid"];
 $sql = "SELECT * FROM user_order o LEFT JOIN pintuan_order as p ON o.Order_ID=p.Order_ID WHERE o.Order_ID='{$orderid}' and o.Order_Status>=1";
 $res=$DB->query($sql);

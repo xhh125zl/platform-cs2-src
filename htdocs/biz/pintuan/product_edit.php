@@ -75,6 +75,7 @@ if($_POST){
     "Products_Status"=>0,   
     "Products_CreateTime"=>time(),    
     "Products_Parameter"=>'',
+    "Products_Weight" => $_POST['Weight']?$_POST['Weight']:0,
     "order_process"=>$_POST["ordertype"],
     "is_buy"=>$_POST["Isbuy"],
     "Is_Draw"=>$_POST["Isdraw"],
@@ -82,7 +83,7 @@ if($_POST){
     "Ratio"=>$_POST["ratio"],
     "people_num"=>$_POST["Peoplenum"],
     "starttime"=>strtotime($_POST["starttime"]),
-    "stoptime"=>strtotime($_POST["stoptime"]),
+    "stoptime"=>strtotime($_POST["stoptime"]) + 86398,
     "people_once"=>$_POST["people_once"],
     "Products_pinkage"=>empty($_POST["pinkage"])?0:$_POST["pinkage"],
     "Ratio"=>empty($_POST["ratio"])?0:$_POST["ratio"],
@@ -105,27 +106,34 @@ if($_POST){
       }
   }
 
-  if($_POST["FinanceType"]==0){//商品按交易额比例
-      if(!is_numeric($_POST["FinanceRate"]) || $_POST["FinanceRate"]<=0){
-          echo '<script language="javascript">alert("网站提成比例必须大于零！");history.back();</script>';
-          exit();
-      }
+  if($rsBiz["Finance_Type"]==0){//商品按交易额比例
       $Data["Products_FinanceType"] = 0;
-      $Data["Products_FinanceRate"] = $_POST["FinanceRate"];
-      $Data["Products_PriceSd"] = number_format($_POST['PriceD'] * (1-$_POST["FinanceRate"]/100),2,'.','');
-      $Data["Products_PriceSt"] = number_format($_POST['PriceT'] * (1-$_POST["FinanceRate"]/100),2,'.','');
+      $Data["Products_FinanceRate"] = $rsBiz["Finance_Rate"];
+      $Data["Products_PriceSd"] = number_format($_POST['PriceD'] * (1-$rsBiz["Finance_Rate"]/100),2,'.','');
+      $Data["Products_PriceSt"] = number_format($_POST['PriceT'] * (1-$rsBiz["Finance_Rate"]/100),2,'.','');
   }else{//商品按供货价
-      if(!is_numeric($_POST["PriceS"]) || $_POST["PriceS"]<=0 || $_POST["PriceS"]>$_POST['PriceT']){
-          echo '<script language="javascript">alert("供货价格必须大于零，且小于团购价格！");history.back();</script>';
-          exit();
+  if($_POST["FinanceType"]==0){//商品按交易额比例
+          if(!is_numeric($_POST["FinanceRate"]) || $_POST["FinanceRate"]<=0){
+              echo '<script language="javascript">alert("网站提成比例必须大于零！");history.back();</script>';
+              exit();
+          }
+          $Data["Products_FinanceType"] = 0;
+          $Data["Products_FinanceRate"] = $_POST["FinanceRate"];
+          $Data["Products_PriceSd"] = number_format($_POST['PriceD'] * (1-$_POST["FinanceRate"]/100),2,'.','');
+          $Data["Products_PriceSt"] = number_format($_POST['PriceT'] * (1-$_POST["FinanceRate"]/100),2,'.','');
+      }else{//商品按供货价
+          if(!is_numeric($_POST["PriceS"]) || $_POST["PriceS"]<=0 || $_POST["PriceS"]>$_POST['PriceT']){
+              echo '<script language="javascript">alert("供货价格必须大于零，且小于团购价格！");history.back();</script>';
+              exit();
+          }
+          if(!is_numeric($_POST["PriceS"]) || $_POST["PriceS"]<=0 || $_POST["PriceS"]>$_POST['PriceD']){
+              echo '<script language="javascript">alert("供货价格必须大于零，且小于单购购价格！");history.back();</script>';
+              exit();
+          }
+          $Data["Products_FinanceType"] = 1;
+          $Data["Products_PriceSd"] = $_POST['PriceS'];
+          $Data["Products_PriceSt"] = $_POST['PriceS'];
       }
-      if(!is_numeric($_POST["PriceS"]) || $_POST["PriceS"]<=0 || $_POST["PriceS"]>$_POST['PriceD']){
-          echo '<script language="javascript">alert("供货价格必须大于零，且小于单购购价格！");history.back();</script>';
-          exit();
-      }
-      $Data["Products_FinanceType"] = 1;
-      $Data["Products_PriceSd"] = $_POST['PriceS'];
-      $Data["Products_PriceSt"] = $_POST['PriceS'];
   }
   $Flag=$DB->set("pintuan_products",$Data,"where Products_ID=".$id);
   $product_id = mysql_insert_id();
@@ -325,6 +333,7 @@ $(document).ready(function(){
           </span>
           <div class="clear"></div>
         </div>
+        <?php if($rsBiz["Finance_Type"]==1){?>
         <div class="rows">
           <label>财务结算类型</label>
           <span class="input">
@@ -347,6 +356,7 @@ $(document).ready(function(){
           </span>
           <div class="clear"></div>
         </div>
+        <?php }?>
         <div class="rows">
           <label>产品重量</label>
           <span class="input">

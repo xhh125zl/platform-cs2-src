@@ -17,13 +17,18 @@ function doUse($UsersID, $Products_Relation_ID)
 }
 
 
-function sendAlert($msg,$url,$timeout=3)
+function sendAlert($msg,$url="",$timeout=3)
 {
     echo '<!doctype html><html><head><title>'.$msg.'</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no,minimal-ui">';
     echo '<script type="text/javascript" src="/static/api/pintuan/js/jquery.min.js"></script><script type="text/javascript" src="/static/api/pintuan/js/layer/1.9.3/layer.js"></script></head><body>';
-    echo '<script>layer.msg("'.$msg.'",{icon:1,time:'.($timeout*1000).'},function(){ window.location="'.$url.'";});</script>';
+    echo '<script>layer.msg("'.$msg.'",{icon:1,time:'.($timeout*1000).'},function(){';
+    if($url){
+        echo 'window.location="'.$url.'";';
+    }
+    echo '});</script>';
     echo "</body></html>";
+    exit;
 }
 
 function  sendWXMessage($UsersID,$orderid,$msg='',$userid=''){
@@ -382,16 +387,21 @@ function order_no($no=''){
 
 
 //物流费用计算
-function getShipFee($shipid,$sellorid){
+function getShipFee($shipid,$sellorid,$bizid,$weight){
     global $DB;
     if($shipid){
-        $shipping_t= $DB->GetRs("shop_shipping_template", "*", "where Users_ID='{$sellorid}' and Shipping_ID='{$shipid}'");
+        $shipping_t= $DB->GetRs("shop_shipping_template", "*", "where Users_ID='{$sellorid}' and Shipping_ID='{$shipid}' AND Biz_ID={$bizid}");
         if($shipping_t){
             if(!$shipping_t['Template_Status']) return 0;
             if(empty($shipping_t['Template_Content'])) return 0;
             $t_content = json_decode($shipping_t['Template_Content']);
             $default_value=$t_content->express->default;
-            return $default_value->postage;
+            if($default_value->start<$weight){
+                $fee = $default_value->postage + ($weight - $default_value->start)/$default_value->plus * $default_value->postageplus;
+            }else{
+                $fee = $default_value->postage;
+            }
+            return $fee;
         }else{
             return 0;
         }

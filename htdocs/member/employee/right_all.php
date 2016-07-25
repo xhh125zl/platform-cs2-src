@@ -34,6 +34,20 @@ $rmenu['product']=array(
 	'category' => '产品分类管理',
 	'commision_setting' => '佣金设置'
 );
+$rmenu['active']=array(
+    'active' => '活动管理',
+    'active_list' => '活动列表',
+    'active_add' => '发起活动'
+);
+
+$rmenusub['act_active']=array(
+    'active_add' => '活动添加',
+    'active_edit' => '活动编辑',
+    'active' => '活动浏览',
+    'biz_active'=>'商家浏览',
+    'active_view'=>'商家产品浏览'
+
+);
 
 $rmenu['biz']=array(
 	'biz' => '商家管理',
@@ -351,7 +365,8 @@ $rmenu["pintuan"] = array(
     'cate' => '拼团分类管理',
     'orders' => '订单管理',
     'comment' => '评论管理',
-    'virtual_orders' => '商家认证'
+    'virtual_orders' => '商家认证',
+    'virtual_card' => '虚拟卡浏览'
 );
 $rmenusub["pin_virtual_card"] = array(
     'virtual_card_add' => '添加卡密',
@@ -359,7 +374,8 @@ $rmenusub["pin_virtual_card"] = array(
     'virtual_card_type' => '卡密类型列表',
     'virtual_card_type_add' => '添加卡密类型',
     'virtual_card_type_edit' => '修改卡密类型',
-    'virtual_card_select' => '卡密绑定'
+    'virtual_card_select' => '卡密绑定',
+    
 );
 $rmenusub['pin_cate']=array(
     'cate_add'=>'拼团分类添加',
@@ -367,6 +383,7 @@ $rmenusub['pin_cate']=array(
     'product_add'=>'拼团商品添加',
     'product_edit'=>'拼团商品修改',
     'product_newadd'=>'商城商品添加'
+    
 );
 $rmenusub["pin_orders"] = array(
     'orders_view' => '订单详情',

@@ -1,7 +1,6 @@
 <?php
-if(empty($_SESSION["Users_Account"])){
-	header("location:/member/login.php");
-}
+require_once($_SERVER["DOCUMENT_ROOT"].'/include/update/common.php');
+
 $OrderID=empty($_REQUEST['OrderID'])?0:$_REQUEST['OrderID'];
 $rsOrder=$DB->GetRs("user_order","*","where Users_ID='".$_SESSION["Users_ID"]."' and Order_ID='".$OrderID."'");
 

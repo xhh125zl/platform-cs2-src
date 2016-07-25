@@ -1,8 +1,6 @@
 <?php
+require_once($_SERVER["DOCUMENT_ROOT"].'/include/update/common.php');
 
-if(empty($_SESSION["Users_Account"])){
-  header("location:/member/login.php");
-}
 if(isset($_GET["action"])){
   if($_GET["action"]=="del")
   {
@@ -49,18 +47,7 @@ function get_title($itemid){
   <div class="iframe_content">
     <link href='/static/member/css/weicbd.css' rel='stylesheet' type='text/css' />
     <script type='text/javascript' src='/static/member/js/weicbd.js'></script>
-    <div class="r_nav">
-      <ul>
-        <li class=""><a href="./config.php">基本设置</a></li>
-        <li class=""><a href="./home.php">首页设置</a></li>
-        <li class=""><a href="./products.php">拼团管理</a></li>
-        <li class=""><a href="./cate.php">拼团分类管理</a></li>
-        <li class=""><a href="./orders.php">订单管理</a></li>
-        <li class="cur"><a href="./comment.php">评论管理</a></li>
-        <li><a href="/member/pintuan/config.php?cfgPay=1">计划任务配置</a></li>
-       
-      </ul>
-    </div>
+    <?php include 'top.php'; ?>
     <div id="reviews" class="r_con_wrap">
       <table border="0" cellpadding="5" cellspacing="0" class="r_con_table" id="review_list">
         <thead>

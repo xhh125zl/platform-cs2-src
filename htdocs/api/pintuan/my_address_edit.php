@@ -1,15 +1,6 @@
 ﻿<?php 
+require_once($_SERVER["DOCUMENT_ROOT"].'/include/update/common.php');
 
-require_once($_SERVER["DOCUMENT_ROOT"].'/Framework/Conn.php');
-require_once($_SERVER["DOCUMENT_ROOT"].'/include/helper/url.php');
-
-$base_url = base_url();
-if(isset($_GET["UsersID"])){
-	$UsersID=$_GET["UsersID"];
-}else{
-	echo '缺少必要的参数';
-	exit;
-}
 $TypeID=empty($_GET["TypeID"])?0:$_GET["TypeID"];	
 if(isset($_GET['OpenID'])){
 	$_SESSION[$UsersID.'OpenID']=$_GET['OpenID'];

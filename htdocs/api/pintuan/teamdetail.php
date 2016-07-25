@@ -1,22 +1,5 @@
 <?php 
-	require_once('comm/global.php');
-    require_once($_SERVER["DOCUMENT_ROOT"].'/include/helper/url.php');
-    require_once($_SERVER["DOCUMENT_ROOT"].'/include/helper/shipping.php');
-    require_once($_SERVER["DOCUMENT_ROOT"].'/include/helper/tools.php');
-    require_once($_SERVER["DOCUMENT_ROOT"].'/include/helper/lib_products.php');
-
-    if (isset($_GET["UsersID"])) {
-        $UsersID = $_GET["UsersID"];
-    } else {
-        echo '缺少必要的参数';
-        exit;
-    }
-    
-    if (empty($_SESSION)) {
-        header("location:/api/".$UsersID."/pintuan/");
-        exit;
-    }
-    $UserID = $_SESSION[$UsersID."User_ID"];
+    require_once($_SERVER["DOCUMENT_ROOT"].'/include/update/common.php');
     $teamid = $_GET['teamid'];
     
     $sql = "select * from pintuan_team t left join user u on t.userid=u.user_id left join pintuan_products p on p.products_id=t.productid where t.id=$teamid order by t.addtime desc";

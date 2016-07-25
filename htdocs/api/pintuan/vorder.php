@@ -1,25 +1,5 @@
 <?php
-require_once ($_SERVER["DOCUMENT_ROOT"] . '/Framework/Conn.php');
-require_once ('comm/global.php');
-require_once ($_SERVER["DOCUMENT_ROOT"] . '/include/helper/url.php');
-require_once ($_SERVER["DOCUMENT_ROOT"] . '/include/helper/shipping.php');
-
-if (isset($_GET["UsersID"])) {
-    $UsersID = $_GET["UsersID"];
-} else {
-    echo '缺少必要的参数';
-    exit();
-}
-if (isset($_GET["csid"])) {
-    $ProductID = $_GET["csid"];
-} else {
-    echo '缺少必要的参数';
-    exit();
-}
-// 获取会员id
-$UserID = $_SESSION[$UsersID . 'User_ID'];
-// 其他参数
-$rsConfig = $DB->GetRs("shop_config", "*", "where Users_ID='" . $UsersID . "'");
+require_once($_SERVER["DOCUMENT_ROOT"].'/include/update/common.php');
 
 $Default_Shipping = $rsConfig['Default_Shipping'];
 // 获取平台支付信息

@@ -1,14 +1,6 @@
- <?php require_once($_SERVER["DOCUMENT_ROOT"].'/Framework/Conn.php');
-require_once($_SERVER["DOCUMENT_ROOT"].'/include/helper/url.php');
-require_once($_SERVER["DOCUMENT_ROOT"].'/include/helper/tools.php');
-$base_url = base_url();
-if(isset($_GET["UsersID"])){
-	$UsersID=$_GET["UsersID"];
-}else{
-	echo '缺少必要的参数';
-	exit;
-}
-
+ <?php
+ require_once($_SERVER["DOCUMENT_ROOT"].'/include/update/common.php');
+ 
 //通过ajax改变默认地址
 if(isset($_POST['ajax']) && 1==$_POST['ajax']){
     $address_id = $_POST['address_id'];
