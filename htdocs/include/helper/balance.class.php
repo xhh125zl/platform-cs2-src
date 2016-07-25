@@ -92,7 +92,7 @@ class balance
             "bonus" => $bonus,
             "total" => $total,
             "products" => $products,
-            "supplytotal" => $total - $web_total
+            "supplytotal" => $alltotal  - $web_total
         );
         return $data;
     }
