@@ -1,21 +1,7 @@
 <?php
-	require_once('comm/global.php');
-	require_once($_SERVER["DOCUMENT_ROOT"].'/include/helper/url.php');
-	require_once($_SERVER["DOCUMENT_ROOT"].'/Framework/Conn.php');
-	//脥路脦脛录镁
-	if(isset($_GET["UsersID"])){
-	  $UsersID=$_GET["UsersID"];
-	}else{
-	  echo '缺少参数';
-	  exit;
-	}
+require_once($_SERVER["DOCUMENT_ROOT"].'/include/update/common.php');
 
-if (empty($_SESSION)) {
-    header("location:/api/".$UsersID."/pintuan/");
-    exit;
-}
-
-	$userid=$_SESSION[$UsersID.'User_ID'];
+	$UserID=$_SESSION[$UsersID.'User_ID'];
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -36,7 +22,7 @@ if (empty($_SESSION)) {
 </div>
 
 		<?php
-			$DB->query("SELECT * FROM `pintuan_collet` where users_id='".$UsersID."'and userid ='".$userid."'");
+			$DB->query("SELECT * FROM `pintuan_collet` where users_id='".$UsersID."'and userid ='".$UserID."'");
 			$ress=$DB->toArray();
 			foreach ($ress as $k => $v) {
 				$DB->query("SELECT * FROM `pintuan_products` where users_id='".$UsersID."'and Products_ID ='".$v['productid']."'");
@@ -76,7 +62,7 @@ if (empty($_SESSION)) {
 			$('.sc').click(function(){
 				$(this).parents('.chanpin').remove();
 				var goodsid=$(this).find(".ssi").val();
-				var userid="<?php echo $userid;?>";
+				var userid="<?php echo $UserID;?>";
 				var usersid="<?php echo $UsersID; ?>";
 				var orther ="10002";
 				$.post('/api/<?php echo $UsersID;?>/pintuan/ajax/',{UsersID:usersid,userid:userid,goodsid:goodsid,orther:orther},function(data){		  

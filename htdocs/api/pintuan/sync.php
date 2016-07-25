@@ -19,7 +19,8 @@
         $starttime = date("Y-m-d",$starttime);
         $starttime = strtotime($starttime,time());
 
-        $sql = "select * from pintuan_team t left join pintuan_products p on t.productid=p.products_id where p.stoptime >={$starttime} AND p.stoptime<={$time} AND t.teamstatus = 0";
+        $sql = "select p.people_num,t.teamnum from pintuan_team t left join pintuan_products p on t.productid=p.products_id 
+        where p.stoptime >={$starttime} AND p.stoptime<={$time} AND t.teamstatus = 0";
         
         $result = $DB->query($sql);
         $list = $DB->toArray($result);

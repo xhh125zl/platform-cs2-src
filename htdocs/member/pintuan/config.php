@@ -1,7 +1,7 @@
-<?php if(isset($_GET['cfgPay']) && $_GET['cfgPay']==1){?>
 <?php
-    require_once ($_SERVER["DOCUMENT_ROOT"] . '/Framework/Conn.php');
-    require_once ($_SERVER["DOCUMENT_ROOT"] . '/include/helper/flow.php');
+require_once($_SERVER["DOCUMENT_ROOT"].'/include/update/common.php');
+if(isset($_GET['cfgPay']) && $_GET['cfgPay']==1){?>
+<?php
     require_once ($_SERVER["DOCUMENT_ROOT"] . '/cron/windowSchedule.php');
     if(isset($_GET['action']) && $_GET['action'] == 'taskRemove'){
         $Users_Id = isset($_SESSION["Users_ID"]) ? $_SESSION["Users_ID"] : '';
@@ -101,17 +101,7 @@
 		<div class="iframe_content">
 			<link href='/static/member/css/shop.css' rel='stylesheet' type='text/css' />
 
-			<div class="r_nav">
-				<ul>
-					<li><a href="./config.php">基本设置</a></li>
-                    <li class=""><a href="./home.php">首页设置</a></li>
-                    <li class=""><a href="./products.php">产品管理</a></li>
-                    <li class=""><a href="./cate.php">拼团分类管理</a></li>
-                    <li class=""><a href="./orders.php">订单管理</a></li>
-                    <li class=""><a href="./comment.php">评论管理</a></li>
-					<li class="cur"><a href="/member/pintuan/config.php?cfgPay=1">计划任务配置</a></li>
-				</ul>
-			</div>
+			<?php include 'top.php'; ?>
 			<div id="payment" class="r_con_wrap">
 				<form id="payment_form" class="r_con_form" method="post" action="/member/pintuan/config.php?cfgPay=1">
 					<?php $sch = $DB->GetRs("users_schedule", "*", "WHERE Users_ID='{$_SESSION['Users_ID']}'");
@@ -175,11 +165,6 @@
 </html>
 <?php die(); } ?>
 <?php
-$DB->showErr=false;
-if(empty($_SESSION["Users_Account"]))
-{
-	header("location:/member/login.php");
-}
 //require_once('vertify.php');
 $rsConfig=$DB->GetRs("pintuan_config","*","where Users_ID='".$_SESSION["Users_ID"]."'");
 if(empty($rsConfig)){
@@ -296,17 +281,7 @@ if($_POST)
 <![endif]-->
 <div id="iframe_page">
   <div class="iframe_content">
-    <div class="r_nav">
-      <ul>
-         <li class="cur"><a href="./config.php">基本设置</a></li>
-        <li class=""><a href="./home.php">首页设置</a></li>
-        <li class=""><a href="./products.php">产品管理</a></li>
-        <li class=""><a href="./cate.php">拼团分类管理</a></li>
-        <li class=""><a href="./orders.php">订单管理</a></li>
-        <li class=""><a href="./comment.php">评论管理</a></li>
-        <li><a href="/member/pintuan/config.php?cfgPay=1">计划任务配置</a></li>
-      </ul>
-    </div>
+    <?php include 'top.php'; ?>
     <script language="javascript">
 $(document).ready(function(){
 	global_obj.config_form_init();

@@ -1,18 +1,5 @@
 <?php 
-require_once($_SERVER["DOCUMENT_ROOT"].'/Framework/Conn.php');
-require_once($_SERVER["DOCUMENT_ROOT"].'/include/helper/url.php');
-require_once($_SERVER["DOCUMENT_ROOT"].'/include/helper/distribute.php');
-$base_url = base_url();
-$shop_url = shop_url();
-
-if(isset($_GET["UsersID"])){
-	$UsersID = $_GET["UsersID"];
-}else {
-	echo '缺少必要的参数';
-	exit;
-}
-$share_flag = 0;
-$signature = '';
+require_once($_SERVER["DOCUMENT_ROOT"].'/include/update/common.php');
 
 $OrderID=$_GET['OrderID'];
 $rsConfig=$DB->GetRs("shop_config","*","where Users_ID='".$UsersID."'");

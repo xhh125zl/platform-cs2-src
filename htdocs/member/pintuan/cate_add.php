@@ -1,25 +1,23 @@
 <?php 
-if(empty($_SESSION["Users_Account"]))
-{
-	header("location:/member/login.php");
-}
-if($_POST)
+require_once($_SERVER["DOCUMENT_ROOT"].'/include/update/common.php');
+
+if(IS_POST)
 {   if($_POST['istop'] == 1){
-        $top_num = $DB->GetRs('pintuan_category','count(*) as num',"where Users_ID ='".$_SESSION['Users_ID']."' and istop = 1");
+        $top_num = $DB->GetRs('pintuan_category','count(*) as num',"where Users_ID ='{$UsersID}' and istop = 1");
         if($top_num['num']>=4){
             echo '<script language="javascript">alert("首页显示最多设置4个");history.back();</script>';
             exit;
         }
     }
 	$Data=array(
-                "istop"=>$_POST['istop'],
+        "istop"=>$_POST['istop'],
 		"sort"=>$_POST['Index'],
 		"cate_name"=>$_POST["Name"],
 		"parent_id"=>$_POST["ParentID"],
-                "Category_ListTypeID"=>$_POST["ListTypeID"],
+        "Category_ListTypeID"=>$_POST["ListTypeID"],
 		"Users_ID"=>$_SESSION["Users_ID"],
 		"Category_Img"=>$_POST['ImgPath'],
-                "addtime"=>time()
+        "addtime"=>time()
 	);
 	$Flag=$DB->Add("pintuan_category",$Data);
 	if($Flag)
@@ -57,17 +55,7 @@ $(document).ready(function(){
 	shop_obj.category_init();
 });
 </script>
-		<div class="r_nav">
-			<ul>
-				<li class=""><a href="./config.php">基本设置</a></li>
-		        <li class=""><a href="./home.php">首页设置</a></li>
-		        <li class="cur"><a href="./products.php">拼团管理</a></li>
-		        <li class=""><a href="./cate.php">拼团分类管理</a></li>
-		        <li class=""><a href="./orders.php">订单管理</a></li>
-		        <li class=""><a href="./comment.php">评论管理</a></li>
-		        
-			</ul>
-		</div>
+		<?php include 'top.php'; ?>
 		<div id="products" class="r_con_wrap"> 
 			<script type='text/javascript' src='/static/js/plugin/dragsort/dragsort-0.5.1.min.js'></script>
 			<link href='/static/js/plugin/operamasks/operamasks-ui.css' rel='stylesheet' type='text/css' />
@@ -91,14 +79,14 @@ $(document).ready(function(){
 							<font class="fc_red">*</font></span>
 							<div class="clear"></div>
 						</div>
-                                                <div class="opt_item">
-                                                    <label>首页显示：</label>
-                                                    <span class="input">
-                                                        <input type="radio" name="istop" value="0" checked>否
-                                                        <input type="radio" value="1" name="istop">是
-                                                    <font class="fc_red">*</font></span>
-                                                    <div class="clear"></div>
-                                                </div>
+                            <div class="opt_item">
+                                <label>首页显示：</label>
+                                <span class="input">
+                                    <input type="radio" name="istop" value="0" checked>否
+                                    <input type="radio" value="1" name="istop">是
+                                <font class="fc_red">*</font></span>
+                                <div class="clear"></div>
+                            </div>
 						<div class="opt_item">
 							<label>隶属关系：</label>
 							<span class="input">

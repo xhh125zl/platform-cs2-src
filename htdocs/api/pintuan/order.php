@@ -1,53 +1,25 @@
 <?php
-require_once ($_SERVER["DOCUMENT_ROOT"] . '/Framework/Conn.php');
-require_once ('comm/global.php');
-require_once ($_SERVER["DOCUMENT_ROOT"] . '/include/helper/url.php');
-require_once ($_SERVER["DOCUMENT_ROOT"] . '/include/helper/shipping.php');
-require_once ($_SERVER["DOCUMENT_ROOT"] . '/include/helper/lib_pintuan.php');
+require_once($_SERVER["DOCUMENT_ROOT"].'/include/update/common.php');
 
-$base_url = base_url();
-$shop_url = shop_url();
-
-if (isset($_GET["UsersID"])) {
-    $UsersID = $_GET["UsersID"];
-} else {
-    echo '缺少必要的参数';
-    exit();
-}
-if (isset($_GET["csid"])) {
-    $ProductID = $_GET["csid"];
-    $_SESSION[$UsersID.'csid'] = $ProductID;
-} else {
-    echo '缺少必要的参数';
-    exit();
-}
-
-if (empty($_SESSION)) {
-    header("location:/api/".$UsersID."/pintuan/");
-    exit;
-}
-
+!isset($_GET["csid"]) && die("缺少必要的参数");
+$ProductID = $_GET["csid"];
+$_SESSION[$UsersID.'csid'] = $ProductID;
 setcookie('url_referer', $_SERVER["REQUEST_URI"], time()+3600, '/', $_SERVER['HTTP_HOST']);
-$UserID = $_SESSION[$UsersID . "User_ID"];
-$rsPay = $DB->GetRs("users_payconfig", "*", "where Users_ID='" . $UsersID . "'");
-$pintuans = array();
+
+$addresslist = array();
 $address = array();
 $msgisdefault = true;
 if(isset($_GET['addressid']) && !empty($_GET['addressid'])){
-    $address = $DB->Get('user_address', '*', "where Users_ID ='" . $UsersID . "' and User_ID='" . $UserID . "' and Address_ID='".$_GET['addressid']."'");
+    $result = $DB->Get('user_address', '*', "where Users_ID ='" . $UsersID . "' and User_ID='" . $UserID . "' and Address_ID='".$_GET['addressid']."'");
     $msgisdefault = false;
 }else{
-    $address = $DB->Get('user_address', '*', "where Users_ID ='" . $UsersID . "' and User_ID='" . $UserID . "' and Address_Is_Default=1 ");
+    $result = $DB->Get('user_address', '*', "where Users_ID ='" . $UsersID . "' and User_ID='" . $UserID . "' and Address_Is_Default=1 ");
     $msgisdefault = true;
 }
-
-
-while ($reg = $DB->fetch_assoc()) {
-    $pintuans[] = $reg;
-}
+$addresslist = $DB->toArray($result);
 
 // 地址判断
-if (! empty($pintuans)) {
+if (! empty($addresslist)) {
     $pintuanshop = array();
     $result = $DB->Get("pintuan_shop", "*", "where id='" . $ProductID . "'");
     if (empty($result)) {
@@ -83,7 +55,11 @@ if (! empty($pintuans)) {
         $images = $imgobj['ImgPath'][0];
         $pintuanshop['ImgPath'] = $images;
     }
-    $goods = $DB->GetRs("pintuan_products","Biz_ID","WHERE Products_ID='{$pintuanshop['goodsid']}'");
+    if(empty($pintuanshop)){
+        header("Location:/api/{$UsersID}/pintuan/");
+        exit;
+    }
+    $goods = $DB->GetRs("pintuan_products","*","WHERE Products_ID='{$pintuanshop['goodsid']}'");
     $Biz_ID = 0;
     if(!empty($goods) && $goods['Biz_ID']){
         $Biz_ID = $goods['Biz_ID'];
@@ -117,10 +93,11 @@ if (! empty($pintuans)) {
     <script type="text/javascript" src="/static/api/pintuan/js/jquery.min.js"></script>
     <script type="text/javascript" src="/static/api/pintuan/js/scrolltopcontrol.js"></script>
     <script type="text/javascript" src="/static/api/pintuan/js/layer/1.9.3/layer.js"></script>
+    <style>
+    .disable { background:#999; }
+    </style>
 </head>
 <body>
-	<input type="hidden" name="userid" value="<?php echo $UsersID;?>" class="userid" />
-	<input type="hidden" name="userid1" value="<?php echo $UserID; ?>" class="userid1" />
 <div class="dingdan">
   <span class="fanhui l"><a href="<?php echo isset($_COOKIE['product_detail']) ? "javascript:location.href='{$_COOKIE['product_detail']}';" : 'javascript:history.go(-1)'; ?>"><img src="/static/api/pintuan/images/fanhui.png" width="17px" height="17px"></a></span>
   <span class="querendd l">确认订单</span>
@@ -132,7 +109,7 @@ if (! empty($pintuans)) {
     		<div class="dz1 l">
     			<?php 
     			$address_id = 0;
-    			foreach ($pintuans as $r=>$d){
+    			foreach ($addresslist as $r=>$d){
     			    $address_id = $d['Address_ID'];
     			?>
     			<ul>
@@ -157,12 +134,7 @@ if (! empty($pintuans)) {
  		<?php
             if (! empty($pintuanshop)) {
                 $prices= $pintuanshop['goods_price'];
-                /*
-                if($pintuanshop['is_One']==0){//单购
-                    $prices += $pintuanshop['Products_PriceD'];
-                }else{  //团购
-                    $prices += $pintuanshop['Products_PriceT'];
-                }*/
+                
         ?>
 		<div class="chanpin1">
 			<span class="l"><img style="width:100px;" src="<?php echo $pintuanshop['ImgPath'];?>"/></span>
@@ -192,7 +164,7 @@ if (! empty($pintuans)) {
                     if (! empty($shipping_company_dropdown)) {
                         foreach ($shipping_company_dropdown as $key => $item) {
                             if($pintuanshop['Products_IsShippingFree']<=0 && !$pintuanshop['Products_pinkage']){ //有运费
-                                $fee = getShipFee($key,$UsersID);   //获取物流费用
+                                $fee = getShipFee($key,$UsersID,$Biz_ID,$goods['Products_Weight']);
                                 if($Default_Shipping == $key){  //设置默认快递
                                     $prices += $fee;
                                     $defee = $fee;
@@ -202,7 +174,7 @@ if (! empty($pintuans)) {
                             }else{
                                 $wuliuid = 0;
                             }
-                            ?>
+                    ?>
             		<li>
             			<span class="l">
             				<img src="/static/api/pintuan/images/<?=($Default_Shipping == $key)?'2p-5_08.png':'2p-5_06.png';?>">
@@ -242,16 +214,6 @@ if (! empty($pintuans)) {
         }
         ?>
 		<div class="clear"></div>
-		<!-- <div class="wuliu">
-        <div class="wt">选择支付方式</div>
-        <div class="wl">
-        <ul>
-        <li><span class="l"><img src="images/2p-5_08.png"></span><span class="wlt l">支付宝</span></li>
-        <li><span class="l"><img src="images/2p-5_06.png"></span><span class="wlt l">微信</span></li>
-        <li><span class="l"><img src="images/2p-5_06.png"></span><span class="wlt l">财付通</span></li>
-        </ul>
-        </div>
-        </div> -->
 	<div>
 	<input type="submit" value="提交订单" class="zhifu" id="payfor" />
 </div>
@@ -280,8 +242,8 @@ if (! empty($pintuans)) {
     $(function(){
     	  
             $("#payfor").click(function(){
-                   var Users_ID=$('.userid').val();
-                   var UserID=$('.userid1').val();
+                   var Users_ID="<?=$UsersID ?>";
+                   var UserID="<?=$UserID ?>";
                    var Shipping_ID=$('.AddressID').val();
                    var ProductsID=$('.products').val();
                    var pintuanorder="pintuanorder";
@@ -297,7 +259,9 @@ if (! empty($pintuans)) {
 					   Shipping_ID=localStorage.getItem("<?=$UsersID ?>MyAddressID");
 					   localStorage.removeItem("<?=$UsersID ?>MyAddressID");
 				   }
-
+				   var obj = $(this);
+				   obj.attr("disabled",true);
+				   obj.addClass("disable");
                     $.ajax({
                       url: "/api/"+Users_ID+"/pintuan/doOrder/",
                       data: {"Shipping_ID":Shipping_ID,"ProductsID":ProductsID,"Users_ID":Users_ID,

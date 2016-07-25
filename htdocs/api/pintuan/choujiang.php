@@ -1,23 +1,6 @@
 <?php 
-    require_once('comm/global.php');
-    require_once($_SERVER["DOCUMENT_ROOT"].'/include/helper/url.php');
-    require_once($_SERVER["DOCUMENT_ROOT"].'/include/helper/shipping.php');
-    require_once($_SERVER["DOCUMENT_ROOT"].'/include/helper/tools.php');
-    require_once($_SERVER["DOCUMENT_ROOT"].'/include/helper/lib_products.php');
+    require_once($_SERVER["DOCUMENT_ROOT"].'/include/update/common.php');
 
-    if (isset($_GET["UsersID"])) {
-        $UsersID = $_GET["UsersID"];
-    } else {
-        echo '缺少必要的参数';
-        exit;
-    }
-
-    if (empty($_SESSION)) {
-        header("location:/api/".$UsersID."/pintuan/");
-    }
-
-    $UserID = $_SESSION[$UsersID."User_ID"];
-    
     //url_teamstatus 0全部，1抽奖成功，2抽奖失败
     //db_teamstatus 0拼团中，1拼团成功，2已中奖，3未中奖，4拼团失败, 5已退款
     $teamstatus = $_GET['teamstatus'];

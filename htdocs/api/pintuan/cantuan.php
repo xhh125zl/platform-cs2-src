@@ -1,29 +1,11 @@
 <?php 
-	require_once('comm/global.php');
-    require_once($_SERVER["DOCUMENT_ROOT"].'/include/helper/url.php');
-    require_once($_SERVER["DOCUMENT_ROOT"].'/include/helper/shipping.php');
-    require_once($_SERVER["DOCUMENT_ROOT"].'/include/helper/tools.php');
-    require_once($_SERVER["DOCUMENT_ROOT"].'/include/helper/lib_products.php');
+    require_once($_SERVER["DOCUMENT_ROOT"].'/include/update/common.php');
 
-    if (isset($_GET["UsersID"])) {
-        $UsersID = $_GET["UsersID"];
-    } else {
-        echo '缺少必要的参数';
-        exit;
-    }
-    
-    if (empty($_SESSION)) {
-        header("location:/api/".$UsersID."/pintuan/");
-        exit;
-    }
-    $UserID = $_SESSION[$UsersID."User_ID"];
-    $productid = $_GET['productid'];
-    
-    $sql = "select * from pintuan_products where products_id = $productid";
-    $result = $DB->query($sql);
-    $product = $DB->fetch_assoc($result);
-    $parameter = json_decode(htmlspecialchars_decode($product["Products_Parameter"]), true);
-    $images = json_decode(htmlspecialchars_decode($product["Products_JSON"]), true)['ImgPath']['0'];
+    $goodsid = $_GET['productid'];
+    $goodsInfo = $DB->GetRs("pintuan_products","*","WHERE products_id = {$goodsid}");
+
+    $parameter = json_decode(htmlspecialchars_decode($goodsInfo["Products_Parameter"]), true);
+    $images = json_decode(htmlspecialchars_decode($goodsInfo["Products_JSON"]), true)['ImgPath']['0'];
 ?>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -45,19 +27,19 @@
         <span class="l"><img style="width:100px;height: 100px;" src="<?php echo empty($images) ? '' : $images; ?>"></span>
         <span class="cp l" style="width:50%;">
             <ul>
-                <li><strong><?php echo $product['Products_Name']; ?></strong></li>
+                <li><strong><?php echo $goodsInfo['Products_Name']; ?></strong></li>
                 <li>数量：1</li>
                 <li>
-                  <?php echo $product['Products_BriefDescription']; ?>
+                  <?php echo $goodsInfo['Products_BriefDescription']; ?>
                 </li>
             </ul>
         </span>
-        <span class="jiage r"><?php echo $product['Products_PriceT']; ?>/件</span>
+        <span class="jiage r"><?php echo $goodsInfo['Products_PriceT']; ?>/件</span>
         <div class="clear"></div>
     </div>
 	<div class="pintuan">
 		<?php 
-			$sql1 = "select * from pintuan_team t left join user u on t.userid=u.user_id where t.productid=$productid order by t.addtime desc";
+			$sql1 = "select t.productid,t.id,t.teamnum,t.teamstatus,t.userid,u.User_NickName,u.User_Mobile,u.User_HeadImg,u.User_Area,p.starttime,p.stoptime,t.people_num from pintuan_team t left join user u on t.userid=u.user_id LEFT JOIN pintuan_products AS p ON t.productid=p.Products_ID  where t.productid={$goodsid} order by t.addtime desc";
 			$result1 = $DB->query($sql1);
 			$teams = array();
 			while ($res = $DB->fetch_assoc($result1)) {
@@ -73,7 +55,7 @@
 			<div class="bjx">
 				<div class="bjxt">
 					<span class="l"><?php echo empty($item['User_NickName']) ? $item['User_Mobile'] : $item['User_NickName']; ?></span>
-					<?php $num = $product['people_num'] - $item['teamnum'];
+					<?php $num = $item['people_num'] - $item['teamnum'];
 						if ($num > 0) {
 							echo "<span class='bjxt1 r'>还差{$num}人成团</span>";
 						}
@@ -82,12 +64,10 @@
 					<span class="bjxt2  l"><?php echo $item['User_Area'];?></span>
 					<span class="bjxt2 r">
 					<?php 
-					$pintuan_stop=date('Y-m-d',$product['stoptime']);
-            		 $pintuan_start=date('Y-m-d',$product['starttime']);
-            		 $time=date("Y-m-d",time());
+            		 $time=time();
 
-						if ($pintuan_stop>=$time) {
-							echo  date('Y-m-d', $product['stoptime']).'结束';
+						if ($item['stoptime']>=$time) {
+							echo  date('Y-m-d', $item['stoptime']).'结束';
 						} else {    
 							echo '已结束';
 						}
@@ -96,7 +76,7 @@
 				</div>
 			</div>
 			<div class="bjtp">
-				<?php if ($time >= date('Y-m-d', $item['starttime']) && $time <= date('Y-m-d', $item['stoptime']) && $item['teamstatus'] == 0) {
+				<?php if ($time >= $item['starttime'] && $time <= $item['stoptime'] && $item['teamstatus'] == 0) {
 						echo '<a href="/api/'.$UsersID.'/pintuan/teamdetail/'.$item['id'].'/">去参团</a>';
 					} else {
 						echo '<a>已结束</a>';
