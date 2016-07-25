@@ -311,7 +311,21 @@ function get_order_total_info($UsersID, $CartList, $Shipping_IDS, $City_Code = 0
 	}
 	$order_total_info['total'] = $total;
 	$order_total_info['total_shipping_fee'] = $total_shipping_fee;
-  
+        
+        /*增加积分显示*/
+        $man_list = $shopConfig['Man'];
+        $man_array = json_decode($man_list, true);
+        $order_total_info['integral'] = 0;
+        if(!empty($man_array)){
+            $order_total_info['man_array'] = $man_array;
+            foreach ($man_array as $k => $v) {
+                if ($total >= $v['reach']) {
+                    $order_total_info['integral'] = $v['award'];
+                    break;
+                }
+            }
+        }
+        
 	return $order_total_info;
 }
 
