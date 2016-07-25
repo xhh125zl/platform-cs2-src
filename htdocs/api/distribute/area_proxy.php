@@ -74,7 +74,10 @@ switch ($stepid) {
 		if ($AreaId) { $filterCondition .= " AND `AreaId` = {$AreaId}"; }
 
 		$resultInfo = $DB->GetRs('agent_order', 'count(*) as num', $filterCondition);
-		if ($resultInfo['num'] > 0) { exit('该区域已经被申请！'); }
+        $flag = $DB->GetRs("distribute_agent_areas","*","WHERE Users_ID='{$UsersID}' AND area_id={$AreaId}");
+        if($flag && $resultInfo['num'] > 0){
+            exit('该区域已经被申请！');
+        }
 
 		$DATA = array(
 			'Users_ID' => $UsersID,

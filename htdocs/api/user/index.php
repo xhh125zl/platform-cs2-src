@@ -88,6 +88,7 @@ if(!empty($rsConfig["UserLevel"])){
 	<a href="/api/<?php echo $UsersID ?>/user/my/" class="item item_3"><span class="ico"></span>我的资料<span class="jt"></span></a>
     <div class="dline"></div>    
     <a href="/api/<?php echo $UsersID ?>/shop/" class="item item_4"><span class="ico"></span>进入商城<span class="jt"></span></a>
+    <a href="/api/<?php echo $UsersID ?>/pintuan/" class="item item_4"><span class="ico"></span>进入拼团<span class="jt"></span></a>
      <a href="/api/<?php echo $UsersID ?>/user/kanjia_order/" class="item item_4"><span class="ico"></span>我的砍价订单<span class="jt"></span></a>
 	<a href="/api/<?php echo $UsersID ?>/user/gift/1/" class="item item_5"><span class="ico"></span>积分兑换礼品<span class="jt"></span></a>
 	<div class="dline"></div>

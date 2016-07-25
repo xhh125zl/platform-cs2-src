@@ -58,19 +58,42 @@ class balance
             $cartlists = str_replace('&amp;quot;','"',$value["Order_Json"]);
             $cartlist = json_decode($cartlists, true); 
             if(!empty($cartlist)){
-                foreach ($cartlist as $kk => $vv) {
-                    foreach ($vv as $k => $v) {
-                        if (empty($products[$kk])) {
-                            $products[$kk]["num"] = $v["Qty"];
-                            $products[$kk]["total"] = $v["Qty"] * $v["ProductsPriceX"];
-                            $products[$kk]["web"] = $v["Qty"] * $v["ProductsProfit"];
-                        } else {
-                            $products[$kk]["num"] += $v["Qty"];
-                            $products[$kk]["total"] += $v["Qty"] * $v["ProductsPriceX"];
-                            $products[$kk]["web"] += $v["Qty"] * $v["ProductsProfit"];
+                $r = $this->db->GetRs("user_order", "Order_CreateTime,Order_Type,Order_CartList", "where Users_ID='" . $this->usersid . "' and Order_ID=" . $value["Order_ID"]);
+                if($r['Order_Type']=='pintuan' || $r['Order_Type']=='dangou'){
+                    $sales += $cartlist["num"];
+                    $products[$cartlist['Products_ID']]["num"] = $cartlist["num"];
+                    if($r['Order_Type']=='pintuan'){
+                        if($cartlist['Products_FinanceType']==0){
+                            $web_total += $cartlist["num"] * number_format($cartlist["ProductsPriceT"] * $cartlist["Products_FinanceRate"]/100,2,'.',''); // 网站提成(网站所得+佣金)
+                        }else{
+                            $web_total += $cartlist["num"] * ($cartlist["ProductsPriceT"]-$cartlist["Products_PriceSt"]); // 网站提成(网站所得+佣金)
                         }
-                        $sales += $v["Qty"];
-                        $web_total += $v["Qty"] * $v["ProductsProfit"];
+                        $products[$cartlist['Products_ID']]["total"] = $cartlist["num"] * $cartlist["ProductsPriceT"];
+                        $products[$cartlist['Products_ID']]["web"] = $cartlist["num"] * ($cartlist["ProductsPriceT"]-$cartlist["Products_PriceSt"]);
+                    }else{
+                        if($cartlist['Products_FinanceType']==0){
+                            $web_total += $cartlist["num"] * number_format($cartlist["ProductsPriceD"] * $cartlist["Products_FinanceRate"]/100,2,'.',''); // 网站提成(网站所得+佣金)
+                        }else{
+                            $web_total += $cartlist["num"] * ($cartlist["ProductsPriceD"]-$cartlist["Products_PriceSd"]); // 网站提成(网站所得+佣金)
+                        }
+                        $products[$cartlist['Products_ID']]["total"] = $cartlist["num"] * $cartlist["ProductsPriceD"];
+                        $products[$cartlist['Products_ID']]["web"] = $cartlist["num"] * ($cartlist["ProductsPriceD"]-$cartlist["Products_PriceSd"]);
+                    }
+                }else{
+                    foreach ($cartlist as $kk => $vv) {
+                        foreach ($vv as $k => $v) {
+                            if (empty($products[$kk])) {
+                                $products[$kk]["num"] = $v["Qty"];
+                                $products[$kk]["total"] = $v["Qty"] * $v["ProductsPriceX"];
+                                $products[$kk]["web"] = $v["Qty"] * $v["ProductsProfit"];
+                            } else {
+                                $products[$kk]["num"] += $v["Qty"];
+                                $products[$kk]["total"] += $v["Qty"] * $v["ProductsPriceX"];
+                                $products[$kk]["web"] += $v["Qty"] * $v["ProductsProfit"];
+                            }
+                            $sales += $v["Qty"];
+                            $web_total += $v["Qty"] * $v["ProductsProfit"];
+                        }
                     }
                 }
             }
@@ -100,18 +123,39 @@ class balance
     function repeat_list($lists)
     {
         foreach ($lists as $id => $item) {
-            $r = $this->db->GetRs("user_order", "Order_CreateTime", "where Users_ID='" . $this->usersid . "' and Order_ID=" . $item["Order_ID"]);
+            $r = $this->db->GetRs("user_order", "Order_CreateTime,Order_Type,Order_CartList", "where Users_ID='" . $this->usersid . "' and Order_ID=" . $item["Order_ID"]);
             $item["orderno"] = date("Ymd", $r["Order_CreateTime"]) . $item["Order_ID"];
             $item["bonus"] = $item["Bonus"];
             $cartlist = json_decode(htmlspecialchars_decode($item["Order_Json"]), true);
             $amount = $web = 0;
             if ($cartlist) {
-                foreach ($cartlist as $key => $value) {
-                    foreach ($value as $kk => $vv) {
-                        $amount += $vv["Qty"] * $vv["ProductsPriceX"]; // 商品总额
-                        $web += $vv["Qty"] * $vv["ProductsProfit"]; // 网站提成(网站所得+佣金)
+                if($r['Order_Type']=='pintuan' || $r['Order_Type']=='dangou'){
+                    $cartlist = json_decode(htmlspecialchars_decode($r["Order_CartList"]), true);
+                    if($r['Order_Type']=='pintuan'){
+                        $amount += $cartlist["num"] * $cartlist["ProductsPriceT"]; // 商品总额
+                        if($cartlist['Products_FinanceType']==0){
+                            $web += $cartlist["num"] * number_format($cartlist["ProductsPriceT"] * $cartlist["Products_FinanceRate"]/100,2,'.',''); // 网站提成(网站所得+佣金)
+                        }else{
+                            $web += $cartlist["num"] * ($cartlist["ProductsPriceT"]-$cartlist["Products_PriceSt"]); // 网站提成(网站所得+佣金)
+                        }
+                        
+                    }else{
+                        $amount += $cartlist["num"] * $cartlist["ProductsPriceD"]; // 商品总额
+                        if($cartlist['Products_FinanceType']==0){
+                            $web += $cartlist["num"] * number_format($cartlist["ProductsPriceD"] * $cartlist["Products_FinanceRate"]/100,2,'.',''); // 网站提成(网站所得+佣金)
+                        }else{
+                            $web += $cartlist["num"] * ($cartlist["ProductsPriceD"]-$cartlist["Products_PriceSd"]); // 网站提成(网站所得+佣金)
+                        }
+                    }
+                }else{
+                    foreach ($cartlist as $key => $value) {
+                        foreach ($value as $kk => $vv) {
+                            $amount += $vv["Qty"] * $vv["ProductsPriceX"]; // 商品总额
+                            $web += $vv["Qty"] * $vv["ProductsProfit"]; // 网站提成(网站所得+佣金)
+                        }
                     }
                 }
+                
             }
             $item["web"] = $web;
             $item["product_amount"] = $amount;

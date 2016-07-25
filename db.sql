@@ -1,22 +1,5 @@
-/*
-Navicat MySQL Data Transfer
-
-Source Server         : localhost
-Source Server Version : 50540
-Source Host           : localhost:3306
-Source Database       : 103hbqw999
-
-Target Server Type    : MYSQL
-Target Server Version : 50540
-File Encoding         : 65001
-
-Date: 2016-06-20 10:31:40
-*/
-
-SET FOREIGN_KEY_CHECKS=0;
-
 -- ----------------------------
--- Table structure for action_num_record
+-- Table structure for `action_num_record`
 -- ----------------------------
 DROP TABLE IF EXISTS `action_num_record`;
 CREATE TABLE `action_num_record` (
@@ -35,7 +18,7 @@ CREATE TABLE `action_num_record` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for ad_advertising
+-- Table structure for `ad_advertising`
 -- ----------------------------
 DROP TABLE IF EXISTS `ad_advertising`;
 CREATE TABLE `ad_advertising` (
@@ -56,7 +39,7 @@ CREATE TABLE `ad_advertising` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for ad_list
+-- Table structure for `ad_list`
 -- ----------------------------
 DROP TABLE IF EXISTS `ad_list`;
 CREATE TABLE `ad_list` (
@@ -75,7 +58,7 @@ CREATE TABLE `ad_list` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for ad_model
+-- Table structure for `ad_model`
 -- ----------------------------
 DROP TABLE IF EXISTS `ad_model`;
 CREATE TABLE `ad_model` (
@@ -99,7 +82,7 @@ INSERT INTO `ad_model` VALUES ('7', '抢红包邀请好友页面', '640', '60', 
 INSERT INTO `ad_model` VALUES ('8', '抢红包好友帮助页面', '640', '60', '好友帮助拆红包页面');
 
 -- ----------------------------
--- Table structure for agent
+-- Table structure for `agent`
 -- ----------------------------
 DROP TABLE IF EXISTS `agent`;
 CREATE TABLE `agent` (
@@ -127,7 +110,7 @@ CREATE TABLE `agent` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for agent_back_tie
+-- Table structure for `agent_back_tie`
 -- ----------------------------
 DROP TABLE IF EXISTS `agent_back_tie`;
 CREATE TABLE `agent_back_tie` (
@@ -143,28 +126,9 @@ CREATE TABLE `agent_back_tie` (
 -- ----------------------------
 -- Records of agent_back_tie
 -- ----------------------------
-INSERT INTO `agent_back_tie` VALUES ('1', '2', 'pl2hu3uczz', '7', '开启股东', '1465291773');
-INSERT INTO `agent_back_tie` VALUES ('2', '2', 'pl2hu3uczz', '7', '关闭股东', '1465291781');
-INSERT INTO `agent_back_tie` VALUES ('3', '2', 'pl2hu3uczz', '8', '开启股东', '1465291828');
-INSERT INTO `agent_back_tie` VALUES ('4', '2', 'pl2hu3uczz', '8', '关闭股东', '1465291846');
-INSERT INTO `agent_back_tie` VALUES ('5', '2', 'pl2hu3uczz', '2', '关闭股东', '1465374641');
-INSERT INTO `agent_back_tie` VALUES ('6', '2', 'pl2hu3uczz', '2', '开启股东', '1465375568');
-INSERT INTO `agent_back_tie` VALUES ('7', '2', 'pl2hu3uczz', '9', '关闭股东', '1465377517');
-INSERT INTO `agent_back_tie` VALUES ('8', '2', 'pl2hu3uczz', '9', '开启股东', '1465377607');
-INSERT INTO `agent_back_tie` VALUES ('9', '2', 'pl2hu3uczz', '9', '关闭股东', '1465379702');
-INSERT INTO `agent_back_tie` VALUES ('10', '2', 'pl2hu3uczz', '6', '开启股东', '1465380732');
-INSERT INTO `agent_back_tie` VALUES ('11', '2', 'pl2hu3uczz', '6', '关闭股东', '1465380797');
-INSERT INTO `agent_back_tie` VALUES ('12', '2', 'pl2hu3uczz', '6', '开启股东', '1465380865');
-INSERT INTO `agent_back_tie` VALUES ('13', '2', 'pl2hu3uczz', '6', '开启股东', '1465380967');
-INSERT INTO `agent_back_tie` VALUES ('14', '2', 'pl2hu3uczz', '6', '开启股东', '1465381014');
-INSERT INTO `agent_back_tie` VALUES ('15', '2', 'pl2hu3uczz', '6', '开启股东', '1465381094');
-INSERT INTO `agent_back_tie` VALUES ('16', '2', 'pl2hu3uczz', '9', '开启股东', '1465381186');
-INSERT INTO `agent_back_tie` VALUES ('17', '2', 'pl2hu3uczz', '15', '开启股东', '1466046050');
-INSERT INTO `agent_back_tie` VALUES ('18', '2', 'pl2hu3uczz', '15', '关闭股东', '1466046094');
-INSERT INTO `agent_back_tie` VALUES ('19', '2', 'pl2hu3uczz', '11', '关闭股东', '1466046592');
 
 -- ----------------------------
--- Table structure for agent_level
+-- Table structure for `agent_level`
 -- ----------------------------
 DROP TABLE IF EXISTS `agent_level`;
 CREATE TABLE `agent_level` (
@@ -184,7 +148,7 @@ CREATE TABLE `agent_level` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for agent_order
+-- Table structure for `agent_order`
 -- ----------------------------
 DROP TABLE IF EXISTS `agent_order`;
 CREATE TABLE `agent_order` (
@@ -219,7 +183,7 @@ CREATE TABLE `agent_order` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for anli
+-- Table structure for `anli`
 -- ----------------------------
 DROP TABLE IF EXISTS `anli`;
 CREATE TABLE `anli` (
@@ -234,7 +198,7 @@ CREATE TABLE `anli` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for announce
+-- Table structure for `announce`
 -- ----------------------------
 DROP TABLE IF EXISTS `announce`;
 CREATE TABLE `announce` (
@@ -253,7 +217,7 @@ CREATE TABLE `announce` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for announce_category
+-- Table structure for `announce_category`
 -- ----------------------------
 DROP TABLE IF EXISTS `announce_category`;
 CREATE TABLE `announce_category` (
@@ -267,7 +231,7 @@ CREATE TABLE `announce_category` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for area
+-- Table structure for `area`
 -- ----------------------------
 DROP TABLE IF EXISTS `area`;
 CREATE TABLE `area` (
@@ -3617,7 +3581,7 @@ INSERT INTO `area` VALUES ('5024', '五家渠市', '492', '0', '3', null, '0');
 INSERT INTO `area` VALUES ('45055', '海外', '35', '0', '2', null, '0');
 
 -- ----------------------------
--- Table structure for battle
+-- Table structure for `battle`
 -- ----------------------------
 DROP TABLE IF EXISTS `battle`;
 CREATE TABLE `battle` (
@@ -3655,7 +3619,7 @@ CREATE TABLE `battle` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for battle_act
+-- Table structure for `battle_act`
 -- ----------------------------
 DROP TABLE IF EXISTS `battle_act`;
 CREATE TABLE `battle_act` (
@@ -3672,7 +3636,7 @@ CREATE TABLE `battle_act` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for battle_exam
+-- Table structure for `battle_exam`
 -- ----------------------------
 DROP TABLE IF EXISTS `battle_exam`;
 CREATE TABLE `battle_exam` (
@@ -3693,7 +3657,7 @@ CREATE TABLE `battle_exam` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for battle_sn
+-- Table structure for `battle_sn`
 -- ----------------------------
 DROP TABLE IF EXISTS `battle_sn`;
 CREATE TABLE `battle_sn` (
@@ -3717,7 +3681,7 @@ CREATE TABLE `battle_sn` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for bianmin_server
+-- Table structure for `bianmin_server`
 -- ----------------------------
 DROP TABLE IF EXISTS `bianmin_server`;
 CREATE TABLE `bianmin_server` (
@@ -3744,7 +3708,7 @@ CREATE TABLE `bianmin_server` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for biz
+-- Table structure for `biz`
 -- ----------------------------
 DROP TABLE IF EXISTS `biz`;
 CREATE TABLE `biz` (
@@ -3787,23 +3751,17 @@ CREATE TABLE `biz` (
   `UserID` int(11) DEFAULT NULL COMMENT '前台绑定会员',
   `PaymenteRate` decimal(10,2) DEFAULT '100.00' COMMENT '结算比例',
   `Invitation_Code` varchar(10) DEFAULT NULL COMMENT '邀请码',
+  `Biz_PayConfig` varchar(255) DEFAULT NULL,
+  `Biz_Flag` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`Biz_ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of biz
 -- ----------------------------
-INSERT INTO `biz` VALUES ('1', 'pl2hu3uczz', 'shangjia', 'e10adc3949ba59abbe56e057f20f883e', '商家', '0', '0', '0', '郑州市', '测试', '12222222222222223', '2591218372@qq.com', '', '这是一个测试商家', '0', '1464760844', '12222222222222223', '{\"1\":\"1\"}', '1', 'express', '0', '0', '0', '', '', '', '1', '/uploadfiles/pl2hu3uczz/image/574e79d21a.png', null, '1', '0', '50.00', '1', null, null, null, '2', '55.00', 'I64F2KL6');
-INSERT INTO `biz` VALUES ('2', 'pl2hu3uczz', '123123', '202cb962ac59075b964b07152d234b70', '1231123123', '0', '0', '0', '权威的气味', '123123', '123123', '123', '123', '132', '0', '1464864289', '1231231', null, '0', 'express', '0', '0', '0', '', '', '', '1', '', null, '1', '0', '22.00', '1', null, null, null, null, null, null);
-INSERT INTO `biz` VALUES ('3', 'pl2hu3uczz', 'were', '202cb962ac59075b964b07152d234b70', 'qewqw', '0', '0', '0', 'qew', '测试先生', '15517101234', '', '', '', '0', '1465185158', '15517101234', null, '0', 'express', '0', '0', '0', '', '', '', '1', '', null, '1', '0', '55.00', '1', null, null, null, null, '66.00', null);
-INSERT INTO `biz` VALUES ('4', 'pl2hu3uczz', 'qweqw', '698d51a19d8a121ce581499d7b701668', 'qwe', '0', '0', '0', 'qweqwe', '123123', '15517101234', '', '', '', '0', '1465194304', '15517101234', null, '0', 'express', '0', '0', '0', '', '', '', '1', '', null, '1', '0', '22.00', '1', null, null, null, null, null, null);
-INSERT INTO `biz` VALUES ('5', 'pl2hu3uczz', '31211', '202cb962ac59075b964b07152d234b70', '123', '0', '0', '0', '11', '123123', '15517101234', '', '', '', '0', '1465194399', '15517101234', null, '0', 'express', '0', '0', '0', '', '', '', '1', '', null, '1', '1', '0.00', '1', null, null, null, null, '10.00', null);
-INSERT INTO `biz` VALUES ('6', 'pl2hu3uczz', 'ceshishangjia', '202cb962ac59075b964b07152d234b70', '测试邀请商家', '0', '0', '0', '东大街', '王测试', '15511111111', '15511111111@qq.com', '', '试试事实上水水水水水水水水水水水水水水水水谁谁谁水水水水', '0', '1465781826', '15511111111', null, '0', 'express', '0', '0', '0', '', '', '', '1', '', null, '1', '0', '80.00', '1', null, null, null, null, '50.00', null);
-INSERT INTO `biz` VALUES ('7', 'pl2hu3uczz', 'ceshishangjia1', '202cb962ac59075b964b07152d234b70', '测试邀请商家', '0', '0', '0', '东大街', '王测试', '15511111111', '15511111111@qq.com', 'sssss', '谁谁谁水水水水谁谁谁水水水水', '0', '1465782271', '15511111111', null, '0', 'express', '0', '0', '0', '', '', '', '1', '', null, '1', '0', '80.00', '1', null, null, null, null, '50.00', 'I64F2KL6');
-INSERT INTO `biz` VALUES ('8', 'pl2hu3uczz', 'zhanghao1', '202cb962ac59075b964b07152d234b70', '测试业务商家', '0', '0', '0', '西大街', '孙测试', '15517105555', '15517105555@qq.com ', 'sssssss', '谁谁谁谁谁谁水水水水谁谁谁', '0', '1465803763', '15517105555', '{\"2\":\"2\"}', '2', 'express', '0', '0', '0', '', '', '', '1', '/uploadfiles/pl2hu3uczz/image/574e7a5875.jpg', null, '1', '0', '80.00', '1', null, null, null, '13', '50.00', 'FLPIDR28');
 
 -- ----------------------------
--- Table structure for biz_apply
+-- Table structure for `biz_apply`
 -- ----------------------------
 DROP TABLE IF EXISTS `biz_apply`;
 CREATE TABLE `biz_apply` (
@@ -3823,11 +3781,9 @@ CREATE TABLE `biz_apply` (
 -- ----------------------------
 -- Records of biz_apply
 -- ----------------------------
-INSERT INTO `biz_apply` VALUES ('1', 'pl2hu3uczz', '2', '测试企业', '1', '1465183806', '', '测试先生', '15517105581', null);
-INSERT INTO `biz_apply` VALUES ('2', 'pl2hu3uczz', '1', '测试邀请商家', '1', '1465780555', '15511111111@qq.com', '王测试', '15511111111', 'I64F2KL6');
 
 -- ----------------------------
--- Table structure for biz_category
+-- Table structure for `biz_category`
 -- ----------------------------
 DROP TABLE IF EXISTS `biz_category`;
 CREATE TABLE `biz_category` (
@@ -3845,7 +3801,7 @@ CREATE TABLE `biz_category` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for biz_config
+-- Table structure for `biz_config`
 -- ----------------------------
 DROP TABLE IF EXISTS `biz_config`;
 CREATE TABLE `biz_config` (
@@ -3863,7 +3819,7 @@ CREATE TABLE `biz_config` (
 INSERT INTO `biz_config` VALUES ('1', 'pl2hu3uczz', '测试1', '测试2', '测试3');
 
 -- ----------------------------
--- Table structure for biz_group
+-- Table structure for `biz_group`
 -- ----------------------------
 DROP TABLE IF EXISTS `biz_group`;
 CREATE TABLE `biz_group` (
@@ -3881,7 +3837,7 @@ CREATE TABLE `biz_group` (
 INSERT INTO `biz_group` VALUES ('1', 'pl2hu3uczz', '测试分组', '0', '0');
 
 -- ----------------------------
--- Table structure for biz_home
+-- Table structure for `biz_home`
 -- ----------------------------
 DROP TABLE IF EXISTS `biz_home`;
 CREATE TABLE `biz_home` (
@@ -3906,7 +3862,7 @@ INSERT INTO `biz_home` VALUES ('7', 'pl2hu3uczz', '7', '1', '[{\"ContentsType\":
 INSERT INTO `biz_home` VALUES ('8', 'pl2hu3uczz', '8', '1', '[{\"ContentsType\":\"1\",\"Title\":[\"\",\"\",\"\",\"\",\"\"],\"ImgPath\":[\"/api/shop/biz/1/banner.jpg\",\"\",\"\",\"\",\"\"],\"Url\":[\"\",\"\",\"\",\"\",\"\"],\"Postion\":\"t01\",\"Width\":\"640\",\"Height\":\"320\",\"NeedLink\":\"1\"}]');
 
 -- ----------------------------
--- Table structure for biz_menu
+-- Table structure for `biz_menu`
 -- ----------------------------
 DROP TABLE IF EXISTS `biz_menu`;
 CREATE TABLE `biz_menu` (
@@ -3925,7 +3881,7 @@ CREATE TABLE `biz_menu` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for biz_skin
+-- Table structure for `biz_skin`
 -- ----------------------------
 DROP TABLE IF EXISTS `biz_skin`;
 CREATE TABLE `biz_skin` (
@@ -3943,7 +3899,7 @@ CREATE TABLE `biz_skin` (
 INSERT INTO `biz_skin` VALUES ('1', 't47djimutm', '模板1', '/static/member/images/shop/biz/skin001.jpg', '[{\"ContentsType\":\"1\",\"Title\":[\"\",\"\",\"\",\"\",\"\"],\"ImgPath\":[\"/api/shop/biz/1/banner.jpg\",\"\",\"\",\"\",\"\"],\"Url\":[\"\",\"\",\"\",\"\",\"\"],\"Postion\":\"t01\",\"Width\":\"640\",\"Height\":\"320\",\"NeedLink\":\"1\"}]');
 
 -- ----------------------------
--- Table structure for cloud_category
+-- Table structure for `cloud_category`
 -- ----------------------------
 DROP TABLE IF EXISTS `cloud_category`;
 CREATE TABLE `cloud_category` (
@@ -3961,7 +3917,7 @@ CREATE TABLE `cloud_category` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for cloud_products
+-- Table structure for `cloud_products`
 -- ----------------------------
 DROP TABLE IF EXISTS `cloud_products`;
 CREATE TABLE `cloud_products` (
@@ -4002,7 +3958,7 @@ CREATE TABLE `cloud_products` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for cloud_products_detail
+-- Table structure for `cloud_products_detail`
 -- ----------------------------
 DROP TABLE IF EXISTS `cloud_products_detail`;
 CREATE TABLE `cloud_products_detail` (
@@ -4027,7 +3983,7 @@ CREATE TABLE `cloud_products_detail` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for cloud_record
+-- Table structure for `cloud_record`
 -- ----------------------------
 DROP TABLE IF EXISTS `cloud_record`;
 CREATE TABLE `cloud_record` (
@@ -4046,7 +4002,7 @@ CREATE TABLE `cloud_record` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for cloud_shopcodes
+-- Table structure for `cloud_shopcodes`
 -- ----------------------------
 DROP TABLE IF EXISTS `cloud_shopcodes`;
 CREATE TABLE `cloud_shopcodes` (
@@ -4067,7 +4023,7 @@ CREATE TABLE `cloud_shopcodes` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for cloud_slide
+-- Table structure for `cloud_slide`
 -- ----------------------------
 DROP TABLE IF EXISTS `cloud_slide`;
 CREATE TABLE `cloud_slide` (
@@ -4085,7 +4041,7 @@ CREATE TABLE `cloud_slide` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for comein
+-- Table structure for `comein`
 -- ----------------------------
 DROP TABLE IF EXISTS `comein`;
 CREATE TABLE `comein` (
@@ -4106,7 +4062,7 @@ CREATE TABLE `comein` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for distribute_account
+-- Table structure for `distribute_account`
 -- ----------------------------
 DROP TABLE IF EXISTS `distribute_account`;
 CREATE TABLE `distribute_account` (
@@ -4160,24 +4116,9 @@ CREATE TABLE `distribute_account` (
 -- ----------------------------
 -- Records of distribute_account
 -- ----------------------------
-INSERT INTO `distribute_account` VALUES ('pl2hu3uczz', '2', '2', null, '66.42', '1', '暂无姓名', '的店', '', null, null, null, null, null, null, '66.42', '1464778344', '1', '0', '', null, '1', '0', '0.00', '0.00', '0.00', '0', '0.00', '0', '0.00', '1', '1', null, '0', '0', '0', '0', '391', '3', '1', null, null, null, '1466222092');
-INSERT INTO `distribute_account` VALUES ('pl2hu3uczz', '3', '3', '', '0.00', '1', '暂无姓名', '的店', '', '', '', '', '', '', '', '0.00', '1464828069', '1', '0', '', '', '1', '0', '0.00', '0.00', '0.00', '0', '0.00', '0', '0.00', '1', '0', '', '0', '0', '0', '0', '391', null, null, null, null, null, null);
-INSERT INTO `distribute_account` VALUES ('pl2hu3uczz', '4', '4', '', '0.00', '1', '暂无姓名', '的店', '', '', '', '', '', '', '', '0.00', '1464839390', '1', '0', '', '', '1', '0', '0.00', '0.00', '0.00', '0', '0.00', '0', '0.00', '0', '0', '', '0', '0', '0', '0', '0', null, null, null, null, null, null);
-INSERT INTO `distribute_account` VALUES ('pl2hu3uczz', '5', '5', '', '0.00', '1', '暂无姓名', '的店', '', '', '', '', '', '', '', '0.00', '1464849373', '1', '3', ',3,', '', '1', '0', '0.00', '0.00', '0.00', '0', '0.00', '0', '0.00', '0', '0', '', '0', '0', '0', '0', '0', null, null, null, null, null, null);
-INSERT INTO `distribute_account` VALUES ('pl2hu3uczz', '6', '3', null, '17.54', '1', null, '的店', null, null, null, null, null, null, null, '17.54', '1464854547', '1', '0', '', '', '1', '0', '0.00', '0.00', '0.00', '0', '0.00', '0', '0.00', '1', '1', null, '0', '0', '0', '0', '391', '2', null, null, null, null, null);
-INSERT INTO `distribute_account` VALUES ('pl2hu3uczz', '7', '4', null, '0.00', '1', null, '的店', null, null, null, null, null, null, null, '0.00', '1464854620', '1', '0', '', '', '1', '0', '0.00', '0.00', '0.00', '0', '0.00', '0', '0.00', '0', '0', null, '0', '0', '0', '0', '391', null, null, null, null, null, null);
-INSERT INTO `distribute_account` VALUES ('pl2hu3uczz', '8', '6', null, '0.00', '1', null, '的店', null, null, null, null, null, null, null, '0.00', '1464916471', '1', '0', '', '', '1', '0', '0.00', '0.00', '0.00', '0', '0.00', '0', '0.00', '1', '0', null, '0', '0', '0', '0', '391', null, null, null, null, null, null);
-INSERT INTO `distribute_account` VALUES ('pl2hu3uczz', '9', '7', null, '18.04', '1', null, '的店', null, null, null, null, null, null, null, '18.04', '1465357484', '1', '0', '', '', '1', '0', '0.00', '0.00', '0.00', '0', '0.00', '0', '0.00', '1', '1', null, '0', '0', '0', '0', '391', '2', null, null, null, null, null);
-INSERT INTO `distribute_account` VALUES ('pl2hu3uczz', '10', '8', null, '33.30', '1', null, '的店', null, null, null, null, null, null, null, '33.30', '1465357540', '1', '0', '', '', '1', '0', '0.00', '0.00', '0.00', '0', '0.00', '0', '0.00', '1', '1', null, '0', '0', '0', '0', '391', '3', null, null, null, null, null);
-INSERT INTO `distribute_account` VALUES ('pl2hu3uczz', '11', '9', null, '8.32', '1', '', '我是银牌的店', null, null, null, null, null, null, null, '8.32', '1465694822', '1', '0', '', '', '1', '0', '0.00', '0.00', '0.00', '0', '0.00', '0', '0.00', '1', '1', null, '0', '0', '0', '0', '391', '2', '1', 'I64F2KL6', '/data/temp/test3082db7c757e87ca1b15b3593fe7cbf4.png', null, null);
-INSERT INTO `distribute_account` VALUES ('pl2hu3uczz', '12', '10', null, '37.92', '1', '三级业务', '三级业务的店', null, null, null, null, null, null, null, '24.48', '1465802257', '3', '0', '', '', '1', '0', '0.00', '0.00', '0.00', '0', '0.00', '1', '0.00', '1', '0', null, '0', '0', '0', '0', '391', null, '1', 'HKCI6PMK', '/data/temp/test489d8fcd6dedc908bdacd4d9d13f71e8.png', '13.44', null);
-INSERT INTO `distribute_account` VALUES ('pl2hu3uczz', '13', '11', null, '68.16', '1', '二级业务', '二级业务的店', null, null, null, null, null, null, null, '48.00', '1465802612', '2', '10', ',10,', '', '1', '0', '0.00', '0.00', '0.00', '0', '0.00', '1', '0.00', '1', '0', null, '0', '0', '0', '0', '391', null, '1', '', null, '20.16', null);
-INSERT INTO `distribute_account` VALUES ('pl2hu3uczz', '14', '12', null, '48.00', '1', '购买者一级', '购买者一级的店', null, null, null, null, null, null, null, '14.40', '1465802956', '1', '11', ',10,11,', '', '1', '0', '0.00', '0.00', '0.00', '0', '0.00', '1', '0.00', '1', '0', null, '0', '0', '0', '0', '391', null, '1', 'FLPIDR28', '/data/temp/testcf95c6f9c2532fbe7fbda4b1a6460bd4.png', '33.60', null);
-INSERT INTO `distribute_account` VALUES ('pl2hu3uczz', '15', '13', null, '5.76', '1', '不是创始人', '不是创始人的店', null, null, null, null, null, null, null, '5.76', '1465869925', '1', '0', '', '', '1', '0', '0.00', '0.00', '0.00', '0', '0.00', '0', '0.00', '1', '0', null, '0', '0', '0', '0', '391', '1', '0', '', null, '0.00', null);
-INSERT INTO `distribute_account` VALUES ('pl2hu3uczz', '16', '14', null, '2.88', '1', '测试pc', '测试pc的店', null, null, null, null, null, null, null, '2.88', '1465950962', '1', '0', '', '', '1', '0', '0.00', '0.00', '0.00', '0', '0.00', '0', '0.00', '1', '0', null, '0', '0', '0', '0', '391', null, '0', '', null, '0.00', null);
 
 -- ----------------------------
--- Table structure for distribute_account_message
+-- Table structure for `distribute_account_message`
 -- ----------------------------
 DROP TABLE IF EXISTS `distribute_account_message`;
 CREATE TABLE `distribute_account_message` (
@@ -4196,7 +4137,7 @@ CREATE TABLE `distribute_account_message` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for distribute_account_record
+-- Table structure for `distribute_account_record`
 -- ----------------------------
 DROP TABLE IF EXISTS `distribute_account_record`;
 CREATE TABLE `distribute_account_record` (
@@ -4226,144 +4167,9 @@ CREATE TABLE `distribute_account_record` (
 -- ----------------------------
 -- Records of distribute_account_record
 -- ----------------------------
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '1', '15', '9', '1', 'WD20160612131787', null, '1', '0.00', '0.00', '自己销售自己购买三星手机&yen;100.00成功，获取奖金', '0', '2', '0.00', '您还没有爵位', '1465694977', '无爵位', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '2', '16', '9', '1', 'WD20160612011647', null, '1', '2.40', '2.40', '自己销售自己购买苹果手机&yen;200.00成功，获取奖金', '0', '1', '0.00', '您还没有爵位', '1465714282', '无爵位', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '3', '17', '11', '1', 'WD20160613433217', null, '1', '9.60', '9.60', '下属分销商分销测试业务产品&yen;100.00成功，获取奖金', '0', '0', '0.00', '您还没有爵位', '1465804778', '无爵位', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '4', '17', '10', '2', 'WD20160613425704', null, '1', '3.84', '3.84', '下属分销商分销测试业务产品&yen;100.00成功，获取奖金', '0', '0', '0.00', '您还没有爵位', '1465804778', '无爵位', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '5', '17', '12', '3', 'WD20160613257026', null, '1', '2.88', '2.88', '自己销售自己购买测试业务产品&yen;100.00成功，获取奖金', '0', '0', '0.00', '您还没有爵位', '1465804778', '无爵位', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '6', '18', '11', '1', 'WD20160613724300', null, '1', '9.60', '9.60', '下属分销商分销测试业务产品&yen;100.00成功，获取奖金', '0', '0', '0.00', '您还没有爵位', '1465805019', '无爵位', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '7', '18', '10', '2', 'WD20160613876062', null, '1', '3.84', '3.84', '下属分销商分销测试业务产品&yen;100.00成功，获取奖金', '0', '0', '0.00', '您还没有爵位', '1465805019', '无爵位', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '8', '18', '12', '3', 'WD20160613199691', null, '1', '2.88', '2.88', '自己销售自己购买测试业务产品&yen;100.00成功，获取奖金', '0', '0', '0.00', '您还没有爵位', '1465805019', '无爵位', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '9', '19', '11', '1', 'WD20160613384566', null, '1', '9.60', '9.60', '下属分销商分销测试业务产品&yen;100.00成功，获取奖金', '0', '0', '0.00', '您还没有爵位', '1465805040', '无爵位', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '10', '19', '10', '2', 'WD20160613889412', null, '1', '3.84', '3.84', '下属分销商分销测试业务产品&yen;100.00成功，获取奖金', '0', '0', '0.00', '您还没有爵位', '1465805040', '无爵位', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '11', '19', '12', '3', 'WD20160613390257', null, '1', '2.88', '2.88', '自己销售自己购买测试业务产品&yen;100.00成功，获取奖金', '0', '0', '0.00', '您还没有爵位', '1465805040', '无爵位', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '12', '20', '11', '1', 'WD20160613225739', null, '1', '9.60', '9.60', '下属分销商分销测试业务产品&yen;100.00成功，获取奖金', '0', '0', '0.00', '您还没有爵位', '1465805775', '无爵位', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '13', '20', '10', '2', 'WD20160613532369', null, '1', '3.84', '3.84', '下属分销商分销测试业务产品&yen;100.00成功，获取奖金', '0', '0', '0.00', '您还没有爵位', '1465805775', '无爵位', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '14', '20', '12', '3', 'WD20160613675946', null, '1', '2.88', '2.88', '自己销售自己购买测试业务产品&yen;100.00成功，获取奖金', '0', '0', '0.00', '您还没有爵位', '1465805775', '无爵位', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '15', '21', '11', '1', 'WD20160613818842', null, '1', '9.60', '9.60', '下属分销商分销测试业务产品&yen;100.00成功，获取奖金', '0', '0', '0.00', '您还没有爵位', '1465806640', '无爵位', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '16', '21', '10', '2', 'WD20160613457168', null, '1', '3.84', '3.84', '下属分销商分销测试业务产品&yen;100.00成功，获取奖金', '0', '0', '0.00', '您还没有爵位', '1465806640', '无爵位', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '17', '21', '12', '3', 'WD20160613052918', null, '1', '2.88', '2.88', '自己销售自己购买测试业务产品&yen;100.00成功，获取奖金', '0', '0', '0.00', '您还没有爵位', '1465806640', '无爵位', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '18', '22', '11', '1', 'WD20160613846217', null, '1', '9.60', '9.60', '下属分销商分销测试业务产品&yen;100.00成功，获取奖金', '0', '0', '0.00', '您还没有爵位', '1465806880', '无爵位', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '19', '22', '10', '2', 'WD20160613035033', null, '1', '3.84', '3.84', '下属分销商分销测试业务产品&yen;100.00成功，获取奖金', '0', '0', '0.00', '您还没有爵位', '1465806880', '无爵位', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '20', '22', '12', '3', 'WD20160613120883', null, '1', '2.88', '2.88', '自己销售自己购买测试业务产品&yen;100.00成功，获取奖金', '0', '0', '0.00', '您还没有爵位', '1465806880', '无爵位', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '21', '23', '11', '1', 'WD20160613054352', null, '1', '9.60', '9.60', '下属分销商分销测试业务产品&yen;100.00成功，获取奖金', '0', '0', '0.00', '您还没有爵位', '1465807054', '无爵位', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '22', '23', '10', '2', 'WD20160613230820', null, '1', '3.84', '3.84', '下属分销商分销测试业务产品&yen;100.00成功，获取奖金', '0', '0', '0.00', '您还没有爵位', '1465807054', '无爵位', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '23', '23', '12', '3', 'WD20160613272776', null, '1', '2.88', '2.88', '自己销售自己购买测试业务产品&yen;100.00成功，获取奖金', '0', '0', '0.00', '您还没有爵位', '1465807054', '无爵位', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '24', '24', '11', '1', 'WD20160613590534', null, '1', '9.60', '9.60', '下属分销商分销测试业务产品&yen;100.00成功，获取奖金', '0', '0', '0.00', '您还没有爵位', '1465808378', '无爵位', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '25', '24', '10', '2', 'WD20160613959290', null, '1', '3.84', '3.84', '下属分销商分销测试业务产品&yen;100.00成功，获取奖金', '0', '0', '0.00', '您还没有爵位', '1465808378', '无爵位', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '26', '24', '12', '3', 'WD20160613082543', null, '1', '2.88', '2.88', '自己销售自己购买测试业务产品&yen;100.00成功，获取奖金', '0', '0', '0.00', '您还没有爵位', '1465808378', '无爵位', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '27', '25', '11', '1', 'WD20160613439894', null, '1', '9.60', '9.60', '下属分销商分销测试业务产品&yen;100.00成功，获取奖金', '0', '0', '0.00', '您还没有爵位', '1465809904', '无爵位', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '28', '25', '10', '2', 'WD20160613195329', null, '1', '3.84', '3.84', '下属分销商分销测试业务产品&yen;100.00成功，获取奖金', '0', '0', '0.00', '您还没有爵位', '1465809904', '无爵位', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '29', '25', '12', '3', 'WD20160613714441', null, '1', '2.88', '2.88', '自己销售自己购买测试业务产品&yen;100.00成功，获取奖金', '0', '0', '0.00', '您还没有爵位', '1465809904', '无爵位', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '30', '26', '11', '1', 'WD20160613136006', null, '1', '9.60', '9.60', '下属分销商分销测试业务产品&yen;100.00成功，获取奖金', '0', '0', '0.00', '您还没有爵位', '1465810158', '无爵位', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '31', '26', '10', '2', 'WD20160613735007', null, '1', '3.84', '3.84', '下属分销商分销测试业务产品&yen;100.00成功，获取奖金', '0', '0', '0.00', '您还没有爵位', '1465810158', '无爵位', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '32', '26', '12', '3', 'WD20160613637234', null, '1', '2.88', '2.88', '自己销售自己购买测试业务产品&yen;100.00成功，获取奖金', '0', '0', '0.00', '您还没有爵位', '1465810158', '无爵位', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '33', '27', '11', '1', 'WD20160613471118', null, '1', '9.60', '9.60', '下属分销商分销测试业务产品&yen;100.00成功，获取奖金', '0', '0', '0.00', '您还没有爵位', '1465810214', '无爵位', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '34', '27', '10', '2', 'WD20160613327326', null, '1', '3.84', '3.84', '下属分销商分销测试业务产品&yen;100.00成功，获取奖金', '0', '0', '0.00', '您还没有爵位', '1465810214', '无爵位', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '35', '27', '12', '3', 'WD20160613242885', null, '1', '2.88', '2.88', '自己销售自己购买测试业务产品&yen;100.00成功，获取奖金', '0', '0', '0.00', '您还没有爵位', '1465810214', '无爵位', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '36', '28', '11', '1', 'WD20160613587527', null, '1', '9.60', '9.60', '下属分销商分销测试业务产品&yen;100.00成功，获取奖金', '0', '0', '0.00', '您还没有爵位', '1465810308', '无爵位', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '37', '28', '10', '2', 'WD20160613682607', null, '1', '3.84', '3.84', '下属分销商分销测试业务产品&yen;100.00成功，获取奖金', '0', '0', '0.00', '您还没有爵位', '1465810308', '无爵位', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '38', '28', '12', '3', 'WD20160613049505', null, '1', '2.88', '2.88', '自己销售自己购买测试业务产品&yen;100.00成功，获取奖金', '0', '0', '0.00', '您还没有爵位', '1465810308', '无爵位', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '39', '29', '11', '1', 'WD20160613098063', null, '1', '9.60', '9.60', '下属分销商分销测试业务产品&yen;100.00成功，获取奖金', '0', '0', '0.00', '您还没有爵位', '1465810336', '无爵位', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '40', '29', '10', '2', 'WD20160613855512', null, '1', '3.84', '3.84', '下属分销商分销测试业务产品&yen;100.00成功，获取奖金', '0', '0', '0.00', '您还没有爵位', '1465810336', '无爵位', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '41', '29', '12', '3', 'WD20160613676354', null, '1', '2.88', '2.88', '自己销售自己购买测试业务产品&yen;100.00成功，获取奖金', '0', '0', '0.00', '您还没有爵位', '1465810336', '无爵位', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '42', '30', '11', '1', 'WD20160613399449', null, '2', '9.60', '19.20', '下属分销商分销测试业务产品&yen;100.00成功，获取奖金', '0', '0', '0.00', '您还没有爵位', '1465810377', '无爵位', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '43', '30', '10', '2', 'WD20160613594387', null, '2', '3.84', '7.68', '下属分销商分销测试业务产品&yen;100.00成功，获取奖金', '0', '0', '0.00', '您还没有爵位', '1465810377', '无爵位', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '44', '30', '12', '3', 'WD20160613700829', null, '2', '2.88', '5.76', '自己销售自己购买测试业务产品&yen;100.00成功，获取奖金', '0', '0', '0.00', '您还没有爵位', '1465810377', '无爵位', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '45', '31', '11', '1', 'WD20160613446558', null, '1', '9.60', '9.60', '下属分销商分销测试业务产品&yen;100.00成功，获取奖金', '0', '0', '0.00', '您还没有爵位', '1465810420', '无爵位', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '46', '31', '10', '2', 'WD20160613545395', null, '1', '3.84', '3.84', '下属分销商分销测试业务产品&yen;100.00成功，获取奖金', '0', '0', '0.00', '您还没有爵位', '1465810420', '无爵位', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '47', '31', '12', '3', 'WD20160613544226', null, '1', '2.88', '2.88', '自己销售自己购买测试业务产品&yen;100.00成功，获取奖金', '0', '0', '0.00', '您还没有爵位', '1465810420', '无爵位', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '48', '32', '11', '1', 'WD20160613941754', null, '1', '12.00', '12.00', '下属分销商分销苹果手机&yen;200.00成功，获取奖金', '0', '0', '0.00', '您还没有爵位', '1465810475', '无爵位', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '49', '32', '10', '2', 'WD20160613270298', null, '1', '4.80', '4.80', '下属分销商分销苹果手机&yen;200.00成功，获取奖金', '0', '0', '0.00', '您还没有爵位', '1465810475', '无爵位', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '50', '32', '12', '3', 'WD20160613424809', null, '1', '3.60', '3.60', '自己销售自己购买苹果手机&yen;200.00成功，获取奖金', '0', '0', '0.00', '您还没有爵位', '1465810475', '无爵位', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '51', '33', '11', '1', 'WD20160613191990', null, '1', '12.00', '12.00', '下属分销商分销苹果手机&yen;200.00成功，获取奖金', '0', '0', '0.00', '您还没有爵位', '1465810513', '无爵位', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '52', '33', '10', '2', 'WD20160613666591', null, '1', '4.80', '4.80', '下属分销商分销苹果手机&yen;200.00成功，获取奖金', '0', '0', '0.00', '您还没有爵位', '1465810513', '无爵位', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '53', '33', '12', '3', 'WD20160613138312', null, '1', '3.60', '3.60', '自己销售自己购买苹果手机&yen;200.00成功，获取奖金', '0', '0', '0.00', '您还没有爵位', '1465810513', '无爵位', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '54', '34', '11', '1', 'WD20160613941754', null, '1', '9.60', '9.60', '下属分销商分销测试业务产品&yen;100.00成功，获取奖金', '0', '0', '0.00', '您还没有爵位', '1465810567', '无爵位', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '55', '34', '10', '2', 'WD20160613270298', null, '1', '3.84', '3.84', '下属分销商分销测试业务产品&yen;100.00成功，获取奖金', '0', '0', '0.00', '您还没有爵位', '1465810567', '无爵位', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '56', '34', '12', '3', 'WD20160613424809', null, '1', '2.88', '2.88', '自己销售自己购买测试业务产品&yen;100.00成功，获取奖金', '0', '0', '0.00', '您还没有爵位', '1465810567', '无爵位', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '57', '35', '11', '1', 'WD20160613972986', null, '1', '9.60', '9.60', '下属分销商分销测试业务产品&yen;100.00成功，获取奖金', '0', '0', '0.00', '您还没有爵位', '1465810694', '无爵位', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '58', '35', '10', '2', 'WD20160613587135', null, '1', '3.84', '3.84', '下属分销商分销测试业务产品&yen;100.00成功，获取奖金', '0', '0', '0.00', '您还没有爵位', '1465810694', '无爵位', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '59', '35', '12', '3', 'WD20160613995172', null, '1', '2.88', '2.88', '自己销售自己购买测试业务产品&yen;100.00成功，获取奖金', '0', '0', '0.00', '您还没有爵位', '1465810694', '无爵位', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '60', '36', '11', '1', 'WD20160613399449', null, '1', '9.60', '9.60', '下属分销商分销测试业务产品&yen;100.00成功，获取奖金', '0', '0', '0.00', '您还没有爵位', '1465810826', '无爵位', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '61', '36', '10', '2', 'WD20160613594387', null, '1', '3.84', '3.84', '下属分销商分销测试业务产品&yen;100.00成功，获取奖金', '0', '0', '0.00', '您还没有爵位', '1465810826', '无爵位', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '62', '36', '12', '3', 'WD20160613700829', null, '1', '2.88', '2.88', '自己销售自己购买测试业务产品&yen;100.00成功，获取奖金', '0', '0', '0.00', '您还没有爵位', '1465810826', '无爵位', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '63', '37', '11', '1', 'WD20160613928884', null, '1', '9.60', '9.60', '下属分销商分销测试业务产品&yen;100.00成功，获取奖金', '0', '0', '0.00', '您还没有爵位', '1465810920', '无爵位', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '64', '37', '10', '2', 'WD20160613170953', null, '1', '3.84', '3.84', '下属分销商分销测试业务产品&yen;100.00成功，获取奖金', '0', '0', '0.00', '您还没有爵位', '1465810920', '无爵位', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '65', '37', '12', '3', 'WD20160613527958', null, '1', '2.88', '2.88', '自己销售自己购买测试业务产品&yen;100.00成功，获取奖金', '0', '0', '0.00', '您还没有爵位', '1465810920', '无爵位', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '66', '38', '11', '1', 'WD20160613941754', null, '1', '9.60', '9.60', '下属分销商分销测试业务产品&yen;100.00成功，获取奖金', '0', '0', '0.00', '您还没有爵位', '1465810984', '无爵位', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '67', '38', '10', '2', 'WD20160613270298', null, '1', '3.84', '3.84', '下属分销商分销测试业务产品&yen;100.00成功，获取奖金', '0', '0', '0.00', '您还没有爵位', '1465810984', '无爵位', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '68', '38', '12', '3', 'WD20160613424809', null, '1', '2.88', '2.88', '自己销售自己购买测试业务产品&yen;100.00成功，获取奖金', '0', '0', '0.00', '您还没有爵位', '1465810984', '无爵位', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '69', '39', '11', '1', 'WD20160613571907', null, '1', '9.60', '9.60', '下属分销商分销测试业务产品&yen;100.00成功，获取奖金', '0', '0', '0.00', '您还没有爵位', '1465811185', '无爵位', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '70', '39', '10', '2', 'WD20160613365363', null, '1', '3.84', '3.84', '下属分销商分销测试业务产品&yen;100.00成功，获取奖金', '0', '0', '0.00', '您还没有爵位', '1465811185', '无爵位', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '71', '39', '12', '3', 'WD20160613630036', null, '1', '2.88', '2.88', '自己销售自己购买测试业务产品&yen;100.00成功，获取奖金', '0', '0', '0.00', '您还没有爵位', '1465811185', '无爵位', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '72', '40', '11', '1', 'WD20160613063397', null, '1', '9.60', '9.60', '下属分销商分销测试业务产品&yen;100.00成功，获取奖金', '0', '0', '0.00', '您还没有爵位', '1465811490', '无爵位', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '73', '40', '10', '2', 'WD20160613084127', null, '1', '3.84', '3.84', '下属分销商分销测试业务产品&yen;100.00成功，获取奖金', '0', '0', '0.00', '您还没有爵位', '1465811490', '无爵位', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '74', '40', '12', '3', 'WD20160613144881', null, '1', '2.88', '2.88', '自己销售自己购买测试业务产品&yen;100.00成功，获取奖金', '0', '0', '0.00', '您还没有爵位', '1465811490', '无爵位', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '75', '41', '11', '1', 'WD20160613972986', null, '1', '9.60', '9.60', '下属分销商分销测试业务产品&yen;100.00成功，获取奖金', '0', '0', '0.00', '您还没有爵位', '1465811850', '无爵位', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '76', '41', '10', '2', 'WD20160613587135', null, '1', '3.84', '3.84', '下属分销商分销测试业务产品&yen;100.00成功，获取奖金', '0', '0', '0.00', '您还没有爵位', '1465811850', '无爵位', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '77', '41', '12', '3', 'WD20160613995172', null, '1', '2.88', '2.88', '自己销售自己购买测试业务产品&yen;100.00成功，获取奖金', '0', '0', '0.00', '您还没有爵位', '1465811850', '无爵位', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '78', '42', '11', '1', 'WD20160613928884', null, '1', '9.60', '9.60', '下属分销商分销测试业务产品&yen;100.00成功，获取奖金', '0', '2', '0.00', '您还没有爵位', '1465812005', '无爵位', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '79', '42', '10', '2', 'WD20160613170953', null, '1', '3.84', '3.84', '下属分销商分销测试业务产品&yen;100.00成功，获取奖金', '0', '2', '0.00', '您还没有爵位', '1465812005', '无爵位', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '80', '42', '12', '3', 'WD20160613527958', null, '1', '2.88', '2.88', '自己销售自己购买测试业务产品&yen;100.00成功，获取奖金', '0', '2', '0.00', '您还没有爵位', '1465812005', '无爵位', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '81', '43', '11', '1', 'WD20160613226817', null, '1', '9.60', '9.60', '下属分销商分销测试业务产品&yen;100.00成功，获取奖金', '0', '1', '0.00', '您还没有爵位', '1465812528', '无爵位', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '82', '43', '10', '2', 'WD20160613185707', null, '1', '3.84', '3.84', '下属分销商分销测试业务产品&yen;100.00成功，获取奖金', '0', '1', '0.00', '您还没有爵位', '1465812528', '无爵位', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '83', '43', '12', '3', 'WD20160613773350', null, '1', '2.88', '2.88', '自己销售自己购买测试业务产品&yen;100.00成功，获取奖金', '0', '1', '0.00', '您还没有爵位', '1465812528', '无爵位', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '84', '43', '11', '1', '2016061400448', '', '1', '9.60', '-9.60', '用户退款，减少佣金9.6元', '0', '1', '0.00', '您还没有爵位', '1465864958', '无爵位', null, '0', '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '85', '43', '10', '2', '2016061412995', '', '1', '3.84', '-3.84', '用户退款，减少佣金3.84元', '0', '1', '0.00', '您还没有爵位', '1465864959', '无爵位', null, '0', '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '86', '43', '12', '3', '2016061497800', '', '1', '2.88', '-2.88', '用户退款，减少佣金2.88元', '0', '1', '0.00', '您还没有爵位', '1465864959', '无爵位', null, '0', '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '87', '44', '11', '1', 'WD20160614466489', null, '1', '9.60', '9.60', '下属分销商分销测试业务产品&yen;100.00成功，获取奖金', '0', '2', '0.00', '您还没有爵位', '1465867057', '无爵位', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '88', '44', '10', '2', 'WD20160614843582', null, '1', '3.84', '3.84', '下属分销商分销测试业务产品&yen;100.00成功，获取奖金', '0', '2', '0.00', '您还没有爵位', '1465867057', '无爵位', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '89', '44', '12', '3', 'WD20160614119683', null, '1', '2.88', '2.88', '自己销售自己购买测试业务产品&yen;100.00成功，获取奖金', '0', '2', '0.00', '您还没有爵位', '1465867057', '无爵位', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '90', '45', '11', '1', 'WD20160614034360', null, '1', '9.60', '9.60', '下属分销商分销测试业务产品&yen;100.00成功，获取奖金', '0', '2', '0.00', '您还没有爵位', '1465867765', '无爵位', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '91', '45', '10', '2', 'WD20160614689670', null, '1', '3.84', '3.84', '下属分销商分销测试业务产品&yen;100.00成功，获取奖金', '0', '2', '0.00', '您还没有爵位', '1465867765', '无爵位', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '92', '45', '12', '3', 'WD20160614372815', null, '1', '2.88', '2.88', '自己销售自己购买测试业务产品&yen;100.00成功，获取奖金', '0', '2', '0.00', '您还没有爵位', '1465867765', '无爵位', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '93', '46', '11', '1', 'WD20160614994462', null, '1', '9.60', '9.60', '下属分销商分销测试业务产品&yen;100.00成功，获取奖金', '0', '1', '0.00', '您还没有爵位', '1465868022', '无爵位', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '94', '46', '10', '2', 'WD20160614489083', null, '1', '3.84', '3.84', '下属分销商分销测试业务产品&yen;100.00成功，获取奖金', '0', '1', '0.00', '您还没有爵位', '1465868022', '无爵位', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '95', '46', '12', '3', 'WD20160614722890', null, '1', '2.88', '2.88', '自己销售自己购买测试业务产品&yen;100.00成功，获取奖金', '0', '1', '0.00', '您还没有爵位', '1465868022', '无爵位', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '96', '47', '11', '1', 'WD20160614522824', null, '1', '9.60', '9.60', '下属分销商分销测试业务产品&yen;100.00成功，获取奖金', '0', '2', '0.00', '您还没有爵位', '1465868264', '无爵位', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '97', '47', '10', '2', 'WD20160614167441', null, '1', '3.84', '3.84', '下属分销商分销测试业务产品&yen;100.00成功，获取奖金', '0', '2', '0.00', '您还没有爵位', '1465868264', '无爵位', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '98', '47', '12', '3', 'WD20160614763977', null, '1', '2.88', '2.88', '自己销售自己购买测试业务产品&yen;100.00成功，获取奖金', '0', '2', '0.00', '您还没有爵位', '1465868264', '无爵位', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '99', '48', '13', '1', 'WD20160614355401', null, '1', '2.88', '2.88', '自己销售自己购买测试业务产品&yen;100.00成功，获取奖金', '0', '2', '0.00', '您还没有爵位', '1465870064', '无爵位', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '100', '49', '13', '1', 'WD20160614956594', null, '1', '2.88', '2.88', '自己销售自己购买测试业务产品&yen;100.00成功，获取奖金', '0', '0', '0.00', '您还没有爵位', '1465871170', '无爵位', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '101', '50', '13', '1', 'WD20160614868485', null, '1', '2.88', '2.88', '自己销售自己购买测试业务产品&yen;100.00成功，获取奖金', '0', '0', '0.00', '您还没有爵位', '1465871280', '无爵位', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '102', '51', '13', '1', 'WD20160614039506', null, '1', '2.88', '2.88', '自己销售自己购买测试业务产品&yen;100.00成功，获取奖金', '0', '2', '0.00', '您还没有爵位', '1465874259', '无爵位', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '103', '52', '14', '1', 'WD20160615654475', null, '1', '0.00', '0.00', '自己销售自己购买测试业务产品&yen;100.00成功，获取奖金', '0', '2', '0.00', '您还没有爵位', '1465957204', '无爵位', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '104', '53', '14', '1', 'WD20160615228492', null, '1', '2.88', '2.88', '自己销售自己购买测试业务产品&yen;100.00成功，获取奖金', '0', '2', '0.00', '您还没有爵位', '1465957587', '无爵位', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '105', '54', '10', '1', 'WD20160615940795', null, '1', '0.00', '0.00', '自己销售自己购买测试业务产品&yen;100.00成功，获取奖金', '0', '0', '0.00', '您还没有爵位', '1465960933', '无爵位', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '106', '61', '10', '1', 'WD20160615971140', null, '1', '2.88', '2.88', '自己销售自己购买测试业务产品&yen;100.00成功，获取奖金', '0', '0', '0.00', '您还没有爵位', '1465961949', '无爵位', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '107', '67', '10', '1', 'WD20160615025954', null, '1', '2.88', '2.88', '自己销售自己购买测试业务产品&yen;100.00成功，获取奖金', '0', '2', '0.00', '您还没有爵位', '1465966410', '无爵位', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '108', '68', '11', '1', 'WD20160615793141', null, '1', '9.60', '9.60', '下属分销商分销测试业务产品&yen;100.00成功，获取奖金', '0', '2', '0.00', '您还没有爵位', '1465966716', '无爵位', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '109', '68', '10', '2', 'WD20160615083605', null, '1', '3.84', '3.84', '下属分销商分销测试业务产品&yen;100.00成功，获取奖金', '0', '2', '0.00', '您还没有爵位', '1465966716', '无爵位', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '110', '68', '12', '3', 'WD20160615490618', null, '1', '2.88', '2.88', '自己销售自己购买测试业务产品&yen;100.00成功，获取奖金', '0', '2', '0.00', '您还没有爵位', '1465966716', '无爵位', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '111', '69', '2', '1', 'WD20160616699518', null, '2', '2.88', '5.76', '自己销售自己购买测试业务产品&yen;100.00成功，获取奖金', '0', '2', '0.00', '您还没有爵位', '1466042623', '无爵位', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '112', '70', '2', '1', 'WD20160616398843', null, '3', '3.60', '10.80', '自己销售自己购买苹果手机&yen;200.00成功，获取奖金', '0', '0', '0.00', '您还没有爵位', '1466042624', '无爵位', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '113', '71', '2', '1', 'WD20160616135436', null, '2', '3.60', '7.20', '自己销售自己购买苹果手机&yen;200.00成功，获取奖金', '0', '0', '0.00', '您还没有爵位', '1466042697', '无爵位', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '114', '72', '2', '1', 'WD20160616554910', null, '1', '0.00', '0.00', '自己销售自己购买三星手机&yen;100.00成功，获取奖金', '0', '0', '0.00', '您还没有爵位', '1466042697', '无爵位', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '115', '73', '2', '1', 'WD20160616378957', null, '2', '2.88', '5.76', '自己销售自己购买测试业务产品&yen;100.00成功，获取奖金', '0', '2', '0.00', '您还没有爵位', '1466043252', '无爵位', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '116', '74', '2', '1', 'WD20160616512510', null, '2', '2.88', '5.76', '自己销售自己购买测试业务产品&yen;100.00成功，获取奖金', '0', '2', '0.00', '您还没有爵位', '1466043402', '无爵位', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '117', '75', '2', '1', 'WD20160616162460', null, '2', '2.88', '5.76', '自己销售自己购买测试业务产品&yen;100.00成功，获取奖金', '0', '2', '0.00', '您还没有爵位', '1466043632', '无爵位', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '118', '76', '2', '1', 'WD20160616536323', null, '1', '2.88', '2.88', '自己销售自己购买测试业务产品&yen;100.00成功，获取奖金', '0', '0', '0.00', '您还没有爵位', '1466043970', '无爵位', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '119', '77', '2', '1', 'WD20160616772870', null, '1', '2.88', '2.88', '自己销售自己购买测试业务产品&yen;100.00成功，获取奖金', '0', '0', '0.00', '您还没有爵位', '1466044465', '无爵位', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '120', '78', '2', '1', 'WD20160616054619', null, '1', '2.88', '2.88', '自己销售自己购买测试业务产品&yen;100.00成功，获取奖金', '0', '0', '0.00', '您还没有爵位', '1466044480', '无爵位', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '121', '79', '2', '1', 'WD20160616174570', null, '1', '2.88', '2.88', '自己销售自己购买测试业务产品&yen;100.00成功，获取奖金', '0', '2', '0.00', '您还没有爵位', '1466044694', '无爵位', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '122', '80', '2', '1', 'WD20160616073487', null, '1', '2.88', '2.88', '自己销售自己购买测试业务产品&yen;100.00成功，获取奖金', '0', '2', '0.00', '您还没有爵位', '1466058977', '无爵位', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '123', '81', '10', '1', 'WD20160617974393', null, '1', '0.48', '0.48', '自己销售自己购买测试业务产品&yen;100.00成功，获取奖金', '0', '2', '0.00', '您还没有爵位', '1466133854', '无爵位', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '124', '82', '10', '1', 'WD20160617424322', null, '1', '0.48', '0.48', '自己销售自己购买测试业务产品&yen;100.00成功，获取奖金', '0', '2', '0.00', '您还没有爵位', '1466134315', '无爵位', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '125', '83', '10', '1', 'WD20160617426804', null, '1', '1.44', '1.44', '自己销售自己购买测试业务产品&yen;100.00成功，获取奖金', '0', '2', '0.00', '您还没有爵位', '1466149319', '无爵位', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '129', '85', '11', '1', 'WD20160617007193', null, '1', '4.80', '4.80', '下属分销商分销测试业务产品&yen;100.00成功，获取奖金', '0', '1', '0.00', '您还没有爵位', '1466154795', '无爵位', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '130', '85', '10', '2', 'WD20160617602835', null, '1', '1.92', '1.92', '下属分销商分销测试业务产品&yen;100.00成功，获取奖金', '0', '1', '0.00', '您还没有爵位', '1466154795', '无爵位', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '131', '85', '12', '3', 'WD20160617839134', null, '1', '1.44', '1.44', '自己销售自己购买测试业务产品&yen;100.00成功，获取奖金', '0', '1', '0.00', '您还没有爵位', '1466154795', '无爵位', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '132', '86', '2', '1', 'WD20160618487194', null, '1', '1.44', '1.44', '自己销售自己购买测试业务产品&yen;100.00成功，获取奖金', '0', '2', '0.00', '您还没有爵位', '1466216570', '无爵位', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '133', '87', '2', '1', 'WD20160618377167', null, '1', '1.44', '1.44', '自己销售自己购买测试业务产品&yen;100.00成功，获取奖金', '0', '2', '0.00', '您还没有爵位', '1466217471', '无爵位', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '134', '88', '2', '1', 'WD20160618274459', null, '1', '1.44', '1.44', '自己销售自己购买测试业务产品&yen;100.00成功，获取奖金', '0', '2', '0.00', '您还没有爵位', '1466218104', '无爵位', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '135', '89', '2', '1', 'WD20160618647064', null, '1', '1.44', '1.44', '自己销售自己购买测试业务产品&yen;100.00成功，获取奖金', '0', '1', '0.00', '您还没有爵位', '1466222200', '无爵位', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '136', '90', '11', '1', 'WD20160620179390', null, '1', '4.80', '4.80', '下属分销商分销测试业务产品&yen;100.00成功，获取奖金', '0', '1', '0.00', '皇冠奖金', '1466389466', '皇冠', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '137', '90', '10', '2', 'WD20160620341163', null, '1', '1.92', '1.92', '下属分销商分销测试业务产品&yen;100.00成功，获取奖金', '0', '1', '0.00', '皇冠奖金', '1466389466', '皇冠', null, null, '0');
-INSERT INTO `distribute_account_record` VALUES ('pl2hu3uczz', '138', '90', '12', '3', 'WD20160620856654', null, '1', '1.44', '1.44', '自己销售自己购买测试业务产品&yen;100.00成功，获取奖金', '0', '1', '0.00', '皇冠奖金', '1466389466', '皇冠', null, null, '0');
 
 -- ----------------------------
--- Table structure for distribute_agent_areas
+-- Table structure for `distribute_agent_areas`
 -- ----------------------------
 DROP TABLE IF EXISTS `distribute_agent_areas`;
 CREATE TABLE `distribute_agent_areas` (
@@ -4383,7 +4189,7 @@ CREATE TABLE `distribute_agent_areas` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for distribute_agent_rec
+-- Table structure for `distribute_agent_rec`
 -- ----------------------------
 DROP TABLE IF EXISTS `distribute_agent_rec`;
 CREATE TABLE `distribute_agent_rec` (
@@ -4392,7 +4198,7 @@ CREATE TABLE `distribute_agent_rec` (
   `Account_ID` int(10) DEFAULT '0',
   `Real_Name` varchar(400) DEFAULT NULL COMMENT '真实姓名',
   `Account_Mobile` varchar(11) DEFAULT NULL,
-  `Record_Money` float(10,2) DEFAULT NULL,
+  `Record_Money` decimal(10,2) DEFAULT NULL,
   `Record_Type` tinyint(1) DEFAULT '0' COMMENT '代理类型 1 省代理 2城市代理 3县（区）代理',
   `area_id` int(10) DEFAULT NULL COMMENT '代理地区ID',
   `Record_CreateTime` int(10) DEFAULT NULL,
@@ -4410,7 +4216,7 @@ CREATE TABLE `distribute_agent_rec` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for distribute_config
+-- Table structure for `distribute_config`
 -- ----------------------------
 DROP TABLE IF EXISTS `distribute_config`;
 CREATE TABLE `distribute_config` (
@@ -4454,16 +4260,17 @@ CREATE TABLE `distribute_config` (
   `Distribute_ShopOpen` tinyint(1) DEFAULT '0' COMMENT '成为分销商才能进入商城 0 关闭 1 开启',
   `Salesman` int(10) DEFAULT '0' COMMENT '业务员限制',
   `Salesman_ImgPath` varchar(255) DEFAULT '',
+  `TxCustomize` tinyint(1) DEFAULT '1' COMMENT '提现审核开关',
+  `Withdraw_Switch` tinyint(3) DEFAULT '1' COMMENT '提现开关：1开启0关闭',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=302 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of distribute_config
 -- ----------------------------
-INSERT INTO `distribute_config` VALUES ('301', 'pl2hu3uczz', '3', '3', '1', '1', '0', '0', '', '0', '0', '0', '1', '', '{\"sha\":{\"1\":{\"name\":\"铜牌\",\"Province\":\"0\",\"Level\":\"391\",\"Protitle\":\"1\",\"Selfpro\":\"0\",\"Teampro\":\"0\",\"price\":\"0\"},\"2\":{\"name\":\"银牌\",\"Province\":\"0\",\"Level\":\"391\",\"Protitle\":\"0\",\"Selfpro\":\"0\",\"Teampro\":\"0\",\"price\":\"0\"},\"3\":{\"name\":\"金牌\",\"Province\":\"0\",\"Level\":\"391\",\"Protitle\":\"0\",\"Selfpro\":\"0\",\"Teampro\":\"0\",\"price\":\"0\"}},\"Shaenable\":\"1\"}', '0', '0', '/static/api/distribute/images/qrcode_bg.jpg', '/static/api/distribute/images/apply_distribute.png', '0', '0.00', '0', '', '0', '', '0', '', '0.00', '0.00', '{\"1\":{\"Name\":\"皇冠\",\"Consume\":\"0\",\"Sales_Self\":\"0\",\"Sales_Group\":\"0\",\"Bonus\":\"0\",\"ImgPath\":\"\"},\"2\":{\"Name\":\"\",\"Consume\":\"\",\"Sales_Self\":\"\",\"Sales_Group\":\"\",\"Bonus\":\"\",\"ImgPath\":\"\"},\"3\":{\"Name\":\"\",\"Consume\":\"\",\"Sales_Self\":\"\",\"Sales_Group\":\"\",\"Bonus\":\"\",\"ImgPath\":\"\"},\"4\":{\"Name\":\"\",\"Consume\":\"\",\"Sales_Self\":\"\",\"Sales_Group\":\"\",\"Bonus\":\"\",\"ImgPath\":\"\"}}', '2', '1', null, '0', '', '', '0', '0', '10', '');
 
 -- ----------------------------
--- Table structure for distribute_fanben_record
+-- Table structure for `distribute_fanben_record`
 -- ----------------------------
 DROP TABLE IF EXISTS `distribute_fanben_record`;
 CREATE TABLE `distribute_fanben_record` (
@@ -4481,7 +4288,7 @@ CREATE TABLE `distribute_fanben_record` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for distribute_fuxiao
+-- Table structure for `distribute_fuxiao`
 -- ----------------------------
 DROP TABLE IF EXISTS `distribute_fuxiao`;
 CREATE TABLE `distribute_fuxiao` (
@@ -4505,7 +4312,7 @@ CREATE TABLE `distribute_fuxiao` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for distribute_level
+-- Table structure for `distribute_level`
 -- ----------------------------
 DROP TABLE IF EXISTS `distribute_level`;
 CREATE TABLE `distribute_level` (
@@ -4528,10 +4335,9 @@ CREATE TABLE `distribute_level` (
 -- ----------------------------
 -- Records of distribute_level
 -- ----------------------------
-INSERT INTO `distribute_level` VALUES ('391', 'pl2hu3uczz', '普通分销商', '0', '3', '', '{\"1\":0,\"2\":0,\"3\":0}', null, '1464431894', '', '0', '', '');
 
 -- ----------------------------
--- Table structure for distribute_order
+-- Table structure for `distribute_order`
 -- ----------------------------
 DROP TABLE IF EXISTS `distribute_order`;
 CREATE TABLE `distribute_order` (
@@ -4554,6 +4360,7 @@ CREATE TABLE `distribute_order` (
   `Order_CreateTime` int(10) DEFAULT '0' COMMENT '下单时间',
   `Order_Type` tinyint(1) DEFAULT '0' COMMENT '订单类型 0 购买级别  1 在线升级',
   `UpgradeDistributes` varchar(255) DEFAULT '' COMMENT '升级佣金明细',
+  `Order_Peas` int(11) DEFAULT '0' COMMENT '赠送豆豆',
   PRIMARY KEY (`Order_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -4562,7 +4369,7 @@ CREATE TABLE `distribute_order` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for distribute_order_record
+-- Table structure for `distribute_order_record`
 -- ----------------------------
 DROP TABLE IF EXISTS `distribute_order_record`;
 CREATE TABLE `distribute_order_record` (
@@ -4586,7 +4393,7 @@ CREATE TABLE `distribute_order_record` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for distribute_record
+-- Table structure for `distribute_record`
 -- ----------------------------
 DROP TABLE IF EXISTS `distribute_record`;
 CREATE TABLE `distribute_record` (
@@ -4611,97 +4418,9 @@ CREATE TABLE `distribute_record` (
 -- ----------------------------
 -- Records of distribute_record
 -- ----------------------------
-INSERT INTO `distribute_record` VALUES ('pl2hu3uczz', '1', '3', '3', '1', '1', '100.00', '1', '0.00', null, null, '1', '1464849028', null, '1');
-INSERT INTO `distribute_record` VALUES ('pl2hu3uczz', '3', '2', '2', '3', '1', '100.00', '1', '0.00', null, null, '0', '1464938256', null, '1');
-INSERT INTO `distribute_record` VALUES ('pl2hu3uczz', '4', '2', '2', '4', '1', '100.00', '1', '0.00', null, null, '0', '1464938309', null, '1');
-INSERT INTO `distribute_record` VALUES ('pl2hu3uczz', '5', '2', '2', '5', '1', '100.00', '1', '0.00', null, null, '0', '1464938335', null, '1');
-INSERT INTO `distribute_record` VALUES ('pl2hu3uczz', '6', '2', '2', '6', '1', '100.00', '1', '0.00', null, null, '0', '1464938372', null, '1');
-INSERT INTO `distribute_record` VALUES ('pl2hu3uczz', '7', '2', '2', '7', '1', '100.00', '1', '0.00', null, null, '0', '1464938424', null, '1');
-INSERT INTO `distribute_record` VALUES ('pl2hu3uczz', '8', '2', '2', '8', '1', '100.00', '1', '0.00', null, null, '0', '1464938471', null, '1');
-INSERT INTO `distribute_record` VALUES ('pl2hu3uczz', '9', '2', '2', '9', '1', '100.00', '1', '0.00', null, null, '0', '1464938513', null, '1');
-INSERT INTO `distribute_record` VALUES ('pl2hu3uczz', '10', '2', '2', '10', '1', '100.00', '1', '0.00', null, null, '0', '1464938546', null, '1');
-INSERT INTO `distribute_record` VALUES ('pl2hu3uczz', '11', '2', '2', '11', '1', '100.00', '1', '0.00', null, null, '0', '1464938559', null, '1');
-INSERT INTO `distribute_record` VALUES ('pl2hu3uczz', '12', '2', '2', '12', '1', '100.00', '1', '0.00', null, null, '0', '1464945377', null, '1');
-INSERT INTO `distribute_record` VALUES ('pl2hu3uczz', '13', '3', '3', '13', '1', '100.00', '1', '0.00', null, null, '0', '1465177071', null, '1');
-INSERT INTO `distribute_record` VALUES ('pl2hu3uczz', '14', '2', '2', '15', '2', '200.00', '1', '0.00', null, null, '0', '1465350853', null, '1');
-INSERT INTO `distribute_record` VALUES ('pl2hu3uczz', '15', '9', '9', '16', '1', '100.00', '1', '0.00', null, null, '1', '1465694977', null, '1');
-INSERT INTO `distribute_record` VALUES ('pl2hu3uczz', '16', '9', '9', '17', '2', '200.00', '1', '0.00', null, null, '0', '1465714281', null, '1');
-INSERT INTO `distribute_record` VALUES ('pl2hu3uczz', '17', '12', '12', '18', '3', '100.00', '1', '0.00', null, null, '0', '1465804778', null, '8');
-INSERT INTO `distribute_record` VALUES ('pl2hu3uczz', '18', '12', '12', '19', '3', '100.00', '1', '0.00', null, null, '0', '1465805019', null, '8');
-INSERT INTO `distribute_record` VALUES ('pl2hu3uczz', '19', '12', '12', '20', '3', '100.00', '1', '0.00', null, null, '0', '1465805040', null, '8');
-INSERT INTO `distribute_record` VALUES ('pl2hu3uczz', '20', '12', '12', '21', '3', '100.00', '1', '0.00', null, null, '0', '1465805775', null, '8');
-INSERT INTO `distribute_record` VALUES ('pl2hu3uczz', '21', '12', '12', '22', '3', '100.00', '1', '0.00', null, null, '0', '1465806640', null, '8');
-INSERT INTO `distribute_record` VALUES ('pl2hu3uczz', '22', '12', '12', '23', '3', '100.00', '1', '0.00', null, null, '0', '1465806880', null, '8');
-INSERT INTO `distribute_record` VALUES ('pl2hu3uczz', '23', '12', '12', '24', '3', '100.00', '1', '0.00', null, null, '0', '1465807054', null, '8');
-INSERT INTO `distribute_record` VALUES ('pl2hu3uczz', '24', '12', '12', '25', '3', '100.00', '1', '0.00', null, null, '0', '1465808378', null, '8');
-INSERT INTO `distribute_record` VALUES ('pl2hu3uczz', '25', '12', '12', '26', '3', '100.00', '1', '0.00', null, null, '0', '1465809904', null, '8');
-INSERT INTO `distribute_record` VALUES ('pl2hu3uczz', '26', '12', '12', '27', '3', '100.00', '1', '0.00', null, null, '0', '1465810158', null, '8');
-INSERT INTO `distribute_record` VALUES ('pl2hu3uczz', '27', '12', '12', '28', '3', '100.00', '1', '0.00', null, null, '0', '1465810214', null, '8');
-INSERT INTO `distribute_record` VALUES ('pl2hu3uczz', '28', '12', '12', '29', '3', '100.00', '1', '0.00', null, null, '0', '1465810308', null, '8');
-INSERT INTO `distribute_record` VALUES ('pl2hu3uczz', '29', '12', '12', '30', '3', '100.00', '1', '0.00', null, null, '0', '1465810336', null, '8');
-INSERT INTO `distribute_record` VALUES ('pl2hu3uczz', '30', '12', '12', '31', '3', '100.00', '2', '0.00', null, null, '0', '1465810377', null, '8');
-INSERT INTO `distribute_record` VALUES ('pl2hu3uczz', '31', '12', '12', '32', '3', '100.00', '1', '0.00', null, null, '0', '1465810420', null, '8');
-INSERT INTO `distribute_record` VALUES ('pl2hu3uczz', '32', '12', '12', '33', '2', '200.00', '1', '0.00', null, null, '0', '1465810475', null, '1');
-INSERT INTO `distribute_record` VALUES ('pl2hu3uczz', '33', '12', '12', '34', '2', '200.00', '1', '0.00', null, null, '0', '1465810513', null, '1');
-INSERT INTO `distribute_record` VALUES ('pl2hu3uczz', '34', '12', '12', '35', '3', '100.00', '1', '0.00', null, null, '0', '1465810567', null, '8');
-INSERT INTO `distribute_record` VALUES ('pl2hu3uczz', '35', '12', '12', '36', '3', '100.00', '1', '0.00', null, null, '0', '1465810694', null, '8');
-INSERT INTO `distribute_record` VALUES ('pl2hu3uczz', '36', '12', '12', '37', '3', '100.00', '1', '0.00', null, null, '0', '1465810826', null, '8');
-INSERT INTO `distribute_record` VALUES ('pl2hu3uczz', '37', '12', '12', '38', '3', '100.00', '1', '0.00', null, null, '0', '1465810920', null, '8');
-INSERT INTO `distribute_record` VALUES ('pl2hu3uczz', '38', '12', '12', '39', '3', '100.00', '1', '0.00', null, null, '0', '1465810984', null, '8');
-INSERT INTO `distribute_record` VALUES ('pl2hu3uczz', '39', '12', '12', '40', '3', '100.00', '1', '0.00', null, null, '0', '1465811185', null, '8');
-INSERT INTO `distribute_record` VALUES ('pl2hu3uczz', '40', '12', '12', '41', '3', '100.00', '1', '0.00', null, null, '0', '1465811490', null, '8');
-INSERT INTO `distribute_record` VALUES ('pl2hu3uczz', '41', '12', '12', '42', '3', '100.00', '1', '0.00', null, null, '0', '1465811850', null, '8');
-INSERT INTO `distribute_record` VALUES ('pl2hu3uczz', '42', '12', '12', '43', '3', '100.00', '1', '0.00', null, null, '1', '1465812005', null, '8');
-INSERT INTO `distribute_record` VALUES ('pl2hu3uczz', '43', '12', '12', '44', '3', '100.00', '1', '0.00', null, null, '0', '1465812528', null, '8');
-INSERT INTO `distribute_record` VALUES ('pl2hu3uczz', '44', '12', '12', '45', '3', '100.00', '1', '0.00', null, null, '1', '1465867057', null, '8');
-INSERT INTO `distribute_record` VALUES ('pl2hu3uczz', '45', '12', '12', '46', '3', '100.00', '1', '0.00', null, null, '1', '1465867765', null, '8');
-INSERT INTO `distribute_record` VALUES ('pl2hu3uczz', '46', '12', '12', '47', '3', '100.00', '1', '0.00', null, null, '0', '1465868022', null, '8');
-INSERT INTO `distribute_record` VALUES ('pl2hu3uczz', '47', '12', '12', '48', '3', '100.00', '1', '0.00', null, null, '1', '1465868264', null, '8');
-INSERT INTO `distribute_record` VALUES ('pl2hu3uczz', '48', '13', '13', '49', '3', '100.00', '1', '0.00', null, null, '1', '1465870064', null, '8');
-INSERT INTO `distribute_record` VALUES ('pl2hu3uczz', '49', '13', '13', '50', '3', '100.00', '1', '0.00', null, null, '0', '1465871170', null, '8');
-INSERT INTO `distribute_record` VALUES ('pl2hu3uczz', '50', '13', '13', '51', '3', '100.00', '1', '0.00', null, null, '0', '1465871280', null, '8');
-INSERT INTO `distribute_record` VALUES ('pl2hu3uczz', '51', '13', '13', '52', '3', '100.00', '1', '0.00', null, null, '1', '1465874259', null, '8');
-INSERT INTO `distribute_record` VALUES ('pl2hu3uczz', '52', '14', '14', '53', '3', '100.00', '1', '0.00', null, null, '1', '1465957204', null, '8');
-INSERT INTO `distribute_record` VALUES ('pl2hu3uczz', '53', '14', '14', '54', '3', '100.00', '1', '0.00', null, null, '1', '1465957587', null, '8');
-INSERT INTO `distribute_record` VALUES ('pl2hu3uczz', '54', '10', '10', '55', '3', '100.00', '1', '0.00', null, null, '0', '1465960933', null, '8');
-INSERT INTO `distribute_record` VALUES ('pl2hu3uczz', '55', '10', '10', '56', '3', '100.00', '1', '0.00', null, null, '0', '1465961028', null, '8');
-INSERT INTO `distribute_record` VALUES ('pl2hu3uczz', '56', '10', '10', '57', '3', '100.00', '1', '0.00', null, null, '0', '1465961110', null, '8');
-INSERT INTO `distribute_record` VALUES ('pl2hu3uczz', '57', '10', '10', '58', '3', '100.00', '1', '0.00', null, null, '0', '1465961373', null, '8');
-INSERT INTO `distribute_record` VALUES ('pl2hu3uczz', '58', '10', '10', '59', '3', '100.00', '1', '0.00', null, null, '0', '1465961466', null, '8');
-INSERT INTO `distribute_record` VALUES ('pl2hu3uczz', '59', '10', '10', '60', '3', '100.00', '1', '0.00', null, null, '0', '1465961610', null, '8');
-INSERT INTO `distribute_record` VALUES ('pl2hu3uczz', '60', '10', '10', '61', '3', '100.00', '1', '0.00', null, null, '0', '1465961687', null, '8');
-INSERT INTO `distribute_record` VALUES ('pl2hu3uczz', '61', '10', '10', '62', '3', '100.00', '1', '0.00', null, null, '0', '1465961949', null, '8');
-INSERT INTO `distribute_record` VALUES ('pl2hu3uczz', '62', '10', '10', '64', '3', '100.00', '1', '0.00', null, null, '0', '1465962422', null, '8');
-INSERT INTO `distribute_record` VALUES ('pl2hu3uczz', '63', '10', '10', '66', '3', '100.00', '1', '0.00', null, null, '0', '1465962737', null, '8');
-INSERT INTO `distribute_record` VALUES ('pl2hu3uczz', '64', '10', '10', '67', '3', '100.00', '1', '0.00', null, null, '0', '1465963091', null, '8');
-INSERT INTO `distribute_record` VALUES ('pl2hu3uczz', '65', '10', '10', '68', '3', '100.00', '1', '0.00', null, null, '0', '1465963169', null, '8');
-INSERT INTO `distribute_record` VALUES ('pl2hu3uczz', '66', '10', '10', '69', '3', '100.00', '1', '0.00', null, null, '0', '1465963240', null, '8');
-INSERT INTO `distribute_record` VALUES ('pl2hu3uczz', '67', '10', '10', '70', '3', '100.00', '1', '0.00', null, null, '1', '1465966410', null, '8');
-INSERT INTO `distribute_record` VALUES ('pl2hu3uczz', '68', '12', '12', '71', '3', '100.00', '1', '0.00', null, null, '1', '1465966716', null, '8');
-INSERT INTO `distribute_record` VALUES ('pl2hu3uczz', '69', '2', '2', '72', '3', '100.00', '2', '0.00', null, null, '1', '1466042623', null, '8');
-INSERT INTO `distribute_record` VALUES ('pl2hu3uczz', '70', '2', '2', '73', '2', '200.00', '3', '0.00', null, null, '0', '1466042624', null, '1');
-INSERT INTO `distribute_record` VALUES ('pl2hu3uczz', '71', '2', '2', '74', '2', '200.00', '2', '0.00', null, null, '0', '1466042697', null, '1');
-INSERT INTO `distribute_record` VALUES ('pl2hu3uczz', '72', '2', '2', '74', '1', '100.00', '1', '0.00', null, null, '0', '1466042697', null, '1');
-INSERT INTO `distribute_record` VALUES ('pl2hu3uczz', '73', '2', '2', '75', '3', '100.00', '2', '0.00', null, null, '1', '1466043252', null, '8');
-INSERT INTO `distribute_record` VALUES ('pl2hu3uczz', '74', '2', '2', '76', '3', '100.00', '2', '0.00', null, null, '1', '1466043402', null, '8');
-INSERT INTO `distribute_record` VALUES ('pl2hu3uczz', '75', '2', '2', '77', '3', '100.00', '2', '0.00', null, null, '1', '1466043631', null, '8');
-INSERT INTO `distribute_record` VALUES ('pl2hu3uczz', '76', '2', '2', '78', '3', '100.00', '1', '0.00', null, null, '0', '1466043970', null, '8');
-INSERT INTO `distribute_record` VALUES ('pl2hu3uczz', '77', '2', '2', '79', '3', '100.00', '1', '0.00', null, null, '0', '1466044465', null, '8');
-INSERT INTO `distribute_record` VALUES ('pl2hu3uczz', '78', '2', '2', '80', '3', '100.00', '1', '0.00', null, null, '0', '1466044480', null, '8');
-INSERT INTO `distribute_record` VALUES ('pl2hu3uczz', '79', '2', '2', '81', '3', '100.00', '1', '0.00', null, null, '1', '1466044694', null, '8');
-INSERT INTO `distribute_record` VALUES ('pl2hu3uczz', '80', '2', '2', '82', '3', '100.00', '1', '0.00', null, null, '1', '1466058976', null, '8');
-INSERT INTO `distribute_record` VALUES ('pl2hu3uczz', '81', '10', '10', '83', '3', '100.00', '1', '0.00', null, null, '1', '1466133854', null, '8');
-INSERT INTO `distribute_record` VALUES ('pl2hu3uczz', '82', '10', '10', '84', '3', '100.00', '1', '0.00', null, null, '1', '1466134315', null, '8');
-INSERT INTO `distribute_record` VALUES ('pl2hu3uczz', '83', '10', '10', '85', '3', '100.00', '1', '0.00', null, null, '1', '1466149319', null, '8');
-INSERT INTO `distribute_record` VALUES ('pl2hu3uczz', '85', '12', '12', '87', '3', '100.00', '1', '0.00', null, null, '0', '1466154795', null, '8');
-INSERT INTO `distribute_record` VALUES ('pl2hu3uczz', '86', '2', '2', '88', '3', '100.00', '1', '0.00', null, null, '1', '1466216570', null, '8');
-INSERT INTO `distribute_record` VALUES ('pl2hu3uczz', '87', '2', '2', '89', '3', '100.00', '1', '0.00', null, null, '1', '1466217471', null, '8');
-INSERT INTO `distribute_record` VALUES ('pl2hu3uczz', '88', '2', '2', '90', '3', '100.00', '1', '0.00', null, null, '1', '1466218104', null, '8');
-INSERT INTO `distribute_record` VALUES ('pl2hu3uczz', '89', '2', '2', '91', '3', '100.00', '1', '0.00', null, null, '0', '1466222200', null, '8');
-INSERT INTO `distribute_record` VALUES ('pl2hu3uczz', '90', '12', '12', '92', '3', '100.00', '1', '0.00', null, null, '0', '1466389466', null, '8');
 
 -- ----------------------------
--- Table structure for distribute_sales_record
+-- Table structure for `distribute_sales_record`
 -- ----------------------------
 DROP TABLE IF EXISTS `distribute_sales_record`;
 CREATE TABLE `distribute_sales_record` (
@@ -4727,93 +4446,9 @@ CREATE TABLE `distribute_sales_record` (
 -- ----------------------------
 -- Records of distribute_sales_record
 -- ----------------------------
-INSERT INTO `distribute_sales_record` VALUES ('1', 'pl2hu3uczz', '12', '8', '1', '43', '3', '100.00', '1', '4.00', '1级，', '1', '0', '1465812005', null, '0');
-INSERT INTO `distribute_sales_record` VALUES ('2', 'pl2hu3uczz', '11', '8', '1', '43', '3', '100.00', '1', '2.40', '2级，', '2', '0', '1465812005', null, '0');
-INSERT INTO `distribute_sales_record` VALUES ('3', 'pl2hu3uczz', '10', '8', '1', '43', '3', '100.00', '1', '1.60', '3级，', '3', '0', '1465812005', null, '0');
-INSERT INTO `distribute_sales_record` VALUES ('4', 'pl2hu3uczz', '12', '8', '0', '44', '3', '100.00', '1', '2.40', '1级，', '1', '0', '1465812528', null, '0');
-INSERT INTO `distribute_sales_record` VALUES ('5', 'pl2hu3uczz', '11', '8', '0', '44', '3', '100.00', '1', '1.44', '2级，', '2', '0', '1465812528', null, '0');
-INSERT INTO `distribute_sales_record` VALUES ('6', 'pl2hu3uczz', '10', '8', '0', '44', '3', '100.00', '1', '0.96', '3级，', '3', '0', '1465812528', null, '0');
-INSERT INTO `distribute_sales_record` VALUES ('7', 'pl2hu3uczz', '12', '8', '1', '45', '3', '100.00', '1', '2.40', '1级，', '1', '0', '1465867057', null, '0');
-INSERT INTO `distribute_sales_record` VALUES ('8', 'pl2hu3uczz', '11', '8', '1', '45', '3', '100.00', '1', '1.44', '2级，', '2', '0', '1465867057', null, '0');
-INSERT INTO `distribute_sales_record` VALUES ('9', 'pl2hu3uczz', '10', '8', '1', '45', '3', '100.00', '1', '0.96', '3级，', '3', '0', '1465867057', null, '0');
-INSERT INTO `distribute_sales_record` VALUES ('10', 'pl2hu3uczz', '12', '8', '1', '46', '3', '100.00', '1', '2.40', '1级，', '1', '0', '1465867765', null, '0');
-INSERT INTO `distribute_sales_record` VALUES ('11', 'pl2hu3uczz', '11', '8', '1', '46', '3', '100.00', '1', '1.44', '2级，', '2', '0', '1465867765', null, '0');
-INSERT INTO `distribute_sales_record` VALUES ('12', 'pl2hu3uczz', '10', '8', '1', '46', '3', '100.00', '1', '0.96', '3级，', '3', '0', '1465867765', null, '0');
-INSERT INTO `distribute_sales_record` VALUES ('13', 'pl2hu3uczz', '12', '8', '1', '47', '3', '100.00', '1', '2.40', '1级，', '1', '0', '1465868022', null, '0');
-INSERT INTO `distribute_sales_record` VALUES ('14', 'pl2hu3uczz', '11', '8', '1', '47', '3', '100.00', '1', '1.44', '2级，', '2', '0', '1465868022', null, '0');
-INSERT INTO `distribute_sales_record` VALUES ('15', 'pl2hu3uczz', '10', '8', '1', '47', '3', '100.00', '1', '0.96', '3级，', '3', '0', '1465868022', null, '0');
-INSERT INTO `distribute_sales_record` VALUES ('16', 'pl2hu3uczz', '12', '8', '2', '48', '3', '100.00', '1', '2.40', '1级，', '1', '0', '1465868264', null, '0');
-INSERT INTO `distribute_sales_record` VALUES ('17', 'pl2hu3uczz', '11', '8', '2', '48', '3', '100.00', '1', '1.44', '2级，', '2', '0', '1465868264', null, '0');
-INSERT INTO `distribute_sales_record` VALUES ('18', 'pl2hu3uczz', '10', '8', '2', '48', '3', '100.00', '1', '0.96', '3级，', '3', '0', '1465868264', null, '0');
-INSERT INTO `distribute_sales_record` VALUES ('19', 'pl2hu3uczz', '12', '8', '2', '49', '3', '100.00', '1', '2.40', '1级，', '1', '0', '1465870064', null, '0');
-INSERT INTO `distribute_sales_record` VALUES ('20', 'pl2hu3uczz', '11', '8', '2', '49', '3', '100.00', '1', '1.44', '2级，', '2', '0', '1465870064', null, '0');
-INSERT INTO `distribute_sales_record` VALUES ('21', 'pl2hu3uczz', '10', '8', '2', '49', '3', '100.00', '1', '0.96', '3级，', '3', '0', '1465870064', null, '0');
-INSERT INTO `distribute_sales_record` VALUES ('22', 'pl2hu3uczz', '12', '8', '2', '52', '3', '100.00', '1', '2.40', '1级，', '1', '0', '1465874259', null, '0');
-INSERT INTO `distribute_sales_record` VALUES ('23', 'pl2hu3uczz', '11', '8', '2', '52', '3', '100.00', '1', '1.44', '2级，', '2', '0', '1465874259', null, '0');
-INSERT INTO `distribute_sales_record` VALUES ('24', 'pl2hu3uczz', '10', '8', '2', '52', '3', '100.00', '1', '0.96', '3级，', '3', '0', '1465874259', null, '0');
-INSERT INTO `distribute_sales_record` VALUES ('25', 'pl2hu3uczz', '12', '8', '2', '54', '3', '100.00', '1', '2.40', '1级，', '1', '0', '1465957587', null, '0');
-INSERT INTO `distribute_sales_record` VALUES ('26', 'pl2hu3uczz', '11', '8', '2', '54', '3', '100.00', '1', '1.44', '2级，', '2', '0', '1465957587', null, '0');
-INSERT INTO `distribute_sales_record` VALUES ('27', 'pl2hu3uczz', '10', '8', '2', '54', '3', '100.00', '1', '0.96', '3级，', '3', '0', '1465957587', null, '0');
-INSERT INTO `distribute_sales_record` VALUES ('28', 'pl2hu3uczz', '12', '8', '0', '62', '3', '100.00', '1', '2.40', '1级，', '1', '0', '1465961949', null, '0');
-INSERT INTO `distribute_sales_record` VALUES ('29', 'pl2hu3uczz', '11', '8', '0', '62', '3', '100.00', '1', '1.44', '2级，', '2', '0', '1465961949', null, '0');
-INSERT INTO `distribute_sales_record` VALUES ('30', 'pl2hu3uczz', '10', '8', '0', '62', '3', '100.00', '1', '0.96', '3级，', '3', '0', '1465961949', null, '0');
-INSERT INTO `distribute_sales_record` VALUES ('31', 'pl2hu3uczz', '12', '8', '2', '72', '3', '100.00', '2', '2.40', '1级，', '1', '0', '1466042624', null, '0');
-INSERT INTO `distribute_sales_record` VALUES ('32', 'pl2hu3uczz', '11', '8', '2', '72', '3', '100.00', '2', '1.44', '2级，', '2', '0', '1466042624', null, '0');
-INSERT INTO `distribute_sales_record` VALUES ('33', 'pl2hu3uczz', '10', '8', '2', '72', '3', '100.00', '2', '0.96', '3级，', '3', '0', '1466042624', null, '0');
-INSERT INTO `distribute_sales_record` VALUES ('34', 'pl2hu3uczz', '9', '1', '0', '73', '2', '200.00', '3', '3.00', '1级，', '1', '0', '1466042624', null, '0');
-INSERT INTO `distribute_sales_record` VALUES ('35', 'pl2hu3uczz', '9', '1', '0', '74', '2', '200.00', '2', '3.00', '1级，', '1', '0', '1466042697', null, '0');
-INSERT INTO `distribute_sales_record` VALUES ('36', 'pl2hu3uczz', '9', '1', '0', '74', '1', '100.00', '1', '0.00', '1级，', '1', '0', '1466042697', null, '0');
-INSERT INTO `distribute_sales_record` VALUES ('37', 'pl2hu3uczz', '12', '8', '2', '75', '3', '100.00', '2', '2.40', '1级，', '1', '0', '1466043252', null, '0');
-INSERT INTO `distribute_sales_record` VALUES ('38', 'pl2hu3uczz', '11', '8', '2', '75', '3', '100.00', '2', '1.44', '2级，', '2', '0', '1466043252', null, '0');
-INSERT INTO `distribute_sales_record` VALUES ('39', 'pl2hu3uczz', '10', '8', '2', '75', '3', '100.00', '2', '0.96', '3级，', '3', '0', '1466043252', null, '0');
-INSERT INTO `distribute_sales_record` VALUES ('40', 'pl2hu3uczz', '12', '8', '2', '76', '3', '100.00', '2', '2.40', '1级，', '1', '0', '1466043402', null, '0');
-INSERT INTO `distribute_sales_record` VALUES ('41', 'pl2hu3uczz', '11', '8', '2', '76', '3', '100.00', '2', '1.44', '2级，', '2', '0', '1466043402', null, '0');
-INSERT INTO `distribute_sales_record` VALUES ('42', 'pl2hu3uczz', '10', '8', '2', '76', '3', '100.00', '2', '0.96', '3级，', '3', '0', '1466043402', null, '0');
-INSERT INTO `distribute_sales_record` VALUES ('43', 'pl2hu3uczz', '12', '8', '2', '77', '3', '100.00', '2', '2.40', '1级，', '1', '0', '1466043632', null, '0');
-INSERT INTO `distribute_sales_record` VALUES ('44', 'pl2hu3uczz', '11', '8', '2', '77', '3', '100.00', '2', '1.44', '2级，', '2', '0', '1466043632', null, '0');
-INSERT INTO `distribute_sales_record` VALUES ('45', 'pl2hu3uczz', '10', '8', '2', '77', '3', '100.00', '2', '0.96', '3级，', '3', '0', '1466043632', null, '0');
-INSERT INTO `distribute_sales_record` VALUES ('46', 'pl2hu3uczz', '12', '8', '0', '78', '3', '100.00', '1', '2.40', '1级，', '1', '0', '1466043970', null, '0');
-INSERT INTO `distribute_sales_record` VALUES ('47', 'pl2hu3uczz', '11', '8', '0', '78', '3', '100.00', '1', '1.44', '2级，', '2', '0', '1466043970', null, '0');
-INSERT INTO `distribute_sales_record` VALUES ('48', 'pl2hu3uczz', '10', '8', '0', '78', '3', '100.00', '1', '0.96', '3级，', '3', '0', '1466043970', null, '0');
-INSERT INTO `distribute_sales_record` VALUES ('49', 'pl2hu3uczz', '12', '8', '2', '81', '3', '100.00', '1', '2.40', '1级，', '1', '0', '1466044694', null, '0');
-INSERT INTO `distribute_sales_record` VALUES ('50', 'pl2hu3uczz', '11', '8', '2', '81', '3', '100.00', '1', '1.44', '2级，', '2', '0', '1466044694', null, '0');
-INSERT INTO `distribute_sales_record` VALUES ('51', 'pl2hu3uczz', '10', '8', '2', '81', '3', '100.00', '1', '0.96', '3级，', '3', '0', '1466044694', null, '0');
-INSERT INTO `distribute_sales_record` VALUES ('52', 'pl2hu3uczz', '12', '8', '2', '82', '3', '100.00', '1', '2.40', '1级，', '1', '0', '1466058977', null, '0');
-INSERT INTO `distribute_sales_record` VALUES ('53', 'pl2hu3uczz', '11', '8', '2', '82', '3', '100.00', '1', '1.44', '2级，', '2', '0', '1466058977', null, '0');
-INSERT INTO `distribute_sales_record` VALUES ('54', 'pl2hu3uczz', '10', '8', '2', '82', '3', '100.00', '1', '0.96', '3级，', '3', '0', '1466058977', null, '0');
-INSERT INTO `distribute_sales_record` VALUES ('55', 'pl2hu3uczz', '12', '8', '2', '83', '3', '100.00', '1', '0.00', '1级，', '1', '0', '1466133854', null, '0');
-INSERT INTO `distribute_sales_record` VALUES ('56', 'pl2hu3uczz', '11', '8', '2', '83', '3', '100.00', '1', '0.00', '2级，', '2', '0', '1466133854', null, '0');
-INSERT INTO `distribute_sales_record` VALUES ('57', 'pl2hu3uczz', '10', '8', '2', '83', '3', '100.00', '1', '0.00', '3级，', '3', '0', '1466133854', null, '0');
-INSERT INTO `distribute_sales_record` VALUES ('58', 'pl2hu3uczz', '12', '8', '2', '84', '3', '100.00', '1', '0.00', '1级，', '1', '0', '1466134315', null, '0');
-INSERT INTO `distribute_sales_record` VALUES ('59', 'pl2hu3uczz', '11', '8', '2', '84', '3', '100.00', '1', '0.00', '2级，', '2', '0', '1466134315', null, '0');
-INSERT INTO `distribute_sales_record` VALUES ('60', 'pl2hu3uczz', '10', '8', '2', '84', '3', '100.00', '1', '0.00', '3级，', '3', '0', '1466134315', null, '0');
-INSERT INTO `distribute_sales_record` VALUES ('61', 'pl2hu3uczz', '12', '8', '2', '85', '3', '100.00', '1', '2.40', '1级，', '1', '0', '1466149319', null, '0');
-INSERT INTO `distribute_sales_record` VALUES ('62', 'pl2hu3uczz', '11', '8', '2', '85', '3', '100.00', '1', '1.44', '2级，', '2', '0', '1466149319', null, '0');
-INSERT INTO `distribute_sales_record` VALUES ('63', 'pl2hu3uczz', '10', '8', '2', '85', '3', '100.00', '1', '0.96', '3级，', '3', '0', '1466149319', null, '0');
-INSERT INTO `distribute_sales_record` VALUES ('64', 'pl2hu3uczz', '12', '8', '0', '86', '3', '100.00', '1', '2.40', '1级，', '1', '0', '1466154721', null, '0');
-INSERT INTO `distribute_sales_record` VALUES ('65', 'pl2hu3uczz', '11', '8', '0', '86', '3', '100.00', '1', '1.44', '2级，', '2', '0', '1466154721', null, '0');
-INSERT INTO `distribute_sales_record` VALUES ('66', 'pl2hu3uczz', '10', '8', '0', '86', '3', '100.00', '1', '0.96', '3级，', '3', '0', '1466154721', null, '0');
-INSERT INTO `distribute_sales_record` VALUES ('67', 'pl2hu3uczz', '12', '8', '1', '87', '3', '100.00', '1', '2.40', '1级，', '1', '0', '1466154795', null, '0');
-INSERT INTO `distribute_sales_record` VALUES ('68', 'pl2hu3uczz', '11', '8', '1', '87', '3', '100.00', '1', '1.44', '2级，', '2', '0', '1466154795', null, '0');
-INSERT INTO `distribute_sales_record` VALUES ('69', 'pl2hu3uczz', '10', '8', '1', '87', '3', '100.00', '1', '0.96', '3级，', '3', '0', '1466154795', null, '0');
-INSERT INTO `distribute_sales_record` VALUES ('70', 'pl2hu3uczz', '12', '8', '2', '88', '3', '100.00', '1', '2.40', '1级，', '1', '0', '1466216570', null, '0');
-INSERT INTO `distribute_sales_record` VALUES ('71', 'pl2hu3uczz', '11', '8', '2', '88', '3', '100.00', '1', '1.44', '2级，', '2', '0', '1466216570', null, '0');
-INSERT INTO `distribute_sales_record` VALUES ('72', 'pl2hu3uczz', '10', '8', '2', '88', '3', '100.00', '1', '0.96', '3级，', '3', '0', '1466216570', null, '0');
-INSERT INTO `distribute_sales_record` VALUES ('73', 'pl2hu3uczz', '12', '8', '2', '89', '3', '100.00', '1', '2.40', '1级，', '1', '0', '1466217471', null, '0');
-INSERT INTO `distribute_sales_record` VALUES ('74', 'pl2hu3uczz', '11', '8', '2', '89', '3', '100.00', '1', '1.44', '2级，', '2', '0', '1466217471', null, '0');
-INSERT INTO `distribute_sales_record` VALUES ('75', 'pl2hu3uczz', '10', '8', '2', '89', '3', '100.00', '1', '0.96', '3级，', '3', '0', '1466217471', null, '0');
-INSERT INTO `distribute_sales_record` VALUES ('76', 'pl2hu3uczz', '12', '8', '2', '90', '3', '100.00', '1', '2.40', '1级，', '1', '0', '1466218104', null, '0');
-INSERT INTO `distribute_sales_record` VALUES ('77', 'pl2hu3uczz', '11', '8', '2', '90', '3', '100.00', '1', '1.44', '2级，', '2', '0', '1466218104', null, '0');
-INSERT INTO `distribute_sales_record` VALUES ('78', 'pl2hu3uczz', '10', '8', '2', '90', '3', '100.00', '1', '0.96', '3级，', '3', '0', '1466218104', null, '0');
-INSERT INTO `distribute_sales_record` VALUES ('79', 'pl2hu3uczz', '12', '8', '1', '91', '3', '100.00', '1', '2.40', '1级，', '1', '0', '1466222200', null, '0');
-INSERT INTO `distribute_sales_record` VALUES ('80', 'pl2hu3uczz', '11', '8', '1', '91', '3', '100.00', '1', '1.44', '2级，', '2', '0', '1466222200', null, '0');
-INSERT INTO `distribute_sales_record` VALUES ('81', 'pl2hu3uczz', '10', '8', '1', '91', '3', '100.00', '1', '0.96', '3级，', '3', '0', '1466222200', null, '0');
-INSERT INTO `distribute_sales_record` VALUES ('82', 'pl2hu3uczz', '12', '8', '1', '92', '3', '100.00', '1', '2.40', '1级，', '1', '0', '1466389466', null, '0');
-INSERT INTO `distribute_sales_record` VALUES ('83', 'pl2hu3uczz', '11', '8', '1', '92', '3', '100.00', '1', '1.44', '2级，', '2', '0', '1466389466', null, '0');
-INSERT INTO `distribute_sales_record` VALUES ('84', 'pl2hu3uczz', '10', '8', '1', '92', '3', '100.00', '1', '0.96', '3级，', '3', '0', '1466389466', null, '0');
 
 -- ----------------------------
--- Table structure for distribute_sha_rec
+-- Table structure for `distribute_sha_rec`
 -- ----------------------------
 DROP TABLE IF EXISTS `distribute_sha_rec`;
 CREATE TABLE `distribute_sha_rec` (
@@ -4840,59 +4475,9 @@ CREATE TABLE `distribute_sha_rec` (
 -- ----------------------------
 -- Records of distribute_sha_rec
 -- ----------------------------
-INSERT INTO `distribute_sha_rec` VALUES ('1', 'pl2hu3uczz', '2', '暂无姓名', '', '1.50', '2', '1', '1465372378', '9', '1464938513', '三星手机', '1', '100.00', '20', ',2,10,', null);
-INSERT INTO `distribute_sha_rec` VALUES ('2', 'pl2hu3uczz', '2', '暂无姓名', '', '0.50', '1', '1', '1465372378', '9', '1464938513', '三星手机', '1', '100.00', '20', ',9,', null);
-INSERT INTO `distribute_sha_rec` VALUES ('3', 'pl2hu3uczz', '2', '暂无姓名', '', '1.50', '2', '1', '1465694594', '6', '1464938372', '三星手机', '1', '100.00', '20', ',2,10,', null);
-INSERT INTO `distribute_sha_rec` VALUES ('4', 'pl2hu3uczz', '2', '暂无姓名', '', '1.00', '2', '1', '1465694595', '6', '1464938372', '三星手机', '1', '100.00', '20', ',6,9,', null);
-INSERT INTO `distribute_sha_rec` VALUES ('5', 'pl2hu3uczz', '2', '暂无姓名', '', '1.50', '2', '1', '1465694595', '7', '1464938424', '三星手机', '1', '100.00', '20', ',2,10,', null);
-INSERT INTO `distribute_sha_rec` VALUES ('6', 'pl2hu3uczz', '2', '暂无姓名', '', '1.00', '2', '1', '1465694595', '7', '1464938424', '三星手机', '1', '100.00', '20', ',6,9,', null);
-INSERT INTO `distribute_sha_rec` VALUES ('7', 'pl2hu3uczz', '2', '暂无姓名', '', '1.50', '2', '1', '1465694595', '8', '1464938471', '三星手机', '1', '100.00', '20', ',2,10,', null);
-INSERT INTO `distribute_sha_rec` VALUES ('8', 'pl2hu3uczz', '2', '暂无姓名', '', '1.00', '2', '1', '1465694595', '8', '1464938471', '三星手机', '1', '100.00', '20', ',6,9,', null);
-INSERT INTO `distribute_sha_rec` VALUES ('9', 'pl2hu3uczz', '3', '暂无姓名', '', '1.50', '2', '1', '1465694596', '13', '1465177071', '三星手机', '1', '100.00', '20', ',2,10,', null);
-INSERT INTO `distribute_sha_rec` VALUES ('10', 'pl2hu3uczz', '3', '暂无姓名', '', '1.00', '2', '1', '1465694596', '13', '1465177071', '三星手机', '1', '100.00', '20', ',6,9,', null);
-INSERT INTO `distribute_sha_rec` VALUES ('11', 'pl2hu3uczz', '11', '', '', '1.50', '2', '1', '1465695091', '16', '1465694977', '三星手机', '1', '100.00', '20', ',2,10,', null);
-INSERT INTO `distribute_sha_rec` VALUES ('12', 'pl2hu3uczz', '11', '', '', '1.00', '2', '1', '1465695091', '16', '1465694977', '三星手机', '1', '100.00', '20', ',6,9,', null);
-INSERT INTO `distribute_sha_rec` VALUES ('13', 'pl2hu3uczz', '14', '', '', '2.88', '2', '1', '1465866695', '43', '1465812005', '测试业务产品', '1', '100.00', '20', ',2,10,', null);
-INSERT INTO `distribute_sha_rec` VALUES ('14', 'pl2hu3uczz', '14', '', '', '1.92', '2', '1', '1465866696', '43', '1465812005', '测试业务产品', '1', '100.00', '20', ',6,9,', null);
-INSERT INTO `distribute_sha_rec` VALUES ('15', 'pl2hu3uczz', '14', '', '', '2.88', '2', '1', '1465867497', '45', '1465867057', '测试业务产品', '1', '100.00', '20', ',2,10,', null);
-INSERT INTO `distribute_sha_rec` VALUES ('16', 'pl2hu3uczz', '14', '', '', '1.92', '2', '1', '1465867497', '45', '1465867057', '测试业务产品', '1', '100.00', '20', ',6,9,', null);
-INSERT INTO `distribute_sha_rec` VALUES ('17', 'pl2hu3uczz', '14', '', '', '2.88', '2', '1', '1465867820', '46', '1465867765', '测试业务产品', '1', '100.00', '20', ',2,10,', null);
-INSERT INTO `distribute_sha_rec` VALUES ('18', 'pl2hu3uczz', '14', '', '', '1.92', '2', '1', '1465867820', '46', '1465867765', '测试业务产品', '1', '100.00', '20', ',6,9,', null);
-INSERT INTO `distribute_sha_rec` VALUES ('19', 'pl2hu3uczz', '14', '', '', '2.88', '2', '1', '1465868302', '48', '1465868264', '测试业务产品', '1', '100.00', '20', ',2,10,', null);
-INSERT INTO `distribute_sha_rec` VALUES ('20', 'pl2hu3uczz', '14', '', '', '1.92', '2', '1', '1465868302', '48', '1465868264', '测试业务产品', '1', '100.00', '20', ',6,9,', null);
-INSERT INTO `distribute_sha_rec` VALUES ('21', 'pl2hu3uczz', '15', '不是创始人', '', '2.88', '2', '1', '1465870395', '49', '1465870064', '测试业务产品', '1', '100.00', '20', ',2,10,', null);
-INSERT INTO `distribute_sha_rec` VALUES ('22', 'pl2hu3uczz', '15', '不是创始人', '', '1.92', '2', '1', '1465870395', '49', '1465870064', '测试业务产品', '1', '100.00', '20', ',6,9,', null);
-INSERT INTO `distribute_sha_rec` VALUES ('23', 'pl2hu3uczz', '15', '不是创始人', '', '2.88', '2', '1', '1465897613', '52', '1465874259', '测试业务产品', '1', '100.00', '20', ',2,10,', '金牌');
-INSERT INTO `distribute_sha_rec` VALUES ('24', 'pl2hu3uczz', '15', '不是创始人', '', '1.92', '2', '1', '1465897613', '52', '1465874259', '测试业务产品', '1', '100.00', '20', ',6,9,', '银牌');
-INSERT INTO `distribute_sha_rec` VALUES ('25', 'pl2hu3uczz', '16', '', '', '2.88', '2', '1', '1465957677', '54', '1465957586', '测试业务产品', '1', '100.00', '20', ',2,10,', '金牌');
-INSERT INTO `distribute_sha_rec` VALUES ('26', 'pl2hu3uczz', '16', '', '', '1.92', '2', '1', '1465957677', '54', '1465957586', '测试业务产品', '1', '100.00', '20', ',6,9,', '银牌');
-INSERT INTO `distribute_sha_rec` VALUES ('27', 'pl2hu3uczz', '2', '暂无姓名', '', '2.88', '2', '1', '1466043148', '72', '1466042623', '测试业务产品', '2', '100.00', '20', ',2,10,', '金牌');
-INSERT INTO `distribute_sha_rec` VALUES ('28', 'pl2hu3uczz', '2', '暂无姓名', '', '1.92', '3', '1', '1466043148', '72', '1466042623', '测试业务产品', '2', '100.00', '20', ',6,9,11,', '银牌');
-INSERT INTO `distribute_sha_rec` VALUES ('29', 'pl2hu3uczz', '2', '暂无姓名', '', '2.88', '2', '1', '1466043326', '75', '1466043252', '测试业务产品', '2', '100.00', '20', ',2,10,', '金牌');
-INSERT INTO `distribute_sha_rec` VALUES ('30', 'pl2hu3uczz', '2', '暂无姓名', '', '1.92', '3', '1', '1466043326', '75', '1466043252', '测试业务产品', '2', '100.00', '20', ',6,9,11,', '银牌');
-INSERT INTO `distribute_sha_rec` VALUES ('31', 'pl2hu3uczz', '2', '暂无姓名', '', '2.88', '2', '1', '1466043482', '76', '1466043402', '测试业务产品', '2', '100.00', '20', ',2,10,', '金牌');
-INSERT INTO `distribute_sha_rec` VALUES ('32', 'pl2hu3uczz', '2', '暂无姓名', '', '1.92', '3', '1', '1466043483', '76', '1466043402', '测试业务产品', '2', '100.00', '20', ',6,9,11,', '银牌');
-INSERT INTO `distribute_sha_rec` VALUES ('33', 'pl2hu3uczz', '2', '暂无姓名', '', '5.76', '2', '1', '1466043698', '77', '1466043631', '测试业务产品', '2', '100.00', '20', ',2,10,', '金牌');
-INSERT INTO `distribute_sha_rec` VALUES ('34', 'pl2hu3uczz', '2', '暂无姓名', '', '3.84', '3', '1', '1466043698', '77', '1466043631', '测试业务产品', '2', '100.00', '20', ',6,9,11,', '银牌');
-INSERT INTO `distribute_sha_rec` VALUES ('35', 'pl2hu3uczz', '2', '暂无姓名', '', '2.88', '2', '1', '1466044800', '81', '1466044694', '测试业务产品', '1', '100.00', '20', ',2,10,', '金牌');
-INSERT INTO `distribute_sha_rec` VALUES ('36', 'pl2hu3uczz', '2', '暂无姓名', '', '1.92', '3', '1', '1466044800', '81', '1466044694', '测试业务产品', '1', '100.00', '20', ',6,9,11,', '银牌');
-INSERT INTO `distribute_sha_rec` VALUES ('37', 'pl2hu3uczz', '2', '暂无姓名', '', '2.88', '2', '1', '1466059018', '82', '1466058976', '测试业务产品', '1', '100.00', '20', ',2,10,', '金牌');
-INSERT INTO `distribute_sha_rec` VALUES ('38', 'pl2hu3uczz', '2', '暂无姓名', '', '1.92', '3', '1', '1466059018', '82', '1466058976', '测试业务产品', '1', '100.00', '20', ',6,9,11,', '银牌');
-INSERT INTO `distribute_sha_rec` VALUES ('39', 'pl2hu3uczz', '12', '三级业务', '', '2.88', '2', '1', '1466133959', '83', '1466133854', '测试业务产品', '1', '100.00', '20', ',2,10,', '金牌');
-INSERT INTO `distribute_sha_rec` VALUES ('40', 'pl2hu3uczz', '12', '三级业务', '', '1.92', '3', '1', '1466133959', '83', '1466133854', '测试业务产品', '1', '100.00', '20', ',6,9,11,', '银牌');
-INSERT INTO `distribute_sha_rec` VALUES ('41', 'pl2hu3uczz', '12', '三级业务', '', '2.88', '2', '1', '1466147009', '84', '1466134315', '测试业务产品', '1', '100.00', '20', ',2,10,', '金牌');
-INSERT INTO `distribute_sha_rec` VALUES ('42', 'pl2hu3uczz', '12', '三级业务', '', '1.92', '3', '1', '1466147009', '84', '1466134315', '测试业务产品', '1', '100.00', '20', ',6,9,11,', '银牌');
-INSERT INTO `distribute_sha_rec` VALUES ('43', 'pl2hu3uczz', '12', '三级业务', '', '2.88', '2', '1', '1466149392', '85', '1466149319', '测试业务产品', '1', '100.00', '20', ',2,10,', '金牌');
-INSERT INTO `distribute_sha_rec` VALUES ('44', 'pl2hu3uczz', '12', '三级业务', '', '1.92', '3', '1', '1466149392', '85', '1466149319', '测试业务产品', '1', '100.00', '20', ',6,9,11,', '银牌');
-INSERT INTO `distribute_sha_rec` VALUES ('45', 'pl2hu3uczz', '2', '暂无姓名', '', '2.88', '2', '1', '1466217412', '88', '1466216570', '测试业务产品', '1', '100.00', '20', ',2,10,', '金牌');
-INSERT INTO `distribute_sha_rec` VALUES ('46', 'pl2hu3uczz', '2', '暂无姓名', '', '1.92', '3', '1', '1466217412', '88', '1466216570', '测试业务产品', '1', '100.00', '20', ',6,9,11,', '银牌');
-INSERT INTO `distribute_sha_rec` VALUES ('47', 'pl2hu3uczz', '2', '暂无姓名', '', '2.88', '2', '1', '1466217494', '89', '1466217471', '测试业务产品', '1', '100.00', '20', ',2,10,', '金牌');
-INSERT INTO `distribute_sha_rec` VALUES ('48', 'pl2hu3uczz', '2', '暂无姓名', '', '1.92', '3', '1', '1466217494', '89', '1466217471', '测试业务产品', '1', '100.00', '20', ',6,9,11,', '银牌');
-INSERT INTO `distribute_sha_rec` VALUES ('49', 'pl2hu3uczz', '2', '暂无姓名', '', '2.88', '2', '1', '1466218164', '90', '1466218104', '测试业务产品', '1', '100.00', '20', ',2,10,', '金牌');
-INSERT INTO `distribute_sha_rec` VALUES ('50', 'pl2hu3uczz', '2', '暂无姓名', '', '1.92', '3', '1', '1466218164', '90', '1466218104', '测试业务产品', '1', '100.00', '20', ',6,9,11,', '银牌');
 
 -- ----------------------------
--- Table structure for distribute_withdraw_method
+-- Table structure for `distribute_withdraw_method`
 -- ----------------------------
 DROP TABLE IF EXISTS `distribute_withdraw_method`;
 CREATE TABLE `distribute_withdraw_method` (
@@ -4910,7 +4495,7 @@ CREATE TABLE `distribute_withdraw_method` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for distribute_withdraw_methods
+-- Table structure for `distribute_withdraw_methods`
 -- ----------------------------
 DROP TABLE IF EXISTS `distribute_withdraw_methods`;
 CREATE TABLE `distribute_withdraw_methods` (
@@ -4932,7 +4517,7 @@ CREATE TABLE `distribute_withdraw_methods` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for distribute_withdraw_record
+-- Table structure for `distribute_withdraw_record`
 -- ----------------------------
 DROP TABLE IF EXISTS `distribute_withdraw_record`;
 CREATE TABLE `distribute_withdraw_record` (
@@ -4962,7 +4547,7 @@ CREATE TABLE `distribute_withdraw_record` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for fruit
+-- Table structure for `fruit`
 -- ----------------------------
 DROP TABLE IF EXISTS `fruit`;
 CREATE TABLE `fruit` (
@@ -4999,7 +4584,7 @@ CREATE TABLE `fruit` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for fruit_config
+-- Table structure for `fruit_config`
 -- ----------------------------
 DROP TABLE IF EXISTS `fruit_config`;
 CREATE TABLE `fruit_config` (
@@ -5014,7 +4599,7 @@ CREATE TABLE `fruit_config` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for fruit_sn
+-- Table structure for `fruit_sn`
 -- ----------------------------
 DROP TABLE IF EXISTS `fruit_sn`;
 CREATE TABLE `fruit_sn` (
@@ -5039,7 +4624,7 @@ CREATE TABLE `fruit_sn` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for games
+-- Table structure for `games`
 -- ----------------------------
 DROP TABLE IF EXISTS `games`;
 CREATE TABLE `games` (
@@ -5066,7 +4651,7 @@ CREATE TABLE `games` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for games_config
+-- Table structure for `games_config`
 -- ----------------------------
 DROP TABLE IF EXISTS `games_config`;
 CREATE TABLE `games_config` (
@@ -5081,7 +4666,7 @@ CREATE TABLE `games_config` (
 INSERT INTO `games_config` VALUES ('pl2hu3uczz', '游戏中心', '');
 
 -- ----------------------------
--- Table structure for games_model
+-- Table structure for `games_model`
 -- ----------------------------
 DROP TABLE IF EXISTS `games_model`;
 CREATE TABLE `games_model` (
@@ -5100,7 +4685,7 @@ INSERT INTO `games_model` VALUES ('4', '全民拼图');
 INSERT INTO `games_model` VALUES ('5', '宠物碰碰对');
 
 -- ----------------------------
--- Table structure for games_result
+-- Table structure for `games_result`
 -- ----------------------------
 DROP TABLE IF EXISTS `games_result`;
 CREATE TABLE `games_result` (
@@ -5120,7 +4705,7 @@ CREATE TABLE `games_result` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for guide
+-- Table structure for `guide`
 -- ----------------------------
 DROP TABLE IF EXISTS `guide`;
 CREATE TABLE `guide` (
@@ -5138,7 +4723,7 @@ CREATE TABLE `guide` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for hongbao_act
+-- Table structure for `hongbao_act`
 -- ----------------------------
 DROP TABLE IF EXISTS `hongbao_act`;
 CREATE TABLE `hongbao_act` (
@@ -5159,7 +4744,7 @@ CREATE TABLE `hongbao_act` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for hongbao_config
+-- Table structure for `hongbao_config`
 -- ----------------------------
 DROP TABLE IF EXISTS `hongbao_config`;
 CREATE TABLE `hongbao_config` (
@@ -5177,7 +4762,7 @@ CREATE TABLE `hongbao_config` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for hongbao_prize
+-- Table structure for `hongbao_prize`
 -- ----------------------------
 DROP TABLE IF EXISTS `hongbao_prize`;
 CREATE TABLE `hongbao_prize` (
@@ -5196,7 +4781,7 @@ CREATE TABLE `hongbao_prize` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for hongbao_record
+-- Table structure for `hongbao_record`
 -- ----------------------------
 DROP TABLE IF EXISTS `hongbao_record`;
 CREATE TABLE `hongbao_record` (
@@ -5213,7 +4798,7 @@ CREATE TABLE `hongbao_record` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for http_raw_post_data
+-- Table structure for `http_raw_post_data`
 -- ----------------------------
 DROP TABLE IF EXISTS `http_raw_post_data`;
 CREATE TABLE `http_raw_post_data` (
@@ -5228,7 +4813,7 @@ CREATE TABLE `http_raw_post_data` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for industry
+-- Table structure for `industry`
 -- ----------------------------
 DROP TABLE IF EXISTS `industry`;
 CREATE TABLE `industry` (
@@ -5293,7 +4878,7 @@ INSERT INTO `industry` VALUES ('178', '其他', '0', '', '0', '1430457697', '0')
 INSERT INTO `industry` VALUES ('179', '其他', '178', '', '0', '1430457707', '0');
 
 -- ----------------------------
--- Table structure for kanjia
+-- Table structure for `kanjia`
 -- ----------------------------
 DROP TABLE IF EXISTS `kanjia`;
 CREATE TABLE `kanjia` (
@@ -5318,7 +4903,7 @@ CREATE TABLE `kanjia` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for kanjia_helper_record
+-- Table structure for `kanjia_helper_record`
 -- ----------------------------
 DROP TABLE IF EXISTS `kanjia_helper_record`;
 CREATE TABLE `kanjia_helper_record` (
@@ -5339,7 +4924,7 @@ CREATE TABLE `kanjia_helper_record` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for kanjia_member
+-- Table structure for `kanjia_member`
 -- ----------------------------
 DROP TABLE IF EXISTS `kanjia_member`;
 CREATE TABLE `kanjia_member` (
@@ -5358,7 +4943,7 @@ CREATE TABLE `kanjia_member` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for kf_account
+-- Table structure for `kf_account`
 -- ----------------------------
 DROP TABLE IF EXISTS `kf_account`;
 CREATE TABLE `kf_account` (
@@ -5377,7 +4962,7 @@ CREATE TABLE `kf_account` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for kf_config
+-- Table structure for `kf_config`
 -- ----------------------------
 DROP TABLE IF EXISTS `kf_config`;
 CREATE TABLE `kf_config` (
@@ -5387,6 +4972,7 @@ CREATE TABLE `kf_config` (
   `KF_IsShop` tinyint(1) DEFAULT '1' COMMENT '商城是否启用 0 否  1 是',
   `KF_IsUser` tinyint(1) DEFAULT '1' COMMENT '会员中心是否启用 0 否  1 是',
   `KF_Icon` varchar(50) DEFAULT NULL,
+  `Wx_keyword` varchar(100) DEFAULT NULL COMMENT '微客服触发关键词',
   `KF_Code` text,
   PRIMARY KEY (`KF_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='客服设置存储表';
@@ -5396,7 +4982,7 @@ CREATE TABLE `kf_config` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for kf_language
+-- Table structure for `kf_language`
 -- ----------------------------
 DROP TABLE IF EXISTS `kf_language`;
 CREATE TABLE `kf_language` (
@@ -5413,7 +4999,7 @@ CREATE TABLE `kf_language` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for kf_message
+-- Table structure for `kf_message`
 -- ----------------------------
 DROP TABLE IF EXISTS `kf_message`;
 CREATE TABLE `kf_message` (
@@ -5431,7 +5017,7 @@ CREATE TABLE `kf_message` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for message_model
+-- Table structure for `message_model`
 -- ----------------------------
 DROP TABLE IF EXISTS `message_model`;
 CREATE TABLE `message_model` (
@@ -5453,7 +5039,7 @@ INSERT INTO `message_model` VALUES ('8', '微商城下订单!', 'user_order', 's
 INSERT INTO `message_model` VALUES ('10', '积分变更通知', 'user_order', 'user_integral');
 
 -- ----------------------------
--- Table structure for message_template
+-- Table structure for `message_template`
 -- ----------------------------
 DROP TABLE IF EXISTS `message_template`;
 CREATE TABLE `message_template` (
@@ -5471,7 +5057,7 @@ CREATE TABLE `message_template` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for module
+-- Table structure for `module`
 -- ----------------------------
 DROP TABLE IF EXISTS `module`;
 CREATE TABLE `module` (
@@ -5507,7 +5093,7 @@ INSERT INTO `module` VALUES ('17', 'category', '栏目分类', '16', 'url', '0')
 INSERT INTO `module` VALUES ('18', 'lists', '内容列表', '16', 'url', '0');
 
 -- ----------------------------
--- Table structure for mycount
+-- Table structure for `mycount`
 -- ----------------------------
 DROP TABLE IF EXISTS `mycount`;
 CREATE TABLE `mycount` (
@@ -5528,7 +5114,7 @@ CREATE TABLE `mycount` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for newtable
+-- Table structure for `newtable`
 -- ----------------------------
 DROP TABLE IF EXISTS `newtable`;
 CREATE TABLE `newtable` (
@@ -5562,7 +5148,7 @@ CREATE TABLE `newtable` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for node
+-- Table structure for `node`
 -- ----------------------------
 DROP TABLE IF EXISTS `node`;
 CREATE TABLE `node` (
@@ -5585,7 +5171,7 @@ CREATE TABLE `node` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for pc_focus
+-- Table structure for `pc_focus`
 -- ----------------------------
 DROP TABLE IF EXISTS `pc_focus`;
 CREATE TABLE `pc_focus` (
@@ -5605,7 +5191,7 @@ CREATE TABLE `pc_focus` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for pc_index
+-- Table structure for `pc_index`
 -- ----------------------------
 DROP TABLE IF EXISTS `pc_index`;
 CREATE TABLE `pc_index` (
@@ -5626,7 +5212,7 @@ CREATE TABLE `pc_index` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for pc_setting
+-- Table structure for `pc_setting`
 -- ----------------------------
 DROP TABLE IF EXISTS `pc_setting`;
 CREATE TABLE `pc_setting` (
@@ -5651,10 +5237,9 @@ CREATE TABLE `pc_setting` (
 -- ----------------------------
 -- Records of pc_setting
 -- ----------------------------
-INSERT INTO `pc_setting` VALUES ('1', 'shop', 'pl2hu3uczz', '/uploadfiles/pl2hu3uczz/image/574e7a8af9.png', '1', null, '/uploadfiles/pl2hu3uczz/image/574e7a5875.jpg', '/uploadfiles/pl2hu3uczz/image/574e79d21a.png', 'pc.ceshi.cc', null, null, null, null, null, null);
 
 -- ----------------------------
--- Table structure for pc_user_message
+-- Table structure for `pc_user_message`
 -- ----------------------------
 DROP TABLE IF EXISTS `pc_user_message`;
 CREATE TABLE `pc_user_message` (
@@ -5669,17 +5254,9 @@ CREATE TABLE `pc_user_message` (
 -- ----------------------------
 -- Records of pc_user_message
 -- ----------------------------
-INSERT INTO `pc_user_message` VALUES ('1', 'pl2hu3uczz', '3', '购买商品送 11 个积分', '1464864035');
-INSERT INTO `pc_user_message` VALUES ('2', 'pl2hu3uczz', '14', '购买商品送 11 个积分', '1465957323');
-INSERT INTO `pc_user_message` VALUES ('3', 'pl2hu3uczz', '10', '您下单成功，支付了110.00元，您将获取佣金2.88元', '1465966538');
-INSERT INTO `pc_user_message` VALUES ('4', 'pl2hu3uczz', '10', '购买商品送 11 个积分', '1465966561');
-INSERT INTO `pc_user_message` VALUES ('5', 'pl2hu3uczz', '12', '您下单成功，支付了110.00元，您将获取佣金2.88元', '1465966764');
-INSERT INTO `pc_user_message` VALUES ('6', 'pl2hu3uczz', '11', '您推荐的一级会员购买者一级下单成功，支付了110.00元，您将获取佣金9.60元', '1465966764');
-INSERT INTO `pc_user_message` VALUES ('7', 'pl2hu3uczz', '10', '您推荐的二级会员购买者一级下单成功，支付了110.00元，您将获取佣金3.84元', '1465966764');
-INSERT INTO `pc_user_message` VALUES ('8', 'pl2hu3uczz', '12', '购买商品送 11 个积分', '1465966799');
 
 -- ----------------------------
--- Table structure for pifa_category
+-- Table structure for `pifa_category`
 -- ----------------------------
 DROP TABLE IF EXISTS `pifa_category`;
 CREATE TABLE `pifa_category` (
@@ -5698,7 +5275,7 @@ CREATE TABLE `pifa_category` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for pifa_config
+-- Table structure for `pifa_config`
 -- ----------------------------
 DROP TABLE IF EXISTS `pifa_config`;
 CREATE TABLE `pifa_config` (
@@ -5716,7 +5293,7 @@ CREATE TABLE `pifa_config` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for pifa_products
+-- Table structure for `pifa_products`
 -- ----------------------------
 DROP TABLE IF EXISTS `pifa_products`;
 CREATE TABLE `pifa_products` (
@@ -5754,7 +5331,7 @@ CREATE TABLE `pifa_products` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for scratch
+-- Table structure for `scratch`
 -- ----------------------------
 DROP TABLE IF EXISTS `scratch`;
 CREATE TABLE `scratch` (
@@ -5794,7 +5371,7 @@ CREATE TABLE `scratch` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for scratch_config
+-- Table structure for `scratch_config`
 -- ----------------------------
 DROP TABLE IF EXISTS `scratch_config`;
 CREATE TABLE `scratch_config` (
@@ -5810,7 +5387,7 @@ CREATE TABLE `scratch_config` (
 INSERT INTO `scratch_config` VALUES ('pl2hu3uczz', '刮刮卡', '0');
 
 -- ----------------------------
--- Table structure for scratch_sn
+-- Table structure for `scratch_sn`
 -- ----------------------------
 DROP TABLE IF EXISTS `scratch_sn`;
 CREATE TABLE `scratch_sn` (
@@ -5835,7 +5412,7 @@ CREATE TABLE `scratch_sn` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for setting
+-- Table structure for `setting`
 -- ----------------------------
 DROP TABLE IF EXISTS `setting`;
 CREATE TABLE `setting` (
@@ -5863,7 +5440,7 @@ CREATE TABLE `setting` (
 INSERT INTO `setting` VALUES ('1', '好分销', '/uploadfiles/1001/image/554097f011.png', '', 'zaq2EHvUKKnudzEmsHwU8PVM', '{\"1\":\"6500\",\"2\":\"11000\",\"3\":\"14000\"}', null, '2088011781995263', 'jcd91vx39h182qrzjl6v5u0ei8fyhgfh', '965607844@qq.com', '0', 'wangzhongwang', '5926172', '【好分销】', '[{\"min\":\"0\",\"max\":\"2000\",\"price\":\"0.1\"},{\"min\":\"2000\",\"max\":\"20000\",\"price\":\"0.08\"},{\"min\":\"20000\",\"max\":\"50000\",\"price\":\"0.06\"}]');
 
 -- ----------------------------
--- Table structure for share_click
+-- Table structure for `share_click`
 -- ----------------------------
 DROP TABLE IF EXISTS `share_click`;
 CREATE TABLE `share_click` (
@@ -5881,7 +5458,7 @@ CREATE TABLE `share_click` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for share_record
+-- Table structure for `share_record`
 -- ----------------------------
 DROP TABLE IF EXISTS `share_record`;
 CREATE TABLE `share_record` (
@@ -5905,7 +5482,7 @@ CREATE TABLE `share_record` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for sha_account_record
+-- Table structure for `sha_account_record`
 -- ----------------------------
 DROP TABLE IF EXISTS `sha_account_record`;
 CREATE TABLE `sha_account_record` (
@@ -5923,7 +5500,7 @@ CREATE TABLE `sha_account_record` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for sha_order
+-- Table structure for `sha_order`
 -- ----------------------------
 DROP TABLE IF EXISTS `sha_order`;
 CREATE TABLE `sha_order` (
@@ -5951,19 +5528,9 @@ CREATE TABLE `sha_order` (
 -- ----------------------------
 -- Records of sha_order
 -- ----------------------------
-INSERT INTO `sha_order` VALUES ('7', 'pl2hu3uczz', '2', 'sun', '15517105580', '1', '', '', '', '10.00', '2', '0', '', '391', '普通分销商', '3', '', '1465346921');
-INSERT INTO `sha_order` VALUES ('8', 'pl2hu3uczz', '2', 'sun', '15517105580', '1', '', '', '', '10.00', '2', '0', '', '391', '普通分销商', '3', 'buhege', '1465347185');
-INSERT INTO `sha_order` VALUES ('9', 'pl2hu3uczz', '2', 'sun', '15517105580', '1', '', '余额支付', '', '10.00', '2', '1465347428', '', '391', '普通分销商', '2', '', '1465347344');
-INSERT INTO `sha_order` VALUES ('10', 'pl2hu3uczz', '2', 'sun', '15517105580', '2', '', '余额支付', '', '20.00', '2', '1465347530', '', '391', '普通分销商', '2', '', '1465347496');
-INSERT INTO `sha_order` VALUES ('12', 'pl2hu3uczz', '2', 'sun', '15517105580', '3', '', '余额支付', '', '30.00', '2', '1465374537', '', '391', '普通分销商', '2', '', '1465374508');
-INSERT INTO `sha_order` VALUES ('16', 'pl2hu3uczz', '9', 'sun', '15517105580', '1', '', '', '', '0.00', '9', '0', '', '391', '普通分销商', '3', '', '1465718209');
-INSERT INTO `sha_order` VALUES ('17', 'v0wo2g5sah', '39', '001', '13712345001', '1', '', '', '', '10.00', '39', '0', '', '397', '中级分销商', '0', '', '1465717825');
-INSERT INTO `sha_order` VALUES ('18', 'v0wo2g5sah', '39', '001', '13712345001', '1', '', '', '', '10.00', '39', '0', '', '397', '中级分销商', '0', '', '1465717825');
-INSERT INTO `sha_order` VALUES ('19', 'pl2hu3uczz', '9', '1231', '1231', '1', '', '免费申请,费用0元', '', '0.00', '9', '1466038486', '', '391', '普通分销商', '2', '', '1465983069');
-INSERT INTO `sha_order` VALUES ('20', 'pl2hu3uczz', '9', '孙', '15517101234', '2', '', '余额支付', '', '20.00', '9', '1466039343', '', '391', '普通分销商', '2', '', '1466038546');
 
 -- ----------------------------
--- Table structure for shipping_orders
+-- Table structure for `shipping_orders`
 -- ----------------------------
 DROP TABLE IF EXISTS `shipping_orders`;
 CREATE TABLE `shipping_orders` (
@@ -5997,7 +5564,7 @@ CREATE TABLE `shipping_orders` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for shipping_orders_commit
+-- Table structure for `shipping_orders_commit`
 -- ----------------------------
 DROP TABLE IF EXISTS `shipping_orders_commit`;
 CREATE TABLE `shipping_orders_commit` (
@@ -6020,7 +5587,7 @@ CREATE TABLE `shipping_orders_commit` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for shipping_template_section
+-- Table structure for `shipping_template_section`
 -- ----------------------------
 DROP TABLE IF EXISTS `shipping_template_section`;
 CREATE TABLE `shipping_template_section` (
@@ -6036,7 +5603,7 @@ CREATE TABLE `shipping_template_section` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for shop_articles
+-- Table structure for `shop_articles`
 -- ----------------------------
 DROP TABLE IF EXISTS `shop_articles`;
 CREATE TABLE `shop_articles` (
@@ -6058,7 +5625,7 @@ CREATE TABLE `shop_articles` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for shop_articles_category
+-- Table structure for `shop_articles_category`
 -- ----------------------------
 DROP TABLE IF EXISTS `shop_articles_category`;
 CREATE TABLE `shop_articles_category` (
@@ -6077,7 +5644,7 @@ CREATE TABLE `shop_articles_category` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for shop_attribute
+-- Table structure for `shop_attribute`
 -- ----------------------------
 DROP TABLE IF EXISTS `shop_attribute`;
 CREATE TABLE `shop_attribute` (
@@ -6100,7 +5667,7 @@ CREATE TABLE `shop_attribute` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for shop_bank_card
+-- Table structure for `shop_bank_card`
 -- ----------------------------
 DROP TABLE IF EXISTS `shop_bank_card`;
 CREATE TABLE `shop_bank_card` (
@@ -6118,7 +5685,7 @@ CREATE TABLE `shop_bank_card` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for shop_category
+-- Table structure for `shop_category`
 -- ----------------------------
 DROP TABLE IF EXISTS `shop_category`;
 CREATE TABLE `shop_category` (
@@ -6136,11 +5703,9 @@ CREATE TABLE `shop_category` (
 -- ----------------------------
 -- Records of shop_category
 -- ----------------------------
-INSERT INTO `shop_category` VALUES ('1', 'pl2hu3uczz', '1', '数码', '0', '0', '/uploadfiles/pl2hu3uczz/image/574e7a8af9.png', '1');
-INSERT INTO `shop_category` VALUES ('2', 'pl2hu3uczz', '1', '生活', '0', '0', '/uploadfiles/pl2hu3uczz/image/574e7aa487.jpg', '1');
 
 -- ----------------------------
--- Table structure for shop_config
+-- Table structure for `shop_config`
 -- ----------------------------
 DROP TABLE IF EXISTS `shop_config`;
 CREATE TABLE `shop_config` (
@@ -6176,16 +5741,17 @@ CREATE TABLE `shop_config` (
   `ShareIntro` varchar(255) DEFAULT '',
   `ShopMenuJson` text COMMENT '商城菜单配置json格式',
   `Shop_Commision_Reward_Json` text COMMENT '网站佣金比例配置',
+  `Icon_Color` varchar(255) DEFAULT NULL COMMENT '图标颜色切换',
   PRIMARY KEY (`Users_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of shop_config
 -- ----------------------------
-INSERT INTO `shop_config` VALUES ('pl2hu3uczz', 'admin的微商城', '/static/api/images/user/face.jpg', '1', '0', '', '9', null, null, null, null, null, null, '1', '0', '10', '100', null, '0', '', '0', '', '0', '', '0', '0', '0', '0', '', '', null, '{\"platForm_Income_Reward\":\"80\",\"noBi_Reward\":\"20\",\"area_Proxy_Reward\":\"20\",\"sha_Reward\":\"15\",\"salesman_ratio\":\"20\",\"commission_Reward\":\"20\",\"Distribute\":{\"391\":[\"50\",\"30\",\"15\",\"5\"]},\"salesman_level_ratio\":[\"0\",\"0\",\"0\"]}');
+INSERT INTO `shop_config` VALUES ('pl2hu3uczz', null, '/static/api/images/user/face.jpg', '1', '0', null, '3', null, null, null, null, null, null, '0', '0', '10', '100', null, '0', '', null, '', '0', '', '0', '0', '0', '0', '', '', null, '{\"platForm_Income_Reward\":\"80\",\"noBi_Reward\":\"10\",\"area_Proxy_Reward\":\"10\",\"sha_Reward\":\"10\",\"salesman_ratio\":\"10\",\"commission_Reward\":\"60\",\"Distribute\":{\"392\":[\"80\"]},\"salesman_level_ratio\":[\"10\",\"10\",\"10\"]}', null);
 
 -- ----------------------------
--- Table structure for shop_distribute_account
+-- Table structure for `shop_distribute_account`
 -- ----------------------------
 DROP TABLE IF EXISTS `shop_distribute_account`;
 CREATE TABLE `shop_distribute_account` (
@@ -6234,7 +5800,7 @@ CREATE TABLE `shop_distribute_account` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for shop_distribute_account_record
+-- Table structure for `shop_distribute_account_record`
 -- ----------------------------
 DROP TABLE IF EXISTS `shop_distribute_account_record`;
 CREATE TABLE `shop_distribute_account_record` (
@@ -6266,7 +5832,7 @@ CREATE TABLE `shop_distribute_account_record` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for shop_distribute_config
+-- Table structure for `shop_distribute_config`
 -- ----------------------------
 DROP TABLE IF EXISTS `shop_distribute_config`;
 CREATE TABLE `shop_distribute_config` (
@@ -6281,7 +5847,7 @@ CREATE TABLE `shop_distribute_config` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for shop_distribute_fuxiao
+-- Table structure for `shop_distribute_fuxiao`
 -- ----------------------------
 DROP TABLE IF EXISTS `shop_distribute_fuxiao`;
 CREATE TABLE `shop_distribute_fuxiao` (
@@ -6305,7 +5871,7 @@ CREATE TABLE `shop_distribute_fuxiao` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for shop_distribute_msg
+-- Table structure for `shop_distribute_msg`
 -- ----------------------------
 DROP TABLE IF EXISTS `shop_distribute_msg`;
 CREATE TABLE `shop_distribute_msg` (
@@ -6324,7 +5890,7 @@ CREATE TABLE `shop_distribute_msg` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for shop_distribute_record
+-- Table structure for `shop_distribute_record`
 -- ----------------------------
 DROP TABLE IF EXISTS `shop_distribute_record`;
 CREATE TABLE `shop_distribute_record` (
@@ -6347,7 +5913,7 @@ CREATE TABLE `shop_distribute_record` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for shop_dis_agent_areas
+-- Table structure for `shop_dis_agent_areas`
 -- ----------------------------
 DROP TABLE IF EXISTS `shop_dis_agent_areas`;
 CREATE TABLE `shop_dis_agent_areas` (
@@ -6367,7 +5933,7 @@ CREATE TABLE `shop_dis_agent_areas` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for shop_dis_agent_rec
+-- Table structure for `shop_dis_agent_rec`
 -- ----------------------------
 DROP TABLE IF EXISTS `shop_dis_agent_rec`;
 CREATE TABLE `shop_dis_agent_rec` (
@@ -6385,7 +5951,7 @@ CREATE TABLE `shop_dis_agent_rec` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for shop_home
+-- Table structure for `shop_home`
 -- ----------------------------
 DROP TABLE IF EXISTS `shop_home`;
 CREATE TABLE `shop_home` (
@@ -6399,10 +5965,9 @@ CREATE TABLE `shop_home` (
 -- ----------------------------
 -- Records of shop_home
 -- ----------------------------
-INSERT INTO `shop_home` VALUES ('487', 'pl2hu3uczz', '9', '[{\"ContentsType\":\"1\",\"Title\":[\"\",\"\",\"\",\"\",\"\"],\"ImgPath\":[\"/api/shop/skin/9/banner.jpg\",\"\",\"\",\"\",\"\"],\"Url\":[\"\",\"\",\"\",\"\",\"\"],\"Postion\":\"t01\",\"Width\":\"640\",\"Height\":\"315\",\"NeedLink\":\"1\"},{\"ContentsType\":\"0\",\"Title\":\"\",\"ImgPath\":\"/api/shop/skin/9/logo.jpg\",\"Url\":null,\"Postion\":\"t02\",\"Width\":\"322\",\"Height\":\"108\",\"NeedLink\":\"1\"},{\"ContentsType\":\"0\",\"Title\":\"\",\"ImgPath\":\"/api/shop/skin/9/t3.jpg\",\"Url\":null,\"Postion\":\"t03\",\"Width\":\"296\",\"Height\":\"240\",\"NeedLink\":\"1\"},{\"ContentsType\":\"0\",\"Title\":\"\",\"ImgPath\":\"/api/shop/skin/9/t4.jpg\",\"Url\":null,\"Postion\":\"t04\",\"Width\":\"296\",\"Height\":\"240\",\"NeedLink\":\"1\"},{\"ContentsType\":\"0\",\"Title\":\"\",\"ImgPath\":\"/api/shop/skin/9/t5.jpg\",\"Url\":null,\"Postion\":\"t05\",\"Width\":\"600\",\"Height\":\"200\",\"NeedLink\":\"1\"},{\"ContentsType\":\"0\",\"Title\":\"\",\"ImgPath\":\"/api/shop/skin/9/t6.jpg\",\"Url\":null,\"Postion\":\"t06\",\"Width\":\"600\",\"Height\":\"200\",\"NeedLink\":\"1\"},{\"ContentsType\":\"0\",\"Title\":\"\",\"ImgPath\":\"/api/shop/skin/9/t7.jpg\",\"Url\":null,\"Postion\":\"t07\",\"Width\":\"600\",\"Height\":\"200\",\"NeedLink\":\"1\"}]');
 
 -- ----------------------------
--- Table structure for shop_products
+-- Table structure for `shop_products`
 -- ----------------------------
 DROP TABLE IF EXISTS `shop_products`;
 CREATE TABLE `shop_products` (
@@ -6456,13 +6021,9 @@ CREATE TABLE `shop_products` (
 -- ----------------------------
 -- Records of shop_products
 -- ----------------------------
-INSERT INTO `shop_products` VALUES ('1', 'pl2hu3uczz', '三星手机', ',1,1,', '0', '110.00', '100.00', '{\"ImgPath\":[\"/uploadfiles/biz/1/image/56f5052054.jpg\"]}', '测试手机', '0', '0', '0', '0', '0', '水水水水水水水水水水水水水水水水', '1464761081', '9982', '1.00', '8', '/data/temp/testb318b3c08727cae372cf955b6424f243.png', '0', '0', null, '0', null, '40', '1', null, '0', '50.00', '50.00', '{\"391\":[\"20\",\"50\",\"30\"]}', '0', '0', '0', '0', '1', '9999', '20', '50', '20', '20', null, '0');
-INSERT INTO `shop_products` VALUES ('2', 'pl2hu3uczz', '苹果手机', ',1,1,', '0', '210.00', '200.00', '{\"ImgPath\":[\"/uploadfiles/biz/1/image/56f4fb24d9.jpg\"]}', '谁谁谁水水水水', '0', '0', '0', '0', '0', '水水水水谁谁谁水水水水', '1464764304', '9997', '1.00', '1', '/data/temp/testa520c2cca214d314fde9c8b16393773e.png', '0', '0', null, '0', null, '40', '1', null, '0', '100.00', '50.00', '{\"391\":[\"50\",\"20\",\"15\",\"15\"]}', '0', '0', '0', '0', '1', '9999', '10', '60', '20', '20', '10', '[\"50\",\"30\",\"20\"]');
-INSERT INTO `shop_products` VALUES ('3', 'pl2hu3uczz', '测试业务产品', ',1,1,', '0', '120.00', '100.00', '{\"ImgPath\":[\"/uploadfiles/biz/8/image/5716f5c799.jpg\"]}', '水水水水谁谁谁水水水水', '0', '0', '0', '0', '0', '水水水水水水水水水水水水水水水水谁谁谁水水水水', '1465804027', '9953', '1.00', '16', '/data/temp/test8fb8211c938d99aad06a44dfaf3e5319.png', '0', '0', null, '0', null, '20', '8', null, '0', '20.00', '80.00', '{\"391\":[\"50\",\"20\",\"15\",\"15 \"]}', '0', '0', '0', '0', '1', '9999', '20', '60', '20', '20', '10', '[\"50\",\"30\",\"20\"]');
-INSERT INTO `shop_products` VALUES ('4', 'pl2hu3uczz', '测试业务虚拟', ',1,1,', '0', '220.00', '200.00', '{\"ImgPath\":[\"/uploadfiles/biz/8/image/5765161128.jpg\"]}', '1111111', '0', '0', '0', '0', '0', '的的顶顶顶顶顶', '1466242588', '10000', '0.00', '0', '/data/temp/testb352508084118b2ef08e41d7032732c5.png', '0', '0', null, '0', null, '20', '8', null, '0', '40.00', '80.00', '{\"391\":[\"50\",\"30\",\"15\",\"5\"]}', '0', '0', '0', '0', '1', '9999', '20', '80', '20', '20', '20', '[\"50\",\"30\",\"20\"]');
 
 -- ----------------------------
--- Table structure for shop_products_attr
+-- Table structure for `shop_products_attr`
 -- ----------------------------
 DROP TABLE IF EXISTS `shop_products_attr`;
 CREATE TABLE `shop_products_attr` (
@@ -6482,7 +6043,7 @@ CREATE TABLE `shop_products_attr` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for shop_products_copy
+-- Table structure for `shop_products_copy`
 -- ----------------------------
 DROP TABLE IF EXISTS `shop_products_copy`;
 CREATE TABLE `shop_products_copy` (
@@ -6536,7 +6097,7 @@ CREATE TABLE `shop_products_copy` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for shop_product_type
+-- Table structure for `shop_product_type`
 -- ----------------------------
 DROP TABLE IF EXISTS `shop_product_type`;
 CREATE TABLE `shop_product_type` (
@@ -6555,7 +6116,7 @@ CREATE TABLE `shop_product_type` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for shop_property
+-- Table structure for `shop_property`
 -- ----------------------------
 DROP TABLE IF EXISTS `shop_property`;
 CREATE TABLE `shop_property` (
@@ -6574,7 +6135,7 @@ CREATE TABLE `shop_property` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for shop_sales_payment
+-- Table structure for `shop_sales_payment`
 -- ----------------------------
 DROP TABLE IF EXISTS `shop_sales_payment`;
 CREATE TABLE `shop_sales_payment` (
@@ -6595,17 +6156,20 @@ CREATE TABLE `shop_sales_payment` (
   `BankMobile` varchar(50) DEFAULT '',
   `Status` tinyint(1) DEFAULT '0',
   `CreateTime` int(10) DEFAULT '0',
+  `Payment_Type` tinyint(1) DEFAULT '0',
+  `OpenID` varchar(100) DEFAULT NULL,
+  `aliPayNo` varchar(100) DEFAULT NULL,
+  `aliPayName` varchar(20) DEFAULT NULL,
+  `Msg` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`Payment_ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of shop_sales_payment
 -- ----------------------------
-INSERT INTO `shop_sales_payment` VALUES ('2', '14649436462', 'pl2hu3uczz', '1', '1464770820', '1465548420', '110.00', '0.00', '50.00', '0.00', '60.00', '1231', '123', '31231', '15517105580', '1', '1464943646');
-INSERT INTO `shop_sales_payment` VALUES ('3', '14651779953', 'pl2hu3uczz', '1', '1465091520', '1465264320', '100.00', '0.00', '50.00', '0.00', '60.00', '132', '1231231', '123333333', '15517105555', '1', '1465177995');
 
 -- ----------------------------
--- Table structure for shop_sales_record
+-- Table structure for `shop_sales_record`
 -- ----------------------------
 DROP TABLE IF EXISTS `shop_sales_record`;
 CREATE TABLE `shop_sales_record` (
@@ -6623,64 +6187,14 @@ CREATE TABLE `shop_sales_record` (
   `Record_CreateTime` int(10) DEFAULT '0',
   `Payment_ID` int(10) DEFAULT '0' COMMENT '付款单ID',
   PRIMARY KEY (`Record_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of shop_sales_record
 -- ----------------------------
-INSERT INTO `shop_sales_record` VALUES ('1', 'pl2hu3uczz', '1', '1', '0.00', '0.00', '0.00', '1580.00', '{\"1\":[{\"ProductsName\":\"3M贴膜\",\"ImgPath\":\"/uploadfiles/biz/1/image/574ee1118a.jpg\",\"ProductsPriceX\":\"1580.00\",\"ProductsPriceY\":\"1680.00\",\"ProductsWeight\":\"1.00\",\"Products_Shipping\":null,\"Products_Business\":null,\"Shipping_Free_Company\":\"0\",\"IsShippingFree\":\"1\",\"OwnerID\":\"1\",\"ProductsIsShipping\":\"1\",\"Qty\":\"1\",\"spec_list\":\"\",\"Property\":[],\"nobi_ratio\":\"20\",\"platForm_Income_Reward\":\"80\",\"area_Proxy_Reward\":\"10\",\"sha_Reward\":\"20\",\"ProductsProfit\":480}]}', '96.00', '1', '1464930534', '1');
-INSERT INTO `shop_sales_record` VALUES ('2', 'pl2hu3uczz', '32', '3', '80.00', '0.00', '0.00', '80.00', '{\"4\":[{\"ProductsName\":\"幼儿童婴儿积木 一周岁半男宝宝益智力玩具0-1-2-3岁以下早教女孩\",\"ImgPath\":\"/uploadfiles/biz/3/image/57512f5d8e.png\",\"ProductsPriceX\":80,\"ProductsPriceY\":\"100.00\",\"ProductsWeight\":\"1.00\",\"Products_Shipping\":null,\"Products_Business\":null,\"Shipping_Free_Company\":\"0\",\"IsShippingFree\":\"1\",\"OwnerID\":\"15\",\"ProductsIsShipping\":\"1\",\"Qty\":\"1\",\"spec_list\":\"69,72\",\"Property\":{\"53\":{\"Name\":\"大小\",\"Value\":\"S\"},\"54\":{\"Name\":\"颜色\",\"Value\":\"绿色\"}},\"nobi_ratio\":\"20\",\"platForm_Income_Reward\":\"80\",\"area_Proxy_Reward\":\"10\",\"sha_Reward\":\"20\",\"ProductsProfit\":40}]}', '8.00', '0', '1464939653', '0');
-INSERT INTO `shop_sales_record` VALUES ('3', 'pl2hu3uczz', '38', '1', '0.00', '0.00', '0.00', '1580.00', '{\"1\":[{\"ProductsName\":\"3M贴膜\",\"ImgPath\":\"/uploadfiles/biz/1/image/574ee1118a.jpg\",\"ProductsPriceX\":\"1580.00\",\"ProductsPriceY\":\"1680.00\",\"ProductsWeight\":\"1.00\",\"Products_Shipping\":null,\"Products_Business\":null,\"Shipping_Free_Company\":\"0\",\"IsShippingFree\":\"1\",\"OwnerID\":\"1\",\"ProductsIsShipping\":\"1\",\"Qty\":\"1\",\"spec_list\":\"\",\"Property\":[],\"nobi_ratio\":\"20\",\"platForm_Income_Reward\":\"80\",\"area_Proxy_Reward\":\"10\",\"sha_Reward\":\"20\",\"ProductsProfit\":480}]}', '96.00', '1', '1464939663', '4');
-INSERT INTO `shop_sales_record` VALUES ('4', 'pl2hu3uczz', '39', '1', '0.00', '0.00', '0.00', '1580.00', '{\"1\":[{\"ProductsName\":\"3M贴膜\",\"ImgPath\":\"/uploadfiles/biz/1/image/574ee1118a.jpg\",\"ProductsPriceX\":\"1580.00\",\"ProductsPriceY\":\"1680.00\",\"ProductsWeight\":\"1.00\",\"Products_Shipping\":null,\"Products_Business\":null,\"Shipping_Free_Company\":\"0\",\"IsShippingFree\":\"1\",\"OwnerID\":\"16\",\"ProductsIsShipping\":\"1\",\"Qty\":\"1\",\"spec_list\":\"\",\"Property\":[],\"nobi_ratio\":\"20\",\"platForm_Income_Reward\":\"80\",\"area_Proxy_Reward\":\"10\",\"sha_Reward\":\"20\",\"ProductsProfit\":480}]}', '134.40', '1', '1464940596', '4');
-INSERT INTO `shop_sales_record` VALUES ('5', 'pl2hu3uczz', '42', '3', '80.00', '0.00', '0.00', '80.00', '{\"4\":[{\"ProductsName\":\"幼儿童婴儿积木 一周岁半男宝宝益智力玩具0-1-2-3岁以下早教女孩\",\"ImgPath\":\"/uploadfiles/biz/3/image/57512f5d8e.png\",\"ProductsPriceX\":80,\"ProductsPriceY\":\"100.00\",\"ProductsWeight\":\"1.00\",\"Products_Shipping\":null,\"Products_Business\":null,\"Shipping_Free_Company\":\"0\",\"IsShippingFree\":\"1\",\"OwnerID\":\"15\",\"ProductsIsShipping\":\"1\",\"Qty\":\"1\",\"spec_list\":\"69,72\",\"Property\":{\"53\":{\"Name\":\"大小\",\"Value\":\"S\"},\"54\":{\"Name\":\"颜色\",\"Value\":\"绿色\"}},\"nobi_ratio\":\"20\",\"platForm_Income_Reward\":\"80\",\"area_Proxy_Reward\":\"10\",\"sha_Reward\":\"20\",\"ProductsProfit\":40}]}', '8.00', '0', '1464942417', '0');
-INSERT INTO `shop_sales_record` VALUES ('6', 'pl2hu3uczz', '48', '3', '200.00', '0.00', '0.00', '200.00', '{\"3\":[{\"ProductsName\":\"纯棉四件套全棉被套床单婚庆儿童1.5宿舍三件套1.8米床上用品2.0m \",\"ImgPath\":\"/uploadfiles/biz/3/image/5750f95b96.png\",\"ProductsPriceX\":\"200.00\",\"ProductsPriceY\":\"200.00\",\"ProductsWeight\":\"1.00\",\"Products_Shipping\":null,\"Products_Business\":null,\"Shipping_Free_Company\":\"0\",\"IsShippingFree\":\"0\",\"OwnerID\":\"15\",\"ProductsIsShipping\":\"0\",\"Qty\":\"1\",\"spec_list\":\"\",\"Property\":[],\"nobi_ratio\":\"20\",\"platForm_Income_Reward\":\"80\",\"area_Proxy_Reward\":\"10\",\"sha_Reward\":\"20\",\"ProductsProfit\":100}]}', '20.00', '0', '1464943456', '0');
-INSERT INTO `shop_sales_record` VALUES ('7', 'pl2hu3uczz', '49', '3', '200.00', '0.00', '0.00', '200.00', '{\"3\":[{\"ProductsName\":\"纯棉四件套全棉被套床单婚庆儿童1.5宿舍三件套1.8米床上用品2.0m \",\"ImgPath\":\"/uploadfiles/biz/3/image/5750f95b96.png\",\"ProductsPriceX\":\"200.00\",\"ProductsPriceY\":\"200.00\",\"ProductsWeight\":\"1.00\",\"Products_Shipping\":null,\"Products_Business\":null,\"Shipping_Free_Company\":\"0\",\"IsShippingFree\":\"0\",\"OwnerID\":\"15\",\"ProductsIsShipping\":\"0\",\"Qty\":\"1\",\"spec_list\":\"\",\"Property\":[],\"nobi_ratio\":\"20\",\"platForm_Income_Reward\":\"80\",\"area_Proxy_Reward\":\"10\",\"sha_Reward\":\"20\",\"ProductsProfit\":100}]}', '20.00', '0', '1464943527', '0');
-INSERT INTO `shop_sales_record` VALUES ('8', 'pl2hu3uczz', '34', '3', '200.00', '0.00', '0.00', '200.00', '{&amp;quot;3&amp;quot;:[{&amp;quot;ProductsName&amp;quot;:&amp;quot;纯棉四件套全棉被套床单婚庆儿童1.5宿舍三件套1.8米床上用品2.0m &amp;quot;,&amp;quot;ImgPath&amp;quot;:&amp;quot;/uploadfiles/biz/3/image/5750f95b96.png&amp;quot;,&amp;quot;ProductsPriceX&amp;quot;:&amp;quot;200.00&amp;quot;,&amp;quot;ProductsPriceY&amp;quot;:&amp;quot;200.00&amp;quot;,&amp;quot;ProductsWeight&amp;quot;:&amp;quot;1.00&amp;quot;,&amp;quot;Products_Shipping&amp;quot;:null,&amp;quot;Products_Business&amp;quot;:null,&amp;quot;Shipping_Free_Company&amp;quot;:&amp;quot;0&amp;quot;,&amp;quot;IsShippingFree&amp;quot;:&amp;quot;0&amp;quot;,&amp;quot;OwnerID&amp;quot;:&amp;quot;14&amp;quot;,&amp;quot;ProductsIsShipping&amp;quot;:&amp;quot;0&amp;quot;,&amp;quot;Qty&amp;quot;:&amp;quot;1&amp;quot;,&amp;quot;spec_list&amp;quot;:&amp;quot;&amp;quot;,&amp;quot;Property&amp;quot;:[],&amp;quot;ProductsProfit&amp;quot;:100}]}', '0.00', '0', '1465177052', '0');
-INSERT INTO `shop_sales_record` VALUES ('9', 'pl2hu3uczz', '78', '3', '200.00', '0.00', '0.00', '200.00', '{&amp;quot;3&amp;quot;:[{&amp;quot;ProductsName&amp;quot;:&amp;quot;纯棉四件套全棉被套床单婚庆儿童1.5宿舍三件套1.8米床上用品2.0m &amp;quot;,&amp;quot;ImgPath&amp;quot;:&amp;quot;/uploadfiles/biz/3/image/5750f95b96.png&amp;quot;,&amp;quot;ProductsPriceX&amp;quot;:&amp;quot;200.00&amp;quot;,&amp;quot;ProductsPriceY&amp;quot;:&amp;quot;200.00&amp;quot;,&amp;quot;ProductsWeight&amp;quot;:&amp;quot;1.00&amp;quot;,&amp;quot;Products_Shipping&amp;quot;:null,&amp;quot;Products_Business&amp;quot;:null,&amp;quot;Shipping_Free_Company&amp;quot;:&amp;quot;0&amp;quot;,&amp;quot;IsShippingFree&amp;quot;:&amp;quot;0&amp;quot;,&amp;quot;OwnerID&amp;quot;:&amp;quot;25&amp;quot;,&amp;quot;ProductsIsShipping&amp;quot;:&amp;quot;0&amp;quot;,&amp;quot;Qty&amp;quot;:&amp;quot;1&amp;quot;,&amp;quot;spec_list&amp;quot;:&amp;quot;&amp;quot;,&amp;quot;Property&amp;quot;:[],&amp;quot;ProductsProfit&amp;quot;:100}]}', '0.00', '0', '1465180897', '0');
-INSERT INTO `shop_sales_record` VALUES ('10', 'pl2hu3uczz', '82', '3', '200.00', '0.00', '0.00', '200.00', '{&amp;quot;3&amp;quot;:[{&amp;quot;ProductsName&amp;quot;:&amp;quot;纯棉四件套全棉被套床单婚庆儿童1.5宿舍三件套1.8米床上用品2.0m &amp;quot;,&amp;quot;ImgPath&amp;quot;:&amp;quot;/uploadfiles/biz/3/image/5750f95b96.png&amp;quot;,&amp;quot;ProductsPriceX&amp;quot;:&amp;quot;200.00&amp;quot;,&amp;quot;ProductsPriceY&amp;quot;:&amp;quot;200.00&amp;quot;,&amp;quot;ProductsWeight&amp;quot;:&amp;quot;1.00&amp;quot;,&amp;quot;Products_Shipping&amp;quot;:null,&amp;quot;Products_Business&amp;quot;:null,&amp;quot;Shipping_Free_Company&amp;quot;:&amp;quot;0&amp;quot;,&amp;quot;IsShippingFree&amp;quot;:&amp;quot;0&amp;quot;,&amp;quot;OwnerID&amp;quot;:&amp;quot;25&amp;quot;,&amp;quot;ProductsIsShipping&amp;quot;:&amp;quot;0&amp;quot;,&amp;quot;Qty&amp;quot;:&amp;quot;1&amp;quot;,&amp;quot;spec_list&amp;quot;:&amp;quot;&amp;quot;,&amp;quot;Property&amp;quot;:[],&amp;quot;ProductsProfit&amp;quot;:100}]}', '0.00', '0', '1465181230', '0');
-INSERT INTO `shop_sales_record` VALUES ('11', 'pl2hu3uczz', '83', '3', '200.00', '0.00', '0.00', '200.00', '{\"3\":[{\"ProductsName\":\"纯棉四件套全棉被套床单婚庆儿童1.5宿舍三件套1.8米床上用品2.0m \",\"ImgPath\":\"/uploadfiles/biz/3/image/5750f95b96.png\",\"ProductsPriceX\":\"200.00\",\"ProductsPriceY\":\"200.00\",\"ProductsWeight\":\"1.00\",\"Products_Shipping\":null,\"Products_Business\":null,\"Shipping_Free_Company\":\"0\",\"IsShippingFree\":\"0\",\"OwnerID\":\"25\",\"ProductsIsShipping\":\"0\",\"Qty\":\"1\",\"spec_list\":\"\",\"Property\":[],\"nobi_ratio\":\"20\",\"platForm_Income_Reward\":\"80\",\"area_Proxy_Reward\":\"10\",\"sha_Reward\":\"20\",\"ProductsProfit\":100}]}', '20.00', '0', '1465181332', '0');
-INSERT INTO `shop_sales_record` VALUES ('12', 'pl2hu3uczz', '86', '3', '200.00', '0.00', '0.00', '200.00', '{&amp;quot;3&amp;quot;:[{&amp;quot;ProductsName&amp;quot;:&amp;quot;纯棉四件套全棉被套床单婚庆儿童1.5宿舍三件套1.8米床上用品2.0m &amp;quot;,&amp;quot;ImgPath&amp;quot;:&amp;quot;/uploadfiles/biz/3/image/5750f95b96.png&amp;quot;,&amp;quot;ProductsPriceX&amp;quot;:&amp;quot;200.00&amp;quot;,&amp;quot;ProductsPriceY&amp;quot;:&amp;quot;200.00&amp;quot;,&amp;quot;ProductsWeight&amp;quot;:&amp;quot;1.00&amp;quot;,&amp;quot;Products_Shipping&amp;quot;:null,&amp;quot;Products_Business&amp;quot;:null,&amp;quot;Shipping_Free_Company&amp;quot;:&amp;quot;0&amp;quot;,&amp;quot;IsShippingFree&amp;quot;:&amp;quot;0&amp;quot;,&amp;quot;OwnerID&amp;quot;:&amp;quot;0&amp;quot;,&amp;quot;ProductsIsShipping&amp;quot;:&amp;quot;0&amp;quot;,&amp;quot;Qty&amp;quot;:&amp;quot;1&amp;quot;,&amp;quot;spec_list&amp;quot;:&amp;quot;&amp;quot;,&amp;quot;Property&amp;quot;:[],&amp;quot;ProductsProfit&amp;quot;:100}]}', '0.00', '0', '1465181786', '0');
-INSERT INTO `shop_sales_record` VALUES ('13', 'pl2hu3uczz', '87', '3', '80.00', '0.00', '0.00', '80.00', '{&amp;quot;4&amp;quot;:[{&amp;quot;ProductsName&amp;quot;:&amp;quot;幼儿童婴儿积木 一周岁半男宝宝益智力玩具0-1-2-3岁以下早教女孩&amp;quot;,&amp;quot;ImgPath&amp;quot;:&amp;quot;/uploadfiles/biz/3/image/57512f5d8e.png&amp;quot;,&amp;quot;ProductsPriceX&amp;quot;:80,&amp;quot;ProductsPriceY&amp;quot;:&amp;quot;100.00&amp;quot;,&amp;quot;ProductsWeight&amp;quot;:&amp;quot;1.00&amp;quot;,&amp;quot;Products_Shipping&amp;quot;:null,&amp;quot;Products_Business&amp;quot;:null,&amp;quot;Shipping_Free_Company&amp;quot;:&amp;quot;0&amp;quot;,&amp;quot;IsShippingFree&amp;quot;:&amp;quot;1&amp;quot;,&amp;quot;OwnerID&amp;quot;:&amp;quot;30&amp;quot;,&amp;quot;ProductsIsShipping&amp;quot;:&amp;quot;1&amp;quot;,&amp;quot;Qty&amp;quot;:&amp;quot;1&amp;quot;,&amp;quot;spec_list&amp;quot;:&amp;quot;69,72&amp;quot;,&amp;quot;Property&amp;quot;:{&amp;quot;53&amp;quot;:{&amp;quot;Name&amp;quot;:&amp;quot;大小&amp;quot;,&amp;quot;Value&amp;quot;:&amp;quot;S&amp;quot;},&amp;quot;54&amp;quot;:{&amp;quot;Name&amp;quot;:&amp;quot;颜色&amp;quot;,&amp;quot;Value&amp;quot;:&amp;quot;绿色&amp;quot;}},&amp;quot;ProductsProfit&amp;quot;:40}]}', '0.00', '0', '1465181918', '0');
-INSERT INTO `shop_sales_record` VALUES ('14', 'v0wo2g5sah', '97', '4', '400.00', '0.00', '1.00', '401.00', '{\"6\":[{\"ProductsName\":\"【优果】泰国山竹 进口 新鲜时令水果 3斤装 顺丰空运包邮 \",\"ImgPath\":\"/uploadfiles/biz/4/image/5755449039.png\",\"ProductsPriceX\":\"100.00\",\"ProductsPriceY\":\"120.00\",\"ProductsWeight\":\"1.00\",\"Products_Shipping\":null,\"Products_Business\":null,\"Shipping_Free_Company\":\"0\",\"IsShippingFree\":\"0\",\"OwnerID\":\"39\",\"ProductsIsShipping\":\"0\",\"Qty\":\"4\",\"spec_list\":\"\",\"Property\":[],\"nobi_ratio\":\"10\",\"platForm_Income_Reward\":\"80\",\"area_Proxy_Reward\":\"10\",\"sha_Reward\":\"10\",\"ProductsProfit\":50}]}', '67.20', '1', '1465206825', '2');
-INSERT INTO `shop_sales_record` VALUES ('15', 'v0wo2g5sah', '102', '5', '279.00', '0.00', '2.00', '181.00', '{\"7\":[{\"ProductsName\":\"多喜爱樱桃小丸子系列2016新品空调被 全棉空调被可水洗 果味童年\",\"ImgPath\":\"/uploadfiles/biz/5/image/57561e0d41.png\",\"ProductsPriceX\":\"179.00\",\"ProductsPriceY\":\"398.00\",\"ProductsWeight\":\"1.00\",\"Products_Shipping\":null,\"Products_Business\":null,\"Shipping_Free_Company\":\"0\",\"IsShippingFree\":\"0\",\"OwnerID\":\"39\",\"ProductsIsShipping\":\"0\",\"Qty\":\"1\",\"spec_list\":\"\",\"Property\":[],\"nobi_ratio\":\"10\",\"platForm_Income_Reward\":\"80\",\"area_Proxy_Reward\":\"10\",\"sha_Reward\":\"10\",\"ProductsProfit\":107.4}]}', '36.09', '1', '1465261842', '3');
-INSERT INTO `shop_sales_record` VALUES ('16', 'v0wo2g5sah', '103', '4', '279.00', '0.00', '1.00', '101.00', '{\"6\":[{\"ProductsName\":\"【优果】泰国山竹 进口 新鲜时令水果 3斤装 顺丰空运包邮 \",\"ImgPath\":\"/uploadfiles/biz/4/image/5755449039.png\",\"ProductsPriceX\":\"100.00\",\"ProductsPriceY\":\"120.00\",\"ProductsWeight\":\"1.00\",\"Products_Shipping\":null,\"Products_Business\":null,\"Shipping_Free_Company\":\"0\",\"IsShippingFree\":\"0\",\"OwnerID\":\"39\",\"ProductsIsShipping\":\"0\",\"Qty\":\"1\",\"spec_list\":\"\",\"Property\":[],\"nobi_ratio\":\"10\",\"platForm_Income_Reward\":\"80\",\"area_Proxy_Reward\":\"10\",\"sha_Reward\":\"10\",\"ProductsProfit\":50}]}', '16.80', '0', '1465261849', '0');
-INSERT INTO `shop_sales_record` VALUES ('17', 'pl2hu3uczz', '105', '1', '0.00', '0.00', '0.00', '10.00', '{\"5\":[{\"ProductsName\":\"杭州宜车商家收款\",\"ImgPath\":\"/uploadfiles/biz/1/image/57551954ad.jpg\",\"ProductsPriceX\":\"10.00\",\"ProductsPriceY\":\"10.00\",\"ProductsWeight\":\"1.00\",\"Products_Shipping\":null,\"Products_Business\":null,\"Shipping_Free_Company\":\"0\",\"IsShippingFree\":\"1\",\"OwnerID\":\"51\",\"ProductsIsShipping\":\"1\",\"Qty\":\"1\",\"spec_list\":\"\",\"Property\":[],\"nobi_ratio\":\"20\",\"platForm_Income_Reward\":\"80\",\"area_Proxy_Reward\":\"10\",\"sha_Reward\":\"20\",\"ProductsProfit\":0.5}]}', '0.00', '1', '1465264619', '4');
-INSERT INTO `shop_sales_record` VALUES ('18', 'pl2hu3uczz', '106', '1', '0.00', '0.00', '0.00', '1580.00', '{\"1\":[{\"ProductsName\":\"3M贴膜\",\"ImgPath\":\"/uploadfiles/biz/1/image/574ee1118a.jpg\",\"ProductsPriceX\":\"1580.00\",\"ProductsPriceY\":\"1680.00\",\"ProductsWeight\":\"1.00\",\"Products_Shipping\":null,\"Products_Business\":null,\"Shipping_Free_Company\":\"0\",\"IsShippingFree\":\"1\",\"OwnerID\":\"32\",\"ProductsIsShipping\":\"1\",\"Qty\":\"1\",\"spec_list\":\"\",\"Property\":[],\"nobi_ratio\":\"20\",\"platForm_Income_Reward\":\"80\",\"area_Proxy_Reward\":\"10\",\"sha_Reward\":\"20\",\"ProductsProfit\":480}]}', '96.00', '1', '1465264666', '4');
-INSERT INTO `shop_sales_record` VALUES ('19', 'pl2hu3uczz', '108', '3', '80.00', '0.00', '0.00', '80.00', '{\"4\":[{\"ProductsName\":\"幼儿童婴儿积木 一周岁半男宝宝益智力玩具0-1-2-3岁以下早教女孩\",\"ImgPath\":\"/uploadfiles/biz/3/image/57512f5d8e.png\",\"ProductsPriceX\":80,\"ProductsPriceY\":\"100.00\",\"ProductsWeight\":\"1.00\",\"Products_Shipping\":null,\"Products_Business\":null,\"Shipping_Free_Company\":\"0\",\"IsShippingFree\":\"1\",\"OwnerID\":\"53\",\"ProductsIsShipping\":\"1\",\"Qty\":\"1\",\"spec_list\":\"69,72\",\"Property\":{\"53\":{\"Name\":\"大小\",\"Value\":\"S\"},\"54\":{\"Name\":\"颜色\",\"Value\":\"绿色\"}},\"nobi_ratio\":\"20\",\"platForm_Income_Reward\":\"80\",\"area_Proxy_Reward\":\"10\",\"sha_Reward\":\"20\",\"ProductsProfit\":40}]}', '8.00', '0', '1465289660', '0');
-INSERT INTO `shop_sales_record` VALUES ('20', 'pl2hu3uczz', '94', '1', '0.00', '0.00', '0.00', '10.00', '{\"5\":[{\"ProductsName\":\"杭州宜车商家收款\",\"ImgPath\":\"/uploadfiles/biz/1/image/57551954ad.jpg\",\"ProductsPriceX\":\"10.00\",\"ProductsPriceY\":\"10.00\",\"ProductsWeight\":\"1.00\",\"Products_Shipping\":null,\"Products_Business\":null,\"Shipping_Free_Company\":\"0\",\"IsShippingFree\":\"1\",\"OwnerID\":\"32\",\"ProductsIsShipping\":\"1\",\"Qty\":\"1\",\"spec_list\":\"\",\"Property\":[],\"nobi_ratio\":\"20\",\"platForm_Income_Reward\":\"80\",\"area_Proxy_Reward\":\"10\",\"sha_Reward\":\"20\",\"ProductsProfit\":0.5}]}', '0.10', '1', '1465290087', '4');
-INSERT INTO `shop_sales_record` VALUES ('21', 'pl2hu3uczz', '109', '1', '0.00', '0.00', '0.00', '10.00', '{\"5\":[{\"ProductsName\":\"杭州宜车商家收款\",\"ImgPath\":\"/uploadfiles/biz/1/image/57551954ad.jpg\",\"ProductsPriceX\":\"10.00\",\"ProductsPriceY\":\"10.00\",\"ProductsWeight\":\"1.00\",\"Products_Shipping\":null,\"Products_Business\":null,\"Shipping_Free_Company\":\"0\",\"IsShippingFree\":\"1\",\"OwnerID\":\"32\",\"ProductsIsShipping\":\"1\",\"Qty\":\"1\",\"spec_list\":\"\",\"Property\":[],\"nobi_ratio\":\"20\",\"platForm_Income_Reward\":\"80\",\"area_Proxy_Reward\":\"10\",\"sha_Reward\":\"20\",\"ProductsProfit\":0.5}]}', '0.10', '1', '1465290158', '4');
-INSERT INTO `shop_sales_record` VALUES ('22', 'pl2hu3uczz', '110', '1', '0.00', '0.00', '0.00', '10.00', '{\"5\":[{\"ProductsName\":\"杭州宜车商家收款\",\"ImgPath\":\"/uploadfiles/biz/1/image/57551954ad.jpg\",\"ProductsPriceX\":\"10.00\",\"ProductsPriceY\":\"10.00\",\"ProductsWeight\":\"1.00\",\"Products_Shipping\":null,\"Products_Business\":null,\"Shipping_Free_Company\":\"0\",\"IsShippingFree\":\"1\",\"OwnerID\":\"53\",\"ProductsIsShipping\":\"1\",\"Qty\":\"1\",\"spec_list\":\"\",\"Property\":[],\"nobi_ratio\":\"20\",\"platForm_Income_Reward\":\"80\",\"area_Proxy_Reward\":\"10\",\"sha_Reward\":\"20\",\"ProductsProfit\":0.5}]}', '0.10', '1', '1465290335', '4');
-INSERT INTO `shop_sales_record` VALUES ('23', 'pl2hu3uczz', '111', '1', '0.00', '0.00', '0.00', '1580.00', '{\"1\":[{\"ProductsName\":\"3M贴膜\",\"ImgPath\":\"/uploadfiles/biz/1/image/574ee1118a.jpg\",\"ProductsPriceX\":\"1580.00\",\"ProductsPriceY\":\"1680.00\",\"ProductsWeight\":\"1.00\",\"Products_Shipping\":null,\"Products_Business\":null,\"Shipping_Free_Company\":\"0\",\"IsShippingFree\":\"1\",\"OwnerID\":\"53\",\"ProductsIsShipping\":\"1\",\"Qty\":\"1\",\"spec_list\":\"\",\"Property\":[],\"nobi_ratio\":\"20\",\"platForm_Income_Reward\":\"80\",\"area_Proxy_Reward\":\"10\",\"sha_Reward\":\"20\",\"ProductsProfit\":480}]}', '96.00', '1', '1465290393', '4');
-INSERT INTO `shop_sales_record` VALUES ('24', 'pl2hu3uczz', '112', '1', '0.00', '0.00', '0.00', '10.00', '{\"5\":[{\"ProductsName\":\"杭州宜车商家收款\",\"ImgPath\":\"/uploadfiles/biz/1/image/57551954ad.jpg\",\"ProductsPriceX\":\"10.00\",\"ProductsPriceY\":\"10.00\",\"ProductsWeight\":\"1.00\",\"Products_Shipping\":null,\"Products_Business\":null,\"Shipping_Free_Company\":\"0\",\"IsShippingFree\":\"1\",\"OwnerID\":\"32\",\"ProductsIsShipping\":\"1\",\"Qty\":\"1\",\"spec_list\":\"\",\"Property\":[],\"nobi_ratio\":\"20\",\"platForm_Income_Reward\":\"80\",\"area_Proxy_Reward\":\"10\",\"sha_Reward\":\"20\",\"ProductsProfit\":0.5}]}', '0.10', '1', '1465291872', '4');
-INSERT INTO `shop_sales_record` VALUES ('25', 'pl2hu3uczz', '113', '1', '0.00', '0.00', '0.00', '10.00', '{\"5\":[{\"ProductsName\":\"杭州宜车商家收款\",\"ImgPath\":\"/uploadfiles/biz/1/image/57551954ad.jpg\",\"ProductsPriceX\":\"10.00\",\"ProductsPriceY\":\"10.00\",\"ProductsWeight\":\"1.00\",\"Products_Shipping\":null,\"Products_Business\":null,\"Shipping_Free_Company\":\"0\",\"IsShippingFree\":\"1\",\"OwnerID\":\"32\",\"ProductsIsShipping\":\"1\",\"Qty\":\"1\",\"spec_list\":\"\",\"Property\":[],\"nobi_ratio\":\"20\",\"platForm_Income_Reward\":\"80\",\"area_Proxy_Reward\":\"10\",\"sha_Reward\":\"20\",\"ProductsProfit\":0.5}]}', '0.10', '1', '1465292368', '4');
-INSERT INTO `shop_sales_record` VALUES ('26', 'pl2hu3uczz', '114', '1', '0.00', '0.00', '0.00', '1580.00', '{\"1\":[{\"ProductsName\":\"3M贴膜\",\"ImgPath\":\"/uploadfiles/biz/1/image/574ee1118a.jpg\",\"ProductsPriceX\":\"1580.00\",\"ProductsPriceY\":\"1680.00\",\"ProductsWeight\":\"1.00\",\"Products_Shipping\":null,\"Products_Business\":null,\"Shipping_Free_Company\":\"0\",\"IsShippingFree\":\"1\",\"OwnerID\":\"32\",\"ProductsIsShipping\":\"1\",\"Qty\":\"1\",\"spec_list\":\"\",\"Property\":[],\"nobi_ratio\":\"20\",\"platForm_Income_Reward\":\"80\",\"area_Proxy_Reward\":\"10\",\"sha_Reward\":\"20\",\"ProductsProfit\":480}]}', '96.00', '0', '1465307156', '0');
-INSERT INTO `shop_sales_record` VALUES ('27', 'pl2hu3uczz', '115', '1', '0.00', '0.00', '0.00', '1580.00', '{\"1\":[{\"ProductsName\":\"3M贴膜\",\"ImgPath\":\"/uploadfiles/biz/1/image/574ee1118a.jpg\",\"ProductsPriceX\":\"1580.00\",\"ProductsPriceY\":\"1680.00\",\"ProductsWeight\":\"1.00\",\"Products_Shipping\":null,\"Products_Business\":null,\"Shipping_Free_Company\":\"0\",\"IsShippingFree\":\"1\",\"OwnerID\":\"46\",\"ProductsIsShipping\":\"1\",\"Qty\":\"1\",\"spec_list\":\"\",\"Property\":[],\"nobi_ratio\":\"20\",\"platForm_Income_Reward\":\"80\",\"area_Proxy_Reward\":\"10\",\"sha_Reward\":\"20\",\"ProductsProfit\":480}]}', '115.20', '0', '1465308880', '0');
-INSERT INTO `shop_sales_record` VALUES ('28', 'pl2hu3uczz', '116', '1', '0.00', '0.00', '0.00', '500.00', '{\"5\":[{\"ProductsName\":\"杭州宜车商家收款\",\"ImgPath\":\"/uploadfiles/biz/1/image/57551954ad.jpg\",\"ProductsPriceX\":\"10.00\",\"ProductsPriceY\":\"10.00\",\"ProductsWeight\":\"1.00\",\"Products_Shipping\":null,\"Products_Business\":null,\"Shipping_Free_Company\":\"0\",\"IsShippingFree\":\"1\",\"OwnerID\":\"56\",\"ProductsIsShipping\":\"1\",\"Qty\":\"50\",\"spec_list\":\"\",\"Property\":[],\"nobi_ratio\":\"20\",\"platForm_Income_Reward\":\"80\",\"area_Proxy_Reward\":\"10\",\"sha_Reward\":\"20\",\"ProductsProfit\":0.5}]}', '6.00', '0', '1465364842', '0');
-INSERT INTO `shop_sales_record` VALUES ('29', 'pl2hu3uczz', '43', '8', '100.00', '0.00', '10.00', '110.00', '{\"3\":[{\"ProductsName\":\"测试业务产品\",\"ImgPath\":\"/uploadfiles/biz/8/image/5716f5c799.jpg\",\"ProductsPriceX\":\"100.00\",\"ProductsPriceY\":\"120.00\",\"ProductsWeight\":\"1.00\",\"Products_Shipping\":null,\"Products_Business\":null,\"Shipping_Free_Company\":\"0\",\"IsShippingFree\":\"0\",\"OwnerID\":\"12\",\"ProductsIsShipping\":\"0\",\"Qty\":\"1\",\"spec_list\":\"\",\"Property\":[],\"nobi_ratio\":\"10\",\"platForm_Income_Reward\":\"60\",\"area_Proxy_Reward\":\"20\",\"sha_Reward\":\"20\",\"ProductsProfit\":80}]}', '16.32', '0', '1465866696', '0');
-INSERT INTO `shop_sales_record` VALUES ('30', 'pl2hu3uczz', '45', '8', '100.00', '0.00', '10.00', '110.00', '{\"3\":[{\"ProductsName\":\"测试业务产品\",\"ImgPath\":\"/uploadfiles/biz/8/image/5716f5c799.jpg\",\"ProductsPriceX\":\"100.00\",\"ProductsPriceY\":\"120.00\",\"ProductsWeight\":\"1.00\",\"Products_Shipping\":null,\"Products_Business\":null,\"Shipping_Free_Company\":\"0\",\"IsShippingFree\":\"0\",\"OwnerID\":\"12\",\"ProductsIsShipping\":\"0\",\"Qty\":\"1\",\"spec_list\":\"\",\"Property\":[],\"nobi_ratio\":\"10\",\"platForm_Income_Reward\":\"60\",\"area_Proxy_Reward\":\"20\",\"sha_Reward\":\"20\",\"ProductsProfit\":80}]}', '16.32', '0', '1465867497', '0');
-INSERT INTO `shop_sales_record` VALUES ('31', 'pl2hu3uczz', '46', '8', '100.00', '0.00', '10.00', '110.00', '{\"3\":[{\"ProductsName\":\"测试业务产品\",\"ImgPath\":\"/uploadfiles/biz/8/image/5716f5c799.jpg\",\"ProductsPriceX\":\"100.00\",\"ProductsPriceY\":\"120.00\",\"ProductsWeight\":\"1.00\",\"Products_Shipping\":null,\"Products_Business\":null,\"Shipping_Free_Company\":\"0\",\"IsShippingFree\":\"0\",\"OwnerID\":\"12\",\"ProductsIsShipping\":\"0\",\"Qty\":\"1\",\"spec_list\":\"\",\"Property\":[],\"nobi_ratio\":\"10\",\"platForm_Income_Reward\":\"60\",\"area_Proxy_Reward\":\"20\",\"sha_Reward\":\"20\",\"ProductsProfit\":80}]}', '16.32', '0', '1465867820', '0');
-INSERT INTO `shop_sales_record` VALUES ('32', 'pl2hu3uczz', '48', '8', '100.00', '0.00', '10.00', '110.00', '{\"3\":[{\"ProductsName\":\"测试业务产品\",\"ImgPath\":\"/uploadfiles/biz/8/image/5716f5c799.jpg\",\"ProductsPriceX\":\"100.00\",\"ProductsPriceY\":\"120.00\",\"ProductsWeight\":\"1.00\",\"Products_Shipping\":null,\"Products_Business\":null,\"Shipping_Free_Company\":\"0\",\"IsShippingFree\":\"0\",\"OwnerID\":\"12\",\"ProductsIsShipping\":\"0\",\"Qty\":\"1\",\"spec_list\":\"\",\"Property\":[],\"nobi_ratio\":\"10\",\"platForm_Income_Reward\":\"60\",\"area_Proxy_Reward\":\"20\",\"sha_Reward\":\"20\",\"ProductsProfit\":80}]}', '16.32', '0', '1465868302', '0');
-INSERT INTO `shop_sales_record` VALUES ('33', 'pl2hu3uczz', '49', '8', '100.00', '0.00', '10.00', '110.00', '{\"3\":[{\"ProductsName\":\"测试业务产品\",\"ImgPath\":\"/uploadfiles/biz/8/image/5716f5c799.jpg\",\"ProductsPriceX\":\"100.00\",\"ProductsPriceY\":\"120.00\",\"ProductsWeight\":\"1.00\",\"Products_Shipping\":null,\"Products_Business\":null,\"Shipping_Free_Company\":\"0\",\"IsShippingFree\":\"0\",\"OwnerID\":\"13\",\"ProductsIsShipping\":\"0\",\"Qty\":\"1\",\"spec_list\":\"\",\"Property\":[],\"nobi_ratio\":\"10\",\"platForm_Income_Reward\":\"60\",\"area_Proxy_Reward\":\"20\",\"sha_Reward\":\"20\",\"ProductsProfit\":80}]}', '2.88', '0', '1465870395', '0');
-INSERT INTO `shop_sales_record` VALUES ('34', 'pl2hu3uczz', '52', '8', '100.00', '0.00', '10.00', '110.00', '{\"3\":[{\"ProductsName\":\"测试业务产品\",\"ImgPath\":\"/uploadfiles/biz/8/image/5716f5c799.jpg\",\"ProductsPriceX\":\"100.00\",\"ProductsPriceY\":\"120.00\",\"ProductsWeight\":\"1.00\",\"Products_Shipping\":null,\"Products_Business\":null,\"Shipping_Free_Company\":\"0\",\"IsShippingFree\":\"0\",\"OwnerID\":\"13\",\"ProductsIsShipping\":\"0\",\"Qty\":\"1\",\"spec_list\":\"\",\"Property\":[],\"nobi_ratio\":\"10\",\"platForm_Income_Reward\":\"60\",\"area_Proxy_Reward\":\"20\",\"sha_Reward\":\"20\",\"ProductsProfit\":80}]}', '2.88', '0', '1465897614', '0');
-INSERT INTO `shop_sales_record` VALUES ('35', 'pl2hu3uczz', '53', '8', '110.00', '0.00', '10.00', '110.00', '{&amp;quot;3&amp;quot;:[{&amp;quot;ProductsName&amp;quot;:&amp;quot;测试业务产品&amp;quot;,&amp;quot;ImgPath&amp;quot;:&amp;quot;/uploadfiles/biz/8/image/5716f5c799.jpg&amp;quot;,&amp;quot;ProductsPriceX&amp;quot;:&amp;quot;100.00&amp;quot;,&amp;quot;ProductsPriceY&amp;quot;:&amp;quot;120.00&amp;quot;,&amp;quot;ProductsWeight&amp;quot;:&amp;quot;1.00&amp;quot;,&amp;quot;Products_Shipping&amp;quot;:null,&amp;quot;Products_Business&amp;quot;:null,&amp;quot;Shipping_Free_Company&amp;quot;:&amp;quot;0&amp;quot;,&amp;quot;IsShippingFree&amp;quot;:&amp;quot;0&amp;quot;,&amp;quot;OwnerID&amp;quot;:&amp;quot;14&amp;quot;,&amp;quot;ProductsIsShipping&amp;quot;:&amp;quot;0&amp;quot;,&amp;quot;Qty&amp;quot;:&amp;quot;1&amp;quot;,&amp;quot;spec_list&amp;quot;:&amp;quot;&amp;quot;,&amp;quot;Property&amp;quot;:[],&amp;quot;ProductsProfit&amp;quot;:80}]}', '0.00', '0', '1465957323', '0');
-INSERT INTO `shop_sales_record` VALUES ('36', 'pl2hu3uczz', '54', '8', '100.00', '0.00', '10.00', '110.00', '{\"3\":[{\"ProductsName\":\"测试业务产品\",\"ImgPath\":\"/uploadfiles/biz/8/image/5716f5c799.jpg\",\"ProductsPriceX\":\"100.00\",\"ProductsPriceY\":\"120.00\",\"ProductsWeight\":\"1.00\",\"Products_Shipping\":null,\"Products_Business\":null,\"Shipping_Free_Company\":\"0\",\"IsShippingFree\":\"0\",\"OwnerID\":\"14\",\"ProductsIsShipping\":\"0\",\"Qty\":\"1\",\"spec_list\":\"\",\"Property\":[],\"nobi_ratio\":\"10\",\"platForm_Income_Reward\":\"60\",\"area_Proxy_Reward\":\"20\",\"sha_Reward\":\"20\",\"ProductsProfit\":80}]}', '2.88', '0', '1465957678', '0');
-INSERT INTO `shop_sales_record` VALUES ('37', 'pl2hu3uczz', '70', '8', '110.00', '0.00', '10.00', '110.00', '{&amp;quot;3&amp;quot;:[{&amp;quot;ProductsName&amp;quot;:&amp;quot;测试业务产品&amp;quot;,&amp;quot;ImgPath&amp;quot;:&amp;quot;/uploadfiles/biz/8/image/5716f5c799.jpg&amp;quot;,&amp;quot;ProductsPriceX&amp;quot;:&amp;quot;100.00&amp;quot;,&amp;quot;ProductsPriceY&amp;quot;:&amp;quot;120.00&amp;quot;,&amp;quot;ProductsWeight&amp;quot;:&amp;quot;1.00&amp;quot;,&amp;quot;Products_Shipping&amp;quot;:null,&amp;quot;Products_Business&amp;quot;:null,&amp;quot;Shipping_Free_Company&amp;quot;:&amp;quot;0&amp;quot;,&amp;quot;IsShippingFree&amp;quot;:&amp;quot;0&amp;quot;,&amp;quot;OwnerID&amp;quot;:&amp;quot;10&amp;quot;,&amp;quot;ProductsIsShipping&amp;quot;:&amp;quot;0&amp;quot;,&amp;quot;Qty&amp;quot;:&amp;quot;1&amp;quot;,&amp;quot;spec_list&amp;quot;:&amp;quot;&amp;quot;,&amp;quot;Property&amp;quot;:[],&amp;quot;ProductsProfit&amp;quot;:80}]}', '2.88', '0', '1465966562', '0');
-INSERT INTO `shop_sales_record` VALUES ('38', 'pl2hu3uczz', '71', '8', '110.00', '0.00', '10.00', '110.00', '{&amp;quot;3&amp;quot;:[{&amp;quot;ProductsName&amp;quot;:&amp;quot;测试业务产品&amp;quot;,&amp;quot;ImgPath&amp;quot;:&amp;quot;/uploadfiles/biz/8/image/5716f5c799.jpg&amp;quot;,&amp;quot;ProductsPriceX&amp;quot;:&amp;quot;100.00&amp;quot;,&amp;quot;ProductsPriceY&amp;quot;:&amp;quot;120.00&amp;quot;,&amp;quot;ProductsWeight&amp;quot;:&amp;quot;1.00&amp;quot;,&amp;quot;Products_Shipping&amp;quot;:null,&amp;quot;Products_Business&amp;quot;:null,&amp;quot;Shipping_Free_Company&amp;quot;:&amp;quot;0&amp;quot;,&amp;quot;IsShippingFree&amp;quot;:&amp;quot;0&amp;quot;,&amp;quot;OwnerID&amp;quot;:&amp;quot;12&amp;quot;,&amp;quot;ProductsIsShipping&amp;quot;:&amp;quot;0&amp;quot;,&amp;quot;Qty&amp;quot;:&amp;quot;1&amp;quot;,&amp;quot;spec_list&amp;quot;:&amp;quot;&amp;quot;,&amp;quot;Property&amp;quot;:[],&amp;quot;ProductsProfit&amp;quot;:80}]}', '16.32', '0', '1465966799', '0');
-INSERT INTO `shop_sales_record` VALUES ('39', 'pl2hu3uczz', '72', '8', '800.00', '0.00', '11.00', '211.00', '{\"3\":[{\"ProductsName\":\"测试业务产品\",\"ImgPath\":\"/uploadfiles/biz/8/image/5716f5c799.jpg\",\"ProductsPriceX\":\"100.00\",\"ProductsPriceY\":\"120.00\",\"ProductsWeight\":\"1.00\",\"Products_Shipping\":null,\"Products_Business\":null,\"Shipping_Free_Company\":\"0\",\"IsShippingFree\":\"0\",\"OwnerID\":\"2\",\"ProductsIsShipping\":\"0\",\"Qty\":\"2\",\"spec_list\":\"\",\"Property\":[],\"nobi_ratio\":\"10\",\"platForm_Income_Reward\":\"60\",\"area_Proxy_Reward\":\"20\",\"sha_Reward\":\"20\",\"ProductsProfit\":80}]}', '5.76', '0', '1466043148', '0');
-INSERT INTO `shop_sales_record` VALUES ('40', 'pl2hu3uczz', '75', '8', '200.00', '0.00', '11.00', '211.00', '{\"3\":[{\"ProductsName\":\"测试业务产品\",\"ImgPath\":\"/uploadfiles/biz/8/image/5716f5c799.jpg\",\"ProductsPriceX\":\"100.00\",\"ProductsPriceY\":\"120.00\",\"ProductsWeight\":\"1.00\",\"Products_Shipping\":null,\"Products_Business\":null,\"Shipping_Free_Company\":\"0\",\"IsShippingFree\":\"0\",\"OwnerID\":\"2\",\"ProductsIsShipping\":\"0\",\"Qty\":\"2\",\"spec_list\":\"\",\"Property\":[],\"nobi_ratio\":\"10\",\"platForm_Income_Reward\":\"60\",\"area_Proxy_Reward\":\"20\",\"sha_Reward\":\"20\",\"ProductsProfit\":80}]}', '5.76', '0', '1466043326', '0');
-INSERT INTO `shop_sales_record` VALUES ('41', 'pl2hu3uczz', '76', '8', '200.00', '0.00', '11.00', '211.00', '{\"3\":[{\"ProductsName\":\"测试业务产品\",\"ImgPath\":\"/uploadfiles/biz/8/image/5716f5c799.jpg\",\"ProductsPriceX\":\"100.00\",\"ProductsPriceY\":\"120.00\",\"ProductsWeight\":\"1.00\",\"Products_Shipping\":null,\"Products_Business\":null,\"Shipping_Free_Company\":\"0\",\"IsShippingFree\":\"0\",\"OwnerID\":\"2\",\"ProductsIsShipping\":\"0\",\"Qty\":\"2\",\"spec_list\":\"\",\"Property\":[],\"nobi_ratio\":\"10\",\"platForm_Income_Reward\":\"60\",\"area_Proxy_Reward\":\"20\",\"sha_Reward\":\"20\",\"ProductsProfit\":80}]}', '5.76', '0', '1466043483', '0');
-INSERT INTO `shop_sales_record` VALUES ('42', 'pl2hu3uczz', '77', '8', '200.00', '0.00', '11.00', '211.00', '{\"3\":[{\"ProductsName\":\"测试业务产品\",\"ImgPath\":\"/uploadfiles/biz/8/image/5716f5c799.jpg\",\"ProductsPriceX\":\"100.00\",\"ProductsPriceY\":\"120.00\",\"ProductsWeight\":\"1.00\",\"Products_Shipping\":null,\"Products_Business\":null,\"Shipping_Free_Company\":\"0\",\"IsShippingFree\":\"0\",\"OwnerID\":\"2\",\"ProductsIsShipping\":\"0\",\"Qty\":\"2\",\"spec_list\":\"\",\"Property\":[],\"nobi_ratio\":\"10\",\"platForm_Income_Reward\":\"60\",\"area_Proxy_Reward\":\"20\",\"sha_Reward\":\"20\",\"ProductsProfit\":80}]}', '5.76', '0', '1466043698', '0');
-INSERT INTO `shop_sales_record` VALUES ('43', 'pl2hu3uczz', '81', '8', '100.00', '0.00', '10.00', '110.00', '{\"3\":[{\"ProductsName\":\"测试业务产品\",\"ImgPath\":\"/uploadfiles/biz/8/image/5716f5c799.jpg\",\"ProductsPriceX\":\"100.00\",\"ProductsPriceY\":\"120.00\",\"ProductsWeight\":\"1.00\",\"Products_Shipping\":null,\"Products_Business\":null,\"Shipping_Free_Company\":\"0\",\"IsShippingFree\":\"0\",\"OwnerID\":\"2\",\"ProductsIsShipping\":\"0\",\"Qty\":\"1\",\"spec_list\":\"\",\"Property\":[],\"nobi_ratio\":\"10\",\"platForm_Income_Reward\":\"60\",\"area_Proxy_Reward\":\"20\",\"sha_Reward\":\"20\",\"ProductsProfit\":80}]}', '2.88', '0', '1466044800', '0');
-INSERT INTO `shop_sales_record` VALUES ('44', 'pl2hu3uczz', '82', '8', '100.00', '0.00', '10.00', '110.00', '{\"3\":[{\"ProductsName\":\"测试业务产品\",\"ImgPath\":\"/uploadfiles/biz/8/image/5716f5c799.jpg\",\"ProductsPriceX\":\"100.00\",\"ProductsPriceY\":\"120.00\",\"ProductsWeight\":\"1.00\",\"Products_Shipping\":null,\"Products_Business\":null,\"Shipping_Free_Company\":\"0\",\"IsShippingFree\":\"0\",\"OwnerID\":\"2\",\"ProductsIsShipping\":\"0\",\"Qty\":\"1\",\"spec_list\":\"\",\"Property\":[],\"nobi_ratio\":\"10\",\"platForm_Income_Reward\":\"60\",\"area_Proxy_Reward\":\"20\",\"sha_Reward\":\"20\",\"ProductsProfit\":80}]}', '2.88', '0', '1466059018', '0');
-INSERT INTO `shop_sales_record` VALUES ('45', 'pl2hu3uczz', '83', '8', '100.00', '0.00', '10.00', '110.00', '{\"3\":[{\"ProductsName\":\"测试业务产品\",\"ImgPath\":\"/uploadfiles/biz/8/image/5716f5c799.jpg\",\"ProductsPriceX\":\"100.00\",\"ProductsPriceY\":\"120.00\",\"ProductsWeight\":\"1.00\",\"Products_Shipping\":null,\"Products_Business\":null,\"Shipping_Free_Company\":\"0\",\"IsShippingFree\":\"0\",\"OwnerID\":\"10\",\"ProductsIsShipping\":\"0\",\"Qty\":\"1\",\"spec_list\":\"\",\"Property\":[],\"nobi_ratio\":\"20\",\"platForm_Income_Reward\":\"60\",\"area_Proxy_Reward\":\"20\",\"sha_Reward\":\"20\",\"ProductsProfit\":80}]}', '0.48', '0', '1466133960', '0');
-INSERT INTO `shop_sales_record` VALUES ('46', 'pl2hu3uczz', '84', '8', '100.00', '0.00', '10.00', '110.00', '{\"3\":[{\"ProductsName\":\"测试业务产品\",\"ImgPath\":\"/uploadfiles/biz/8/image/5716f5c799.jpg\",\"ProductsPriceX\":\"100.00\",\"ProductsPriceY\":\"120.00\",\"ProductsWeight\":\"1.00\",\"Products_Shipping\":null,\"Products_Business\":null,\"Shipping_Free_Company\":\"0\",\"IsShippingFree\":\"0\",\"OwnerID\":\"10\",\"ProductsIsShipping\":\"0\",\"Qty\":\"1\",\"spec_list\":\"\",\"Property\":[],\"nobi_ratio\":\"20\",\"platForm_Income_Reward\":\"60\",\"area_Proxy_Reward\":\"20\",\"sha_Reward\":\"20\",\"ProductsProfit\":80}]}', '0.48', '0', '1466147009', '0');
-INSERT INTO `shop_sales_record` VALUES ('47', 'pl2hu3uczz', '85', '8', '100.00', '0.00', '10.00', '110.00', '{\"3\":[{\"ProductsName\":\"测试业务产品\",\"ImgPath\":\"/uploadfiles/biz/8/image/5716f5c799.jpg\",\"ProductsPriceX\":\"100.00\",\"ProductsPriceY\":\"120.00\",\"ProductsWeight\":\"1.00\",\"Products_Shipping\":null,\"Products_Business\":null,\"Shipping_Free_Company\":\"0\",\"IsShippingFree\":\"0\",\"OwnerID\":\"10\",\"ProductsIsShipping\":\"0\",\"Qty\":\"1\",\"spec_list\":\"\",\"Property\":[],\"nobi_ratio\":\"20\",\"platForm_Income_Reward\":\"60\",\"area_Proxy_Reward\":\"20\",\"sha_Reward\":\"20\",\"ProductsProfit\":80}]}', '1.44', '0', '1466149392', '0');
-INSERT INTO `shop_sales_record` VALUES ('48', 'pl2hu3uczz', '88', '8', '100.00', '0.00', '10.00', '110.00', '{\"3\":[{\"ProductsName\":\"测试业务产品\",\"ImgPath\":\"/uploadfiles/biz/8/image/5716f5c799.jpg\",\"ProductsPriceX\":\"100.00\",\"ProductsPriceY\":\"120.00\",\"ProductsWeight\":\"1.00\",\"Products_Shipping\":null,\"Products_Business\":null,\"Shipping_Free_Company\":\"0\",\"IsShippingFree\":\"0\",\"OwnerID\":\"2\",\"ProductsIsShipping\":\"0\",\"Qty\":\"1\",\"spec_list\":\"\",\"Property\":[],\"nobi_ratio\":\"20\",\"platForm_Income_Reward\":\"60\",\"area_Proxy_Reward\":\"20\",\"sha_Reward\":\"20\",\"ProductsProfit\":80}]}', '1.44', '0', '1466217412', '0');
-INSERT INTO `shop_sales_record` VALUES ('49', 'pl2hu3uczz', '89', '8', '100.00', '0.00', '10.00', '110.00', '{\"3\":[{\"ProductsName\":\"测试业务产品\",\"ImgPath\":\"/uploadfiles/biz/8/image/5716f5c799.jpg\",\"ProductsPriceX\":\"100.00\",\"ProductsPriceY\":\"120.00\",\"ProductsWeight\":\"1.00\",\"Products_Shipping\":null,\"Products_Business\":null,\"Shipping_Free_Company\":\"0\",\"IsShippingFree\":\"0\",\"OwnerID\":\"2\",\"ProductsIsShipping\":\"0\",\"Qty\":\"1\",\"spec_list\":\"\",\"Property\":[],\"nobi_ratio\":\"20\",\"platForm_Income_Reward\":\"60\",\"area_Proxy_Reward\":\"20\",\"sha_Reward\":\"20\",\"ProductsProfit\":80}]}', '1.44', '0', '1466217494', '0');
-INSERT INTO `shop_sales_record` VALUES ('50', 'pl2hu3uczz', '90', '8', '100.00', '0.00', '10.00', '110.00', '{\"3\":[{\"ProductsName\":\"测试业务产品\",\"ImgPath\":\"/uploadfiles/biz/8/image/5716f5c799.jpg\",\"ProductsPriceX\":\"100.00\",\"ProductsPriceY\":\"120.00\",\"ProductsWeight\":\"1.00\",\"Products_Shipping\":null,\"Products_Business\":null,\"Shipping_Free_Company\":\"0\",\"IsShippingFree\":\"0\",\"OwnerID\":\"2\",\"ProductsIsShipping\":\"0\",\"Qty\":\"1\",\"spec_list\":\"\",\"Property\":[],\"nobi_ratio\":\"20\",\"platForm_Income_Reward\":\"60\",\"area_Proxy_Reward\":\"20\",\"sha_Reward\":\"20\",\"ProductsProfit\":80}]}', '1.44', '0', '1466218164', '0');
 
 -- ----------------------------
--- Table structure for shop_shipping_company
+-- Table structure for `shop_shipping_company`
 -- ----------------------------
 DROP TABLE IF EXISTS `shop_shipping_company`;
 CREATE TABLE `shop_shipping_company` (
@@ -6700,11 +6214,9 @@ CREATE TABLE `shop_shipping_company` (
 -- ----------------------------
 -- Records of shop_shipping_company
 -- ----------------------------
-INSERT INTO `shop_shipping_company` VALUES ('1', 'pl2hu3uczz', 'ShunFeng', '顺丰', 'express', '0', null, '1', '1464761547', '1');
-INSERT INTO `shop_shipping_company` VALUES ('2', 'pl2hu3uczz', 'CeShiKuaiDiGongSi', '测试快递公司', 'express', '0', null, '1', '1465804527', '8');
 
 -- ----------------------------
--- Table structure for shop_shipping_print_template
+-- Table structure for `shop_shipping_print_template`
 -- ----------------------------
 DROP TABLE IF EXISTS `shop_shipping_print_template`;
 CREATE TABLE `shop_shipping_print_template` (
@@ -6727,11 +6239,9 @@ CREATE TABLE `shop_shipping_print_template` (
 -- ----------------------------
 -- Records of shop_shipping_print_template
 -- ----------------------------
-INSERT INTO `shop_shipping_print_template` VALUES ('1', 'pl2hu3uczz', '1', '顺丰运单模板', '1', '100.00', '50.00', '10.00', '10.00', '/uploadfiles/biz/1/image/56f4fd69a6.png', '1', '1464761657', null);
-INSERT INTO `shop_shipping_print_template` VALUES ('2', 'pl2hu3uczz', '8', '测试快递公司运单模板', '2', '200.00', '100.00', '10.00', '10.00', '/uploadfiles/biz/8/image/575e6757ee.jpg', '0', '1465804671', null);
 
 -- ----------------------------
--- Table structure for shop_shipping_template
+-- Table structure for `shop_shipping_template`
 -- ----------------------------
 DROP TABLE IF EXISTS `shop_shipping_template`;
 CREATE TABLE `shop_shipping_template` (
@@ -6752,11 +6262,9 @@ CREATE TABLE `shop_shipping_template` (
 -- ----------------------------
 -- Records of shop_shipping_template
 -- ----------------------------
-INSERT INTO `shop_shipping_template` VALUES ('1', 'pl2hu3uczz', 'by_weight', '顺丰模板', '1', '{\"express\":{\"default\":{\"start\":\"1\",\"postage\":\"10\",\"plus\":\"1\",\"postageplus\":\"1\"}}}', '', '1', '1464761588', '1');
-INSERT INTO `shop_shipping_template` VALUES ('2', 'pl2hu3uczz', 'by_weight', '测试快递公司模板', '2', '{\"express\":{\"default\":{\"start\":\"1\",\"postage\":\"10\",\"plus\":\"1\",\"postageplus\":\"1\"}}}', '', '1', '1465804565', '8');
 
 -- ----------------------------
--- Table structure for shop_skin
+-- Table structure for `shop_skin`
 -- ----------------------------
 DROP TABLE IF EXISTS `shop_skin`;
 CREATE TABLE `shop_skin` (
@@ -6793,7 +6301,7 @@ INSERT INTO `shop_skin` VALUES ('19', '风格19', '[{\"ContentsType\":\"1\",\"Ti
 INSERT INTO `shop_skin` VALUES ('20', '风格20', '[{\"ContentsType\":\"0\",\"Title\":\"\",\"ImgPath\":\"/api/shop/skin/20/logo.png\",\"Url\":null,\"Postion\":\"t01\",\"Width\":\"180\",\"Height\":\"44\",\"NeedLink\":\"1\"},{\"ContentsType\":\"1\",\"Title\":[\"\",\"\",\"\",\"\",\"\"],\"ImgPath\":[\"/api/shop/skin/20/banner.jpg\",\"\",\"\",\"\",\"\"],\"Url\":[\"\",\"\",\"\",\"\",\"\"],\"Postion\":\"t02\",\"Width\":\"640\",\"Height\":\"262\",\"NeedLink\":\"0\"},{\"ContentsType\":\"0\",\"Title\":\"\",\"ImgPath\":\"/api/shop/skin/20/i0.png\",\"Url\":null,\"Postion\":\"t03\",\"Width\":\"108\",\"Height\":\"108\",\"NeedLink\":\"1\"},{\"ContentsType\":\"0\",\"Title\":\"\",\"ImgPath\":\"/api/shop/skin/20/i1.png\",\"Url\":null,\"Postion\":\"t04\",\"Width\":\"108\",\"Height\":\"108\",\"NeedLink\":\"1\"},{\"ContentsType\":\"0\",\"Title\":\"\",\"ImgPath\":\"/api/shop/skin/20/i2.png\",\"Url\":null,\"Postion\":\"t05\",\"Width\":\"108\",\"Height\":\"108\",\"NeedLink\":\"1\"},{\"ContentsType\":\"0\",\"Title\":\"\",\"ImgPath\":\"/api/shop/skin/20/i3.png\",\"Url\":null,\"Postion\":\"t06\",\"Width\":\"108\",\"Height\":\"108\",\"NeedLink\":\"1\"}]', '1', '20');
 
 -- ----------------------------
--- Table structure for shop_user_withdraw_methods
+-- Table structure for `shop_user_withdraw_methods`
 -- ----------------------------
 DROP TABLE IF EXISTS `shop_user_withdraw_methods`;
 CREATE TABLE `shop_user_withdraw_methods` (
@@ -6815,7 +6323,7 @@ CREATE TABLE `shop_user_withdraw_methods` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for shop_virtual_card
+-- Table structure for `shop_virtual_card`
 -- ----------------------------
 DROP TABLE IF EXISTS `shop_virtual_card`;
 CREATE TABLE `shop_virtual_card` (
@@ -6839,7 +6347,7 @@ CREATE TABLE `shop_virtual_card` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for shop_virtual_card_type
+-- Table structure for `shop_virtual_card_type`
 -- ----------------------------
 DROP TABLE IF EXISTS `shop_virtual_card_type`;
 CREATE TABLE `shop_virtual_card_type` (
@@ -6856,7 +6364,7 @@ CREATE TABLE `shop_virtual_card_type` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for shop_withdraw_method
+-- Table structure for `shop_withdraw_method`
 -- ----------------------------
 DROP TABLE IF EXISTS `shop_withdraw_method`;
 CREATE TABLE `shop_withdraw_method` (
@@ -6874,7 +6382,7 @@ CREATE TABLE `shop_withdraw_method` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for slide
+-- Table structure for `slide`
 -- ----------------------------
 DROP TABLE IF EXISTS `slide`;
 CREATE TABLE `slide` (
@@ -6890,7 +6398,7 @@ CREATE TABLE `slide` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for sms
+-- Table structure for `sms`
 -- ----------------------------
 DROP TABLE IF EXISTS `sms`;
 CREATE TABLE `sms` (
@@ -6909,7 +6417,7 @@ CREATE TABLE `sms` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for statistics
+-- Table structure for `statistics`
 -- ----------------------------
 DROP TABLE IF EXISTS `statistics`;
 CREATE TABLE `statistics` (
@@ -6925,7 +6433,7 @@ CREATE TABLE `statistics` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for stores
+-- Table structure for `stores`
 -- ----------------------------
 DROP TABLE IF EXISTS `stores`;
 CREATE TABLE `stores` (
@@ -6946,7 +6454,7 @@ CREATE TABLE `stores` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for stores_config
+-- Table structure for `stores_config`
 -- ----------------------------
 DROP TABLE IF EXISTS `stores_config`;
 CREATE TABLE `stores_config` (
@@ -6960,7 +6468,7 @@ CREATE TABLE `stores_config` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for sysusers
+-- Table structure for `sysusers`
 -- ----------------------------
 DROP TABLE IF EXISTS `sysusers`;
 CREATE TABLE `sysusers` (
@@ -6984,7 +6492,7 @@ CREATE TABLE `sysusers` (
 INSERT INTO `sysusers` VALUES ('1001', '1001', '系统管理员', '女', 'admin', 'f379eaf3c831b04de153469d1bec345e', '', '', '', '1', '');
 
 -- ----------------------------
--- Table structure for sysusers_role
+-- Table structure for `sysusers_role`
 -- ----------------------------
 DROP TABLE IF EXISTS `sysusers_role`;
 CREATE TABLE `sysusers_role` (
@@ -7005,7 +6513,7 @@ INSERT INTO `sysusers_role` VALUES ('1002', '网站管理员', '{\"1003\":{\"100
 INSERT INTO `sysusers_role` VALUES ('1003', '微信管理员', '{\"1002\":{\"100205\":{\"10020501\":\"1\",\"10020502\":\"1\",\"10020503\":\"1\",\"10020504\":\"1\"},\"100206\":{\"10020601\":\"1\",\"10020602\":\"1\",\"10020603\":\"1\",\"10020604\":\"1\"}},\"1005\":{\"100501\":{\"10050101\":\"1\",\"10050102\":\"1\",\"10050103\":\"1\",\"10050104\":\"1\"},\"100502\":{\"10050201\":\"1\",\"10050202\":\"1\",\"10050203\":\"1\",\"10050204\":\"1\"},\"100503\":{\"10050301\":\"1\",\"10050302\":\"1\",\"10050303\":\"1\",\"10050304\":\"1\"},\"100504\":{\"10050401\":\"1\",\"10050402\":\"1\",\"10050403\":\"1\",\"10050404\":\"1\"}}}', '3', '1', '');
 
 -- ----------------------------
--- Table structure for turntable
+-- Table structure for `turntable`
 -- ----------------------------
 DROP TABLE IF EXISTS `turntable`;
 CREATE TABLE `turntable` (
@@ -7045,7 +6553,7 @@ CREATE TABLE `turntable` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for turntable_config
+-- Table structure for `turntable_config`
 -- ----------------------------
 DROP TABLE IF EXISTS `turntable_config`;
 CREATE TABLE `turntable_config` (
@@ -7060,7 +6568,7 @@ CREATE TABLE `turntable_config` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for turntable_sn
+-- Table structure for `turntable_sn`
 -- ----------------------------
 DROP TABLE IF EXISTS `turntable_sn`;
 CREATE TABLE `turntable_sn` (
@@ -7085,7 +6593,7 @@ CREATE TABLE `turntable_sn` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for update
+-- Table structure for `update`
 -- ----------------------------
 DROP TABLE IF EXISTS `update`;
 CREATE TABLE `update` (
@@ -7102,7 +6610,7 @@ CREATE TABLE `update` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for update_category
+-- Table structure for `update_category`
 -- ----------------------------
 DROP TABLE IF EXISTS `update_category`;
 CREATE TABLE `update_category` (
@@ -7117,7 +6625,7 @@ CREATE TABLE `update_category` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for uploadfiles
+-- Table structure for `uploadfiles`
 -- ----------------------------
 DROP TABLE IF EXISTS `uploadfiles`;
 CREATE TABLE `uploadfiles` (
@@ -7135,12 +6643,9 @@ CREATE TABLE `uploadfiles` (
 -- ----------------------------
 -- Records of uploadfiles
 -- ----------------------------
-INSERT INTO `uploadfiles` VALUES ('574e79d21a', 'biz', 'image', '/uploadfiles/pl2hu3uczz/image/574e79d21a.png', '33.png', '25.48', '2016-06-01 13:59:46', '0');
-INSERT INTO `uploadfiles` VALUES ('575e6757ee', 'printtemplate', 'image', '/uploadfiles/biz/8/image/575e6757ee.jpg', '2p-4.jpg', '91.80', '2016-06-13 15:57:11', '0');
-INSERT INTO `uploadfiles` VALUES ('5765161128', 'shop_products', 'image', '/uploadfiles/biz/8/image/5765161128.jpg', '2p-2.jpg', '235.38', '2016-06-18 17:36:17', '0');
 
 -- ----------------------------
--- Table structure for user
+-- Table structure for `user`
 -- ----------------------------
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
@@ -7185,27 +6690,14 @@ CREATE TABLE `user` (
   `Root_ID` int(5) DEFAULT '0' COMMENT '此人的普通代理ID,就是根店ID',
   `User_ExpireTime` bigint(20) DEFAULT '0' COMMENT '会员有效期',
   PRIMARY KEY (`User_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES ('pl2hu3uczz', 'e5662c3876bd8c2ef7e74d7bf87d7041', '2', '600001', '15517105580', null, 'e10adc3949ba59abbe56e057f20f883e', null, null, null, null, null, null, null, null, null, null, '0', '238', '0', '238', '2890.00', null, null, null, null, '1464778338', '2', '1', null, null, null, null, '1', '7792.00', 'e10adc3949ba59abbe56e057f20f883e', '1', '0', '0', '0');
-INSERT INTO `user` VALUES ('pl2hu3uczz', 'e42c2c1cb68328ae0d61a99b6560f3f1', '3', '600002', '15517105555', '5555', 'e10adc3949ba59abbe56e057f20f883e', null, null, '5566', null, null, null, null, null, null, null, '0', '44', '0', '44', '420.00', null, null, null, null, '1464828060', '2', '1', null, null, null, null, '1', '9791.00', 'e10adc3949ba59abbe56e057f20f883e', '1', '0', '0', '0');
-INSERT INTO `user` VALUES ('pl2hu3uczz', '987e7e6cc2f4325968ec1623801bf35d', '4', '600003', '15517109999', null, 'e10adc3949ba59abbe56e057f20f883e', null, null, null, null, null, null, null, null, null, null, '0', '0', '0', '0', '0.00', null, null, null, null, '1464839367', '2', '1', null, null, null, null, '1', '10000.00', '202cb962ac59075b964b07152d234b70', '1', '0', '0', '0');
-INSERT INTO `user` VALUES ('pl2hu3uczz', 'aa5d81e779190a2446fc6ba2541f19e5', '5', '600004', '12222222222222223', null, 'e10adc3949ba59abbe56e057f20f883e', null, null, null, null, null, null, null, null, null, null, '0', '0', '0', '0', '0.00', null, null, null, null, '1464849354', '2', '1', null, null, null, null, '1', '0.00', 'e10adc3949ba59abbe56e057f20f883e', '1', '3', '3', '0');
-INSERT INTO `user` VALUES ('pl2hu3uczz', '7a0bb2f77ec0466632bbfc447efe5ca1', '6', '600005', '15517100000', null, 'e10adc3949ba59abbe56e057f20f883e', null, null, null, null, null, null, null, null, null, null, '0', '0', '0', '0', '0.00', null, null, null, null, '1464916467', '1', '1', '', '', '', null, '1', '0.00', 'e10adc3949ba59abbe56e057f20f883e', '1', '0', '0', '0');
-INSERT INTO `user` VALUES ('pl2hu3uczz', '2f4be56faf63dbe72243b67ba02b1cbc', '7', '600006', '15512345001', null, '202cb962ac59075b964b07152d234b70', null, null, null, null, null, null, null, null, null, null, '0', '0', '0', '0', '0.00', null, null, null, null, '1465357480', '1', '1', '', '', '', null, '1', '0.00', '202cb962ac59075b964b07152d234b70', '1', '0', '0', '0');
-INSERT INTO `user` VALUES ('pl2hu3uczz', '9d980c17eb2a670ec818904e37b3653a', '8', '600007', '15512345002', null, '202cb962ac59075b964b07152d234b70', null, null, null, null, null, null, null, null, null, null, '0', '0', '0', '0', '0.00', null, null, null, null, '1465357537', '1', '1', '', '', '', null, '1', '0.00', '202cb962ac59075b964b07152d234b70', '1', '0', '0', '0');
-INSERT INTO `user` VALUES ('pl2hu3uczz', '7e14ab0902d68a188bc941da24ca9b73', '9', '600008', '15517101234', '', '202cb962ac59075b964b07152d234b70', null, null, '我是银牌', null, null, null, null, null, null, null, '0', '11', '0', '11', '100.00', null, null, null, null, '1465694817', '1', '1', '', '', '', null, '1', '160.00', '202cb962ac59075b964b07152d234b70', '1', '0', '0', '0');
-INSERT INTO `user` VALUES ('pl2hu3uczz', 'edc57b4a1e3effd937bc3f6a023e3f2c', '10', '600009', '15517101111', '', '202cb962ac59075b964b07152d234b70', null, null, '三级业务', null, null, null, null, null, null, null, '0', '44', '0', '44', '410.00', null, null, null, null, '1465802252', '1', '1', '', '', '', null, '1', '5560.00', '202cb962ac59075b964b07152d234b70', '1', '0', '0', '0');
-INSERT INTO `user` VALUES ('pl2hu3uczz', '909d4192cde0fe64c12f0e3ae64e3023', '11', '600010', '15517102222', '', '202cb962ac59075b964b07152d234b70', null, null, '二级业务', null, null, null, null, null, null, null, '0', '0', '0', '0', '0.00', null, null, null, null, '1465802315', '1', '1', '', '', '', null, '1', '0.00', '202cb962ac59075b964b07152d234b70', '1', '10', '10', '0');
-INSERT INTO `user` VALUES ('pl2hu3uczz', '0309d53e968afd459c08d0c0fb08fe0f', '12', '600011', '15517103333', '', '202cb962ac59075b964b07152d234b70', null, null, '购买者一级', null, null, null, null, null, null, null, '0', '55', '0', '55', '510.00', null, null, null, null, '1465802953', '1', '1', '', '', '', null, '1', '290.00', '202cb962ac59075b964b07152d234b70', '1', '11', '11', '0');
-INSERT INTO `user` VALUES ('pl2hu3uczz', 'f388525df2c6979126c708e6a8ea3e94', '13', '600012', '15517104444', '', '202cb962ac59075b964b07152d234b70', null, null, '不是创始人', null, null, null, null, null, null, null, '0', '22', '0', '22', '200.00', null, null, null, null, '1465869866', '1', '1', '', '', '', null, '1', '780.00', '202cb962ac59075b964b07152d234b70', '1', '0', '0', '0');
-INSERT INTO `user` VALUES ('pl2hu3uczz', '9d4bc638a7e356a6d4a44091fc35a31c', '14', '600013', '15517106666', '', '202cb962ac59075b964b07152d234b70', null, null, '测试pc', null, null, null, null, null, null, null, '0', '22', '0', '22', '210.00', null, null, null, null, '1465950959', '1', '1', '', '', '', null, '1', '5780.00', '202cb962ac59075b964b07152d234b70', '1', '0', '0', '0');
 
 -- ----------------------------
--- Table structure for users
+-- Table structure for `users`
 -- ----------------------------
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
@@ -7251,10 +6743,10 @@ CREATE TABLE `users` (
 -- ----------------------------
 -- Records of users
 -- ----------------------------
-INSERT INTO `users` VALUES ('pl2hu3uczz', 'admin', 'f379eaf3c831b04de153469d1bec345e', '0', '3', '3tlrqz5yfe', '', '', '', '', 'wx1215001c2958fdcc', 'c7544955ff67b9d52627e23e58231a53', '0', '0', '', '0', '1464431894', '0', '0', null, null, null, '15503724204', null, null, '1', '', null, '0', '1464691094', '{\"web\":[\"web\"],\"kanjia\":[\"kanjia\"],\"zhuli\":[\"zhuli\"],\"zhongchou\":[\"zhongchou\"],\"games\":[\"games\"],\"weicuxiao\":[\"sctrach\",\"fruit\",\"turntable\",\"battle\"],\"votes\":[\"votes\"]}', null, '', '143', '', '0');
+INSERT INTO `users` VALUES ('pl2hu3uczz', 'admin', 'f379eaf3c831b04de153469d1bec345e', '0', '3', '3tlrqz5yfe', '', '', '', '', 'wx1215001c2958fdcc', 'c7544955ff67b9d52627e23e58231a53', '0', '0', '', '0', '1464431894', '0', '0', null, null, null, '15503724204', null, null, '1', '', null, '0', '1494691094', '{\"web\":[\"web\"],\"kanjia\":[\"kanjia\"],\"zhuli\":[\"zhuli\"],\"zhongchou\":[\"zhongchou\"],\"games\":[\"games\"],\"weicuxiao\":[\"sctrach\",\"fruit\",\"turntable\",\"battle\"],\"votes\":[\"votes\"]}', null, '', '143', '', '0');
 
 -- ----------------------------
--- Table structure for users_access_token
+-- Table structure for `users_access_token`
 -- ----------------------------
 DROP TABLE IF EXISTS `users_access_token`;
 CREATE TABLE `users_access_token` (
@@ -7270,10 +6762,9 @@ CREATE TABLE `users_access_token` (
 -- ----------------------------
 -- Records of users_access_token
 -- ----------------------------
-INSERT INTO `users_access_token` VALUES ('1', 'pl2hu3uczz', 'QBI3EUZtNlIuUn0ehw-42wvOYQz4FEOudlJ8h5slIaMMoTHcHYyqPUKviyODJdvodIjLlGAPGwg_gV9Qoz6oMBbbEjAKQl9kot5hMjP_Y5RhAaKh_nGrePwdhdoi82emBLRiCIASCI', '1466396606', 'sM4AOVdWfPE4DxkXGEs8VHpNul1Hf37w-iNYF7X1BBIJJm3g2XM5bUKKFqWLpgWSvndvsltJYQnc_TveBRIdzw', '1466396606');
 
 -- ----------------------------
--- Table structure for users_employee
+-- Table structure for `users_employee`
 -- ----------------------------
 DROP TABLE IF EXISTS `users_employee`;
 CREATE TABLE `users_employee` (
@@ -7296,7 +6787,7 @@ CREATE TABLE `users_employee` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for users_group
+-- Table structure for `users_group`
 -- ----------------------------
 DROP TABLE IF EXISTS `users_group`;
 CREATE TABLE `users_group` (
@@ -7318,7 +6809,7 @@ CREATE TABLE `users_group` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for users_menu
+-- Table structure for `users_menu`
 -- ----------------------------
 DROP TABLE IF EXISTS `users_menu`;
 CREATE TABLE `users_menu` (
@@ -7336,7 +6827,7 @@ CREATE TABLE `users_menu` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for users_money_record
+-- Table structure for `users_money_record`
 -- ----------------------------
 DROP TABLE IF EXISTS `users_money_record`;
 CREATE TABLE `users_money_record` (
@@ -7357,7 +6848,7 @@ CREATE TABLE `users_money_record` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for users_payconfig
+-- Table structure for `users_payconfig`
 -- ----------------------------
 DROP TABLE IF EXISTS `users_payconfig`;
 CREATE TABLE `users_payconfig` (
@@ -7391,10 +6882,9 @@ CREATE TABLE `users_payconfig` (
 -- ----------------------------
 -- Records of users_payconfig
 -- ----------------------------
-INSERT INTO `users_payconfig` VALUES ('pl2hu3uczz', null, '0', null, null, null, null, null, null, null, null, null, '1', null, null, null, null, null, null, null, null, null, null, null);
 
 -- ----------------------------
--- Table structure for users_permit
+-- Table structure for `users_permit`
 -- ----------------------------
 DROP TABLE IF EXISTS `users_permit`;
 CREATE TABLE `users_permit` (
@@ -7430,7 +6920,7 @@ CREATE TABLE `users_permit` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for users_reserve
+-- Table structure for `users_reserve`
 -- ----------------------------
 DROP TABLE IF EXISTS `users_reserve`;
 CREATE TABLE `users_reserve` (
@@ -7463,7 +6953,7 @@ CREATE TABLE `users_reserve` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for users_roles
+-- Table structure for `users_roles`
 -- ----------------------------
 DROP TABLE IF EXISTS `users_roles`;
 CREATE TABLE `users_roles` (
@@ -7483,7 +6973,27 @@ CREATE TABLE `users_roles` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for user_address
+-- Table structure for `users_schedule`
+-- ----------------------------
+DROP TABLE IF EXISTS `users_schedule`;
+CREATE TABLE `users_schedule` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `Users_ID` varchar(20) NOT NULL,
+  `Money` float(11,2) DEFAULT NULL,
+  `StartRunTime` time DEFAULT NULL COMMENT '开始执行时间',
+  `RunType` tinyint(1) DEFAULT '1' COMMENT '执行方式：1、定时执行  2、按天执行  3、按月执行',
+  `Status` tinyint(1) DEFAULT '0' COMMENT '计划任务执行状态：0、未执行  1、执行过',
+  `LastRunTime` int(11) DEFAULT '0' COMMENT '最后执行时间',
+  `day` tinyint(2) DEFAULT '0' COMMENT '间隔执行的天数',
+  PRIMARY KEY (`ID`)
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of users_schedule
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `user_address`
 -- ----------------------------
 DROP TABLE IF EXISTS `user_address`;
 CREATE TABLE `user_address` (
@@ -7498,22 +7008,14 @@ CREATE TABLE `user_address` (
   `Address_Detailed` varchar(255) DEFAULT NULL,
   `Address_Is_Default` tinyint(1) DEFAULT '0' COMMENT '是否是默认地址',
   PRIMARY KEY (`Address_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of user_address
 -- ----------------------------
-INSERT INTO `user_address` VALUES ('pl2hu3uczz', '1', '1', '测试', '15517105580', '1', '36', '37', '打死谁谁谁', '1');
-INSERT INTO `user_address` VALUES ('pl2hu3uczz', '3', '2', '孙先生', '15517105580', '2', '40', '55', '花园路', '1');
-INSERT INTO `user_address` VALUES ('pl2hu3uczz', '2', '3', 'wwd', 'qweqwe', '2', '40', '55', 'qweq', '1');
-INSERT INTO `user_address` VALUES ('pl2hu3uczz', '9', '4', '测试', '15517101234', '1', '36', '38', '测试街道', '1');
-INSERT INTO `user_address` VALUES ('pl2hu3uczz', '12', '5', '孙测试', '15517103333', '1', '36', '38', '测试业务发放', '1');
-INSERT INTO `user_address` VALUES ('pl2hu3uczz', '13', '6', '周测试', '15517104444', '2', '40', '57', '西大街', '1');
-INSERT INTO `user_address` VALUES ('pl2hu3uczz', '14', '7', '孙测试', '15517106666', '2', '40', '55', '西大街', '1');
-INSERT INTO `user_address` VALUES ('pl2hu3uczz', '10', '8', 'df', '1111111111', '3', '74', '1153', 'eeee', '1');
 
 -- ----------------------------
--- Table structure for user_back_order
+-- Table structure for `user_back_order`
 -- ----------------------------
 DROP TABLE IF EXISTS `user_back_order`;
 CREATE TABLE `user_back_order` (
@@ -7539,15 +7041,14 @@ CREATE TABLE `user_back_order` (
   `Back_IsCheck` tinyint(1) DEFAULT '0',
   `Back_Account` varchar(255) DEFAULT '',
   PRIMARY KEY (`Back_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of user_back_order
 -- ----------------------------
-INSERT INTO `user_back_order` VALUES ('1', '2016061447656', 'pl2hu3uczz', '8', '44', '12', 'shop', '{\"ProductsName\":\"测试业务产品\",\"ImgPath\":\"/uploadfiles/biz/8/image/5716f5c799.jpg\",\"ProductsPriceX\":\"100.00\",\"ProductsPriceY\":\"120.00\",\"ProductsWeight\":\"1.00\",\"Products_Shipping\":null,\"Products_Business\":null,\"Shipping_Free_Company\":\"0\",\"IsShippingFree\":\"0\",\"OwnerID\":\"12\",\"ProductsIsShipping\":\"0\",\"Qty\":\"1\",\"spec_list\":\"\",\"Property\":[],\"nobi_ratio\":\"10\",\"platForm_Income_Reward\":\"60\",\"area_Proxy_Reward\":\"20\",\"sha_Reward\":\"20\",\"ProductsProfit\":80}', null, null, '4', '1465864958', '0', '0', '1', '100.00', '0', '3', '1465866838', '1', '111111111111111111');
 
 -- ----------------------------
--- Table structure for user_back_order_detail
+-- Table structure for `user_back_order_detail`
 -- ----------------------------
 DROP TABLE IF EXISTS `user_back_order_detail`;
 CREATE TABLE `user_back_order_detail` (
@@ -7557,17 +7058,14 @@ CREATE TABLE `user_back_order_detail` (
   `status` tinyint(1) DEFAULT '0',
   `createtime` int(10) DEFAULT '0',
   PRIMARY KEY (`itemid`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of user_back_order_detail
 -- ----------------------------
-INSERT INTO `user_back_order_detail` VALUES ('1', '1', '买家申请退款，退款金额：100，退款原因：谁谁谁谁谁谁谁谁谁', '0', '1465864958');
-INSERT INTO `user_back_order_detail` VALUES ('2', '1', '卖家已收货并确定了退款金额，退款金额为：100，理由：已付款/商家未发货订单退款，系统自动完成', '1', '1465864958');
-INSERT INTO `user_back_order_detail` VALUES ('3', '1', '管理员已退款给买家', '4', '1465866838');
 
 -- ----------------------------
--- Table structure for user_card_benefits
+-- Table structure for `user_card_benefits`
 -- ----------------------------
 DROP TABLE IF EXISTS `user_card_benefits`;
 CREATE TABLE `user_card_benefits` (
@@ -7587,7 +7085,7 @@ CREATE TABLE `user_card_benefits` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for user_charge
+-- Table structure for `user_charge`
 -- ----------------------------
 DROP TABLE IF EXISTS `user_charge`;
 CREATE TABLE `user_charge` (
@@ -7605,18 +7103,9 @@ CREATE TABLE `user_charge` (
 -- ----------------------------
 -- Records of user_charge
 -- ----------------------------
-INSERT INTO `user_charge` VALUES ('1', 'pl2hu3uczz', '3', '11.00', '9791.00', 'admin 线下充值 +11', '1', '1465208055');
-INSERT INTO `user_charge` VALUES ('2', 'pl2hu3uczz', '2', '55.00', '9998.00', 'admin 线下充值 +55', '1', '1465261881');
-INSERT INTO `user_charge` VALUES ('3', 'pl2hu3uczz', '9', '500.00', '500.00', 'admin 线下充值 +500', '1', '1465694910');
-INSERT INTO `user_charge` VALUES ('4', 'pl2hu3uczz', '12', '500.00', '500.00', 'admin 线下充值 +500', '1', '1465804265');
-INSERT INTO `user_charge` VALUES ('5', 'pl2hu3uczz', '12', '1000.00', '1060.00', 'admin 线下充值 +1000', '1', '1465867166');
-INSERT INTO `user_charge` VALUES ('6', 'pl2hu3uczz', '13', '1000.00', '1000.00', 'admin 线下充值 +1000', '1', '1465870026');
-INSERT INTO `user_charge` VALUES ('7', 'pl2hu3uczz', '14', '6000.00', '6000.00', 'admin 线下充值 +6000', '1', '1465956501');
-INSERT INTO `user_charge` VALUES ('8', 'pl2hu3uczz', '10', '600.00', '600.00', 'admin 线下充值 +600', '1', '1465966522');
-INSERT INTO `user_charge` VALUES ('9', 'pl2hu3uczz', '10', '5400.00', '6000.00', 'admin 线下充值 +5400', '1', '1465966527');
 
 -- ----------------------------
--- Table structure for user_config
+-- Table structure for `user_config`
 -- ----------------------------
 DROP TABLE IF EXISTS `user_config`;
 CREATE TABLE `user_config` (
@@ -7641,10 +7130,9 @@ CREATE TABLE `user_config` (
 -- ----------------------------
 -- Records of user_config
 -- ----------------------------
-INSERT INTO `user_config` VALUES ('pl2hu3uczz', '会员卡', '0', '0', null, null, '[{\"Name\":\"普通会员\",\"UpIntegral\":0,\"ImgPath\":\"\"}]', null, null, '0', '0', null, '0', '0', '0');
 
 -- ----------------------------
--- Table structure for user_coupon
+-- Table structure for `user_coupon`
 -- ----------------------------
 DROP TABLE IF EXISTS `user_coupon`;
 CREATE TABLE `user_coupon` (
@@ -7674,7 +7162,7 @@ CREATE TABLE `user_coupon` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for user_coupon_logs
+-- Table structure for `user_coupon_logs`
 -- ----------------------------
 DROP TABLE IF EXISTS `user_coupon_logs`;
 CREATE TABLE `user_coupon_logs` (
@@ -7696,7 +7184,7 @@ CREATE TABLE `user_coupon_logs` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for user_coupon_record
+-- Table structure for `user_coupon_record`
 -- ----------------------------
 DROP TABLE IF EXISTS `user_coupon_record`;
 CREATE TABLE `user_coupon_record` (
@@ -7722,7 +7210,7 @@ CREATE TABLE `user_coupon_record` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for user_favourite_products
+-- Table structure for `user_favourite_products`
 -- ----------------------------
 DROP TABLE IF EXISTS `user_favourite_products`;
 CREATE TABLE `user_favourite_products` (
@@ -7738,7 +7226,7 @@ CREATE TABLE `user_favourite_products` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for user_gift
+-- Table structure for `user_gift`
 -- ----------------------------
 DROP TABLE IF EXISTS `user_gift`;
 CREATE TABLE `user_gift` (
@@ -7761,7 +7249,7 @@ CREATE TABLE `user_gift` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for user_gift_orders
+-- Table structure for `user_gift_orders`
 -- ----------------------------
 DROP TABLE IF EXISTS `user_gift_orders`;
 CREATE TABLE `user_gift_orders` (
@@ -7789,7 +7277,7 @@ CREATE TABLE `user_gift_orders` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for user_integral_record
+-- Table structure for `user_integral_record`
 -- ----------------------------
 DROP TABLE IF EXISTS `user_integral_record`;
 CREATE TABLE `user_integral_record` (
@@ -7809,45 +7297,9 @@ CREATE TABLE `user_integral_record` (
 -- ----------------------------
 -- Records of user_integral_record
 -- ----------------------------
-INSERT INTO `user_integral_record` VALUES ('pl2hu3uczz', '3', '1', '11', '11', '0', '2', '购买商品送 11 个积分', '1464864035', null);
-INSERT INTO `user_integral_record` VALUES ('pl2hu3uczz', '3', '2', '11', '33', '', '2', '购买商品送 11 个积分', '1465177420', null);
-INSERT INTO `user_integral_record` VALUES ('pl2hu3uczz', '2', '3', '11', '22', '', '2', '购买商品送 11 个积分', '1465286134', null);
-INSERT INTO `user_integral_record` VALUES ('pl2hu3uczz', '2', '5', '11', '33', '', '2', '购买商品送 11 个积分', '1465370575', null);
-INSERT INTO `user_integral_record` VALUES ('pl2hu3uczz', '2', '7', '11', '44', '', '2', '购买商品送 11 个积分', '1465371305', null);
-INSERT INTO `user_integral_record` VALUES ('pl2hu3uczz', '2', '8', '11', '55', '', '2', '购买商品送 11 个积分', '1465371372', null);
-INSERT INTO `user_integral_record` VALUES ('pl2hu3uczz', '2', '9', '11', '66', '', '2', '购买商品送 11 个积分', '1465371419', null);
-INSERT INTO `user_integral_record` VALUES ('pl2hu3uczz', '2', '15', '11', '77', '', '2', '购买商品送 11 个积分', '1465372377', null);
-INSERT INTO `user_integral_record` VALUES ('pl2hu3uczz', '3', '16', '11', '44', '', '2', '购买商品送 11 个积分', '1465694593', null);
-INSERT INTO `user_integral_record` VALUES ('pl2hu3uczz', '2', '17', '11', '88', '', '2', '购买商品送 11 个积分', '1465694594', null);
-INSERT INTO `user_integral_record` VALUES ('pl2hu3uczz', '2', '18', '11', '99', '', '2', '购买商品送 11 个积分', '1465694595', null);
-INSERT INTO `user_integral_record` VALUES ('pl2hu3uczz', '2', '19', '11', '110', '', '2', '购买商品送 11 个积分', '1465694595', null);
-INSERT INTO `user_integral_record` VALUES ('pl2hu3uczz', '3', '20', '11', '55', '', '2', '购买商品送 11 个积分', '1465694596', null);
-INSERT INTO `user_integral_record` VALUES ('pl2hu3uczz', '9', '21', '11', '22', '', '2', '购买商品送 11 个积分', '1465695091', null);
-INSERT INTO `user_integral_record` VALUES ('pl2hu3uczz', '12', '22', '11', '22', '', '2', '购买商品送 11 个积分', '1465866695', null);
-INSERT INTO `user_integral_record` VALUES ('pl2hu3uczz', '12', '23', '11', '33', '', '2', '购买商品送 11 个积分', '1465867497', null);
-INSERT INTO `user_integral_record` VALUES ('pl2hu3uczz', '12', '24', '11', '44', '', '2', '购买商品送 11 个积分', '1465867820', null);
-INSERT INTO `user_integral_record` VALUES ('pl2hu3uczz', '12', '26', '11', '55', '', '2', '购买商品送 11 个积分', '1465868302', null);
-INSERT INTO `user_integral_record` VALUES ('pl2hu3uczz', '13', '27', '11', '22', '', '2', '购买商品送 11 个积分', '1465870394', null);
-INSERT INTO `user_integral_record` VALUES ('pl2hu3uczz', '13', '28', '11', '33', '', '2', '购买商品送 11 个积分', '1465897613', null);
-INSERT INTO `user_integral_record` VALUES ('pl2hu3uczz', '14', '29', '11', '11', '0', '2', '购买商品送 11 个积分', '1465957323', null);
-INSERT INTO `user_integral_record` VALUES ('pl2hu3uczz', '14', '30', '11', '33', '', '2', '购买商品送 11 个积分', '1465957677', null);
-INSERT INTO `user_integral_record` VALUES ('pl2hu3uczz', '10', '31', '11', '11', '0', '2', '购买商品送 11 个积分', '1465966561', null);
-INSERT INTO `user_integral_record` VALUES ('pl2hu3uczz', '12', '32', '11', '55', '0', '2', '购买商品送 11 个积分', '1465966799', null);
-INSERT INTO `user_integral_record` VALUES ('pl2hu3uczz', '2', '33', '21', '141', '', '2', '购买商品送 21 个积分', '1466043148', null);
-INSERT INTO `user_integral_record` VALUES ('pl2hu3uczz', '2', '34', '21', '162', '', '2', '购买商品送 21 个积分', '1466043326', null);
-INSERT INTO `user_integral_record` VALUES ('pl2hu3uczz', '2', '35', '21', '183', '', '2', '购买商品送 21 个积分', '1466043482', null);
-INSERT INTO `user_integral_record` VALUES ('pl2hu3uczz', '2', '36', '21', '204', '', '2', '购买商品送 21 个积分', '1466043698', null);
-INSERT INTO `user_integral_record` VALUES ('pl2hu3uczz', '2', '37', '11', '205', '', '2', '购买商品送 11 个积分', '1466044800', null);
-INSERT INTO `user_integral_record` VALUES ('pl2hu3uczz', '2', '38', '11', '216', '', '2', '购买商品送 11 个积分', '1466059018', null);
-INSERT INTO `user_integral_record` VALUES ('pl2hu3uczz', '10', '39', '11', '33', '', '2', '购买商品送 11 个积分', '1466133959', null);
-INSERT INTO `user_integral_record` VALUES ('pl2hu3uczz', '10', '40', '11', '44', '', '2', '购买商品送 11 个积分', '1466147009', null);
-INSERT INTO `user_integral_record` VALUES ('pl2hu3uczz', '10', '41', '11', '55', '', '2', '购买商品送 11 个积分', '1466149392', null);
-INSERT INTO `user_integral_record` VALUES ('pl2hu3uczz', '2', '42', '11', '227', '', '2', '购买商品送 11 个积分', '1466217412', null);
-INSERT INTO `user_integral_record` VALUES ('pl2hu3uczz', '2', '43', '11', '238', '', '2', '购买商品送 11 个积分', '1466217494', null);
-INSERT INTO `user_integral_record` VALUES ('pl2hu3uczz', '2', '44', '11', '249', '', '2', '购买商品送 11 个积分', '1466218164', null);
 
 -- ----------------------------
--- Table structure for user_message
+-- Table structure for `user_message`
 -- ----------------------------
 DROP TABLE IF EXISTS `user_message`;
 CREATE TABLE `user_message` (
@@ -7866,7 +7318,7 @@ CREATE TABLE `user_message` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for user_message_record
+-- Table structure for `user_message_record`
 -- ----------------------------
 DROP TABLE IF EXISTS `user_message_record`;
 CREATE TABLE `user_message_record` (
@@ -7883,7 +7335,7 @@ CREATE TABLE `user_message_record` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for user_money_record
+-- Table structure for `user_money_record`
 -- ----------------------------
 DROP TABLE IF EXISTS `user_money_record`;
 CREATE TABLE `user_money_record` (
@@ -7901,71 +7353,9 @@ CREATE TABLE `user_money_record` (
 -- ----------------------------
 -- Records of user_money_record
 -- ----------------------------
-INSERT INTO `user_money_record` VALUES ('1', 'pl2hu3uczz', '3', '0', '110.00', '9890.00', '商城购买支出 -110.00 (订单号:1)', '1464849139');
-INSERT INTO `user_money_record` VALUES ('2', 'pl2hu3uczz', '2', '0', '110.00', '9890.00', '商城购买支出 -110.00 (订单号:11)', '1464940859');
-INSERT INTO `user_money_record` VALUES ('3', 'pl2hu3uczz', '2', '0', '110.00', '9780.00', '商城购买支出 -110.00 (订单号:10)', '1464944135');
-INSERT INTO `user_money_record` VALUES ('4', 'pl2hu3uczz', '2', '0', '110.00', '9670.00', '商城购买支出 -110.00 (订单号:12)', '1464945428');
-INSERT INTO `user_money_record` VALUES ('5', 'pl2hu3uczz', '3', '0', '110.00', '9780.00', '商城购买支出 -110.00 (订单号:13)', '1465177345');
-INSERT INTO `user_money_record` VALUES ('6', 'pl2hu3uczz', '3', '1', '11.00', '9791.00', 'admin 线下充值 +11', '1465208055');
-INSERT INTO `user_money_record` VALUES ('7', 'pl2hu3uczz', '2', '1', '55.00', '9998.00', 'admin 线下充值 +55', '1465261881');
-INSERT INTO `user_money_record` VALUES ('8', 'pl2hu3uczz', '2', '3', '27.00', '10052.00', '财务结算余额+27', '1465262461');
-INSERT INTO `user_money_record` VALUES ('9', 'pl2hu3uczz', '2', '3', '27.00', '10079.00', '财务结算余额+27', '1465262724');
-INSERT INTO `user_money_record` VALUES ('10', 'pl2hu3uczz', '2', '3', '27.00', '10106.00', '财务结算余额+27', '1465262810');
-INSERT INTO `user_money_record` VALUES ('11', 'pl2hu3uczz', '2', '0', '10.00', '10096.00', '购买成为股东支出 -10.00', '1465289866');
-INSERT INTO `user_money_record` VALUES ('12', 'pl2hu3uczz', '2', '0', '10.00', '10086.00', '购买成为股东支出 -10.00', '1465292633');
-INSERT INTO `user_money_record` VALUES ('13', 'pl2hu3uczz', '2', '0', '20.00', '10066.00', '购买成为股东支出 -20.00', '1465295514');
-INSERT INTO `user_money_record` VALUES ('14', 'pl2hu3uczz', '2', '0', '30.00', '10036.00', '购买成为股东支出 -30.00', '1465295845');
-INSERT INTO `user_money_record` VALUES ('15', 'pl2hu3uczz', '2', '0', '10.00', '10026.00', '购买成为股东支出 -10.00', '1465347428');
-INSERT INTO `user_money_record` VALUES ('16', 'pl2hu3uczz', '2', '0', '20.00', '10006.00', '购买成为股东支出 -20.00', '1465347530');
-INSERT INTO `user_money_record` VALUES ('17', 'pl2hu3uczz', '2', '0', '30.00', '9976.00', '购买成为股东支出 -30.00', '1465347564');
-INSERT INTO `user_money_record` VALUES ('18', 'pl2hu3uczz', '2', '0', '210.00', '9766.00', '商城购买支出 -210.00 (订单号:15)', '1465351387');
-INSERT INTO `user_money_record` VALUES ('19', 'pl2hu3uczz', '2', '0', '110.00', '9656.00', '商城购买支出 -110.00 (订单号:9)', '1465371242');
-INSERT INTO `user_money_record` VALUES ('20', 'pl2hu3uczz', '2', '0', '110.00', '9546.00', '商城购买支出 -110.00 (订单号:8)', '1465371258');
-INSERT INTO `user_money_record` VALUES ('21', 'pl2hu3uczz', '2', '0', '110.00', '9436.00', '商城购买支出 -110.00 (订单号:7)', '1465371267');
-INSERT INTO `user_money_record` VALUES ('22', 'pl2hu3uczz', '2', '0', '110.00', '9326.00', '商城购买支出 -110.00 (订单号:6)', '1465371477');
-INSERT INTO `user_money_record` VALUES ('23', 'pl2hu3uczz', '2', '0', '30.00', '9296.00', '购买成为股东支出 -30.00', '1465374537');
-INSERT INTO `user_money_record` VALUES ('24', 'pl2hu3uczz', '9', '1', '500.00', '500.00', 'admin 线下充值 +500', '1465694910');
-INSERT INTO `user_money_record` VALUES ('25', 'pl2hu3uczz', '9', '0', '110.00', '390.00', '商城购买支出 -110.00 (订单号:16)', '1465695035');
-INSERT INTO `user_money_record` VALUES ('26', 'pl2hu3uczz', '9', '0', '210.00', '180.00', '商城购买支出 -210.00 (订单号:17)', '1465714327');
-INSERT INTO `user_money_record` VALUES ('27', 'pl2hu3uczz', '12', '1', '500.00', '500.00', 'admin 线下充值 +500', '1465804265');
-INSERT INTO `user_money_record` VALUES ('28', 'pl2hu3uczz', '12', '0', '110.00', '390.00', '商城购买支出 -110.00 (订单号:44)', '1465813111');
-INSERT INTO `user_money_record` VALUES ('29', 'pl2hu3uczz', '12', '0', '110.00', '280.00', '商城购买支出 -110.00 (订单号:43)', '1465813754');
-INSERT INTO `user_money_record` VALUES ('30', 'pl2hu3uczz', '12', '0', '110.00', '170.00', '商城购买支出 -110.00 (订单号:43)', '1465813973');
-INSERT INTO `user_money_record` VALUES ('31', 'pl2hu3uczz', '12', '0', '110.00', '60.00', '商城购买支出 -110.00 (订单号:43)', '1465814357');
-INSERT INTO `user_money_record` VALUES ('32', 'pl2hu3uczz', '12', '1', '1000.00', '1060.00', 'admin 线下充值 +1000', '1465867166');
-INSERT INTO `user_money_record` VALUES ('33', 'pl2hu3uczz', '12', '0', '110.00', '950.00', '商城购买支出 -110.00 (订单号:45)', '1465867225');
-INSERT INTO `user_money_record` VALUES ('34', 'pl2hu3uczz', '12', '0', '110.00', '840.00', '商城购买支出 -110.00 (订单号:46)', '1465867792');
-INSERT INTO `user_money_record` VALUES ('35', 'pl2hu3uczz', '12', '0', '110.00', '730.00', '商城购买支出 -110.00 (订单号:47)', '1465868045');
-INSERT INTO `user_money_record` VALUES ('36', 'pl2hu3uczz', '12', '0', '110.00', '620.00', '商城购买支出 -110.00 (订单号:48)', '1465868279');
-INSERT INTO `user_money_record` VALUES ('37', 'pl2hu3uczz', '13', '1', '1000.00', '1000.00', 'admin 线下充值 +1000', '1465870026');
-INSERT INTO `user_money_record` VALUES ('38', 'pl2hu3uczz', '13', '0', '110.00', '890.00', '商城购买支出 -110.00 (订单号:49)', '1465870164');
-INSERT INTO `user_money_record` VALUES ('39', 'pl2hu3uczz', '13', '0', '110.00', '780.00', '商城购买支出 -110.00 (订单号:52)', '1465897559');
-INSERT INTO `user_money_record` VALUES ('40', 'pl2hu3uczz', '14', '1', '6000.00', '6000.00', 'admin 线下充值 +6000', '1465956501');
-INSERT INTO `user_money_record` VALUES ('41', 'pl2hu3uczz', '14', '0', '110.00', '5890.00', '商城购买支出 -110.00 (订单号:53)', '1465957294');
-INSERT INTO `user_money_record` VALUES ('42', 'pl2hu3uczz', '14', '0', '110.00', '5780.00', '商城购买支出 -110.00 (订单号:54)', '1465957608');
-INSERT INTO `user_money_record` VALUES ('43', 'pl2hu3uczz', '10', '1', '600.00', '600.00', 'admin 线下充值 +600', '1465966522');
-INSERT INTO `user_money_record` VALUES ('44', 'pl2hu3uczz', '10', '1', '5400.00', '6000.00', 'admin 线下充值 +5400', '1465966527');
-INSERT INTO `user_money_record` VALUES ('45', 'pl2hu3uczz', '10', '0', '110.00', '5890.00', '商城购买支出 -110.00 (订单号:70)', '1465966538');
-INSERT INTO `user_money_record` VALUES ('46', 'pl2hu3uczz', '12', '0', '110.00', '510.00', '商城购买支出 -110.00 (订单号:71)', '1465966764');
-INSERT INTO `user_money_record` VALUES ('47', 'pl2hu3uczz', '9', '0', '20.00', '160.00', '购买成为股东支出 -20.00', '1466039343');
-INSERT INTO `user_money_record` VALUES ('48', 'pl2hu3uczz', '2', '0', '211.00', '9085.00', '商城购买支出 -211.00 (订单号:72)', '1466043120');
-INSERT INTO `user_money_record` VALUES ('49', 'pl2hu3uczz', '2', '0', '211.00', '8874.00', '商城购买支出 -211.00 (订单号:75)', '1466043276');
-INSERT INTO `user_money_record` VALUES ('50', 'pl2hu3uczz', '2', '0', '211.00', '8663.00', '商城购买支出 -211.00 (订单号:76)', '1466043435');
-INSERT INTO `user_money_record` VALUES ('51', 'pl2hu3uczz', '2', '0', '211.00', '8452.00', '商城购买支出 -211.00 (订单号:77)', '1466043657');
-INSERT INTO `user_money_record` VALUES ('52', 'pl2hu3uczz', '2', '0', '110.00', '8342.00', '商城购买支出 -110.00 (订单号:81)', '1466044755');
-INSERT INTO `user_money_record` VALUES ('53', 'pl2hu3uczz', '2', '0', '110.00', '8232.00', '商城购买支出 -110.00 (订单号:82)', '1466058997');
-INSERT INTO `user_money_record` VALUES ('54', 'pl2hu3uczz', '10', '0', '110.00', '5780.00', '商城购买支出 -110.00 (订单号:83)', '1466133927');
-INSERT INTO `user_money_record` VALUES ('55', 'pl2hu3uczz', '10', '0', '110.00', '5670.00', '商城购买支出 -110.00 (订单号:84)', '1466146957');
-INSERT INTO `user_money_record` VALUES ('56', 'pl2hu3uczz', '10', '0', '110.00', '5560.00', '商城购买支出 -110.00 (订单号:85)', '1466149344');
-INSERT INTO `user_money_record` VALUES ('57', 'pl2hu3uczz', '12', '0', '110.00', '400.00', '商城购买支出 -110.00 (订单号:87)', '1466154801');
-INSERT INTO `user_money_record` VALUES ('58', 'pl2hu3uczz', '2', '0', '110.00', '8122.00', '商城购买支出 -110.00 (订单号:88)', '1466216577');
-INSERT INTO `user_money_record` VALUES ('59', 'pl2hu3uczz', '2', '0', '110.00', '8012.00', '商城购买支出 -110.00 (订单号:89)', '1466217479');
-INSERT INTO `user_money_record` VALUES ('60', 'pl2hu3uczz', '2', '0', '110.00', '7902.00', '商城购买支出 -110.00 (订单号:90)', '1466218127');
-INSERT INTO `user_money_record` VALUES ('61', 'pl2hu3uczz', '2', '0', '110.00', '7792.00', '商城购买支出 -110.00 (订单号:91)', '1466222235');
-INSERT INTO `user_money_record` VALUES ('62', 'pl2hu3uczz', '12', '0', '110.00', '290.00', '商城购买支出 -110.00 (订单号:92)', '1466389471');
 
 -- ----------------------------
--- Table structure for user_operator
+-- Table structure for `user_operator`
 -- ----------------------------
 DROP TABLE IF EXISTS `user_operator`;
 CREATE TABLE `user_operator` (
@@ -7981,7 +7371,7 @@ CREATE TABLE `user_operator` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for user_order
+-- Table structure for `user_order`
 -- ----------------------------
 DROP TABLE IF EXISTS `user_order`;
 CREATE TABLE `user_order` (
@@ -8026,64 +7416,16 @@ CREATE TABLE `user_order` (
   `Back_Amount` decimal(10,2) DEFAULT '0.00',
   `Order_SendTime` int(10) DEFAULT '0',
   `Order_Virtual_Cards` varchar(255) DEFAULT NULL,
+  `Front_Order_Status` tinyint(1) DEFAULT '0' COMMENT '存储退货前的订单状态',
   PRIMARY KEY (`Order_ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=93 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of user_order
 -- ----------------------------
-INSERT INTO `user_order` VALUES ('pl2hu3uczz', '3', '1', 'shop', '孙先生', '15517105580', '2', '40', '55', '花园路', 'sssssssssssssssss', '{\"Express\":\"顺丰\",\"Price\":\"10\"}', 'wqewqew', '{&quot;1&quot;:[{&quot;ProductsName&quot;:&quot;abc&quot;,&quot;ImgPath&quot;:&quot;/uploadfiles/biz/1/image/56f5052054.jpg&quot;,&quot;ProductsPriceX&quot;:&quot;100.00&quot;,&quot;ProductsPriceY&quot;:&quot;110.00&quot;,&quot;ProductsWeight&quot;:&quot;1.00&quot;,&quot;Products_Shipping&quot;:null,&quot;Products_Business&quot;:null,&quot;Shipping_Free_Company&quot;:&quot;0&quot;,&quot;IsShippingFree&quot;:&quot;0&quot;,&quot;OwnerID&quot;:&quot;3&quot;,&quot;ProductsIsShipping&quot;:&quot;0&quot;,&quot;Qty&quot;:&quot;1&quot;,&quot;spec_list&quot;:&quot;&quot;,&quot;Property&quot;:[],&quot;ProductsProfit&quot;:50}]}', '110.00', '1464849028', '0', '余额支付', null, '4', '0', '0', '0.00', '0', '110.00', '3', '0', '0', '', '0', '0', '0.00', '0', '0', null, '1', '0', null, '0.00', '1464863960', null);
-INSERT INTO `user_order` VALUES ('pl2hu3uczz', '2', '3', 'shop', 'wwd', 'qweqwe', '2', '40', '55', 'qweq', '', '{&quot;Express&quot;:&quot;顺丰&quot;,&quot;Price&quot;:&quot;10&quot;}', null, '{&quot;1&quot;:[{&quot;ProductsName&quot;:&quot;三星手机&quot;,&quot;ImgPath&quot;:&quot;/uploadfiles/biz/1/image/56f5052054.jpg&quot;,&quot;ProductsPriceX&quot;:&quot;100.00&quot;,&quot;ProductsPriceY&quot;:&quot;110.00&quot;,&quot;ProductsWeight&quot;:&quot;1.00&quot;,&quot;Products_Shipping&quot;:null,&quot;Products_Business&quot;:null,&quot;Shipping_Free_Company&quot;:&quot;0&quot;,&quot;IsShippingFree&quot;:&quot;0&quot;,&quot;OwnerID&quot;:&quot;2&quot;,&quot;ProductsIsShipping&quot;:&quot;0&quot;,&quot;Qty&quot;:&quot;1&quot;,&quot;spec_list&quot;:&quot;&quot;,&quot;Property&quot;:[],&quot;ProductsProfit&quot;:50}]}', '110.00', '1464938256', '0', '0', null, '1', '0', '0', '0.00', '0', '110.00', '2', '0', '0', '', '0', '0', '0.00', '0', '0', null, '1', '0', null, '0.00', '0', null);
-INSERT INTO `user_order` VALUES ('pl2hu3uczz', '2', '4', 'shop', 'wwd', 'qweqwe', '2', '40', '55', 'qweq', '', '{&quot;Express&quot;:&quot;顺丰&quot;,&quot;Price&quot;:&quot;10&quot;}', null, '{&quot;1&quot;:[{&quot;ProductsName&quot;:&quot;三星手机&quot;,&quot;ImgPath&quot;:&quot;/uploadfiles/biz/1/image/56f5052054.jpg&quot;,&quot;ProductsPriceX&quot;:&quot;100.00&quot;,&quot;ProductsPriceY&quot;:&quot;110.00&quot;,&quot;ProductsWeight&quot;:&quot;1.00&quot;,&quot;Products_Shipping&quot;:null,&quot;Products_Business&quot;:null,&quot;Shipping_Free_Company&quot;:&quot;0&quot;,&quot;IsShippingFree&quot;:&quot;0&quot;,&quot;OwnerID&quot;:&quot;2&quot;,&quot;ProductsIsShipping&quot;:&quot;0&quot;,&quot;Qty&quot;:&quot;1&quot;,&quot;spec_list&quot;:&quot;&quot;,&quot;Property&quot;:[],&quot;ProductsProfit&quot;:50}]}', '110.00', '1464938309', '0', '0', null, '1', '0', '0', '0.00', '0', '110.00', '2', '0', '0', '', '0', '0', '0.00', '0', '0', null, '1', '0', null, '0.00', '0', null);
-INSERT INTO `user_order` VALUES ('pl2hu3uczz', '2', '5', 'shop', 'wwd', 'qweqwe', '2', '40', '55', 'qweq', '', '{&quot;Express&quot;:&quot;顺丰&quot;,&quot;Price&quot;:&quot;10&quot;}', null, '{\"1\":[{\"ProductsName\":\"三星手机\",\"ImgPath\":\"/uploadfiles/biz/1/image/56f5052054.jpg\",\"ProductsPriceX\":\"100.00\",\"ProductsPriceY\":\"110.00\",\"ProductsWeight\":\"1.00\",\"Products_Shipping\":null,\"Products_Business\":null,\"Shipping_Free_Company\":\"0\",\"IsShippingFree\":\"0\",\"OwnerID\":\"3\",\"ProductsIsShipping\":\"0\",\"Qty\":\"1\",\"spec_list\":\"\",\"Property\":[],\"nobi_ratio\":\"20\",\"platForm_Income_Reward\":\"50\",\"area_Proxy_Reward\":\"20\",\"sha_Reward\":\"20\",\"ProductsProfit\":50}]}\n', '110.00', '1464938335', '0', '0', null, '1', '0', '0', '0.00', '0', '110.00', '2', '0', '0', '', '0', '0', '0.00', '0', '0', null, '1', '0', null, '0.00', '0', null);
-INSERT INTO `user_order` VALUES ('pl2hu3uczz', '2', '6', 'shop', 'wwd', 'qweqwe', '2', '40', '55', 'qweq', '', '{\"Express\":\"顺丰\",\"Price\":\"10\"}', '42343434', '{\"1\":[{\"ProductsName\":\"三星手机\",\"ImgPath\":\"/uploadfiles/biz/1/image/56f5052054.jpg\",\"ProductsPriceX\":\"100.00\",\"ProductsPriceY\":\"110.00\",\"ProductsWeight\":\"1.00\",\"Products_Shipping\":null,\"Products_Business\":null,\"Shipping_Free_Company\":\"0\",\"IsShippingFree\":\"0\",\"OwnerID\":\"3\",\"ProductsIsShipping\":\"0\",\"Qty\":\"1\",\"spec_list\":\"\",\"Property\":[],\"nobi_ratio\":\"20\",\"platForm_Income_Reward\":\"50\",\"area_Proxy_Reward\":\"20\",\"sha_Reward\":\"20\",\"ProductsProfit\":50}]}\n', '110.00', '1464938372', '', '余额支付', '', '4', '0', '0', '0.00', '0', '110.00', '2', '0', '0', '', '0', '0', '0.00', '0', '0', null, '1', '0', null, '0.00', '1465371489', null);
-INSERT INTO `user_order` VALUES ('pl2hu3uczz', '2', '7', 'shop', 'wwd', 'qweqwe', '2', '40', '55', 'qweq', '', '{\"Express\":\"顺丰\",\"Price\":\"10\"}', '21545', '{\"1\":[{\"ProductsName\":\"三星手机\",\"ImgPath\":\"/uploadfiles/biz/1/image/56f5052054.jpg\",\"ProductsPriceX\":\"100.00\",\"ProductsPriceY\":\"110.00\",\"ProductsWeight\":\"1.00\",\"Products_Shipping\":null,\"Products_Business\":null,\"Shipping_Free_Company\":\"0\",\"IsShippingFree\":\"0\",\"OwnerID\":\"3\",\"ProductsIsShipping\":\"0\",\"Qty\":\"1\",\"spec_list\":\"\",\"Property\":[],\"nobi_ratio\":\"20\",\"platForm_Income_Reward\":\"50\",\"area_Proxy_Reward\":\"20\",\"sha_Reward\":\"20\",\"ProductsProfit\":50}]}\n', '110.00', '1464938424', '', '余额支付', '', '4', '0', '0', '0.00', '0', '110.00', '2', '0', '0', '', '0', '0', '0.00', '0', '0', null, '1', '0', null, '0.00', '1465371413', null);
-INSERT INTO `user_order` VALUES ('pl2hu3uczz', '2', '8', 'shop', 'wwd', 'qweqwe', '2', '40', '55', 'qweq', '', '{\"Express\":\"顺丰\",\"Price\":\"10\"}', '123123', '{\"1\":[{\"ProductsName\":\"三星手机\",\"ImgPath\":\"/uploadfiles/biz/1/image/56f5052054.jpg\",\"ProductsPriceX\":\"100.00\",\"ProductsPriceY\":\"110.00\",\"ProductsWeight\":\"1.00\",\"Products_Shipping\":null,\"Products_Business\":null,\"Shipping_Free_Company\":\"0\",\"IsShippingFree\":\"0\",\"OwnerID\":\"3\",\"ProductsIsShipping\":\"0\",\"Qty\":\"1\",\"spec_list\":\"\",\"Property\":[],\"nobi_ratio\":\"20\",\"platForm_Income_Reward\":\"50\",\"area_Proxy_Reward\":\"20\",\"sha_Reward\":\"20\",\"ProductsProfit\":50}]}\n', '110.00', '1464938471', '', '余额支付', '', '4', '0', '0', '0.00', '0', '110.00', '2', '0', '0', '', '0', '0', '0.00', '0', '0', null, '1', '0', null, '0.00', '1465371296', null);
-INSERT INTO `user_order` VALUES ('pl2hu3uczz', '2', '9', 'shop', 'wwd', 'qweqwe', '2', '40', '55', 'qweq', '', '{\"Express\":\"顺丰\",\"Price\":\"10\"}', '123123', '{\"1\":[{\"ProductsName\":\"三星手机\",\"ImgPath\":\"/uploadfiles/biz/1/image/56f5052054.jpg\",\"ProductsPriceX\":\"100.00\",\"ProductsPriceY\":\"110.00\",\"ProductsWeight\":\"1.00\",\"Products_Shipping\":null,\"Products_Business\":null,\"Shipping_Free_Company\":\"0\",\"IsShippingFree\":\"0\",\"OwnerID\":\"3\",\"ProductsIsShipping\":\"0\",\"Qty\":\"1\",\"spec_list\":\"\",\"Property\":[],\"nobi_ratio\":\"20\",\"platForm_Income_Reward\":\"50\",\"area_Proxy_Reward\":\"20\",\"sha_Reward\":\"20\",\"ProductsProfit\":50}]}\n', '110.00', '1464938513', '', '余额支付', '', '4', '0', '0', '0.00', '0', '110.00', '2', '0', '0', '', '0', '0', '0.00', '0', '0', null, '1', '0', null, '0.00', '1465371284', null);
-INSERT INTO `user_order` VALUES ('pl2hu3uczz', '2', '10', 'shop', 'wwd', 'qweqwe', '2', '40', '55', 'qweq', '', '{\"Express\":\"顺丰\",\"Price\":\"10\"}', '123123', '{\"1\":[{\"ProductsName\":\"三星手机\",\"ImgPath\":\"/uploadfiles/biz/1/image/56f5052054.jpg\",\"ProductsPriceX\":\"100.00\",\"ProductsPriceY\":\"110.00\",\"ProductsWeight\":\"1.00\",\"Products_Shipping\":null,\"Products_Business\":null,\"Shipping_Free_Company\":\"0\",\"IsShippingFree\":\"0\",\"OwnerID\":\"3\",\"ProductsIsShipping\":\"0\",\"Qty\":\"1\",\"spec_list\":\"\",\"Property\":[],\"nobi_ratio\":\"20\",\"platForm_Income_Reward\":\"50\",\"area_Proxy_Reward\":\"20\",\"sha_Reward\":\"20\",\"ProductsProfit\":50}]}\n', '110.00', '1464938546', '0', '余额支付', null, '4', '0', '0', '0.00', '0', '110.00', '2', '0', '0', '', '0', '0', '0.00', '0', '0', null, '1', '0', null, '0.00', '1465370853', null);
-INSERT INTO `user_order` VALUES ('pl2hu3uczz', '2', '11', 'shop', 'wwd', 'qweqwe', '2', '40', '55', 'qweq', '', '{\"Express\":\"顺丰\",\"Price\":\"10\"}', '34223423', '{\"1\":[{\"ProductsName\":\"三星手机\",\"ImgPath\":\"/uploadfiles/biz/1/image/56f5052054.jpg\",\"ProductsPriceX\":\"100.00\",\"ProductsPriceY\":\"110.00\",\"ProductsWeight\":\"1.00\",\"Products_Shipping\":null,\"Products_Business\":null,\"Shipping_Free_Company\":\"0\",\"IsShippingFree\":\"0\",\"OwnerID\":\"3\",\"ProductsIsShipping\":\"0\",\"Qty\":\"1\",\"spec_list\":\"\",\"Property\":[],\"nobi_ratio\":\"20\",\"platForm_Income_Reward\":\"50\",\"area_Proxy_Reward\":\"20\",\"sha_Reward\":\"20\",\"ProductsProfit\":50}]}\n', '110.00', '1464938559', '0', '余额支付', null, '4', '0', '0', '0.00', '0', '110.00', '2', '0', '0', '', '0', '0', '0.00', '0', '0', null, '1', '0', null, '0.00', '1465286128', null);
-INSERT INTO `user_order` VALUES ('pl2hu3uczz', '2', '12', 'shop', 'wwd', 'qweqwe', '2', '40', '55', 'qweq', '', '{\"Express\":\"顺丰\",\"Price\":\"10\"}', '123123', '{\"1\":[{\"ProductsName\":\"三星手机\",\"ImgPath\":\"/uploadfiles/biz/1/image/56f5052054.jpg\",\"ProductsPriceX\":\"100.00\",\"ProductsPriceY\":\"110.00\",\"ProductsWeight\":\"1.00\",\"Products_Shipping\":null,\"Products_Business\":null,\"Shipping_Free_Company\":\"0\",\"IsShippingFree\":\"0\",\"OwnerID\":\"3\",\"ProductsIsShipping\":\"0\",\"Qty\":\"1\",\"spec_list\":\"\",\"Property\":[],\"nobi_ratio\":\"20\",\"platForm_Income_Reward\":\"50\",\"area_Proxy_Reward\":\"20\",\"sha_Reward\":\"20\",\"ProductsProfit\":50}]}\n', '110.00', '1464945377', '0', '余额支付', null, '4', '0', '0', '0.00', '0', '110.00', '2', '0', '0', '', '0', '0', '0.00', '0', '0', null, '1', '0', null, '0.00', '1465370566', null);
-INSERT INTO `user_order` VALUES ('pl2hu3uczz', '3', '13', 'shop', '孙先生', '15517105580', '2', '40', '55', '花园路', 'ww', '{\"Express\":\"顺丰\",\"Price\":\"10\"}', '777777777777', '{\"1\":[{\"ProductsName\":\"三星手机\",\"ImgPath\":\"/uploadfiles/biz/1/image/56f5052054.jpg\",\"ProductsPriceX\":\"100.00\",\"ProductsPriceY\":\"110.00\",\"ProductsWeight\":\"1.00\",\"Products_Shipping\":null,\"Products_Business\":null,\"Shipping_Free_Company\":\"0\",\"IsShippingFree\":\"0\",\"OwnerID\":\"3\",\"ProductsIsShipping\":\"0\",\"Qty\":\"1\",\"spec_list\":\"\",\"Property\":[],\"nobi_ratio\":\"20\",\"platForm_Income_Reward\":\"50\",\"area_Proxy_Reward\":\"20\",\"sha_Reward\":\"20\",\"ProductsProfit\":50}]}', '110.00', '1465177071', '', '余额支付', '', '4', '0', '0', '0.00', '0', '100.00', '3', '0', '0', '', '0', '0', '0.00', '0', '0', null, '1', '0', '', '0.00', '1465177411', null);
-INSERT INTO `user_order` VALUES ('pl2hu3uczz', '2', '15', 'shop', 'wwd', 'qweqwe', '2', '40', '55', 'qweq', '123123', '{\"Express\":\"顺丰\",\"Price\":\"10\"}', '23213123', '{\"2\":[{\"ProductsName\":\"苹果手机\",\"ImgPath\":\"/uploadfiles/biz/1/image/56f4fb24d9.jpg\",\"ProductsPriceX\":\"200.00\",\"ProductsPriceY\":\"210.00\",\"ProductsWeight\":\"1.00\",\"Products_Shipping\":null,\"Products_Business\":null,\"Shipping_Free_Company\":\"0\",\"IsShippingFree\":\"0\",\"OwnerID\":\"2\",\"ProductsIsShipping\":\"0\",\"Qty\":\"1\",\"spec_list\":\"\",\"Property\":[],\"nobi_ratio\":\"20\",\"platForm_Income_Reward\":\"60\",\"area_Proxy_Reward\":\"20\",\"sha_Reward\":\"20\",\"ProductsProfit\":100}]}', '210.00', '1465350853', '', '余额支付', '', '4', '0', '0', '0.00', '0', '200.00', '2', '0', '0', '', '0', '0', '0.00', '0', '0', null, '1', '0', '', '0.00', '1465351494', null);
-INSERT INTO `user_order` VALUES ('pl2hu3uczz', '9', '16', 'shop', '测试', '15517101234', '1', '36', '38', '测试街道', '', '{\"Express\":\"顺丰\",\"Price\":\"10\"}', '456456456', '{\"1\":[{\"ProductsName\":\"三星手机\",\"ImgPath\":\"/uploadfiles/biz/1/image/56f5052054.jpg\",\"ProductsPriceX\":\"100.00\",\"ProductsPriceY\":\"110.00\",\"ProductsWeight\":\"1.00\",\"Products_Shipping\":null,\"Products_Business\":null,\"Shipping_Free_Company\":\"0\",\"IsShippingFree\":\"0\",\"OwnerID\":\"9\",\"ProductsIsShipping\":\"0\",\"Qty\":\"1\",\"spec_list\":\"\",\"Property\":[],\"nobi_ratio\":\"20\",\"platForm_Income_Reward\":\"50\",\"area_Proxy_Reward\":\"20\",\"sha_Reward\":\"20\",\"ProductsProfit\":50}]}', '110.00', '1465694977', '', '余额支付', '', '4', '0', '0', '0.00', '0', '100.00', '9', '0', '0', '', '0', '0', '0.00', '0', '0', null, '1', '0', '', '0.00', '1465695050', null);
-INSERT INTO `user_order` VALUES ('pl2hu3uczz', '9', '17', 'shop', '测试', '15517101234', '1', '36', '38', '测试街道', 'qweqwe', '{\"Express\":\"顺丰\",\"Price\":\"10\"}', null, '{\"2\":[{\"ProductsName\":\"苹果手机\",\"ImgPath\":\"/uploadfiles/biz/1/image/56f4fb24d9.jpg\",\"ProductsPriceX\":\"200.00\",\"ProductsPriceY\":\"210.00\",\"ProductsWeight\":\"1.00\",\"Products_Shipping\":null,\"Products_Business\":null,\"Shipping_Free_Company\":\"0\",\"IsShippingFree\":\"0\",\"OwnerID\":\"9\",\"ProductsIsShipping\":\"0\",\"Qty\":\"1\",\"spec_list\":\"\",\"Property\":[],\"nobi_ratio\":\"20\",\"platForm_Income_Reward\":\"60\",\"area_Proxy_Reward\":\"20\",\"sha_Reward\":\"20\",\"ProductsProfit\":100}]}', '210.00', '1465714281', '', '余额支付', '', '2', '0', '0', '0.00', '0', '200.00', '9', '0', '0', '', '0', '0', '0.00', '0', '0', null, '1', '0', '', '0.00', '0', null);
-INSERT INTO `user_order` VALUES ('pl2hu3uczz', '12', '43', 'shop', '孙测试', '15517103333', '1', '36', '38', '测试业务发放', '123132', '{\"Express\":\"测试快递公司\",\"Price\":\"10\"}', '12312', '{\"3\":[{\"ProductsName\":\"测试业务产品\",\"ImgPath\":\"/uploadfiles/biz/8/image/5716f5c799.jpg\",\"ProductsPriceX\":\"100.00\",\"ProductsPriceY\":\"120.00\",\"ProductsWeight\":\"1.00\",\"Products_Shipping\":null,\"Products_Business\":null,\"Shipping_Free_Company\":\"0\",\"IsShippingFree\":\"0\",\"OwnerID\":\"12\",\"ProductsIsShipping\":\"0\",\"Qty\":\"1\",\"spec_list\":\"\",\"Property\":[],\"nobi_ratio\":\"10\",\"platForm_Income_Reward\":\"60\",\"area_Proxy_Reward\":\"20\",\"sha_Reward\":\"20\",\"ProductsProfit\":80}]}', '110.00', '1465812005', '', '余额支付', '', '4', '0', '0', '0.00', '0', '100.00', '12', '0', '0', '', '0', '0', '0.00', '0', '0', null, '8', '0', '', '0.00', '1465866683', null);
-INSERT INTO `user_order` VALUES ('pl2hu3uczz', '12', '44', 'shop', '孙测试', '15517103333', '1', '36', '38', '测试业务发放', '', '{\"Express\":\"测试快递公司\",\"Price\":\"10\"}', null, '[]', '110.00', '1465812528', '', '余额支付', '', '4', '0', '0', '0.00', '0', '100.00', '12', '0', '1', '', '0', '0', '0.00', '0', '0', null, '8', '0', '', '100.00', '0', null);
-INSERT INTO `user_order` VALUES ('pl2hu3uczz', '12', '45', 'shop', '孙测试', '15517103333', '1', '36', '38', '测试业务发放', '3454', '{\"Express\":\"测试快递公司\",\"Price\":\"10\"}', '12312312', '{\"3\":[{\"ProductsName\":\"测试业务产品\",\"ImgPath\":\"/uploadfiles/biz/8/image/5716f5c799.jpg\",\"ProductsPriceX\":\"100.00\",\"ProductsPriceY\":\"120.00\",\"ProductsWeight\":\"1.00\",\"Products_Shipping\":null,\"Products_Business\":null,\"Shipping_Free_Company\":\"0\",\"IsShippingFree\":\"0\",\"OwnerID\":\"12\",\"ProductsIsShipping\":\"0\",\"Qty\":\"1\",\"spec_list\":\"\",\"Property\":[],\"nobi_ratio\":\"10\",\"platForm_Income_Reward\":\"60\",\"area_Proxy_Reward\":\"20\",\"sha_Reward\":\"20\",\"ProductsProfit\":80}]}', '110.00', '1465867057', '', '余额支付', '', '4', '0', '0', '0.00', '0', '100.00', '12', '0', '0', '', '0', '0', '0.00', '0', '0', null, '8', '0', '', '0.00', '1465867396', null);
-INSERT INTO `user_order` VALUES ('pl2hu3uczz', '12', '46', 'shop', '孙测试', '15517103333', '1', '36', '38', '测试业务发放', '', '{\"Express\":\"测试快递公司\",\"Price\":\"10\"}', '234234', '{\"3\":[{\"ProductsName\":\"测试业务产品\",\"ImgPath\":\"/uploadfiles/biz/8/image/5716f5c799.jpg\",\"ProductsPriceX\":\"100.00\",\"ProductsPriceY\":\"120.00\",\"ProductsWeight\":\"1.00\",\"Products_Shipping\":null,\"Products_Business\":null,\"Shipping_Free_Company\":\"0\",\"IsShippingFree\":\"0\",\"OwnerID\":\"12\",\"ProductsIsShipping\":\"0\",\"Qty\":\"1\",\"spec_list\":\"\",\"Property\":[],\"nobi_ratio\":\"10\",\"platForm_Income_Reward\":\"60\",\"area_Proxy_Reward\":\"20\",\"sha_Reward\":\"20\",\"ProductsProfit\":80}]}', '110.00', '1465867765', '', '余额支付', '', '4', '0', '0', '0.00', '0', '100.00', '12', '0', '0', '', '0', '0', '0.00', '0', '0', null, '8', '0', '', '0.00', '1465867805', null);
-INSERT INTO `user_order` VALUES ('pl2hu3uczz', '12', '47', 'shop', '孙测试', '15517103333', '1', '36', '38', '测试业务发放', '', '{\"Express\":\"测试快递公司\",\"Price\":\"10\"}', '234234', '{\"3\":[{\"ProductsName\":\"测试业务产品\",\"ImgPath\":\"/uploadfiles/biz/8/image/5716f5c799.jpg\",\"ProductsPriceX\":\"100.00\",\"ProductsPriceY\":\"120.00\",\"ProductsWeight\":\"1.00\",\"Products_Shipping\":null,\"Products_Business\":null,\"Shipping_Free_Company\":\"0\",\"IsShippingFree\":\"0\",\"OwnerID\":\"12\",\"ProductsIsShipping\":\"0\",\"Qty\":\"1\",\"spec_list\":\"\",\"Property\":[],\"nobi_ratio\":\"10\",\"platForm_Income_Reward\":\"60\",\"area_Proxy_Reward\":\"20\",\"sha_Reward\":\"20\",\"ProductsProfit\":80}]}', '110.00', '1465868022', '', '余额支付', '', '4', '0', '0', '0.00', '0', '100.00', '12', '0', '0', '', '0', '0', '0.00', '0', '0', null, '8', '0', '', '0.00', '1465868056', null);
-INSERT INTO `user_order` VALUES ('pl2hu3uczz', '12', '48', 'shop', '孙测试', '15517103333', '1', '36', '38', '测试业务发放', '', '{\"Express\":\"测试快递公司\",\"Price\":\"10\"}', '123123', '{\"3\":[{\"ProductsName\":\"测试业务产品\",\"ImgPath\":\"/uploadfiles/biz/8/image/5716f5c799.jpg\",\"ProductsPriceX\":\"100.00\",\"ProductsPriceY\":\"120.00\",\"ProductsWeight\":\"1.00\",\"Products_Shipping\":null,\"Products_Business\":null,\"Shipping_Free_Company\":\"0\",\"IsShippingFree\":\"0\",\"OwnerID\":\"12\",\"ProductsIsShipping\":\"0\",\"Qty\":\"1\",\"spec_list\":\"\",\"Property\":[],\"nobi_ratio\":\"10\",\"platForm_Income_Reward\":\"60\",\"area_Proxy_Reward\":\"20\",\"sha_Reward\":\"20\",\"ProductsProfit\":80}]}', '110.00', '1465868264', '', '余额支付', '', '4', '0', '0', '0.00', '0', '100.00', '12', '0', '0', '', '0', '0', '0.00', '0', '0', null, '8', '0', '', '0.00', '1465868290', null);
-INSERT INTO `user_order` VALUES ('pl2hu3uczz', '13', '49', 'shop', '周测试', '15517104444', '2', '40', '57', '西大街', '', '{\"Express\":\"测试快递公司\",\"Price\":\"10\"}', '213123', '{\"3\":[{\"ProductsName\":\"测试业务产品\",\"ImgPath\":\"/uploadfiles/biz/8/image/5716f5c799.jpg\",\"ProductsPriceX\":\"100.00\",\"ProductsPriceY\":\"120.00\",\"ProductsWeight\":\"1.00\",\"Products_Shipping\":null,\"Products_Business\":null,\"Shipping_Free_Company\":\"0\",\"IsShippingFree\":\"0\",\"OwnerID\":\"13\",\"ProductsIsShipping\":\"0\",\"Qty\":\"1\",\"spec_list\":\"\",\"Property\":[],\"nobi_ratio\":\"10\",\"platForm_Income_Reward\":\"60\",\"area_Proxy_Reward\":\"20\",\"sha_Reward\":\"20\",\"ProductsProfit\":80}]}', '110.00', '1465870064', '', '余额支付', '', '4', '0', '0', '0.00', '0', '100.00', '13', '0', '0', '', '0', '0', '0.00', '0', '0', null, '8', '0', '', '0.00', '1465870352', null);
-INSERT INTO `user_order` VALUES ('pl2hu3uczz', '13', '50', 'shop', '周测试', '15517104444', '2', '40', '57', '西大街', '', '{\"Express\":\"测试快递公司\",\"Price\":\"10\"}', null, '{\"3\":[{\"ProductsName\":\"测试业务产品\",\"ImgPath\":\"/uploadfiles/biz/8/image/5716f5c799.jpg\",\"ProductsPriceX\":\"100.00\",\"ProductsPriceY\":\"120.00\",\"ProductsWeight\":\"1.00\",\"Products_Shipping\":null,\"Products_Business\":null,\"Shipping_Free_Company\":\"0\",\"IsShippingFree\":\"0\",\"OwnerID\":\"13\",\"ProductsIsShipping\":\"0\",\"Qty\":\"1\",\"spec_list\":\"\",\"Property\":[],\"nobi_ratio\":\"10\",\"platForm_Income_Reward\":\"60\",\"area_Proxy_Reward\":\"20\",\"sha_Reward\":\"20\",\"ProductsProfit\":80}]}', '110.00', '1465871170', '0', '0', null, '0', '0', '0', '0.00', '0', '100.00', '13', '0', '0', '', '0', '0', '0.00', '0', '0', null, '8', '0', '', '0.00', '0', null);
-INSERT INTO `user_order` VALUES ('pl2hu3uczz', '13', '51', 'shop', '周测试', '15517104444', '2', '40', '57', '西大街', '', '{\"Express\":\"测试快递公司\",\"Price\":\"10\"}', null, '{\"3\":[{\"ProductsName\":\"测试业务产品\",\"ImgPath\":\"/uploadfiles/biz/8/image/5716f5c799.jpg\",\"ProductsPriceX\":\"100.00\",\"ProductsPriceY\":\"120.00\",\"ProductsWeight\":\"1.00\",\"Products_Shipping\":null,\"Products_Business\":null,\"Shipping_Free_Company\":\"0\",\"IsShippingFree\":\"0\",\"OwnerID\":\"13\",\"ProductsIsShipping\":\"0\",\"Qty\":\"1\",\"spec_list\":\"\",\"Property\":[],\"nobi_ratio\":\"10\",\"platForm_Income_Reward\":\"60\",\"area_Proxy_Reward\":\"20\",\"sha_Reward\":\"20\",\"ProductsProfit\":80}]}', '110.00', '1465871280', '0', '0', null, '0', '0', '0', '0.00', '0', '100.00', '13', '0', '0', '', '0', '0', '0.00', '0', '0', null, '8', '0', '', '0.00', '0', null);
-INSERT INTO `user_order` VALUES ('pl2hu3uczz', '13', '52', 'shop', '周测试', '15517104444', '2', '40', '57', '西大街', '', '{\"Express\":\"测试快递公司\",\"Price\":\"10\"}', '234234234', '{\"3\":[{\"ProductsName\":\"测试业务产品\",\"ImgPath\":\"/uploadfiles/biz/8/image/5716f5c799.jpg\",\"ProductsPriceX\":\"100.00\",\"ProductsPriceY\":\"120.00\",\"ProductsWeight\":\"1.00\",\"Products_Shipping\":null,\"Products_Business\":null,\"Shipping_Free_Company\":\"0\",\"IsShippingFree\":\"0\",\"OwnerID\":\"13\",\"ProductsIsShipping\":\"0\",\"Qty\":\"1\",\"spec_list\":\"\",\"Property\":[],\"nobi_ratio\":\"10\",\"platForm_Income_Reward\":\"60\",\"area_Proxy_Reward\":\"20\",\"sha_Reward\":\"20\",\"ProductsProfit\":80}]}', '110.00', '1465874259', '', '余额支付', '', '4', '0', '0', '0.00', '0', '100.00', '13', '0', '0', '', '0', '0', '0.00', '0', '0', null, '8', '0', '', '0.00', '1465897597', null);
-INSERT INTO `user_order` VALUES ('pl2hu3uczz', '14', '53', 'shop', '孙测试', '15517106666', '2', '40', '55', '西大街', '', '{\"Express\":\"测试快递公司\",\"Price\":\"10\"}', '12123123', '{&quot;3&quot;:[{&quot;ProductsName&quot;:&quot;测试业务产品&quot;,&quot;ImgPath&quot;:&quot;/uploadfiles/biz/8/image/5716f5c799.jpg&quot;,&quot;ProductsPriceX&quot;:&quot;100.00&quot;,&quot;ProductsPriceY&quot;:&quot;120.00&quot;,&quot;ProductsWeight&quot;:&quot;1.00&quot;,&quot;Products_Shipping&quot;:null,&quot;Products_Business&quot;:null,&quot;Shipping_Free_Company&quot;:&quot;0&quot;,&quot;IsShippingFree&quot;:&quot;0&quot;,&quot;OwnerID&quot;:&quot;14&quot;,&quot;ProductsIsShipping&quot;:&quot;0&quot;,&quot;Qty&quot;:&quot;1&quot;,&quot;spec_list&quot;:&quot;&quot;,&quot;Property&quot;:[],&quot;ProductsProfit&quot;:80}]}', '110.00', '1465957204', '0', '余额支付', null, '4', '0', '0', '0.00', '0', '110.00', '14', '0', '0', '', '0', '0', '0.00', '0', '0', null, '8', '0', null, '0.00', '1465957311', null);
-INSERT INTO `user_order` VALUES ('pl2hu3uczz', '14', '54', 'shop', '孙测试', '15517106666', '2', '40', '55', '西大街', '2123', '{\"Express\":\"测试快递公司\",\"Price\":\"10\"}', '2123123', '{\"3\":[{\"ProductsName\":\"测试业务产品\",\"ImgPath\":\"/uploadfiles/biz/8/image/5716f5c799.jpg\",\"ProductsPriceX\":\"100.00\",\"ProductsPriceY\":\"120.00\",\"ProductsWeight\":\"1.00\",\"Products_Shipping\":null,\"Products_Business\":null,\"Shipping_Free_Company\":\"0\",\"IsShippingFree\":\"0\",\"OwnerID\":\"14\",\"ProductsIsShipping\":\"0\",\"Qty\":\"1\",\"spec_list\":\"\",\"Property\":[],\"nobi_ratio\":\"10\",\"platForm_Income_Reward\":\"60\",\"area_Proxy_Reward\":\"20\",\"sha_Reward\":\"20\",\"ProductsProfit\":80}]}', '110.00', '1465957586', '', '余额支付', '', '4', '0', '0', '0.00', '0', '100.00', '14', '0', '0', '', '0', '0', '0.00', '0', '0', null, '8', '0', '', '0.00', '1465957631', null);
-INSERT INTO `user_order` VALUES ('pl2hu3uczz', '10', '70', 'shop', 'df', '1111111111', '3', '74', '1153', 'eeee', '', '{\"Express\":\"测试快递公司\",\"Price\":\"10\"}', '123123', '{&quot;3&quot;:[{&quot;ProductsName&quot;:&quot;测试业务产品&quot;,&quot;ImgPath&quot;:&quot;/uploadfiles/biz/8/image/5716f5c799.jpg&quot;,&quot;ProductsPriceX&quot;:&quot;100.00&quot;,&quot;ProductsPriceY&quot;:&quot;120.00&quot;,&quot;ProductsWeight&quot;:&quot;1.00&quot;,&quot;Products_Shipping&quot;:null,&quot;Products_Business&quot;:null,&quot;Shipping_Free_Company&quot;:&quot;0&quot;,&quot;IsShippingFree&quot;:&quot;0&quot;,&quot;OwnerID&quot;:&quot;10&quot;,&quot;ProductsIsShipping&quot;:&quot;0&quot;,&quot;Qty&quot;:&quot;1&quot;,&quot;spec_list&quot;:&quot;&quot;,&quot;Property&quot;:[],&quot;ProductsProfit&quot;:80}]}', '110.00', '1465966410', '0', '余额支付', null, '4', '0', '0', '0.00', '0', '110.00', '10', '0', '0', '', '0', '0', '0.00', '0', '0', null, '8', '0', null, '0.00', '1465966552', null);
-INSERT INTO `user_order` VALUES ('pl2hu3uczz', '12', '71', 'shop', '孙测试', '15517103333', '1', '36', '38', '测试业务发放', '', '{\"Express\":\"测试快递公司\",\"Price\":\"10\"}', '123123', '{&quot;3&quot;:[{&quot;ProductsName&quot;:&quot;测试业务产品&quot;,&quot;ImgPath&quot;:&quot;/uploadfiles/biz/8/image/5716f5c799.jpg&quot;,&quot;ProductsPriceX&quot;:&quot;100.00&quot;,&quot;ProductsPriceY&quot;:&quot;120.00&quot;,&quot;ProductsWeight&quot;:&quot;1.00&quot;,&quot;Products_Shipping&quot;:null,&quot;Products_Business&quot;:null,&quot;Shipping_Free_Company&quot;:&quot;0&quot;,&quot;IsShippingFree&quot;:&quot;0&quot;,&quot;OwnerID&quot;:&quot;12&quot;,&quot;ProductsIsShipping&quot;:&quot;0&quot;,&quot;Qty&quot;:&quot;1&quot;,&quot;spec_list&quot;:&quot;&quot;,&quot;Property&quot;:[],&quot;ProductsProfit&quot;:80}]}', '110.00', '1465966716', '0', '余额支付', null, '4', '0', '0', '0.00', '0', '110.00', '12', '0', '0', '', '0', '0', '0.00', '0', '0', null, '8', '0', null, '0.00', '1465966775', null);
-INSERT INTO `user_order` VALUES ('pl2hu3uczz', '2', '72', 'shop', 'wwd', 'qweqwe', '2', '40', '55', 'qweq', '', '{\"Express\":\"测试快递公司\",\"Price\":\"11\"}', '23423434', '{\"3\":[{\"ProductsName\":\"测试业务产品\",\"ImgPath\":\"/uploadfiles/biz/8/image/5716f5c799.jpg\",\"ProductsPriceX\":\"100.00\",\"ProductsPriceY\":\"120.00\",\"ProductsWeight\":\"1.00\",\"Products_Shipping\":null,\"Products_Business\":null,\"Shipping_Free_Company\":\"0\",\"IsShippingFree\":\"0\",\"OwnerID\":\"2\",\"ProductsIsShipping\":\"0\",\"Qty\":\"2\",\"spec_list\":\"\",\"Property\":[],\"nobi_ratio\":\"10\",\"platForm_Income_Reward\":\"60\",\"area_Proxy_Reward\":\"20\",\"sha_Reward\":\"20\",\"ProductsProfit\":80}]}', '211.00', '1466042623', '', '余额支付', '', '4', '0', '0', '0.00', '0', '800.00', '2', '0', '0', '', '0', '0', '0.00', '0', '0', null, '8', '0', '', '0.00', '1466043136', null);
-INSERT INTO `user_order` VALUES ('pl2hu3uczz', '2', '73', 'shop', 'wwd', 'qweqwe', '2', '40', '55', 'qweq', '', '{\"Express\":\"顺丰\",\"Price\":\"12\"}', null, '{\"2\":[{\"ProductsName\":\"苹果手机\",\"ImgPath\":\"/uploadfiles/biz/1/image/56f4fb24d9.jpg\",\"ProductsPriceX\":\"200.00\",\"ProductsPriceY\":\"210.00\",\"ProductsWeight\":\"1.00\",\"Products_Shipping\":null,\"Products_Business\":null,\"Shipping_Free_Company\":\"0\",\"IsShippingFree\":\"0\",\"OwnerID\":\"2\",\"ProductsIsShipping\":\"0\",\"Qty\":\"3\",\"spec_list\":\"\",\"Property\":[],\"nobi_ratio\":\"10\",\"platForm_Income_Reward\":\"60\",\"area_Proxy_Reward\":\"20\",\"sha_Reward\":\"20\",\"ProductsProfit\":100}]}', '612.00', '1466042624', '0', '0', null, '0', '0', '0', '0.00', '0', '800.00', '2', '0', '0', '', '0', '0', '0.00', '0', '0', null, '1', '0', '', '0.00', '0', null);
-INSERT INTO `user_order` VALUES ('pl2hu3uczz', '2', '74', 'shop', 'wwd', 'qweqwe', '2', '40', '55', 'qweq', '', '{\"Express\":\"顺丰\",\"Price\":\"12\"}', null, '{\"2\":[{\"ProductsName\":\"苹果手机\",\"ImgPath\":\"/uploadfiles/biz/1/image/56f4fb24d9.jpg\",\"ProductsPriceX\":\"200.00\",\"ProductsPriceY\":\"210.00\",\"ProductsWeight\":\"1.00\",\"Products_Shipping\":null,\"Products_Business\":null,\"Shipping_Free_Company\":\"0\",\"IsShippingFree\":\"0\",\"OwnerID\":\"2\",\"ProductsIsShipping\":\"0\",\"Qty\":\"2\",\"spec_list\":\"\",\"Property\":[],\"nobi_ratio\":\"10\",\"platForm_Income_Reward\":\"60\",\"area_Proxy_Reward\":\"20\",\"sha_Reward\":\"20\",\"ProductsProfit\":100}],\"1\":[{\"ProductsName\":\"三星手机\",\"ImgPath\":\"/uploadfiles/biz/1/image/56f5052054.jpg\",\"ProductsPriceX\":\"100.00\",\"ProductsPriceY\":\"110.00\",\"ProductsWeight\":\"1.00\",\"Products_Shipping\":null,\"Products_Business\":null,\"Shipping_Free_Company\":\"0\",\"IsShippingFree\":\"0\",\"OwnerID\":\"2\",\"ProductsIsShipping\":\"0\",\"Qty\":\"1\",\"spec_list\":\"\",\"Property\":[],\"nobi_ratio\":\"20\",\"platForm_Income_Reward\":\"50\",\"area_Proxy_Reward\":\"20\",\"sha_Reward\":\"20\",\"ProductsProfit\":50}]}', '512.00', '1466042697', '0', '0', null, '0', '0', '0', '0.00', '0', '500.00', '2', '0', '0', '', '0', '0', '0.00', '0', '0', null, '1', '0', '', '0.00', '0', null);
-INSERT INTO `user_order` VALUES ('pl2hu3uczz', '2', '75', 'shop', 'wwd', 'qweqwe', '2', '40', '55', 'qweq', '', '{\"Express\":\"测试快递公司\",\"Price\":\"11\"}', '123123', '{\"3\":[{\"ProductsName\":\"测试业务产品\",\"ImgPath\":\"/uploadfiles/biz/8/image/5716f5c799.jpg\",\"ProductsPriceX\":\"100.00\",\"ProductsPriceY\":\"120.00\",\"ProductsWeight\":\"1.00\",\"Products_Shipping\":null,\"Products_Business\":null,\"Shipping_Free_Company\":\"0\",\"IsShippingFree\":\"0\",\"OwnerID\":\"2\",\"ProductsIsShipping\":\"0\",\"Qty\":\"2\",\"spec_list\":\"\",\"Property\":[],\"nobi_ratio\":\"10\",\"platForm_Income_Reward\":\"60\",\"area_Proxy_Reward\":\"20\",\"sha_Reward\":\"20\",\"ProductsProfit\":80}]}', '211.00', '1466043252', '', '余额支付', '', '4', '0', '0', '0.00', '0', '200.00', '2', '0', '0', '', '0', '0', '0.00', '0', '0', null, '8', '0', '', '0.00', '1466043289', null);
-INSERT INTO `user_order` VALUES ('pl2hu3uczz', '2', '76', 'shop', 'wwd', 'qweqwe', '2', '40', '55', 'qweq', '', '{\"Express\":\"测试快递公司\",\"Price\":\"11\"}', '123123', '{\"3\":[{\"ProductsName\":\"测试业务产品\",\"ImgPath\":\"/uploadfiles/biz/8/image/5716f5c799.jpg\",\"ProductsPriceX\":\"100.00\",\"ProductsPriceY\":\"120.00\",\"ProductsWeight\":\"1.00\",\"Products_Shipping\":null,\"Products_Business\":null,\"Shipping_Free_Company\":\"0\",\"IsShippingFree\":\"0\",\"OwnerID\":\"2\",\"ProductsIsShipping\":\"0\",\"Qty\":\"2\",\"spec_list\":\"\",\"Property\":[],\"nobi_ratio\":\"10\",\"platForm_Income_Reward\":\"60\",\"area_Proxy_Reward\":\"20\",\"sha_Reward\":\"20\",\"ProductsProfit\":80}]}', '211.00', '1466043402', '', '余额支付', '', '4', '0', '0', '0.00', '0', '200.00', '2', '0', '0', '', '0', '0', '0.00', '0', '0', null, '8', '0', '', '0.00', '1466043461', null);
-INSERT INTO `user_order` VALUES ('pl2hu3uczz', '2', '77', 'shop', 'wwd', 'qweqwe', '2', '40', '55', 'qweq', '', '{\"Express\":\"测试快递公司\",\"Price\":\"11\"}', '123123', '{\"3\":[{\"ProductsName\":\"测试业务产品\",\"ImgPath\":\"/uploadfiles/biz/8/image/5716f5c799.jpg\",\"ProductsPriceX\":\"100.00\",\"ProductsPriceY\":\"120.00\",\"ProductsWeight\":\"1.00\",\"Products_Shipping\":null,\"Products_Business\":null,\"Shipping_Free_Company\":\"0\",\"IsShippingFree\":\"0\",\"OwnerID\":\"2\",\"ProductsIsShipping\":\"0\",\"Qty\":\"2\",\"spec_list\":\"\",\"Property\":[],\"nobi_ratio\":\"10\",\"platForm_Income_Reward\":\"60\",\"area_Proxy_Reward\":\"20\",\"sha_Reward\":\"20\",\"ProductsProfit\":80}]}', '211.00', '1466043631', '', '余额支付', '', '4', '0', '0', '0.00', '0', '200.00', '2', '0', '0', '', '0', '0', '0.00', '0', '0', null, '8', '0', '', '0.00', '1466043678', null);
-INSERT INTO `user_order` VALUES ('pl2hu3uczz', '2', '78', 'shop', 'wwd', 'qweqwe', '2', '40', '55', 'qweq', '', '{\"Express\":\"测试快递公司\",\"Price\":\"10\"}', null, '{\"3\":[{\"ProductsName\":\"测试业务产品\",\"ImgPath\":\"/uploadfiles/biz/8/image/5716f5c799.jpg\",\"ProductsPriceX\":\"100.00\",\"ProductsPriceY\":\"120.00\",\"ProductsWeight\":\"1.00\",\"Products_Shipping\":null,\"Products_Business\":null,\"Shipping_Free_Company\":\"0\",\"IsShippingFree\":\"0\",\"OwnerID\":\"2\",\"ProductsIsShipping\":\"0\",\"Qty\":\"1\",\"spec_list\":\"\",\"Property\":[],\"nobi_ratio\":\"10\",\"platForm_Income_Reward\":\"60\",\"area_Proxy_Reward\":\"20\",\"sha_Reward\":\"20\",\"ProductsProfit\":80}]}', '110.00', '1466043970', '0', '0', null, '0', '0', '0', '0.00', '0', '100.00', '2', '0', '0', '', '0', '0', '0.00', '0', '0', null, '8', '0', '', '0.00', '0', null);
-INSERT INTO `user_order` VALUES ('pl2hu3uczz', '2', '79', 'shop', 'wwd', 'qweqwe', '2', '40', '55', 'qweq', '', '{\"Express\":\"测试快递公司\",\"Price\":\"10\"}', null, '{\"3\":[{\"ProductsName\":\"测试业务产品\",\"ImgPath\":\"/uploadfiles/biz/8/image/5716f5c799.jpg\",\"ProductsPriceX\":\"100.00\",\"ProductsPriceY\":\"120.00\",\"ProductsWeight\":\"1.00\",\"Products_Shipping\":null,\"Products_Business\":null,\"Shipping_Free_Company\":\"0\",\"IsShippingFree\":\"0\",\"OwnerID\":\"2\",\"ProductsIsShipping\":\"0\",\"Qty\":\"1\",\"spec_list\":\"\",\"Property\":[],\"nobi_ratio\":\"10\",\"platForm_Income_Reward\":\"60\",\"area_Proxy_Reward\":\"20\",\"sha_Reward\":\"20\",\"ProductsProfit\":80}]}', '110.00', '1466044465', '0', '0', null, '0', '0', '0', '0.00', '0', '100.00', '2', '0', '0', '', '0', '0', '0.00', '0', '0', null, '8', '0', '', '0.00', '0', null);
-INSERT INTO `user_order` VALUES ('pl2hu3uczz', '2', '80', 'shop', 'wwd', 'qweqwe', '2', '40', '55', 'qweq', '', '{\"Express\":\"测试快递公司\",\"Price\":\"10\"}', null, '{\"3\":[{\"ProductsName\":\"测试业务产品\",\"ImgPath\":\"/uploadfiles/biz/8/image/5716f5c799.jpg\",\"ProductsPriceX\":\"100.00\",\"ProductsPriceY\":\"120.00\",\"ProductsWeight\":\"1.00\",\"Products_Shipping\":null,\"Products_Business\":null,\"Shipping_Free_Company\":\"0\",\"IsShippingFree\":\"0\",\"OwnerID\":\"2\",\"ProductsIsShipping\":\"0\",\"Qty\":\"1\",\"spec_list\":\"\",\"Property\":[],\"nobi_ratio\":\"10\",\"platForm_Income_Reward\":\"60\",\"area_Proxy_Reward\":\"20\",\"sha_Reward\":\"20\",\"ProductsProfit\":80}]}', '110.00', '1466044480', '0', '0', null, '0', '0', '0', '0.00', '0', '100.00', '2', '0', '0', '', '0', '0', '0.00', '0', '0', null, '8', '0', '', '0.00', '0', null);
-INSERT INTO `user_order` VALUES ('pl2hu3uczz', '2', '81', 'shop', 'wwd', 'qweqwe', '2', '40', '55', 'qweq', '', '{\"Express\":\"测试快递公司\",\"Price\":\"10\"}', '123123', '{\"3\":[{\"ProductsName\":\"测试业务产品\",\"ImgPath\":\"/uploadfiles/biz/8/image/5716f5c799.jpg\",\"ProductsPriceX\":\"100.00\",\"ProductsPriceY\":\"120.00\",\"ProductsWeight\":\"1.00\",\"Products_Shipping\":null,\"Products_Business\":null,\"Shipping_Free_Company\":\"0\",\"IsShippingFree\":\"0\",\"OwnerID\":\"2\",\"ProductsIsShipping\":\"0\",\"Qty\":\"1\",\"spec_list\":\"\",\"Property\":[],\"nobi_ratio\":\"10\",\"platForm_Income_Reward\":\"60\",\"area_Proxy_Reward\":\"20\",\"sha_Reward\":\"20\",\"ProductsProfit\":80}]}', '110.00', '1466044694', '', '余额支付', '', '4', '0', '0', '0.00', '0', '100.00', '2', '0', '0', '', '0', '0', '0.00', '0', '0', null, '8', '0', '', '0.00', '1466044791', null);
-INSERT INTO `user_order` VALUES ('pl2hu3uczz', '2', '82', 'shop', 'wwd', 'qweqwe', '2', '40', '55', 'qweq', '', '{\"Express\":\"测试快递公司\",\"Price\":\"10\"}', '1231', '{\"3\":[{\"ProductsName\":\"测试业务产品\",\"ImgPath\":\"/uploadfiles/biz/8/image/5716f5c799.jpg\",\"ProductsPriceX\":\"100.00\",\"ProductsPriceY\":\"120.00\",\"ProductsWeight\":\"1.00\",\"Products_Shipping\":null,\"Products_Business\":null,\"Shipping_Free_Company\":\"0\",\"IsShippingFree\":\"0\",\"OwnerID\":\"2\",\"ProductsIsShipping\":\"0\",\"Qty\":\"1\",\"spec_list\":\"\",\"Property\":[],\"nobi_ratio\":\"10\",\"platForm_Income_Reward\":\"60\",\"area_Proxy_Reward\":\"20\",\"sha_Reward\":\"20\",\"ProductsProfit\":80}]}', '110.00', '1466058976', '', '余额支付', '', '4', '0', '0', '0.00', '0', '100.00', '2', '0', '0', '', '0', '0', '0.00', '0', '0', null, '8', '0', '', '0.00', '1466059009', null);
-INSERT INTO `user_order` VALUES ('pl2hu3uczz', '10', '83', 'shop', 'df', '1111111111', '3', '74', '1153', 'eeee', '', '{\"Express\":\"测试快递公司\",\"Price\":\"10\"}', '234234234', '{\"3\":[{\"ProductsName\":\"测试业务产品\",\"ImgPath\":\"/uploadfiles/biz/8/image/5716f5c799.jpg\",\"ProductsPriceX\":\"100.00\",\"ProductsPriceY\":\"120.00\",\"ProductsWeight\":\"1.00\",\"Products_Shipping\":null,\"Products_Business\":null,\"Shipping_Free_Company\":\"0\",\"IsShippingFree\":\"0\",\"OwnerID\":\"10\",\"ProductsIsShipping\":\"0\",\"Qty\":\"1\",\"spec_list\":\"\",\"Property\":[],\"nobi_ratio\":\"20\",\"platForm_Income_Reward\":\"60\",\"area_Proxy_Reward\":\"20\",\"sha_Reward\":\"20\",\"ProductsProfit\":80}]}', '110.00', '1466133854', '', '余额支付', '', '4', '0', '0', '0.00', '0', '100.00', '10', '0', '0', '', '0', '0', '0.00', '0', '0', null, '8', '0', '', '0.00', '1466133953', null);
-INSERT INTO `user_order` VALUES ('pl2hu3uczz', '10', '84', 'shop', 'df', '1111111111', '3', '74', '1153', 'eeee', '', '{\"Express\":\"测试快递公司\",\"Price\":\"10\"}', '7777777777777', '{\"3\":[{\"ProductsName\":\"测试业务产品\",\"ImgPath\":\"/uploadfiles/biz/8/image/5716f5c799.jpg\",\"ProductsPriceX\":\"100.00\",\"ProductsPriceY\":\"120.00\",\"ProductsWeight\":\"1.00\",\"Products_Shipping\":null,\"Products_Business\":null,\"Shipping_Free_Company\":\"0\",\"IsShippingFree\":\"0\",\"OwnerID\":\"10\",\"ProductsIsShipping\":\"0\",\"Qty\":\"1\",\"spec_list\":\"\",\"Property\":[],\"nobi_ratio\":\"20\",\"platForm_Income_Reward\":\"60\",\"area_Proxy_Reward\":\"20\",\"sha_Reward\":\"20\",\"ProductsProfit\":80}]}', '110.00', '1466134315', '', '余额支付', '', '4', '0', '0', '0.00', '0', '100.00', '10', '0', '0', '', '0', '0', '0.00', '0', '0', null, '8', '0', '', '0.00', '1466146992', null);
-INSERT INTO `user_order` VALUES ('pl2hu3uczz', '10', '85', 'shop', 'df', '1111111111', '3', '74', '1153', 'eeee', '', '{\"Express\":\"测试快递公司\",\"Price\":\"10\"}', '3123123', '{\"3\":[{\"ProductsName\":\"测试业务产品\",\"ImgPath\":\"/uploadfiles/biz/8/image/5716f5c799.jpg\",\"ProductsPriceX\":\"100.00\",\"ProductsPriceY\":\"120.00\",\"ProductsWeight\":\"1.00\",\"Products_Shipping\":null,\"Products_Business\":null,\"Shipping_Free_Company\":\"0\",\"IsShippingFree\":\"0\",\"OwnerID\":\"10\",\"ProductsIsShipping\":\"0\",\"Qty\":\"1\",\"spec_list\":\"\",\"Property\":[],\"nobi_ratio\":\"20\",\"platForm_Income_Reward\":\"60\",\"area_Proxy_Reward\":\"20\",\"sha_Reward\":\"20\",\"ProductsProfit\":80}]}', '110.00', '1466149319', '', '余额支付', '', '4', '0', '0', '0.00', '0', '100.00', '10', '0', '0', '', '0', '0', '0.00', '0', '0', null, '8', '0', '', '0.00', '1466149385', null);
-INSERT INTO `user_order` VALUES ('pl2hu3uczz', '12', '87', 'shop', '孙测试', '15517103333', '1', '36', '38', '测试业务发放', '', '{\"Express\":\"测试快递公司\",\"Price\":\"10\"}', '213123', '{\"3\":[{\"ProductsName\":\"测试业务产品\",\"ImgPath\":\"/uploadfiles/biz/8/image/5716f5c799.jpg\",\"ProductsPriceX\":\"100.00\",\"ProductsPriceY\":\"120.00\",\"ProductsWeight\":\"1.00\",\"Products_Shipping\":null,\"Products_Business\":null,\"Shipping_Free_Company\":\"0\",\"IsShippingFree\":\"0\",\"OwnerID\":\"12\",\"ProductsIsShipping\":\"0\",\"Qty\":\"1\",\"spec_list\":\"\",\"Property\":[],\"nobi_ratio\":\"20\",\"platForm_Income_Reward\":\"60\",\"area_Proxy_Reward\":\"20\",\"sha_Reward\":\"20\",\"ProductsProfit\":80}]}', '110.00', '1466154795', '', '余额支付', '', '4', '0', '0', '0.00', '0', '100.00', '12', '0', '0', '', '0', '0', '0.00', '0', '0', null, '8', '0', '', '0.00', '1466154820', null);
-INSERT INTO `user_order` VALUES ('pl2hu3uczz', '2', '88', 'shop', 'wwd', 'qweqwe', '2', '40', '55', 'qweq', '', '{\"Express\":\"测试快递公司\",\"Price\":\"10\"}', '1222222223', '{\"3\":[{\"ProductsName\":\"测试业务产品\",\"ImgPath\":\"/uploadfiles/biz/8/image/5716f5c799.jpg\",\"ProductsPriceX\":\"100.00\",\"ProductsPriceY\":\"120.00\",\"ProductsWeight\":\"1.00\",\"Products_Shipping\":null,\"Products_Business\":null,\"Shipping_Free_Company\":\"0\",\"IsShippingFree\":\"0\",\"OwnerID\":\"2\",\"ProductsIsShipping\":\"0\",\"Qty\":\"1\",\"spec_list\":\"\",\"Property\":[],\"nobi_ratio\":\"20\",\"platForm_Income_Reward\":\"60\",\"area_Proxy_Reward\":\"20\",\"sha_Reward\":\"20\",\"ProductsProfit\":80}]}', '110.00', '1466216570', '', '余额支付', '', '4', '0', '0', '0.00', '0', '100.00', '2', '0', '0', '', '0', '0', '0.00', '0', '0', null, '8', '0', '', '0.00', '1466217400', null);
-INSERT INTO `user_order` VALUES ('pl2hu3uczz', '2', '89', 'shop', 'wwd', 'qweqwe', '2', '40', '55', 'qweq', '', '{\"Express\":\"测试快递公司\",\"Price\":\"10\"}', '132123', '{\"3\":[{\"ProductsName\":\"测试业务产品\",\"ImgPath\":\"/uploadfiles/biz/8/image/5716f5c799.jpg\",\"ProductsPriceX\":\"100.00\",\"ProductsPriceY\":\"120.00\",\"ProductsWeight\":\"1.00\",\"Products_Shipping\":null,\"Products_Business\":null,\"Shipping_Free_Company\":\"0\",\"IsShippingFree\":\"0\",\"OwnerID\":\"2\",\"ProductsIsShipping\":\"0\",\"Qty\":\"1\",\"spec_list\":\"\",\"Property\":[],\"nobi_ratio\":\"20\",\"platForm_Income_Reward\":\"60\",\"area_Proxy_Reward\":\"20\",\"sha_Reward\":\"20\",\"ProductsProfit\":80}]}', '110.00', '1466217471', '', '余额支付', '', '4', '0', '0', '0.00', '0', '100.00', '2', '0', '0', '', '0', '0', '0.00', '0', '0', null, '8', '0', '', '0.00', '1466217489', null);
-INSERT INTO `user_order` VALUES ('pl2hu3uczz', '2', '90', 'shop', 'wwd', 'qweqwe', '2', '40', '55', 'qweq', '', '{\"Express\":\"测试快递公司\",\"Price\":\"10\"}', '212', '{\"3\":[{\"ProductsName\":\"测试业务产品\",\"ImgPath\":\"/uploadfiles/biz/8/image/5716f5c799.jpg\",\"ProductsPriceX\":\"100.00\",\"ProductsPriceY\":\"120.00\",\"ProductsWeight\":\"1.00\",\"Products_Shipping\":null,\"Products_Business\":null,\"Shipping_Free_Company\":\"0\",\"IsShippingFree\":\"0\",\"OwnerID\":\"2\",\"ProductsIsShipping\":\"0\",\"Qty\":\"1\",\"spec_list\":\"\",\"Property\":[],\"nobi_ratio\":\"20\",\"platForm_Income_Reward\":\"60\",\"area_Proxy_Reward\":\"20\",\"sha_Reward\":\"20\",\"ProductsProfit\":80}]}', '110.00', '1466218104', '', '余额支付', '', '4', '0', '0', '0.00', '0', '100.00', '2', '0', '0', '', '0', '0', '0.00', '0', '0', null, '8', '0', '', '0.00', '1466218159', null);
-INSERT INTO `user_order` VALUES ('pl2hu3uczz', '2', '91', 'shop', 'wwd', 'qweqwe', '2', '40', '55', 'qweq', '', '{\"Express\":\"测试快递公司\",\"Price\":\"10\"}', null, '{\"3\":[{\"ProductsName\":\"测试业务产品\",\"ImgPath\":\"/uploadfiles/biz/8/image/5716f5c799.jpg\",\"ProductsPriceX\":\"100.00\",\"ProductsPriceY\":\"120.00\",\"ProductsWeight\":\"1.00\",\"Products_Shipping\":null,\"Products_Business\":null,\"Shipping_Free_Company\":\"0\",\"IsShippingFree\":\"0\",\"OwnerID\":\"2\",\"ProductsIsShipping\":\"0\",\"Qty\":\"1\",\"spec_list\":\"\",\"Property\":[],\"nobi_ratio\":\"20\",\"platForm_Income_Reward\":\"60\",\"area_Proxy_Reward\":\"20\",\"sha_Reward\":\"20\",\"ProductsProfit\":80}]}', '110.00', '1466222200', '', '余额支付', '', '2', '0', '0', '0.00', '0', '100.00', '2', '0', '0', '', '0', '0', '0.00', '0', '0', null, '8', '0', '', '0.00', '0', null);
-INSERT INTO `user_order` VALUES ('pl2hu3uczz', '12', '92', 'shop', '孙测试', '15517103333', '1', '36', '38', '测试业务发放', '', '{\"Express\":\"测试快递公司\",\"Price\":\"10\"}', null, '{\"3\":[{\"ProductsName\":\"测试业务产品\",\"ImgPath\":\"/uploadfiles/biz/8/image/5716f5c799.jpg\",\"ProductsPriceX\":\"100.00\",\"ProductsPriceY\":\"120.00\",\"ProductsWeight\":\"1.00\",\"Products_Shipping\":null,\"Products_Business\":null,\"Shipping_Free_Company\":\"0\",\"IsShippingFree\":\"0\",\"OwnerID\":\"12\",\"ProductsIsShipping\":\"0\",\"Qty\":\"1\",\"spec_list\":\"\",\"Property\":[],\"nobi_ratio\":\"20\",\"platForm_Income_Reward\":\"60\",\"area_Proxy_Reward\":\"20\",\"sha_Reward\":\"20\",\"ProductsProfit\":80}]}', '110.00', '1466389466', '', '余额支付', '', '2', '0', '0', '0.00', '0', '100.00', '12', '0', '0', '', '0', '0', '0.00', '0', '0', null, '8', '0', '', '0.00', '0', null);
 
 -- ----------------------------
--- Table structure for user_order_commit
+-- Table structure for `user_order_commit`
 -- ----------------------------
 DROP TABLE IF EXISTS `user_order_commit`;
 CREATE TABLE `user_order_commit` (
@@ -8106,7 +7448,7 @@ CREATE TABLE `user_order_commit` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for user_pre_order
+-- Table structure for `user_pre_order`
 -- ----------------------------
 DROP TABLE IF EXISTS `user_pre_order`;
 CREATE TABLE `user_pre_order` (
@@ -8124,15 +7466,9 @@ CREATE TABLE `user_pre_order` (
 -- ----------------------------
 -- Records of user_pre_order
 -- ----------------------------
-INSERT INTO `user_pre_order` VALUES ('1', 'pl2hu3uczz', '12', 'PRE2016061719839', '87', '110.00', '1466154796', '2');
-INSERT INTO `user_pre_order` VALUES ('2', 'pl2hu3uczz', '2', 'PRE2016061829102', '88', '110.00', '1466216570', '2');
-INSERT INTO `user_pre_order` VALUES ('3', 'pl2hu3uczz', '2', 'PRE2016061864881', '89', '110.00', '1466217471', '2');
-INSERT INTO `user_pre_order` VALUES ('4', 'pl2hu3uczz', '2', 'PRE2016061851347', '90', '110.00', '1466218104', '2');
-INSERT INTO `user_pre_order` VALUES ('5', 'pl2hu3uczz', '2', 'PRE2016061825847', '91', '110.00', '1466222200', '2');
-INSERT INTO `user_pre_order` VALUES ('6', 'pl2hu3uczz', '12', 'PRE2016062008629', '92', '110.00', '1466389466', '2');
 
 -- ----------------------------
--- Table structure for user_profile
+-- Table structure for `user_profile`
 -- ----------------------------
 DROP TABLE IF EXISTS `user_profile`;
 CREATE TABLE `user_profile` (
@@ -8173,7 +7509,7 @@ CREATE TABLE `user_profile` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for user_recieve_address
+-- Table structure for `user_recieve_address`
 -- ----------------------------
 DROP TABLE IF EXISTS `user_recieve_address`;
 CREATE TABLE `user_recieve_address` (
@@ -8191,7 +7527,7 @@ CREATE TABLE `user_recieve_address` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for user_reserve
+-- Table structure for `user_reserve`
 -- ----------------------------
 DROP TABLE IF EXISTS `user_reserve`;
 CREATE TABLE `user_reserve` (
@@ -8214,7 +7550,7 @@ CREATE TABLE `user_reserve` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for user_yielist
+-- Table structure for `user_yielist`
 -- ----------------------------
 DROP TABLE IF EXISTS `user_yielist`;
 CREATE TABLE `user_yielist` (
@@ -8233,7 +7569,7 @@ CREATE TABLE `user_yielist` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for votes
+-- Table structure for `votes`
 -- ----------------------------
 DROP TABLE IF EXISTS `votes`;
 CREATE TABLE `votes` (
@@ -8260,7 +7596,7 @@ CREATE TABLE `votes` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for votes_item
+-- Table structure for `votes_item`
 -- ----------------------------
 DROP TABLE IF EXISTS `votes_item`;
 CREATE TABLE `votes_item` (
@@ -8281,7 +7617,7 @@ CREATE TABLE `votes_item` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for votes_order
+-- Table structure for `votes_order`
 -- ----------------------------
 DROP TABLE IF EXISTS `votes_order`;
 CREATE TABLE `votes_order` (
@@ -8299,7 +7635,7 @@ CREATE TABLE `votes_order` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for web_article
+-- Table structure for `web_article`
 -- ----------------------------
 DROP TABLE IF EXISTS `web_article`;
 CREATE TABLE `web_article` (
@@ -8322,7 +7658,7 @@ CREATE TABLE `web_article` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for web_code
+-- Table structure for `web_code`
 -- ----------------------------
 DROP TABLE IF EXISTS `web_code`;
 CREATE TABLE `web_code` (
@@ -8342,7 +7678,7 @@ CREATE TABLE `web_code` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for web_column
+-- Table structure for `web_column`
 -- ----------------------------
 DROP TABLE IF EXISTS `web_column`;
 CREATE TABLE `web_column` (
@@ -8368,7 +7704,7 @@ CREATE TABLE `web_column` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for web_config
+-- Table structure for `web_config`
 -- ----------------------------
 DROP TABLE IF EXISTS `web_config`;
 CREATE TABLE `web_config` (
@@ -8399,7 +7735,7 @@ CREATE TABLE `web_config` (
 INSERT INTO `web_config` VALUES ('pl2hu3uczz', '微官网', '0', null, null, '0', '1', '0', '0', null, '1', null, '0', null, null, null, null, null);
 
 -- ----------------------------
--- Table structure for web_home
+-- Table structure for `web_home`
 -- ----------------------------
 DROP TABLE IF EXISTS `web_home`;
 CREATE TABLE `web_home` (
@@ -8415,7 +7751,7 @@ CREATE TABLE `web_home` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for web_skin
+-- Table structure for `web_skin`
 -- ----------------------------
 DROP TABLE IF EXISTS `web_skin`;
 CREATE TABLE `web_skin` (
@@ -8505,7 +7841,7 @@ INSERT INTO `web_skin` VALUES ('71', '风格70', '/static/member/images/web/skin
 INSERT INTO `web_skin` VALUES ('72', '风格71', '/static/member/images/web/skin/skin-072.jpg', '0', '[{\"ContentsType\":\"1\",\"Title\":[\"\",\"\",\"\",\"\",\"\"],\"ImgPath\":[\"/api/web/skin/72/banner.jpg\",\"\",\"\",\"\",\"\"],\"Url\":[\"\",\"\",\"\",\"\",\"\"],\"Postion\":\"t01\",\"Width\":\"640\",\"Height\":\"313\",\"NeedLink\":\"1\"},{\"ContentsType\":\"0\",\"Title\":\"\",\"ImgPath\":\"/api/web/skin/72/i0.png\",\"Url\":null,\"Postion\":\"t02\",\"Width\":\"190\",\"Height\":\"280\",\"NeedLink\":\"1\"},{\"ContentsType\":\"0\",\"Title\":\"\",\"ImgPath\":\"/api/web/skin/72/i1.png\",\"Url\":null,\"Postion\":\"t03\",\"Width\":\"190\",\"Height\":\"280\",\"NeedLink\":\"1\"},{\"ContentsType\":\"0\",\"Title\":\"\",\"ImgPath\":\"/api/web/skin/72/i2.png\",\"Url\":null,\"Postion\":\"t04\",\"Width\":\"190\",\"Height\":\"280\",\"NeedLink\":\"1\"},{\"ContentsType\":\"0\",\"Title\":\"家电通讯\",\"ImgPath\":\"/api/web/skin/72/m0.png\",\"Url\":null,\"Postion\":\"t05\",\"Width\":\"120\",\"Height\":\"120\",\"NeedLink\":\"1\"},{\"ContentsType\":\"0\",\"Title\":\"电脑数码\",\"ImgPath\":\"/api/web/skin/72/m1.png\",\"Url\":null,\"Postion\":\"t06\",\"Width\":\"120\",\"Height\":\"120\",\"NeedLink\":\"1\"},{\"ContentsType\":\"0\",\"Title\":\"男女服饰\",\"ImgPath\":\"/api/web/skin/72/m2.png\",\"Url\":null,\"Postion\":\"t07\",\"Width\":\"120\",\"Height\":\"120\",\"NeedLink\":\"1\"},{\"ContentsType\":\"0\",\"Title\":\"时尚鞋包\",\"ImgPath\":\"/api/web/skin/72/m3.png\",\"Url\":null,\"Postion\":\"t08\",\"Width\":\"120\",\"Height\":\"120\",\"NeedLink\":\"1\"},{\"ContentsType\":\"0\",\"Title\":\"居家生活\",\"ImgPath\":\"/api/web/skin/72/m4.png\",\"Url\":null,\"Postion\":\"t09\",\"Width\":\"120\",\"Height\":\"120\",\"NeedLink\":\"1\"},{\"ContentsType\":\"0\",\"Title\":\"食品保健\",\"ImgPath\":\"/api/web/skin/72/m5.png\",\"Url\":null,\"Postion\":\"t10\",\"Width\":\"120\",\"Height\":\"120\",\"NeedLink\":\"1\"},{\"ContentsType\":\"0\",\"Title\":\"图书音像\",\"ImgPath\":\"/api/web/skin/72/m6.png\",\"Url\":null,\"Postion\":\"t11\",\"Width\":\"120\",\"Height\":\"120\",\"NeedLink\":\"1\"},{\"ContentsType\":\"0\",\"Title\":\"服务中心\",\"ImgPath\":\"/api/web/skin/72/m7.png\",\"Url\":null,\"Postion\":\"t12\",\"Width\":\"120\",\"Height\":\"120\",\"NeedLink\":\"1\"}]', '1', '19');
 
 -- ----------------------------
--- Table structure for wechat_attention_reply
+-- Table structure for `wechat_attention_reply`
 -- ----------------------------
 DROP TABLE IF EXISTS `wechat_attention_reply`;
 CREATE TABLE `wechat_attention_reply` (
@@ -8525,7 +7861,7 @@ CREATE TABLE `wechat_attention_reply` (
 INSERT INTO `wechat_attention_reply` VALUES ('301', 'pl2hu3uczz', '0', '非常高兴认识你，新朋友！', '0', '1', '0');
 
 -- ----------------------------
--- Table structure for wechat_keyword_reply
+-- Table structure for `wechat_keyword_reply`
 -- ----------------------------
 DROP TABLE IF EXISTS `wechat_keyword_reply`;
 CREATE TABLE `wechat_keyword_reply` (
@@ -8558,7 +7894,7 @@ INSERT INTO `wechat_keyword_reply` VALUES ('2389', 'pl2hu3uczz', 'games', '0', '
 INSERT INTO `wechat_keyword_reply` VALUES ('2390', 'pl2hu3uczz', 'web', '0', '0', '微官网', '0', '1', null, '2391', '1464683714');
 
 -- ----------------------------
--- Table structure for wechat_material
+-- Table structure for `wechat_material`
 -- ----------------------------
 DROP TABLE IF EXISTS `wechat_material`;
 CREATE TABLE `wechat_material` (
@@ -8588,7 +7924,7 @@ INSERT INTO `wechat_material` VALUES ('2390', 'pl2hu3uczz', 'games', '0', '0', '
 INSERT INTO `wechat_material` VALUES ('2391', 'pl2hu3uczz', 'web', '0', '0', '0', '{\"Title\":\"微官网\",\"ImgPath\":\"/static/api/images/cover_img/web.jpg\",\"TextContents\":\"\",\"Url\":\"/api/pl2hu3uczz/web/\"}', '1464683714');
 
 -- ----------------------------
--- Table structure for wechat_menu
+-- Table structure for `wechat_menu`
 -- ----------------------------
 DROP TABLE IF EXISTS `wechat_menu`;
 CREATE TABLE `wechat_menu` (
@@ -8609,7 +7945,7 @@ CREATE TABLE `wechat_menu` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for wechat_url
+-- Table structure for `wechat_url`
 -- ----------------------------
 DROP TABLE IF EXISTS `wechat_url`;
 CREATE TABLE `wechat_url` (
@@ -8625,7 +7961,7 @@ CREATE TABLE `wechat_url` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for weixin_log
+-- Table structure for `weixin_log`
 -- ----------------------------
 DROP TABLE IF EXISTS `weixin_log`;
 CREATE TABLE `weixin_log` (
@@ -8637,111 +7973,9 @@ CREATE TABLE `weixin_log` (
 -- ----------------------------
 -- Records of weixin_log
 -- ----------------------------
-INSERT INTO `weixin_log` VALUES ('1', 'pl2hu3uczzaccess_token2016-06-02 10:57:08');
-INSERT INTO `weixin_log` VALUES ('2', 'pl2hu3uczzaccess_token2016-06-02 15:02:36');
-INSERT INTO `weixin_log` VALUES ('3', 'pl2hu3uczzaccess_token2016-06-03 09:14:32');
-INSERT INTO `weixin_log` VALUES ('4', 'pl2hu3uczzaccess_token2016-06-06 09:32:12');
-INSERT INTO `weixin_log` VALUES ('5', 'pl2hu3uczzaccess_token2016-06-07 08:23:54');
-INSERT INTO `weixin_log` VALUES ('6', 'pl2hu3uczzaccess_token2016-06-07 10:25:41');
-INSERT INTO `weixin_log` VALUES ('7', 'pl2hu3uczzaccess_token2016-06-07 14:29:33');
-INSERT INTO `weixin_log` VALUES ('8', 'pl2hu3uczzaccess_token2016-06-07 16:29:54');
-INSERT INTO `weixin_log` VALUES ('9', 'pl2hu3uczzaccess_token2016-06-08 08:30:26');
-INSERT INTO `weixin_log` VALUES ('10', 'pl2hu3uczzaccess_token2016-06-08 11:44:45');
-INSERT INTO `weixin_log` VALUES ('11', 'pl2hu3uczzaccess_token2016-06-08 16:48:40');
-INSERT INTO `weixin_log` VALUES ('12', 'pl2hu3uczzaccess_token2016-06-12 09:24:44');
-INSERT INTO `weixin_log` VALUES ('13', 'pl2hu3uczzaccess_token2016-06-12 14:48:04');
-INSERT INTO `weixin_log` VALUES ('14', '您下单成功，支付了210.00元，您将获取佣金2.40元 _ {\"errcode\":40003,\"errmsg\":\"invalid openid hint: [KcuolA0328rsz5]\"} _ 7e14ab0902d68a188bc941da24ca9b73');
-INSERT INTO `weixin_log` VALUES ('15', 'invalid credential, access_token is invalid or not latest hint: [70601vr21]');
-INSERT INTO `weixin_log` VALUES ('16', 'pl2hu3uczzaccess_token2016-06-12 16:03:22');
-INSERT INTO `weixin_log` VALUES ('17', 'invalid credential, access_token is invalid or not latest hint: [nTEd.A0537vr22]');
-INSERT INTO `weixin_log` VALUES ('18', 'pl2hu3uczzaccess_token2016-06-12 17:42:17');
-INSERT INTO `weixin_log` VALUES ('19', 'pl2hu3uczzaccess_token2016-06-13 08:29:52');
-INSERT INTO `weixin_log` VALUES ('20', 'pl2hu3uczzaccess_token2016-06-13 11:26:07');
-INSERT INTO `weixin_log` VALUES ('21', 'pl2hu3uczzaccess_token2016-06-13 15:17:39');
-INSERT INTO `weixin_log` VALUES ('22', 'pl2hu3uczzaccess_token2016-06-13 17:24:34');
-INSERT INTO `weixin_log` VALUES ('23', 'invalid credential, access_token is invalid or not latest hint: [61Unxa0113vr21]');
-INSERT INTO `weixin_log` VALUES ('24', 'pl2hu3uczzaccess_token2016-06-13 18:18:34');
-INSERT INTO `weixin_log` VALUES ('25', '您下单成功，支付了110.00元，您将获取佣金2.88元 _ {\"errcode\":40003,\"errmsg\":\"invalid openid hint: [fwxXXa0114rsz4]\"} _ 0309d53e968afd459c08d0c0fb08fe0f');
-INSERT INTO `weixin_log` VALUES ('26', '您推荐的一级会员购买者一级下单成功，支付了110.00元，您将获取佣金9.60元 _ {\"errcode\":40003,\"errmsg\":\"invalid openid hint: [WqoTJA0115rsz5]\"} _ 909d4192cde0fe64c12f0e3ae64e3023');
-INSERT INTO `weixin_log` VALUES ('27', '您推荐的二级会员购买者一级下单成功，支付了110.00元，您将获取佣金3.84元 _ {\"errcode\":40003,\"errmsg\":\"invalid openid hint: [VHuY5a0115rsz5]\"} _ edc57b4a1e3effd937bc3f6a023e3f2c');
-INSERT INTO `weixin_log` VALUES ('28', 'invalid credential, access_token is invalid or not latest hint: [oLLBoa0359vr20]');
-INSERT INTO `weixin_log` VALUES ('29', 'pl2hu3uczzaccess_token2016-06-13 18:39:19');
-INSERT INTO `weixin_log` VALUES ('30', '您下单成功，支付了110.00元，您将获取佣金2.88元 _ {\"errcode\":40003,\"errmsg\":\"invalid openid hint: [qUqDba0360rsz3]\"} _ 0309d53e968afd459c08d0c0fb08fe0f');
-INSERT INTO `weixin_log` VALUES ('31', '您推荐的一级会员购买者一级下单成功，支付了110.00元，您将获取佣金9.60元 _ {\"errcode\":40003,\"errmsg\":\"invalid openid hint: [Hl_pha0360rsz4]\"} _ 909d4192cde0fe64c12f0e3ae64e3023');
-INSERT INTO `weixin_log` VALUES ('32', '您推荐的二级会员购买者一级下单成功，支付了110.00元，您将获取佣金3.84元 _ {\"errcode\":40003,\"errmsg\":\"invalid openid hint: [0Q0UJa0370rsz4]\"} _ edc57b4a1e3effd937bc3f6a023e3f2c');
-INSERT INTO `weixin_log` VALUES ('33', 'pl2hu3uczzaccess_token2016-06-14 08:20:20');
-INSERT INTO `weixin_log` VALUES ('34', 'invalid credential, access_token is invalid or not latest hint: [nNth80227vr21]');
-INSERT INTO `weixin_log` VALUES ('35', 'pl2hu3uczzaccess_token2016-06-14 09:20:28');
-INSERT INTO `weixin_log` VALUES ('36', '您下单成功，支付了110.00元，您将获取佣金2.88元 _ {\"errcode\":40003,\"errmsg\":\"invalid openid hint: [BNJqUA0228rsz4]\"} _ 0309d53e968afd459c08d0c0fb08fe0f');
-INSERT INTO `weixin_log` VALUES ('37', '您推荐的一级会员购买者一级下单成功，支付了110.00元，您将获取佣金9.60元 _ {\"errcode\":40003,\"errmsg\":\"invalid openid hint: [NbRcCA0228rsz4]\"} _ 909d4192cde0fe64c12f0e3ae64e3023');
-INSERT INTO `weixin_log` VALUES ('38', '您推荐的二级会员购买者一级下单成功，支付了110.00元，您将获取佣金3.84元 _ {\"errcode\":40003,\"errmsg\":\"invalid openid hint: [fh3OXa0229rsz3]\"} _ edc57b4a1e3effd937bc3f6a023e3f2c');
-INSERT INTO `weixin_log` VALUES ('39', '您下单成功，支付了110.00元，您将获取佣金2.88元 _ {\"errcode\":40003,\"errmsg\":\"invalid openid hint: [tL7BcA0794rsz4]\"} _ 0309d53e968afd459c08d0c0fb08fe0f');
-INSERT INTO `weixin_log` VALUES ('40', '您推荐的一级会员购买者一级下单成功，支付了110.00元，您将获取佣金9.60元 _ {\"errcode\":40003,\"errmsg\":\"invalid openid hint: [cc1iHa0794rsz4]\"} _ 909d4192cde0fe64c12f0e3ae64e3023');
-INSERT INTO `weixin_log` VALUES ('41', '您推荐的二级会员购买者一级下单成功，支付了110.00元，您将获取佣金3.84元 _ {\"errcode\":40003,\"errmsg\":\"invalid openid hint: [BknvwA0795rsz3]\"} _ edc57b4a1e3effd937bc3f6a023e3f2c');
-INSERT INTO `weixin_log` VALUES ('42', '您下单成功，支付了110.00元，您将获取佣金2.88元 _ {\"errcode\":40003,\"errmsg\":\"invalid openid hint: [H0047rsz3]\"} _ 0309d53e968afd459c08d0c0fb08fe0f');
-INSERT INTO `weixin_log` VALUES ('43', '您推荐的一级会员购买者一级下单成功，支付了110.00元，您将获取佣金9.60元 _ {\"errcode\":40003,\"errmsg\":\"invalid openid hint: [ZL1j60048rsz3]\"} _ 909d4192cde0fe64c12f0e3ae64e3023');
-INSERT INTO `weixin_log` VALUES ('44', '您推荐的二级会员购买者一级下单成功，支付了110.00元，您将获取佣金3.84元 _ {\"errcode\":40003,\"errmsg\":\"invalid openid hint: [lb_P0a0048rsz3]\"} _ edc57b4a1e3effd937bc3f6a023e3f2c');
-INSERT INTO `weixin_log` VALUES ('45', '您下单成功，支付了110.00元，您将获取佣金2.88元 _ {\"errcode\":40003,\"errmsg\":\"invalid openid hint: [.SIiqA0280rsz4]\"} _ 0309d53e968afd459c08d0c0fb08fe0f');
-INSERT INTO `weixin_log` VALUES ('46', '您推荐的一级会员购买者一级下单成功，支付了110.00元，您将获取佣金9.60元 _ {\"errcode\":40003,\"errmsg\":\"invalid openid hint: [6PAYla0280rsz5]\"} _ 909d4192cde0fe64c12f0e3ae64e3023');
-INSERT INTO `weixin_log` VALUES ('47', '您推荐的二级会员购买者一级下单成功，支付了110.00元，您将获取佣金3.84元 _ {\"errcode\":40003,\"errmsg\":\"invalid openid hint: [AdLBda0281rsz3]\"} _ edc57b4a1e3effd937bc3f6a023e3f2c');
-INSERT INTO `weixin_log` VALUES ('48', 'invalid credential, access_token is invalid or not latest hint: [LhuKia0166vr21]');
-INSERT INTO `weixin_log` VALUES ('49', 'pl2hu3uczzaccess_token2016-06-14 10:09:26');
-INSERT INTO `weixin_log` VALUES ('50', '您下单成功，支付了110.00元，您将获取佣金2.88元 _ {\"errcode\":40003,\"errmsg\":\"invalid openid hint: [C04.Ta0167rsz5]\"} _ f388525df2c6979126c708e6a8ea3e94');
-INSERT INTO `weixin_log` VALUES ('51', 'pl2hu3uczzaccess_token2016-06-14 17:16:52');
-INSERT INTO `weixin_log` VALUES ('52', '您下单成功，支付了110.00元，您将获取佣金2.88元 _ {\"errcode\":40003,\"errmsg\":\"invalid openid hint: [XJsA4a0562rsz5]\"} _ f388525df2c6979126c708e6a8ea3e94');
-INSERT INTO `weixin_log` VALUES ('53', 'pl2hu3uczzaccess_token2016-06-15 08:29:20');
-INSERT INTO `weixin_log` VALUES ('54', 'pl2hu3uczzaccess_token2016-06-15 10:26:21');
-INSERT INTO `weixin_log` VALUES ('55', '您下单成功，支付了110.00元，您将获取佣金2.88元 _ {\"errcode\":40003,\"errmsg\":\"invalid openid hint: [el.I70608rsz5]\"} _ 9d4bc638a7e356a6d4a44091fc35a31c');
-INSERT INTO `weixin_log` VALUES ('56', 'pl2hu3uczzaccess_token2016-06-15 12:57:11');
-INSERT INTO `weixin_log` VALUES ('57', 'pl2hu3uczzaccess_token2016-06-15 16:55:28');
-INSERT INTO `weixin_log` VALUES ('58', 'pl2hu3uczzaccess_token2016-06-16 08:52:41');
-INSERT INTO `weixin_log` VALUES ('59', 'invalid credential, access_token is invalid or not latest hint: [fojKiA0121vr18]');
-INSERT INTO `weixin_log` VALUES ('60', 'pl2hu3uczzaccess_token2016-06-16 10:12:02');
-INSERT INTO `weixin_log` VALUES ('61', '您下单成功，支付了211.00元，您将获取佣金5.76元 _ {\"errcode\":40003,\"errmsg\":\"invalid openid hint: [15kXqa0122rsz5]\"} _ e5662c3876bd8c2ef7e74d7bf87d7041');
-INSERT INTO `weixin_log` VALUES ('62', '您下单成功，支付了211.00元，您将获取佣金5.76元 _ {\"errcode\":40003,\"errmsg\":\"invalid openid hint: [MRDuDa0275rsz5]\"} _ e5662c3876bd8c2ef7e74d7bf87d7041');
-INSERT INTO `weixin_log` VALUES ('63', '您下单成功，支付了211.00元，您将获取佣金5.76元 _ {\"errcode\":40003,\"errmsg\":\"invalid openid hint: [PPqWfa0436rsz4]\"} _ e5662c3876bd8c2ef7e74d7bf87d7041');
-INSERT INTO `weixin_log` VALUES ('64', '您下单成功，支付了211.00元，您将获取佣金5.76元 _ {\"errcode\":40003,\"errmsg\":\"invalid openid hint: [Tal8LA0657rsz5]\"} _ e5662c3876bd8c2ef7e74d7bf87d7041');
-INSERT INTO `weixin_log` VALUES ('65', 'invalid credential, access_token is invalid or not latest hint: [Xmy.Qa0755vr21]');
-INSERT INTO `weixin_log` VALUES ('66', 'pl2hu3uczzaccess_token2016-06-16 10:39:17');
-INSERT INTO `weixin_log` VALUES ('67', '您下单成功，支付了110.00元，您将获取佣金2.88元 _ {\"errcode\":40003,\"errmsg\":\"invalid openid hint: [wqLogA0756rsz3]\"} _ e5662c3876bd8c2ef7e74d7bf87d7041');
-INSERT INTO `weixin_log` VALUES ('68', 'invalid credential, access_token is invalid or not latest hint: [nLEzOa0352vr21]');
-INSERT INTO `weixin_log` VALUES ('69', 'pl2hu3uczzaccess_token2016-06-16 11:05:53');
-INSERT INTO `weixin_log` VALUES ('70', 'pl2hu3uczzaccess_token2016-06-16 14:17:58');
-INSERT INTO `weixin_log` VALUES ('71', 'invalid credential, access_token is invalid or not latest hint: [8PSBUA0998vr19]');
-INSERT INTO `weixin_log` VALUES ('72', 'pl2hu3uczzaccess_token2016-06-16 14:36:39');
-INSERT INTO `weixin_log` VALUES ('73', '您下单成功，支付了110.00元，您将获取佣金2.88元 _ {\"errcode\":40003,\"errmsg\":\"invalid openid hint: [m6DLEA0999rsz3]\"} _ e5662c3876bd8c2ef7e74d7bf87d7041');
-INSERT INTO `weixin_log` VALUES ('74', 'pl2hu3uczzaccess_token2016-06-16 16:44:07');
-INSERT INTO `weixin_log` VALUES ('75', 'pl2hu3uczzaccess_token2016-06-17 10:29:03');
-INSERT INTO `weixin_log` VALUES ('76', 'invalid credential, access_token is invalid or not latest hint: [wP0drA0932vr19]');
-INSERT INTO `weixin_log` VALUES ('77', 'pl2hu3uczzaccess_token2016-06-17 11:25:32');
-INSERT INTO `weixin_log` VALUES ('78', '您下单成功，支付了110.00元，您将获取佣金0.48元 _ {\"errcode\":40003,\"errmsg\":\"invalid openid hint: [GzrwJa0933rsz4]\"} _ edc57b4a1e3effd937bc3f6a023e3f2c');
-INSERT INTO `weixin_log` VALUES ('79', 'pl2hu3uczzaccess_token2016-06-17 15:02:39');
-INSERT INTO `weixin_log` VALUES ('80', '您下单成功，支付了110.00元，您将获取佣金0.48元 _ {\"errcode\":40003,\"errmsg\":\"invalid openid hint: [k_F8ba0960rsz3]\"} _ edc57b4a1e3effd937bc3f6a023e3f2c');
-INSERT INTO `weixin_log` VALUES ('81', '您下单成功，支付了110.00元，您将获取佣金1.44元 _ {\"errcode\":40003,\"errmsg\":\"invalid openid hint: [fJwoRA0347rsz4]\"} _ edc57b4a1e3effd937bc3f6a023e3f2c');
-INSERT INTO `weixin_log` VALUES ('82', 'pl2hu3uczzaccess_token2016-06-17 17:11:55');
-INSERT INTO `weixin_log` VALUES ('83', '您下单成功，支付了110.00元，您将获取佣金1.44元 _ {\"errcode\":40003,\"errmsg\":\"invalid openid hint: [R8nr.a0802rsz4]\"} _ 0309d53e968afd459c08d0c0fb08fe0f');
-INSERT INTO `weixin_log` VALUES ('84', '您推荐的一级会员购买者一级下单成功，支付了110.00元，您将获取佣金4.80元 _ {\"errcode\":40003,\"errmsg\":\"invalid openid hint: [VYu2TA0803rsz5]\"} _ 909d4192cde0fe64c12f0e3ae64e3023');
-INSERT INTO `weixin_log` VALUES ('85', '您推荐的二级会员购买者一级下单成功，支付了110.00元，您将获取佣金1.92元 _ {\"errcode\":40003,\"errmsg\":\"invalid openid hint: [lXU7ea0803rsz3]\"} _ edc57b4a1e3effd937bc3f6a023e3f2c');
-INSERT INTO `weixin_log` VALUES ('86', 'pl2hu3uczzaccess_token2016-06-18 08:26:40');
-INSERT INTO `weixin_log` VALUES ('87', 'pl2hu3uczzaccess_token2016-06-18 10:22:33');
-INSERT INTO `weixin_log` VALUES ('88', '您下单成功，支付了110.00元，您将获取佣金1.44元 _ {\"errcode\":40003,\"errmsg\":\"invalid openid hint: [XmUAfa0577rsz5]\"} _ e5662c3876bd8c2ef7e74d7bf87d7041');
-INSERT INTO `weixin_log` VALUES ('89', '您下单成功，支付了110.00元，您将获取佣金1.44元 _ {\"errcode\":40003,\"errmsg\":\"invalid openid hint: [Z0481rsz4]\"} _ e5662c3876bd8c2ef7e74d7bf87d7041');
-INSERT INTO `weixin_log` VALUES ('90', 'invalid credential, access_token is invalid or not latest hint: [j0r2PA0128vr20]');
-INSERT INTO `weixin_log` VALUES ('91', 'pl2hu3uczzaccess_token2016-06-18 10:48:49');
-INSERT INTO `weixin_log` VALUES ('92', '您下单成功，支付了110.00元，您将获取佣金1.44元 _ {\"errcode\":40003,\"errmsg\":\"invalid openid hint: [NhNiLA0129rsz3]\"} _ e5662c3876bd8c2ef7e74d7bf87d7041');
-INSERT INTO `weixin_log` VALUES ('93', 'invalid credential, access_token is invalid or not latest hint: [5o8YvA0237vr22]');
-INSERT INTO `weixin_log` VALUES ('94', 'pl2hu3uczzaccess_token2016-06-18 11:57:17');
-INSERT INTO `weixin_log` VALUES ('95', '您下单成功，支付了110.00元，您将获取佣金1.44元 _ {\"errcode\":40003,\"errmsg\":\"invalid openid hint: [CIFkCA0237rsz5]\"} _ e5662c3876bd8c2ef7e74d7bf87d7041');
-INSERT INTO `weixin_log` VALUES ('96', 'invalid credential, access_token is invalid or not latest hint: [f4QM40176vr22]');
-INSERT INTO `weixin_log` VALUES ('97', 'pl2hu3uczzaccess_token2016-06-18 12:29:36');
-INSERT INTO `weixin_log` VALUES ('98', 'pl2hu3uczzaccess_token2016-06-18 16:17:12');
-INSERT INTO `weixin_log` VALUES ('99', 'pl2hu3uczzaccess_token2016-06-20 10:23:26');
-INSERT INTO `weixin_log` VALUES ('100', '您下单成功，支付了110.00元，您将获取佣金1.44元 _ {\"errcode\":40003,\"errmsg\":\"invalid openid hint: [LwtThA0472rsz5]\"} _ 0309d53e968afd459c08d0c0fb08fe0f');
-INSERT INTO `weixin_log` VALUES ('101', '您推荐的一级会员购买者一级下单成功，支付了110.00元，您将获取佣金4.80元 _ {\"errcode\":40003,\"errmsg\":\"invalid openid hint: [O_yRsa0472rsz5]\"} _ 909d4192cde0fe64c12f0e3ae64e3023');
-INSERT INTO `weixin_log` VALUES ('102', '您推荐的二级会员购买者一级下单成功，支付了110.00元，您将获取佣金1.92元 _ {\"errcode\":40003,\"errmsg\":\"invalid openid hint: [nPxXlA0473rsz4]\"} _ edc57b4a1e3effd937bc3f6a023e3f2c');
 
 -- ----------------------------
--- Table structure for zhongchou_config
+-- Table structure for `zhongchou_config`
 -- ----------------------------
 DROP TABLE IF EXISTS `zhongchou_config`;
 CREATE TABLE `zhongchou_config` (
@@ -8754,7 +7988,7 @@ CREATE TABLE `zhongchou_config` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for zhongchou_prize
+-- Table structure for `zhongchou_prize`
 -- ----------------------------
 DROP TABLE IF EXISTS `zhongchou_prize`;
 CREATE TABLE `zhongchou_prize` (
@@ -8775,7 +8009,7 @@ CREATE TABLE `zhongchou_prize` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for zhongchou_project
+-- Table structure for `zhongchou_project`
 -- ----------------------------
 DROP TABLE IF EXISTS `zhongchou_project`;
 CREATE TABLE `zhongchou_project` (
@@ -8798,7 +8032,7 @@ CREATE TABLE `zhongchou_project` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for zhuli
+-- Table structure for `zhuli`
 -- ----------------------------
 DROP TABLE IF EXISTS `zhuli`;
 CREATE TABLE `zhuli` (
@@ -8818,7 +8052,7 @@ CREATE TABLE `zhuli` (
 INSERT INTO `zhuli` VALUES ('pl2hu3uczz', '微助力', null, null, null, '1464607202', '1465212002', '/static/api/images/cover_img/zhuli.jpg');
 
 -- ----------------------------
--- Table structure for zhuli_act
+-- Table structure for `zhuli_act`
 -- ----------------------------
 DROP TABLE IF EXISTS `zhuli_act`;
 CREATE TABLE `zhuli_act` (
@@ -8836,7 +8070,7 @@ CREATE TABLE `zhuli_act` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for zhuli_record
+-- Table structure for `zhuli_record`
 -- ----------------------------
 DROP TABLE IF EXISTS `zhuli_record`;
 CREATE TABLE `zhuli_record` (
@@ -8854,26 +8088,3 @@ CREATE TABLE `zhuli_record` (
 -- ----------------------------
 -- Records of zhuli_record
 -- ----------------------------
-ALTER TABLE biz add Biz_PayConfig varchar(255) DEFAULT NULL;
-ALTER TABLE biz add Biz_Flag tinyint(1) DEFAULT 0;
-
-ALTER TABLE shop_sales_payment add Payment_Type tinyint(1) DEFAULT 0;
-ALTER TABLE shop_sales_payment add OpenID varchar(100) DEFAULT NULL;
-ALTER TABLE shop_sales_payment add aliPayNo varchar(100) DEFAULT NULL;
-ALTER TABLE shop_sales_payment add aliPayName varchar(20) DEFAULT NULL;
-ALTER TABLE shop_sales_payment add Msg varchar(100) DEFAULT NULL;
-
-DROP TABLE IF EXISTS `users_schedule`;
-CREATE TABLE `users_schedule` (
-  `ID` int(11) NOT NULL AUTO_INCREMENT,
-  `Users_ID` varchar(20) NOT NULL,
-  `Money` float(11,2) DEFAULT NULL,
-  `StartRunTime` time DEFAULT NULL COMMENT '开始执行时间',
-  `RunType` tinyint(1) DEFAULT '1' COMMENT '执行方式：1、定时执行  2、按天执行  3、按月执行',
-  `Status` tinyint(1) DEFAULT '0' COMMENT '计划任务执行状态：0、未执行  1、执行过',
-  PRIMARY KEY (`ID`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
-
-ALTER TABLE users_schedule add LastRunTime int(11) DEFAULT 0 COMMENT "最后执行时间";
-ALTER TABLE users_schedule add day tinyint(2) DEFAULT 0 COMMENT "间隔执行的天数";
-ALTER TABLE distribute_config add TxCustomize tinyint(1) DEFAULT 1 COMMENT '提现审核开关';

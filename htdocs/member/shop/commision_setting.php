@@ -4,7 +4,6 @@ if(empty($_SESSION["Users_Account"]))
 	header("location:/member/login.php");
 }
 
-
 if ($_POST) 
 {
   unset($_POST['submit_button']);
@@ -161,13 +160,18 @@ $Data = array('Shop_Commision_Reward_Json' => json_encode($_POST, JSON_UNESCAPED
         	<label>佣金返利<b class="red mousehand" id="allchange">（全部统一）</b></label>
             <span class="input">
 			<?php
+      $disidarr = [];
+      $dislevelarrs = [];
 			$dislevel = $DB->Get("distribute_level","Level_ID,Users_ID,Level_Name","where Users_ID='".$_SESSION["Users_ID"]."'");
 			while($dislevelarr=$DB->fetch_assoc()){
 			  $dislevelarrs[] = $dislevelarr;
 			  $disidarr[] = $dislevelarr['Level_ID'];
 		  }	
 
-		  $jsondisidarr = json_encode($disidarr,JSON_UNESCAPED_UNICODE);
+      $jsondisidarr = '';
+      if (count($disidarr) > 0) {
+  		  $jsondisidarr = json_encode($disidarr,JSON_UNESCAPED_UNICODE);
+      }
 		  $dislevelcont = count($dislevelarrs);	
 			foreach($dislevelarrs as $key=>$disinfo){
 			?>

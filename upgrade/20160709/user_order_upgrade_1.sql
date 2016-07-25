@@ -1,1 +1,1 @@
-alter table user_order add Front_Order_Status tinyint(1) DEFAULT 0 COMMENT '�洢�˻�ǰ�Ķ���״̬';
+alter table user_order add Front_Order_Status tinyint(1) DEFAULT 0 COMMENT '存储退货前的订单状态';

@@ -25,11 +25,23 @@ class backup{
 		unset($product);
 		
 		$item["Qty"] = $qty;
-		if($rsOrder['Order_Status'] == 2){
+		if($rsOrder['Order_Status'] == 2){    //已付款
+		    $cpyCarList = $CartList;
+		    $cpyCarList[$productid][$cartid]["Qty"] = $cpyCarList[$productid][$cartid]["Qty"] - $qty;
+		    if($cpyCarList[$productid][$cartid]["Qty"]==0){
+		        unset($cpyCarList[$productid][$cartid]);
+		    }
+		    if(count($cpyCarList[$productid])==0){
+		        unset($cpyCarList[$productid]);
+		    }
+		    if(!empty($cpyCarList)){
+		        $amount = $qty * $item["ProductsPriceX"];
+		    }else{
+		        $amount = $qty * $item["ProductsPriceX"];
+		        $amount += $ShippingMoney;
+		    }
+		}else{    //已发货
 		  $amount = $qty * $item["ProductsPriceX"];
-		}else{
-		  $amount = $qty * $item["ProductsPriceX"];
-		  $amount = $amount + $ShippingMoney;
 		}
 		$time = time();
 		$data = array(
@@ -222,7 +234,7 @@ class backup{
 				//增加流程
 				$this->add_record($backid,1,$detail,$time);
 				
-				//更新退款单
+				//更新退款单 
 				$Data = array(
 					"Back_Status"=>3,
 					"Buyer_IsRead"=>0,
@@ -262,7 +274,7 @@ class backup{
 		}
 	}
 	
-	private function add_record($recordid,$status,$detail,$time){
+	protected function add_record($recordid,$status,$detail,$time){
 		$Data = array(
 			"backid"=>$recordid,
 			"detail"=>$detail,
@@ -272,7 +284,7 @@ class backup{
 		$this->db->Add("user_back_order_detail",$Data);
 	}
 	
-	private function update_distribute_money($orderid,$productid,$cartid,$qty,$type=0){
+	protected function update_distribute_money($orderid,$productid,$cartid,$qty,$type=0){
 		$bonus = array();
 		if($type==0){//减少佣金
 			$descrition = "订单退款，减少佣金。退款数量：".$qty;
@@ -298,13 +310,24 @@ class backup{
 				$data["Record_Description"] = $type==0 ? '用户退款，减少佣金'.$amount.'元' : '用户退款被驳回，增加佣金'.$amount.'元';
 				$data["Record_CreateTime"] = time();
 				$data["Owner_ID"] = 0;
-				$data['Nobi_Money'] = 0;
+				//$data['Nobi_Money'] = 0;
+				//edit sxf 修正用户退款，爵位奖励未退款bug
+				if ($type == 0) {
+					$data['Nobi_Description'] = '用户退款，减少爵位奖金' . $data['Nobi_Money'] . '元';
+					if ($data['Nobi_Money'] > 0) {
+						$data['Nobi_Money'] = -$data['Nobi_Money'];	
+					}					
+				} else {
+					$data['Nobi_Description'] = '用户退款被驳回，增加爵位奖金' . $data['Nobi_Money'] . '元';
+					$data['Nobi_Money'] = $data['Nobi_Money'];	
+				}
+								
 				$this->db->Add('distribute_account_record', $data);
 			}
 		}
 	}
 	
-	private function add_sales_record($item,$bonus){
+	protected function add_sales_record($item,$bonus){
 		$bonus_1 = empty($bonus[1]) ? 0 : $bonus[1];
 		$bonus_2 = empty($bonus[2]) ? 0 : $bonus[2];
 		$bonus_3 = empty($bonus[3]) ? 0 : $bonus[3];
@@ -327,7 +350,7 @@ class backup{
 		$this->db->Add("shop_sales_record",$Data);
 	}
 	
-	private function build_order_no(){
+	protected function build_order_no(){
     	mt_srand((double) microtime() * 1000000);
    	 	return date('Ymd') . str_pad(mt_rand(1, 99999), 5, '0', STR_PAD_LEFT);
 	}

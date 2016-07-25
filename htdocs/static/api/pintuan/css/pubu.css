@@ -1,0 +1,23 @@
+#pubu {
+	margin:0 auto;
+	position:relative;
+}
+#pubu .box {
+	width:280px;
+	height:auto;
+	padding:10px;
+	float:left;
+}
+#pubu .box .pic {
+	width:280px;
+	height:auto;
+    box-shadow:1px 1px 4px #ddd,-1px -1px 4px #ddd;
+    border-radius:4px;
+}
+#pubu .box .pic img {
+    display: block;
+	width:250px;
+    margin:0 auto;
+    padding: 15px 0;
+    cursor: pointer;
+}

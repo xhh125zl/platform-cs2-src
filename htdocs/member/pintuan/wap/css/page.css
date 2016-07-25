@@ -1,0 +1,30 @@
+body,html{background:#FFF}
+
+#shop_skin_index{width:100%; overflow:hidden; margin:0 auto; box-sizing:border-box;}
+#shop_skin_index .img{height:100%; overflow:hidden;}
+#shop_skin_index .img img{width:100%; height:100%;}
+#shop_skin_index .shop_skin_index_list{overflow:hidden; position:relative; z-index:1;}
+#shop_skin_index .banner{height:160px; width:100%;}
+#shop_skin_index .banner *{width:100%; height:100%;}
+
+#shop_skin_index .menu{height:auto; overflow:hidden; margin-bottom:14px}
+#shop_skin_index .menu li{width:25%; height:89px; overflow:hidden; float:left; box-sizing:border-box; margin-top:8px;}
+#shop_skin_index .menu li a{display:block; width:90%; height:89px; overflow:hidden; text-align:center; margin:0px auto; color:#333; font-size:12px;}
+#shop_skin_index .menu li a img{display:block; border:none; width:50px; height:50px; margin:15px auto 0px;  border-radius:50%; background:#FFF}
+#shop_skin_index .menu li a p{margin:0px; padding:0px; height:28px; line-height:28px; font-size:12px;}
+
+.index_prolist{width:100%;}
+.index_prolist h1{width:100%; height:20px; line-height:20px; font-size:17px; box-sizing:border-box; padding:0px 8px; margin:8px 0px; background:url('../images/index_icon2.png') no-repeat 8px center; text-indent:20px }
+.index_prolist h1 a{color:#5b5b5b;font-size:16px;}
+.index_prolist h1 span{float:right;font-size:18px;}
+.index_prolist .prolist{width:98%; margin:0 auto;}
+.index_prolist .prolist .item{float:left; width:50%; overflow:hidden;}
+.index_prolist .prolist ul{width:94%; margin:0 auto; overflow:hidden; margin-bottom:5px;}
+.index_prolist .prolist ul .img{height:144px; border:1px solid #e2e0e1; overflow:hidden;}
+.index_prolist .prolist ul .img img{width:100%; height:100%;}
+.index_prolist .prolist ul .name{text-align:left; padding:3px 8px; background:#e2e0e1}
+.index_prolist .prolist ul .name a{color:#777;}
+.index_prolist .prolist ul .price{text-align:left; padding:0px 8px 10px 8px; background:#e2e0e1; color:#f73b3a; border-bottom-left-radius:5px;  border-bottom-right-radius:5px;}
+.index_prolist .prolist ul .price span{float:right}
+.index_prolist .prolist ul .price span img{margin-top:4px; border-left:1px #b8b6b7 solid; padding-left:4px}
+.index_prolist .more {font-size:18px;}
