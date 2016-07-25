@@ -89,10 +89,17 @@ class OrderObserver {
 			$interval = intval ( $order ['Order_TotalPrice'] / abs ( $this->shop_config ['Integral_Convert'] ) );
 		}*/
                 $man_list = $this->shop_config['Man'];
+                $order_money = $order ['Order_TotalPrice'];
                 if (!empty($man_list)) {
+                    global $DB;
+                    $orderid = $order['Order_ID'];
+                    $is_back = $DB->GetRs('user_back_order','','where Order_ID='.$orderid.' and  Back_Status=4');
+                    if (!empty($is_back)) {
+                        $order_money = $order_money - $is_back['Back_Amount'];  
+                    }
                     $man_array = json_decode($man_list, true);
                     foreach ($man_array as $k => $v) {
-                        if ($order ['Order_TotalPrice'] >= $v['reach']) {
+                        if ($order_money >= $v['reach']) {
                             $interval = $v['award'];
                             break;
                         }
@@ -161,13 +168,13 @@ class OrderObserver {
 	}
 	
 	/**
-	 * 增加用户积分记录
+	 * 增加用户积分记录 Record_Integral
 	 */
 	private function handle_integral_record($interval) {
 		
 		$user_integral_record = new User_Integral_Record ();
 		$user_integral_record->Record_Integral = $interval;
-		$user_integral_record->Record_SurplusIntegral = $this->user ['User_Integral'] + $interval;
+		$user_integral_record->Record_SurplusIntegral = $this->user ['User_Integral'];
 		$user_integral_record->Operator_UserName = '';
 		$user_integral_record->Record_Type = 2;
 		$user_integral_record->Record_Description = '购买商品送 ' . $interval . ' 个积分';

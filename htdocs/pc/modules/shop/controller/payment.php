@@ -31,6 +31,24 @@ class paymentController extends controllController {
 		$this->assign('total', $total);
 		$this->assign('ordersn', $ordersn);
 		$this->assign('OrderID', $OrderID);
+                
+                //积分抵用
+		$diyong_flag = false;
+                $rsUser = model('user')->field('User_Integral')->where(array('User_ID'=>$_SESSION[$this->UsersID . 'User_ID']))->find();
+                $this->assign('rsUser', $rsUser);
+		$diyong_list = json_decode(htmlspecialchars_decode($this->shopConfig['integral_use_laws']), true); 
+		$diyong_intergral = 0; //dump($rsOrder);
+		//用户设置了积分抵用规则，且抵用率大于零 
+		if(count($diyong_list) > 0 && $this->shopConfig['integral_buy'] > 0) {
+                    $diyong_intergral = diyong_act($total, $diyong_list, $rsUser['User_Integral']);			
+			//如果符合抵用规则中的某一个规则,且此订单之前未执行过抵用操作
+                    if($diyong_intergral > 0 && $rsOrder['integral_consumption'] == 0 && $rsUser['User_Integral'] > 0){
+			$diyong_flag = true;
+                    }
+		}
+		$this->assign('diyong_flag', $diyong_flag);
+		$this->assign('diyong_intergral', $diyong_intergral);
+                
 		$this->display('payment.php', 'home', 'home_layout');
 	}
 	public function payOp() {

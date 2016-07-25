@@ -514,6 +514,50 @@ class ajaxController extends controllController {
         }
         return $Data;
     }
+    private function _diyong() {
+       
+            $this->rsUser = model('user')->field('*')->where(array('User_ID'=>$_SESSION[$this->UsersID . 'User_ID']))->find(); //dump($this->rsUser);die;
+	    $OrderID = empty($_POST['Order_ID']) ? 0 : $_POST['Order_ID'];
+	    $rsOrder = model('user_order')->where(array('Users_ID'=>$this->UsersID,'User_ID'=>$_SESSION[$this->UsersID . 'User_ID'],'Order_ID'=>$OrderID))->find();
+		$total = $rsOrder['order_totalprice'];
+		$diyong_flag = false;
+		$diyong_list = json_decode(htmlspecialchars_decode($this->shopConfig['integral_use_laws']), true);
+		$diyong_intergral = 0;
+		//用户设置了积分抵用规则，且抵用率大于零 
+		if(count($diyong_list) > 0 && $this->shopConfig['integral_buy'] > 0) {
+			$diyong_intergral = diyong_act($total, $diyong_list, $this->rsUser['User_Integral']);
+			//如果符合抵用规则中的某一个规则,且此订单之前未执行过抵用操作
+			if($diyong_intergral > 0 && $rsOrder['integral_consumption'] == 0 && $this->rsUser['User_Integral'] > 0) {
+				$diyong_flag = true;
+			}
+		}
+		
+		if($diyong_flag){
+		    if($this->rsUser['User_Integral'] > $diyong_intergral){
+		        $Integral_Money = $diyong_intergral/$this->shopConfig['integral_buy'];
+			}else{
+			    $Integral_Money = $this->rsUser['User_Integral']/$this->shopConfig['integral_buy'];
+			}
+			//记录此订单消耗多少积分
+			$data = 'Integral_Consumption=' . $diyong_intergral . ',Integral_Money=' . $Integral_Money . ',Order_TotalPrice=Order_TotalPrice-' . $Integral_Money;
+			$condition = array(
+				'Users_ID'=>$this->UsersID,
+				'Order_ID'=>$OrderID,
+			);
+			$Flag_a = model('user_order')->where($condition)->update($data);
+			//将积分移入不可用积分
+			$Flag_b = $Flag_a && add_userless_integral($this->UsersID, $this->rsUser, $diyong_intergral);
+						
+			if($Flag_b) {
+				$response = array('status'=>1, 'msg'=>'抵用消耗记录到订单成功', 'total_price'=>$total-$Integral_Money);
+			}else {
+				$response = array('status'=>0, 'msg'=>'抵用消耗记录到订单失败');
+			}
+		}else{
+		    $response = array('status'=>0, 'msg'=>'非法操作！');
+		}
+		return $response;
+    }
     private function _checkout() {
         $cart_key = $this->UsersID . $_POST['cart_key'];
         if (empty($_SESSION[$cart_key])) {
@@ -643,7 +687,7 @@ class ajaxController extends controllController {
                 $flag = model('user_pre_order')->insert($Data);
                 if ($flag) {
                     $url = url('payment/index', array(
-                        'OrderID' => $pre_sn
+                        'OrderID' => $neworderid
                     ));
                     $Data = array(
                         'url' => $url,

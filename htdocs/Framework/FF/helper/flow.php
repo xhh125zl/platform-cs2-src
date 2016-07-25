@@ -311,7 +311,21 @@ function get_order_total_info($UsersID, $CartList, $Shipping_IDS, $City_Code = 0
 	}
 	$order_total_info['total'] = $total;
 	$order_total_info['total_shipping_fee'] = $total_shipping_fee;
-  
+        
+        /*增加积分显示*/
+        $man_list = $shopConfig['Man'];
+        $man_array = json_decode($man_list, true);
+        $order_total_info['integral'] = 0;
+        if(!empty($man_array)){
+            $order_total_info['man_array'] = $man_array;
+            foreach ($man_array as $k => $v) {
+                if ($total >= $v['reach']) {
+                    $order_total_info['integral'] = $v['award'];
+                    break;
+                }
+            }
+        }
+        
 	return $order_total_info;
 }
 
@@ -327,7 +341,22 @@ function  man_act($sum, $regulation){
 	}
 	return $man_sum;
 }
-
+///计算参加抵用后的余额
+function diyong_act($total, $regulartion, $User_Integral){
+	
+	$diyong_integral = 0;
+	foreach($regulartion as $key => $item){	
+		if($total >= $item['man']){
+			$diyong_integral = $item['use'];
+			continue;
+		}	
+	}
+	//如果用户积分小于最少抵用所需积分
+	if($diyong_integral > $User_Integral) {
+		$diyong_integral = $User_Integral;
+	}
+	return $diyong_integral;
+}
 /**
  *获取可用优惠券
  **/
@@ -411,12 +440,23 @@ function change_user_integral($UsersID, $User_Id, $Integral, $type, $desc, $usel
 		$operate = '-';
 	}
 	$user_model = model('user');
-	$rsUser = $user_model->field('User_Money,User_PayPassword,Is_Distribute,User_Name,User_NickName,Owner_Id,User_Integral,User_From')->where(array('Users_ID'=>$UsersID,'User_ID'=>$User_Id))->find();
+	$rsUser = $user_model->field('User_Money,User_PayPassword,Is_Distribute,User_Name,User_NickName,Owner_Id,User_Integral,User_UseLessIntegral,User_From')->where(array('Users_ID'=>$UsersID,'User_ID'=>$User_Id))->find();
 	$user_model->beginTransaction();//开启事务处理
 	if($useless) {
-		$integral_data = 'User_UseLessIntegral' . $operate . $Integral;
+		//$integral_data = 'User_UseLessIntegral' . $operate . $Integral;
+                if($type == 'add') {
+                     $integral_data['User_UseLessIntegral'] = $rsUser['User_UseLessIntegral']+$Integral; 
+                }else if($type == 'reduce') {
+                     $integral_data['User_UseLessIntegral'] = $rsUser['User_UseLessIntegral']-$Integral; 
+                }
+               
 	}else {
-		$integral_data = 'User_Integral' . $operate . $Integral; 
+		//$integral_data = 'User_Integral' . $operate . $Integral; 
+                if($type == 'add') {
+                     $integral_data['User_Integral'] = $rsUser['User_Integral']+$Integral; 
+                }else if($type == 'reduce') {
+                     $integral_data['User_Integral'] = $rsUser['User_Integral']-$Integral; 
+                }
 	}
 	$condition = array(
 	    'Users_ID'=>$UsersID,
@@ -446,6 +486,24 @@ function change_user_integral($UsersID, $User_Id, $Integral, $type, $desc, $usel
 		$result = FALSE;
 	}
 	return $result;
+}
+/**
+ *将积分移入不可用积分
+ *@param $UsersID
+ *@param $UserID  用户ID
+ *@param $Integral 移动积分量 
+ */
+function add_userless_integral($UsersID, $rsUser, $Integral) {
+	$data = array(
+	    'User_Integral'=>$rsUser['User_Integral'] - $Integral,
+		'User_UseLessIntegral'=>$rsUser['User_UseLessIntegral'] + $Integral
+	);
+	$condition = array(
+	    'Users_ID'=>$UsersID,
+		'User_ID'=>$rsUser['User_ID']
+	);
+	$Flag = model('user')->where($condition)->update($data);
+	return $Flag;
 }
 /**
  *将不可用积分返还到可用积分 
