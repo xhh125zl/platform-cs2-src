@@ -26,6 +26,7 @@ $rmenu['basic'] = array(
 	'setting/skin' => '风格设置',
 	'setting/home' => '首页设置',
 	'setting/menu_config' => '菜单配置',
+	'setting/third_login' => '三方登录',
 );
 
 $rmenu['product']=array(
