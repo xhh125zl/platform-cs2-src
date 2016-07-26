@@ -40,7 +40,7 @@
 						strData +='</div>';
 						strData +='<div class="clear"></div>';
 					}
-					$("#container").append(strData);
+					$("#container").html(strData);
 				}
 			},"JSON");
 		}
