@@ -65,6 +65,11 @@ $_STATUS = array('<font style="color:#F00; font-size:12px;">申请中</font>','<
 <script type='text/javascript' src='/static/api/js/global.js'></script>
 <script type='text/javascript' src='/static/api/shop/js/shop.js'></script>
 <script language="javascript">
+//禁止iframe
+if (window != window.top) {
+    window.top.location.replace(window.location)
+}
+
 var base_url = '<?php echo $base_url;?>';
 var UsersID = '<?php echo $UsersID;?>';
 $(document).ready(shop_obj.page_init);

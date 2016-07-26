@@ -1,8 +1,14 @@
-﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+﻿<!doctype html>
 <html>
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-	<title>支付宝即时到账交易接口接口</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+<meta name="format-detection" content="telephone=no,email=no"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0"/>
+<title>在线支付</title>
+<script type='text/javascript' src='/static/js/jquery-1.7.2.min.js'></script>
+
 </head>
 <?php
 require_once($_SERVER["DOCUMENT_ROOT"].'/Framework/Conn.php');
@@ -126,8 +132,45 @@ $parameter = array(
 
 //建立请求
 $alipaySubmit = new AlipaySubmit($alipay_config);
-$html_text = $alipaySubmit->buildRequestForm($parameter, 'get', '确认');
-echo $html_text;
+$html_text = $alipaySubmit->buildRequestUrl($parameter, 'get', '确认');
+//echo $html_text;
 ?>
+<script language="javascript">
+function showIframe(url,w,h){
+    //添加iframe
+    var if_w = w; 
+    var if_h = h; 
+    //allowTransparency='true' 设置背景透明 virutal
+    $("<iframe width='" + if_w + "' height='" + if_h + "' id='alipayFrame' name='alipayFrame' style='position:absolute;z-index:4;'  frameborder='no' marginheight='0' marginwidth='0' ></iframe>").prependTo('body');    
+    var st=document.documentElement.scrollTop|| document.body.scrollTop;//滚动条距顶部的距离
+    var sl=document.documentElement.scrollLeft|| document.body.scrollLeft;//滚动条距左边的距离
+    var ch=document.documentElement.clientHeight;//屏幕的高度
+    var cw=document.documentElement.clientWidth;//屏幕的宽度
+    var objH=$("#alipayFrame").height();//浮动对象的高度
+    var objW=$("#alipayFrame").width();//浮动对象的宽度
+    var objT=Number(st)+(Number(ch)-Number(objH))/2;
+    var objL=Number(sl)+(Number(cw)-Number(objW))/2;
+    $("#alipayFrame").css('left',objL);
+    $("#alipayFrame").css('top',objT);
+    $("#alipayFrame").attr("src", url)
+    //添加背景遮罩
+    $("<div id='alipayFrameBg' style='background-color: #fff;display:block;z-index:3;position:absolute;left:0px;top:0px;'/>").prependTo('body'); 
+    var bgWidth = Math.max($("body").width(),cw);
+    var bgHeight = Math.max($("body").height(),ch);
+    $("#alipayFrameBg").css({width:bgWidth,height:bgHeight});
+ 
+    //点击背景遮罩移除iframe和背景
+    $("#alipayFrameBg").click(function() {
+        $("#alipayFrame").remove();
+        $("#alipayFrameBg").remove();
+    });
+	
+}
+
+	var height =$(document.body).height();
+	height="100%";
+	var url = "<?php echo $html_text;?>";
+	showIframe(url,"100%",height);
+</script>	
 </body>
 </html>
