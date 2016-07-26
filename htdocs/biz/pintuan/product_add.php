@@ -466,7 +466,7 @@ $(document).ready(function(){
                 <td class="tl"><span color="f_red">允许中奖团数</span></td>  
                 <td class="tr">
                 <input type="text" size="8" name="T_count" value=""/>
-                <input type="hidden" size="6" name="ratio" id="ratio" value="0" />%</td>
+                <input type="hidden" size="6" name="ratio" id="ratio" value="0" /></td>
                 <span>
                 <td></td></span>
             </tr>  
