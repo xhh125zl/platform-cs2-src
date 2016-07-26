@@ -356,3 +356,4 @@ RewriteRule ^api/([0-9a-z]+)/pintuan/teamdetail/([0-9]+)/$ /api/pintuan/teamdeta
 RewriteRule ^api/([0-9a-z]+)/pintuan/liucheng/$ /api/pintuan/liucheng.html?UsersID=$1
 #异步
 RewriteRule ^api/pintuan/sync$ /api/pintuan/sync.php
+RewriteRule ^api/pintuan/sync/$ /api/pintuan/sync.php
