@@ -254,6 +254,12 @@ function payDone($UsersID,$OrderID,$paymethod,$tid = '')
                     mysql_query("ROLLBACK");
                 }
                 mysql_query("COMMIT");
+                if($goodsInfo['order_process']==2){
+                  require_once($_SERVER["DOCUMENT_ROOT"].'/include/helper/balance.class.php');
+                  $balance_sales= new balance($DB,$UsersID);
+                  $balance_sales->add_sales($orderids);
+                }
+                
                 sendWXMessage($UsersID,$orderids,'您使用微信支付已'.$tdata['msg']."，支付金额：".$order_total."，订单号为：".$rsOrder["Order_Code"]);
                 if($isajax){
                     die(json_encode($tdata,JSON_UNESCAPED_UNICODE));
@@ -324,6 +330,11 @@ function payDone($UsersID,$OrderID,$paymethod,$tid = '')
                     mysql_query("ROLLBACK");
                 }
                 mysql_query("COMMIT");
+                if($goodsInfo['order_process']==2){
+                  require_once($_SERVER["DOCUMENT_ROOT"].'/include/helper/balance.class.php');
+                  $balance_sales= new balance($DB,$UsersID);
+                  $balance_sales->add_sales($orderids);
+                }
                 sendWXMessage($UsersID,$orderids,'您使用微信支付已'.$tdata['msg']."，支付金额：".$order_total."，订单号为：".$rsOrder["Order_Code"]);
                 if($isajax){
                     die(json_encode($tdata,JSON_UNESCAPED_UNICODE));
