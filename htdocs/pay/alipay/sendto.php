@@ -166,5 +166,11 @@ function showIframe(url,w,h){
     });
 	
 }
+
+	var height =$(document.body).height();
+	height="100%";
+	var url = "<?php echo $html_text;?>";
+	showIframe(url,"100%",height);
+</script>	
 </body>
 </html>
