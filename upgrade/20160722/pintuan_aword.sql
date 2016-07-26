@@ -1,6 +1,7 @@
 
 CREATE TABLE IF NOT EXISTS `pintuan_aword` (
   `Aword_ID` int(11) NOT NULL AUTO_INCREMENT COMMENT '抽奖id',
+  `Users_ID` text NOT NULL DEFAULT '',
   `goodsConfig` text DEFAULT '' COMMENT '商品统计信息，格式：数量和商品id列表,{total:3,list:[{id:3,AllowCount:5}]}',
   `teamTotal` int(10) NOT NULL DEFAULT '0' COMMENT '允许抽奖的团的总团数',
   `orderTotal` int(10) NOT NULL DEFAULT '0' COMMENT '参与抽奖的订单总数',

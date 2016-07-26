@@ -20,7 +20,7 @@
         where  p.stoptime <{$time} AND t.teamstatus = 0";
         $result = $DB->query($sql);
         $list = $DB->toArray($result);
-        if (empty($list)) return;
+        if (empty($list)) { return; }
         foreach ($list as $item) {
             $status = $item['people_num'] == $item['teamnum'] ? 1 : 4;
             $sql_update_team = "update pintuan_team set teamstatus = '$status' where id = '{$item['id']}'";
@@ -145,7 +145,8 @@
           'goodsTotal' => $goodsTotal,
           'awordTeamlist' => $awordteamlistStr,
           'noneAwordTeamlist' => $noneteamlistStr,
-          'addtime' => time()
+          'addtime' => time(),
+          'Users_ID' =>isset($_SESSION['Users_ID'])?$_SESSION['Users_ID']:''
         ];
         $DB->add("pintuan_aword",$data);
         

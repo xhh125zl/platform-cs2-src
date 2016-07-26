@@ -111,6 +111,17 @@ $(function(){
       location.href = "/member/pintuan/order_print.php?OrderID="+idlist;
   });
 });
+
+  function choujiang()
+  {
+      $.get("/api/pintuan/sync",function(data){ 
+        if(data){ 
+            alert(data);
+        }else{
+          alert("抽奖成功！"); 
+        } 
+      });
+  }
 </script>
 </head>
 
@@ -164,6 +175,7 @@ $(function(){
 						name="AccTime_E" value="" maxlength="20" /> <input type="hidden"
 						value="1" name="search" /> <input type="submit" class="search_btn"
 						value="搜索" /> <input type="button" class="output_btn" value="导出" />
+						<input type="button" class="output_btn" value="手动抽奖"  onclick="choujiang();"/>
 				</form>
 				<form id="submit_form" method="get" action="send_print.php">
 					<table border="0" cellpadding="5" cellspacing="0"
