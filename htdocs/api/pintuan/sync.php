@@ -85,7 +85,7 @@
             foreach($goodslist as $k => $v)
             {
                 $gTeamlist = [];
-                
+                $goodsAwordlist = [];
                 foreach($list as $key => $value)
                 {
                     if($v==$value['productid'])
@@ -98,20 +98,19 @@
                     {
                         do{
                             $num = mt_rand(0,count($gTeamlist));
-                            if(!in_array($gTeamlist[$num],$awordteamlist)){
-                                $awordteamlist[] = $gTeamlist[$num];
+                            if(!in_array($gTeamlist[$num],$goodsAwordlist)){
+                                $goodsAwordlist[] = $gTeamlist[$num];
                                 break;
                             }
                         }while(true);
                     }
                 }else{
-                   $awordteamlist = array_merge($awordteamlist, $gTeamlist);
+                   $goodsAwordlist = array_merge($goodsAwordlist, $gTeamlist);
                 }
-                $goodsjson [] = ['id' => $v ,'AllowCount' => $award[$v]];
-            }
-            if(!empty($awordteamlist)){
-                
-                $noneteamlist = array_diff($teamlist, $awordteamlist);
+                $noneAwordlist = array_diff($gTeamlist, $goodsAwordlist);
+                $goodsjson [] = ['id' => $v ,'AllowCount' => $award[$v],'awordlist'=>implode(',', $goodsAwordlist),'noneAwordlist'=> implode(',', $noneAwordlist)];
+                $awordteamlist = array_merge($awordteamlist, $goodsAwordlist);
+                $noneteamlist = array_merge($noneteamlist, $noneAwordlist);
             }
             if(!empty($awordteamlist)){
                 $awordteamlistStr = implode(',', $awordteamlist);
@@ -134,7 +133,7 @@
         }
         if(!empty($orderlist)){
           $orderids = implode(',', $orderlist);
-         // $DB->Set("pintuan_order",['is_ok'=>1],"WHERE order_id in ($orderids)");
+          $DB->Set("pintuan_order",['is_ok'=>1],"WHERE order_id in ($orderids)");
         }
 
         //将统计结果写入数据库
@@ -152,7 +151,7 @@
         
     }
 
-	  //tuikuan($DB);
+	  tuikuan($DB);
     function  tuikuan($DB){
         global $DB;
         //获取所有未中奖或者拼团失败的团
