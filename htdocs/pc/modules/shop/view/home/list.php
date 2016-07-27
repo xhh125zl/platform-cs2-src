@@ -96,7 +96,7 @@
 		    <?php foreach($output['Recommend'] as $key => $val){?>
 				<li class="1">
 					<div class="beibi_tui_img"> <a href="<?php echo $val['link'];?>"> <img src="<?php echo $val['ImgPath'];?>" /></a> </div>
-					<div class="beibi_tui_word"><a href="<?php echo $val['link'];?>">
+					<div class="beibi_tui_word"><a style="height:15px;overflow:hidden;" href="<?php echo $val['link'];?>">
 						<p><?php echo $val['products_name'];?></p>
 						</a><span>￥<?php echo $val['products_pricex'];?></span><i>￥<?php echo $val['products_pricey'];?></i></div>
 				</li>

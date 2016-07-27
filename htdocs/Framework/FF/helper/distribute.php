@@ -879,7 +879,7 @@ if (!function_exists('getAncestorIds')) {
 			$res = trim($Disaccount_info['Dis_Path'], ',');
 			$list = explode(',', $res);
 
-			$ids = array_slice($list, 0, $level);
+			$ids = array_slice($list, -$level);
 
 			//convert id from  string to int
 			foreach ($ids as $key => $item) {
