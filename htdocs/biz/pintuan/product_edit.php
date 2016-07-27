@@ -1,9 +1,5 @@
 <?php 
-require_once($_SERVER["DOCUMENT_ROOT"].'/biz/global.php');
-/*edit in 20160318*/
-require_once($_SERVER["DOCUMENT_ROOT"].'/include/helper/url.php');
-require_once($_SERVER["DOCUMENT_ROOT"].'/include/helper/tools.php');
-require_once($_SERVER["DOCUMENT_ROOT"].'/include/helper/lib_products.php');
+require_once($_SERVER["DOCUMENT_ROOT"].'/include/update/common.php');
 
 if($_POST){ 
   if($_POST["Isdraw"]==0) {
@@ -35,7 +31,7 @@ if($_POST){
   $str=array();
     $str[0]=$_POST['TypeID'];
     $Category_IDs=$DB->get('pintuan_category','cate_id',"  where 
-    cate_id=(SELECT parent_id FROM pintuan_category WHERE cate_id='".$_POST['TypeID']."' ) and Users_ID='".$_SESSION["Users_ID"]."'");   
+    cate_id=(SELECT parent_id FROM pintuan_category WHERE cate_id='".$_POST['TypeID']."' ) and Users_ID='{$UsersID}'");   
    while ( $res=$DB->fetch_assoc()) {
       $str[]=$res['cate_id'];
    }
@@ -43,7 +39,7 @@ if($_POST){
     $pintuanid=$DB->query('SELECT IFNULL(MAX(Products_ID),"0") from pintuan_products');
     $REG=$DB->fetch_assoc($pintuanid); 
     //处理图片路径
-    $goodsinfo = $DB->GetRs("pintuan_products","Products_JSON","where Products_ID='{$id}' and Users_ID='{$_SESSION["Users_ID"]}'");
+    $goodsinfo = $DB->GetRs("pintuan_products","Products_JSON","where Products_ID='{$id}' and Users_ID='{$UsersID}'");
     if($goodsinfo && $goodsinfo['Products_JSON']){
         $imageInfo = json_decode($goodsinfo['Products_JSON'],true);
         
@@ -91,8 +87,8 @@ if($_POST){
     
     /*edit in 20160318*/
   );
-  $Data["Users_ID"] = $rsBiz["Users_ID"];
-  $Data["Biz_ID"] = $_SESSION['BIZ_ID'];
+  $Data["Users_ID"] = $UsersID;
+  $Data["Biz_ID"] = $BizID;
   if(isset($_POST["compensation"]) && !empty($_POST["compensation"])){
       $Data['Products_compensation'] = $_POST["compensation"];
   }
@@ -142,7 +138,7 @@ if($_POST){
       if(isset($_POST["cardids"]) && $_POST["cardids"]){
           $idcards = $_POST["cardids"];
           $idcards = trim($idcards,",");
-          $DB->Set("pintuan_virtual_card", [ 'Products_Relation_ID' => $id ],"WHERE Users_ID='{$_SESSION["Users_ID"]}' AND Card_ID IN({$idcards})");
+          $DB->Set("pintuan_virtual_card", [ 'Products_Relation_ID' => $id ],"WHERE Users_ID='{$UsersID}' AND Card_ID IN({$idcards})");
       }
     echo '<script language="javascript">alert("修改成功");window.location="products.php";</script>';
   }else{
@@ -150,8 +146,8 @@ if($_POST){
   }
   exit;
 }else{
-  $shop_config = shop_config($_SESSION["Users_ID"]);  
-  $dis_config = dis_config($_SESSION["Users_ID"]);
+  $shop_config = shop_config($UsersID);  
+  $dis_config = dis_config($UsersID);
 
   $Shop_Commision_Reward_Arr = array();
   if (!is_null($shop_config['Shop_Commision_Reward_Json'])) 
@@ -214,7 +210,7 @@ KindEditor.ready(function(K) {
   K.create('textarea[name="Description"]', {
     themeType : 'simple',
     filterMode : false,
-    uploadJson : '/member/upload_json.php?TableField=web_column&Users_ID=<?php echo $_SESSION["Users_ID"];?>',
+    uploadJson : '/member/upload_json.php?TableField=web_column&Users_ID=<?php echo $UsersID;?>',
     fileManagerJson : '/member/file_manager_json.php',
     allowFileManager : true,
     
@@ -296,7 +292,7 @@ $(document).ready(function(){
       <script language="javascript">$(document).ready(user_obj.coupon_add_init);</script>
 <?php
       $pintuanid=$_GET['id'];
-      $pintuan=$DB->getRs("pintuan_products","*","where Users_ID='".$_SESSION["Users_ID"]."'and Products_ID='".$pintuanid."'");
+      $pintuan=$DB->getRs("pintuan_products","*","where Users_ID='{$UsersID}'and Products_ID='".$pintuanid."'");
 ?>
       <form id="product_add_form" class="r_con_form skipForm" method="post" action="product_edit.php">
         <input type="hidden" name="id" value="<?php echo $_GET['id']?>" />
@@ -314,7 +310,7 @@ $(document).ready(function(){
     <option value="">请选择类型</option>
       <?php
         $typeid = explode(',',$pintuan['Products_Category']);
-        $DB->get("pintuan_category","*","where Users_ID='".$_SESSION["Users_ID"]."' order by  sort asc");
+        $DB->get("pintuan_category","*","where Users_ID='{$UsersID}' order by  sort asc");
         while($rsType= $DB->fetch_assoc()){
           $t = in_array($rsType["cate_id"],$typeid)?'selected':'';
           echo '<option value="'.$rsType["cate_id"].'"'.$t.'  >'.$rsType["cate_name"].'</option>';
@@ -505,7 +501,7 @@ $(document).ready(function(){
           <div class="clear"></div>
         </div>
         <input type='hidden' value='' id='cardids' name='cardids' />
-        <input type="hidden" id="UsersID" value="<?=$_SESSION["Users_ID"]?>" />
+        <input type="hidden" id="UsersID" value="<?=$UsersID ?>" />
         <input type="hidden" id="ProductsID" value="0">        
       </form>
     </div>

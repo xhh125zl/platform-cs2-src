@@ -1,10 +1,8 @@
 <?php
-require_once($_SERVER["DOCUMENT_ROOT"].'/biz/global.php');
-require_once($_SERVER["DOCUMENT_ROOT"].'/include/helper/tools.php');
-
+require_once($_SERVER["DOCUMENT_ROOT"].'/include/update/common.php');
 $CardId=empty($_REQUEST['CardId'])?0:$_REQUEST['CardId'];
 
-$rsCart = $DB->GetRs("pintuan_virtual_card","*","where Users_ID='".$_SESSION["Users_ID"]."' and Card_Id=".$CardId);
+$rsCart = $DB->GetRs("pintuan_virtual_card","*","where Users_ID='{$UsersID}' and Card_Id=".$CardId);
 
 if ($_POST) {
 	$Data = array(
@@ -14,7 +12,7 @@ if ($_POST) {
 		'Card_UpadteTime' => time()
 		);
 
-	$Flag = $DB->set('pintuan_virtual_card', $Data, "where Users_ID='".$_SESSION["Users_ID"]."' and Card_Id=".$CardId);
+	$Flag = $DB->set('pintuan_virtual_card', $Data, "where Users_ID='{$UsersID}' and Card_Id=".$CardId);
 	if($Flag)
 	{
 		echo '<script language="javascript">alert("修改成功");window.location="virtual_card.php";</script>';

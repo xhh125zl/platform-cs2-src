@@ -101,29 +101,10 @@ if(isset($_GET["action"])){
       </dd>	
     </dl>
   </div>
-  <div class="iframe" style="width:75%; ">
-    <iframe src="account/account.php" name="iframe" frameborder="0" scrolling="auto" style="width:75%;"></iframe>
+  <div class="iframe" >
+    <iframe src="account/account.php" name="iframe" frameborder="0" scrolling="auto" ></iframe>
   </div>
-  <div class=" msg">
-  	 <script>
-  	 	 $.get("/biz/active/msg.php",{action:"msg"},function(data){ 
-			if(data.status==1){
-				var str = "";
-				var msg = data.data;
-				for(var i=0;i<msg.length;i++)
-				{
-					str += "<li><a href='/biz/active/active_add.php?activeid="+msg[i].id+"'>"+msg[i].title+"</a></li>";
-				}
-			}
-  	  	 	$("#msg").html(str); 
-
-  	  	 },"JSON");</script>
-  	  	 <div class="title">活动消息</div>
-  	  	 <ul id="msg">
-  	  	 	
-  	  	 </ul>
-  </div>
-  <div class="clear"></div>
+  
 </div>
 <div id="footer">
   <div class="oem"><?php echo $Copyright;?></div>

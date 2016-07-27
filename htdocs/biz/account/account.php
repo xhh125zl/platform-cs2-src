@@ -30,6 +30,12 @@ if(!empty($rsBiz['Biz_Area'])){
 <link href='/static/member/css/main.css' rel='stylesheet' type='text/css' />
 <script type='text/javascript' src='/static/js/jquery-1.7.2.min.js'></script>
 <script type='text/javascript' src='/static/member/js/global.js'></script>
+<style>
+.msg { float:right;width:300px;margin-top:-42%;margin-right:20px;background:#fff; }
+.msg ul { margin:20px 10px;}
+.msg ul li { line-height:20px;}
+.msg .title { height:30px; line-height:30px;padding:10px;padding-left:30px;border-bottom:1px solid #fcc;}
+</style>
 </head>
 
 <body>
@@ -50,7 +56,7 @@ if(!empty($rsBiz['Biz_Area'])){
         <li><a href="account_payconfig.php">结算配置</a></li>
       </ul>
     </div>
-    <div id="orders" class="r_con_wrap">
+    <div id="orders" class="r_con_wrap" style="width:75%;">
       <div class="detail_card">
     	<table width="100%" border="0" cellspacing="0" cellpadding="0" class="order_info">
           <?php if($IsStore==1){?>
@@ -130,6 +136,26 @@ if(!empty($rsBiz['Biz_Area'])){
         </table>
       </div>
     </div>
+    <div class=" msg">
+  	 <script>
+  	 	 $.get("/biz/active/msg.php",{action:"msg"},function(data){ 
+			if(data.status==1){
+				var str = "";
+				var msg = data.data;
+				for(var i=0;i<msg.length;i++)
+				{
+					str += "<li><a href='/biz/active/active_add.php?activeid="+msg[i].id+"'>"+msg[i].title+"</a></li>";
+				}
+			}
+  	  	 	$("#msg").html(str); 
+
+  	  	 },"JSON");</script>
+  	  	 <div class="title">活动消息</div>
+  	  	 <ul id="msg">
+  	  	 	
+  	  	 </ul>
+  </div>
+  <div class="clear"></div>
   </div>
 </div>
 </body>

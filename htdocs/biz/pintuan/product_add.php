@@ -1,8 +1,5 @@
 <?php 
-require_once($_SERVER["DOCUMENT_ROOT"].'/biz/global.php');
-require_once($_SERVER["DOCUMENT_ROOT"].'/include/helper/url.php');
-require_once($_SERVER["DOCUMENT_ROOT"].'/include/helper/tools.php');
-require_once($_SERVER["DOCUMENT_ROOT"].'/include/helper/lib_products.php');
+require_once($_SERVER["DOCUMENT_ROOT"].'/include/update/common.php');
 
 if($_POST){ 
   if($_POST["Isdraw"]==0) {
@@ -42,7 +39,7 @@ if($_POST){
     $str=array();
     $str[0]=$_POST['TypeID'];
     $Category_IDs=$DB->get('pintuan_category','cate_id',"  where 
-    cate_id=(SELECT parent_id FROM pintuan_category WHERE cate_id='".$_POST['TypeID']."' ) and Users_ID='".$_SESSION["Users_ID"]."'");
+    cate_id=(SELECT parent_id FROM pintuan_category WHERE cate_id='".$_POST['TypeID']."' ) and Users_ID='{$UsersID}'");
     
    while ( $res=$DB->fetch_assoc()) {
       $str[]=$res['cate_id'];
@@ -96,8 +93,8 @@ if($_POST){
     "Team_Count"=>$t_count,
     /*edit in 20160318*/
   );
-  $Data["Users_ID"] = $rsBiz["Users_ID"];
-  $Data["Biz_ID"] = $_SESSION['BIZ_ID'];
+  $Data["Users_ID"] = $UsersID;
+  $Data["Biz_ID"] = $BizID;
   //产品结算形式
 
   if($rsBiz["Finance_Type"]==0){//商品按交易额比例
@@ -135,7 +132,7 @@ if($_POST){
       if(isset($_POST["cardids"]) && $_POST["cardids"]){
             $idcards = $_POST["cardids"];
             $idcards = trim($idcards,",");
-            $DB->Set("pintuan_virtual_card", [ 'Products_Relation_ID' => $product_id ],"WHERE Users_ID='{$_SESSION["Users_ID"]}' AND Card_ID IN({$idcards})");
+            $DB->Set("pintuan_virtual_card", [ 'Products_Relation_ID' => $product_id ],"WHERE Users_ID='{$UsersID}' AND Card_ID IN({$idcards})");
       }
      echo '<script language="javascript">alert("添加成功");window.location="products.php";</script>';
   }else{
@@ -143,8 +140,8 @@ if($_POST){
   }
   exit;
 }else{
-  $shop_config = shop_config($_SESSION["Users_ID"]);  
-  $dis_config = dis_config($_SESSION["Users_ID"]);
+  $shop_config = shop_config($UsersID);  
+  $dis_config = dis_config($UsersID);
 
   $Shop_Commision_Reward_Arr = array();
   if (!is_null($shop_config['Shop_Commision_Reward_Json'])) 
@@ -225,7 +222,7 @@ KindEditor.ready(function(K) {
   K.create('textarea[name="Description"]', {
     themeType : 'simple',
     filterMode : false,
-    uploadJson : '/member/upload_json.php?TableField=web_column&Users_ID=<?php echo $_SESSION["Users_ID"];?>',
+    uploadJson : '/member/upload_json.php?TableField=web_column&Users_ID=<?php echo $UsersID;?>',
     fileManagerJson : '/member/file_manager_json.php',
     allowFileManager : true,
   });
@@ -320,7 +317,7 @@ $(document).ready(function(){
    <select name="TypeID" style="width:180px;" id="Type_ID" notnull>
     <option value="">请选择类型</option>
       <?php   
-        $result = $DB->get("pintuan_category","*","where Users_ID='".$_SESSION["Users_ID"]."' order by  sort asc");
+        $result = $DB->get("pintuan_category","*","where Users_ID='{$UsersID}' order by  sort asc");
         $catelist = array();
         while($rsType= $DB->fetch_assoc($result)){
            $catelist[]=$rsType;
@@ -522,7 +519,7 @@ $(document).ready(function(){
           <div class="clear"></div>
         </div>
         <input type='hidden' value='' id='cardids' name='cardids' />
-        <input type="hidden" id="UsersID" value="<?=$_SESSION["Users_ID"]?>" />
+        <input type="hidden" id="UsersID" value="<?=$UsersID ?>" />
         <input type="hidden" id="ProductsID" value="0">        
       </form>
     </div>

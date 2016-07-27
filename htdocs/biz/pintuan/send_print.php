@@ -1,6 +1,5 @@
 <?php
-require_once($_SERVER["DOCUMENT_ROOT"].'/biz/global.php');
-require_once($_SERVER["DOCUMENT_ROOT"].'/include/helper/url.php');
+require_once($_SERVER["DOCUMENT_ROOT"].'/include/update/common.php');
 
 $area_buyer = $area_seller = '';
 $area_json = read_file($_SERVER["DOCUMENT_ROOT"].'/data/area.js');
@@ -39,7 +38,7 @@ if($_POST){
 	}
 	$templateid = intval($_GET["templateid"]);
 	
-	$item = $DB->GetRs("shop_shipping_print_template","*","where usersid='".$_SESSION["Users_ID"]."' and enabled=1 and itemid=".$templateid);
+	$item = $DB->GetRs("shop_shipping_print_template","*","where usersid='{$UsersID}' and enabled=1 and itemid=".$templateid);
 	if(!$item){
 		echo '未找到您选择的运单模板，不能打印发货单';
 		exit;
@@ -66,7 +65,7 @@ if($_POST){
 		}
 		
 		$orders = array();
-		$DB->Get("user_order","Order_ID,Address_Name,Address_Detailed,Address_Mobile,Address_Province,Address_City,Address_Area","where Users_ID='".$_SESSION["Users_ID"]."' and Order_Status=2 and Order_ID in(".str_replace(',,',',',implode(",",$OrderID)).") order by Order_ID desc");
+		$DB->Get("user_order","Order_ID,Address_Name,Address_Detailed,Address_Mobile,Address_Province,Address_City,Address_Area","where Users_ID='{$UsersID}' and Order_Status=2 and Order_ID in(".str_replace(',,',',',implode(",",$OrderID)).") order by Order_ID desc");
 		while($rsOrder = $DB->fetch_assoc()){
 			$Province = '';
 			if(!empty($rsOrder['Address_Province'])){

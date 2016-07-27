@@ -1,11 +1,10 @@
 <?php
-require_once($_SERVER["DOCUMENT_ROOT"].'/biz/global.php');
-require_once ($_SERVER["DOCUMENT_ROOT"] . '/include/helper/tools.php');
-require_once ($_SERVER["DOCUMENT_ROOT"] . '/include/helper/lib_products.php');
+require_once($_SERVER["DOCUMENT_ROOT"].'/include/update/common.php');
+
 
 // 获取所有分销商列表
 $ds_list = Dis_Account::with('User')->WHERE(array(
-    'Users_ID' => $_SESSION["Users_ID"]
+    'Users_ID' => $UsersID
 ))
     ->get(array(
     'Users_ID',
@@ -26,12 +25,12 @@ foreach ($ds_list as $key => $item) {
 }
 
 // 获取可用的支付方式列表
-$Pay_List = get_enabled_pays($DB, $_SESSION["Users_ID"]);
+$Pay_List = get_enabled_pays($DB, $UsersID);
 
 // 取出商城配置信息
-$rsConfig = $DB->GetRs("shop_config", "ShopName,NeedShipping", "WHERE Users_ID='" . $_SESSION["Users_ID"] . "'");
+$rsConfig = $DB->GetRs("shop_config", "ShopName,NeedShipping", "WHERE Users_ID='{$UsersID}'");
 $condition = " LEFT JOIN pintuan_teamdetail AS p ON u.Order_ID=p.order_id LEFT JOIN pintuan_team as t ON p.teamid=t.id ";
-$condition .= "WHERE u.Users_ID='" . $_SESSION["Users_ID"] . "' AND Biz_ID={$_SESSION['BIZ_ID']} AND ( u.Order_Type='pintuan' OR u.Order_Type='dangou') ";
+$condition .= "WHERE u.Users_ID='{$UsersID}' AND Biz_ID={$BizID} AND ( u.Order_Type='pintuan' OR u.Order_Type='dangou') ";
 if (isset($_GET["search"])) {
     if ($_GET["search"] == 1) {
         if (! empty($_GET["Keyword"])) {
@@ -66,7 +65,7 @@ if (isset($_GET["search"])) {
 $condition .= " order by u.Order_CreateTime desc";
 
 $templates = array();
-$DB->Get("shop_shipping_print_template", "title,itemid", "WHERE usersid='" . $_SESSION["Users_ID"] . "' AND enabled=1");
+$DB->Get("shop_shipping_print_template", "title,itemid", "WHERE usersid='{$UsersID}' AND enabled=1");
 while ($rsTemplate = $DB->fetch_assoc()) {
     $templates[] = $rsTemplate;
 }

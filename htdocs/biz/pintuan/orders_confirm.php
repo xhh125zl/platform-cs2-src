@@ -1,11 +1,8 @@
 <?php
-require_once($_SERVER["DOCUMENT_ROOT"].'/biz/global.php');
-
-require_once($_SERVER["DOCUMENT_ROOT"].'/include/helper/url.php');
-require_once($_SERVER["DOCUMENT_ROOT"].'/include/helper/shipping.php');
+require_once($_SERVER["DOCUMENT_ROOT"].'/include/update/common.php');
 
 $OrderID=empty($_REQUEST['OrderID'])?0:$_REQUEST['OrderID'];
-$rsOrder=$DB->GetRs("user_order","*","where Users_ID='".$_SESSION["Users_ID"]."' and Order_ID=".$OrderID);
+$rsOrder=$DB->GetRs("user_order","*","where Users_ID='{$UsersID}' and Order_ID=".$OrderID);
 if($rsOrder["Order_Status"]<>0){
 	echo '<script language="javascript">alert("只有状态为“待确认”的订单才可确认订单");history.back();</script>';
 	exit;
@@ -25,13 +22,13 @@ if($_POST){
 	}
 	exit;
 }else{
-	$rsConfig=$DB->GetRs("shop_config","*","where Users_ID='".$_SESSION["Users_ID"]."'");
-	$rsPay=$DB->GetRs("users_payconfig","Shipping","where Users_ID='".$_SESSION["Users_ID"]."'");
+	$rsConfig=$DB->GetRs("shop_config","*","where Users_ID='{$UsersID}'");
+	$rsPay=$DB->GetRs("users_payconfig","Shipping","where Users_ID='{$UsersID}'");
 	
 	$Status=$rsOrder["Order_Status"];
 	$Order_Status=array("待确认","待付款","已付款","已发货","已完成");
 	
-	$PayShipping = get_front_shiping_company_dropdown($_SESSION["Users_ID"],$rsConfig);
+	$PayShipping = get_front_shiping_company_dropdown($UsersID,$rsConfig);
 	
 	$CartList=json_decode(htmlspecialchars_decode($rsOrder["Order_CartList"]),true);
 	$amount = $fee = 0;

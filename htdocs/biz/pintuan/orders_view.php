@@ -1,7 +1,7 @@
 <?php
-require_once($_SERVER["DOCUMENT_ROOT"].'/biz/global.php');
+require_once($_SERVER["DOCUMENT_ROOT"].'/include/update/common.php');
 $OrderID=empty($_REQUEST['OrderID'])?0:$_REQUEST['OrderID'];
-$rsOrder=$DB->GetRs("user_order","*","where Users_ID='".$_SESSION["Users_ID"]."' and Order_ID='".$OrderID."'");
+$rsOrder=$DB->GetRs("user_order","*","where Users_ID='{$UsersID}' and Order_ID='".$OrderID."'");
 
 
 if($_POST){
@@ -21,7 +21,7 @@ if($_POST){
 }
 
 
-$rsConfig=$DB->GetRs("shop_config","ShopName,NeedShipping","where Users_ID='".$_SESSION["Users_ID"]."'");
+$rsConfig=$DB->GetRs("shop_config","ShopName,NeedShipping","where Users_ID='{$UsersID}'");
 
 $Status=$rsOrder["Order_Status"];
 $Order_Status=array("待确认","待付款","已付款","已发货","已完成");
@@ -30,7 +30,7 @@ $amount = $fee = 0;
 
 $lists_back = array();
 if($rsOrder["Is_Backup"]==1){
-	$condition = "where Users_ID='".$_SESSION["Users_ID"]."' and Order_ID=".$OrderID." and Back_Type='shop'";
+	$condition = "where Users_ID='{$UsersID}' and Order_ID=".$OrderID." and Back_Type='shop'";
 	$DB->Get("user_back_order","*",$condition);
 	while($b=$DB->fetch_assoc()){
 		$lists_back[] = $b;
