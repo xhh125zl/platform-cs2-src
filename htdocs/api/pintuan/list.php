@@ -39,17 +39,20 @@ if (! empty($rsConfig['banner_img'])) {
 }
 $rsUserAccount = $DB->GetRs("users","Users_Account","WHERE Users_ID='{$UsersID}'");
 $shopname = isset($rsUserAccount['Users_Account']) && $rsUserAccount['Users_Account']?$rsUserAccount['Users_Account']:"";
+$result = $DB->Get("pintuan_category", "cate_id", "WHERE Users_ID='{$UsersID}' AND istop=1");
+$catelist = "";
+while ($res = $DB->fetch_assoc()) {
+    $catelist .= "'," . $res['cate_id'] . ",',";
+}
+$catelist = trim($catelist, ',');
 
+$totalInfo = $DB->GetRs("pintuan_products","count(*) as total","WHERE Users_ID='{$UsersID}' AND Products_Category in ({$catelist})  AND Products_ID IN ({$listGoods})");
+$pagesize = 5;
+
+$totalPage = $totalInfo['total'] % $pagesize ==0?($totalInfo['total']/$pagesize):(intval($totalInfo['total']/$pagesize)+1);
 if(IS_AJAX){
-    $result = $DB->Get("pintuan_category", "cate_id", "WHERE Users_ID='{$UsersID}' AND istop=1");
-    $catelist = "";
-    while ($res = $DB->fetch_assoc()) {
-        $catelist .= "'," . $res['cate_id'] . ",',";
-    }
-    $catelist = trim($catelist, ',');
     $page = isset($_POST['page']) && $_POST['page']?$_POST['page']:1;
     $sort = isset($_POST['sort']) && $_POST['sort']?$_POST['sort']:1;
-    $pagesize = 1;
     $offset = ($page-1)*$pagesize;
     $order = ["Products_ID ASC","Products_CreateTime DESC","Products_Sales DESC","Products_PriceT DESC","Products_Index DESC"];
     $fields = "starttime,Users_ID,Products_JSON,products_IsNew,products_IsRecommend,products_IsHot,Is_Draw,Products_ID,Products_Name,stoptime,Products_Sales,Products_PriceT,Products_PriceD,people_num";
@@ -110,7 +113,6 @@ if(IS_AJAX){
 <script src="/static/api/pintuan/js/jquery.min.js"></script>
 <script src="/static/api/pintuan/js/responsiveslides.min.js"></script>
 <script src="/static/api/pintuan/js/common.js"></script>
-<script src="/static/api/pintuan/js/jquery.infinitescroll.min.js"></script>
 
 <style>
 .sort ul li {     font-size: 16px;
@@ -192,38 +194,62 @@ if(IS_AJAX){
 				<li sort="4">按手动</li>
 			</ul>
 		</div>
-		<nav class="pagination" role="navigation">
-		<a class="posts" href="">prev</a>
-		</nav>
-        <div id="container"></div>
-        <script>
+    <script src="/static/api/pintuan/js/dropload.min.js"></script>
+    <div id="container"></div>
+    <script>
 		$(function(){
 			var url = "/api/<?=$UsersID ?>/pintuan/list/<?=$ActiveID ?>/";
 			var page = 1;
+			var sort = 1;
+			var totalPage = <?=$totalPage?>;
+			sessionStorage.setItem("<?=$UsersID ?>ListSort", sort);
+			sessionStorage.setItem("<?=$UsersID ?>currentPage", page);
 			getContainer(url,page,1);
 			$(".sort ul li").click(function(){
-				var sort = $(this).attr("sort");
+				sort = $(this).attr("sort");
 				sessionStorage.setItem("<?=$UsersID ?>ListSort", sort);
 				sessionStorage.setItem("<?=$UsersID ?>currentPage", page);
 				$("#container").empty();
 				getContainer(url,page,sort);
 			});
 			
-			$(window).scroll(function(){
-				page = sessionStorage.getItem("<?=$UsersID ?>currentPage")?sessionStorage.getItem("<?=$UsersID ?>currentPage"):page;
-				sort = sessionStorage.getItem("<?=$UsersID ?>currentPage")?sessionStorage.getItem("<?=$UsersID ?>ListSort"):1;
-				page++; 
-			    var heightwindow = $(window).height();
-			    var scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
-			    var heightwindowsishewuru = Math.round(heightwindow/100) * 100;
-				if( (document.body.scrollTop % heightwindowsishewuru  == 0  && document.body.scrollTop != 0 && document.documentElement.scrollTop == 0)  || 
-					(document.body.scrollTop == 0 && document.documentElement.scrollTop % heightwindowsishewuru == 0  && document.documentElement.scrollTop != 0))
-				{
-					getContainer(url,page,sort);
-				}
-
-			});
-		});
+			$("#container").dropload({
+        domUp : {
+        domClass   : 'dropload-up',
+        domRefresh : '<div class="dropload-refresh">下拉刷新</div>',
+        domUpdate  : '<div class="dropload-update">释放更新</div>',
+        domLoad    : '<div class="dropload-load"></div>'
+        },
+        domDown : {
+            domClass   : 'dropload-down',
+            domRefresh : '<div class="dropload-refresh">上拉加载更多</div>',
+            domUpdate  : '<div class="dropload-update">释放加载</div>',
+            domLoad    : '<div class="dropload-load"></div>'
+        },
+        loadUpFn : function(me){
+            page = sessionStorage.getItem("<?=$UsersID ?>currentPage")?sessionStorage.getItem("<?=$UsersID ?>currentPage"):page;
+            sort = sessionStorage.getItem("<?=$UsersID ?>ListSort")?sessionStorage.getItem("<?=$UsersID ?>ListSort"):1;
+            if(page>1){
+              page--;
+              sessionStorage.setItem("<?=$UsersID ?>ListSort", sort);
+              sessionStorage.setItem("<?=$UsersID ?>currentPage", page);
+              getContainer(url,page,sort); 
+            }
+            me.resetload();
+        },
+        loadDownFn : function(me){
+            page = sessionStorage.getItem("<?=$UsersID ?>currentPage")?sessionStorage.getItem("<?=$UsersID ?>currentPage"):page;
+            sort = sessionStorage.getItem("<?=$UsersID ?>ListSort")?sessionStorage.getItem("<?=$UsersID ?>ListSort"):1;
+            if(page<=totalPage){
+              page++;
+              sessionStorage.setItem("<?=$UsersID ?>ListSort", sort);
+              sessionStorage.setItem("<?=$UsersID ?>currentPage", page);
+              getContainer(url,page,sort);
+            } 
+            me.resetload();
+        }
+    });	
+});
         </script>
 		<?php include 'bottom.php';?>
 	</div>

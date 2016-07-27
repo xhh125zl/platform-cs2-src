@@ -470,6 +470,13 @@ if($action=="payment"){
                     mysql_query("ROLLBACK");
                 }
                 mysql_query("COMMIT");
+                
+                if($goodsInfo['order_process']==2){
+                  require_once($_SERVER["DOCUMENT_ROOT"].'/include/helper/balance.class.php');
+                  $balance_sales= new balance($DB,$UsersID);
+                  $balance_sales->add_sales($orderids);
+                }
+                
 	sendWXMessage( $UsersID,$orderids,$tdata['msg']."，支付金额：".$order_total."，订单号为：".$rsOrder["Order_Code"]);
                 die(json_encode($tdata,JSON_UNESCAPED_UNICODE));
             }else{      //单购支付
@@ -527,7 +534,12 @@ if($action=="payment"){
                 if(!$sflag){
                     mysql_query("ROLLBACK");
                 }
-                mysql_query("COMMIT");	
+                mysql_query("COMMIT");
+                if($goodsInfo['order_process']==2){
+                  require_once($_SERVER["DOCUMENT_ROOT"].'/include/helper/balance.class.php');
+                  $balance_sales= new balance($DB,$UsersID);
+                  $balance_sales->add_sales($orderids);
+                }
 	sendWXMessage( $UsersID,$orderids,$tdata['msg']."，支付金额：".$order_total."，订单号为：".$rsOrder["Order_Code"]);
                 die(json_encode($tdata,JSON_UNESCAPED_UNICODE));
             }	

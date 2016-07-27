@@ -367,7 +367,9 @@ $rmenu["pintuan"] = array(
     'orders' => '订单管理',
     'comment' => '评论管理',
     'virtual_orders' => '商家认证',
-    'virtual_card' => '虚拟卡浏览'
+    'virtual_card' => '虚拟卡浏览',
+    'aword' => '抽奖统计',
+    'awordConfig'=>'计划任务配置'
 );
 $rmenusub["pin_virtual_card"] = array(
     'virtual_card_add' => '添加卡密',
