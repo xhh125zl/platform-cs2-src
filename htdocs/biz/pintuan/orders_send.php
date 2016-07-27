@@ -40,7 +40,7 @@ if($_POST){
 	$Status=$rsOrder["Order_Status"];
 	$Order_Status=array("待确认","待付款","已付款","已发货","已完成");
 	
-	$PayShipping = get_front_shiping_company_dropdown($UsersID,$rsConfig);
+	$PayShipping = get_front_shiping_company_dropdown($UsersID,$rsBiz);
 	
 	$CartList=json_decode(htmlspecialchars_decode($rsOrder["Order_CartList"]),true);
 	$amount = $fee = 0;

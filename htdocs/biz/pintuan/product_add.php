@@ -3,9 +3,9 @@ require_once($_SERVER["DOCUMENT_ROOT"].'/include/update/common.php');
 
 if($_POST){ 
   if($_POST["Isdraw"]==0) {
-          if($_POST['T_count']==0 || $_POST['ratio'] ==0 ) 
+          if($_POST['T_count']==0) 
           {
-            echo '<script language="javascript">alert("拼团比例和拼团数  不能为0!");history.back();</script>'; exit();
+            echo '<script language="javascript">alert("允许中奖团数  不能为0!");history.back();</script>'; exit();
           }
   }else{
       $_POST['T_count']=0;
