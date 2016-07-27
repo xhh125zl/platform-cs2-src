@@ -207,7 +207,7 @@ function payDone($UsersID,$OrderID,$paymethod,$tid = '')
                         'msg'=>'支付成功',
                         'url'=>'/api/'.$UsersID.'/pintuan/orderlist/0/'
                     ];
-                    $Card_Name = doUse($Users_ID,$goods_id);
+                    $Card_Name = doUse($UsersID,$goods_id);
                 }else{
                     $payData['pintuanorder']['order_status']=2;
                     //拼团发生异常
