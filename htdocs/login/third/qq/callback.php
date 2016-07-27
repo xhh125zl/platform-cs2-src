@@ -13,6 +13,12 @@ if(isset($_SESSION["Users_ID"]) && !empty($_SESSION["Users_ID"])) {
 $users_id = $UsersID = isset($_GET['users_id']) ? $_GET['users_id'] : '';
 
 if (empty($users_id)) {
+	if (isset($_SESSION['callback_users_id'])) {
+		$users_id = $UsersID = $_SESSION['callback_users_id'];
+	} else {
+		die('信息丢失!');	
+	}
+} else {
 	die('信息丢失!');
 }
 
