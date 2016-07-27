@@ -5,14 +5,11 @@ if(IS_POST){
     $post  =  $_POST;
     $data  = [];
     $return_uri = $_SERVER['HTTP_REFERER'];
-    $data['Users_ID'] = $post['UsersID'];
-    $data['Active_ID'] = $post['Active_ID'];
-    $data['Biz_ID'] = $post['BizID'];
     $data['ListConfig'] = $post['toplist'];
     $data['IndexConfig'] = $post['Indexlist'];
     $data['Status'] = 1;
-    $data['addtime'] = time();
-    $flag = $DB->Add("biz_active", $data);
+    $ID = $_POST["ID"];
+    $flag = $DB->Set("biz_active", $data,"WHERE Users_ID='{$post['UsersID']}' AND Biz_ID={$post['BizID']} AND ID={$ID}");
     if(true == $flag)
     {
         sendAlert("修改成功","active.php", 2);
@@ -95,6 +92,7 @@ if(IS_POST){
 			<div class="iframe_content">
             	<div id="products" class="r_con_wrap">
               	<form id="product_add_form" class="r_con_form skipForm" method="post" action="active_edit.php">
+              	    <input type="hidden" name="ID" value="<?=$ID ?>" />
                     <input type="hidden" name="UsersID" value="<?=$UsersID ?>" />
                     <input type="hidden" name="BizID" value="<?=$BizID ?>" />
                     <input type="hidden" name="toplist" value="<?=$rsActive['ListConfig'] ?>"/>
