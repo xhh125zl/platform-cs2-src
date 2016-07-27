@@ -53,8 +53,8 @@
                     <span class="bjxt2  l"><?php echo $team['User_Area'];?></span>
                     <span class="bjxt2 r">
                     <?php 
-                       $time = date('Y-m-d', time());
-                        if ($time <= date('Y-m-d', $team['stoptime'])) {
+                       $time = time();
+                        if ($time < $team['stoptime']) {
                             echo date('Y-m-d', $team['stoptime']).'结束';
                         } else {
                             echo '已结束';
@@ -64,10 +64,14 @@
                 </div>
             </div>
             <div class="bjtp">
-                <?php if ($time >= date('Y-m-d', $team['starttime']) && $time <= date('Y-m-d', $team['stoptime']) && $team['teamstatus'] == 0) {
+                <?php if ($time >= $team['starttime'] && $time <= $team['stoptime'] && $team['teamstatus'] == 0) {
                         echo "<a onclick='tuangou()'>去参团</a>";
                     } else {
-                        echo '<a>已结束</a>';
+                        if($team['teamstatus']==1){
+                            echo "<a>已完成</a>";   
+                        }else{
+                           echo '<a>已结束</a>';
+                        }
                     }
                  ?>
             </div>
