@@ -1,10 +1,10 @@
 <?php
-require_once($_SERVER["DOCUMENT_ROOT"].'/biz/global.php');
+require_once($_SERVER["DOCUMENT_ROOT"].'/include/update/common.php');
 
 if(isset($_GET["action"])){
   if($_GET["action"]=="del")
   {
-    $Flag=$DB->Del("pintuan_commit","Users_ID='".$_SESSION["Users_ID"]."' and Item_ID=".$_GET["ItemID"]);
+    $Flag=$DB->Del("pintuan_commit","Users_ID='{$UsersID}' and Item_ID=".$_GET["ItemID"]);
     if($Flag){
       echo '<script language="javascript">alert("删除成功");window.location="'.$_SERVER['HTTP_REFERER'].'";</script>';
     }else{
@@ -12,18 +12,18 @@ if(isset($_GET["action"])){
     }
     exit;
   }elseif($_GET["action"]=="check"){
-    $DB->Set("pintuan_commit","Status=1","where Users_ID='".$_SESSION["Users_ID"]."' and Item_ID=".$_GET["ItemID"]);
+    $DB->Set("pintuan_commit","Status=1","where Users_ID='{$UsersID}' and Item_ID=".$_GET["ItemID"]);
     echo '<script language="javascript">alert("已通过审核");window.location="'.$_SERVER['HTTP_REFERER'].'";</script>';
     exit;
   }elseif($_GET["action"]=="uncheck"){
-    $DB->Set("pintuan_commit","Status=0","where Users_ID='".$_SESSION["Users_ID"]."' and Item_ID=".$_GET["ItemID"]);
+    $DB->Set("pintuan_commit","Status=0","where Users_ID='{$UsersID}' and Item_ID=".$_GET["ItemID"]);
     echo '<script language="javascript">alert("已取消审核");window.location="'.$_SERVER['HTTP_REFERER'].'";</script>';
     exit;
   }
 };
 function get_title($itemid){
   global $DB;
-  $r = $DB->GetRs("pintuan_products","*","where Products_ID='".$itemid."'");
+  $r = $DB->GetRs("pintuan_products","*","where Products_ID='{$itemid}'");
   return $r['Products_Name'];
 }
 
@@ -74,7 +74,7 @@ function get_title($itemid){
       $_Status=array('<font style="color:red">待审核</font>','<font style="color:blue">已审核</font>');
       $_Check = array('check','uncheck');
       $_Title = array('点击通过审核','点击取消审核');
-      $DB->getPage("pintuan_commit","*","where Users_ID='".$_SESSION["Users_ID"]."' AND Biz_ID={$_SESSION['BIZ_ID']} order by CreateTime desc","10");
+      $DB->getPage("pintuan_commit","*","where Users_ID='{$UsersID}' AND Biz_ID={$BizID} order by CreateTime desc",10);
        while($comment=$DB->fetch_assoc()){
             $lists[]=$comment;
       }

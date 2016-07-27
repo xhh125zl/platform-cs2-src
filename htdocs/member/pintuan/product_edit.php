@@ -1,13 +1,6 @@
 <?php 
-require_once($_SERVER["DOCUMENT_ROOT"].'/biz/global.php');
-/*edit in 20160318*/
-require_once($_SERVER["DOCUMENT_ROOT"].'/include/helper/url.php');
-require_once($_SERVER["DOCUMENT_ROOT"].'/include/helper/tools.php');
-require_once($_SERVER["DOCUMENT_ROOT"].'/include/helper/lib_products.php');
+require_once($_SERVER["DOCUMENT_ROOT"].'/include/update/common.php');
 
-if(empty($_SESSION["Users_Account"])){
-  header("location:/member/login.php");
-}
 if($_POST){ 
   if($_POST["Isdraw"]==0) {
       if($_POST['T_count']==0 || $_POST['ratio'] ==0 ) 
@@ -58,7 +51,7 @@ if($_POST){
     
   $Data=array(
     "Products_JSON"=>json_encode($_POST['JSON']),
-    "Products_Index"=>empty($_POST["Index"]) ? 9999 : intval($_POST["Index"]),
+    "Products_Index"=>empty($_POST["Products_Index"]) ? 9999 : intval($_POST["Products_Index"]),
     "Products_Name"=>addslashes($_POST['Name']),
     "Products_Category"=>','.implode(",",$str).',',
     "Products_Count"=>$_POST["Count"],
@@ -93,8 +86,6 @@ if($_POST){
     
     /*edit in 20160318*/
   );
-  $Data["Users_ID"] = $rsBiz["Users_ID"];
-  $Data["Biz_ID"] = $_SESSION['BIZ_ID'];
   if(isset($_POST["compensation"]) && !empty($_POST["compensation"])){
       $Data['Products_compensation'] = $_POST["compensation"];
   }
@@ -272,14 +263,7 @@ $(document).ready(function(){
     <link href='/static/member/css/shop.css' rel='stylesheet' type='text/css' />
     <link href='/static/member/css/user.css' rel='stylesheet' type='text/css' />
     <script type='text/javascript' src='/static/member/js/user.js'></script>
-    <div class="r_nav">
-       <ul>
-        <li class="cur"><a href="./products.php">拼团管理</a></li>
-        <li><a href="./orders.php">订单管理</a></li>
-        <li><a href="./comment.php">评论管理</a></li>
-        <li><a href="./virtual_card.php">虚拟卡密管理</a></li>
-      </ul>
-    </div>
+    <?php include 'top.php'; ?>
     <div id="products" class="r_con_wrap">
       <link href='/static/js/plugin/lean-modal/style.css' rel='stylesheet' type='text/css' />
       <script type='text/javascript' src='/static/js/plugin/lean-modal/lean-modal.min.js'></script>
@@ -296,29 +280,36 @@ $(document).ready(function(){
       <form id="product_add_form" class="r_con_form skipForm" method="post" action="product_edit.php">
         <input type="hidden" name="id" value="<?php echo $_GET['id']?>" />
         <div class="rows">
+          <label>排序</label>
+          <span class="input">
+          <input type="text" name="Products_Index" value="<?php echo $pintuan["Products_Index"]?>" class="form_input" size="35" maxlength="100"  />
+          <font class="fc_red">*</font></span>
+          <div class="clear"></div>
+        </div>
+        <div class="rows">
           <label>产品名称</label>
           <span class="input">
           <input type="text" name="Name" value="<?php echo $pintuan["Products_Name"]?>" class="form_input" size="35" maxlength="100" readonly />
           <font class="fc_red">*</font></span>
           <div class="clear"></div>
         </div>
-    <div class="rows" id="type_html">
-   <label>产品类型：</label>
-   <span class="input">
-   <select name="TypeID" style="width:180px;" id="Type_ID" readonly>
-    <option value="">请选择类型</option>
-      <?php
-        $typeid = explode(',',$pintuan['Products_Category']);
-        $DB->get("pintuan_category","*","where Users_ID='".$_SESSION["Users_ID"]."' order by  sort asc");
-        while($rsType= $DB->fetch_assoc()){
-          $t = in_array($rsType["cate_id"],$typeid)?'selected':'';
-          echo '<option value="'.$rsType["cate_id"].'"'.$t.'  >'.$rsType["cate_name"].'</option>';
-        }
-        ?>
-   </select>
-   <font class="fc_red">*</font></span>
-   <div class="clear"></div>
-</div>     
+        <div class="rows" id="type_html">
+       <label>产品类型：</label>
+       <span class="input">
+       <select name="TypeID" style="width:180px;" id="Type_ID" readonly>
+        <option value="">请选择类型</option>
+          <?php
+            $typeid = explode(',',$pintuan['Products_Category']);
+            $DB->get("pintuan_category","*","where Users_ID='".$_SESSION["Users_ID"]."' order by  sort asc");
+            while($rsType= $DB->fetch_assoc()){
+              $t = in_array($rsType["cate_id"],$typeid)?'selected':'';
+              echo '<option value="'.$rsType["cate_id"].'"'.$t.'  >'.$rsType["cate_name"].'</option>';
+            }
+            ?>
+       </select>
+       <font class="fc_red">*</font></span>
+       <div class="clear"></div>
+    </div>     
         <div class="rows">
           <label>产品价</label>
           <span class="input price"> 单购价格:￥
@@ -442,9 +433,11 @@ $(document).ready(function(){
           </span>
             </tr>  
             <tr id="444">  
-                <td class="tl"><span color="f_red">中奖比率</span></td>  
-                <td class="tr"><input type="text" size="6" name="ratio" id="ratio" value="<?php echo $pintuan["Ratio"]?>"/>%</td>  
-                <td>拼团总数&nbsp&nbsp<input type="text" size="8" name="T_count" value="<?php echo intval($pintuan["Team_Count"]);?>"/></td></span>
+                <td class="tl"><span color="f_red">允许中奖团数</span></td>  
+                <td class="tr">
+                <input type="text" size="8" name="T_count" value="<?php echo intval($pintuan["Team_Count"]);?>"/>
+                <input type="hidden" size="6" name="ratio" id="ratio" value="<?php echo $pintuan["Ratio"]?>"/></td>  
+                <td></td></span>
             </tr>  
         
         </table>  

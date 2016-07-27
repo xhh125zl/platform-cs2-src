@@ -1,6 +1,5 @@
 <?php 
-require_once($_SERVER["DOCUMENT_ROOT"].'/biz/global.php');
-require_once($_SERVER["DOCUMENT_ROOT"].'/include/helper/tools.php');
+require_once($_SERVER["DOCUMENT_ROOT"].'/include/update/common.php');
 
 if (!empty($_POST)) {
 	if (empty($_POST['Type_Id'])) {
@@ -13,8 +12,8 @@ if (!empty($_POST)) {
 		'Card_CreateTime' => time(),
 		'Card_UpadteTime' => time(),
         'Type_Id' => (int)$_POST['Type_Id'],
-        'Users_ID' => $_SESSION['Users_ID'],
-	    'Biz_Id' => $_SESSION['BIZ_ID']
+        'Users_ID' => $UsersID,
+	    'Biz_Id' => $BizID
 		);
 
 	$Flag = $DB->Add("pintuan_virtual_card",$Data);
@@ -84,7 +83,7 @@ if (!empty($_POST)) {
               
               <select name="Type_Id">
               <?php 
-                $condition = "WHERE `Users_ID` = '".$_SESSION['Users_ID']."'";
+                $condition = "WHERE `Users_ID` = '{$UsersID}'";
                 $Type = $DB->Get("pintuan_virtual_card_type","*",$condition);
                 while ($r=$DB->fetch_assoc()) { $List[] = $r; }
                 if (!empty($List)) {

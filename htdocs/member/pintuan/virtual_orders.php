@@ -1,11 +1,6 @@
 <?php
+require_once($_SERVER["DOCUMENT_ROOT"].'/include/update/common.php');
 require_once($_SERVER["DOCUMENT_ROOT"].'/include/helper/order.php');
-require_once($_SERVER["DOCUMENT_ROOT"].'/include/helper/distribute.php');
-ini_set("display_errors","On");  
-
-if(empty($_SESSION["Users_Account"])){
-	header("location:/member/login.php");
-}
 
 $_STATUS=array("待确认","待付款","已付款","已发货","已完成");
 $step = isset($_GET["step"]) ? $_GET["step"] : 0;
@@ -77,18 +72,7 @@ if($_POST){
 <div id="iframe_page">
   <div class="iframe_content">
     <link href='/static/member/css/shop.css' rel='stylesheet' type='text/css' />
-    <div class="r_nav">
-      <ul>
-        <li class=""><a href="./config.php">基本设置</a></li>
-		<li class=""><a href="./home.php">首页设置</a></li>
-		<li class=""><a href="./products.php">拼团管理</a></li>
-		<li class=""><a href="./cate.php">拼团分类管理</a></li>
-		<li><a href="./orders.php">订单管理</a></li>
-		<li class=""><a href="./comment.php">评论管理</a></li>
-		<li class="cur"><a href="./virtual_orders.php">商家认证</a></li>
-		<li ><a href="/member/pintuan/config.php?cfgPay=1">计划任务配置</a></li>
-      </ul>
-    </div>
+    <?php include 'top.php'; ?>
     
     <div id="orders" class="r_con_wrap">
       <form class="search" id="search_form" method="get" action="?">

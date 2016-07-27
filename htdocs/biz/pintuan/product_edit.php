@@ -1,9 +1,5 @@
 <?php 
-require_once($_SERVER["DOCUMENT_ROOT"].'/biz/global.php');
-/*edit in 20160318*/
-require_once($_SERVER["DOCUMENT_ROOT"].'/include/helper/url.php');
-require_once($_SERVER["DOCUMENT_ROOT"].'/include/helper/tools.php');
-require_once($_SERVER["DOCUMENT_ROOT"].'/include/helper/lib_products.php');
+require_once($_SERVER["DOCUMENT_ROOT"].'/include/update/common.php');
 
 if($_POST){ 
   if($_POST["Isdraw"]==0) {
@@ -35,7 +31,7 @@ if($_POST){
   $str=array();
     $str[0]=$_POST['TypeID'];
     $Category_IDs=$DB->get('pintuan_category','cate_id',"  where 
-    cate_id=(SELECT parent_id FROM pintuan_category WHERE cate_id='".$_POST['TypeID']."' ) and Users_ID='".$_SESSION["Users_ID"]."'");   
+    cate_id=(SELECT parent_id FROM pintuan_category WHERE cate_id='".$_POST['TypeID']."' ) and Users_ID='{$UsersID}'");   
    while ( $res=$DB->fetch_assoc()) {
       $str[]=$res['cate_id'];
    }
@@ -43,7 +39,7 @@ if($_POST){
     $pintuanid=$DB->query('SELECT IFNULL(MAX(Products_ID),"0") from pintuan_products');
     $REG=$DB->fetch_assoc($pintuanid); 
     //处理图片路径
-    $goodsinfo = $DB->GetRs("pintuan_products","Products_JSON","where Products_ID='{$id}' and Users_ID='{$_SESSION["Users_ID"]}'");
+    $goodsinfo = $DB->GetRs("pintuan_products","Products_JSON","where Products_ID='{$id}' and Users_ID='{$UsersID}'");
     if($goodsinfo && $goodsinfo['Products_JSON']){
         $imageInfo = json_decode($goodsinfo['Products_JSON'],true);
         
@@ -75,6 +71,7 @@ if($_POST){
     "Products_Status"=>0,   
     "Products_CreateTime"=>time(),    
     "Products_Parameter"=>'',
+    "Products_Weight" => $_POST['Weight']?$_POST['Weight']:0,
     "order_process"=>$_POST["ordertype"],
     "is_buy"=>$_POST["Isbuy"],
     "Is_Draw"=>$_POST["Isdraw"],
@@ -82,7 +79,7 @@ if($_POST){
     "Ratio"=>$_POST["ratio"],
     "people_num"=>$_POST["Peoplenum"],
     "starttime"=>strtotime($_POST["starttime"]),
-    "stoptime"=>strtotime($_POST["stoptime"]),
+    "stoptime"=>strtotime($_POST["stoptime"]) + 86398,
     "people_once"=>$_POST["people_once"],
     "Products_pinkage"=>empty($_POST["pinkage"])?0:$_POST["pinkage"],
     "Ratio"=>empty($_POST["ratio"])?0:$_POST["ratio"],
@@ -90,8 +87,8 @@ if($_POST){
     
     /*edit in 20160318*/
   );
-  $Data["Users_ID"] = $rsBiz["Users_ID"];
-  $Data["Biz_ID"] = $_SESSION['BIZ_ID'];
+  $Data["Users_ID"] = $UsersID;
+  $Data["Biz_ID"] = $BizID;
   if(isset($_POST["compensation"]) && !empty($_POST["compensation"])){
       $Data['Products_compensation'] = $_POST["compensation"];
   }
@@ -105,27 +102,34 @@ if($_POST){
       }
   }
 
-  if($_POST["FinanceType"]==0){//商品按交易额比例
-      if(!is_numeric($_POST["FinanceRate"]) || $_POST["FinanceRate"]<=0){
-          echo '<script language="javascript">alert("网站提成比例必须大于零！");history.back();</script>';
-          exit();
-      }
+  if($rsBiz["Finance_Type"]==0){//商品按交易额比例
       $Data["Products_FinanceType"] = 0;
-      $Data["Products_FinanceRate"] = $_POST["FinanceRate"];
-      $Data["Products_PriceSd"] = number_format($_POST['PriceD'] * (1-$_POST["FinanceRate"]/100),2,'.','');
-      $Data["Products_PriceSt"] = number_format($_POST['PriceT'] * (1-$_POST["FinanceRate"]/100),2,'.','');
+      $Data["Products_FinanceRate"] = $rsBiz["Finance_Rate"];
+      $Data["Products_PriceSd"] = number_format($_POST['PriceD'] * (1-$rsBiz["Finance_Rate"]/100),2,'.','');
+      $Data["Products_PriceSt"] = number_format($_POST['PriceT'] * (1-$rsBiz["Finance_Rate"]/100),2,'.','');
   }else{//商品按供货价
-      if(!is_numeric($_POST["PriceS"]) || $_POST["PriceS"]<=0 || $_POST["PriceS"]>$_POST['PriceT']){
-          echo '<script language="javascript">alert("供货价格必须大于零，且小于团购价格！");history.back();</script>';
-          exit();
+  if($_POST["FinanceType"]==0){//商品按交易额比例
+          if(!is_numeric($_POST["FinanceRate"]) || $_POST["FinanceRate"]<=0){
+              echo '<script language="javascript">alert("网站提成比例必须大于零！");history.back();</script>';
+              exit();
+          }
+          $Data["Products_FinanceType"] = 0;
+          $Data["Products_FinanceRate"] = $_POST["FinanceRate"];
+          $Data["Products_PriceSd"] = number_format($_POST['PriceD'] * (1-$_POST["FinanceRate"]/100),2,'.','');
+          $Data["Products_PriceSt"] = number_format($_POST['PriceT'] * (1-$_POST["FinanceRate"]/100),2,'.','');
+      }else{//商品按供货价
+          if(!is_numeric($_POST["PriceS"]) || $_POST["PriceS"]<=0 || $_POST["PriceS"]>$_POST['PriceT']){
+              echo '<script language="javascript">alert("供货价格必须大于零，且小于团购价格！");history.back();</script>';
+              exit();
+          }
+          if(!is_numeric($_POST["PriceS"]) || $_POST["PriceS"]<=0 || $_POST["PriceS"]>$_POST['PriceD']){
+              echo '<script language="javascript">alert("供货价格必须大于零，且小于单购购价格！");history.back();</script>';
+              exit();
+          }
+          $Data["Products_FinanceType"] = 1;
+          $Data["Products_PriceSd"] = $_POST['PriceS'];
+          $Data["Products_PriceSt"] = $_POST['PriceS'];
       }
-      if(!is_numeric($_POST["PriceS"]) || $_POST["PriceS"]<=0 || $_POST["PriceS"]>$_POST['PriceD']){
-          echo '<script language="javascript">alert("供货价格必须大于零，且小于单购购价格！");history.back();</script>';
-          exit();
-      }
-      $Data["Products_FinanceType"] = 1;
-      $Data["Products_PriceSd"] = $_POST['PriceS'];
-      $Data["Products_PriceSt"] = $_POST['PriceS'];
   }
   $Flag=$DB->set("pintuan_products",$Data,"where Products_ID=".$id);
   $product_id = mysql_insert_id();
@@ -134,7 +138,7 @@ if($_POST){
       if(isset($_POST["cardids"]) && $_POST["cardids"]){
           $idcards = $_POST["cardids"];
           $idcards = trim($idcards,",");
-          $DB->Set("pintuan_virtual_card", [ 'Products_Relation_ID' => $id ],"WHERE Users_ID='{$_SESSION["Users_ID"]}' AND Card_ID IN({$idcards})");
+          $DB->Set("pintuan_virtual_card", [ 'Products_Relation_ID' => $id ],"WHERE Users_ID='{$UsersID}' AND Card_ID IN({$idcards})");
       }
     echo '<script language="javascript">alert("修改成功");window.location="products.php";</script>';
   }else{
@@ -142,8 +146,8 @@ if($_POST){
   }
   exit;
 }else{
-  $shop_config = shop_config($_SESSION["Users_ID"]);  
-  $dis_config = dis_config($_SESSION["Users_ID"]);
+  $shop_config = shop_config($UsersID);  
+  $dis_config = dis_config($UsersID);
 
   $Shop_Commision_Reward_Arr = array();
   if (!is_null($shop_config['Shop_Commision_Reward_Json'])) 
@@ -206,7 +210,7 @@ KindEditor.ready(function(K) {
   K.create('textarea[name="Description"]', {
     themeType : 'simple',
     filterMode : false,
-    uploadJson : '/member/upload_json.php?TableField=web_column&Users_ID=<?php echo $_SESSION["Users_ID"];?>',
+    uploadJson : '/member/upload_json.php?TableField=web_column&Users_ID=<?php echo $UsersID;?>',
     fileManagerJson : '/member/file_manager_json.php',
     allowFileManager : true,
     
@@ -288,7 +292,7 @@ $(document).ready(function(){
       <script language="javascript">$(document).ready(user_obj.coupon_add_init);</script>
 <?php
       $pintuanid=$_GET['id'];
-      $pintuan=$DB->getRs("pintuan_products","*","where Users_ID='".$_SESSION["Users_ID"]."'and Products_ID='".$pintuanid."'");
+      $pintuan=$DB->getRs("pintuan_products","*","where Users_ID='{$UsersID}'and Products_ID='".$pintuanid."'");
 ?>
       <form id="product_add_form" class="r_con_form skipForm" method="post" action="product_edit.php">
         <input type="hidden" name="id" value="<?php echo $_GET['id']?>" />
@@ -306,7 +310,7 @@ $(document).ready(function(){
     <option value="">请选择类型</option>
       <?php
         $typeid = explode(',',$pintuan['Products_Category']);
-        $DB->get("pintuan_category","*","where Users_ID='".$_SESSION["Users_ID"]."' order by  sort asc");
+        $DB->get("pintuan_category","*","where Users_ID='{$UsersID}' order by  sort asc");
         while($rsType= $DB->fetch_assoc()){
           $t = in_array($rsType["cate_id"],$typeid)?'selected':'';
           echo '<option value="'.$rsType["cate_id"].'"'.$t.'  >'.$rsType["cate_name"].'</option>';
@@ -325,6 +329,7 @@ $(document).ready(function(){
           </span>
           <div class="clear"></div>
         </div>
+        <?php if($rsBiz["Finance_Type"]==1){?>
         <div class="rows">
           <label>财务结算类型</label>
           <span class="input">
@@ -347,6 +352,7 @@ $(document).ready(function(){
           </span>
           <div class="clear"></div>
         </div>
+        <?php }?>
         <div class="rows">
           <label>产品重量</label>
           <span class="input">
@@ -439,12 +445,13 @@ $(document).ready(function(){
           </span>
             </tr>  
             <tr id="444">  
-                <td class="tl"><span color="f_red">中奖比率</span></td>  
-                <td class="tr"><input type="text" size="6" name="ratio" id="ratio" value="<?php echo $pintuan["Ratio"]?>"/>%</td>  
-                <td>拼团总数&nbsp&nbsp<input type="text" size="8" name="T_count" value="<?php echo intval($pintuan["Team_Count"]);?>"/></td></span>
-            </tr>  
-        
-        </table>  
+                <td class="tl"><span color="f_red">允许中奖团数</span></td>  
+                <td class="tr">
+                <input type="text" size="8" name="T_count" value="<?php echo intval($pintuan["Team_Count"]);?>"/>
+                <input type="hidden" size="6" name="ratio" id="ratio" value="<?php echo $pintuan["Ratio"]?>"/></td>  
+                <td></td></span>
+            </tr>
+        </table>
           <div class="clear"></div>
         </div>
         <div id="store_part" style="display:none">
@@ -466,9 +473,6 @@ $(document).ready(function(){
           </span>
           <font class="fc_red">*</font></span>
           <div class="clear"></div>
-        
-
-
         <div class="rows">
           <label>拼团有效时间</label>
            <span class="input time">
@@ -497,61 +501,13 @@ $(document).ready(function(){
           <div class="clear"></div>
         </div>
         <input type='hidden' value='' id='cardids' name='cardids' />
-        <input type="hidden" id="UsersID" value="<?=$_SESSION["Users_ID"]?>" />
+        <input type="hidden" id="UsersID" value="<?=$UsersID ?>" />
         <input type="hidden" id="ProductsID" value="0">        
       </form>
     </div>
   </div>
 </div>
     <script type="text/javascript">
-
-        var index = 0;      
-        $('.icon-plus').click(function(){
-            index ++;
-            var html = $(this).closest('.form-group').clone();
-            html.find('.icon-plus').removeClass('icon-plus').addClass('icon-minus');
-            html.find(".ProductsParametername").attr('name','Products_Parameter['+index+'][name]');
-            html.find(".ProductsParametervalue").attr('name','Products_Parameter['+index+'][value]');
-            $(this).closest('.form-group').after(html);
-          $(".icon-minus").html("[-]");
-        }); 
-        $('.skipForm').on('click','.icon-minus',function(){
-            $(this).closest('.form-group').remove();
-        });
-        $("#ratio").blur(function() {
-          /* Act on the event */
-          cacl();
-        });
-        $("input[name='Peoplenum']").blur(function() {
-          /* Act on the event */
-          cacl();
-        });
-        $("input[name='Count']").blur(function() {
-          /* Act on the event */
-          cacl();
-        });
-        cacl();
-        function cacl()
-        {
-          var Peoplenum = $("input[name='Peoplenum']").val();
-          var count = $("input[name='Count']").val();
-          var ratio = $("input[name='ratio']").val();
-          var TCount=parseInt($("input[name='T_count']").val());
-          var num;
-          if(ratio>0){
-              num = parseInt(count/(ratio/100)/Peoplenum);
-          }else{
-            num = 0;
-          }
-          $("input[name='T_count']").val(num);
-
-          var foalt = count/(Peoplenum*num)*100;
-          if(foalt>=100){
-        	  foalt=100;
-          }
-          $("input[name='ratio']").val(foalt.toFixed(2));
-        }
-
          $(document).ready(function(){
            if($("input[name='Isdraw']:checked").val()=='1'){  
                     $("#333").hide();  
@@ -571,40 +527,7 @@ $(document).ready(function(){
                     $("#444").show();  
                 }     
         });
-//商品库存  拼团人数 中奖比率 拼团总数  之间的联动
-    $("input[name='T_count']").change(function(){
-        var kucun=parseInt($("input[name='Count']").val());
-        var Prople=parseInt($("input[name='Peoplenum']").val());
-        var Count=parseInt($("input[name='T_count']").val());
-        mm = kucun/(Count*Prople)*100;
-        if(mm>=100){
-        	mm=100;
-          }
-         $("input[name='ratio']").val(mm.toFixed(2));
-    });   
-//中奖比率
-    $("input[name='ratio']").change(function(){
-          var aa=parseInt($("input[name='ratio']").val());
-          var kucun=parseInt($("input[name='Count']").val());
-          var Prople=parseInt($("input[name='Peoplenum']").val());
-          var Count=parseInt($("input[name='T_count']").val());
-          var flot = parseInt(kucun/(aa/100)/Prople);
-          $("input[name='T_count']").val(flot);
-    });
-// 关于  商品库存  拼团人数 中奖比率 拼团总数  之间的联动 且不能为0
-if(!$("#draw").has('checked')){  
-  $("input[name='submit_button']").click(function(){
-    var kucun=$("input[name='Count']").val();
-    var Prople=$("input[name='Peoplenum']").val();
-    var Count=$("input[name='T_count']").val();
-    var Bilv=$("input[name='ratio']").val();
 
-    if(Count=='0'||Bilv=='0'){
-      alert('中奖比率、拼团总数 不能填写0');
-    }
-    return false;
-  })
-}
 
 function imagedel(o) {
     $(o).parent().remove();

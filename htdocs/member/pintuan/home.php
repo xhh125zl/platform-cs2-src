@@ -1,17 +1,8 @@
 <?php 
-require_once($_SERVER["DOCUMENT_ROOT"].'/Framework/Conn.php');
-if(empty($_SESSION["Users_Account"]))
-{
-	header("location:/member/login.php");
-}
-//require_once('vertify.php');
-//$rsConfig=$DB->GetRs("web_config","*","where Users_ID='".$_SESSION["Users_ID"]."'");
-//$rsSkin=$DB->GetRs("web_home","*","where Users_ID='".$_SESSION["Users_ID"]."' and Skin_ID=".$rsConfig['Skin_ID']);
+require_once($_SERVER["DOCUMENT_ROOT"].'/include/update/common.php');
 
-?>
-<?php
 if($_POST){
-	// print_r($_POST);die;
+
     $banner_img = json_encode($_POST['ImgPathList']);
 	$banner_url = !empty($_POST['UrlList'])?json_encode($_POST['UrlList']):'';
     if(empty($_POST['ImgPathList'][0]) && empty($_POST['ImgPathList'][1]) && empty($_POST['ImgPathList'][2]) &&empty($_POST['ImgPathList'][3])){
@@ -55,21 +46,16 @@ if($_POST){
     if(!empty($pt_config)){
         $banner_img = json_decode($pt_config['banner_img'],true);
 		 $banner_url = json_decode($pt_config['banner_url'],true);
-    //print_r($banner_img); print_r($pt_config);
     }
-    
-   // print_r($_SESSION["Users_ID"]);
 }
-	//print_r($_GET["del"]);
+
 if(isset($_GET["del"])){
 	$del = $_GET["del"];
-	//print_r($del);
+
 	$banner_img_rel=$DB->GetRs("pintuan_config","banner_img","where Users_ID='".$_SESSION["Users_ID"]."'");
 	$banner_img_array = json_decode($banner_img_rel['banner_img'],"true");
-//print_r($banner_img_array);
 	$banner_img_array[$del] = '';
-	//print_r($banner_img_array);
-//die;
+
 	$banner_img_date = array('banner_img'=>json_encode($banner_img_array));
 			$row =$DB->Set("pintuan_config",$banner_img_date,"where Users_ID='".$_SESSION["Users_ID"]."'");
 				if($row){
@@ -101,17 +87,7 @@ if(isset($_GET["del"])){
   <div class="iframe_content">
     <link href='/static/member/css/web.css?t=<?php echo time() ?>' rel='stylesheet' type='text/css' />
     <script type='text/javascript' src='/static/member/js/pintuan.js?t=<?php echo time() ?>'></script>
-    <div class="r_nav">
-      <ul>
-		<li><a href="./config.php">基本设置</a></li>
-        <li class="cur"><a href="./home.php">首页设置</a></li>
-        <li class=""><a href="./products.php">产品管理</a></li>
-        <li class=""><a href="./cate.php">拼团分类管理</a></li>
-        <li class=""><a href="./orders.php">订单管理</a></li>
-        <li class=""><a href="./comment.php">评论管理</a></li>
-		<li ><a href="/member/pintuan/config.php?cfgPay=1">计划任务配置</a></li>
-      </ul>
-    </div>
+    <?php include 'top.php'; ?>
   
     <script language="javascript">$(document).ready(pintuan_obj.home_init);
     </script>

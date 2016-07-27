@@ -1,12 +1,5 @@
 <?php
-	require_once('comm/global.php');
-	//头文件
-	if(isset($_GET["UsersID"])){
-	  $UsersID=$_GET["UsersID"];
-	}else{
-	  echo '缺少必要的参数';
-	  exit;
-	}
+	require_once($_SERVER["DOCUMENT_ROOT"].'/include/update/common.php');
 	//头文件
 	if(isset($_GET["id"])){
 	  $ca=$_GET["id"];

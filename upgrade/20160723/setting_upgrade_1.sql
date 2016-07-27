@@ -1,0 +1,1 @@
+alter table setting add column `sys_dommain` varchar(50) COMMENT '系统主域名' after sys_name;

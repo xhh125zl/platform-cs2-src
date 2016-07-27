@@ -119,6 +119,29 @@ class AlipaySubmit {
 		return $sHtml;
 	}
 	
+
+	/**
+	 * sxf
+	 * @param  [type] $para_temp   [description]
+	 * @param  [type] $method      [description]
+	 * @param  [type] $button_name [description]
+	 * @return [type]              [description]
+	 */
+	function buildRequestUrl($para_temp, $method, $button_name) {
+		//待请求参数数组
+		$para = $this->buildRequestPara($para_temp);
+
+		$url = $this->alipay_gateway_new."_input_charset=".trim(strtolower($this->alipay_config['input_charset']));
+		while (list ($key, $val) = each ($para)) {
+            $url.= "&$key=" . $val;
+        }
+
+        //$url = urlencode($url);
+
+        return $url;
+	}
+	
+	
 	/**
      * 建立请求，以模拟远程HTTP的POST请求方式构造并获取支付宝的处理结果
      * @param $para_temp 请求参数数组

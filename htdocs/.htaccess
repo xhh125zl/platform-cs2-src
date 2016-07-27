@@ -291,6 +291,8 @@ RewriteRule ^member/(.*)$ /member/control.php
 
 #拼团 搜索  详情页  流程页   ajax
 RewriteRule ^api/([0-9a-z]+)/pintuan/$ /api/pintuan/index.php?UsersID=$1
+RewriteRule ^api/([0-9a-z]+)/pintuan/list/([0-9]+)/$ /api/pintuan/list.php?UsersID=$1&ActiveID=$2
+RewriteRule ^api/([0-9a-z]+)/pintuan/biz/([0-9]+)/$ /api/pintuan/biz.php?UsersID=$1&BizID=$2
 RewriteRule ^api/([0-9a-z]+)/pintuan/([0-9]+)/$ /api/pintuan/index.php?UsersID=$1&BizID=$2
 RewriteRule ^api/([0-9a-z]+)/pintuan/seach/([0-9a-z]+)/$ /api/pintuan/seach.php?UsersID=$1&id=$2
 RewriteRule ^api/([0-9a-z]+)/pintuan/sousuo/([0-9a-z]+)/$ /api/pintuan/sousuo.php?UsersID=$1&id=$2
@@ -354,3 +356,4 @@ RewriteRule ^api/([0-9a-z]+)/pintuan/teamdetail/([0-9]+)/$ /api/pintuan/teamdeta
 RewriteRule ^api/([0-9a-z]+)/pintuan/liucheng/$ /api/pintuan/liucheng.html?UsersID=$1
 #异步
 RewriteRule ^api/pintuan/sync$ /api/pintuan/sync.php
+RewriteRule ^api/pintuan/sync/$ /api/pintuan/sync.php

@@ -1,11 +1,5 @@
 <?php
-require_once ($_SERVER["DOCUMENT_ROOT"] . '/Framework/Conn.php');
-require_once ($_SERVER["DOCUMENT_ROOT"] . '/include/helper/tools.php');
-require_once ($_SERVER["DOCUMENT_ROOT"] . '/include/helper/lib_products.php');
-
-if (empty($_SESSION["Users_Account"])) {
-    header("location:/member/login.php");
-}
+require_once($_SERVER["DOCUMENT_ROOT"].'/include/update/common.php');
 
 // 获取所有分销商列表
 $ds_list = Dis_Account::with('User')->WHERE(array(
@@ -117,6 +111,17 @@ $(function(){
       location.href = "/member/pintuan/order_print.php?OrderID="+idlist;
   });
 });
+
+  function choujiang()
+  {
+      $.get("/api/pintuan/sync",function(data){ 
+        if(data){ 
+            alert(data);
+        }else{
+          alert("抽奖成功！"); 
+        } 
+      });
+  }
 </script>
 </head>
 
@@ -129,17 +134,7 @@ $(function(){
 			<link href='/static/member/css/shop.css' rel='stylesheet'
 				type='text/css' />
 			<script type='text/javascript' src='/static/member/js/shop.js'></script>
-			<div class="r_nav">
-				<ul>
-					<li class=""><a href="./config.php">基本设置</a></li>
-					<li class=""><a href="./home.php">首页设置</a></li>
-					<li class=""><a href="./products.php">拼团管理</a></li>
-					<li class=""><a href="./cate.php">拼团分类管理</a></li>
-					<li class="cur"><a href="./orders.php">订单管理</a></li>
-					<li class=""><a href="./comment.php">评论管理</a></li>
-					<li><a href="/member/pintuan/config.php?cfgPay=1">计划任务配置</a></li>
-				</ul>
-			</div>
+			<?php include 'top.php'; ?>
 			<link href='/static/js/plugin/operamasks/operamasks-ui.css'
 				rel='stylesheet' type='text/css' />
 			<script type='text/javascript'
@@ -180,6 +175,7 @@ $(function(){
 						name="AccTime_E" value="" maxlength="20" /> <input type="hidden"
 						value="1" name="search" /> <input type="submit" class="search_btn"
 						value="搜索" /> <input type="button" class="output_btn" value="导出" />
+						<input type="button" class="output_btn" value="手动抽奖"  onclick="choujiang();"/>
 				</form>
 				<form id="submit_form" method="get" action="send_print.php">
 					<table border="0" cellpadding="5" cellspacing="0"

@@ -15,6 +15,12 @@ if(isset($_GET["action"])){
 <link href="/static/style.css" rel="stylesheet" type="text/css" />
 <script type='text/javascript' src='/static/js/jquery-1.7.2.min.js'></script>
 <script type='text/javascript' src='/static/member/js/global.js'></script>
+<style>
+.msg { float:right;width:300px;margin-top:-45%;margin-right:20px;background:#fff; }
+.msg ul { margin:20px 10px;}
+.msg ul li { line-height:20px;}
+.msg .title { height:30px; line-height:30px;padding:10px;padding-left:30px;border-bottom:1px solid #fcc;}
+</style>
 </head>
 
 <body>
@@ -37,8 +43,7 @@ if(isset($_GET["action"])){
       <dd style="display:block">
       	<div class="cur"><a href="account/account.php" target="iframe">商家资料</a></div>
         <div><a href="account/account_edit.php" target="iframe">修改资料</a></div>
-
-	<div><a href="account/address_edit.php" target="iframe">收货地址</a></div>
+		<div><a href="account/address_edit.php" target="iframe">收货地址</a></div>
         <div><a href="account/bind_user.php" target="iframe">绑定会员</a></div>
         <div><a href="account/account_password.php" target="iframe">修改密码</a></div>
       </dd>
@@ -70,6 +75,10 @@ if(isset($_GET["action"])){
         <div><a href="orders/backorders.php" target="iframe">退货列表</a></div>
         <div><a href="orders/commit.php" target="iframe">评论管理</a></div>
       </dd>
+      <dt>活动管理</dt>
+      <dd>
+        <div><a href="active/active.php" target="iframe">申请活动列表</a></div>
+      </dd>
       <dt>财务结算</dt>
       <dd>
         <div><a href="finance/distribute_record.php" target="iframe">分销记录</a></div>
@@ -92,10 +101,10 @@ if(isset($_GET["action"])){
       </dd>	
     </dl>
   </div>
-  <div class="iframe">
-    <iframe src="account/account.php" name="iframe" frameborder="0" scrolling="auto"></iframe>
+  <div class="iframe" >
+    <iframe src="account/account.php" name="iframe" frameborder="0" scrolling="auto" ></iframe>
   </div>
-  <div class="clear"></div>
+  
 </div>
 <div id="footer">
   <div class="oem"><?php echo $Copyright;?></div>

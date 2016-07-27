@@ -62,7 +62,7 @@ $wuliu = empty($_POST["wuliu"]) ? 0 : $_POST["wuliu"];
 if($wuliu){
     $shipping = $DB->GetRs("shop_shipping_company","Shipping_Name","where Users_ID='".$Users_ID."' and Shipping_ID=".$_POST["wuliu"]);
     if($shipping){
-        $shipp_TotalPrice = getShipFee($wuliu,$Users_ID);
+        $shipp_TotalPrice = getShipFee($wuliu,$Users_ID,$BizID,$products['Products_Weight']);
         $Order_Shipping = array("Express"=>$shipping["Shipping_Name"],"Price"=>$shipp_TotalPrice?$shipp_TotalPrice:0);
         if($CartList['IsShippingFree']==1){ //包邮
            

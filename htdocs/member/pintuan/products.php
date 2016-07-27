@@ -1,9 +1,5 @@
 <?php
-require_once ($_SERVER["DOCUMENT_ROOT"] . '/Framework/Conn.php');
-if(empty($_SESSION["Users_Account"])){
-	header("location:/member/login.php");
-}
-
+require_once($_SERVER["DOCUMENT_ROOT"].'/include/update/common.php');
 //搜索
 $Pt = $DB->Get('pintuan_products','Products_Name','people_num');
 $condition = "where Users_ID='".$_SESSION["Users_ID"]."'";
@@ -36,17 +32,7 @@ if (isset($_GET['search']) || isset($_GET['people_num'])){
   <div class="iframe_content">
     <link href='/static/member/css/shop.css' rel='stylesheet' type='text/css' />
     <script type='text/javascript' src='/static/member/js/shop.js'></script>
-    <div class="r_nav">
-      <ul>
-        <li><a href="./config.php">基本设置</a></li>
-        <li class=""><a href="./home.php">首页设置</a></li>
-        <li class="cur"><a href="./products.php">产品管理</a></li>
-	    <li class=""><a href="./cate.php">拼团分类管理</a></li>
-        <li class=""><a href="./orders.php">订单管理</a></li>
-        <li class=""><a href="./comment.php">评论管理</a></li>
-		<li><a href="/member/pintuan/config.php?cfgPay=1">计划任务配置</a></li>
-      </ul>
-    </div>
+    <?php include 'top.php'; ?>
     <div id="products" class="r_con_wrap"> 
       <script language="javascript">$(document).ready(shop_obj.products_list_init);</script>
       <div class="control_btn">

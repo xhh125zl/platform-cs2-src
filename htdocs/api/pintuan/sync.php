@@ -13,130 +13,146 @@
         global $DB;
     
         $list = array();
-        $time = time();
         //结束10天之内的未完成的团
-        $starttime = strtotime("-20 day",time());
-        $starttime = date("Y-m-d",$starttime);
-        $starttime = strtotime($starttime,time());
+        $time = time() - 86400;
 
-        $sql = "select * from pintuan_team t left join pintuan_products p on t.productid=p.products_id where p.stoptime >={$starttime} AND p.stoptime<={$time} AND t.teamstatus = 0";
-        
+        $sql = "select t.id,p.people_num,t.teamnum from pintuan_team t left join pintuan_products p on t.productid=p.products_id 
+        where  p.stoptime <{$time} AND t.teamstatus = 0";
         $result = $DB->query($sql);
         $list = $DB->toArray($result);
-        if (count($list) == 0) return;
+        if (empty($list)) { return; }
         foreach ($list as $item) {
             $status = $item['people_num'] == $item['teamnum'] ? 1 : 4;
             $sql_update_team = "update pintuan_team set teamstatus = '$status' where id = '{$item['id']}'";
             $DB->query($sql_update_team);
         }
     }
-    
+
     //抽奖
     //db_teamstatus 0拼团中，1拼团成功，2已中奖，3未中奖，4拼团失败, 5已退款
     choujiang($DB);
     function choujiang($DB) {
         global $DB;
-        $time = time();
-        $starttime = strtotime("-20 day",time());
-        $starttime = date("Y-m-d",$starttime);
-        $starttime = strtotime($starttime,time());
-        $teamproductidlist = array();
-        $productlist = array();
-        $orderidlist = array();
-        $teamidlist = array();
-        /** 新增加的 start **/
-        $sql = "select * from pintuan_team as t left join pintuan_products as p on t.productid=p.Products_ID  where  p.stoptime >{$starttime} AND p.stoptime<{$time} AND t.teamstatus = 1 and p.is_draw = 0";
-        $result = $DB->query($sql);
-        if(!$result) return;
-        while($res_all = $DB->fetch_assoc($result)){
-            $teamidlist[] = $res_all['id'];
-            $productlist[] = $res_all;
-        }
+        $time = time() - 86400;
         
-        /** 新增加的 end **/
-
-        if (count($teamidlist) == 0) return;
-
-        $teamids = implode(',', $teamidlist);
-        $sql_teamdetail = "select order_id,teamid from pintuan_teamdetail where teamid in ($teamids)";
-        $result_teamdetail = $DB->query($sql_teamdetail);
-        while ($res_teamdetail = $DB->fetch_assoc($result_teamdetail)) {
-            $orderidlist[] = $res_teamdetail['order_id'];
-            
+        //根据所参加的团获取产品数
+        $sql = "SELECT t.id,t.productid,t.users_id,p.Users_ID,p.people_num,p.Team_Count,p.starttime,p.stoptime FROM pintuan_team AS t LEFT JOIN pintuan_products as p ON t.productid=p.Products_ID WHERE teamstatus=1 AND t.addtime>=p.starttime AND t.addtime<=p.stoptime AND p.stoptime<{$time} AND p.is_draw=0";
+        $result = $DB->query($sql);
+        $list = $DB->toArray($result);
+        //抽奖前统计信息，获取产品列表id 和开团列表id，并统计个数
+        $goodslist = [];
+        $teamlist = [];
+        $orderlist = [];
+        $award = [];    //获取每个产品所设置的中奖团数
+        foreach($list as $k=>$v)
+        {
+            $goodslist[$v['productid']]=$v['productid'];
+            $teamlist[] = $v['id'];
+            $award[$v['productid']] = $v['Team_Count'];
         }
+        // 允许抽奖并且拼团成功的开团总团数
+        $teamTotal = count($teamlist);
+        //开团里边的商品总数
+        $goodsTotal = count($goodslist);
+        //获取允许开奖且拼团成功的订单id
+        if ($teamTotal == 0) return;
 
-        if (count($orderidlist) == 0) return;
+        $teamids = implode(',', $teamlist);
+        $sql = "select order_id,teamid from pintuan_teamdetail where teamid in ($teamids)";
+        $result = $DB->query($sql);
+        $teamdetail = $DB->toArray($result);
+        foreach($teamdetail as $k=>$v)
+        {
+            $orderlist[] = $v['order_id'];
+        }
+        $ordersTotal = count($orderlist);
+        if ($ordersTotal == 0) return;
         
         /*  抽奖算法：
          *  首先计算参与抽奖的总团数
          *  其次计算中奖的团数
          * */
+        $goodsjson = "";
+        $orderids = "";
+        $awordteamlistStr = "";
+        $noneteamlistStr = "";
+        $goodsjson = [];
         
-        $max = count($teamidlist);
-        $num = rand(1,$max);
-        $levelnum = intval($max*0.7);
-        while($num<$levelnum)
+        if(!empty($goodslist))
         {
-            $num = rand(1,$max);
-        }
-        
-        if(!empty($teamidlist)){
-            if($num == 1){
-                $teamidlist1 = $teamidlist;
-                $teamidlist2 = [];
-            }else{
-                $temp = array_rand($teamidlist, $num); //中奖团id列表
-                $temp1 = array();
-                foreach ($temp as $k => $v)
+            $awordteamlist = [];    //中奖团id列表
+            $noneteamlist = [];     //未中奖团id列表
+            foreach($goodslist as $k => $v)
+            {
+                $gTeamlist = [];
+                $goodsAwordlist = [];
+                foreach($list as $key => $value)
                 {
-                    $temp1[] = $teamidlist[$v];
+                    if($v==$value['productid'])
+                    {
+                        $gTeamlist[]=$value['id'];
+                    }
                 }
-                if(!empty($temp1)){
-                    $teamidlist1 = $temp1;
-                    $teamidlist2 = array_diff($teamidlist, $teamidlist1);
+                if(count($gTeamlist)>0 && count($gTeamlist)>$award[$v]){
+                    for($i=0; $i<$award[$v]; $i++)
+                    {
+                        do{
+                            $num = mt_rand(0,count($gTeamlist));
+                            if(!in_array($gTeamlist[$num],$goodsAwordlist)){
+                                $goodsAwordlist[] = $gTeamlist[$num];
+                                break;
+                            }
+                        }while(true);
+                    }
                 }else{
-                    $teamidlist1 = array();
-                    $teamidlist2 = array_diff($teamidlist, $teamidlist1);
+                   $goodsAwordlist = array_merge($goodsAwordlist, $gTeamlist);
                 }
+                $noneAwordlist = array_diff($gTeamlist, $goodsAwordlist);
+                $goodsjson [] = ['id' => $v ,'AllowCount' => $award[$v],'awordlist'=>implode(',', $goodsAwordlist),'noneAwordlist'=> implode(',', $noneAwordlist)];
+                $awordteamlist = array_merge($awordteamlist, $goodsAwordlist);
+                $noneteamlist = array_merge($noneteamlist, $noneAwordlist);
             }
-            foreach ($productlist as $product) {
-    
-                if(!empty($teamidlist1)){
-                    $teamids1 = implode(',', $teamidlist1);
-                    $sql_update_team1 = "update pintuan_team set teamstatus = '2' where id in ($teamids1) and productid = '{$product['Products_ID']}'";
-                    $DB->query($sql_update_team1);
-                }
-                
-                if(!empty($teamidlist2)){
-                    $teamids2 = implode(',', $teamidlist2);
-                    $sql_update_team2 = "update pintuan_team set teamstatus = '3' where id in ($teamids2) and productid = '{$product['Products_ID']}'";
-                    $DB->query($sql_update_team2);
-                }
-            }
-            if(!empty($teamidlist1)){
-                $teamidlist1 = implode(',', $teamidlist1);
-                $result = $DB->query("select o.order_id as order_id,o.Users_ID as Users_ID,o.User_ID as User_ID from pintuan_teamdetail as t left join pintuan_order as o on t.order_id=o.order_id where t.teamid in ($teamidlist1) and o.is_ok is NULL");
+            if(!empty($awordteamlist)){
+                $awordteamlistStr = implode(',', $awordteamlist);
+                $DB->Set("pintuan_team",['teamstatus'=>2],"WHERE id in ($awordteamlistStr)");
+                $result = $DB->query("select o.order_id as order_id,o.Users_ID as Users_ID,o.User_ID as User_ID from pintuan_teamdetail as t left join pintuan_order as o on t.order_id=o.order_id where t.teamid in ($awordteamlistStr) and o.is_ok is NULL");
                 while($res_t= $DB->fetch_assoc($result))
                 {
                     sendWXMessage($res_t['Users_ID'],$res_t['order_id'],'恭喜您，已中奖',$res_t['User_ID']);
                 }
             }
-            if(!empty($teamidlist2)){
-                $teamidlist2 = implode(',', $teamidlist2);
-                $result = $DB->query("select o.order_id as order_id,o.Users_ID as Users_ID,o.User_ID as User_ID from pintuan_teamdetail as t left join pintuan_order as o on t.order_id=o.order_id where t.teamid in ($teamidlist2) and o.is_ok is NULL");
+            if(!empty($noneteamlist)){
+                $noneteamlistStr = implode(',', $noneteamlist);
+                $DB->Set("pintuan_team",['teamstatus'=>3],"WHERE id in ($noneteamlistStr)");
+                $result = $DB->query("select o.order_id as order_id,o.Users_ID as Users_ID,o.User_ID as User_ID from pintuan_teamdetail as t left join pintuan_order as o on t.order_id=o.order_id where t.teamid in ($noneteamlistStr) and o.is_ok is NULL");
                 while($res_t= $DB->fetch_assoc($result))
                 {
                     sendWXMessage($res_t['Users_ID'],$res_t['order_id'],'很遗憾，未中奖',$res_t['User_ID']);
                 }
             }
         }
+        if(!empty($orderlist)){
+          $orderids = implode(',', $orderlist);
+          $DB->Set("pintuan_order",['is_ok'=>1],"WHERE order_id in ($orderids)");
+        }
+
+        //将统计结果写入数据库
+        $data = [
+          'goodsConfig' => json_encode(['total' => $goodsTotal,'list'=>$goodsjson]),
+          'orderlist' => $orderids,
+          'orderTotal' => $ordersTotal,
+          'teamTotal' => $teamTotal,
+          'goodsTotal' => $goodsTotal,
+          'awordTeamlist' => $awordteamlistStr,
+          'noneAwordTeamlist' => $noneteamlistStr,
+          'addtime' => time(),
+          'Users_ID' =>isset($_SESSION['Users_ID'])?$_SESSION['Users_ID']:''
+        ];
+        $DB->add("pintuan_aword",$data);
         
-        $orderids = implode(',', $orderidlist);
-        $sql_update_order = "update pintuan_order set is_ok='1' where order_id in ($orderids)";
-        $DB->query($sql_update_order);
     }
 
-	tuikuan($DB);
+	  tuikuan($DB);
     function  tuikuan($DB){
         global $DB;
         //获取所有未中奖或者拼团失败的团

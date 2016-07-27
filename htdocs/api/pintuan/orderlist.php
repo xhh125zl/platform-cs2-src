@@ -1,27 +1,8 @@
 <?PHP
-  require_once('comm/global.php');
-  require_once($_SERVER["DOCUMENT_ROOT"].'/include/helper/url.php');
-  require_once($_SERVER["DOCUMENT_ROOT"].'/include/helper/shipping.php');
-  require_once($_SERVER["DOCUMENT_ROOT"].'/include/helper/tools.php');
-  require_once($_SERVER["DOCUMENT_ROOT"].'/include/helper/lib_products.php');
-
-  if (isset($_GET["UsersID"])) {
-      $UsersID = $_GET["UsersID"];
-  } else {
-      echo '缺少必要的参数';
-      exit;
-  }
-
-  if (empty($_SESSION)) {
-    header("location:/api/".$UsersID."/pintuan/");
-    exit;
-  }
+  require_once($_SERVER["DOCUMENT_ROOT"].'/include/update/common.php');
 
   setcookie('url_referer', $_SERVER["REQUEST_URI"], time()+3600, '/', $_SERVER['HTTP_HOST']);
-  
   $order_status = empty($_GET['Order_Status']) ? 0 : intval($_GET['Order_Status']);
-  $UserID = $_SESSION[$UsersID."User_ID"];
-
   $sql = "select * from `user_order` where Users_ID='$UsersID' and (Order_Type='pintuan' or Order_Type='dangou') and User_ID='$UserID' and order_status > 0";
   if ($order_status != 0) {
     $sql .= " and order_status=$order_status";

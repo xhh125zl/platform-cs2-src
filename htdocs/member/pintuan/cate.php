@@ -1,8 +1,6 @@
 <?php 
-if(empty($_SESSION["Users_Account"]))
-{
-	header("location:/member/login.php");
-}
+require_once($_SERVER["DOCUMENT_ROOT"].'/include/update/common.php');
+
 if(isset($_GET["action"])){
 	if($_GET["action"]=="del"){
 		$r = $DB->GetRs("pintuan_category","count(*) as num","where Users_ID='".$_SESSION["Users_ID"]."' and parent_id=".$_GET["cateid"]);
@@ -45,17 +43,7 @@ if(isset($_GET["action"])){
   <div class="iframe_content">
     <link href='/static/member/css/shop.css' rel='stylesheet' type='text/css' />
     <script type='text/javascript' src='/static/member/js/shop.js'></script>
-    <div class="r_nav">
-      <ul>
-        <li class=""><a href="./config.php">基本设置</a></li>
-        <li class=""><a href="./home.php">首页设置</a></li>
-        <li class=""><a href="./products.php">拼团管理</a></li>
-        <li class="cur"><a href="./cate.php">拼团分类管理</a></li>
-        <li class=""><a href="./orders.php">订单管理</a></li>
-        <li class=""><a href="./comment.php">评论管理</a></li>
-        <li><a href="/member/pintuan/config.php?cfgPay=1">计划任务配置</a></li>
-      </ul>
-    </div>
+    <?php include 'top.php'; ?>
     <div id="products" class="r_con_wrap"> 
       <script type='text/javascript' src='/static/js/plugin/dragsort/dragsort-0.5.1.min.js'></script>
       <link href='/static/js/plugin/operamasks/operamasks-ui.css' rel='stylesheet' type='text/css' />
