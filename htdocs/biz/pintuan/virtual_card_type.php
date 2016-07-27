@@ -1,6 +1,5 @@
 <?php  
-require_once($_SERVER["DOCUMENT_ROOT"].'/biz/global.php');
-require_once($_SERVER["DOCUMENT_ROOT"].'/include/helper/tools.php');
+require_once($_SERVER["DOCUMENT_ROOT"].'/include/update/common.php');
 
 //设置常规固定常量
 define('NO_RELATION_PRODUCTS_STATUS', '未设置关联商品');
@@ -10,7 +9,7 @@ define('CARD_ABNORMAL', '已使用');
 
 if (isset($_GET['action'])) {
   if ($_GET['action'] == 'del') {
-    $Flag=$DB->Del("pintuan_virtual_card_type","Users_ID='".$_SESSION["Users_ID"]."' and Type_id=".$_GET["TypeId"]);
+    $Flag=$DB->Del("pintuan_virtual_card_type","Users_ID='{$UsersID}' and Type_id=".$_GET["TypeId"]);
     if($Flag){
       echo '<script language="javascript">alert("删除成功");window.location="'.$_SERVER['HTTP_REFERER'].'";</script>';
     }else{
@@ -21,7 +20,7 @@ if (isset($_GET['action'])) {
 }
 
 
-$condition = "WHERE `Users_ID` = '".$_SESSION['Users_ID']."'";
+$condition = "WHERE `Users_ID` = '{$UsersID}'";
 
 
 

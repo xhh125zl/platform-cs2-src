@@ -1,10 +1,10 @@
 <?php
-require_once($_SERVER["DOCUMENT_ROOT"].'/biz/global.php');
+require_once($_SERVER["DOCUMENT_ROOT"].'/include/update/common.php');
 
 if(isset($_GET["action"])){
 	if($_GET["action"]=="del"){
 
-    $Flag=$DB->Del("pintuan_products","Users_ID='".$_SESSION["Users_ID"]."' AND Biz_ID={$_SESSION['BIZ_ID']}  and Products_ID=".$_GET["PintuanID"]);
+    $Flag=$DB->Del("pintuan_products","Users_ID='{$UsersID}' AND Biz_ID={$BizID}  and Products_ID=".$_GET["PintuanID"]);
 
     if($Flag){
 			echo '<script language="javascript">alert("删除成功");window.location="'.$_SERVER['HTTP_REFERER'].'";</script>';
@@ -16,7 +16,7 @@ if(isset($_GET["action"])){
 }
 //搜索
 $Pt = $DB->Get('pintuan_products','Products_Name','people_num');
-$condition = "where Users_ID='".$_SESSION["Users_ID"]."' AND Biz_ID={$_SESSION['BIZ_ID']}";
+$condition = "where Users_ID='{$UsersID}' AND Biz_ID={$BizID}";
 if (isset($_GET['search']) || isset($_GET['people_num'])){
   if (isset($_GET['pintuan_name']) && $_GET['pintuan_name']){
     $condition .= " and products_name like '%".$_GET['pintuan_name']."%' ORDER BY Products_ID desc";

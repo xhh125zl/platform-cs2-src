@@ -1,9 +1,9 @@
 <?php
-require_once($_SERVER["DOCUMENT_ROOT"].'/biz/global.php');
-require_once($_SERVER["DOCUMENT_ROOT"].'/include/helper/url.php');
+require_once($_SERVER["DOCUMENT_ROOT"].'/include/update/common.php');
+
 
 $OrderID=empty($_REQUEST['OrderID'])?0:$_REQUEST['OrderID'];
-$sql = "select * from user_order as o left join user as u on o.User_ID=u.User_ID where u.Users_ID='".$_SESSION["Users_ID"]."' and o.Order_ID in(".$OrderID.")";
+$sql = "select * from user_order as o left join user as u on o.User_ID=u.User_ID where u.Users_ID='{$UsersID}' and o.Order_ID in(".$OrderID.")";
 $result =$DB->query($sql);
 $orderlist = array();
 while($res=$DB->fetch_assoc($result))
@@ -40,7 +40,7 @@ while($res=$DB->fetch_assoc($result))
   $orderlist[] = $res;
 }
 //获取寄件人信息
-$receiveInfo = $DB->GetRs("user_recieve_address","*","WHERE Users_ID='".$_SESSION["Users_ID"]."'");
+$receiveInfo = $DB->GetRs("user_recieve_address","*","WHERE Users_ID='{$UsersID}'");
 if(is_numeric($receiveInfo['RecieveProvince'])){
     
     $area_json = read_file($_SERVER["DOCUMENT_ROOT"].'/data/area.js');

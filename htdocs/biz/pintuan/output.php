@@ -1,19 +1,16 @@
 <?php
 /*导出表格处理文件*/
-require_once($_SERVER["DOCUMENT_ROOT"].'/biz/global.php');
+require_once($_SERVER["DOCUMENT_ROOT"].'/include/update/common.php');
 require_once($_SERVER["DOCUMENT_ROOT"].'/include/library/outputExcel.php');
 require_once($_SERVER["DOCUMENT_ROOT"].'/include/helper/balance.class.php');
-require_once($_SERVER["DOCUMENT_ROOT"].'/include/helper/url.php');
-$balance = new balance($DB,$_SESSION["Users_ID"]);
-
-$UsersID = $_SESSION['Users_ID'];
+$balance = new balance($DB,$UsersID);
 
 $type = $_REQUEST['type'];
 
 if($type == 'product_gross_info'){
 	$table = 'shop_products';
 	$fields  = '*';
-	$condition = "where Users_ID='".$UsersID."'";
+	$condition = "where Users_ID='{$UsersID}'";
 	if($_GET['action'] != 'outproduct'){
 	if($_GET['Keyword']){
 		$condition .= " and Products_Name like '%".$_GET['Keyword']."%'";
@@ -59,7 +56,7 @@ if($type == 'product_gross_info'){
 	
 }elseif($type == 'order_detail_list'){
 	
-	$condition = "where Users_ID='".$_SESSION["Users_ID"]."' AND Biz_ID={$_SESSION['BIZ_ID']} and (Order_Type='pintuan' or Order_Type='dangou')";
+	$condition = "where Users_ID='{$UsersID}' AND Biz_ID={$BizID} and (Order_Type='pintuan' or Order_Type='dangou')";
 
 	if(!empty($_GET["Keyword"])){
 		$condition .= " and Order_CartList like '%".$_GET["Keyword"]."%'";
@@ -118,7 +115,7 @@ if($type == 'product_gross_info'){
 	
 }elseif($type == 'order_staticstic_list'){   /*edit数据统计20160405--start--*/
 	
-	$condition = "where Users_ID='".$_SESSION["Users_ID"]."' and Order_Type='shop'";
+	$condition = "where Users_ID='{$UsersID}' and Order_Type='shop'";
         
 
 	if(!empty($_GET["Keyword"])){
@@ -144,7 +141,7 @@ if($type == 'product_gross_info'){
 	$list = $DB->toArray($resource);
 	 
         $ds_list = Dis_Account::with('User')
-            ->where(array('Users_ID' => $_SESSION["Users_ID"]))
+            ->where(array('Users_ID' => $UsersID))
             ->get(array('Users_ID', 'User_ID', 'invite_id', 'User_Name', 'Account_ID', 'Shop_Name','Account_CreateTime'))
             ->toArray();
         $ds_list_dropdown = array();
@@ -189,7 +186,7 @@ if($type == 'product_gross_info'){
 /*edit数据统计20160415--start--*/	
 }elseif($type == 'user_staticstic_list'){
   
-    $condition = "where Users_ID='".$_SESSION["Users_ID"]."' and Order_Type='shop'";
+    $condition = "where Users_ID='{$UsersID}' and Order_Type='shop'";
     if(!empty($_GET["Keyword"])){
             $condition .= " and Order_CartList like '%".$_GET["Keyword"]."%'";
     }
@@ -225,7 +222,7 @@ if($type == 'product_gross_info'){
                 foreach($results as $k=>$v){
                     foreach($v as $ks=>$vs){
                         $User_ID = $vs['User_ID'];
-                        $conditon_user = "where Users_ID='".$_SESSION["Users_ID"]."' and User_ID>=".$User_ID;
+                        $conditon_user = "where Users_ID='{$UsersID}' and User_ID>=".$User_ID;
                         $user_array[$k][$ks] = $DB->getrs('user',"User_ID,User_No,User_Mobile,User_CreateTime,User_NickName",$conditon_user);
                     }
                 }
@@ -241,12 +238,12 @@ if($type == 'product_gross_info'){
         echo '<script language="javascript">alert("无数据可导出");history.back();</script>';
     }
 }elseif($type == 'product_staticstic_list'){
-    $condition = "where Users_ID='".$_SESSION["Users_ID"]."'"; 
+    $condition = "where Users_ID='{$UsersID}'"; 
     $result = $DB->get("shop_products","Products_ID,Users_ID,Products_Name,Products_Count,Products_Sales,click_count",$condition);
     while($pro_array = $DB->fetch_assoc($result)){ 
         $pro_arrays[] = $pro_array;//产品
     }
-    $condition = "where Users_ID = '".$_SESSION['Users_ID']."' group by  Product_ID"; 
+    $condition = "where Users_ID = '{$UsersID}' group by  Product_ID"; 
     $Commit = $DB->Get("user_order_commit","AVG(Score) as avgcore,Product_ID",$condition);
     while($rsCommit=$DB->fetch_assoc($Commit)){
         $rsCommit_array[] = $rsCommit;
@@ -257,8 +254,7 @@ if($type == 'product_gross_info'){
         }
     }
     
-    $UsersID = $_SESSION['Users_ID'];
-    $conditionSale = 'where Users_ID = '."'$UsersID '".' and order_status = 4';
+    $conditionSale = "where Users_ID = '{$UsersID}' and order_status = 4";
     $arrayOrder = $DB->Get('user_order','Order_CartList',$conditionSale);
     while($resultOrder=$DB->fetch_assoc($arrayOrder)){
        $resultOrder_array[]=json_decode($resultOrder['Order_CartList'],true);
@@ -278,7 +274,7 @@ if($type == 'product_gross_info'){
         }
     }
     
-$conditionBack = 'where Users_ID = '."'$UsersID '".' and Back_Status = 4';
+$conditionBack = "where Users_ID = '{$UsersID}' and Back_Status = 4";
 $arrayBack = $DB->Get('user_back_order','Back_Qty,ProductID',$conditionBack);
 while($resultBack=$DB->fetch_assoc($arrayBack)){
    $resultBack_array[]=$resultBack;
