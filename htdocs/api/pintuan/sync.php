@@ -5,9 +5,10 @@
     require_once($_SERVER["DOCUMENT_ROOT"].'/include/helper/lib_pintuan.php');
     require_once($_SERVER["DOCUMENT_ROOT"].'/include/helper/backup.class.php');
     require_once($_SERVER["DOCUMENT_ROOT"].'/api/pintuan/cart/PTBackup.php');
-    ini_set("display_errors","On"); 
+    ini_set("display_errors","Off"); 
     //结束拼团活动
 
+    
     pintuanend($DB);
     function pintuanend($DB) {
         global $DB;
