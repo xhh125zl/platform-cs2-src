@@ -210,7 +210,7 @@ function change_user_integral($UsersID,$User_Id,$Integral,$type,$desc,$useless =
 
 	$integral_minus_data=array(
 			'Record_Integral'=>$operate.$Integral,
-			'Record_SurplusIntegral'=>$rsUser['User_Integral']-$Integral,
+			'Record_SurplusIntegral'=>$rsUser['User_Integral'],
 			'Operator_UserName'=>'',
 			'Record_Type'=>3,
 			'Record_Description'=>$desc,

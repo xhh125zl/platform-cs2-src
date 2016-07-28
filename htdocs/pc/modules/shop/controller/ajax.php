@@ -579,7 +579,7 @@ class ajaxController extends controllController {
             $rsAddress = model('user_address')->where(array(
                 'Users_ID' => $this->UsersID,
                 'User_ID' => $_SESSION[$this->UsersID . 'User_ID'],
-                'Address_ID' => $AddressID
+                'Address_Is_Default' => 1
             ))->find();
 			if ($rsAddress) {//是否需要物流
                 $Data['Address_Name'] = $rsAddress['address_name'];
