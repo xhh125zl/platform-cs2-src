@@ -3,9 +3,9 @@ require_once($_SERVER["DOCUMENT_ROOT"].'/include/update/common.php');
 
 if($_POST){ 
   if($_POST["Isdraw"]==0) {
-      if($_POST['T_count']==0 || $_POST['ratio'] ==0 ) 
+      if($_POST['T_count']==0) 
       {
-        echo '<script language="javascript">alert("拼团比例和拼团数  不能为0!");history.back();</script>'; exit();
+        echo '<script language="javascript">alert("允许中奖团数  不能为0!");history.back();</script>'; exit();
       }
   }
   if(!isset($_POST['id'])) die('<script language="javascript">alert("无效的产品ID！");history.back();</script>');
@@ -447,7 +447,7 @@ $(document).ready(function(){
             <tr id="444">  
                 <td class="tl"><span color="f_red">允许中奖团数</span></td>  
                 <td class="tr">
-                <input type="text" size="8" name="T_count" value="<?php echo intval($pintuan["Team_Count"]);?>"/>
+                <input type="text" size="8" name="T_count" value="<?php echo $pintuan["Team_Count"];?>"/>
                 <input type="hidden" size="6" name="ratio" id="ratio" value="<?php echo $pintuan["Ratio"]?>"/></td>  
                 <td></td></span>
             </tr>
