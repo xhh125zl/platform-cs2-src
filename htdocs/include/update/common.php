@@ -64,6 +64,7 @@ if(stripos($request_uri, "api")){   //对于前台的初始化
         exit();
     }
     $UsersID = $rsBiz['Users_ID'];
+    $_SESSION["Users_ID"] = $UsersID;
     $rsGroup = $DB->GetRs("biz_group","Group_Name,Group_IsStore","where Group_ID=".$rsBiz["Group_ID"]);
     if($rsGroup){
         $IsStore = $rsGroup["Group_IsStore"];
