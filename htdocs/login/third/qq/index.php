@@ -9,6 +9,9 @@ require_once("./API/qqConnectAPI.php");
 $users_id = isset($_GET['users_id']) ? $_GET['users_id'] : '';
 if (empty($users_id)) {
 	die('信息丢失!');
+} else {
+	//解决手机下回调地址过滤自定义参数的问题
+	$_SESSION['callback_users_id'] = $users_id;
 }
 
 $config = $DB->GetRs('third_login_config', 'appid, secret', " WHERE type='qq' AND users_id = '" . $users_id . "' AND state=1");
