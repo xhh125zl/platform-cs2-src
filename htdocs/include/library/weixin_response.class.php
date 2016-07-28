@@ -244,6 +244,7 @@ class weixin_response{
 				$textTpl = $Tpl[$msgType];
 				$rsConfig = $this->db->GetRs("kf_config","*","where Users_ID='".$this->usersid."'");
 				$Wx_keyword = array_filter(explode('|',$rsConfig['Wx_keyword']));
+				$Wx_status = false;
 				foreach($Wx_keyword as $key=>$value){
 					if(strstr($keyword, $value)){
 						$Wx_status = true;
