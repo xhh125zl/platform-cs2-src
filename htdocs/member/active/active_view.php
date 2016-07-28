@@ -69,7 +69,7 @@ if($rsActive['ListConfig']){
                       	    if(!empty($indexList)){
                       	     foreach ($indexList as $v){
                       	?>
-                      	<li><?=$list[$v]['Products_Name'] ?></li>
+                      	<li><?= isset($list[$v]['Products_Name']) ? $list[$v]['Products_Name'] : '' ?></li>
                       	<?php 
                       	}
                       	}

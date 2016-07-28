@@ -215,6 +215,7 @@ function treelist($arr,$html='--',$level=0){
 <script type='text/javascript' src="/third_party/kindeditor/kindeditor-min.js"></script>
 <script type='text/javascript' src="/third_party/kindeditor/lang/zh_CN.js"></script>
 <script type='text/javascript' src='/static/member/js/shop.js'></script>
+<script type='text/javascript' src="/static/js/plugin/laydate/laydate.js"></script>
 <script type='text/javascript' src='/static/js/plugin/layer/layer.js'></script>
 <script>
 var Browser = new Object(); 
@@ -225,6 +226,7 @@ KindEditor.ready(function(K) {
     uploadJson : '/member/upload_json.php?TableField=web_column&Users_ID=<?php echo $UsersID;?>',
     fileManagerJson : '/member/file_manager_json.php',
     allowFileManager : true,
+    
   });
   var editor = K.editor({
     uploadJson : '/member/upload_json.php?TableField=web_article',
@@ -240,7 +242,7 @@ KindEditor.ready(function(K) {
     editor.loadPlugin('image', function() {
       editor.plugin.imageDialog({
         clickFn : function(url, title, width, height, border, align) {
-          K('#PicDetail').append('<div><a href="'+url+'" target="_blank"><img src="'+url+'" /></a> <span>删除</span><input type="hidden" name="JSON[ImgPath][]" value="'+url+'" /></div>');
+          K('#PicDetail').append('<div><a href="'+url+'" target="_blank"><img src="'+url+'" /></a><a onclick="return imagedel(this);"><span>删除</span></a><input type="hidden" name="JSON[ImgPath][]" value="'+url+'" /></div>');
           editor.hideDialog();
         }
       });
@@ -249,9 +251,9 @@ KindEditor.ready(function(K) {
   K('#PicDetail div span').click(function(){
     K(this).parent().remove();
   });
-})
-$(document).ready(shop_obj.products_add_init);
+});
 
+$(document).ready(shop_obj.products_add_init);
 $(document).ready(function(){
     $('.rows input[name=ordertype]').click(function(){
       var sVal = $('.rows input[name=ordertype]:checked').val();
@@ -546,6 +548,16 @@ $(document).ready(function(){
                     $("#444").show();
                 }     
         }); 
+        
+        function imagedel(o) {
+    $(o).parent().remove();
+    return false;
+  }
+
+function imagedel1(i) {
+    $('.imagedel' + i).remove();
+    return false;
+  }
 </script>  
 </body>
 </html>
