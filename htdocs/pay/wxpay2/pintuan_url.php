@@ -53,7 +53,7 @@ if($xml){
 		}else{
 			$pay_order = new pay_order($DB,$oid);
 			$rsUser=$DB->GetRs("user","*","where Users_ID='".$UsersID."' and User_ID=".$UserID);
-			$info = payDone($UsersID,$oid,"微支付",$tid);
+			$info = payDone($UsersID,$oid,"微支付");
         	exit;
 		}
 	}

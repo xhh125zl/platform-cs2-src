@@ -220,9 +220,14 @@
 		 <?php $time = time();
 		 	if ($time >= $v['starttime'] && $time <= $v['stoptime'] && $v['teamstatus'] == 0) { ?>
 		 		<a href="<?php echo "/api/$UsersID/pintuan/teamdetail/{$v['id']}/" ;?>">去参团</a>
-		 	<?php } else { ?>
-		 		<a>已结束</a>
-		 	<?php } ?>
+		 	<?php } else { 
+          if($v['teamstatus']==1){
+              echo "<a>已完成</a>";   
+          }else{
+              echo '<a>已结束</a>';
+          }
+		 	
+		 	 } ?>
 		 </div>
 		 </div>
 		 <div class="clear"></div>

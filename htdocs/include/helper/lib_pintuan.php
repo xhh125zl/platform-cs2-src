@@ -50,7 +50,7 @@ function addSales($goodsid,$sellerid,$char='+')
     }
 }
 
-function payDone($UsersID,$OrderID,$paymethod,$tid = '')
+function payDone($UsersID,$OrderID,$paymethod)
 {
     global $DB;
     $orderids = '';
@@ -223,9 +223,8 @@ function payDone($UsersID,$OrderID,$paymethod,$tid = '')
                 $Data = array(
                     "Order_PaymentMethod"=>$paymethod,
                     "Order_PaymentInfo"=>"余额支付",
-                    "Order_DefautlPaymentMethod"=>$paymethod,
-                    "transaction_id"=>$tid
-                );
+                    "Order_DefautlPaymentMethod"=>$paymethod
+                     );
                 $Data = array_merge($Data,$payData['order']);
                 if($rsOrder["is_vgoods"]==1 && $goodsInfo['order_process'] == 1){
                     $confirm_code=virtual_randchar();
@@ -296,8 +295,7 @@ function payDone($UsersID,$OrderID,$paymethod,$tid = '')
                 $Data = array(
                     "Order_PaymentMethod"=>$paymethod,
                     "Order_PaymentInfo"=>"余额支付",
-                    "Order_DefautlPaymentMethod"=>$paymethod,
-                    "transaction_id"=>$tid
+                    "Order_DefautlPaymentMethod"=>$paymethod
                 );
                 $Data = array_merge($Data,$payData['order']);
                 if($rsOrder["is_vgoods"]==1){
