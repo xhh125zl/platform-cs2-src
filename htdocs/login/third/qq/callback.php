@@ -15,11 +15,13 @@ $users_id = $UsersID = isset($_GET['users_id']) ? $_GET['users_id'] : '';
 if (empty($users_id)) {
 	if (isset($_SESSION['callback_users_id'])) {
 		$users_id = $UsersID = $_SESSION['callback_users_id'];
+
+		if (empty($users_id)) {
+			die('信息丢失!');
+		}
 	} else {
 		die('信息丢失!');	
 	}
-} else {
-	die('信息丢失!');
 }
 
 //检查users_id 是否为有效的信息
