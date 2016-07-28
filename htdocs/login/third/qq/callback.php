@@ -121,7 +121,7 @@ if (empty($user)) {
 		"User_Json_Select" => isset($User_Json_Select) ? json_encode($User_Json_Select,JSON_UNESCAPED_UNICODE) : "",
 		"User_ExpireTime" => $expiretime==0 ? 0 : ( time() + $expiretime*86400 ),
 		"Users_ID" => $UsersID,
-		'User_PayPassword' => 'e10adc3949ba59abbe56e057f20f883e', //初始密码为123456		
+		'User_PayPassword' => 'e10adc3949ba59abbe56e057f20f883e', //初始密码为123456
 	);
 	
 	if ($owner['id'] != 0){
@@ -160,9 +160,7 @@ if (empty($user)) {
 } 
 
 //已注册过的用户
-if (empty($_SESSION[$UsersID."OpenID"])) {
-	$_SESSION[$UsersID."OpenID"] = $openid;
-}
+$_SESSION[$UsersID."OpenID"] = $openid;
 
 $rsUser=$DB->GetRs("user", "*", "WHERE Users_ID='" . $UsersID . "' AND User_OpenID='".$_SESSION[$UsersID."OpenID"]."'");
 
