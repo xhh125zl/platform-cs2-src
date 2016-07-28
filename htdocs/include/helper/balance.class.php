@@ -124,7 +124,12 @@ class balance
     {
         foreach ($lists as $id => $item) {
             $r = $this->db->GetRs("user_order", "Order_CreateTime,Order_Type,Order_CartList", "where Users_ID='" . $this->usersid . "' and Order_ID=" . $item["Order_ID"]);
-            $item["orderno"] = date("Ymd", $r["Order_CreateTime"]) . $item["Order_ID"];
+            if($r['Order_Type'] == 'pintuan' || $r['Order_Type'] == 'dangou'){
+                $item["orderno"] = $r['Order_Code'];
+            }else{
+                $item["orderno"] = date("Ymd", $r["Order_CreateTime"]) . $item["Order_ID"];
+            }
+            
             $item["bonus"] = $item["Bonus"];
             $cartlist = json_decode(htmlspecialchars_decode($item["Order_Json"]), true);
             $amount = $web = 0;
@@ -369,4 +374,3 @@ class balance
 	//
 }			 
 ?>
-
