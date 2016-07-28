@@ -37,7 +37,7 @@
         $time = time() - 86400;
         
         //根据所参加的团获取产品数
-        $sql = "SELECT t.id,t.productid,t.users_id,p.Users_ID,p.people_num,p.Team_Count,p.starttime,p.stoptime FROM pintuan_team AS t LEFT JOIN pintuan_products as p ON t.productid=p.Products_ID WHERE teamstatus=1 AND t.addtime>=p.starttime AND t.addtime<=p.stoptime AND p.stoptime<{$time} AND p.is_draw=0";
+        $sql = "SELECT t.id,t.productid,t.users_id,p.Users_ID,p.people_num,p.Team_Count,p.starttime,p.stoptime FROM pintuan_team AS t LEFT JOIN pintuan_products as p ON t.productid=p.Products_ID WHERE teamstatus=1 AND p.stoptime<{$time} AND p.is_draw=0";
         $result = $DB->query($sql);
         $list = $DB->toArray($result);
         //抽奖前统计信息，获取产品列表id 和开团列表id，并统计个数
