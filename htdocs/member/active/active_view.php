@@ -66,10 +66,13 @@ if($rsActive['ListConfig']){
                       	<?php 
                       	if(!empty($rsActive['IndexConfig']) && $rsActive['IndexConfig']){
                       	    $indexList = explode(',', $rsActive['IndexConfig']);
+                      	    if(!empty($indexList)){
                       	     foreach ($indexList as $v){
                       	?>
-                      	<li><?=$list[$v]['Products_Name'] ?></li>
-                      	<?php }
+                      	<li><?= isset($list[$v]['Products_Name']) ? $list[$v]['Products_Name'] : '' ?></li>
+                      	<?php 
+                      	}
+                      	}
                       	}
                       	?>
                       	</ul>

@@ -24,7 +24,7 @@ $IsStore        =  0;
 
 $SortType = [ '按发布时间','按销量','按价格','手动' ];
 $ActiveType = [ '拼团','云购','众筹','微砍价','微促销' ];
-
+$_SESSION[$UsersID."HTTP_REFERER"] = $_SERVER['REQUEST_URI'];
 if(stripos($request_uri, "api")){   //对于前台的初始化
     
     !isset($_GET["UsersID"]) && die("缺少必要的参数");
@@ -64,6 +64,7 @@ if(stripos($request_uri, "api")){   //对于前台的初始化
         exit();
     }
     $UsersID = $rsBiz['Users_ID'];
+    $_SESSION["Users_ID"] = $UsersID;
     $rsGroup = $DB->GetRs("biz_group","Group_Name,Group_IsStore","where Group_ID=".$rsBiz["Group_ID"]);
     if($rsGroup){
         $IsStore = $rsGroup["Group_IsStore"];

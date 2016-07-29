@@ -10,14 +10,23 @@ if (isset($_GET['search'])) {
 }
 $condition .= " ORDER BY Products_ID DESC";
 $List = Array();
-$result = $DB->getPage("pintuan_products","*",$condition);
-$List = $DB->toArray($result);
+
 //获取活动配置
 $active_id = isset($_GET['activeid'])?$_GET['activeid']:0;
 $rsActive = $DB->GetRs("active","*","WHERE Users_ID='{$UsersID}' AND Active_ID='{$active_id}'");
 if(empty($rsActive)){
     sendAlert("没有要参加的活动");
 }
+if($rsActive['Type_ID']==0){    //拼团
+    $table = "pintuan_products";    
+}elseif($rsActive['Type_ID']==1){   //云购
+    $table = "cloud_products";
+}else{
+    $table = "shop_products";
+}
+$result = $DB->getPage($table,"*",$condition);
+$List = $DB->toArray($result);
+
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -55,9 +64,14 @@ if(empty($rsActive)){
           <tr>
             <td width="8%" nowrap="nowrap">选择</td>
             <td width="8%" nowrap="nowrap">商品名</td>
+            <?php if($rsActive['Type_ID']==0){ ?>
             <td width="8%" nowrap="nowrap">库存</td>
             <td width="8%" nowrap="nowrap">价格</td>
             <td width="8%" nowrap="nowrap">销量</td>
+            <?php }else{ ?>
+            <td width="8%" nowrap="nowrap">价格</td>
+            <td width="8%" nowrap="nowrap">重量</td>
+            <?php } ?>
           </tr>
         </thead>
         <tbody>
@@ -70,10 +84,16 @@ if(empty($rsActive)){
 	          	<input type="checkbox" name="select" class="listNum<?=$v['Products_ID'] ?>" value="<?=$v['Products_ID'] ?>" >
 	          </td>
 	          <td><?=$v['Products_Name'] ?></td>
+	          <?php if($rsActive['Type_ID']==0){ ?>
 	          <td><?=$v['Products_Count'] ?></td>
 	          <td>单购：<?=$v["Products_PriceD"]?><br/>
                                     团购：<?=$v["Products_PriceT"]?></td>
 	          <td nowrap="nowrap"><?=$v["Products_Sales"]?></td>
+	          <?php }else{ ?>
+	          <td>商品总价：<?=$v["Products_PriceY"]?><br/>
+                                    云购单次价格：<?=$v["Products_PriceX"]?></td>
+	          <td nowrap="nowrap"><?=$v["Products_Weight"]?></td>
+	          <?php } ?>
 	        </tr>
 
 	    <?php } ?>

@@ -1,6 +1,15 @@
 <?php
 require_once($_SERVER["DOCUMENT_ROOT"].'/include/update/common.php');
 
+if(IS_GET && isset($_GET['action']) && $_GET['action']=='del'){
+   $flag = $DB->Del("biz_active","ID=".$_GET["id"]);
+   if($flag){
+			echo '<script language="javascript">alert("删除成功");window.location="'.$_SERVER['HTTP_REFERER'].'";</script>';
+		}else{
+			echo '<script language="javascript">alert("删除失败");history.back();</script>';
+		}
+		exit;
+}
 $lists = array();
 $condition = "LEFT JOIN active as a ON b.Active_ID=a.Active_ID WHERE b.Users_ID = '{$UsersID}' AND b.Biz_ID={$BizID} ORDER BY ID DESC";
 $result = $DB->getPages("biz_active as b","a.Type_ID,a.Active_Name,a.starttime,a.stoptime,b.*",$condition,10);
@@ -46,7 +55,7 @@ function view(id)
     </div>
     <div id="products" class="r_con_wrap">
       <div class="control_btn">
-      <a href="active_add.php" class="btn_green btn_w_120">申请参加活动</a>
+      <!--<a href="active_add.php" class="btn_green btn_w_120">申请参加活动</a>-->
       </div>
       <table align="center" border="0" cellpadding="5" cellspacing="0" class="r_con_table">
         <thead>
@@ -79,6 +88,7 @@ function view(id)
             	<?php if($v['Status']<4){?>
             	<a href="active_edit.php?id=<?php echo $v["ID"]; ?>"><img src="/static/member/images/ico/mod.gif" align="absmiddle" alt="修改" /></a>&nbsp;&nbsp;
 				<?php } ?>
+              <a href="?action=del&id=<?php echo $v["ID"]; ?>"><img src="/static/member/images/ico/del.gif" align="absmiddle" alt="删除" /></a>
 			</td>
           </tr>
           <?php }?>
