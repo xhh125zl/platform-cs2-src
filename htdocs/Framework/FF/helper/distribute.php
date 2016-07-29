@@ -1040,17 +1040,15 @@ function delete_distribute_record($UsersID, $OrderID) {
 	$recordIDS = array();
 	$record_list = $shop_distribute_record->field('Record_ID')->where($condition)->select();
 	foreach($record_list as $id){
-		$recordIDS[] = $id;
+            $recordIDS[] = $id['Record_ID'];
 	}
 	$shop_distribute_record->where($condition)->delete();
 	//删除分销账户记录
 	if($record_list){
-		$condition = array(
-		    'Users_ID'=>$UsersID,
-			'Ds_Record_ID'=>$recordIDS
-		);
-
-		model('distribute_account_record')->where($condition)->delete();
+            $recordIDSs = implode(',',$recordIDS); 
+            $conditions['Users_ID'] = $UsersID;
+            $conditions['Ds_Record_ID'] = array('in',$recordIDSs);
+            model('distribute_account_record')->where($conditions)->delete();
 
 	}
 }
