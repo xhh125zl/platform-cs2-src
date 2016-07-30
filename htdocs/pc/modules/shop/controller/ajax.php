@@ -143,12 +143,9 @@ class ajaxController extends controllController {
             echo json_encode($Data, JSON_UNESCAPED_UNICODE);
             exit;
         }
-        $rsProducts = model('shop_products')->where(array(
-            'Users_ID' => $this->UsersID,
-            'Products_ID' => $ProductsID,
-            'Products_SoldOut' => 0,
-            'Products_Status' => 1
-        ))->find();
+            
+        $rsProducts = model()->query('select * from shop_products where Users_ID = "'.$this->UsersID.'" and Products_ID = '.$ProductsID.' and Products_SoldOut=0 and Products_Status=1');
+        $rsProducts = array_change_key_case($rsProducts[0],CASE_LOWER);
         if (!$rsProducts) {
             $Data = array(
                 'status' => 0,
@@ -221,7 +218,11 @@ class ajaxController extends controllController {
                 'ProductsIsShipping' => $rsProducts['products_isshippingfree'],
                 'Qty' => $_POST['Qty'],
                 'spec_list' => isset($_POST['spec_list']) ? $_POST['spec_list'] : '',
-                'Property' => $Property
+                'Property' => $Property,
+                "nobi_ratio" => $rsProducts["nobi_ratio"],
+		"platForm_Income_Reward" => $rsProducts["platform_income_reward"],
+				"area_Proxy_Reward" => $rsProducts["area_proxy_reward"],
+				"sha_Reward" => $rsProducts["sha_reward"],
             );
         }
         $_SESSION[$cart_key] = json_encode($CartList, JSON_UNESCAPED_UNICODE);

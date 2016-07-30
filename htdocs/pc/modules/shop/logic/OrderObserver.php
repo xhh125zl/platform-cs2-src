@@ -32,7 +32,10 @@ class OrderObserver {
 		if($this->shop_config['dis_agent_type'] != 0){
 			$flag_d = $this->handle_dis_agent_info();
 		}
-		
+		//获取本店分销股东信息
+		if ($this->shop_config['sha_agent_type'] != 0) {
+			$sha_Flag = $this->handle_dis_sha_info();
+		}
 	
 	    if(!$flag_a && $flag_b && $flag_c && $flag_d) {
 			$response = array(
@@ -306,7 +309,98 @@ class OrderObserver {
 			}
 		}
 	}
-	
+	 //计算发放股东分红佣金
+	private function handle_dis_sha_info()
+	{
+            $Sha_Rate = array();
+            if(!empty($this->shop_config['sha_rate'])){
+                $sha_config = $this->shop_config['sha_rate'];
+                $Sha_Rate = json_decode($sha_config, true);
+            }    
+            $order = $this->order;
+            $Sha_Rate_Count = array();
+            $SHA_Account_Id_List = array();
+            
+            //获取各级股东和各级股东人数
+            $Sha_Rate_array = model('distribute_account')->field('Account_ID,Real_Name,Account_Mobile,sha_level')->where('Users_ID="'.$order['users_id'].'" AND Enable_Agent=1')->select();
+            foreach ($Sha_Rate_array as $k => $v) {
+                $Sha_Rate_Count[$v['sha_level']]['data'][] = $v;
+                $SHA_Account_Id_List[$v['sha_level']][] = $v['Account_ID'];
+            }
+            foreach ($SHA_Account_Id_List as $k => $v) {
+                    $SHA_Account_Id_List[$k] = ','.implode(',', $v).',';
+                    $Sha_Rate_Count[$k]['count'] = count($v);
+            }
+            $SHA_Account_Id_List = !empty($SHA_Account_Id_List)?$SHA_Account_Id_List:',';
+            
+	    if (count($Sha_Rate_Count) <= 0) { return true; }
+	    $cartProduct = json_decode(html_entity_decode($order['order_cartlist']), true);
+	    $User_ID = $order['user_id'];
+            $user = model('user')->where('User_ID = '.$User_ID)->find();
+	    $owner_id = $user['owner_id'];
+	    $flag = true;
+	    
+	    $accountinfo =  model('distribute_account')->where('Users_ID = "'.$order['users_id'].'" and User_ID = '.$User_ID)->find();;
+	    $account_id = $accountinfo['account_id'];
+	    $flag_a = TRUE;
+	   if (!empty($cartProduct)) 
+	    {
+			
+	    	foreach ($cartProduct as $k => $v) 
+		    {
+		    	foreach ($v as $p => $productInfo) 
+		    	{
+				if (!empty($productInfo['sha_Reward'])) 
+		    		{
+		    			//当前商品的股东分红佣金
+	    				$sha_record_monery = $productInfo['Qty']*($productInfo['ProductsProfit']*($productInfo['platForm_Income_Reward']/100)*($productInfo['sha_Reward']/100));
+                                         //遍历出各个级别对应的的股东
+                                        foreach ($Sha_Rate_Count as $ks => $vs) {
+                                            if(!empty($vs['data'])){
+                                                //计算当前股东级别应该分红佣金
+                                                $sha_record_monery_level = $sha_record_monery*$Sha_Rate['sha'][$ks]['Province']/100;
+                                                foreach ($vs['data'] as $key => $value) {
+                                                    $flag_a = $this->do_agent_award($value['Account_ID'], $sha_record_monery_level/$vs['count']);
+                                                }
+
+                                            }
+                                            $flag_b = $this->do_sha_award_record($accountinfo, $sha_record_monery_level, $productInfo, $vs['count'], $SHA_Account_Id_List[$ks],$Sha_Rate['sha'][$ks]['name']);
+
+                                        }
+                                        $flag = $flag_a && $flag_b;
+                                        
+                                        
+		    		}		    		
+		    	}
+		    }
+	    }
+	    
+		return $flag;
+	}
+         private function do_sha_award_record($accountinfo, $sha_record_monery, $productInfo, $sha_count, $SHA_Account_Id_List)
+	{
+		
+		$order = $this->order;
+		$dis_sha_data['Users_ID'] = $order['users_id'];
+		if(!empty($accountinfo['account_id'])){
+                    $dis_sha_data['Real_Name'] = $accountinfo['real_name']; 
+                    $dis_sha_data['Account_Mobile'] = $accountinfo['account_mobile']; 
+                    $dis_sha_data['Account_ID'] = $accountinfo['account_id'];
+		}
+		$dis_sha_data['Record_Money'] = $sha_record_monery;
+		$dis_sha_data['Record_CreateTime'] = time();
+		$dis_sha_data['Sha_Qty'] = $sha_count;
+
+		$dis_sha_data['Products_Name'] = $productInfo['ProductsName'];
+		$dis_sha_data['Products_Qty'] = $productInfo['Qty'];
+		$dis_sha_data['Products_PriceX'] = $productInfo['ProductsPriceX'];
+		$dis_sha_data['sha_Reward'] = $productInfo['sha_Reward'];
+		$dis_sha_data['Order_ID'] = $order['order_id']; 
+		$dis_sha_data['Order_CreateTime'] = $order['order_createtime']; 
+		$dis_sha_data['Sha_Accountid'] = $SHA_Account_Id_List;		
+        $flag = model('distribute_sha_rec')->insert($dis_sha_data);
+		return $flag;
+	}
 	/*
 	*给代理人添加佣金
 	*添加代理记录
