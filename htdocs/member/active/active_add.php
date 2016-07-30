@@ -88,7 +88,7 @@ if(IS_POST){
                 
               });
               var editor = K.editor({
-                uploadJson : '/member/upload_json.php?TableField=web_article',
+                uploadJson : '/member/upload_json.php?TableField=web_article&Users_ID=<?=$UsersID?>',
                 fileManagerJson : '/member/file_manager_json.php',
                 showRemote : true,
                 allowFileManager : true,
@@ -107,6 +107,16 @@ if(IS_POST){
                 K(this).parent().remove();
               });
             });
+            
+            function imagedel(o) {
+                $(o).parent().remove();
+                return false;
+              }
+
+            function imagedel1(i) {
+                $('.imagedel' + i).remove();
+                return false;
+              }
         </script>
     </head>
 	<body>

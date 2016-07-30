@@ -1,6 +1,8 @@
 <?php
 $time = time();
-$result = $DB->Get("active","Users_ID,Active_ID,Type_ID,Active_Name,MaxGoodsCount,IndexBizGoodsCount,IndexShowGoodsCount,MaxBizCount","WHERE Users_ID='{$UsersID}' AND starttime<={$time} AND stoptime>{$time} AND Status = 1");
+
+$sql = "SELECT a.Users_ID,a.Active_ID,a.Type_ID,a.Active_Name,a.MaxGoodsCount,a.IndexBizGoodsCount,a.IndexShowGoodsCount,a.MaxBizCount,t.module,T.Type_Name FROM active AS a LEFT JOIN active_type AS t ON a.Type_ID = t.Type_ID WHERE a.Users_ID='{$UsersID}' AND a.starttime<={$time} AND a.stoptime>{$time} AND a.Status = 1";
+$result = $DB->query($sql);
 $activelist = $DB->toArray($result);
 $goodslist = [];
 
@@ -27,20 +29,19 @@ foreach ($activelist as $k => $v)
     if($listGoods){
         $fields = "";
         $tablename = "";
-        switch($v['Type_ID'])
+        $goodslist[$k]['module'] = $v['module'];
+        switch($v['module'])
         {
-            case '0':
+            case 'pintuan':
             {
                 $fields = "starttime,Products_JSON,products_IsNew,products_IsRecommend,products_IsHot,Is_Draw,Products_ID,Products_Name,stoptime,Products_Sales,Products_PriceT,Products_PriceD,people_num";
-                $tablename = "pintuan_products";
-                $goodslist[$k]['module'] = "pintuan";
+                $tablename = "{$v['module']}_products";
                 break;
             }
-            case '1':
+            case 'cloud':
             {
                 $fields = "Users_ID,Products_Name,Products_PriceX,Products_PriceY,Products_JSON,Products_Distributes,Products_IsNew,Products_IsRecommend,Products_IsHot,Products_Weight,Products_Qrcode,Biz_ID";
-                $tablename = "cloud_products";
-                $goodslist[$k]['module'] = "cloud";
+                $tablename = "{$v['module']}_products";
                 break;
             }
         }
