@@ -5,10 +5,11 @@ $action = isset($_GET['action'])?$_GET['action']:"";
 
 if(IS_AJAX && $action)
 {
-    $result = $DB->Get("active", "*" ,"WHERE Users_ID='{$UsersID}' AND Status=1 ORDER BY starttime ASC,Active_ID DESC");
+    $time = time();
+    $result = $DB->Get("active", "*" ,"WHERE Users_ID='{$UsersID}' AND starttime<{$time} AND stoptime>{$time} AND Status=1 ORDER BY starttime ASC,Active_ID DESC");
     $list = $DB->toArray($result);
     $msglist = [];
-    $time = time();
+    
     foreach ($list as $key => $value)
     {
         $msg = "";

@@ -53,7 +53,7 @@ if(IS_GET && isset($_GET["action"]) && $_GET["action"]=="del"){
         <tbody>
     	<?php 
 		  $lists = array();
-		  $result = $DB->getPage("active","*","WHERE Users_ID='{$UsersID}'",10);
+		  $result = $DB->getPage("active","*","WHERE Users_ID='{$UsersID}' ORDER BY Status ASC,Active_ID DESC",10);
 		  $lists = $DB->toArray($result);
 		  foreach($lists as $k => $v){
 	    ?>      
