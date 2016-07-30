@@ -13,8 +13,16 @@ if(IS_AJAX && isset($_POST['action']) && $_POST['action']=='getActive'){
 }
 if(IS_POST){ 
     $post  =  $_POST;
-    $data  = [];
+    $active_id = $post['Active_ID'];
     $return_uri = "active.php";
+    $rsActive = $DB->GetRs("biz_active","*","WHERE Users_ID='{$post['UsersID']}' AND Active_ID='{$active_id}'");
+
+    $rsActiveBiz = $DB->GetRs("biz_active","count(*) as total","WHERE Users_ID='{$post['UsersID']}'  AND Active_ID='{$active_id}'");
+    if($rsActiveBiz['total']>$rsActive['MaxBizCount']){
+        sendAlert("只允许{$rsActive['MaxBizCount']}个商家参加活动",$return_uri ,2);
+    }
+    $data  = [];
+    
     $data['Users_ID'] = $post['UsersID'];
     $data['Active_ID'] = $post['Active_ID'];
     $data['Biz_ID'] = $post['BizID'];
