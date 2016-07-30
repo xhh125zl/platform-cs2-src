@@ -50,13 +50,10 @@ function view(id)
     <script type='text/javascript' src='/static/member/js/shop.js'></script>
     <div class="r_nav">
       <ul>
-        <li class="cur"><a href="./orders.php">我的活动</a></li>
+        <li class="cur"><a href="./active.php">我的活动</a></li>
       </ul>
     </div>
     <div id="products" class="r_con_wrap">
-      <div class="control_btn">
-      <!--<a href="active_add.php" class="btn_green btn_w_120">申请参加活动</a>-->
-      </div>
       <table align="center" border="0" cellpadding="5" cellspacing="0" class="r_con_table">
         <thead>
           <tr>
