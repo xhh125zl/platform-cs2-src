@@ -62,7 +62,7 @@ $List = $DB->toArray($result);
       <table width="100%" align="center" border="0" cellpadding="5" cellspacing="0" class="r_con_table">
         <thead>
           <tr>
-            <td width="8%" nowrap="nowrap">选择</td>
+            <td width="8%" nowrap="nowrap">选择<input type="checkbox" id="chose" class="listNum" value="" ></td>
             <td width="8%" nowrap="nowrap">商品名</td>
             <?php if($rsActive['Type_ID']==0){ ?>
             <td width="8%" nowrap="nowrap">库存</td>
@@ -81,7 +81,7 @@ $List = $DB->toArray($result);
         ?>
 	        <tr>
 	          <td nowrap="nowrap" vkname="<?=$v['Products_Name'] ?>">
-	          	<input type="checkbox" name="select" class="listNum<?=$v['Products_ID'] ?>" value="<?=$v['Products_ID'] ?>" >
+	          	<input type="checkbox" name="select[]" id="n<?=$v['Products_ID'] ?>" class="listNum<?=$v['Products_ID'] ?>" value="<?=$v['Products_ID'] ?>" >
 	          </td>
 	          <td><?=$v['Products_Name'] ?></td>
 	          <?php if($rsActive['Type_ID']==0){ ?>
@@ -111,8 +111,41 @@ $List = $DB->toArray($result);
 <script type='text/javascript' src='/static/js/plugin/layer/layer.js'></script>
 <script>
 $(document).ready(function(){
-	var store = [],active_count=<?=$rsActive['BizGoodsCount'] ?>,count=1;
-	$("input[name='select']").click(function(){
+  var toplistArr = $('input[name="toplist"]', parent.document).val();
+  toplistArr = toplistArr.split(',');
+  var store = [],active_count=<?=$rsActive['BizGoodsCount'] ?>,count=1;
+  if(toplistArr.length>0){
+      for(var i=0;i<toplistArr.length;i++)
+      {
+          $("#n"+toplistArr[i]).attr("checked","checked");
+      }
+  }
+  $("#chose").click(function(){
+      if($(this).prop("checked")==true){
+          $("input[name='select[]']").attr("checked","checked");
+          var len = $("input[name='select[]']:checked").length;
+          if(len>active_count){
+              alert("最多允许选择"+active_count+"个");
+              $("input[name='select[]']").removeAttr("checked");
+              return false;
+          }
+          $("input[name='select[]']:checked").each(function(){
+              store.push({
+                id:$(this).val(),
+                name:$(this).parent().attr("vkname")
+              });
+              
+          })
+          
+      }else{
+          $("input[name='select[]']").removeAttr("checked");
+      }
+  });
+
+
+
+	
+	$("input[name='select[]']").click(function(){
 		if($(this).is(":checked")==true){
 			if(count>active_count){
 				alert("最多允许选择"+active_count+"个");
@@ -131,7 +164,7 @@ $(document).ready(function(){
 		var str = "",toplist="";
 		if(store.length>0){
 			for(var i=0;i<store.length;i++){
-				str+="<option value='"+store[i].id+"'>"+store[i].name+"</option>";
+				str+="<option value='"+store[i].id+"'>"+store[i].name+" </option>";
 				if(i==store.length-1){
 					toplist += store[i].id;
 				}else{
@@ -140,6 +173,7 @@ $(document).ready(function(){
 				
 			}
 		}
+
       $('select[name="commit"]', parent.document).append(str);
       $('input[name="toplist"]', parent.document).val(toplist);
       var index = parent.layer.getFrameIndex(window.name);

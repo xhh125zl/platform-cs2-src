@@ -52,6 +52,10 @@ if(IS_POST){
         <link href='/static/member/css/main.css' rel='stylesheet' type='text/css' />
         <script type='text/javascript' src='/static/js/jquery-1.7.2.min.js'></script>
         <script type='text/javascript' src='/static/js/plugin/layer/layer.js'></script>
+         <link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+        <link href='/static/api/active/bootstrap-duallistbox.min.css' rel='stylesheet' type='text/css' />
+        <script type='text/javascript' src='/static/api/active/bootstrap.min.js'></script>
+        <script type='text/javascript' src='/static/api/active/jquery.bootstrap-duallistbox.min.js'></script>
         <script>
         $(document).ready(function(){
             $('#select').click(function(){
@@ -63,29 +67,58 @@ if(IS_POST){
                       content: '/biz/active/product_select.php?activeid='+"<?=$rsActive['Active_ID'] ?>"
                   });              
             });
-			var count =1;
-			var activeCount=<?=$rsActive['IndexBizGoodsCount']?$rsActive['IndexBizGoodsCount']:0 ?>;
-            $("select[name='commit']").change(function(){
-                if(count>activeCount){
-					alert("首页只能推荐"+activeCount+"个");
-					$(this).find("option").removeAttr("selected");
-					count = 1;
-					return false;
-                }
-                count++;
-                var text = $(this).find(":selected").text();
-                var arr = text.split(' ');
-                var html = '';
-                for(var i=0;i<arr.length;i++)
-                {
-					html+="<li>"+arr[i]+"</li>";
-                }
-				$("input[name='Indexlist']").val($(this).val());
-				$("#IndexCommit").html(html);
-             });
         });
-        </script>
         
+        function handle(obj,ptype)
+        {
+            var $_obj = $(obj);
+            var Indexcommit = $("select[name='Indexcommit']");
+            var activeCount=<?=$rsActive['IndexBizGoodsCount']?$rsActive['IndexBizGoodsCount']:0 ?>;
+            if(ptype=='copy')
+            {
+                var val = $_obj.parent().parent().find("select").val();
+                if(val==null) return ;
+                val = val.toString();
+                var text = $_obj.parent().parent().find("select > option:selected").text();
+                if(val.indexOf(',')==-1){
+                    //只选择一个值
+                    var t = Indexcommit.find("option").text();
+                    var tArr = t.split(' ');
+                    if(tArr.length-1>=activeCount){  
+                        alert("超过了推荐首页所设置的最大值 "+activeCount);
+                        return ;
+                    }
+                    if(t.indexOf(text)==-1){
+                        Indexcommit.append("<option value='"+val+"'>"+text+"</option>");
+                    }
+                }else{
+                    var arr = text.split(' ');
+                    var valarr = val.split(',');
+                    var t = Indexcommit.find("option").text();
+                    for(var i=0;i<arr.length-1;i++)
+                    {
+                        var tArr = t.split(' ');
+                        if(tArr.length-1>=activeCount){  
+                            alert("超过了推荐首页所设置的最大值 "+activeCount);
+                            break ;
+                        }
+                        if(t.indexOf(arr[i])==-1){
+                            Indexcommit.append("<option value='"+valarr[i]+"'>"+arr[i]+"</option>");
+                        }
+                    }
+                }
+            }else if(ptype=='remove'){
+                 var text = $_obj.parent().parent().find("select > option").text();
+                 var textArr = text.split(' ');
+                if(textArr.length-1>1){
+                    var findobj = $_obj.parent().parent().find("select >option:selected");
+                    findobj.remove();
+                }else{
+                    
+                }
+            }
+        }
+        </script>
     </head>
 	<body>
         <div id="iframe_page">
@@ -105,39 +138,53 @@ if(IS_POST){
                     	<div class="clear"></div>
                     </div>
                     <div class="rows">
-                      <label>选择产品</label>
+                      <label>显示在列表页的产品</label>
                       <span class="input">
-                      	<select multiple="true" name="commit" style="width: 300px;height:100px;">
-                      	<?php 
-                      	if(!empty($list)){ 
-                      	     foreach ($list as $k=>$v){
-                      	?>
-                      	<option value="<?=$v['Products_ID'] ?>"><?=$v['Products_Name'] ?> </option>
-                      	<?php }
-                      	}
-                      	?>
-                      	</select>
-                      	（选择要推荐到首页的产品会显示在下面）
+                        <div class="box1 col-md-6">
+                            
+                            <select multiple="multiple" id="bootstrap-duallistbox-nonselected-list_commit" class="form-control" name="commit" style="height: 100px;width:300px;">
+                            <?php 
+                            if(!empty($list)){ 
+                                 foreach ($list as $k=>$v){
+                            ?>
+                            <option value="<?=$v['Products_ID'] ?>"><?=$v['Products_Name'] ?> </option>
+                            <?php }
+                            }
+                            ?>
+                            </select>
+                            <div class="btn-group buttons">
+                                <button type="button" class="btn moveall btn-default glyphicon glyphicon-arrow-down" title="复制" onclick="handle(this,'copy')">  
+                                </button>
+                                <button type="button" class="btn move btn-default glyphicon glyphicon-arrow-up" title="删除" onclick="handle(this,'remove')">
+                                </button>
+                            </div>
+                        </div>
                       </span>
                       <div class="clear"></div>
                     </div>
                     <div class="rows">
                       <label>推荐到首页的产品</label>
                       <span class="input">
-                      	<ul id="IndexCommit">
-                      	<?php 
-                      	if(!empty($rsActive['IndexConfig']) && $rsActive['IndexConfig']){
-                      	    $indexList = explode(',', $rsActive['IndexConfig']);
-                      	     if(!empty($indexList)){
-                      	     foreach ($indexList as $v){
-                      	?>
-                      	<li><?=isset($list[$v]['Products_Name'])?$list[$v]['Products_Name']:'' ?></li>
-                      	<?php
-                          }
-                      	 }
-                      	}
-                      	?>
-                      	</ul>
+                        <div class="box1 col-md-6">
+                            <div class="btn-group buttons">
+                                <button type="button" class="btn moveall btn-default glyphicon glyphicon-arrow-up" title="删除" onclick="handle(this,'remove')">  
+                                </button>
+                            </div>
+                            <select multiple="multiple" id="bootstrap-duallistbox-nonselected-list_commit" class="form-control" name="Indexcommit" style="height: 100px;width:300px;">
+                            <?php 
+                            if(!empty($rsActive['IndexConfig']) && $rsActive['IndexConfig']){
+                      	       $indexList = explode(',', $rsActive['IndexConfig']);
+                      	       if(!empty($indexList)){
+                      	         foreach ($indexList as $v){
+                            ?>
+                            <option value="<?=isset($list[$v]['Products_ID'])?$list[$v]['Products_ID']:'' ?>"><?=isset($list[$v]['Products_Name'])?$list[$v]['Products_Name']:'' ?> </option>
+                            <?php 
+                                 }
+                             }
+                            }
+                            ?>
+                            </select>
+                        </div>
                       </span>
                       <div class="clear"></div>
                     </div>
