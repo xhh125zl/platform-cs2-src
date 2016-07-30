@@ -250,7 +250,7 @@ if(IS_POST){
                     	<div class="clear"></div>
                     </div>
                     <div class="rows">
-                      <label>选择产品</label>
+                      <label>显示在列表页的产品</label>
                       <span class="input">
                           <div class="box1 col-md-6">
                               <select multiple="multiple" id="bootstrap-duallistbox-nonselected-list_commit" class="form-control" name="commit" style="height: 100px;width:300px;">
