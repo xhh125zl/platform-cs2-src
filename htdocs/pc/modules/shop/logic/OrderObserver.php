@@ -230,11 +230,11 @@ class OrderObserver {
      */
 	private function handle_dis_agent_info() {
 		
-		if($this->shop_config['dis_agent_type'] == 1) {
-			$res = $this->handle_common_dis_agent();
-		}else {
+		//if($this->shop_config['dis_agent_type'] == 1) {
+		//	$res = $this->handle_common_dis_agent();
+		//}else {
 			$res = $this->handle_area_dis_agent();
-		}
+		//}
 		return $res;
 	   
 	}
@@ -277,34 +277,84 @@ class OrderObserver {
 	 */
 	private function handle_area_dis_agent(){
 	    $order = $this->order;
-
 	    $area_rate = json_decode($this->shop_config['agent_rate'], TRUE);
-	    $province_rate = $area_rate['Province'];
-	    $city_rate = $area_rate['City'];
-	  	
-		$user = $this->user;
-		$User_Province = trim($user['user_province']);
-		$User_City = trim($user['user_city']);
-		
-		$area_agents = model('shop_dis_agent_areas')->where(array('Users_ID'=>$order['users_id'],'area_name'=>array($User_Province, $User_City)))->select();
-		foreach($area_agents as $key => $agent_area){
-			//省代account_id
-			if($agent_area['type'] == 1){
-				$province_agent_id = $agent_area['account_id'];
-				if($province_rate > 0 ){
-					$record_money = $order['order_totalprice'] * $province_rate / 100;
-					$this->do_agent_award($province_agent_id, $record_money);
-					$this->add_agent_award_record($province_agent_id, $record_money, 2);
-				}
-			}
+            
+            $province_rate = $area_rate['pro']['Province'];
+	    $city_rate = $area_rate['cit']['Province'];
+	    $area_agent_rate = $area_rate['cou']['Province'];
+            
+                $user = $this->user;
+		if($order['address_province']){//有收货地址,按收货地址；否则，按微信地址
+			$User_Province = $order['address_province'];
+			$User_City = $order['address_city'];
+			$User_Area = $order['address_area'];
+                        $area_agents = model('distribute_agent_areas')->where(array('Users_ID'=>$order['users_id'],'area_id'=>array($User_Province, $User_City,$User_Area)))->select();
 			
-			//市代account_id
-			if($agent_area['type'] == 2){
-				$city_agent_id =  $agent_area['account_id'];
-				if($city_agent_id > 0 ){
-					$record_money = $order['order_totalprice'] * $city_rate / 100;
-					$this->do_agent_award($city_agent_id, $record_money);
-					$this->add_agent_award_record($city_agent_id, $record_money, 3);
+		}else{
+			$User_Province = trim($user['user_province']);
+                        $User_City = trim($user['user_city']);
+                        $User_Area = trim($user['user_area']);
+                        $area_agents = model('distribute_agent_areas')->where(array('Users_ID'=>$order['users_id'],'area_name'=>array($User_Province, $User_City,$User_Area)))->select();
+		}
+                
+            $cartProduct = json_decode(html_entity_decode($order['order_cartlist']), true);
+            $flag = true;
+            if (!empty($cartProduct)) 
+		{
+			foreach ($cartProduct as $k => $v) 
+			{
+				foreach ($v as $p => $productInfo) 
+				{			 	
+					//循环给每个代理商级别发放佣金
+					foreach ($area_agents as $key=>$agent_area) 
+					{
+                                            
+                                            
+						//省代account_id
+                                                if($agent_area['type'] == 1){    
+                                                        $province_agent_id = $agent_area['account_id'];
+							$areaid = $agent_area['area_id'];
+							if($province_rate > 0 ){
+								//计算当前产品的佣金
+								$product_record_money = ($productInfo['ProductsProfit']*($productInfo['platForm_Income_Reward']/100))*($productInfo['area_Proxy_Reward']/100)*($province_rate/100)*($productInfo['Qty']);
+								
+								$flag_a = $this->do_agent_award($province_agent_id,$product_record_money);
+								$flag_b = $this->add_agent_award_record($province_agent_id,$product_record_money,1,$order,$productInfo,$areaid);
+								$flag = $flag_a && $flag_b;
+							}
+						}
+
+						//市代account_id
+                                                if($agent_area['type'] == 2){
+                                                        $city_agent_id = $agent_area['account_id'];
+							$areaid = $agent_area['area_id'];
+                                                       // dump($city_agent_id); dump($areaid); 
+							if($city_rate > 0 ){
+								//计算当前产品的佣金
+                                                                $product_record_money = ($productInfo['ProductsProfit']*($productInfo['platForm_Income_Reward']/100))*($productInfo['area_Proxy_Reward']/100)*($city_rate/100)*($productInfo['Qty']);
+								//dump($product_record_money); dump($city_rate);die;
+								$flag_a = $this->do_agent_award($city_agent_id,$product_record_money);
+								$flag_b = $this->add_agent_award_record($city_agent_id,$product_record_money,2,$order,$productInfo,$areaid);
+								$flag = $flag_a && $flag_b; 
+							}
+						}
+
+						//市代account_id
+						if($agent_area['type'] == 3){
+							$area_agent_id = $agent_area['account_id'];
+							$areaid = $agent_area['area_id'];
+							if($area_agent_rate > 0 ){
+								//计算当前产品的佣金
+                                                                $product_record_money = ($productInfo['ProductsProfit']*($productInfo['platForm_Income_Reward']/100))*($productInfo['area_Proxy_Reward']/100)*($area_agent_rate/100)*($productInfo['Qty']);
+								
+								$flag_a = $this->do_agent_award($area_agent_id,$product_record_money);
+								$flag_b = $this->add_agent_award_record($area_agent_id,$product_record_money,3,$order,$productInfo,$areaid);
+								$flag = $flag_a && $flag_b; 
+							}
+						}
+
+					}
+
 				}
 			}
 		}
@@ -425,8 +475,8 @@ class OrderObserver {
 	/**
 	 *添加代理奖励记录
 	 */
-	private function add_agent_award_record($root_id, $record_money, $type = 1){
-		$dis_agent_record_model = model('shop_dis_agent_rec');
+	private function add_agent_award_record($root_id, $record_money, $type = 1, $order = array(), $productInfo = array(),$careaid){
+		$dis_agent_record_model = model('distribute_agent_rec');
 		
 		$order = $this->order;
 		$dis_agent_record['Users_ID'] = $order['users_id']; 
@@ -434,9 +484,19 @@ class OrderObserver {
 		$dis_agent_record['Record_Money'] = $record_money;
 		$dis_agent_record['Record_CreateTime'] = time();
 		$dis_agent_record['Record_Type'] = $type;
+                $dis_agent_record['area_id'] = $careaid;
+                $dis_agent_record['Order_CreateTime'] = $order['order_createtime']; 
+                $dis_agent_record['Order_ID'] = $order['order_id'];
+                
+                $dis_agent_record['Products_Name'] = $productInfo['ProductsName'];
+                $dis_agent_record['Products_Qty'] = $productInfo['Qty'];
+                $dis_agent_record['Products_PriceX'] = $productInfo['ProductsPriceX'];
+                $dis_agent_record['area_Proxy_Reward'] = $productInfo['area_Proxy_Reward'];
+ 
 		$flag = $dis_agent_record_model->insert($dis_agent_record);
 		return $flag;
 	}
+	
 	/*
 	 *确定用户是否满足升级条件
 	 *@param Int  $sales 销售额
