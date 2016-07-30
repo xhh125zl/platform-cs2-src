@@ -62,7 +62,7 @@ $List = $DB->toArray($result);
       <table width="100%" align="center" border="0" cellpadding="5" cellspacing="0" class="r_con_table">
         <thead>
           <tr>
-            <td width="8%" nowrap="nowrap">选择<input type="checkbox" id="chose" class="listNum" value="" ></td>
+            <td width="8%" nowrap="nowrap">全选<input type="checkbox" id="chose" class="listNum" value="" ></td>
             <td width="8%" nowrap="nowrap">商品名</td>
             <?php if($rsActive['Type_ID']==0){ ?>
             <td width="8%" nowrap="nowrap">库存</td>

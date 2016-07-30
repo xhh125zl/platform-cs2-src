@@ -25,8 +25,8 @@ if(IS_AJAX && isset($_POST['action']) && $_POST['action']=='adult')
 }
 $activeid = isset($_GET['activeid'])?$_GET['activeid']:0;
 $lists = array();
-$condition = " LEFT JOIN active AS a ON b.Active_ID=a.Active_ID  LEFT JOIN biz AS bz ON b.Biz_ID=bz.Biz_ID WHERE b.Users_ID='{$UsersID}' AND b.Active_ID={$activeid}  ORDER BY b.ID DESC";
-$result = $DB->getPages("biz_active as b","a.Type_ID,a.Active_Name,a.stoptime,a.starttime,b.*,bz.Biz_Account,bz.Biz_Name",$condition,10);
+$condition = " LEFT JOIN active AS a ON b.Active_ID=a.Active_ID  LEFT JOIN biz AS bz ON b.Biz_ID=bz.Biz_ID LEFT JOIN active_type as t ON a.Type_ID=t.Type_ID WHERE b.Users_ID='{$UsersID}' AND b.Active_ID={$activeid}  ORDER BY b.ID DESC";
+$result = $DB->getPages("biz_active as b","a.Type_ID,a.Active_Name,a.stoptime,a.starttime,b.*,bz.Biz_Account,bz.Biz_Name,t.Type_Name",$condition,10);
 $lists = $DB->toArray($result);
 $Status = ['未开始','申请中','已同意','已拒绝','已结束'];
 ?>
@@ -103,7 +103,7 @@ function adult(id)
           <tr>
             <td nowrap="nowrap" class="id"><?=$v["ID"] ?></td>
             <td nowrap="nowrap" class="id"><?=$v["Active_Name"] ?></td>
-            <td nowrap="nowrap"><?=$ActiveType[$v["Type_ID"]] ?></td>
+            <td nowrap="nowrap"><?=$v["Type_Name"] ?></td>
             <td nowrap="nowrap"><?=$v["Biz_Name"] ?></td>
             <td><a href="#" onclick="view(<?=$v["ID"]?>)">查看</a></td>
             <td nowrap="nowrap"><?php echo date("Y-m-d",$v["starttime"]); ?></td>

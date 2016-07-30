@@ -43,6 +43,11 @@ if(IS_POST){
     if(!$rsActive){
         sendAlert("不正确的参数传递", "active_list.php", 2);
     }
+    $typelist = $DB->Get("active_type","*","WHERE Status=1");
+    $typelist = $DB->toArray($typelist);
+    if(empty($typelist)){
+         sendAlert("请添加活动类型","type_add.php" ,2);
+    }
 }
 ?>
 <!DOCTYPE HTML>
@@ -117,6 +122,17 @@ if(IS_POST){
                       <div class="clear"></div>
                     </div>
                     <div class="rows">
+                      <label>活动类型</label>
+                      <span class="input">
+                          <select name="ActiveType">
+                             <?php foreach ($typelist as $k => $v) {?>
+                             <option value="<?=$v['Type_ID'] ?>" <?=$rsActive['Type_ID']==$v['Type_ID']?'selected':'' ?>><?=$v['Type_Name'] ?></option>
+                             <?php }?>
+                          </select>
+                      </span>
+                      <div class="clear"></div>
+                    </div> 
+                    <div class="rows">
                       <div class="rows">
                       <label>产品图片</label>
                       <span class="input"> <span class="upload_file">
@@ -142,17 +158,6 @@ if(IS_POST){
                       </span>
                       <div class="clear"></div>
                     </div>
-                    <div class="rows">
-                      <label>活动类型</label>
-                      <span class="input">
-					  <select name="ActiveType">
-					  	 <?php foreach ($ActiveType as $k => $v) {?>
-					  	 <option value="<?=$k ?>" <?=$k==$rsActive['Type_ID']?'selected':'' ?>><?=$ActiveType[$k] ?></option>
-					  	 <?php }?>
-					  </select>
-                      </span>
-                      <div class="clear"></div>
-                    </div>  
                     <div class="rows">
                       <label>商家数</label>
                       <span class="input">

@@ -37,9 +37,10 @@ $rmenu['product']=array(
 );
 $rmenu['active']=array(
     'active' => '活动管理',
-    'active_list' => '活动列表',
-    'active_add' => '发起活动',
     'type' => '活动类型',
+    'active_add' => '发起活动',
+    'active_list' => '活动列表',
+
 );
 
 $rmenusub['act_active']=array(

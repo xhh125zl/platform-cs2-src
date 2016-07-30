@@ -52,10 +52,13 @@ if(IS_POST)
 		<link href='/static/member/css/shop.css' rel='stylesheet' type='text/css' />
 		<script type='text/javascript' src='/static/member/js/shop.js'></script> 
 		<script type='text/javascript'>
-$(document).ready(function(){
-	shop_obj.category_init();
-});
-</script>
+    $(document).ready(function(){
+        $("select[name='module']").change(function(){
+            var name = $(this).find('option:selected').text();
+            $("input[name='Type_Name']").val(name);
+        });
+    });
+    </script>
 		<div id="products" class="r_con_wrap"> 
 			<script type='text/javascript' src='/static/js/plugin/dragsort/dragsort-0.5.1.min.js'></script>
 			<link href='/static/js/plugin/operamasks/operamasks-ui.css' rel='stylesheet' type='text/css' />
@@ -65,24 +68,28 @@ $(document).ready(function(){
 				<div class="m_righter" style="margin-left:0px;">
 					<form action="type_add.php" name="category_form" id="category_form" method="post">
 						<div class="opt_item">
-							<label>类别名称：</label>
+							<label>类型名：</label>
 							<span class="input">
 							<input type="text" name="Type_Name" value="" class="form_input" size="15" maxlength="30" notnull />
 							<font class="fc_red">*</font></span>
 							<div class="clear"></div>
 						</div>
             <div class="opt_item">
-							<label>模型名：</label>
+							<label>活动类型：</label>
 							<span class="input">
-							<input type="text" name="module" value="" class="form_input" size="15" maxlength="30" notnull />
-							<font class="fc_red">*</font>（英文字母组成，比如 pintuan）</span>
+                  <select name="module">
+                      <?php foreach($ActiveType as $key => $val){ ?>
+                      <option value="<?=$val['module'] ?>"><?=$val['name'] ?></option>
+                      <?php } ?>
+                  </select>
+							</span>
 							<div class="clear"></div>
 						</div>
 						<div class="opt_item">
 							<label></label>
 							<span class="input">
 							<input type="submit" class="btn_green btn_w_120" name="submit_button" value="添加分类" />
-							<a href="javascript:void(0);" class="btn_gray" onClick="location.href='cate.php'">返回</a></span>
+							<a href="javascript:void(0);" class="btn_gray" onClick="location.href='type.php'">返回</a></span>
 							<div class="clear"></div>
 						</div>
 					</form>
