@@ -1,0 +1,87 @@
+<style type="text/css">
+body,td {font-size:13px;}
+</style>
+
+<h1 align="center">订单信息</h1>
+<table width="100%" cellpadding="1">
+    <tr>
+        <td width="8%">购 货 人：</td>
+        <td>{{$user.User_NickName}}<!-- 购货人姓名 --></td>
+        <td align="right">下单时间：</td><td>{{$order.Order_CreateTime}}<!-- 下订单时间 --></td>
+        <td align="right">支付方式：</td><td>{{if $order.Order_PaymentMethod eq 0}}暂无{{else}}{{$order.Order_PaymentMethod}}{{/if}}<!-- 支付方式 --></td>
+        <td align="right">订单编号：</td><td>{{$order.Order_SN}}<!-- 订单号 --></td>
+    </tr>
+    <tr>
+     
+        <td >配送方式：</td><td>{{$order.Order_Shipping.Express}}<!-- 配送方式 --></td>
+        <td align="right">发货单号：</td><td>{{$order.Order_ShippingID}}<!-- 发货单号 --></td>
+        <td></td><td></td>
+        <td></td><td></td>
+        
+    </tr>
+    <tr>
+        <td>收货地址：</td>
+        <td colspan="7">
+        [{{$order.Address_Province}} {{$order.Address_City}} {{$order.Address_Area}}]&nbsp;{{$order.Address_Detailed}}&nbsp;<!-- 收货人地址 -->
+        收货人{{$order.Address_Name}}&nbsp;<!-- 收货人姓名 -->
+        <!-- 邮政编码 -->
+        电话：{{$order.Address_Mobile}}&nbsp; <!-- 联系电话 -->
+        <!-- 手机号码 -->
+        </td>
+    </tr>
+</table>
+<table width="100%" border="1" style="border-collapse:collapse;border-color:#000;">
+    <tr align="center">
+        <td bgcolor="#cccccc">商品名称  <!-- 商品名称 --></td>
+     
+        <td bgcolor="#cccccc">属性  <!-- 商品属性 --></td>
+        <td bgcolor="#cccccc">价格 <!-- 商品单价 --></td>
+        <td bgcolor="#cccccc">数量<!-- 商品数量 --></td>
+        <td bgcolor="#cccccc">小计    <!-- 价格小计 --></td>
+    </tr>
+    <!--  -->
+   {{foreach from=$order.Order_CartList key=Product_ID item=products}}
+   {{foreach from=$products item=item}}
+    <tr>
+        <td><!-- 商品名称 -->
+         {{$item.ProductsName}}
+         </td>
+       
+        <td><!-- 商品属性 -->
+       	{{$item.Property}}
+        </td>
+        <td align="right">￥{{$item.ProductsPriceX}}&nbsp;<!-- 商品单价 --></td>
+        <td align="right">{{$item.Qty}}&nbsp;<!-- 商品数量 --></td>
+        <td align="right">￥{{$item.ProductsPriceX*$item.Qty}}&nbsp;<!-- 商品金额小计 --></td>
+    </tr>
+  	{{/foreach}}
+    {{/foreach}}
+    <!--  -->
+    <tr>
+        <!-- 发票抬头和发票内容 -->
+        <td colspan="4">
+                </td>
+        <!-- 商品总金额 -->
+        <td colspan="2" align="right">商品总金额：￥{{$product_total}}</td>
+    </tr>
+</table>
+<table width="100%" border="0">
+    <tr align="right">
+        <td>                        <!-- 配送费用 -->
+        + 配送费用：￥{{$order.Order_Shipping.Price}}                      <!-- 订单总金额 -->
+        = 订单总金额：￥{{$order.Order_TotalAmount}}        </td>
+    </tr>
+    <tr align="right">
+        <td>
+        <!-- 如果已付了部分款项, 减去已付款金额 -->
+        
+        <!-- 如果使用了余额支付, 减去已使用的余额 -->
+        
+        <!-- 如果使用了积分支付, 减去已使用的积分 -->
+        
+        <!-- 如果使用了红包支付, 减去已使用的红包 -->
+        
+        <!-- 应付款金额 -->
+        = 应付款金额：￥{{$order.Order_TotalAmount}}</td>
+    </tr>
+</table>

@@ -394,5 +394,120 @@ function get_cart_key($UsersID,$virtual,$needcart){
 
 
 /**
+ *cloud确定商品所在购物车cartkey
+ */
+function get_cart_key_cloud($UsersID,$virtual,$needcart){
+	if($virtual==1){
+		$cart_key = $UsersID."CloudVirtual";
+	}else{
+		if($needcart==1){
+			$cart_key = $UsersID."CloudCart";
+		}else{
+			$cart_key = $UsersID."CloudBuy";
+		}
+	}
+	return $cart_key;
+}
+/*
+   生成云购码 
+   CountNum @ 生成个数
+   len 	    @ 生成长度
+   sid	    @ 商品ID
+*/
+function content_get_go_codes($CountNum = null, $len = null, $sid = null){
+	global $DB;
+	$table = 'cloud_shopcodes';
+	
+	$num = ceil($CountNum/$len);
+	$code_i = $CountNum;
+	if($num == 1) {
+		$codes = array();
+		for($i = 1; $i <= $CountNum; $i++) {
+			$codes[$i] = 10000000 + $i;
+		}
+		shuffle($codes);
+		$codes = serialize($codes);
+		$query = $DB->query("INSERT INTO `$table` (`s_id`, `s_cid`, `s_len`, `s_codes`,`s_codes_tmp`) VALUES ('$sid', '1','$CountNum','$codes','$codes')");
+		unset($codes);
+		return $query;
+	}
+	$query_1 = true;
+	$sql1 = '';
+	$sql1 = "INSERT INTO `$table` (`s_id`, `s_cid`, `s_len`, `s_codes`,`s_codes_tmp`) VALUES";
+	for($k = 1; $k < $num; $k++) {
+		$codes = array();
+		for($i = 1; $i <= $len; $i++) {
+			$codes[$i] = 10000000 + $code_i;
+			$code_i--;
+		}
+		shuffle($codes);
+		$codes = serialize($codes);
+		$sql1 .= " ('$sid', '$k','$len','$codes','$codes'),";
+		unset($codes);
+	}
+	
+	$sql1 = substr($sql1, 0, strlen($sql1)-1).';';
+	$query_1 = $DB->query($sql1);
+	$CountNum = $CountNum - (($num-1) * $len);
+	$codes = array();	
+	for($i = 1; $i <= $CountNum; $i++) {
+		$codes[$i] = 10000000 + $code_i;	
+		$code_i--;
+	}
+	shuffle($codes);
+	$codes = serialize($codes);
+	$query_2 = $DB->query("INSERT INTO `$table` (`s_id`, `s_cid`,`s_len`, `s_codes`,`s_codes_tmp`) VALUES ('$sid', '$num','$CountNum','$codes','$codes')");
+	unset($codes);
+	return $query_1 && $query_2;
+}
+//购买一个云码动作处理
+function get_cloud_code($CartList = array()) {
+	global $DB;
+	$codes = $shopcodes = array();
+	$ProductsIDS = implode(',', array_keys($CartList));
+	$IDS = '';
+	$DB->Get('cloud_shopcodes','id,s_id,s_codes_tmp','where s_id in ('.$ProductsIDS.') and s_codes_tmp<>"" order by s_cid desc' );
+	while($r = $DB->fetch_assoc()){
+		$shopcodes[$r['s_id']][] = $r;
+	}
+	
+	$sql = "UPDATE cloud_shopcodes SET s_codes_tmp = CASE id";
+	foreach($CartList as $key => $value){
+		$codes[$key] = array();
+		foreach($value as $val){
+			$for_num = count($shopcodes[$key]);//总循环次数
+			$code_sub = $val['Qty'];//剩余量
+			
+			for($j=0;$j<$for_num; $j++){
+				if($code_sub<=0){
+					break 2;
+				}else{
+					$s_codes = unserialize($shopcodes[$key][$j]['s_codes_tmp']);
+					if(count($s_codes)>=$code_sub){
+						$arr_temp = array_slice($s_codes, 0, $code_sub);
+						$codes_tmp_sub = count($s_codes)==$code_sub ? '' : serialize(array_slice($s_codes, $code_sub, (count($s_codes)-$code_sub)));
+						$sql .= ' WHEN '.$shopcodes[$key][$j]['id'].' THEN "'.$codes_tmp_sub.'"';
+						$IDS .= $shopcodes[$key][$j]['id'].',';
+						$code_sub = 0;//取完
+						$codes[$key] = array_merge($codes[$key], $arr_temp);
+						break 2;
+					}else{
+						$arr_temp = $s_codes;
+						$codes[$key] = array_merge($codes[$key], $arr_temp);
+						$code_sub = $code_sub - count($s_codes);
+						$sql .= ' WHEN '.$shopcodes[$key][$j]['id'].' THEN ""';
+						$IDS .= $shopcodes[$key][$j]['id'].',';
+					}
+				}
+			}
+		}
+	}
+	$IDS = trim($IDS, ',');
+	$sql .= ' END WHERE id IN ('.$IDS.')';
+	$DB->query($sql);
+	return $codes;
+}
+
+/**
  * 
  */

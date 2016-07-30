@@ -179,7 +179,7 @@ ad($UsersID, 1, 1);
 	</div>
     <div class="clear"></div>
  </div>
- 
+ <?php require_once("skin/activelist.php"); ?>
  <div class="index_products">
    <h2>新品上市</h2>
    <div class="double_clear"></div>

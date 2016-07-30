@@ -66,6 +66,7 @@ ad($UsersID, 1, 1);
 	  </marquee>
 	 </div>
 	 <?php }?>
+	 <?php require_once("skin/activelist.php"); ?>
   <div class="box">
    <div class="shop_skin_index_list" rel="edit-t03">
     <div class="img"></div>

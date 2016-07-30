@@ -114,6 +114,7 @@ include("skin/top.php");
             <?php require_once('skin/search_in.php'); ?>
         </div>
     </div>
+    <?php require_once("skin/activelist.php"); ?>
     <div class="menu">
     	<ul>
         	<li><a href="<?php echo $shop_url;?>/allcategory/" class="category">全部分类</a></li>

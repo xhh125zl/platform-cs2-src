@@ -61,8 +61,9 @@ ad($UsersID, 1, 1);
  </script>
  <div id="shop_skin_index">
     <div class="shop_skin_index_list banner" rel="edit-t01">
-		<div class="img"></div>
+        <div class="img"></div>
     </div>
+    <?php require_once("skin/activelist.php"); ?>
 	<div id="index-h">
 		<div><a href="<?php echo $shop_url;?>allcategory/" class="category"><img src="/static/api/shop/skin/<?php echo $rsConfig['Skin_ID'];?>/category-1.jpg" /><br />商品分类</a></div>
 		<div class="c"><a href="/api/shop/search.php?UsersID=<?php echo $UsersID;?><?php echo $owner['id'] != '0' ? '&OwnerID='.$owner['id'] : '';?>&IsHot=1"><img src="/static/api/shop/skin/<?php echo $rsConfig['Skin_ID'];?>/hot.jpg" /><br />热销商品</a></div>

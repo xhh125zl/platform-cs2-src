@@ -111,6 +111,7 @@ include("skin/top.php");
             <?php require_once('skin/search_in.php'); ?>
         </div>
     </div>
+    <?php require_once("skin/activelist.php"); ?>
 	<div class="shop_skin_index_list banner" rel="edit-t01">
 		<div class="img"></div>
     </div>

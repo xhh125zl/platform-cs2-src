@@ -1,0 +1,34 @@
+<form class="form" action="withdraw_method.php" method="post" id="create_method_form" name="mod_create_method">
+    		
+          <input type="hidden" name="Method_ID" value="{{$Method.Method_ID}}" />  
+         <div class="rows">
+          <label>类型</label>
+          <span class="input">  
+          <input value="bank_card" name="Method_Type" type="radio" {{if $Method.Method_Type eq 'bank_card'}}checked{{/if}} >&nbsp;&nbsp;银行卡
+          <input value="alipay" name="Method_Type" type="radio" {{if $Method.Method_Type eq 'alipay'}}checked{{/if}} >&nbsp;&nbsp; 支付宝:
+</span>
+          <div class="clear"></div>
+        </div>
+          
+        <div class="rows method_name_rows" >
+        	<label>名称</label>
+            <span class="input"><input type="text" value="{{$Method.Method_Name}}" class="form_input" name="Method_Name"  notnull /></span>
+            <div class="clear"></div>
+        </div>   
+         <div class="rows">
+          <label>状态</label>
+          <span class="input">  <input value="1" name="Status" type="radio" {{if $Method.Status eq '1'}}checked{{/if}} checked>&nbsp;&nbsp;可用
+           <input value="0" name="Status" type="radio" {{if $Method.Status eq '0'}}checked{{/if}}>&nbsp;&nbsp; 不可用
+</span>
+          <div class="clear"></div>
+        </div>
+           
+       <div class="rows">
+        <label></label>
+        <span class="submit">
+        <input type="submit" value="确定提交" name="submit_btn">
+        </span>
+        <div class="clear"></div>
+      </div>
+      <input type="hidden" name="action" value="edit_method">  
+         </form>

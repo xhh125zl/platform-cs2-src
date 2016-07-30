@@ -54,6 +54,7 @@ ad($UsersID, 1, 1);
    <div class="shop_skin_index_list banner" rel="edit-t01">
         <div class="img"></div>
     </div>
+    <?php require_once("skin/activelist.php"); ?>
     <div id="index_m">
     	<div class="bg"></div>
         <div class="cont">

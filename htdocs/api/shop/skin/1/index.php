@@ -16,6 +16,7 @@ ad($UsersID, 1, 1);
   var shop_skin_data=<?php echo json_encode($json) ?>;
  </script>
  <?php echo '<script type="text/javascript" src="/static/js/plugin/swipe/swipe.js"></script>' ?> 
+ <?php require_once("skin/activelist.php"); ?>
  <div id="shop_skin_index">
   <?php
   if(isset($json)){

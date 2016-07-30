@@ -39,6 +39,7 @@ ad($UsersID, 1, 1);
     <div class="search_box">
         <?php require_once('skin/search_in.php'); ?>
      </div>
+     <?php require_once("skin/activelist.php"); ?>
 	<div class="shop_skin_index_list banner" rel="edit-t01">
 		<div class="img" ></div>
     </div>
