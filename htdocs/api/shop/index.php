@@ -2,6 +2,8 @@
 require_once('global.php');
 $rsSkin=$DB->GetRs("shop_home","*","where Users_ID='".$UsersID."' and Skin_ID=".$rsConfig['Skin_ID']);
 
+//拼团，云购引入文件
+require_once("active.php");
 //自定义分享
 if(!empty($share_config)){
 	$share_config["link"] = $shop_url;
@@ -24,7 +26,6 @@ $show_support = true;
 require_once($_SERVER["DOCUMENT_ROOT"].'/include/library/weixin_message.class.php');
 $weixin_message = new weixin_message($DB,$UsersID,0);
 $weixin_message->sendordernotice();
-
 //模版
 include("skin/".$rsConfig['Skin_ID']."/index.php");
 ?>

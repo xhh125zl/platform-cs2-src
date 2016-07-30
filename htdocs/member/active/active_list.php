@@ -34,6 +34,7 @@ if(IS_GET && isset($_GET["action"]) && $_GET["action"]=="del"){
     <div id="products" class="r_con_wrap">
       <div class="control_btn">
       <a href="active_add.php" class="btn_green btn_w_120">添加活动</a>
+      <a href="type_add.php" class="btn_green btn_w_120">活动类型</a>
       </div>
       <table align="center" border="0" cellpadding="5" cellspacing="0" class="r_con_table">
         <thead>

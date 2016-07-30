@@ -30,43 +30,42 @@ for($no=1;$no<=10;$no++){
   $(document).ready(index_obj.index_init);
  </script>
   <div id="shop_skin_index">
-    <div class="shop_skin_index_list banner" rel="edit-t01">
-      <div class="img" ></div>
-    </div>
-    <div style="background:#FFF; padding:8px 0;">
-    <div class="search_box">
-      <form action="/api/shop/search.php" method="get">
-		<input type="hidden" name="UsersID" value="<?php echo $UsersID;?>" />
-        <input type="text" name="kw" class="input" value="" placeholder="输入商品名称..." />
-        <input type="submit" class="submit" value="搜索" />
-      </form>
-    </div>
-    </div>
-    <div class="shop_skin_index_list h2" rel="edit-t02">
-      <div class="text" ></div>
-    </div>
-    <div class="index-h">
-      <div class="shop_skin_index_list items" rel="edit-t03">
+      <div class="shop_skin_index_list banner" rel="edit-t01">
+          <div class="img" ></div>
+      </div>
+      <div style="background:#FFF; padding:8px 0;">
+          <div class="search_box">
+              <form action="/api/shop/search.php" method="get">
+                  <input type="hidden" name="UsersID" value="<?php echo $UsersID;?>" />
+                  <input type="text" name="kw" class="input" value="" placeholder="输入商品名称..." />
+                  <input type="submit" class="submit" value="搜索" />
+              </form>
+          </div>
+      </div>
+      <?php require_once("skin/activelist.php"); ?>
+      <div class="shop_skin_index_list h2" rel="edit-t02">
+        <div class="text" ></div>
+      </div>
+      <div class="index-h">
+          <div class="shop_skin_index_list items" rel="edit-t03">
+            <div class="img" ></div>
+          </div>
+          <div class="shop_skin_index_list items" rel="edit-t04">
+            <div class="img" ></div>
+          </div>
+          <div class="shop_skin_index_list items" rel="edit-t05">
+            <div class="img" ></div>
+          </div>
+      </div>
+      <div class="shop_skin_index_list ad1" rel="edit-t06">
         <div class="img" ></div>
       </div>
-      <div class="shop_skin_index_list items" rel="edit-t04">
+      <div class="shop_skin_index_list h2" rel="edit-t07">
+        <div class="text" ></div>
+      </div>
+      <div class="shop_skin_index_list ad2" rel="edit-t08">
         <div class="img" ></div>
       </div>
-      <div class="shop_skin_index_list items" rel="edit-t05">
-        <div class="img" ></div>
-      </div>
-    </div>
-    <div class="shop_skin_index_list ad1" rel="edit-t06">
-      <div class="img" ></div>
-    </div>
-    
-    
-    <div class="shop_skin_index_list h2" rel="edit-t07">
-      <div class="text" ></div>
-    </div>
-    <div class="shop_skin_index_list ad2" rel="edit-t08">
-      <div class="img" ></div>
-    </div>
       <?php
 			$j=0;
 			echo '<ul class="products_list">';

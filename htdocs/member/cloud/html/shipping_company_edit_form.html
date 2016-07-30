@@ -1,0 +1,25 @@
+<form class="form" action="shipping.php" method="post" id="create_shipping_form" name="mod_create_shipping">
+        <p class="rows">
+        <label for="Shipping_Name">名称</label>
+        <input type="text" value="{{$Shipping.Shipping_Name}}" class="{required:true}" name="Shipping_Name"  />
+        </p> 
+        
+       
+        
+        <p class="rows">
+        <label>状态</label>
+           
+           <input name="Shipping_Status" value="1"  type="radio" {{if  $Shipping.Shipping_Status eq 1}}checked{{/if}} />&nbsp;&nbsp;可用
+           <input name="Shipping_Status" value="0"  type="radio"  {{if $Shipping.Shipping_Status eq 0}}checked{{/if}} />&nbsp;&nbsp; 不可用
+        </p> 
+     
+       <p class="rows">
+        <label></label>
+          
+        <input type="submit" value="确定提交" name="submit_btn">
+      
+      </div>
+      
+      <input type="hidden" name="Shipping_ID" value="{{$Shipping.Shipping_ID}}">  
+      <input type="hidden" name="action" value="edit_shipping_company">  
+</form>

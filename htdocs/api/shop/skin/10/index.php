@@ -36,7 +36,7 @@ ad($UsersID, 1, 1);
 	<div class="shop_skin_index_list banner" rel="edit-t01">
 		<div class="img" ></div>
     </div>
-	
+	<?php require_once("skin/activelist.php"); ?>
 	<div class="ind_wrap">
     	<?php
 			$DB->get("shop_category","Category_Name,Category_ID","where Users_ID='".$UsersID."' and Category_ParentID=0 order by Category_Index asc");

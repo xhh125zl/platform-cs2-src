@@ -33,15 +33,17 @@ ad($UsersID, 1, 1);
   $(document).ready(index_obj.index_init);
  </script>
  <div id="shop_skin_index">
-	<div class="shop_skin_index_list banner" rel="edit-t01">
-		<div class="img" ></div>
+    <div class="shop_skin_index_list banner" rel="edit-t01">
+      <div class="img" ></div>
     </div>
-	<div class="index-h">
-		<div class="items"><a href="<?php echo $shop_url;?>member/"><img src="/static/api/shop/skin/<?php echo $rsConfig['Skin_ID'];?>/vip_icon.png" /><br/>会员中心</a></div>
-		<div class="items"><a href="/api/shop/search.php?UsersID=<?php echo $UsersID;?><?php echo $owner['id'] != '0' ? '&OwnerID='.$owner['id'] : '';?>&IsNew=1"><img src="/static/api/shop/skin/<?php echo $rsConfig['Skin_ID'];?>/gift_icon.png" /><br/>最新产品</a></div>
-		<div class="items"><a href="/api/shop/search.php?UsersID=<?php echo $UsersID;?><?php echo $owner['id'] != '0' ? '&OwnerID='.$owner['id'] : '';?>&IsHot=1"><img src="/static/api/shop/skin/<?php echo $rsConfig['Skin_ID'];?>/home_icon.png" /><br/>热卖产品</a></div>
-        <div class="items"><a href="/api/<?php echo $UsersID;?>/shop/cart/"><img src="/static/api/shop/skin/<?php echo $rsConfig['Skin_ID'];?>/cart_icon.png" /><br/>购物车</a></div>
-	</div>
+    
+    <div class="index-h">
+      <div class="items"><a href="<?php echo $shop_url;?>member/"><img src="/static/api/shop/skin/<?php echo $rsConfig['Skin_ID'];?>/vip_icon.png" /><br/>会员中心</a></div>
+      <div class="items"><a href="/api/shop/search.php?UsersID=<?php echo $UsersID;?><?php echo $owner['id'] != '0' ? '&OwnerID='.$owner['id'] : '';?>&IsNew=1"><img src="/static/api/shop/skin/<?php echo $rsConfig['Skin_ID'];?>/gift_icon.png" /><br/>最新产品</a></div>
+      <div class="items"><a href="/api/shop/search.php?UsersID=<?php echo $UsersID;?><?php echo $owner['id'] != '0' ? '&OwnerID='.$owner['id'] : '';?>&IsHot=1"><img src="/static/api/shop/skin/<?php echo $rsConfig['Skin_ID'];?>/home_icon.png" /><br/>热卖产品</a></div>
+          <div class="items"><a href="/api/<?php echo $UsersID;?>/shop/cart/"><img src="/static/api/shop/skin/<?php echo $rsConfig['Skin_ID'];?>/cart_icon.png" /><br/>购物车</a></div>
+    </div>
+    <?php require_once("skin/activelist.php"); ?>
 	    <?php
 			$i=0;
 			$DB->get("shop_category","Category_Name,Category_ID","where Users_ID='".$UsersID."' and Category_ParentID=0 order by Category_Index asc");

@@ -111,6 +111,7 @@ ad($UsersID, 1, 1);
    <div class="shop_skin_index_list banner" rel="edit-t01">
         <div class="img"></div>
     </div>
+    <?php require_once("skin/activelist.php"); ?>
     <?php require_once('skin/index_info.php');?>
     <div class="clear"></div>
  </div>

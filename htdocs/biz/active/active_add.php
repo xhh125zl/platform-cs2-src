@@ -15,9 +15,10 @@ if(IS_POST){
     $post  =  $_POST;
     $active_id = $post['Active_ID'];
     $return_uri = "active.php";
-    $rsActive = $DB->GetRs("biz_active","*","WHERE Users_ID='{$post['UsersID']}' AND Active_ID='{$active_id}'");
+    $rsActive = $DB->GetRs("active","*","WHERE Users_ID='{$post['UsersID']}' AND Active_ID='{$active_id}'");
 
     $rsActiveBiz = $DB->GetRs("biz_active","count(*) as total","WHERE Users_ID='{$post['UsersID']}'  AND Active_ID='{$active_id}'");
+    
     if($rsActiveBiz['total']>$rsActive['MaxBizCount']){
         sendAlert("只允许{$rsActive['MaxBizCount']}个商家参加活动",$return_uri ,2);
     }
@@ -50,6 +51,7 @@ if(IS_POST){
         $sql = "SELECT * FROM active WHERE Status=1 AND starttime<{$time} AND {$time}<stoptime AND Active_ID NOT IN ( SELECT Active_ID FROM biz_active WHERE Users_ID='{$UsersID}' AND Biz_ID='{$BizID}' )  ORDER BY Type_ID ASC";
         $res = $DB->query($sql);
         $activelist = $DB->toArray($res);
+        if(empty($activelist)) sendAlert("没有可以参加的活动");
         $rsActive = $activelist [0];
     }
     if($flag){
@@ -67,9 +69,9 @@ if(IS_POST){
         <script type='text/javascript' src='/static/js/jquery-1.7.2.min.js'></script>
         <script type='text/javascript' src='/static/js/plugin/layer/layer.js'></script>
         <link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
-        <link href='/static/api/active/bootstrap-duallistbox.min.css' rel='stylesheet' type='text/css' />
-        <script type='text/javascript' src='/static/api/active/bootstrap.min.js'></script>
-        <script type='text/javascript' src='/static/api/active/jquery.bootstrap-duallistbox.min.js'></script>
+        <style>
+        label { font-weight:900px;font-family:"宋体"}
+        </style>
         <script>
         <?php if($Active_ID){ ?>
         $(document).ready(function(){
@@ -225,7 +227,7 @@ if(IS_POST){
                     <input type="hidden" name="Active_ID" value="<?=$Active_ID?:$rsActive['Active_ID'] ?>" />
                     <input type="hidden" name="BizID" value="<?=$BizID ?>" />
                     <input type="hidden" name="toplist" value=""/>
-                    <input type="hidden" name="IndexBizGoodsCount" value=""/>
+                    <input type="hidden" name="IndexBizGoodsCount" value="<?=$rsActive["IndexBizGoodsCount"]?>"/>
                     <input type="hidden" name="Indexlist" value=""/>
                     <?php if(!$Active_ID){ ?>
                     <div class="rows">
