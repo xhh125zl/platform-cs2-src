@@ -129,9 +129,12 @@ class balance
             }else{
                 $item["orderno"] = date("Ymd", $r["Order_CreateTime"]) . $item["Order_ID"];
             }
-            
             $item["bonus"] = $item["Bonus"];
-            $cartlist = json_decode(htmlspecialchars_decode($item["Order_Json"]), true);
+            $Order_Json = htmlspecialchars_decode($item["Order_Json"]);
+            if (strpos($item["Order_Json"],'quot;')>= 0) {
+                $Order_Json =  htmlspecialchars_decode($Order_Json);
+            }
+            $cartlist = json_decode($Order_Json, true);
             $amount = $web = 0;
             if ($cartlist) {
                 if($r['Order_Type']=='pintuan' || $r['Order_Type']=='dangou'){
