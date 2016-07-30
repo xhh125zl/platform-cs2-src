@@ -1,6 +1,16 @@
 <?php 
 require_once($_SERVER["DOCUMENT_ROOT"].'/include/update/common.php');
-
+if(IS_AJAX && isset($_POST['action']) && $_POST['action']=='getActive'){
+    $active_id = $_POST['aid'];
+    $UsersID = $_POST['UsersID'];
+    if($active_id){
+        $rsActive = $DB->GetRs("active","*","WHERE Users_ID='{$UsersID}' AND Active_ID='{$active_id}'");
+        if(!empty($rsActive)){
+            die(json_encode(['status'=>1,'data'=>$rsActive],JSON_UNESCAPED_UNICODE));
+        }
+    }
+    die(json_encode(['status'=>0]));
+}
 if(IS_POST){ 
     $post  =  $_POST;
     $data  = [];
@@ -26,8 +36,13 @@ if(IS_POST){
         $rsActive = $DB->GetRs("active","*","WHERE Users_ID='{$UsersID}' AND Active_ID='{$Active_ID}'");
     }
     $flag = $DB->GetRs("biz_active","*","WHERE Users_ID='{$UsersID}' AND Biz_ID='{$BizID}' AND Active_ID='{$Active_ID}' ");
+    $activelist = [];
     if(!$Active_ID){
-        sendAlert("所参加的活动不存在");
+        $time = time();
+        $sql = "SELECT * FROM active WHERE Status=1 AND starttime<{$time} AND {$time}<stoptime AND Active_ID NOT IN ( SELECT Active_ID FROM biz_active WHERE Users_ID='{$UsersID}' AND Biz_ID='{$BizID}' )  ORDER BY Type_ID ASC";
+        $res = $DB->query($sql);
+        $activelist = $DB->toArray($res);
+        $rsActive = $activelist [0];
     }
     if($flag){
         sendAlert("不能重复推荐产品");
@@ -48,6 +63,7 @@ if(IS_POST){
         <script type='text/javascript' src='/static/api/active/bootstrap.min.js'></script>
         <script type='text/javascript' src='/static/api/active/jquery.bootstrap-duallistbox.min.js'></script>
         <script>
+        <?php if($Active_ID){ ?>
         $(document).ready(function(){
             $('#select').click(function(){
                   layer.open({
@@ -109,6 +125,87 @@ if(IS_POST){
                 }
             }
         }
+        <?php }else{ ?>
+        $(document).ready(function(){
+            $('#select').click(function(){
+                  var Active_ID = $("input[name='Active_ID']").val();
+                  layer.open({
+                      type: 2,
+                      area: ['800px', '500px'],
+                      fix: false,
+                      maxmin: true,
+                      content: '/biz/active/product_select.php?activeid='+Active_ID
+                  });              
+            });
+        });
+        
+        
+        
+        $(function(){
+            $("select[name='active']").change(function(){
+                var aid = $(this).val();
+                $.post("/biz/active/active_add.php",{ aid:aid,action:'getActive',UsersID:"<?=$UsersID ?>"},function(data){
+                    if(data.status==1){
+                        var active = data.data;
+                        $("input[name='IndexBizGoodsCount']").val(active.IndexBizGoodsCount);
+                        $("input[name='Active_ID']").val(active.Active_ID);
+                        $("#active_name").text(active.Active_Name);
+                    }
+                },"json");
+            });
+        });
+        
+        
+        function handle(obj,ptype)
+        {
+            var $_obj = $(obj);
+            var Indexcommit = $("select[name='Indexcommit']");
+            var activeCount=$("input[name='IndexBizGoodsCount']").val();
+            if(ptype=='copy')
+            {
+                var val = $_obj.parent().parent().find("select").val();
+                if(val==null) return ;
+                val = val.toString();
+                var text = $_obj.parent().parent().find("select > option:selected").text();
+                if(val.indexOf(',')==-1){
+                    //只选择一个值
+                    var t = Indexcommit.find("option").text();
+                    var tArr = t.split(' ');
+                    if(tArr.length-1>=activeCount){  
+                        alert("超过了推荐首页所设置的最大值 "+activeCount);
+                        return ;
+                    }
+                    if(t.indexOf(text)==-1){
+                        Indexcommit.append("<option value='"+val+"'>"+text+" </option>");
+                    }
+                }else{
+                    var arr = text.split(' ');
+                    var valarr = val.split(',');
+                    var t = Indexcommit.find("option").text();
+                    for(var i=0;i<arr.length-1;i++)
+                    {
+                        var tArr = t.split(' ');
+                        if(tArr.length-1>=activeCount){  
+                            alert("超过了推荐首页所设置的最大值 "+activeCount);
+                            break ;
+                        }
+                        if(t.indexOf(arr[i])==-1){
+                            Indexcommit.append("<option value='"+valarr[i]+"'>"+arr[i]+" </option>");
+                        }
+                    }
+                }
+            }else if(ptype=='remove'){
+                 var text = $_obj.parent().parent().find("select > option").text();
+                 var textArr = text.split(' ');
+                if(textArr.length-1>1){
+                    var findobj = $_obj.parent().parent().find("select >option:selected");
+                    findobj.remove();
+                }else{
+                    
+                }
+            }
+        }
+        <?php } ?>
         </script>
     </head>
 	<body>
@@ -117,13 +214,29 @@ if(IS_POST){
             	<div id="products" class="r_con_wrap">
               	<form id="product_add_form" class="r_con_form skipForm" method="post" action="active_add.php">
                     <input type="hidden" name="UsersID" value="<?=$UsersID ?>" />
-                    <input type="hidden" name="Active_ID" value="<?=$Active_ID ?>" />
+                    <input type="hidden" name="Active_ID" value="<?=$Active_ID?:$rsActive['Active_ID'] ?>" />
                     <input type="hidden" name="BizID" value="<?=$BizID ?>" />
                     <input type="hidden" name="toplist" value=""/>
+                    <input type="hidden" name="IndexBizGoodsCount" value=""/>
                     <input type="hidden" name="Indexlist" value=""/>
+                    <?php if(!$Active_ID){ ?>
+                    <div class="rows">
+                    	<label>选择活动</label>
+                    	<span class="input" style="width:300px;">
+                          <?php if(!empty($activelist)){ ?>
+                          <select name="active">
+                              <?php foreach($activelist as $k=>$v){ ?>
+                              <option value="<?=$v['Active_ID'] ?>"><?=$v['Active_Name'] ?></option>
+                              <?php } ?>
+                          </select>
+                          <?php } ?>
+                    	</span>
+                    	<div class="clear"></div>
+                    </div>
+                    <?php } ?>
                     <div class="rows">
                     	<label>活动名称</label>
-                    	<span class="input" style="width:300px;"><?=$rsActive['Active_Name'] ?>&nbsp;&nbsp;&nbsp;&nbsp;
+                    	<span class="input" style="width:300px;"><label id="active_name"><?=$rsActive['Active_Name'] ?></label>&nbsp;&nbsp;&nbsp;&nbsp;
                     	<a href="#" class="btn_green" id="select" style="float: right; margin-right:20px;">选择产品</a>
                     	</span>
                     	<div class="clear"></div>
