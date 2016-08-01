@@ -14,7 +14,7 @@ if(IS_POST)
       echo '<script language="javascript">alert("类型名或者活动类型不能为空");history.back();</script>';
       exit;
 	}
-	$Flag=$DB->Set("active_type",$Data,"WHERE Type_ID=".$typeid);
+	$Flag=$DB->Set("active_type",$Data,"WHERE Users_ID='{$UsersID}' AND Type_ID=".$typeid);
 	if($Flag)
 	{
 		echo '<script language="javascript">alert("保存成功");window.location="type.php";</script>';

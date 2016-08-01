@@ -144,7 +144,18 @@ if(IS_POST){
                       area: ['800px', '500px'],
                       fix: false,
                       maxmin: true,
-                      content: '/biz/active/product_select.php?activeid='+Active_ID
+                      content: '/biz/active/product_select.php?activeid='+Active_ID+'&isIndex=0'
+                  });              
+            });
+            
+            $('#selectIndex').click(function(){
+                  var Active_ID = $("input[name='Active_ID']").val();
+                  layer.open({
+                      type: 2,
+                      area: ['800px', '500px'],
+                      fix: false,
+                      maxmin: true,
+                      content: '/biz/active/product_select.php?activeid='+Active_ID+'&isIndex=1'
                   });              
             });
         });
@@ -164,57 +175,6 @@ if(IS_POST){
                 },"json");
             });
         });
-        
-        
-        function handle(obj,ptype)
-        {
-            var $_obj = $(obj);
-            var Indexcommit = $("select[name='Indexcommit']");
-            var activeCount=$("input[name='IndexBizGoodsCount']").val();
-            if(ptype=='copy')
-            {
-                var val = $_obj.parent().parent().find("select").val();
-                if(val==null) return ;
-                val = val.toString();
-                var text = $_obj.parent().parent().find("select > option:selected").text();
-                if(val.indexOf(',')==-1){
-                    //只选择一个值
-                    var t = Indexcommit.find("option").text();
-                    var tArr = t.split(' ');
-                    if(tArr.length-1>=activeCount){  
-                        alert("超过了推荐首页所设置的最大值 "+activeCount);
-                        return ;
-                    }
-                    if(t.indexOf(text)==-1){
-                        Indexcommit.append("<option value='"+val+"'>"+text+" </option>");
-                    }
-                }else{
-                    var arr = text.split(' ');
-                    var valarr = val.split(',');
-                    var t = Indexcommit.find("option").text();
-                    for(var i=0;i<arr.length-1;i++)
-                    {
-                        var tArr = t.split(' ');
-                        if(tArr.length-1>=activeCount){  
-                            alert("超过了推荐首页所设置的最大值 "+activeCount);
-                            break ;
-                        }
-                        if(t.indexOf(arr[i])==-1){
-                            Indexcommit.append("<option value='"+valarr[i]+"'>"+arr[i]+" </option>");
-                        }
-                    }
-                }
-            }else if(ptype=='remove'){
-                 var text = $_obj.parent().parent().find("select > option").text();
-                 var textArr = text.split(' ');
-                if(textArr.length-1>1){
-                    var findobj = $_obj.parent().parent().find("select >option:selected");
-                    findobj.remove();
-                }else{
-                    
-                }
-            }
-        }
         <?php } ?>
         </script>
     </head>
@@ -247,7 +207,7 @@ if(IS_POST){
                     <div class="rows">
                     	<label>活动名称</label>
                     	<span class="input" style="width:300px;"><label id="active_name"><?=$rsActive['Active_Name'] ?></label>&nbsp;&nbsp;&nbsp;&nbsp;
-                    	<a href="#" class="btn_green" id="select" style="float: right; margin-right:20px;">选择产品</a>
+                    	<a href="#" class="btn_green" id="select" style="float: right; margin-right:20px;">选择推荐产品</a>
                     	</span>
                     	<div class="clear"></div>
                     </div>
@@ -258,12 +218,6 @@ if(IS_POST){
                               <select multiple="multiple" id="bootstrap-duallistbox-nonselected-list_commit" class="form-control" name="commit" style="height: 100px;width:300px;">
 
                                </select>
-                               <div class="btn-group buttons">
-                                    <button type="button" class="btn moveall btn-default glyphicon glyphicon-arrow-down" title="复制" onclick="handle(this,'copy')">  
-                                    </button>
-                                    <button type="button" class="btn move btn-default glyphicon glyphicon-arrow-up" title="删除" onclick="handle(this,'remove')">
-                                    </button>
-                               </div>
                            </div>
                       </span>
                       <div class="clear"></div>
@@ -273,8 +227,7 @@ if(IS_POST){
                       <span class="input">
                       	  <div class="box1 col-md-6">
                             <div class="btn-group buttons">
-                                <button type="button" class="btn moveall btn-default glyphicon glyphicon-arrow-up" title="删除" onclick="handle(this,'remove')">  
-                                </button>
+                                <a href="#" class="btn_green" id="selectIndex" style="float: right; margin-right:20px;">选择首页产品</a>
                             </div>
                             <select multiple="multiple" id="bootstrap-duallistbox-nonselected-list_commit" class="form-control" name="Indexcommit" style="height: 100px;width:300px;">
                             
