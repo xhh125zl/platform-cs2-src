@@ -91,14 +91,14 @@ $List = $DB->toArray($result);
 	          </td>
 	          <td><?=$v['Products_Name'] ?></td>
 	          <?php if($rsActive['module']=='pintuan'){ ?>
-	          <td><?=$v['Products_Count'] ?></td>
-	          <td>单购：<?=$v["Products_PriceD"]?><br/>
-                                    团购：<?=$v["Products_PriceT"]?></td>
-	          <td nowrap="nowrap"><?=$v["Products_Sales"]?></td>
+	          <td><?=isset($v['Products_Count'])?$v['Products_Count']:0 ?></td>
+	          <td>单购：<?=isset($v["Products_PriceD"])?$v["Products_PriceD"]:0 ?><br/>
+                团购：<?=isset($v["Products_PriceT"])?$v["Products_PriceT"]:0 ?></td>
+	          <td nowrap="nowrap"><?=isset($v["Products_Sales"])?$v["Products_Sales"]:0 ?></td>
 	          <?php }else{ ?>
-	          <td>商品总价：<?=$v["Products_PriceY"]?><br/>
-                                    云购单次价格：<?=$v["Products_PriceX"]?></td>
-	          <td nowrap="nowrap"><?=$v["Products_Weight"]?></td>
+	          <td>商品总价：<?=isset($v["Products_PriceY"])?$v["Products_PriceY"]:0 ?><br/>
+                云购单次价格：<?=isset($v["Products_PriceX"])?$v["Products_PriceX"]:0 ?></td>
+	          <td nowrap="nowrap"><?=isset($v["Products_Weight"])?$v["Products_Weight"]:0 ?></td>
 	          <?php } ?>
 	        </tr>
 
