@@ -48,7 +48,7 @@ if(IS_POST){
     $activelist = [];
     if(!$Active_ID){
         $time = time();
-        $sql = "SELECT * FROM active WHERE Status=1 AND starttime<{$time} AND {$time}<stoptime AND Active_ID NOT IN ( SELECT Active_ID FROM biz_active WHERE Users_ID='{$UsersID}' AND Biz_ID='{$BizID}' )  ORDER BY Type_ID ASC";
+        $sql = "SELECT * FROM active WHERE Status=1 AND starttime<{$time} AND {$time}<stoptime AND Users_ID='{$UsersID}' AND Active_ID NOT IN ( SELECT Active_ID FROM biz_active WHERE Users_ID='{$UsersID}' AND Biz_ID='{$BizID}' )  ORDER BY Type_ID ASC";
         $res = $DB->query($sql);
         $activelist = $DB->toArray($res);
         if(empty($activelist)) sendAlert("没有可以参加的活动");
