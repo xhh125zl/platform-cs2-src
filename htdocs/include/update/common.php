@@ -23,7 +23,15 @@ $BizID          =  0;
 $IsStore        =  0;
 
 $SortType = [ '按发布时间','按销量','按价格','手动' ];
-$ActiveType = [ '拼团','云购','众筹','微砍价','微促销' ];
+
+$ActiveType = [
+        ['module' => 'pintuan', 'name' => '拼团' ],
+        ['module' => 'cloud', 'name' => '云购' ],
+        ['module' => 'zhongchou', 'name' => '众筹' ],
+        ['module' => 'kanjia', 'name' => '微砍价' ],
+        ['module' => 'pifa', 'name' => '批发' ]
+    ];
+
 $_SESSION[$UsersID."HTTP_REFERER"] = $_SERVER['REQUEST_URI'];
 if(stripos($request_uri, "api")){   //对于前台的初始化
     

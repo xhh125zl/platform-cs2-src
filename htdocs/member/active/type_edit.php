@@ -50,7 +50,10 @@ if(IS_POST)
 		<script type='text/javascript' src='/static/member/js/shop.js'></script> 
 		<script type='text/javascript'>
 $(document).ready(function(){
-	shop_obj.category_init();
+	$("select[name='module']").change(function(){
+       var name = $(this).find('option:selected').text();
+       $("input[name='Type_Name']").val(name);
+  });
 });
 </script>
 		<div id="products" class="r_con_wrap"> 
@@ -69,11 +72,15 @@ $(document).ready(function(){
 							<font class="fc_red">*</font></span>
 							<div class="clear"></div>
 						</div>
-            <div class="opt_item">
-							<label>模型名：</label>
+						<div class="opt_item">
+							<label>活动类型：</label>
 							<span class="input">
-							<input type="text" name="module" value="<?=$type['module'] ?>" class="form_input" size="15" maxlength="30" notnull />
-							<font class="fc_red">*</font>（英文字母组成，比如 pintuan）</span>
+                  <select name="module">
+                      <?php foreach($ActiveType as $key => $val){ ?>
+                      <option value="<?=$val['module'] ?>" <?=$type['module']==$val['module']?'selected':'' ?> ><?=$val['name'] ?></option>
+                      <?php } ?>
+                  </select>
+							</span>
 							<div class="clear"></div>
 						</div>
 						<div class="opt_item">

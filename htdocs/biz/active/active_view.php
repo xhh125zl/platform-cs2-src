@@ -2,7 +2,7 @@
 require_once($_SERVER["DOCUMENT_ROOT"].'/include/update/common.php');
 
 $ID =  isset($_GET['id']) && $_GET['id']?$_GET['id']:0;
-$sql = "SELECT a.Type_ID,a.*,b.* FROM biz_active as b LEFT JOIN active as a ON b.Active_ID=a.Active_ID WHERE b.Users_ID='{$UsersID}' AND b.Biz_ID='{$BizID}' AND b.ID='{$ID}'";
+$sql = "SELECT a.Type_ID,a.*,b.*,t.module,t.Type_Name FROM biz_active as b LEFT JOIN active as a ON b.Active_ID=a.Active_ID LEFT JOIN active_type AS t ON a.Type_ID=t.Type_ID  WHERE b.Users_ID='{$UsersID}' AND b.Biz_ID='{$BizID}' AND b.ID='{$ID}'";
 $result = $DB->query($sql);
 $rsActive = $DB->fetch_assoc($result);
 if(!$rsActive){
@@ -10,10 +10,12 @@ if(!$rsActive){
 }
 $list = [];
 if($rsActive['ListConfig']){
-    if($rsActive['Type_ID']==0){    //拼团
+    if($rsActive['module']=='pintuan'){    //拼团
         $table = "pintuan_products";    
-    }elseif($rsActive['Type_ID']==1){   //云购
+    }elseif($rsActive['Type_ID']=='cloud'){   //云购
         $table = "cloud_products";
+    }elseif($rsActive['Type_ID']=='pifa'){   //批发
+        $table = "pifa_products";
     }else{
         $table = "shop_products";
     }
