@@ -26,10 +26,12 @@ if(IS_POST){
     }
     $list = [];
     if($rsActive['ListConfig']){
-        if($rsActive['Type_ID']==0){    //拼团
+        if($rsActive['module']=='pintuan'){    //拼团
             $table = "pintuan_products";    
-        }elseif($rsActive['Type_ID']==1){   //云购
+        }elseif($rsActive['module']=='cloud'){   //云购
             $table = "cloud_products";
+        }elseif($rsActive['module']=='pifa'){   //批发
+            $table = "pifa_products";
         }else{
             $table = "shop_products";
         }

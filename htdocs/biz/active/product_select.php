@@ -70,7 +70,7 @@ $List = $DB->toArray($result);
           <tr>
             <td width="8%" nowrap="nowrap">全选<input type="checkbox" id="chose" class="listNum" value="" ></td>
             <td width="8%" nowrap="nowrap">商品名</td>
-            <?php if($rsActive['Type_ID']==0){ ?>
+            <?php if($rsActive['module']=='pintuan'){ ?>
             <td width="8%" nowrap="nowrap">库存</td>
             <td width="8%" nowrap="nowrap">价格</td>
             <td width="8%" nowrap="nowrap">销量</td>
@@ -90,7 +90,7 @@ $List = $DB->toArray($result);
 	          	<input type="checkbox" name="select[]" id="n<?=$v['Products_ID'] ?>" class="listNum<?=$v['Products_ID'] ?>" value="<?=$v['Products_ID'] ?>" >
 	          </td>
 	          <td><?=$v['Products_Name'] ?></td>
-	          <?php if($rsActive['Type_ID']==0){ ?>
+	          <?php if($rsActive['module']=='pintuan'){ ?>
 	          <td><?=$v['Products_Count'] ?></td>
 	          <td>单购：<?=$v["Products_PriceD"]?><br/>
                                     团购：<?=$v["Products_PriceT"]?></td>
