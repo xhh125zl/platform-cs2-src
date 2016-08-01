@@ -216,7 +216,7 @@ KindEditor.ready(function(K) {
     
   });
   var editor = K.editor({
-    uploadJson : '/member/upload_json.php?TableField=web_article',
+    uploadJson : '/member/upload_json.php?TableField=web_article&Users_ID=<?php echo $UsersID;?>',
     fileManagerJson : '/member/file_manager_json.php',
     showRemote : true,
     allowFileManager : true,

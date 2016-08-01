@@ -12,12 +12,12 @@ if(IS_POST)
 	);
 	if(!$_POST["Type_Name"] || !$_POST["module"])
 	{
-      echo '<script language="javascript">alert("类型名或者模型名不能为空");history.back();</script>';
+      echo '<script language="javascript">alert("类型名或者活动类型不能为空");history.back();</script>';
       exit;
 	}
 	$rsFlag = $DB->GetRs("active_type","*","WHERE module='{$_POST["module"]}'");
 	if($rsFlag){
-      echo '<script language="javascript">alert("模型名已存在");history.back();</script>';
+      echo '<script language="javascript">alert("活动类型已存在");history.back();</script>';
       exit;
 	}
 	$Flag=$DB->Add("active_type",$Data);

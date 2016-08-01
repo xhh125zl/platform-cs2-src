@@ -12,9 +12,9 @@ $list = [];
 if($rsActive['ListConfig']){
     if($rsActive['module']=='pintuan'){    //拼团
         $table = "pintuan_products";    
-    }elseif($rsActive['Type_ID']=='cloud'){   //云购
+    }elseif($rsActive['module']=='cloud'){   //云购
         $table = "cloud_products";
-    }elseif($rsActive['Type_ID']=='pifa'){   //批发
+    }elseif($rsActive['module']=='pifa'){   //批发
         $table = "pifa_products";
     }else{
         $table = "shop_products";

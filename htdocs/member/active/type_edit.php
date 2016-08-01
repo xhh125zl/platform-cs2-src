@@ -11,7 +11,7 @@ if(IS_POST)
 	);
 	if(!$_POST["Type_Name"] || !$_POST["module"])
 	{
-      echo '<script language="javascript">alert("类型名或者模型名不能为空");history.back();</script>';
+      echo '<script language="javascript">alert("类型名或者活动类型不能为空");history.back();</script>';
       exit;
 	}
 	$Flag=$DB->Set("active_type",$Data,"WHERE Type_ID=".$typeid);
@@ -100,7 +100,7 @@ $(document).ready(function(){
 							<label></label>
 							<span class="input">
 							<input type="submit" class="btn_green btn_w_120" name="submit_button" value="保存分类" />
-							<a href="javascript:void(0);" class="btn_gray" onClick="location.href='cate.php'">返回</a></span>
+							<a href="javascript:void(0);" class="btn_gray" onClick="location.href='type.php'">返回</a></span>
 							<div class="clear"></div>
 						</div>
 					</form>

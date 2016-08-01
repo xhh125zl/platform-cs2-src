@@ -13,16 +13,22 @@ $List = Array();
 
 //获取活动配置
 $active_id = isset($_GET['activeid'])?$_GET['activeid']:0;
-$rsActive = $DB->GetRs("active","*","WHERE Users_ID='{$UsersID}' AND Active_ID='{$active_id}'");
+$time = time();
+$sql = "SELECT * FROM active AS a LEFT JOIN active_type AS t ON a.Type_ID = t.Type_ID WHERE a.Users_ID='{$UsersID}' AND a.Active_ID='{$active_id}' AND a.Status=1";
+
+$res = $DB->query($sql);
+$rsActive = $DB->fetch_array($res);
 if(empty($rsActive)){
     sendAlert("没有要参加的活动");
 }
-if($rsActive['Type_ID']==0){    //拼团
-    $table = "pintuan_products";    
-}elseif($rsActive['Type_ID']==1){   //云购
-    $table = "cloud_products";
+if($rsActive['module']=='pintuan'){    //拼团
+        $table = "pintuan_products";    
+}elseif($rsActive['module']=='cloud'){   //云购
+        $table = "cloud_products";
+}elseif($rsActive['module']=='pifa'){   //批发
+        $table = "pifa_products";
 }else{
-    $table = "shop_products";
+        $table = "shop_products";
 }
 $result = $DB->getPage($table,"*",$condition);
 $List = $DB->toArray($result);
