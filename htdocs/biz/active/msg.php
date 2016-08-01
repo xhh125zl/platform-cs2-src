@@ -6,7 +6,8 @@ $action = isset($_GET['action'])?$_GET['action']:"";
 if(IS_AJAX && $action)
 {
     $time = time();
-    $result = $DB->Get("active", "*" ,"WHERE Users_ID='{$UsersID}' AND starttime<{$time} AND stoptime>{$time} AND Status=1 ORDER BY starttime ASC,Active_ID DESC");
+    $sql = "SELECT * FROM active AS a LEFT JOIN active_type AS t ON a.Type_ID = t.Type_ID WHERE a.Users_ID='{$UsersID}' AND a.starttime<{$time} AND a.stoptime>{$time} AND a.Status=1 ORDER BY a.starttime ASC,a.Active_ID DESC";
+    $result = $DB->query($sql);
     $list = $DB->toArray($result);
     $msglist = [];
     
@@ -18,7 +19,7 @@ if(IS_AJAX && $action)
         }else{
             $msg = "正在进行中";
         }
-        $msglist[$key]['title'] = "{$ActiveType[$value['Type_ID']]}活动——{$value['Active_Name']}{$msg} "; 
+        $msglist[$key]['title'] = "{$value['Type_Name']}活动——{$value['Active_Name']}{$msg} "; 
         $msglist[$key]['addtime'] = date("Y-m-d H:i",$value['addtime']);
         $msglist[$key]['id'] = $value['Active_ID'];
     }
