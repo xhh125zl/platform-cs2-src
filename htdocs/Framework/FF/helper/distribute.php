@@ -127,7 +127,7 @@ if (!function_exists('add_distribute_record')) {
 			return false;
 		}
 
-		$Product = model('shop_products')->field('Products_ID,Products_PriceX,Products_Distributes,Biz_ID,Products_Name,commission_ratio,platForm_Income_Reward')->where(array('Users_ID' => $UsersID, 'Products_ID' => $ProductID))->find();
+		$Product = model('shop_products')->field('Products_ID,Products_PriceX,Products_Distributes,Biz_ID,Products_Name,commission_ratio,platForm_Income_Reward,nobi_ratio')->where(array('Users_ID' => $UsersID, 'Products_ID' => $ProductID))->find();
 
 		
 		if($Product['commission_ratio'] <= 0) {//佣金比例
