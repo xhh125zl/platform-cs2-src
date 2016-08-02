@@ -4,7 +4,7 @@ var index_obj={
 			$.ajax({
 				type:'post',
 				url:'/api/'+UsersID+'/cloud/ajax/',
-				data:{action:type,p:page,BizID:BizID,ActiveID:ActiveID},
+				data:{action:type,p:page,BizID:BizID,ActiveID:ActiveID,UsersID:UsersID},
 				beforeSend:function() {
 					$("body").append("<div id='load'><div class='double-bounce1'></div><div class='double-bounce2'></div></div>");
 				},
