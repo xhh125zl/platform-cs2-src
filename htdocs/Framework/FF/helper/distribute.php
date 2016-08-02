@@ -991,7 +991,7 @@ if (!function_exists('getPosterity')) {
 				//为分销账号动态指定级别
 				$descendants[$k]['level'] = $curLevel;
 			}else{
-			    break;
+			    continue;
 			}
 		}
 		return $descendants;
