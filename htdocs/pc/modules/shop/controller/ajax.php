@@ -594,7 +594,7 @@ class ajaxController extends controllController {
             }
         } else {
             $Data['Order_IsVirtual'] = 1;
-            $Data['Order_IsRecieve'] = 1;
+            $Data['Order_IsRecieve'] = $_POST ['recieve'];
             $Data['Address_Mobile'] = empty($_POST['Mobile']) ? '' : $_POST['Mobile'];
 			$City_Code = 0;
 			$Shipping_IDS = array();

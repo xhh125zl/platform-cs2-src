@@ -13,7 +13,13 @@
     <div class="body">
         <?php include(__DIR__ . '/_left.php');?>
         <div class="body_center_pub all_dingdan">
-			<div class="ddxq_top"> <span><em>订单号：</em><?php echo date('Ymd',$output['rsOrder']['Order_CreateTime']).$output['rsOrder']['Order_ID'];?></span> <span><em>状态：</em><?php echo $output['Order_Status'][$output['rsOrder']['Order_Status']];?></span><br>
+			<div class="ddxq_top"> 
+                            <span><em>订单号：</em><?php echo date('Ymd',$output['rsOrder']['Order_CreateTime']).$output['rsOrder']['Order_ID'];?></span> 
+                            <span><em>状态：</em><?php echo $output['Order_Status'][$output['rsOrder']['Order_Status']];?></span>
+                            <?if(!empty($output['rsOrder']['Order_Code'])){ ?>
+                            <span><em>消费券码：</em><?php echo $output['rsOrder']['Order_Code'];?></span>
+                            <?php } ?>
+                            <br>
 				<span><em>下单时间：</em><?php echo date('Y-m-d H:i:s',$output['rsOrder']['Order_CreateTime']) ?></span> <span> <em>支付方式：</em><?php echo $output['rsOrder']['Order_PaymentMethod']?:'余额支付';?><?php if($output['rsOrder']['Order_PaymentMethod'] == '线下支付'){ ?>支付信息: <?php echo $output['rsOrder']['Order_PaymentInfo'] ?>&nbsp;&nbsp;<a href="<?php echo url('payment/complete_pay', array('OrderID'=>$output['rsOrder']['Order_ID'],'Paymethod'=>'huodao'));?>" class="red"><strong>修改支付信息</strong></a><?php }?></span> <span><em>配送方式：</em>
 				<?php 
 				if(empty($output['Shipping'])) {
