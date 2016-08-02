@@ -32,7 +32,22 @@ if($rsActive['module']=='pintuan'){    //拼团
 }
 $result = $DB->getPage($table,"*",$condition);
 $List = $DB->toArray($result);
-
+// 获取参加活动的商品数量
+$res = $DB->Get("biz_active","*","WHERE Users_ID='{$UsersID}' AND Active_ID={$active_id}");
+$glist = $DB->toArray($res);
+$goodsid = '';
+$goodsidlist = [];
+foreach($glist as $k => $v)
+{
+    if($v['ListConfig'] && $v['IndexConfig']){
+        $goodsid .= $v['ListConfig'].','.$v['IndexConfig'];
+    }
+}
+if($goodsid){
+    $goodsidlist = explode(',',$goodsid);
+    $goodsidlist = array_unique($goodsidlist);
+}
+$goodscount = count($goodsidlist);
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -120,6 +135,8 @@ $(document).ready(function(){
     //推荐首页
   <?php if(isset($_GET['isIndex']) && $_GET['isIndex']==1){  ?>
   var toplistArr = $('input[name="Indexlist"]', parent.document).val();
+  var goodscount = <?=$goodscount?$goodscount:0 ?>;
+  var allowgoodscount = <?=$rsActive['MaxGoodsCount']?$rsActive['MaxGoodsCount']:0 ?>;
   toplistArr = toplistArr.split(',');
   var store = [],active_count=<?=$rsActive['IndexBizGoodsCount'] ?>,count=1;
   if(toplistArr.length>0){
@@ -135,6 +152,11 @@ $(document).ready(function(){
           var len = $("input[name='select[]']:checked").length;
           if(len>active_count){
               alert("最多允许选择"+active_count+"个");
+              $("input[name='select[]']").removeAttr("checked");
+              return false;
+          }
+          if(goodscount+len>allowgoodscount){
+              alert("最多允许参与的商品数量"+allowgoodscount+"个");
               $("input[name='select[]']").removeAttr("checked");
               return false;
           }
@@ -158,16 +180,28 @@ $(document).ready(function(){
 				$(this).prop("checked",false);
 				return ;
 			}
-			store.push({
-				id:$(this).val(),
-				name:$(this).parent().attr("vkname")
-			});
-			count++;
+			if(goodscount+len>allowgoodscount){
+            alert("最多允许参与的商品数量"+allowgoodscount+"个");
+            $(this).prop("checked",false);
+            return ;
+      }
 		}
 	});
 	
 	$('#addInsert').click(function(){
 		var str = "",Indexlist="";
+		$("input[name='select[]']:checked").each(function(){
+              store.push({
+                id:$(this).val(),
+                name:$(this).parent().attr("vkname")
+              });
+              
+    });
+    if(goodscount+store.length>allowgoodscount){
+            alert("最多允许参与的商品数量"+allowgoodscount+"个");
+            $("input[name='select[]']").removeAttr("checked");
+            return ;
+    }
       if(store.length>0){
         for(var i=0;i<store.length;i++){
           str+="<option value='"+store[i].id+"'>"+store[i].name+" </option>";
@@ -189,6 +223,8 @@ $(document).ready(function(){
   var toplistArr = $('input[name="toplist"]', parent.document).val();
   toplistArr = toplistArr.split(',');
   var store = [],active_count=<?=$rsActive['BizGoodsCount'] ?>,count=1;
+  var goodscount = <?=$goodscount?$goodscount:0 ?>;
+  var allowgoodscount = <?=$rsActive['MaxGoodsCount']?$rsActive['MaxGoodsCount']:0 ?>;
   if(toplistArr.length>0){
       for(var i=0;i<toplistArr.length;i++)
       {
@@ -204,6 +240,11 @@ $(document).ready(function(){
               $("input[name='select[]']").removeAttr("checked");
               return false;
           }
+          if(goodscount+len>allowgoodscount){
+              alert("最多允许参与的商品数量"+allowgoodscount+"个");
+              $("input[name='select[]']").removeAttr("checked");
+              return false;
+          }
       }else{
           $("input[name='select[]']").removeAttr("checked");
       }
@@ -213,13 +254,18 @@ $(document).ready(function(){
 
 	
 	$("input[name='select[]']").click(function(){
-		if($(this).is("checked")==true){
+		if($(this).prop("checked")==true){
 		  var len = $("input[name='select[]']:checked").length;
 			if(len>active_count){
 				alert("最多允许选择"+active_count+"个");
 				$(this).prop("checked",false);
 				return ;
 			}
+			if(goodscount+len>allowgoodscount){
+            alert("最多允许参与的商品数量"+allowgoodscount+"个");
+            $(this).prop("checked",false);
+            return ;
+      }
 		}
 	});
 	
@@ -231,7 +277,12 @@ $(document).ready(function(){
                 name:$(this).parent().attr("vkname")
               });
               
-    })
+    });
+    if(goodscount+store.length>allowgoodscount){
+            alert("最多允许参与的商品数量"+allowgoodscount+"个");
+            $("input[name='select[]']").removeAttr("checked");
+            return ;
+    }
 		if(store.length>0){
 			for(var i=0;i<store.length;i++){
 				str+="<option value='"+store[i].id+"'>"+store[i].name+" </option>";

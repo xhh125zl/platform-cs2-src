@@ -22,7 +22,7 @@ $rmenu["material"] = array(
 $rmenu['basic'] = array(
 	'basic' => '商城设置',
 	'setting/config' => '基本设置',	
-        'setting/other_config' => '积分设置',		
+   'setting/other_config' => '积分设置',		
 	'setting/skin' => '风格设置',
 	'setting/home' => '首页设置',
 	'setting/menu_config' => '菜单配置',
@@ -53,46 +53,6 @@ $rmenusub['act_active']=array(
     'type_edit' => '类型编辑',
 
 );
-/* 云购配置开始 */
-$rmenu["cloud"] = array(
-	'cloud'=>'云购物',
-  'config'=>'基本设置',
-	'products'=>'产品列表',	 
-	'category'=>'商品分类',	
-	'slide_list'=>'首页幻灯片',
-	'orders'=>'订单明细管理',
-	'shipping_orders'=>'商品领取管理',
-);
-//产品列表
-$rmenusub["clo_products"] = array(
-	'products_add' => '添加产品',
-	'products_edit' => '修改产品',
-	'products_detail_list' => '查看往期',
-	'buyrecords' => '购买详细'
-);
-//商品分类
-$rmenusub["clo_category"] = array(
-	'category_add' => '添加分类',
-	'category_edit' => '修改分类'
-);
-//首页幻灯
-$rmenusub["clo_slide_list"] = array(
-	'slide_add' => '添加幻灯',
-	'slide_edit' => '修改幻灯'
-);
-//订单明细管理
-$rmenusub["clo_orders"] = array(
-	'virtual_orders' => '消费认证',
-	'virtual_orders_view'=>'订单明细查看'
-);
-//商品领取管理
-$rmenusub["clo_shipping_orders"] = array(
-	'shipping_orders_view'=>'商品领取详情',
-	'shipping_orders_send'=>'商品领取发货',
-	'shipping_orders_recieve' => '批量收货'
-);
-/* 云购配置结束 */
-
 
 $rmenu['biz']=array(
 	'biz' => '商家管理',
@@ -443,5 +403,43 @@ $rmenusub["pin_orders"] = array(
 );
 
 /*edit拼团20160423--end--*/
-
+/* 云购配置开始 */
+$rmenu["cloud"] = array(
+	'cloud'=>'云购物',
+  'config'=>'基本设置',
+	'products'=>'产品列表',	 
+	'category'=>'商品分类',	
+	'slide_list'=>'首页幻灯片',
+	'orders'=>'订单明细管理',
+	'shipping_orders'=>'商品领取管理',
+);
+//产品列表
+$rmenusub["clo_products"] = array(
+	'products_add' => '添加产品',
+	'products_edit' => '修改产品',
+	'products_detail_list' => '查看往期',
+	'buyrecords' => '购买详细'
+);
+//商品分类
+$rmenusub["clo_category"] = array(
+	'category_add' => '添加分类',
+	'category_edit' => '修改分类'
+);
+//首页幻灯
+$rmenusub["clo_slide_list"] = array(
+	'slide_add' => '添加幻灯',
+	'slide_edit' => '修改幻灯'
+);
+//订单明细管理
+$rmenusub["clo_orders"] = array(
+	'virtual_orders' => '消费认证',
+	'virtual_orders_view'=>'订单明细查看'
+);
+//商品领取管理
+$rmenusub["clo_shipping_orders"] = array(
+	'shipping_orders_view'=>'商品领取详情',
+	'shipping_orders_send'=>'商品领取发货',
+	'shipping_orders_recieve' => '批量收货'
+);
+/* 云购配置结束 */
 ?>
