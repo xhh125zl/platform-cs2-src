@@ -19,7 +19,7 @@ if(IS_POST){
 
     $rsActiveBiz = $DB->GetRs("biz_active","count(*) as total","WHERE Users_ID='{$post['UsersID']}'  AND Active_ID='{$active_id}'");
     
-    if($rsActiveBiz['total']>$rsActive['MaxBizCount']){
+    if($rsActiveBiz['total']>=$rsActive['MaxBizCount']){
         sendAlert("只允许{$rsActive['MaxBizCount']}个商家参加活动",$return_uri ,2);
     }
     $data  = [];
