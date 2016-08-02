@@ -159,15 +159,7 @@ $(document).ready(function(){
               alert("最多允许参与的商品数量"+allowgoodscount+"个");
               $("input[name='select[]']").removeAttr("checked");
               return false;
-          }
-          $("input[name='select[]']:checked").each(function(){
-              store.push({
-                id:$(this).val(),
-                name:$(this).parent().attr("vkname")
-              });
-              
-          })
-          
+          } 
       }else{
           $("input[name='select[]']").removeAttr("checked");
       }

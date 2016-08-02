@@ -43,6 +43,7 @@ $indexGoods_temp = explode(",",$indexGoods);
 $dis_temp = array_diff($listGoods_temp,$indexGoods_temp);
 $dis_temp = implode($dis_temp,',');
 $listGoods = $indexGoods.','.$dis_temp;
+$listGoods = trim($listGoods,',');
 $pinConfig = $DB->GetRs('pintuan_config', '*', "where Users_ID = '{$UsersID}'");
 $rsConfig = array_merge($rsConfig, $pinConfig);
 
