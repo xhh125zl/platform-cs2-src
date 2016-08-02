@@ -66,7 +66,7 @@ if(IS_POST){
                       area: ['800px', '500px'],
                       fix: false,
                       maxmin: true,
-                      content: '/biz/active/product_select.php?activeid='+"<?=$rsActive['Active_ID'] ?>"
+                      content: '/biz/active/product_select.php?activeid='+"<?=$rsActive['Active_ID'] ?>&isIndex=0"
                   });              
             });
             

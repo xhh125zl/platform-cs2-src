@@ -23,7 +23,6 @@ if(IS_POST){
         sendAlert("只允许{$rsActive['MaxBizCount']}个商家参加活动",$return_uri ,2);
     }
     $data  = [];
-    
     $data['Users_ID'] = $post['UsersID'];
     $data['Active_ID'] = $post['Active_ID'];
     $data['Biz_ID'] = $post['BizID'];
@@ -81,60 +80,20 @@ if(IS_POST){
                       area: ['800px', '500px'],
                       fix: false,
                       maxmin: true,
-                      content: '/biz/active/product_select.php?activeid='+"<?=$Active_ID ?>"
+                      content: '/biz/active/product_select.php?activeid='+"<?=$Active_ID ?>"+'&isIndex=0'
+                  });              
+            });
+             $('#selectIndex').click(function(){
+                  var Active_ID = $("input[name='Active_ID']").val();
+                  layer.open({
+                      type: 2,
+                      area: ['800px', '500px'],
+                      fix: false,
+                      maxmin: true,
+                      content: '/biz/active/product_select.php?activeid='+"<?=$Active_ID ?>"+'&isIndex=1'
                   });              
             });
         });
-        
-        function handle(obj,ptype)
-        {
-            var $_obj = $(obj);
-            var Indexcommit = $("select[name='Indexcommit']");
-            var activeCount=<?=$rsActive['IndexBizGoodsCount']?$rsActive['IndexBizGoodsCount']:0 ?>;
-            if(ptype=='copy')
-            {
-                var val = $_obj.parent().parent().find("select").val();
-                if(val==null) return ;
-                val = val.toString();
-                var text = $_obj.parent().parent().find("select > option:selected").text();
-                if(val.indexOf(',')==-1){
-                    //只选择一个值
-                    var t = Indexcommit.find("option").text();
-                    var tArr = t.split(' ');
-                    if(tArr.length-1>=activeCount){  
-                        alert("超过了推荐首页所设置的最大值 "+activeCount);
-                        return ;
-                    }
-                    if(t.indexOf(text)==-1){
-                        Indexcommit.append("<option value='"+val+"'>"+text+" </option>");
-                    }
-                }else{
-                    var arr = text.split(' ');
-                    var valarr = val.split(',');
-                    var t = Indexcommit.find("option").text();
-                    for(var i=0;i<arr.length-1;i++)
-                    {
-                        var tArr = t.split(' ');
-                        if(tArr.length-1>=activeCount){  
-                            alert("超过了推荐首页所设置的最大值 "+activeCount);
-                            break ;
-                        }
-                        if(t.indexOf(arr[i])==-1){
-                            Indexcommit.append("<option value='"+valarr[i]+"'>"+arr[i]+" </option>");
-                        }
-                    }
-                }
-            }else if(ptype=='remove'){
-                 var text = $_obj.parent().parent().find("select > option").text();
-                 var textArr = text.split(' ');
-                if(textArr.length-1>1){
-                    var findobj = $_obj.parent().parent().find("select >option:selected");
-                    findobj.remove();
-                }else{
-                    
-                }
-            }
-        }
         <?php }else{ ?>
         $(document).ready(function(){
             $('#select').click(function(){
