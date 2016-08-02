@@ -118,7 +118,7 @@ input[type="text"], input[type="password"], input.text, input.password {padding:
 								</td>
 								<td><em><?php echo $product["ProductsPriceX"];?></em></td>
 								<td><?php echo $product['Qty'];?></td>
-								<td><em wzw_type="eachGoodsTotal"><?php echo $xiaoji;?></em></td>
+								<td><em wzw_type="eachGoodsTotal"><?php echo $product['Qty']*$product['ProductsPriceX'];?></em></td>
 								<td></td>
 							</tr>
 							<?php }?>

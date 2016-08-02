@@ -81,9 +81,10 @@ function UrlList(){
       <ul>
         <li class=""><a href="config.php">基本设置</a></li>
         <!--<li class=""><a href="other_config.php">活动设置</a></li>-->
-        <li class=""><a href="distribute_config.php">分销设置</a></li>
+        <!--<li class=""><a href="distribute_config.php">分销设置</a></li>-->
         <li class=""><a href="skin.php">风格设置</a></li>
         <li class="cur"><a href="home.php">首页设置</a></li>
+        <li><a href="menu_config.php">菜单配置</a></li>
       </ul>
     </div>
 	<div style="width:100%; background:#FFF; padding:10px 0px">
