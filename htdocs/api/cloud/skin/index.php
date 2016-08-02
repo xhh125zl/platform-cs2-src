@@ -6,12 +6,10 @@
 <script type='text/javascript' src='/static/api/shop/js/toast.js'></script> 
 <script type='text/javascript' src='/static/api/cloud/js/index.js?t=124'></script>
 <script>
-var UsersID = '<?php echo $UsersID;?>';
-var cloud_url = '<?php echo $cloud_jjjxurl;?>';
+var cloud_url = '<?php echo $cloud_url;?>';
 var OwnerID = <?php echo $owner['id'];?>;
 var BizID = '<?=$BizID ?>';
 var ActiveID = '<?=$ActiveID ?>';
-
 $(document).ready(function(){
 	$('.flexslider').flexslider({
 		animation:"slide",

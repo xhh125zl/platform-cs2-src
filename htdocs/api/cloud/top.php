@@ -21,7 +21,7 @@ echo $rsConfig["ShopName"];
 <script type='text/javascript' src='/static/api/js/global.js?t=<?php echo time();?>'></script>
 <script type='text/javascript' src='/static/api/cloud/js/shop.js?t=<?php echo time();?>'></script>
 <script language="javascript">
-var UsersID = "<?=$UsersID?>";
+var UsersID = '<?php echo $UsersID;?>';
 $(document).ready(shop_obj.page_init);
 </script>
 </head>

@@ -6,23 +6,30 @@ $activelist   = [];
 $listGoods    = "";
 $result       = "";
 $time         = time();
+
+$sql = "SELECT a.Users_ID,a.Active_ID,a.MaxBizCount FROM active AS a LEFT JOIN active_type AS t ON a.Type_ID=t.Type_ID WHERE a.Users_ID='{$UsersID}' AND t.module='pintuan' AND a.starttime<={$time} AND a.stoptime>{$time} AND a.Status = 1 ";
+
 if($ActiveID){
-    $result = $DB->GetRs("active","Users_ID,Active_ID,MaxBizCount","WHERE Users_ID='{$UsersID}' AND Type_ID=0 AND starttime<={$time} AND stoptime>{$time} AND Status = 1 AND Active_ID={$ActiveID}");
+    $sql.= "AND a.Active_ID={$ActiveID}";
+    $result = $DB->query($sql);
+    $result = $DB->fetch_assoc();
     if(empty($result) || !$result){
-        sendAlert("活动已过期");
+        sendAlert("没有相关活动");
     }
-    $result = $DB->Get("biz_active","ListConfig,IndexConfig,Biz_ID,Active_ID","WHERE Users_ID='{$UsersID}' AND Active_ID={$ActiveID} AND Status=2 LIMIT 0,{$result['MaxBizCount']}");
-$activelist = $DB->toArray($result);
 }else{    //没有传参就显示最新一次活动里边的内容
-    $result = $DB->GetRs("active","Users_ID,Active_ID,MaxBizCount","WHERE Users_ID='{$UsersID}' AND Type_ID=0 AND starttime<={$time} AND stoptime>{$time} AND Status = 1 ORDER BY Active_ID ASC");
+    $sql .= "ORDER BY a.Active_ID ASC";
+    $result = $DB->query($sql);
+    $result = $DB->fetch_assoc();
     if(empty($result) || !$result){
         sendAlert("没有相关活动");
     }
     $ActiveID = $result['Active_ID'];
-    $result = $DB->Get("biz_active","ListConfig,IndexConfig,Biz_ID,Active_ID","WHERE Users_ID='{$UsersID}' AND Active_ID={$ActiveID} AND Status=2 LIMIT 0,{$result['MaxBizCount']}");
-    $activelist = $DB->toArray($result);
 }
-
+$result = $DB->Get("biz_active","ListConfig,IndexConfig,Biz_ID,Active_ID","WHERE Users_ID='{$UsersID}' AND Active_ID={$ActiveID} AND Status=2 LIMIT 0,{$result['MaxBizCount']}");
+$activelist = $DB->toArray($result);
+if(empty($activelist)){
+    sendAlert("没有商家参与相关活动");
+}
 $indexGoods = "";
 foreach ($activelist as $k => $v)
 {

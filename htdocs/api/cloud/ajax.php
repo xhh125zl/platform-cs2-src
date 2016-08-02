@@ -9,12 +9,14 @@ require_once($_SERVER["DOCUMENT_ROOT"].'/include/helper/order.php');
 require_once($_SERVER["DOCUMENT_ROOT"].'/include/library/smarty.php');
 require_once($_SERVER ["DOCUMENT_ROOT"] . '/Framework/Ext/virtual.func.php');
 require_once($_SERVER ["DOCUMENT_ROOT"] . '/Framework/Ext/sms.func.php');
-if(isset($_GET["UsersID"])){
-	$UsersID = $_GET["UsersID"];
+
+if(isset($_POST["UsersID"])){
+	$UsersID = $_POST["UsersID"];
 }else{
 	echo 'error';
 	exit;
 }
+
 $BizID = isset($_REQUEST['BizID']) && $_REQUEST['BizID']?$_REQUEST['BizID']:0;
 $BizInfo = [];
 $ActiveID     = isset($_REQUEST['ActiveID']) && $_REQUEST['ActiveID']?$_REQUEST['ActiveID']:0;
@@ -65,22 +67,26 @@ if($BizID){
     echo json_encode($data, JSON_UNESCAPED_UNICODE);
     exit;
 }else{
+    $sql = "SELECT a.Users_ID,a.Active_ID,a.MaxBizCount FROM active AS a LEFT JOIN active_type AS t ON a.Type_ID=t.Type_ID WHERE a.Users_ID='{$UsersID}' AND t.module='cloud' AND a.starttime<={$time} AND a.stoptime>{$time} AND a.Status = 1 ";
+
     if($ActiveID){
-        $result = $DB->GetRs("active","Users_ID,Active_ID,MaxBizCount","WHERE Users_ID='{$UsersID}' AND Type_ID=1 AND starttime<={$time} AND stoptime>{$time} AND Status = 1 AND Active_ID={$ActiveID}");
+        $sql.= "AND a.Active_ID={$ActiveID}";
+        $result = $DB->query($sql);
+        $result = $DB->fetch_assoc();
         if(empty($result) || !$result){
-            echo "error";exit;
+            sendAlert("没有相关活动");
         }
-        $result = $DB->Get("biz_active","ListConfig,IndexConfig,Biz_ID,Active_ID","WHERE Users_ID='{$UsersID}' AND Active_ID={$ActiveID} AND Status=2 LIMIT 0,{$result['MaxBizCount']}");
-    $activelist = $DB->toArray($result);
     }else{    //没有传参就显示最新一次活动里边的内容
-        $result = $DB->GetRs("active","Users_ID,Active_ID,MaxBizCount","WHERE Users_ID='{$UsersID}' AND Type_ID=1 AND starttime<={$time} AND stoptime>{$time} AND Status = 1 ORDER BY Active_ID ASC");
+        $sql .= "ORDER BY a.Active_ID ASC";
+        $result = $DB->query($sql);
+        $result = $DB->fetch_assoc();
         if(empty($result) || !$result){
-            echo "error";exit;
+            sendAlert("没有相关活动");
         }
         $ActiveID = $result['Active_ID'];
-        $result = $DB->Get("biz_active","ListConfig,IndexConfig,Biz_ID,Active_ID","WHERE Users_ID='{$UsersID}' AND Active_ID={$ActiveID} AND Status=2 LIMIT 0,{$result['MaxBizCount']}");
-        $activelist = $DB->toArray($result);
     }
+    $result = $DB->Get("biz_active","ListConfig,IndexConfig,Biz_ID,Active_ID","WHERE Users_ID='{$UsersID}' AND Active_ID={$ActiveID} AND Status=2 LIMIT 0,{$result['MaxBizCount']}");
+    $activelist = $DB->toArray($result);
 
     $indexGoods = "";
     foreach ($activelist as $k => $v)
