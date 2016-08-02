@@ -15,7 +15,7 @@ if(IS_POST)
       echo '<script language="javascript">alert("类型名或者活动类型不能为空");history.back();</script>';
       exit;
 	}
-	$rsFlag = $DB->GetRs("active_type","*","WHERE module='{$_POST["module"]}'");
+	$rsFlag = $DB->GetRs("active_type","*","WHERE Users_ID='{$UsersID}' AND module='{$_POST["module"]}'");
 	if($rsFlag){
       echo '<script language="javascript">alert("活动类型已存在");history.back();</script>';
       exit;
