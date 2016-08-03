@@ -41,22 +41,26 @@ $List = $DB->toArray($result);
 // 获取参加活动的商品数量
 $res = $DB->Get("biz_active","*","WHERE Users_ID='{$UsersID}' AND Active_ID={$active_id}");
 $glist = $DB->toArray($res);
-$goodsid = '';
-$goodsidlist = [];
-foreach($glist as $k => $v)
-{
-    if($v['ListConfig'] && $v['IndexConfig']){
-        $goodsid .= $v['ListConfig'].','.$v['IndexConfig'];
+$goodscount = 0;
+if(!empty($glist)){
+    $goodsid = '';
+    $goodsidlist = [];
+    foreach($glist as $k => $v)
+    {
+        if($v['ListConfig'] && $v['IndexConfig']){
+            $goodsid .= $v['ListConfig'].','.$v['IndexConfig'];
+        }
     }
+    if($goodsid){
+        $goodsid = trim($goodsid,',');
+        $goodsidlist = explode(',',$goodsid);
+        $goodsidlist = array_unique($goodsidlist);
+        $goodsidlist = implode(',',$goodsidlist);  
+    }
+
+    $res = $DB->GetRs($table,"count(*) as total",$condition." AND Products_ID IN ($goodsidlist)");
+    $goodscount = !empty($res)?$res['total']:0;
 }
-if($goodsid){
-    $goodsid = trim($goodsid,',');
-    $goodsidlist = explode(',',$goodsid);
-    $goodsidlist = array_unique($goodsidlist);
-    $goodsidlist = implode(',',$goodsidlist);  
-}
-$res = $DB->GetRs($table,"count(*) as total",$condition." AND Products_ID IN ($goodsidlist)");
-$goodscount = !empty($res)?$res['total']:0;
 ?>
 <!DOCTYPE HTML>
 <html>

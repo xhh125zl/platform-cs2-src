@@ -21,7 +21,7 @@ $UsersID        =  "";
 $rsConfig       =  [];
 $BizID          =  0;
 $IsStore        =  0;
-
+$base_url = base_url();
 $SortType = [ '按发布时间','按销量','按价格','手动' ];
 
 $ActiveType = [

@@ -86,13 +86,9 @@ if(IS_AJAX){
     $sort = isset($_POST['sort']) && $_POST['sort']?$_POST['sort']:0;
     $offset = ($page-1)*$pagesize;
     $order = ["Products_ID ASC","Products_CreateTime DESC","Products_Sales DESC","Products_PriceT DESC","Products_Index DESC"];
-    $fields = "starttime,Users_ID,Products_JSON,products_IsNew,products_IsRecommend,products_IsHot,Is_Draw,Products_ID,Products_Name,stoptime,Products_Sales,Products_PriceT,Products_PriceD,people_num";
-    //$sql = "SELECT {$fields} FROM `pintuan_products` WHERE Users_ID='{$UsersID}' AND Products_Category in ({$catelist})  AND Products_ID IN ({$listGoods}) ".($sort!=0?"ORDER BY {$order[$sort]}":"ORDER BY field(Products_ID,{$listGoods})")." LIMIT {$offset},{$pagesize}";
-    
+    $fields = "starttime,Products_Index,Users_ID,Products_JSON,products_IsNew,products_IsRecommend,products_IsHot,Is_Draw,Products_ID,Products_Name,stoptime,Products_Sales,Products_PriceT,Products_PriceD,people_num";
     $sql = "SELECT {$fields} FROM (SELECT {$fields} FROM `pintuan_products` WHERE Users_ID='{$UsersID}' AND Products_Category in ({$catelist}) AND Products_ID IN ({$listGoods}) LIMIT 0,{$ListShowGoodsCount}) as t ".($sort!=0?"ORDER BY {$order[$sort]}":"ORDER BY field(Products_ID,{$listGoods})")." LIMIT {$offset},{$pagesize}";
-    
-    
-    
+
     $result = $DB->query($sql);
     $list = [];
     if($result){
