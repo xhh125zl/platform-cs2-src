@@ -54,7 +54,7 @@ if(IS_GET && isset($_GET["action"]) && $_GET["action"]=="del"){
         <tbody>
     	<?php 
 		  $lists = array();
-		  $result = $DB->getPages("active as a","*","LEFT JOIN active_type as t ON a.Type_ID=t.Type_ID WHERE a.Users_ID='{$UsersID}' ORDER BY a.Status ASC,a.Active_ID DESC",10);
+		  $result = $DB->getPages("active as a","a.*,t.module,t.Type_Name","LEFT JOIN active_type as t ON a.Type_ID=t.Type_ID WHERE a.Users_ID='{$UsersID}' ORDER BY a.Status ASC,a.Active_ID DESC",10);
 		  $lists = $DB->toArray($result);
 		  foreach($lists as $k => $v){
 	    ?>      

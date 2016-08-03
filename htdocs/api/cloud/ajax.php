@@ -101,6 +101,7 @@ if($BizID){
     $dis_temp = array_diff($listGoods_temp,$indexGoods_temp);
     $dis_temp = implode($dis_temp,',');
     $listGoods = $indexGoods.','.$dis_temp;
+    $listGoods = trim($listGoods,',');
 }
 
 /* 获取活动首页列表 */

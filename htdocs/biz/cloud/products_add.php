@@ -134,17 +134,20 @@ KindEditor.ready(function(K) {
 		editor.loadPlugin('image', function() {
 			editor.plugin.imageDialog({
 				clickFn : function(url, title, width, height, border, align) {
-					K('#PicDetail').append('<div><a href="'+url+'" target="_blank"><img src="'+url+'" /></a> <span>删除</span><input type="hidden" name="JSON[ImgPath][]" value="'+url+'" /></div>');
+					K('#PicDetail').append('<div><a href="'+url+'" target="_blank"><img src="'+url+'" /></a><span onclick="imgdel(this);">删除</span><input type="hidden" name="JSON[ImgPath][]" value="'+url+'" /></div>');
 					editor.hideDialog();
 				}
 			});
 		});
 	});
 	
-	K('#PicDetail div span').click(function(){
-		K(this).parent().remove();
-	});
 })
+
+function imgdel(obj)
+{
+    $(obj).parent().remove();
+}
+
 function insertRow(){
 	var newrow=document.getElementById('wholesale_price_list').insertRow(-1);
 	newcell=newrow.insertCell(-1);

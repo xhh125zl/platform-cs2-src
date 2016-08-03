@@ -15,6 +15,7 @@ foreach ($activelist as $k => $v)
     $goodslist[$k]['Active_ID'] = $v['Active_ID'];
     $goodslist[$k]['Type_ID'] = $v['Type_ID'];
     $goodslist[$k]['Active_Name'] = $v['Active_Name'];
+    $goodslist[$k]['module'] = $v['module'];
     //获取指定数目的商家
     $sql = "SELECT IndexConfig FROM biz_active WHERE Users_ID='{$v['Users_ID']}' AND Active_ID={$v['Active_ID']} AND Status=2 ORDER BY addtime ASC Limit 0,{$indexBizLength} ";
     $res = $DB->query($sql);
@@ -29,7 +30,7 @@ foreach ($activelist as $k => $v)
     if($listGoods){
         $fields = "";
         $tablename = "";
-        $goodslist[$k]['module'] = $v['module'];
+
         switch($v['module'])
         {
             case 'pintuan':
@@ -42,6 +43,12 @@ foreach ($activelist as $k => $v)
             {
                 $fields = "Users_ID,Products_Name,Products_PriceX,Products_PriceY,Products_JSON,Products_Distributes,Products_IsNew,Products_IsRecommend,Products_IsHot,Products_Weight,Products_Qrcode,Biz_ID";
                 $tablename = "{$v['module']}_products";
+                break;
+            }
+            default:
+            {
+                $fields = "starttime,Products_JSON,products_IsNew,products_IsRecommend,products_IsHot,Is_Draw,Products_ID,Products_Name,stoptime,Products_Sales,Products_PriceT,Products_PriceD,people_num";
+                $tablename = "pintuan_products";
                 break;
             }
         }
