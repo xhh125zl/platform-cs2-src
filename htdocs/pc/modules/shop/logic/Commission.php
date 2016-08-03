@@ -158,7 +158,10 @@ class Commission {
 			}else {
 				$nobi_level = intval($v);
 			}
-                        $nobi_temp = $Pro_Title_Level[$v]['Bonus'];	
+                        if ($nobility_commission[$k]['Nobi_Money'] != 0) {
+                            $nobi_temp = $Pro_Title_Level[$v]['Bonus'];	
+                        }
+                        
 		}			
 		return $nobility_commission;
 	}
