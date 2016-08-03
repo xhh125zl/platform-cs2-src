@@ -5,6 +5,7 @@ if(IS_GET && isset($_GET["action"]) && $_GET["action"]=="del"){
     $Active_ID = intval($_GET["Active_ID"]);
     $Flag=$DB->Del("active","Users_ID='{$UsersID}' AND Active_ID='{$Active_ID}'");
     if($Flag){
+        $DB->Del("biz_active","Users_ID='{$UsersID}' AND Active_ID='{$Active_ID}'");
         sendAlert("删除成功!",$_SERVER['HTTP_REFERER'],3);
 	}else{
 	    sendAlert("删除失败!",$_SERVER['HTTP_REFERER'],3);
