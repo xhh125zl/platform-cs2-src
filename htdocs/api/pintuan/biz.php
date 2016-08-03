@@ -101,25 +101,34 @@ if(IS_AJAX){
 <script src="/static/api/pintuan/js/responsiveslides.min.js"></script>
 <script src="/static/api/pintuan/js/common.js"></script>
 <style>
-.sort ul li {     font-size: 16px;
-    width: 45%;
+.sort ul li {
+    font-size: 13px;
+    width: 23.5%;
+    float:left;
     margin-bottom: 10px;
     background: #f61d4b;
     height: 30px;
+    text-align:center;
     line-height: 30px;
     color: #fff;
     cursor:pointer;
-    font-family: '微软雅黑'; }
-.sort ul li:nth-child(2n-1){
-    float:left;
-    margin-left: 5px;
-    padding-left: 10px;
-    margin-right:3px;
-}
-.sort ul li:nth-child(2n){
-    float:right;
-    padding-left:10px;
-}
+    font-family: '微软雅黑'; 
+  }
+  .sort ul li:nth-child(2){
+      float:left;
+      margin-right:5px;
+  }
+  .sort ul li:nth-child(3){
+      float:left;
+      margin-right:5px;
+  }
+  .sort ul li:nth-child(1){
+      float:left;
+      margin-right:5px;
+  }
+  .sort ul li:nth-child(4){
+      float:left;
+  }
 </style>
 </head>
 <body>
@@ -173,10 +182,10 @@ if(IS_AJAX){
 		<!-- 代码 结束 -->
 		<div class="sort">
 			<ul>
-				<li sort="1">按发布时间</li>
-				<li sort="2">按销量</li>
-				<li sort="3">按价格</li>
-				<li sort="4">按手动</li>
+				<li sort="1">时间</li>
+				<li sort="2">销量</li>
+				<li sort="3">价格</li>
+				<li sort="4">手动</li>
 			</ul>
 		</div>
 		<div class="clear"></div>
