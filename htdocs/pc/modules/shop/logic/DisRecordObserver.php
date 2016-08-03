@@ -61,7 +61,50 @@ class DisRecordObserver{
 
 			$account_records[$key] = $recordItem;
 		}
-		
+            
+                /*20160803*/
+                if (count($account_records) < count($nobi)) {
+                     foreach ($account_records as $k => $vo) {
+                        $account_record_user[] = $vo['User_ID'];
+                    }
+                    $nobi_user = array_keys($nobi);
+                    $diff_user = array_diff($nobi_user,$account_record_user);
+                   
+                    if (!empty($diff_user)) {
+                                $UsersID = $this->DisRecord['Users_ID'];
+				$Owner_ID = $this->DisRecord['Owner_ID'];
+				$User_ID = $this->DisRecord['Buyer_ID'];
+				
+
+				$Product = $this->Product;
+				$Qty = $this->Qty;
+
+				$Ds_Record_ID = $this->DisRecord['Record_ID'];
+                                $i = $key+1;
+                        foreach ($diff_user as $ks => $vs) {
+                            $account_records[$i]['Record_Description'] = '';
+                            $account_records[$i]['Users_ID'] = $UsersID;
+                            $account_records[$i]['Ds_Record_ID'] = $Ds_Record_ID;
+                            $account_records[$i]['User_ID'] = $vs;
+                            $account_records[$i]['Record_Sn'] = build_withdraw_sn();
+                            $account_records[$i]['level'] = $i;
+                            $account_records[$i]['Record_Money'] = 0;
+                            $account_records[$i]['Record_CreateTime'] = time();
+                            $account_records[$i]['Record_Type'] = 0;
+                            $account_records[$i]['Record_Status'] = 0;
+                            $account_records[$i]['Record_Price'] = 0;
+                            $account_records[$i]['Record_Qty'] = $Qty;
+                            $account_records[$i]['CartID'] = $Product['CartID'];
+                            
+                            $account_records[$i]['Nobi_Level'] = $nobi[$vs]['Nobi_Level'];
+                            $account_records[$i]['Nobi_Money'] = $nobi[$vs]['Nobi_Money'];
+                            $account_records[$i]['Nobi_Description'] = $nobi[$vs]['Nobi_Description'];
+                            $i++;
+                        }
+                        
+                    }
+                    
+                }
 		return $account_records;
 	}
 	
