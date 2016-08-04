@@ -1,9 +1,9 @@
     
     //根据AjAx获取内容
-    function getContainer(url,page,sort)
+    function getContainer(url,page,sort,method)
 		{
 			if(page=="" || page==undefined)  page = 1;
-			$.post(url,{page:page,sort:sort},function(data){
+			$.post(url,{page:page,sort:sort,sortmethod:method},function(data){
 				var strData = "";
 				if(data.status==1){
 					var list = data.data;
