@@ -129,17 +129,7 @@ class goodsController extends controllController {
 			}
 			$rsProducts[$key]['link'] = url('goods/index', array('UsersID'=>$this->UsersID, 'id'=>$val['products_id']));
 		}
-		$num = ceil(count($rsProducts) / 2);
-		for($i = 0; $i < $num; $i++){
-                        if ($i != 2) {
-                            $rsProducts_arr[$i][0] = $rsProducts[$i];
-			 } 
-			array_splice($rsProducts, $i, 1);
-			if(!empty($rsProducts[$i+1])) {
-				$rsProducts_arr[$i][1] = $rsProducts[$i+1];
-				array_splice($rsProducts, $i+1, 1);
-			}
-		}
+		$rsProducts_arr = array_chunk($rsProducts,2);
 		return $rsProducts_arr;
 	}
 }
