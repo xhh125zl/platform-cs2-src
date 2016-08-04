@@ -1,14 +1,14 @@
 <?php  
 require_once($_SERVER["DOCUMENT_ROOT"].'/include/update/common.php');
 
-$condition = "WHERE `Users_ID` = '{$UsersID}' AND Biz_ID={$BizID} AND Products_Status=1";
+$condition = "WHERE `Users_ID` = '{$UsersID}' AND Products_Status=1 ";
 
 if (isset($_GET['search'])) {
   if($_GET['Products_Name']){
     $condition .= " and Products_Name like '%".$_GET['Products_Name']."%'";
   }
 }
-$condition .= " ORDER BY Products_ID DESC";
+
 $List = Array();
 
 //获取活动配置
@@ -21,16 +21,22 @@ $rsActive = $DB->fetch_array($res);
 if(empty($rsActive)){
     sendAlert("没有要参加的活动");
 }
+
 if($rsActive['module']=='pintuan'){    //拼团
-        $table = "pintuan_products";    
+        $table = "pintuan_products";
+        $time = time();
+        $condition .= " AND starttime<={$time} AND stoptime>={$time}";
 }elseif($rsActive['module']=='cloud'){   //云购
         $table = "cloud_products";
+        $condition .= " AND Products_SoldOut=0";
 }elseif($rsActive['module']=='pifa'){   //批发
         $table = "pifa_products";
+        $condition .= " AND Products_SoldOut=0";
 }else{
         $table = "shop_products";
+        $condition .= " AND Products_SoldOut=0";
 }
-$result = $DB->getPage($table,"*",$condition);
+$result = $DB->getPage($table,"*",$condition." AND Biz_ID={$BizID}  ORDER BY Products_ID DESC");
 $List = $DB->toArray($result);
 // 获取参加活动的商品数量
 $res = $DB->Get("biz_active","*","WHERE Users_ID='{$UsersID}' AND Active_ID={$active_id}");
@@ -44,10 +50,13 @@ foreach($glist as $k => $v)
     }
 }
 if($goodsid){
+    $goodsid = trim($goodsid,',');
     $goodsidlist = explode(',',$goodsid);
     $goodsidlist = array_unique($goodsidlist);
+    $goodsidlist = implode(',',$goodsidlist);  
 }
-$goodscount = count($goodsidlist);
+$res = $DB->GetRs($table,"count(*) as total",$condition." AND Products_ID IN ($goodsidlist)");
+$goodscount = !empty($res)?$res['total']:0;
 ?>
 <!DOCTYPE HTML>
 <html>

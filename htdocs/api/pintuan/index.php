@@ -6,8 +6,8 @@ $activelist   = [];
 $listGoods    = "";
 $result       = "";
 $time         = time();
-
-$sql = "SELECT a.Users_ID,a.Active_ID,a.MaxBizCount FROM active AS a LEFT JOIN active_type AS t ON a.Type_ID=t.Type_ID WHERE a.Users_ID='{$UsersID}' AND t.module='pintuan' AND a.starttime<={$time} AND a.stoptime>{$time} AND a.Status = 1 ";
+$ListShowGoodsCount = 0;
+$sql = "SELECT a.Users_ID,a.Active_ID,a.MaxBizCount,a.ListShowGoodsCount FROM active AS a LEFT JOIN active_type AS t ON a.Type_ID=t.Type_ID WHERE a.Users_ID='{$UsersID}' AND t.module='pintuan' AND a.starttime<={$time} AND a.stoptime>{$time} AND a.Status = 1 ";
 
 if($ActiveID){
     $sql.= "AND a.Active_ID={$ActiveID}";
@@ -16,14 +16,16 @@ if($ActiveID){
     if(empty($result) || !$result){
         sendAlert("没有相关活动");
     }
-}else{    //没有传参就显示最新一次活动里边的内容
-    $sql .= "ORDER BY a.Active_ID ASC";
+    $ListShowGoodsCount = $result['ListShowGoodsCount'];
+}else{    //没有传参就显示最新一次活动里边的内容 
+    $sql = "SELECT a.Users_ID,a.Active_ID,a.MaxBizCount,a.ListShowGoodsCount FROM active AS a LEFT JOIN active_type AS t ON a.Type_ID=t.Type_ID LEFT JOIN biz_active AS b ON a.Active_ID=b.Active_ID  WHERE a.Users_ID='{$UsersID}' AND t.module='pintuan' AND a.starttime<={$time} AND a.stoptime>{$time} AND a.Status = 1 AND b.Status=2 ";
     $result = $DB->query($sql);
     $result = $DB->fetch_assoc();
     if(empty($result) || !$result){
         sendAlert("没有相关活动");
     }
     $ActiveID = $result['Active_ID'];
+    $ListShowGoodsCount = $result['ListShowGoodsCount'];
 }
 $result = $DB->Get("biz_active","ListConfig,IndexConfig,Biz_ID,Active_ID","WHERE Users_ID='{$UsersID}' AND Active_ID={$ActiveID} AND Status=2 LIMIT 0,{$result['MaxBizCount']}");
 $activelist = $DB->toArray($result);
@@ -75,13 +77,22 @@ $totalInfo = $DB->GetRs("pintuan_products","count(*) as total","WHERE Users_ID='
 $pagesize = 5;
 
 $totalPage = $totalInfo['total'] % $pagesize ==0?($totalInfo['total']/$pagesize):(intval($totalInfo['total']/$pagesize)+1);
+if(!isset($_SESSION[$UsersID."_pintuan_CurLists"]))
+{
+    $_SESSION[$UsersID."_pintuan_CurLists"] = 0;
+}
 if(IS_AJAX){
     $page = isset($_POST['page']) && $_POST['page']?$_POST['page']:1;
     $sort = isset($_POST['sort']) && $_POST['sort']?$_POST['sort']:0;
     $offset = ($page-1)*$pagesize;
     $order = ["Products_ID ASC","Products_CreateTime DESC","Products_Sales DESC","Products_PriceT DESC","Products_Index DESC"];
     $fields = "starttime,Users_ID,Products_JSON,products_IsNew,products_IsRecommend,products_IsHot,Is_Draw,Products_ID,Products_Name,stoptime,Products_Sales,Products_PriceT,Products_PriceD,people_num";
-    $sql = "SELECT {$fields} FROM `pintuan_products` WHERE Users_ID='{$UsersID}' AND Products_Category in ({$catelist})  AND Products_ID IN ({$listGoods}) ".($sort!=0?"ORDER BY {$order[$sort]}":"ORDER BY field(Products_ID,{$listGoods})")." LIMIT {$offset},{$pagesize}";
+    //$sql = "SELECT {$fields} FROM `pintuan_products` WHERE Users_ID='{$UsersID}' AND Products_Category in ({$catelist})  AND Products_ID IN ({$listGoods}) ".($sort!=0?"ORDER BY {$order[$sort]}":"ORDER BY field(Products_ID,{$listGoods})")." LIMIT {$offset},{$pagesize}";
+    
+    $sql = "SELECT {$fields} FROM (SELECT {$fields} FROM `pintuan_products` WHERE Users_ID='{$UsersID}' AND Products_Category in ({$catelist}) AND Products_ID IN ({$listGoods}) LIMIT 0,{$ListShowGoodsCount}) as t ".($sort!=0?"ORDER BY {$order[$sort]}":"ORDER BY field(Products_ID,{$listGoods})")." LIMIT {$offset},{$pagesize}";
+    
+    
+    
     $result = $DB->query($sql);
     $list = [];
     if($result){
@@ -90,6 +101,7 @@ if(IS_AJAX){
         {
             foreach($list as $k => $v)
             {
+                
                 $image = json_decode($v['Products_JSON'], true);
                 $path = $image['ImgPath']['0'];
                 $list[$k]['imgpath'] = $path;
@@ -140,25 +152,34 @@ if(IS_AJAX){
 <script src="/static/api/pintuan/js/common.js"></script>
 
 <style>
-.sort ul li {     font-size: 16px;
-    width: 45%;
+  .sort ul li {
+    font-size: 13px;
+    width: 23.5%;
+    float:left;
     margin-bottom: 10px;
     background: #f61d4b;
     height: 30px;
+    text-align:center;
     line-height: 30px;
     color: #fff;
     cursor:pointer;
-    font-family: '微软雅黑'; }
-.sort ul li:nth-child(2n-1){
-    float:left;
-    margin-left: 5px;
-    padding-left: 10px;
-    margin-right:3px;
-}
-.sort ul li:nth-child(2n){
-    float:right;
-    padding-left:10px;
-}
+    font-family: '微软雅黑'; 
+  }
+  .sort ul li:nth-child(2){
+      float:left;
+      margin-right:5px;
+  }
+  .sort ul li:nth-child(3){
+      float:left;
+      margin-right:5px;
+  }
+  .sort ul li:nth-child(1){
+      float:left;
+      margin-right:5px;
+  }
+  .sort ul li:nth-child(4){
+      float:left;
+  }
 </style>
 </head>
 <body>
@@ -213,10 +234,10 @@ if(IS_AJAX){
 		<div class="clear"></div>
 		<div class="sort">
 			<ul>
-				<li sort="1">按发布时间</li>
-				<li sort="2">按销量</li>
-				<li sort="3">按价格</li>
-				<li sort="4">按手动</li>
+				<li sort="1">时间</li>
+				<li sort="2">销量</li>
+				<li sort="3">价格</li>
+				<li sort="4">手动</li>
 			</ul>
 		</div>
     <script src="/static/api/pintuan/js/dropload.min.js"></script>

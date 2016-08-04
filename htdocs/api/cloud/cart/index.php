@@ -56,7 +56,13 @@ if($owner['id'] != '0'){
 <div id="shop_page_contents">
 	<div id="cover_layer"></div>
 	<link href='/static/api/cloud/css/cart.css?t=<?php echo time();?>' rel='stylesheet' type='text/css' />
-	<?php if(empty($_SESSION[$UsersID."CloudCart"])){?>
+	<?php 
+      if(!isset($_SESSION[$UsersID."CloudCart"]))
+       {
+          $_SESSION[$UsersID."CloudCart"] = "";
+       }
+      $CartList=json_decode($_SESSION[$UsersID."CloudCart"],true);
+	if(empty($CartList)){?>
 	<div id="cart">
 		<div class="empty"> <img src="/static/api/shop/skin/default/images/cart.png" /><br />
 			购物车空的，赶快去逛逛吧！ </div>
@@ -65,7 +71,7 @@ if($owner['id'] != '0'){
 	<div id="cart"> 
 		<script language="javascript">$(document).ready(shop_obj.cart_init);</script>
 		<form id="cart_form" action="/api/<?php echo $UsersID ?>/cloud/cart/">
-			<?php $CartList=json_decode($_SESSION[$UsersID."CloudCart"],true);
+			<?php 
 			$total=0;
 			foreach($CartList as $key=>$value){
 				$i=0;

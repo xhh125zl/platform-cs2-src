@@ -79,7 +79,7 @@
 				<?php if ($time >= $item['starttime'] && $time <= $item['stoptime'] && $item['teamstatus'] == 0) {
 						echo '<a href="/api/'.$UsersID.'/pintuan/teamdetail/'.$item['id'].'/">去参团</a>';
 					} else {
-						  if($team['teamstatus']==1){
+						  if($item['teamstatus']==1){
                    echo "<a>已完成</a>";   
               }else{
                    echo '<a>已结束</a>';

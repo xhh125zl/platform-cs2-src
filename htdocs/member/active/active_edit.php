@@ -176,7 +176,7 @@ if(IS_POST){
                       <div class="clear"></div>
                     </div>
                     <div class="rows">
-                      <label>最多产品数</label>
+                      <label>活动最多产品数</label>
                       <span class="input">
                       <input type="text" name="MaxGoodsCount" value="<?=$rsActive['MaxGoodsCount']?>" class="form_input" size="5" maxlength="100" /> <span class="tips" />&nbsp;</span>
                       	（拼团活动总共可以参加的产品数量）
@@ -184,7 +184,7 @@ if(IS_POST){
                       <div class="clear"></div>
                     </div>
                     <div class="rows">
-                      <label>推荐产品数</label>
+                      <label>商家推荐产品数</label>
                       <span class="input">
                       <input type="text" name="BizGoodsCount" value="<?=$rsActive['BizGoodsCount']?>" class="form_input" size="5" maxlength="100" /> <span class="tips" />&nbsp;</span>
                       	（每个商家最多可推荐的产品数量）
@@ -192,7 +192,7 @@ if(IS_POST){
                       <div class="clear"></div>
                     </div>
                     <div class="rows">
-                      <label>推荐产品数</label>
+                      <label>推荐首页产品数</label>
                       <span class="input">
                       <input type="text" name="IndexBizGoodsCount" value="<?=$rsActive['IndexBizGoodsCount']?>" class="form_input" size="5" maxlength="100" /> <span class="tips" />&nbsp;</span>
                       	（每个商家可以推荐到首页的产品数量）
