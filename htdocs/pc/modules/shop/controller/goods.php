@@ -113,8 +113,13 @@ class goodsController extends controllController {
 	}
 	//商家同款
 	function _getSame($cateID) {
-		$rsProducts_arr = array();
-		$rsProducts = model('shop_products')->where(array('Users_ID'=>$this->UsersID,'Products_SoldOut'=>0,'Products_Status'=>1,'Products_Category'=>$cateID,'Products_ID !='=>$this->id))->limit(0,20)->select();
+                $rsProducts_arr = array();
+		$where['Users_ID'] = $this->UsersID;
+		$where['Products_SoldOut'] = 0;
+		$where['Products_Status'] = 1;
+		$where['Products_Category'] = '%'.$cateID.'%';
+		//$where['Products_ID'] != $this->id;
+		$rsProducts = model('shop_products')->where($where)->limit(0,20)->select();
 		foreach($rsProducts as $key => $val) {
 			$JSON = json_decode($val['products_json'], TRUE);
 			if(isset($JSON["ImgPath"])) {
@@ -126,7 +131,9 @@ class goodsController extends controllController {
 		}
 		$num = ceil(count($rsProducts) / 2);
 		for($i = 0; $i < $num; $i++){
-			$rsProducts_arr[$i][0] = $rsProducts[$i];
+                        if ($i != 2) {
+                            $rsProducts_arr[$i][0] = $rsProducts[$i];
+			 } 
 			array_splice($rsProducts, $i, 1);
 			if(!empty($rsProducts[$i+1])) {
 				$rsProducts_arr[$i][1] = $rsProducts[$i+1];
