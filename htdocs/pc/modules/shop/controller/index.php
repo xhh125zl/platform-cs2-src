@@ -11,7 +11,7 @@ class indexController extends controllController {
 		$this->assign('focus_list', $focus_list);
 		if(IS_AJAX) {
 			if($_POST['action'] == 'getHot') {
-				$data = $this->_getHot();
+				$data = $this->_getHot();dump($data);
 			}
 			$this->ajaxReturn($data);
 		}
@@ -26,35 +26,36 @@ class indexController extends controllController {
 	
 	//随机获取热卖商品
 	private function _getHot() {
-		$count = model('shop_products')->where(array('Users_ID'=>$this->UsersID,'Products_SoldOut'=>0,'Products_IsHot'=>1,'Products_Status'=>1))->total();
-		$num = 5;//每页记录数
-		$p = !empty($_POST['p']) ? intval(trim($_POST['p'])) : 1;
-		$total = $count;//数据记录总数
-		$totalpage = ceil($total / $num);//总计页数
-		$limitpage = ($p-1) * $num;//每次查询取记录
-		$rsProducts = model('shop_products')->where(array('Users_ID'=>$this->UsersID,'Products_SoldOut'=>0,'Products_IsHot'=>1,'Products_Status'=>1))->limit($limitpage,$num)->select();
-		foreach($rsProducts as $key => $val) {
-			$JSON = json_decode($val['products_json'], TRUE);
-			if(isset($JSON["ImgPath"])){
-				$rsProducts[$key]['ImgPath'] = $JSON["ImgPath"][0];
-			}else{
-				$rsProducts[$key]['ImgPath'] =  SITE_URL . '/static/api/shop/skin/default/nopic.jpg';
-			}
-			$rsProducts[$key]['link'] = url('goods/index', array('UsersID'=>$this->UsersID, 'id'=>$val['products_id']));
-		}
-		if(count($rsProducts) > 0) {
-			$data = array(
-				'list' => $rsProducts,
-				'totalpage' => $totalpage,
-			);
-		}else {
-			$data = array(//没有数据可加载
-				'list' => '',
-				'totalpage' => $totalpage,
-			);
-		}
-		echo json_encode($data, JSON_UNESCAPED_UNICODE);
-		exit;
+            $rsProducts = model('shop_products')->field('Products_ID')->where(array('Users_ID'=>$this->UsersID,'Products_SoldOut'=>0,'Products_IsHot'=>1,'Products_Status'=>1))->select();
+            foreach ($rsProducts as $k => $v) {
+                $productid_array[$v['Products_ID']] = $v['Products_ID'];
+            }
+            if (count($productid_array) != 0) {
+                $rand_num = 5;
+                if (count($productid_array) < 5) {
+                    $rand_num = count($productid_array);
+                }
+                $productid_rand = array_rand($productid_array,$rand_num);
+                $map['Products_ID'] = $productid_rand;
+                $product_list = model('shop_products')->where($map)->select();
+                foreach ($product_list as $key => $val) {
+                    $JSON = json_decode($val['products_json'], TRUE);
+                    if (isset($JSON["ImgPath"])) {
+                            $product_list[$key]['ImgPath'] = $JSON["ImgPath"][0];
+                    } else {
+                            $product_list[$key]['ImgPath'] =  SITE_URL . '/static/api/shop/skin/default/nopic.jpg';
+                    }
+                    $product_list[$key]['link'] = url('goods/index', array('UsersID'=>$this->UsersID, 'id'=>$val['products_id']));
+                } 
+            } else {
+                 $product_list = '';
+            }
+            $data = array(
+			'list' => $product_list,
+			'totalpage' => '',
+                    );
+            echo json_encode($data, JSON_UNESCAPED_UNICODE);
+            exit;
 	}
 	//头部幻灯
 	function focus_list() {
