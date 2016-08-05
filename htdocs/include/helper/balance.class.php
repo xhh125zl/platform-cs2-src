@@ -123,7 +123,7 @@ class balance
     function repeat_list($lists)
     {
         foreach ($lists as $id => $item) {
-            $r = $this->db->GetRs("user_order", "Order_CreateTime,Order_Type,Order_CartList", "where Users_ID='" . $this->usersid . "' and Order_ID=" . $item["Order_ID"]);
+            $r = $this->db->GetRs("user_order", "Order_CreateTime,Order_Type,Order_CartList,Order_Code", "where Users_ID='" . $this->usersid . "' and Order_ID=" . $item["Order_ID"]);
             if($r['Order_Type'] == 'pintuan' || $r['Order_Type'] == 'dangou'){
                 $item["orderno"] = $r['Order_Code'];
             }else{
@@ -155,7 +155,7 @@ class balance
                             $web += $cartlist["num"] * ($cartlist["ProductsPriceD"]-$cartlist["Products_PriceSd"]); // 网站提成(网站所得+佣金)
                         }
                     }
-                }else{
+                }else if($r['Order_Type']=='shop'){
                     foreach ($cartlist as $key => $value) {
                         foreach ($value as $kk => $vv) {
                             $amount += $vv["Qty"] * $vv["ProductsPriceX"]; // 商品总额

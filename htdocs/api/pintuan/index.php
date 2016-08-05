@@ -84,15 +84,12 @@ if(!isset($_SESSION[$UsersID."_pintuan_CurLists"]))
 if(IS_AJAX){
     $page = isset($_POST['page']) && $_POST['page']?$_POST['page']:1;
     $sort = isset($_POST['sort']) && $_POST['sort']?$_POST['sort']:0;
+    $method = isset($_POST['sortmethod']) && $_POST['sortmethod']?$_POST['sortmethod']:'asc';
     $offset = ($page-1)*$pagesize;
-    $order = ["Products_ID ASC","Products_CreateTime DESC","Products_Sales DESC","Products_PriceT DESC","Products_Index DESC"];
-    $fields = "starttime,Users_ID,Products_JSON,products_IsNew,products_IsRecommend,products_IsHot,Is_Draw,Products_ID,Products_Name,stoptime,Products_Sales,Products_PriceT,Products_PriceD,people_num";
-    //$sql = "SELECT {$fields} FROM `pintuan_products` WHERE Users_ID='{$UsersID}' AND Products_Category in ({$catelist})  AND Products_ID IN ({$listGoods}) ".($sort!=0?"ORDER BY {$order[$sort]}":"ORDER BY field(Products_ID,{$listGoods})")." LIMIT {$offset},{$pagesize}";
-    
-    $sql = "SELECT {$fields} FROM (SELECT {$fields} FROM `pintuan_products` WHERE Users_ID='{$UsersID}' AND Products_Category in ({$catelist}) AND Products_ID IN ({$listGoods}) LIMIT 0,{$ListShowGoodsCount}) as t ".($sort!=0?"ORDER BY {$order[$sort]}":"ORDER BY field(Products_ID,{$listGoods})")." LIMIT {$offset},{$pagesize}";
-    
-    
-    
+    $order = ["Products_ID {$method}","Products_CreateTime {$method}","Products_Sales {$method}","Products_PriceT {$method}","Products_Index {$method}"];
+    $fields = "starttime,Products_CreateTime,Users_ID,Products_JSON,products_IsNew,products_IsRecommend,products_IsHot,Is_Draw,Products_ID,Products_Index,Products_Name,stoptime,Products_Sales,Products_PriceT,Products_PriceD,people_num";
+    $sql = "SELECT {$fields} FROM (SELECT {$fields} FROM `pintuan_products` WHERE Users_ID='{$UsersID}' AND Products_Category in ({$catelist}) AND Products_ID IN ({$listGoods}) LIMIT 0,{$ListShowGoodsCount}) as t ".($sort?"ORDER BY {$order[$sort]}":"ORDER BY field(Products_ID,{$listGoods})")." LIMIT {$offset},{$pagesize}";
+
     $result = $DB->query($sql);
     $list = [];
     if($result){
@@ -133,7 +130,7 @@ if(IS_AJAX){
                     $list[$k]['buttonTitle'] = json_encode(['status' =>1 ]);
                 }
             }
-            die(json_encode([ 'status'=>1 ,'data' => $list ], JSON_UNESCAPED_UNICODE));
+            die(json_encode([ 'status'=>1 ,'data' => $list,'method'=>$method ], JSON_UNESCAPED_UNICODE));
         }
     }
     die(json_encode([ 'status'=>0 ,'data' => $list ], JSON_UNESCAPED_UNICODE));
@@ -180,10 +177,16 @@ if(IS_AJAX){
   .sort ul li:nth-child(4){
       float:left;
   }
+  .sort ul li span { margin-left:8px;font-size::15px;}
 </style>
 </head>
 <body>
 	<div class="w">
+    <?php 
+        $referUrl = "/api/{$UsersID}/shop/";
+        $headTitle = "{$shopname}的拼团商城";
+        include_once("top.php");     
+    ?>
 		<!-- 代码 开始 -->
 		<div class="device">
 			<a class="arrow-left" href="#"></a> <a class="arrow-right" href="#"></a>
@@ -234,10 +237,10 @@ if(IS_AJAX){
 		<div class="clear"></div>
 		<div class="sort">
 			<ul>
-				<li sort="1">时间</li>
-				<li sort="2">销量</li>
-				<li sort="3">价格</li>
-				<li sort="4">手动</li>
+				<li sort="1" method="asc">时间<span>↑↓</span></li>
+				<li sort="2" method="asc">销量<span>↑↓</span></li>
+				<li sort="3" method="asc">价格<span>↑↓</span></li>
+				<li sort="4" method="asc">综合<span>↑↓</span></li>
 			</ul>
 		</div>
     <script src="/static/api/pintuan/js/dropload.min.js"></script>
@@ -247,16 +250,32 @@ if(IS_AJAX){
 			var url = "<?=$_SERVER['REQUEST_URI']?>";
 			var page = 1;
 			var sort = 0;
+			var method="asc";
+			var marrow = "↑";
 			var totalPage = <?=$totalPage?>;
 			sessionStorage.setItem("<?=$UsersID ?>ListSort", sort);
+			sessionStorage.setItem("<?=$UsersID ?>ListMethod", method);
 			sessionStorage.setItem("<?=$UsersID ?>currentPage", page);
-			getContainer(url,page,sort);
+			getContainer(url,page,sort,method);
 			$(".sort ul li").click(function(){
+			  method = sessionStorage.getItem("<?=$UsersID ?>ListMethod");
+			  if(method=="asc"){
+            method = "desc";
+            marrow = "↓↑";
+			  }else{
+            method = "asc";
+            marrow = "↑↓";
+			  }
+        $(this).attr("method",method);
+        $(this).find("span").text(marrow);
 				sort = $(this).attr("sort");
+				method = $(this).attr("method");
+
 				sessionStorage.setItem("<?=$UsersID ?>ListSort", sort);
 				sessionStorage.setItem("<?=$UsersID ?>currentPage", page);
+				sessionStorage.setItem("<?=$UsersID ?>ListMethod", method);
 				$("#container").empty();
-				getContainer(url,page,sort);
+				getContainer(url,page,sort,method);
 			});
 			
 			$("#container").dropload({
@@ -275,22 +294,24 @@ if(IS_AJAX){
         loadUpFn : function(me){
             page = sessionStorage.getItem("<?=$UsersID ?>currentPage")?sessionStorage.getItem("<?=$UsersID ?>currentPage"):page;
             sort = sessionStorage.getItem("<?=$UsersID ?>ListSort")?sessionStorage.getItem("<?=$UsersID ?>ListSort"):1;
+            method = sessionStorage.getItem("<?=$UsersID ?>ListMethod")?sessionStorage.getItem("<?=$UsersID ?>ListMethod"):'asc';
             if(page>1){
               page--;
               sessionStorage.setItem("<?=$UsersID ?>ListSort", sort);
               sessionStorage.setItem("<?=$UsersID ?>currentPage", page);
-              getContainer(url,page,sort); 
+              getContainer(url,page,sort,method); 
             }
             me.resetload();
         },
         loadDownFn : function(me){
             page = sessionStorage.getItem("<?=$UsersID ?>currentPage")?sessionStorage.getItem("<?=$UsersID ?>currentPage"):page;
             sort = sessionStorage.getItem("<?=$UsersID ?>ListSort")?sessionStorage.getItem("<?=$UsersID ?>ListSort"):1;
+            method = sessionStorage.getItem("<?=$UsersID ?>ListMethod")?sessionStorage.getItem("<?=$UsersID ?>ListMethod"):'asc';
             if(page<=totalPage){
               page++;
               sessionStorage.setItem("<?=$UsersID ?>ListSort", sort);
               sessionStorage.setItem("<?=$UsersID ?>currentPage", page);
-              getContainer(url,page,sort);
+              getContainer(url,page,sort,method);
             } 
             me.resetload();
         }
