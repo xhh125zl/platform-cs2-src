@@ -40,8 +40,9 @@ if(IS_AJAX){
     $page = isset($_POST['page']) && $_POST['page']?$_POST['page']:1;
     $sort = isset($_POST['sort']) && $_POST['sort']?$_POST['sort']:1;
     $offset = ($page-1)*$pagesize;
-    $order = ["Products_ID ASC","Products_CreateTime DESC","Products_Sales DESC","Products_PriceT DESC","Products_Index DESC"];
-    $fields = "starttime,Users_ID,Products_JSON,products_IsNew,products_IsRecommend,products_IsHot,Is_Draw,Products_ID,Products_Name,stoptime,Products_Sales,Products_PriceT,Products_PriceD,people_num";
+    $method = isset($_POST['sortmethod']) && $_POST['sortmethod']?$_POST['sortmethod']:'asc';
+    $order = ["Products_ID {$method}","Products_CreateTime {$method}","Products_Sales {$method}","Products_PriceT {$method}","Products_Index {$method}"];
+    $fields = "starttime,Products_CreateTime,Users_ID,Products_JSON,products_IsNew,products_IsRecommend,products_IsHot,Is_Draw,Products_ID,Products_Index,Products_Name,stoptime,Products_Sales,Products_PriceT,Products_PriceD,people_num";
     $sql = "SELECT {$fields} FROM `pintuan_products` WHERE Users_ID='{$UsersID}' AND Products_Category in ({$catelist})  AND Biz_ID={$BizID} ORDER BY {$order[$sort]} LIMIT {$offset},{$pagesize}";
     $result = $DB->query($sql);
     $list = [];
@@ -133,6 +134,11 @@ if(IS_AJAX){
 </head>
 <body>
 	<div class="w">
+    <?php 
+        $referUrl = "/api/{$UsersID}/shop/";
+        $headTitle = "{$shopname}的拼团商城";
+        include_once("top.php");     
+    ?>
 		<!-- 代码 开始 -->
 		<div class="device">
 			<a class="arrow-left" href="#"></a> <a class="arrow-right" href="#"></a>
@@ -182,10 +188,10 @@ if(IS_AJAX){
 		<!-- 代码 结束 -->
 		<div class="sort">
 			<ul>
-				<li sort="1">时间</li>
-				<li sort="2">销量</li>
-				<li sort="3">价格</li>
-				<li sort="4">手动</li>
+				<li sort="1" method="asc">时间<span>↑↓</span></li>
+				<li sort="2" method="asc">销量<span>↑↓</span></li>
+				<li sort="3" method="asc">价格<span>↑↓</span></li>
+				<li sort="4" method="asc">综合<span>↑↓</span></li>
 			</ul>
 		</div>
 		<div class="clear"></div>
@@ -196,16 +202,32 @@ if(IS_AJAX){
           var url = "/api/<?=$UsersID ?>/pintuan/biz/<?=$BizID ?>/";
           var page = 1;
           var sort = 1;
+          var method="asc";
+          var marrow = "↑";
           var totalPage = <?=$totalPage?>;
           sessionStorage.setItem("<?=$UsersID ?>BizListSort", sort);
+          sessionStorage.setItem("<?=$UsersID ?>ListMethod", method);
           sessionStorage.setItem("<?=$UsersID ?>BizcurrentPage", page);
-          getContainer(url,page,1);
+          getContainer(url,page,sort,method);
           $(".sort ul li").click(function(){
-            var sort = $(this).attr("sort");
+            method = sessionStorage.getItem("<?=$UsersID ?>ListMethod");
+            if(method=="asc"){
+                method = "desc";
+                marrow = "↓↑";
+            }else{
+                method = "asc";
+                marrow = "↑↓";
+            }
+            $(this).attr("method",method);
+            $(this).find("span").text(marrow);
+            sort = $(this).attr("sort");
+            method = $(this).attr("method");
+          
             sessionStorage.setItem("<?=$UsersID ?>BizListSort", sort);
             sessionStorage.setItem("<?=$UsersID ?>BizcurrentPage", page);
+            sessionStorage.setItem("<?=$UsersID ?>ListMethod", method);
             $("#container").empty();
-            getContainer(url,page,sort);
+            getContainer(url,page,sort,method);
           });
           $("#container").dropload({
               domUp : {
@@ -223,22 +245,24 @@ if(IS_AJAX){
               loadUpFn : function(me){
                   page = sessionStorage.getItem("<?=$UsersID ?>BizcurrentPage")?sessionStorage.getItem("<?=$UsersID ?>BizcurrentPage"):page;
                   sort = sessionStorage.getItem("<?=$UsersID ?>BizListSort")?sessionStorage.getItem("<?=$UsersID ?>BizListSort"):1;
+                  method = sessionStorage.getItem("<?=$UsersID ?>ListMethod")?sessionStorage.getItem("<?=$UsersID ?>ListMethod"):'asc';
                   if(page>1){
                     page--;
                     sessionStorage.setItem("<?=$UsersID ?>BizListSort", sort);
                     sessionStorage.setItem("<?=$UsersID ?>BizcurrentPage", page);
-                    getContainer(url,page,sort); 
+                    getContainer(url,page,sort,method); 
                   }
                   me.resetload();
               },
               loadDownFn : function(me){
                   page = sessionStorage.getItem("<?=$UsersID ?>BizcurrentPage")?sessionStorage.getItem("<?=$UsersID ?>BizcurrentPage"):page;
                   sort = sessionStorage.getItem("<?=$UsersID ?>BizListSort")?sessionStorage.getItem("<?=$UsersID ?>BizListSort"):1;
+                  method = sessionStorage.getItem("<?=$UsersID ?>ListMethod")?sessionStorage.getItem("<?=$UsersID ?>ListMethod"):'asc';
                   if(page<=totalPage){
                     page++;
                     sessionStorage.setItem("<?=$UsersID ?>BizListSort", sort);
                     sessionStorage.setItem("<?=$UsersID ?>BizcurrentPage", page);
-                    getContainer(url,page,sort);
+                    getContainer(url,page,sort,method); 
                   } 
                   me.resetload();
               }

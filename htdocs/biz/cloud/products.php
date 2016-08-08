@@ -17,13 +17,17 @@ if(isset($_GET["action"]))
 
 $condition = "where Users_ID='{$UsersID}' AND Biz_ID={$BizID}";
 if(isset($_GET['search'])){
+  setcookie("{$UsersID}_SearchIsShow",1);
 	if($_GET['Keyword']){
+	  setcookie("{$UsersID}_Keyword",$_GET['Keyword']);
 		$condition .= " and Products_Name like '%".trim($_GET['Keyword'])."%'";
 	}
-	if($_GET['SearchCateId']>0){
-		$condition .= " and Products_Category=".$_GET['SearchCateId'];
+	if($_GET['SearchCateId']){
+	   setcookie("{$UsersID}_SearchCateId",$_GET['SearchCateId']);
+		 $condition .= " and Products_Category=".$_GET['SearchCateId'];
 	}
 	if($_GET["Attr"]){
+	  setcookie("{$UsersID}_Attr",$_GET['Attr']);
 		$condition .= " and Products_".$_GET["Attr"]."=1";
 	}
 }
@@ -60,9 +64,9 @@ function get_category($catid){
       <div class="control_btn">
       <a href="products_add.php" class="btn_green btn_w_120">添加产品</a> <a href="#search" class="btn_green btn_w_120">产品搜索</a> 
       </div>
-      <form class="search" method="get" action="products.php">
+      <form class="search" method="get" action="products.php" <?=isset($_COOKIE["{$UsersID}_SearchIsShow"]) && $_COOKIE["{$UsersID}_SearchIsShow"]?"style='display:block;'":"" ?> >
         关键词：
-        <input type="text" name="Keyword" value="" class="form_input" size="15" />
+        <input type="text" name="Keyword" value="<?=isset($_COOKIE["{$UsersID}_Keyword"]) && $_COOKIE["{$UsersID}_Keyword"]?$_COOKIE["{$UsersID}_Keyword"]:"" ?>" class="form_input" size="15" />
         产品分类：
         <select name='SearchCateId'>
           <option value=''>--请选择--</option>
@@ -78,20 +82,28 @@ function get_category($catid){
 			  if($DB->num_rows()>0){
 				  echo '<optgroup label="'.$value["Category_Name"].'">';
 				  while($rsCategory=$DB->fetch_assoc()){
-					  echo '<option value="'.$rsCategory["Category_ID"].'">'.$rsCategory["Category_Name"].'</option>';
+            if($_COOKIE["{$UsersID}_SearchCateId"] && $_COOKIE["{$UsersID}_SearchCateId"]===$rsCategory["Category_ID"]){
+                echo '<option value="'.$rsCategory["Category_ID"].'" selected>'.$rsCategory["Category_Name"].'</option>';
+            }else{
+                echo '<option value="'.$rsCategory["Category_ID"].'">'.$rsCategory["Category_Name"].'</option>';
+					  }
 				  }
 			  echo '</optgroup>';
 			  }else{
-				  echo '<option value="'.$value["Category_ID"].'">'.$value["Category_Name"].'</option>';
+          if($_COOKIE["{$UsersID}_SearchCateId"] && $_COOKIE["{$UsersID}_SearchCateId"]===$value["Category_ID"]){
+                echo '<option value="'.$value["Category_ID"].'" selected>'.$value["Category_Name"].'</option>';
+            }else{
+                echo '<option value="'.$value["Category_ID"].'">'.$value["Category_Name"].'</option>';
+					  }
 			  }
 		  }?>
         </select>
         其他属性：
         <select name="Attr">
           <option value="0">--请选择--</option>
-          <option value="SoldOut">下架</option>
-          <option value="IsNew">新品</option>
-          <option value="IsHot">热卖</option>
+          <option value="SoldOut" <?=isset($_COOKIE["{$UsersID}_Attr"]) && $_COOKIE["{$UsersID}_Attr"]=="SoldOut"?"selected":"" ?>>下架</option>
+          <option value="IsNew" <?=isset($_COOKIE["{$UsersID}_Attr"]) && $_COOKIE["{$UsersID}_Attr"]=="IsNew"?"selected":"" ?>>新品</option>
+          <option value="IsHot" <?=isset($_COOKIE["{$UsersID}_Attr"]) && $_COOKIE["{$UsersID}_Attr"]=="IsHot"?"selected":"" ?>>热卖</option>
         </select>
 		<input type="hidden" name="search" value="1" />
         <input type="submit" class="search_btn" value="搜索" />

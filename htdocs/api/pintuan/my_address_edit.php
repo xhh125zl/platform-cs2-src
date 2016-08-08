@@ -61,11 +61,9 @@ if($rsAdressNum['num'] == 0){
 <link href='/static/api/css/global.css' rel='stylesheet' type='text/css' />
 <link href='/static/api/shop/skin/default/style.css?t=1436336112' rel='stylesheet' type='text/css' />
 <link href="/static/css/select2.css" rel="stylesheet"/>
-
 <link href="/static/css/bootstrap.css" rel="stylesheet" />
 <link rel="stylesheet" href="/static/css/font-awesome.css" />
 <link rel="stylesheet" href="/static/api/shop/skin/default/css/address_edit.css" />
-
 <script type='text/javascript' src='/static/js/jquery-1.7.2.min.js'></script>
 <script type='text/javascript' src='/static/js/jquery.validate.min.js'></script>
 <script type='text/javascript' src='/static/js/jquery.metadata.js'></script>
@@ -75,7 +73,6 @@ if($rsAdressNum['num'] == 0){
 <script type='text/javascript' src="/static/js/select2.js"></script>
 <script type="text/javascript" src="/static/js/location.js"></script>
 <script type="text/javascript" src="/static/js/area.js"></script>
-
 <script type="text/javascript">
    var base_url = '<?=$base_url?>';
    var Users_ID = '<?=$UsersID?>';
@@ -102,11 +99,8 @@ if($rsAdressNum['num'] == 0){
         <a href="javascript:history.go(-1)" class="pull-left"><img src="/static/api/shop/skin/default/images/black_arrow_left.png" /></a>
         <h1 class="title" id="page_title"><?=$title?></h1>
 </header>
-    
-    
     <div id="wrap">
     	<!-- 地址信息简述begin -->
-        
 		<div class="container">
         	<div class="row">
             <form  class="user_address_form" id="address_form" method="post" action="/api/<?php echo $UsersID ?>/pintuan/" >
@@ -123,28 +117,24 @@ if($rsAdressNum['num'] == 0){
                 <li class="list-group-item">
 					<label>所在省份：</label>
 					<select name="Province"  id="loc_province" required style="width:65%">
-						<option value="">选择省份</option>
+						
 					</select>
 				</li>
 				
 				<li class="list-group-item">
 					<label>所在城市：</label>
 					<select name="City" id="loc_city"  required  style="width:65%">
-						<option value="">选择城市</option>
+						
 					</select>
 				</li>
 				
 				<li class="list-group-item">
 					<label>所在区县：</label>
 					<select name="Area"  id="loc_town" required  style="width:65%">
-						<option value="">选择区县</option>
+						
 					</select>
 				</li>
-			
-               
-               
-               
-                <li class="list-group-item">
+        <li class="list-group-item">
 					<label>详细地址：&nbsp;</label>
 					<input type="text" name="Detailed"  required value="<?=$rsAddress['Address_Detailed']?>"/>
 					</li>
@@ -169,15 +159,7 @@ if($rsAdressNum['num'] == 0){
             </div>
         </div> 
     	<!-- 地址信息简述end-->
-    	
-      
-     
     </div>
-    
     <!-- 属性选择内容begin -->
-
-
-
 	</body>
-
 </html>

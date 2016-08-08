@@ -308,48 +308,48 @@
   href="javascript:void(0)">购买记录</a> </li>
 </ul>
 <div id="tagContent">
-<div class="tagContent  selectTag" id="tagContent0">
-		<?php
-		    if(!empty($goodsInfo['Products_Description'])){
-		    	$str=htmlspecialchars_decode($goodsInfo['Products_Description']);
-		        echo"<div class='jj'>".$str."</div>";  
-		    }else{
-		        echo'<div class="jj">此商品暂无产品详情!</div>';         
-		    } 
-		?>
-</div>
+    <div class="tagContent  selectTag" id="tagContent0">
+        <?php
+            if(!empty($goodsInfo['Products_Description'])){
+              $str=htmlspecialchars_decode($goodsInfo['Products_Description']);
+                echo"<div class='jj'>".$str."</div>";  
+            }else{
+                echo'<div class="jj">此商品暂无产品详情!</div>';         
+            } 
+        ?>
+    </div>
 <div class="tagContent " id="tagContent1">
-<div class="bq2">
-	<ul>
-		<?php
-		$DB->query("SELECT * FROM `user_order` as o left join user as u on o.User_ID=u.User_ID  where o.Users_ID='".$UsersID."' and (o.Order_Type='pintuan' or o.Order_Type='dangou') and o.Order_Status='2' and o.Order_CartList like '%".$goodsid."%' ORDER BY Order_CreateTime desc LIMIT 0,5");
-		$li=$DB->toArray();
-		if (empty($li)) {
-			echo '<li>暂时无数据</li>';
-		}else{
-			foreach ($li as $key => $v) {
-				if ($v['User_NickName']==Null){
-					//产品的数量
-					$num=isset(json_decode($v['Order_CartList'],true)['num'])?json_decode($v['Order_CartList'],true)["num"]:1;
-					echo '<li>
-					<div class="pj2"><span class="l">匿名</span><span class="r">'.date("Y-m-d H:i:s",$v['Order_CreateTime']).'</span>
-					<div class="clear"></div><div> <span class="l">'.json_decode($v['Order_CartList'],true)['ProductsName'].'</span><span class="r">件数:'.$num.'</span></div></div>
-					<div class="clear"></div>
-					</li>';
-				}else{
-					//产品的数量
-					$num=isset(json_decode($v['Order_CartList'],true)['num'])?json_decode($v['Order_CartList'],true)["num"]:1;
-					echo '<li>
-					<div class="pj2"><span class="l">'.$v['User_NickName'].'</span><span class="r">'.date("Y-m-d H:i:s",$v['Order_CreateTime']).'</span>
-					<div class="clear"></div><div> <span class="l">'.json_decode($v['Order_CartList'],true)['ProductsName'].'</span><span class="r">件数'.$num.'</span></div></div>
-					<div class="clear"></div>
-					</li>';
-				}
-			}
-		}
-	?>
-</ul>
-</div>
+    <div class="bq2">
+      <ul>
+        <?php
+        $DB->query("SELECT * FROM `user_order` as o left join user as u on o.User_ID=u.User_ID  where o.Users_ID='".$UsersID."' and (o.Order_Type='pintuan' or o.Order_Type='dangou') and o.Order_Status>2 and o.Order_CartList like '%\"Products_ID\":\"{$goodsid}\"%' ORDER BY Order_CreateTime desc LIMIT 0,5");
+        $li=$DB->toArray();
+        if (empty($li)) {
+          echo '<li>暂时无数据</li>';
+        }else{
+          foreach ($li as $key => $v) {
+            if ($v['User_NickName']==Null){
+              //产品的数量
+              $num=isset(json_decode($v['Order_CartList'],true)['num'])?json_decode($v['Order_CartList'],true)["num"]:1;
+              echo '<li>
+              <div class="pj2"><span class="l">匿名</span><span class="r">'.date("Y-m-d H:i:s",$v['Order_CreateTime']).'</span>
+              <div class="clear"></div><div> <span class="l">'.json_decode($v['Order_CartList'],true)['ProductsName'].'</span><span class="r">件数:'.$num.'</span></div></div>
+              <div class="clear"></div>
+              </li>';
+            }else{
+              //产品的数量
+              $num=isset(json_decode($v['Order_CartList'],true)['num'])?json_decode($v['Order_CartList'],true)["num"]:1;
+              echo '<li>
+              <div class="pj2"><span class="l">'.$v['User_NickName'].'</span><span class="r">'.date("Y-m-d H:i:s",$v['Order_CreateTime']).'</span>
+              <div class="clear"></div><div> <span class="l">'.json_decode($v['Order_CartList'],true)['ProductsName'].'</span><span class="r">件数'.$num.'</span></div></div>
+              <div class="clear"></div>
+              </li>';
+            }
+          }
+        }
+      ?>
+    </ul>
+    </div>
 </div>
 
 <div class="clear"></div>

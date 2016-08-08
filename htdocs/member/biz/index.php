@@ -81,8 +81,8 @@ while($row = $DB->fetch_assoc()){
       <ul>
         <li class="cur"><a href="index.php">商家列表</a></li>
         <li><a href="group.php">商家分组</a></li>
-		<li><a href="apply.php">入驻申请列表</a></li>
-		<li><a href="apply_config.php">入驻设置</a></li>
+        <li><a href="apply.php">入驻申请列表</a></li>
+        <li><a href="apply_config.php">入驻设置</a></li>
       </ul>
     </div>
 	
@@ -90,13 +90,13 @@ while($row = $DB->fetch_assoc()){
       <div class="control_btn"><a href="add.php" class="btn_green btn_w_120">添加商家</a></div>
       <form class="search" method="get" action="?">
         <select name="Fields">
-          <option value="Biz_Name">名称</option>
-          <option value="Biz_Account">登录名</option>
-          <option value="Biz_Address">地址</option>
-          <option value="Biz_Contact">联系人</option>
+          <option value="Biz_Name" <?=isset($_GET['Fields']) && $_GET['Fields']=='Biz_Name'?'selected':'' ?>>名称</option>
+          <option value="Biz_Account" <?=isset($_GET['Fields']) && $_GET['Fields']=='Biz_Account'?'selected':'' ?>>登录名</option>
+          <option value="Biz_Address" <?=isset($_GET['Fields']) && $_GET['Fields']=='Biz_Address'?'selected':'' ?>>地址</option>
+          <option value="Biz_Contact" <?=isset($_GET['Fields']) && $_GET['Fields']=='Biz_Contact'?'selected':'' ?>>联系人</option>
           <option value="Biz_Phone">联系电话</option>
         </select>
-        <input type="text" name="Keyword" value="" class="form_input" size="15" />
+        <input type="text" name="Keyword" value="<?=isset($_GET['Keyword']) && $_GET['Keyword']==0?$_GET['Keyword']:'' ?>" class="form_input" size="15" />
         
         所属分组：
         <select name="GroupID">
@@ -109,14 +109,14 @@ while($row = $DB->fetch_assoc()){
         状态：
         <select name="Status">
           <option value="">全部</option>
-          <option value="0">正常</option>
-          <option value="1">禁用</option>
+          <option value="0" <?=isset($_GET['Status']) && $_GET['Status']==0?'selected':'' ?> >正常</option>
+          <option value="1" <?=isset($_GET['Status']) && $_GET['Status']==1?'selected':'' ?> >禁用</option>
         </select>
         排序：
         <select name="OrderBy">
           <option value="Biz_Status ASC,Biz_CreateTime DESC">默认</option>
-          <option value="Biz_CreateTime DESC">添加时间降序</option>
-          <option value="Biz_CreateTime ASC">添加时间升序</option>
+          <option value="Biz_CreateTime DESC" <?=isset($_GET['OrderBy']) && $_GET['OrderBy']=='Biz_CreateTime DESC'?'selected':'' ?>>添加时间降序</option>
+          <option value="Biz_CreateTime ASC" <?=isset($_GET['OrderBy']) && $_GET['OrderBy']=='Biz_CreateTime ASC'?'selected':'' ?>>添加时间升序</option>
         </select>
         <input type="hidden" name="search" value="1" />
         <input type="submit" class="search_btn" value="搜索" />
