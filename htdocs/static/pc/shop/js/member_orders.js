@@ -19,7 +19,12 @@ var member_orders_obj={
 							}else if(v['Order_Status'] == 2) {
 								paydo_html = '等待发货..';
 							}else if(v['Order_Status'] == 3) {
-								paydo_html = '<a href="javascript:;" class="confirm_receive" Order_ID="'+v['Order_ID']+'">确认收货</a>&nbsp;&nbsp;<a href="'+v['backup_url']+'">申请退款</a>';
+                                                            if (v['product_num'] > 1) {
+                                                                paydo_html = '<a href="javascript:;" class="confirm_receive" Order_ID="'+v['Order_ID']+'">确认收货</a>&nbsp;&nbsp;<a href="'+v['detail_url']+'">申请退款</a>';
+                                                            } else {
+                                                                paydo_html = '<a href="javascript:;" class="confirm_receive" Order_ID="'+v['Order_ID']+'">确认收货</a>&nbsp;&nbsp;<a href="'+v['backup_url']+'">申请退款</a>';
+                                                            }
+								
 							}else if(v['Order_Status'] == 4) {
 								paydo_html = '<a href="javascript:;" class="commit" Order_ID="'+v['Order_ID']+'">评论</a>';
 							}

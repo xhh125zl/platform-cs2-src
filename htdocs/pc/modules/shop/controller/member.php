@@ -246,6 +246,7 @@ class memberController extends controllController {
 				$rsOrders[$key]['order_sn'] = date('Ymd', $val['Order_CreateTime']) . $val['Order_ID'];
 				$rsOrders[$key]['del_url'] = url('member/order_del', array('id'=>$val['Order_ID']));
 				$CartList = json_decode(htmlspecialchars_decode($val['Order_CartList']), true);
+                                $rsOrders[$key]['product_num'] = count($CartList); 
 				if(!empty($CartList)) {
 					foreach($CartList as $k => $v){
 						foreach($v as $k2 => $v2){
