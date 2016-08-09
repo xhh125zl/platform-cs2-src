@@ -50,7 +50,7 @@ class backup{
 		);
 		model('user_order')->where(array('Order_ID'=>$rsOrder['Order_ID']))->update($data);
 		if($rsOrder["Order_Status"]==2 && $rsOrder["Order_IsVirtual"]==0){//已付款,商家未发货订单退款
-			$this->update_backup("seller_recieve",$recordid,"已付款/商家未发货订单退款，系统自动完成");		
+			$this->update_backup("seller_recieve",$recordid,"$amount||%$%已付款/商家未发货订单退款，系统自动完成");				
 		}
 		//减少退款佣金记录
 		$this->update_distribute_money($rsOrder["Order_ID"],$productid,$cartid,$qty,0);
