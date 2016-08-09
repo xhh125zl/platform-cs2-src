@@ -70,8 +70,11 @@
 							<span id="ddxq_price"><i><?php echo $v['ProductsPriceX']?></i></span> 
 							<span id="ddxq_num"><?php echo $v['Qty'];?></span> 
 							<span id="ddxq_truepay"><?php echo '￥' . $v['ProductsPriceX']*$v['Qty'];?></span>
+							<?php if ($output['rsOrder']['Order_Status'] == 2 || $output['rsOrder']['Order_Status'] == 3) { ?>
+								<span id="ddxq_paydo"><a href="<?php echo '/pc.php/shop/member/backup_apply/pama/'.$output['rsOrder']['Order_ID'] . '_' . $key . '_' . $k.'/UsersID/'.$_GET['UsersID']?>">申请退款</a></span>						
+							<?php }?>
 						</div>
-					</div>
+					</div> 
 					<?php }?>
 					<?php }?>
 					<?php if(!empty($output['lists_back'])){?>
