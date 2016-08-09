@@ -11,8 +11,8 @@
 #cart .bizcart .biz_title a{color:#333}
 #cart .bizcart .item{overflow:hidden; position:relative; background:#fafafa; padding:0px; margin-top:5px;}
 #cart .bizcart .item_first{margin-top:0px}
-#cart .bizcart .item .del{position:absolute; width:16px; top:5px; right:5px}
-#cart .bizcart .item .del div{width:16px; height:16px; float:right;}
+#cart .bizcart .item .del{position:absolute;  top:5px; right:5px}
+#cart .bizcart .item .del div{ height:16px; float:right;}
 #cart .bizcart .item .img{width:100px; overflow:hidden; position:absolute; left:8px; top:5px; background:#fff;}
 #cart .bizcart .item .img img{width:100%; box-sizing:border-box;}
 #cart .bizcart .item dl{overflow:hidden; margin-left:116px; margin-right:5px; min-height:110px; padding:0px}

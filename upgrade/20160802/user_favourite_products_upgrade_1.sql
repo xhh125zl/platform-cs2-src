@@ -1,0 +1,1 @@
+alter table user_favourite_products add MID varchar(16) COMMENT '收藏商家类型';

@@ -6,7 +6,7 @@
 ?>
 <div class="ind_wrap">
   <div class="category">
-      <h3><a href="/api/<?=$v['Users_ID'] ?>/<?=$v["module"]?>/act_<?=$v['Active_ID']?>/" class="more">查看更多</a><?=$v["Active_Name"] ?></h3>
+      <h3><a href="/api/<?=$v['Users_ID'] ?>/<?=$v["module"]?>/act_<?=$v['Active_ID']?>/" class="more">查看更多</a><?=$v["Active_Name"] ?>（<?=$v["Type_Name"] ?>）</h3>
   </div>
   <div class="products">
 <?php

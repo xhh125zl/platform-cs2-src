@@ -1,41 +1,41 @@
 <?php  
-require_once($_SERVER["DOCUMENT_ROOT"].'/include/update/common.php');
+require_once ($_SERVER["DOCUMENT_ROOT"] . '/include/update/common.php');
 
-if(isset($_GET["action"]))
-{
-	if($_GET["action"]=="del")
-	{
-		$Flag=$DB->Del("cloud_products","Users_ID='{$UsersID}' and Products_ID=".$_GET["ProductsID"]);
-		if($Flag){
-			echo '<script language="javascript">alert("删除成功");window.location="'.$_SERVER['HTTP_REFERER'].'";</script>';
-		}else{
-			echo '<script language="javascript">alert("删除失败");history.back();</script>';
-		}
-		exit;
-	}
+if (isset($_GET["action"])) {
+    if ($_GET["action"] == "del") {
+        $Flag = $DB->Del("cloud_products", "Users_ID='{$UsersID}' and Products_ID=" . $_GET["ProductsID"]);
+        if ($Flag) {
+            echo '<script language="javascript">alert("删除成功");window.location="' . $_SERVER['HTTP_REFERER'] . '";</script>';
+        } else {
+            echo '<script language="javascript">alert("删除失败");history.back();</script>';
+        }
+        exit();
+    }
 }
 
 $condition = "where Users_ID='{$UsersID}' AND Biz_ID={$BizID}";
-if(isset($_GET['search'])){
-  setcookie("{$UsersID}_SearchIsShow",1);
-	if($_GET['Keyword']){
-	  setcookie("{$UsersID}_Keyword",$_GET['Keyword']);
-		$condition .= " and Products_Name like '%".trim($_GET['Keyword'])."%'";
-	}
-	if($_GET['SearchCateId']){
-	   setcookie("{$UsersID}_SearchCateId",$_GET['SearchCateId']);
-		 $condition .= " and Products_Category=".$_GET['SearchCateId'];
-	}
-	if($_GET["Attr"]){
-	  setcookie("{$UsersID}_Attr",$_GET['Attr']);
-		$condition .= " and Products_".$_GET["Attr"]."=1";
-	}
+if (isset($_GET['search'])) {
+    setcookie("{$UsersID}_SearchIsShow", 1);
+    if ($_GET['Keyword']) {
+        setcookie("{$UsersID}_Keyword", $_GET['Keyword']);
+        $condition .= " and Products_Name like '%" . trim($_GET['Keyword']) . "%'";
+    }
+    if ($_GET['SearchCateId']) {
+        setcookie("{$UsersID}_SearchCateId", $_GET['SearchCateId']);
+        $condition .= " and Products_Category=" . $_GET['SearchCateId'];
+    }
+    if ($_GET["Attr"]) {
+        setcookie("{$UsersID}_Attr", $_GET['Attr']);
+        $condition .= " and Products_" . $_GET["Attr"] . "=1";
+    }
 }
 $condition .= " order by Products_ID desc";
-function get_category($catid){
-	global $DB;
-	$r = $DB->GetRs("cloud_category","*","where Category_ID='".$catid."'");
-	return $r['Category_Name'];
+
+function get_category($catid)
+{
+    global $DB;
+    $r = $DB->GetRs("cloud_category", "*", "where Category_ID='" . $catid . "'");
+    return $r['Category_Name'];
 }
 
 ?>
@@ -70,33 +70,35 @@ function get_category($catid){
         产品分类：
         <select name='SearchCateId'>
           <option value=''>--请选择--</option>
-          <?php $DB->get("cloud_category","*","where Users_ID='{$UsersID}' and Category_ParentID=0 order by Category_Index asc");
-		  $ParentCategory=array();
-		  $i=1;
-		  while($rsPCategory=$DB->fetch_assoc()){
-			  $ParentCategory[$i]=$rsPCategory;
-			  $i++;
-		  }
-		  foreach($ParentCategory as $key=>$value){
-			  $DB->get("cloud_category","*","where Users_ID='{$UsersID}' and Category_ParentID=".$value["Category_ID"]." order by Category_Index asc");
-			  if($DB->num_rows()>0){
-				  echo '<optgroup label="'.$value["Category_Name"].'">';
-				  while($rsCategory=$DB->fetch_assoc()){
-            if($_COOKIE["{$UsersID}_SearchCateId"] && $_COOKIE["{$UsersID}_SearchCateId"]===$rsCategory["Category_ID"]){
-                echo '<option value="'.$rsCategory["Category_ID"].'" selected>'.$rsCategory["Category_Name"].'</option>';
-            }else{
-                echo '<option value="'.$rsCategory["Category_ID"].'">'.$rsCategory["Category_Name"].'</option>';
-					  }
-				  }
-			  echo '</optgroup>';
-			  }else{
-          if($_COOKIE["{$UsersID}_SearchCateId"] && $_COOKIE["{$UsersID}_SearchCateId"]===$value["Category_ID"]){
-                echo '<option value="'.$value["Category_ID"].'" selected>'.$value["Category_Name"].'</option>';
-            }else{
-                echo '<option value="'.$value["Category_ID"].'">'.$value["Category_Name"].'</option>';
-					  }
-			  }
-		  }?>
+          <?php
+        $DB->get("cloud_category", "*", "where Users_ID='{$UsersID}' and Category_ParentID=0 order by Category_Index asc");
+        $ParentCategory = array();
+        $i = 1;
+        while ($rsPCategory = $DB->fetch_assoc()) {
+            $ParentCategory[$i] = $rsPCategory;
+            $i ++;
+        }
+        foreach ($ParentCategory as $key => $value) {
+            $DB->get("cloud_category", "*", "where Users_ID='{$UsersID}' and Category_ParentID=" . $value["Category_ID"] . " order by Category_Index asc");
+            if ($DB->num_rows() > 0) {
+                echo '<optgroup label="' . $value["Category_Name"] . '">';
+                while ($rsCategory = $DB->fetch_assoc()) {
+                    if ($_COOKIE["{$UsersID}_SearchCateId"] && $_COOKIE["{$UsersID}_SearchCateId"] === $rsCategory["Category_ID"]) {
+                        echo '<option value="' . $rsCategory["Category_ID"] . '" selected>' . $rsCategory["Category_Name"] . '</option>';
+                    } else {
+                        echo '<option value="' . $rsCategory["Category_ID"] . '">' . $rsCategory["Category_Name"] . '</option>';
+                    }
+                }
+                echo '</optgroup>';
+            } else {
+                if (isset($_COOKIE["{$UsersID}_SearchCateId"]) && $_COOKIE["{$UsersID}_SearchCateId"] && $_COOKIE["{$UsersID}_SearchCateId"] === $value["Category_ID"]) {
+                    echo '<option value="' . $value["Category_ID"] . '" selected>' . $value["Category_Name"] . '</option>';
+                } else {
+                    echo '<option value="' . $value["Category_ID"] . '">' . $value["Category_Name"] . '</option>';
+                }
+            }
+        }
+        ?>
         </select>
         其他属性：
         <select name="Attr">
@@ -120,7 +122,7 @@ function get_category($catid){
 		}
 	  </style>
 	  <div class="tips_info">
-	    注：<font style="color:#F00; font-size:12px;">已经购买过的商品不能再修改，点击查看往期可以查看该商品的所有期数商品！ </font><br />
+	    注：<font style="color:#F00; font-size:12px;">        点击查看往期可以查看该商品的所有期数商品！ </font><br />
 	  </div>
       <table width="100%" align="center" border="0" cellpadding="5" cellspacing="0" class="r_con_table">
         <thead>

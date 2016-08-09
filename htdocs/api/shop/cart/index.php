@@ -49,6 +49,9 @@ if(!empty($_SESSION[$UsersID."CartList"])){
   	var ajax_url = '<?php echo $base_url;?>api/<?php echo $UsersID;?>/shop/cart/ajax/';
   	$(document).ready(shop_obj.cart_init);
 </script>
+<style>
+.chkbox {     width: 30px; height: 20px;}
+</style>
 </head>
 <body>
 <div id="cart">
@@ -69,7 +72,9 @@ if(!empty($_SESSION[$UsersID."CartList"])){
   ?>
   	<?php if($i>1){?><div class="bizcart_dline"></div><?php }?>
   	<div id="biz_cart_<?php echo $BizID;?>" class="bizcart">
-    	<div class="biz_title"><a href="/api/<?php echo $UsersID;?>/biz/<?php echo $BizID;?>/"><?php echo $rsBiz["Biz_Name"];?></a></div>
+    	<div class="biz_title">
+    		<a href="/api/<?php echo $UsersID;?>/biz/<?php echo $BizID;?>/"><?php echo $rsBiz["Biz_Name"];?></a>
+    	</div>
         <?php
         foreach($BizCart as $ProductsID=>$Products){
 			foreach($Products as $CartID=>$Cart){
@@ -77,8 +82,8 @@ if(!empty($_SESSION[$UsersID."CartList"])){
 				$qty += $Cart["Qty"];
 		?>
         <div class="item">
-		  <div class="del">
-            <div BizID="<?php echo $BizID;?>" ProductsID="<?php echo $ProductsID;?>" CartID="<?php echo $CartID;?>"><img src="/static/api/shop/skin/default/images/delete.png" /></div>
+          <div class="del">
+        		<input type="checkbox" name="cart[]" value="" class="chkbox"/>
           </div>
           <div class="img">
             <a href="/api/<?php echo $UsersID;?>/shop/products/<?php echo $ProductsID?>/"><img src="<?php echo $Cart["ImgPath"];?>" width="100" height="100"></a>
@@ -96,6 +101,13 @@ if(!empty($_SESSION[$UsersID."CartList"])){
 			  }
 		   ?>
             <dd class="price"<?php echo empty($Cart["Property"]) ? ' style="margin-top:20px;"' : '';?>><span BizID="<?php echo $BizID;?>" ProductsID="<?php echo $ProductsID;?>" CartID="<?php echo $CartID;?>"><i class="qty_sub">-</i><input type="text" name="Qty" value="<?php echo $Cart["Qty"];?>" /><i class="qty_add">+</i><div class="clear"></div></span><font style="font-size:14px;">￥</font><?php echo $Cart["ProductsPriceX"];?></dd>
+          	<dd>
+          		  <div class="del" style="top:80px;right:12px;">
+                    <div BizID="<?php echo $BizID;?>" ProductsID="<?php echo $ProductsID;?>" CartID="<?php echo $CartID;?>">
+                    	<img src="/static/api/shop/skin/default/images/delete.png" />
+                    </div>
+                  </div>
+          	</dd>
           </dl>
           <div class="clear"></div>
         </div>
