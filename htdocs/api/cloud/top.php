@@ -6,13 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>
-
-<?php
-echo $rsConfig["ShopName"];
-?>
-
-</title>
+<title><?=$rsConfig["ShopName"]; ?></title>
 <link href='/static/css/global.css' rel='stylesheet' type='text/css' />
 <link href='/static/api/css/global.css' rel='stylesheet' type='text/css' />
 <link href='/static/api/shop/skin/default/style.css?t=<?php echo time();?>' rel='stylesheet' type='text/css' />
@@ -24,4 +18,13 @@ echo $rsConfig["ShopName"];
 var UsersID = '<?php echo $UsersID;?>';
 $(document).ready(shop_obj.page_init);
 </script>
+<style>
+.pull-left {
+	float: left;
+}
+
+.column img {
+	margin: 4px;
+}
+</style>
 </head>

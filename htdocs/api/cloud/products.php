@@ -1,14 +1,5 @@
 <?php
-require_once($_SERVER["DOCUMENT_ROOT"].'/Framework/Conn.php');
-ini_set("display_errors","On");
-if(isset($_GET["UsersID"]))
-{
-	$UsersID=$_GET["UsersID"];
-}else
-{
-	echo '缺少必要的参数';
-	exit;
-}
+require_once($_SERVER["DOCUMENT_ROOT"].'/include/update/common.php');
 
 $base_url = base_url();
 $cloud_url = base_url().'api/'.$UsersID.'/cloud/';
@@ -35,11 +26,6 @@ if(!empty($_SESSION[$UsersID."User_ID"])){
 	}
 }
 
-$rsConfig = shop_config($UsersID);
-//分销相关设置
-$dis_config = dis_config($UsersID);
-//合并参数
-$rsConfig = array_merge($rsConfig,$dis_config);
 //获取此产品
 $rsProducts = $DB->GetRS('cloud_products','*','where Users_ID="'.$UsersID.'" and Products_ID='.$ProductsID);
 

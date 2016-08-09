@@ -9,6 +9,7 @@
 <script type='text/javascript' src='/static/api/cloud/js/pageDialog.js?t=<?php echo time();?>'></script>
 <div class="column">
 	<h2 style="text-align: center;height: 37px;line-height: 37px;color: #999;">
+	<a href="javascript:history.go(-1)" class="pull-left"><img src="/static/api/shop/skin/default/images/black_arrow_left.png" /></a>
 	<?php echo empty($_GET['myself']) ? '所有参与记录-本商品' : '我的购买记录-本商品';?>
 	<h2>
 </div>

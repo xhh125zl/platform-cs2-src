@@ -40,9 +40,26 @@ $_STATUS = array('','<font style="color:#FF0000">未领取</font>','','<font sty
 		shipping_obj.shipping_init();
 	});
 </script>
-</head>
+<style>
+.pull-left {
+	float: left;
+}
 
+.column img {
+	margin: 4px;
+}
+body { background:#FFFFFF; }
+#shop_page_contents { clear:both; }
+</style>
+</head>
 <body>
+<div class="column">
+	<h2 style="text-align: center;height: 37px;line-height: 37px;color: #999;">
+	<a href="javascript:history.go(-1)" class="pull-left"><img src="/static/api/shop/skin/default/images/black_arrow_left.png" /></a>
+	云购商品领取
+	<h2>
+</div>
+<div class="clear"></div>
 <div id="gift">
    <div class="t_list"> <a href="/api/<?php echo $UsersID ?>/cloud/member/products/" class="c">已领取</a> <a href="/api/<?php echo $UsersID ?>/cloud/member/products/no/">未领取</a> </div>
   <?php

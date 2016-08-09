@@ -1,36 +1,12 @@
 <?php
-require_once($_SERVER["DOCUMENT_ROOT"].'/Framework/Conn.php');
+require_once($_SERVER["DOCUMENT_ROOT"].'/include/update/common.php');
 
-if(isset($_GET["UsersID"])){
-	$UsersID=$_GET["UsersID"];
-	$_SESSION[$UsersID."HTTP_REFERER"] = "/api/cloud/".$_GET["UsersID"].'/';
-}else{
-	echo '缺少必要的参数';
-	exit;
-}
-$BizID = isset($_GET['BizID'])?$_GET['BizID']:0;
 $ActiveID = isset($_GET['ActiveID'])?$_GET['ActiveID']:0;
 $BizInfo = $DB->GetRs("biz","*","WHERE Biz_ID='{$BizID}'");
 $base_url = base_url();
 $cloud_url = base_url().'api/'.$UsersID.'/cloud/';
 $cloud_jjjxurl = base_url().'api/'.$UsersID.'/cloud/';
 
-//商城配置信息
-$rsConfig = shop_config($UsersID);
-//分销相关设置
-$dis_config = dis_config($UsersID);
-//合并参数
-$rsConfig = array_merge($rsConfig,$dis_config);
-
-$owner = get_owner($rsConfig,$UsersID);
-
-require_once($_SERVER["DOCUMENT_ROOT"].'/include/library/wechatuser.php');
-
-if($_SERVER['REQUEST_METHOD'] == 'GET'){
-	//$error_msg = pre_add_distribute_account($rsConfig,$UsersID);
-}
-
-$owner = get_owner($rsConfig,$UsersID);
 $share_name = '';
 
 if($owner['id'] != '0'){
@@ -47,6 +23,7 @@ $Data = array(
 );
 
 $DB->Add("statistics",$Data);
+
 //调用模版
 $share_link = base_url().'api/'.$UsersID.'/cloud/';
 //require_once('../share.php');

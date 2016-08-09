@@ -1,7 +1,5 @@
 <?php
-require_once($_SERVER["DOCUMENT_ROOT"].'/Framework/Conn.php');
-require_once($_SERVER["DOCUMENT_ROOT"].'/include/helper/url.php');
-require_once($_SERVER["DOCUMENT_ROOT"].'/include/helper/distribute.php');
+require_once($_SERVER["DOCUMENT_ROOT"].'/include/update/common.php');
 
 if(isset($_GET["UsersID"])){
 	$UsersID=$_GET["UsersID"];
@@ -17,14 +15,6 @@ if(!strpos($_SERVER['REQUEST_URI'],"mp.weixin.qq.com")){
 	header("location:?wxref=mp.weixin.qq.com");
 
 }
-
-//商城配置信息
-$rsConfig = shop_config($UsersID);
-//分销相关设置
-$dis_config = dis_config($UsersID);
-//合并参数
-$rsConfig = array_merge($rsConfig,$dis_config);
-$owner = get_owner($rsConfig,$UsersID);
 
 if($owner['id'] != '0'){
 	$rsConfig["ShopName"] = $owner['shop_name'];
@@ -50,9 +40,26 @@ if($owner['id'] != '0'){
 <script type='text/javascript' src='/static/api/js/global.js'></script>
 <script type='text/javascript' src='/static/api/cloud/js/shop.js'></script>
 <script language="javascript">$(document).ready(shop_obj.page_init);</script>
-</head>
+<style>
+.pull-left {
+	float: left;
+}
 
+.column img {
+	margin: 4px;
+}
+body { background:#FFFFFF; }
+#shop_page_contents { clear:both; }
+</style>
+</head>
 <body>
+<div class="column">
+	<h2 style="text-align: center;height: 37px;line-height: 37px;color: #999;">
+	<a href="javascript:history.go(-1)" class="pull-left"><img src="/static/api/shop/skin/default/images/black_arrow_left.png" /></a>
+	<?php echo $rsConfig["ShopName"] ?>购物车
+	<h2>
+</div>
+<div class="clear"></div>
 <div id="shop_page_contents">
 	<div id="cover_layer"></div>
 	<link href='/static/api/cloud/css/cart.css?t=<?php echo time();?>' rel='stylesheet' type='text/css' />
