@@ -60,7 +60,18 @@
     <script src="/static/api/pintuan/js/slide.js"></script>
     <script type="text/javascript" src="/static/api/pintuan/js/layer/1.9.3/layer.js"></script>
     <style type="text/css">
-    .guangguang {    width: 200px;  height: 30px; line-height: 30px; background: #f61d4b; padding-left: 20px; color: #fff;}
+    .guangguang {    
+        width: 80px;
+        height: 30px;
+        line-height: 30px;
+        background: #f61d4b;
+        padding-left: 20px;
+        color: #fff;
+        float: right;
+        clear: both;
+        overflow: hidden;
+        margin-right: 10px;
+    }
     .guangguang a {display:block;color:#fff;}
     .buy_bj1,buy_bj a{display:block;}
     </style>
@@ -171,6 +182,7 @@
             if($flag){
     ?>
     <div class="guangguang"><a href="/api/<?=$UsersID ?>/pintuan/biz/<?=$biz ?>/">逛逛店铺</a></div>
+    <div class="clear"></div>
     <?php 
             }
         }
@@ -376,7 +388,7 @@ function selectTag(showContent,selfObj){
 <div class="bottom1">
 <div class="footer1">
   <ul style="margin-top: 5px;">
-	<li><a href="<?php echo "/api/$UsersID/pintuan/"; ?>"><img src="/static/api/pintuan/images/552cd5641bbec_128.png" width="25px" height="25px" /><br>首页</a></li>
+	<li><a href="<?=isset($_SESSION["Index_URI"])?$_SESSION["Index_URI"]:'' ?>"><img src="/static/api/pintuan/images/552cd5641bbec_128.png" width="25px" height="25px" /><br>首页</a></li>
     <?php
 		$aa=false;
 		$DB->query("SELECT * FROM `pintuan_collet` where users_id='".$UsersID."'and userid ='".$UserID."'");
@@ -400,6 +412,7 @@ function selectTag(showContent,selfObj){
 		}else if($goodsInfo['stoptime']<$time - 86398){
 		    $tip_title = "团购失效<br/>时间过期";
 		}
+		if($is_only_buy){
     ?>    
     <li>
         <div class="buy_bj1">
@@ -407,21 +420,16 @@ function selectTag(showContent,selfObj){
             	<?php 
             	if($tip_title){
             	   echo $tip_title; 
-            	}else{
-            	   if($is_only_buy){ 
+            	} 
             	?>
                 <input type="button" id="dangou" value="¥&nbsp;<?php echo empty($goodsInfo['Products_PriceD'])?0:$goodsInfo['Products_PriceD'];?>" class="va"/>
                 <br/>
                 <input type="button" id="price" value="单独购买" class="va"/>
-                <?php }else{ ?>
-               	 本产品不<br/>支持单购买
-                <?php
-            	   }
-            	}?>
             </a>
         </div>
         <div class="clear"></div>
     </li>
+    <?php } ?>
     <!-- 团购页面 -->
     <li>
         <div class="buy_bj">
@@ -440,6 +448,13 @@ function selectTag(showContent,selfObj){
         </div>
         <div class="clear"></div>
     </li>
+    <?php if(!$is_only_buy){?>
+     <li>
+    	<div class="buy_bj1">
+    		<a href="<?php echo "/api/$UsersID/pintuan/user/"; ?>" style="display: block;color:#fff;font-weight:bold;"><img src="/static/api/pintuan/images/002-3.png" width="22px" height="22px" style="margin-top: 3px;" /><br />我的</a>
+   		</div>
+    </li>
+    <?php }?>
   </ul>
 </div>
 </div> 
@@ -470,7 +485,7 @@ function selectTag(showContent,selfObj){
 	  	}, 'json');  
 	})
   //单人按钮的设置
-  	$('#dangou,#price').click(function(){
+  	$('#dangou,#price,.buy_bj1').click(function(){
     	  var goodsid=<?php echo $goodsid;?>;
           var orderstype=<?php echo $orderstype;?>;
           var UsersID = "<?php echo $UsersID;?>";
@@ -503,7 +518,7 @@ function selectTag(showContent,selfObj){
      });  
 
     //团购
-    $('#tuangou, #prices').click(function(){
+    $('#tuangou, #prices,.buy_bj').click(function(){
 	      var goodsid=<?php echo $goodsid;?>;
 	      var orderstype=<?php echo $orderstype;?>;
 	      var UsersID = "<?php echo $UsersID;?>";

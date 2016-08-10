@@ -81,7 +81,7 @@ if(!empty($_GET['action'])){
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>个人中心</title>
+<title>我的购买记录</title>
 <link href="/static/api/cloud/css/comm.css" rel="stylesheet" type="text/css" />
 <link href='/static/css/global.css' rel='stylesheet' type='text/css' />
 <link href='/static/api/shop/skin/default/css/style.css' rel='stylesheet' type='text/css' />
@@ -93,13 +93,28 @@ if(!empty($_GET['action'])){
 	var UsersID = '<?php echo $UsersID;?>';
 	$(document).ready(shop_obj.page_init);
 </script>
-</head>
+<style>
+.pull-left {
+	float: left;
+}
 
+.column img {
+	margin: 4px;
+}
+body { background:#FFFFFF; }
+#shop_page_contents { clear:both; }
+</style>
+</head>
 <body>
+<div class="column">
+	<h2 style="text-align: center;height: 37px;line-height: 37px;color: #999;">
+	<a href="javascript:history.go(-1)" class="pull-left"><img src="/static/api/shop/skin/default/images/black_arrow_left.png" /></a>
+	我的购买记录
+	<h2>
+</div>
 <div id="shop_page_contents">
 	<div id="cover_layer"></div>
 	<link href='/static/api/shop/skin/default/css/member.css?t=<?php echo time();?>' rel='stylesheet' type='text/css' />
-	<h2 style="background-color: white; border-bottom: 1px solid #ddd;height: 44px;line-height:44px;color: #000;font-size: 17px;font-weight: 500;text-align: center;">我的购买记录</h2>
 	<div id="order_list">
 		<?php
 		$DB->get("user_order","*","where Users_ID='".$UsersID."' and User_ID='".$_SESSION[$UsersID."User_ID"]."' and Order_Type='cloud' and Order_Status=".$Status." order by Order_CreateTime desc");

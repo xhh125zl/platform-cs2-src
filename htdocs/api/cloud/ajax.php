@@ -10,8 +10,8 @@ require_once($_SERVER["DOCUMENT_ROOT"].'/include/library/smarty.php');
 require_once($_SERVER ["DOCUMENT_ROOT"] . '/Framework/Ext/virtual.func.php');
 require_once($_SERVER ["DOCUMENT_ROOT"] . '/Framework/Ext/sms.func.php');
 
-if(isset($_POST["UsersID"])){
-	$UsersID = $_POST["UsersID"];
+if(isset($_REQUEST["UsersID"])){
+	$UsersID = $_REQUEST["UsersID"];
 }else{
 	echo 'error';
 	exit;
@@ -32,17 +32,18 @@ if($BizID){
     {
        die("商家不存在");
     }
+    $method=!isset($_POST["method"])?"asc":$_POST["method"];
     $orderby = "";
     if("republicTime" == $action){
-        $orderby .= "ORDER BY Products_CreateTime DESC";
+        $orderby .= "ORDER BY Products_CreateTime {$method}";
     }else if("sales" == $action){
-        $orderby .= "ORDER BY ROUND(canyurenshu/zongrenci,2) DESC";
+        $orderby .= "ORDER BY ROUND(canyurenshu/zongrenci,2) {$method}";
     }else if("prices" == $action){
-        $orderby .= "ORDER BY Products_PriceY DESC";
+        $orderby .= "ORDER BY Products_PriceY {$method}";
     }else if("define" == $action){
-        $orderby .= "ORDER BY Products_Order DESC";
+        $orderby .= "ORDER BY Products_Order {$method}";
     }else{
-        $orderby .= "ORDER BY Products_ID DESC";
+        $orderby .= "ORDER BY Products_PriceY {$method} DESC,Products_ID ASC";
     }
     $counts = $DB->GetRs("cloud_products","count(Products_ID) as count","where Users_ID='".$UsersID."' and Biz_ID={$BizID}");
     $num = 20;//每页记录数
@@ -51,11 +52,19 @@ if($BizID){
     $totalpage = ceil($total/$num);//总计页数
     $limitpage = ($p-1)*$num;//每次查询取记录
     $goods = $DB->get("cloud_products","Products_Name,Products_ID,Products_IsVirtual,Products_IsShippingFree,Products_Weight,Products_JSON,Products_PriceX,Products_PriceY,qishu,canyurenshu,zongrenci,Products_xiangoutimes","where Users_ID='".$UsersID."' and Biz_ID={$BizID} {$orderby} limit $limitpage,$num");
-    $products = handle_product_list($DB->toArray($goods));
-    
-    if(count($products) > 0){
+    $list = $DB->toArray($goods);
+    $products = [];
+    foreach($list as $key=>$item){
+        $JSON = json_decode($item['Products_JSON'],TRUE);
+        if(isset($JSON["ImgPath"])){
+            $list[$key]['ImgPath'] = $JSON["ImgPath"][0];
+        }else{
+            $list[$key]['ImgPath'] =  'static/api/shop/skin/default/nopic.jpg';
+        }
+    }
+    if(count($list) > 0){
       $data = array(
-        'list' => $products,
+        'list' => $list,
         'totalpage' => $totalpage,
       );
     }else{

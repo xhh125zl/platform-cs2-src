@@ -1,13 +1,6 @@
-<?php  require_once($_SERVER["DOCUMENT_ROOT"].'/Framework/Conn.php');
-require_once($_SERVER["DOCUMENT_ROOT"].'/include/helper/url.php');
-require_once($_SERVER["DOCUMENT_ROOT"].'/include/helper/distribute.php');
+<?php 
+require_once($_SERVER["DOCUMENT_ROOT"].'/include/update/common.php');
 
-if(isset($_GET["UsersID"])){
-	$UsersID=$_GET["UsersID"];
-}else{
-	echo '缺少必要的参数';
-	exit;
-}
 $base_url = base_url();
 $cloud_url = base_url().'api/'.$UsersID.'/cloud/';
 $TypeID=empty($_GET["TypeID"])?0:$_GET["TypeID"];
@@ -53,7 +46,7 @@ $action = isset($_GET['action'])?$_GET['action']:'list';
 //显示收藏夹内商品
 if($action == 'list'){
 	//获取此用户所收藏的商品
-	$sql = "select f.FAVOURITE_ID,p.Products_ID,p.Products_Name,Products_PriceX,p.Products_JSON
+	$sql = "select f.FAVOURITE_ID,p.Products_ID,p.Products_Name,Products_PriceX,p.Products_JSON,f.MID
 from cloud_Products as p
 join user_favourite_products as f
 on p.Products_id = f.Products_ID and f.User_ID =".$_SESSION[$UsersID.'User_ID'].' and f.MID="cloud"';
@@ -100,9 +93,25 @@ on p.Products_id = f.Products_ID and f.User_ID =".$_SESSION[$UsersID.'User_ID'].
 <script type='text/javascript' src='/static/api/js/global.js'></script>
 <script type='text/javascript' src='/static/api/cloud/js/shop.js'></script>
 <script language="javascript">$(document).ready(shop_obj.page_init);</script>
-</head>
+<style>
+.pull-left {
+	float: left;
+}
 
+.column img {
+	margin: 4px;
+}
+body { background:#FFFFFF; }
+#shop_page_contents { clear:both; }
+</style>
+</head>
 <body>
+<div class="column">
+	<h2 style="text-align: center;height: 37px;line-height: 37px;color: #999;">
+	<a href="javascript:history.go(-1)" class="pull-left"><img src="/static/api/shop/skin/default/images/black_arrow_left.png" /></a>
+	我的收藏
+	<h2>
+</div>
 <div id="shop_page_contents">
   <div id="cover_layer"></div>
   <link href='/static/api/shop/skin/default/css/member.css' rel='stylesheet' type='text/css' />

@@ -57,7 +57,7 @@ function adult(id)
 	$.post("/member/active/biz_active.php",{id:id,action:'adult'},function(data){
 		if(data.code==1){
 			var html = "";
-			location.reload();
+			location.href= "<?=$request_uri ?>";
 			
 		}else{
 			alert("修改失败");

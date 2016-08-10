@@ -1,7 +1,7 @@
 <?php
 require_once('../global.php');
 $UsersID = $rsBiz['Users_ID'];
-
+if(!$UserID) header("Location: /api/{$UsersID}/user/");
 $action=empty($_REQUEST['action'])?'':$_REQUEST['action'];
 if(!empty($action)){
 	if($action=="del"){

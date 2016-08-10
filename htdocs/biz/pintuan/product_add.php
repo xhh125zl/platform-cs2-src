@@ -274,6 +274,7 @@ $(document).ready(function(){
 <style type="text/css">
 .dislevelcss{float:left;margin:5px 0px 0px 8px;text-align:center;border:solid 1px #858585;padding:5px;}
 .dislevelcss th{border-bottom:dashed 1px #858585;font-size:16px;}
+.r_con_form .rows .input .error { color:#f00; }
 </style>
 </head>
 <body>
@@ -436,7 +437,7 @@ $(document).ready(function(){
         <div class="rows">
           <label>拼团人数</label>
           <span class="input">
-          <input type="text" name="Peoplenum" value="10" class="form_input" size="5" maxlength="10" /> <span class="tips" />&nbsp;注:若不限则填写0.</span>
+          <input type="text" name="Peoplenum" value="10" class="form_input" size="5" maxlength="10" notnull/> <span class="tips" />&nbsp;注:若不限则填写0.</span>
           </span>
           <div class="clear"></div>
         </div>
@@ -529,6 +530,27 @@ $(document).ready(function(){
 </div>
 <script type="text/javascript">  
         $(document).ready(function(){
+			$("#product_add_form").submit(function(){
+				var Peoplenum=$("input[name='Peoplenum']").val();
+				if(Peoplenum<2){
+					$("input[name='Peoplenum']").parent().find(".tips").addClass("error").html("拼团人数不能小于2");
+					return false;
+				}else{
+					$("input[name='Peoplenum']").parent().find(".tips").removeClass("error").html("");
+				}
+			});
+			$("input[name='Peoplenum']").blur(function(){
+				var Peoplenum=$(this).val();
+				if(Peoplenum<2){
+					$(this).parent().find(".tips").addClass("error").html("拼团人数不能小于2");
+					$(this).focus();
+					return false;
+				}else{
+					$(this).parent().find(".tips").removeClass("error").html("");
+				}
+			});
+
+            
            		if($("#draw").has('checked')){  
                     $("#333").hide();  
                     $("#444").hide();  
@@ -549,7 +571,7 @@ $(document).ready(function(){
                 }     
         }); 
         
-        function imagedel(o) {
+  function imagedel(o) {
     $(o).parent().remove();
     return false;
   }

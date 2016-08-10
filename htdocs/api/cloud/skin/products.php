@@ -13,7 +13,7 @@
 <script type='text/javascript' src='/static/api/shop/js/toast.js'></script> 
 <script type='text/javascript' src='/static/api/cloud/js/countdown.js'></script> 
 <style type="text/css">
-    .guangguang {    width: 200px;  height: 30px; line-height: 30px; background: #eb2c00; padding-left: 20px; color: #fff;}
+    .guangguang {    width: 80px;  height: 30px; line-height: 30px; background: #eb2c00; padding-left: 20px; color: #fff; position: absolute; z-index: 999;  right: 5px;}
     .guangguang a {display:block;color:#fff;}
     .buy_bj1,buy_bj a{display:block;}
 </style>

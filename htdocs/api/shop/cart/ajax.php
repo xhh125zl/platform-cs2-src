@@ -259,6 +259,7 @@ if(empty($action)){//加入购物车
 
 		$insertInfo = array('User_ID'=>$_SESSION[$UsersID.'User_ID'],
 							'Products_ID'=>$_POST['productId'],
+							'MID'=>'shop',
 							'IS_Attention'=>1);
 		
 		$Result=$DB->Add("user_favourite_products",$insertInfo);

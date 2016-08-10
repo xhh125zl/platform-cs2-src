@@ -268,7 +268,7 @@ $is_salesman = $salesman->get_salesman();
     <a href="javascript:void(0)" class="item item_2">可提现<?php echo $Index_Professional_Json['catcommission']; ?>
     <button class="btn-sm btn btn-default" id="withdraw_btn" style="width: 40px;" link="/api/<?=$UsersID?>/distribute/withdraw/">提&nbsp;&nbsp;现</button>
     <button class="btn btn-default btn-sm" id="balance_sum" style="margin-right: 10px;">总额(分销+业务)：<?=round_pad_zero($rsAccount['balance'],2)?></button></a>
-
+	<a href="/api/<?=$UsersID?>/user/logout/" class="item item_8"><span class="ico"></span>切换账号<span class="jt"></span></a>
 	<div class="clearfix"></div>
 </div>
   		<!-- 我的收入统计end -->

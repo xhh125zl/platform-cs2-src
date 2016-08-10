@@ -305,6 +305,7 @@
 	height: 216px;
 	position: relative;
 	overflow: hidden;
+	text-align: center;
 }
 
 .goods-list li:nth-of-type(even) {
@@ -313,7 +314,7 @@
 
 .goods-list .g-pic img {
 	display: block;
-	width: 100px;
+	width: 150px;
 	margin: 0 auto;
 }
 

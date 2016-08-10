@@ -1,14 +1,5 @@
 <?php
-require_once($_SERVER["DOCUMENT_ROOT"].'/Framework/Conn.php');
-require_once($_SERVER["DOCUMENT_ROOT"].'/include/helper/url.php');
-require_once($_SERVER["DOCUMENT_ROOT"].'/include/helper/distribute.php');
-
-if(isset($_GET["UsersID"])){
-	$UsersID=$_GET["UsersID"];
-}else{
-	echo '缺少必要的参数';
-	exit;
-}
+require_once($_SERVER["DOCUMENT_ROOT"].'/include/update/common.php');
 
 $base_url = base_url();
 $cloud_url = base_url().'api/'.$UsersID.'/cloud/';
@@ -24,23 +15,9 @@ if(!strpos($_SERVER['REQUEST_URI'],"mp.weixin.qq.com")){
 $base_url = base_url();
 $cloud_url = base_url().'api/'.$UsersID.'/cloud/';
 
-//商城配置信息
-$rsConfig = shop_config($UsersID);
-//分销相关设置
-$dis_config = dis_config($UsersID);
-//合并参数
-$rsConfig = array_merge($rsConfig,$dis_config);
-
 /*分享页面初始化配置*/
 $share_flag = 0;
 $signature = '';
-
-//自动授权
-$is_login = 1;
-$owner = get_owner($rsConfig,$UsersID);
-require_once $_SERVER["DOCUMENT_ROOT"] . '/include/library/wechatuser.php';
-$owner = get_owner($rsConfig,$UsersID);
-
 
 $OrderID=$_GET['OrderID'];
 

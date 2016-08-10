@@ -1,17 +1,9 @@
 <?php
-require_once($_SERVER["DOCUMENT_ROOT"].'/Framework/Conn.php');
-require_once($_SERVER["DOCUMENT_ROOT"].'/include/helper/url.php');
+require_once($_SERVER["DOCUMENT_ROOT"].'/include/update/common.php');
 
 /*分享页面初始化配置*/
 $share_flag = 1;
 $signature = '';
-
-if(isset($_GET["UsersID"])){
-	$UsersID=$_GET["UsersID"];
-}else{
-	echo '缺少必要的参数';
-	exit;
-}
 
 $base_url = base_url();
 $cloud_url = base_url().'api/'.$UsersID.'/cloud/';

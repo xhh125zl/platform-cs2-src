@@ -1,7 +1,7 @@
 <?php
 $time = time();
 
-$sql = "SELECT a.Users_ID,a.Active_ID,a.Type_ID,a.Active_Name,a.MaxGoodsCount,a.IndexBizGoodsCount,a.IndexShowGoodsCount,a.MaxBizCount,a.MaxBizCount,t.module,T.Type_Name FROM active AS a LEFT JOIN active_type AS t ON a.Type_ID = t.Type_ID WHERE a.Users_ID='{$UsersID}' AND a.starttime<={$time} AND a.stoptime>{$time} AND a.Status = 1";
+$sql = "SELECT a.Users_ID,a.Active_ID,a.Type_ID,a.Active_Name,t.Type_Name,a.MaxGoodsCount,a.IndexBizGoodsCount,a.IndexShowGoodsCount,a.MaxBizCount,a.MaxBizCount,t.module,T.Type_Name FROM active AS a LEFT JOIN active_type AS t ON a.Type_ID = t.Type_ID WHERE a.Users_ID='{$UsersID}' AND a.starttime<={$time} AND a.stoptime>{$time} AND a.Status = 1";
 $result = $DB->query($sql);
 $activelist = $DB->toArray($result);
 $goodslist = [];
@@ -16,6 +16,7 @@ foreach ($activelist as $k => $v)
     $goodslist[$k]['Type_ID'] = $v['Type_ID'];
     $goodslist[$k]['Active_Name'] = $v['Active_Name'];
     $goodslist[$k]['module'] = $v['module'];
+    $goodslist[$k]['Type_Name'] = $v['Type_Name'];
     //获取指定数目的商家
     $sql = "SELECT IndexConfig,ListConfig FROM biz_active WHERE Users_ID='{$v['Users_ID']}' AND Active_ID={$v['Active_ID']} AND Status=2 ORDER BY addtime ASC Limit 0,{$v['MaxBizCount']} ";
     $res = $DB->query($sql);

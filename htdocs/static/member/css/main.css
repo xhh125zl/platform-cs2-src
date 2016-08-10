@@ -29,7 +29,7 @@ td,th,div,input,select,textarea,li,ol,dt,dd,h1,h2,h3,h4,h5,h6,font,span{font-siz
 .r_con_form{border-top:1px solid #ddd;}
 .r_con_form .rows{clear:both; border-bottom:1px solid #ddd;}
 .r_con_form .rows:hover{background:#E4F1FC;}
-.r_con_form .rows>label{width:15%; padding:8px 0; overflow:hidden; float:left; height:28px; line-height:28px; overflow:hidden; text-align:center;}
+.r_con_form .rows>label{width:160px; padding:8px 0; overflow:hidden; float:left; height:28px; line-height:28px; overflow:hidden; text-align:center;}
 .r_con_form .rows .input{width:75%; padding:8px 0; overflow:hidden; float:left; min-height:28px; padding-left:10px; display:block; border-left:1px solid #ddd;}
 .r_con_form .rows .input .form_input{height:28px; line-height:28px; border:1px solid #ddd; background:#fff; border-radius:5px; padding:0 5px;}
 .r_con_form .rows .input select{height:32px; border:1px solid #ddd; padding:5px; vertical-align:middle; border-radius:5px;}

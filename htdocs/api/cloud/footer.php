@@ -24,10 +24,10 @@
 <div style="bottom: 0px;" class="footer clearfix">
 	<ul style="margin:0;padding:0;">
 	<style>
-	    .footer li{width:33%;}
+	    .footer li{width:24%;}
 	</style>
-	    <li class="f_announced" style="display:none;"><a href="<?php echo shop_url();?>"><i></i>商城</a></li>
-		<li class="f_home"><a href="<?php echo base_url().'api/'.$UsersID.'/cloud/';?>"><i></i>云购</a></li>
+	  <li class="f_announced" ><a href="<?php echo shop_url();?>"><i></i>商城</a></li>
+		<li class="f_home"><a href="<?=isset($_SESSION["Index_URI"])?$_SESSION["Index_URI"]:'' ?>"><i></i>云购</a></li>
 		<li class="f_single" style="display:none;"><a href="<?php echo base_url().'api/'.$UsersID.'/cloud/';?>lottery/"><i></i>最新揭晓</a></li>
 		<li class="f_car"><a id="btnCart" href="<?php echo base_url().'api/'.$UsersID.'/cloud/';?>cart/"><i>
 		<?php 
