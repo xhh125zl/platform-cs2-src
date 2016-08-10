@@ -77,6 +77,29 @@ if($owner['id'] != '0'){
 	$rsConfig["ShopLogo"] = $owner['shop_logo'];
 	$cloud_url = $cloud_url.$owner['id'].'/';
 };
+
+
+//获得用户地址
+$Address_ID = isset($_GET['AddressID'])?$_GET['AddressID']:0;
+if($Address_ID == 0){
+    $condition = "Where Users_ID = '".$UsersID."' And User_ID = ".$User_ID." And Address_Is_Default = 1";
+}else{
+    $condition = "Where Users_ID = '".$UsersID."' And User_ID = ".$User_ID." And Address_ID =".$Address_ID;
+}
+
+$rsAddress = $DB->GetRs('user_address','*',$condition);
+$area_json = read_file($_SERVER["DOCUMENT_ROOT"].'/data/area.js');
+$area_array = json_decode($area_json,TRUE);
+$province_list = $area_array[0];
+if($rsAddress){
+    $Province = $province_list[$rsAddress['Address_Province']];
+    $City = $area_array['0,'.$rsAddress['Address_Province']][$rsAddress['Address_City']];
+    $Area = $area_array['0,'.$rsAddress['Address_Province'].','.$rsAddress['Address_City']][$rsAddress['Address_Area']];
+}else{
+    $_SESSION[$UsersID."From_Checkout"] = 1;
+    header("location:/api/".$UsersID."/user/my/address/edit/");
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -112,9 +135,40 @@ if($owner['id'] != '0'){
 <header class="bar bar-nav"> <a href="javascript:history.go(-1)" class="pull-left"><img src="/static/api/shop/skin/default/images/black_arrow_left.png" /></a> <a href="/api/<?=$UsersID?>/cloud/cart/" class="pull-right"><img src="/static/api/shop/skin/default/images/cart_two_points.png" /></a>
 	<h1 class="title" id="page_title">提交订单 </h1>
 </header>
-<div id="wrap"> 
+<div id="wrap">
+	<div class="container">
+		<?php if($rsConfig['NeedShipping'] == 1){?>
+		<div id="receiver-info" class="row">
+			<dl>
+				<dd class="col-xs-1"><a href="javascript:void(0);"><img src="/static/api/shop/skin/default/images/map_maker.png" /></a></dd>
+				<dd class="col-xs-9">
+					<p>
+						<?php if($rsAddress){?>
+						收货人:
+						<?=$rsAddress['Address_Name']?>
+						&nbsp;&nbsp;&nbsp;&nbsp;
+						<?=$rsAddress['Address_Mobile']?>
+						<br/>
+						所在地区:
+						<?=$Province.'&nbsp;&nbsp;'.$City.'&nbsp;&nbsp;'.$Area?>
+						<br/>
+						详细地址:
+						<?=$rsAddress['Address_Detailed']?>
+						<input type="hidden" id="City_Code" value="<?=$rsAddress['Address_City']?>"/>
+						<?php }else{ ?>
+						请去添加收货地址<br/>
+						<?php } ?>
+					</p>
+				</dd>
+				<dd class="col-xs-1"><a href="/api/<?=$UsersID?>/user/my/address/<?=$rsAddress['Address_ID'] ?>/"><img src="/static/api/shop/skin/default/images/arrow_right.png"/></a></dd>
+			</dl>
+		</div>
+		<?php } ?>
+	</div> 
 	<form id="checkout_form" action="<?=$base_url?>api/<?=$UsersID?>/cloud/cart/">
 		<input type="hidden" name="action" value="checkout" />
+		<input type="hidden" name="AddressID" value="<?=$rsAddress['Address_ID'] ?>" />
+		<input type="hidden" name="Need_Shipping" value="<?=$rsConfig['NeedShipping']?>" />
 		<!-- 产品列表begin-->
 		<div id="product-list" class="container">
 			<?php foreach($CartList as $Products_ID=>$Product_List){?>

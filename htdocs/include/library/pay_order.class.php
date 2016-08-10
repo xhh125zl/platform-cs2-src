@@ -60,7 +60,6 @@ class pay_order{
         require_once($_SERVER["DOCUMENT_ROOT"].'/include/compser_library/Salesman_ Commission.php');
 		$sales_man = new Salesman_commission();
 		$sales_man->up_sales_status($orderid,1);
-                
 		if(strpos($rsOrder["Order_Type"],'zhongchou')>-1){
 			$url = '/api/'.$rsOrder["Users_ID"].'/zhongchou/orders/';
 			return array("status"=>1,"url"=>$url);

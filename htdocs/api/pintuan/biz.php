@@ -3,7 +3,17 @@ require_once($_SERVER["DOCUMENT_ROOT"].'/include/update/common.php');
 
 $pinConfig = $DB->GetRs('pintuan_config', '*', "where Users_ID = '{$UsersID}'");
 $rsConfig = array_merge($rsConfig, $pinConfig);
-
+$ActiveID     = isset($_GET['ActiveID']) && $_GET['ActiveID']?$_GET['ActiveID']:0;
+if(!$ActiveID){
+    sendAlert("ActiveID不存在");
+}
+$sql = "SELECT a.Users_ID,a.Active_ID,a.MaxBizCount,a.ListShowGoodsCount FROM active AS a LEFT JOIN active_type AS t ON a.Type_ID=t.Type_ID WHERE a.Users_ID='{$UsersID}' AND t.module='pintuan' AND a.Active_ID={$ActiveID} ";
+$result = $DB->query($sql);
+$rsActive = $DB->fetch_assoc($result);
+if(empty($rsActive)) {
+    sendAlert("活动不存在");
+}
+$bizCount = $rsActive['BizShowGoodsCount'];
 //获取幻灯片列表
 if (! empty($rsConfig['banner_img'])) {
     $t = json_decode($rsConfig['banner_img'], true);
@@ -43,7 +53,11 @@ if(IS_AJAX){
     $method = isset($_POST['sortmethod']) && $_POST['sortmethod']?$_POST['sortmethod']:'asc';
     $order = ["Products_ID {$method}","Products_CreateTime {$method}","Products_Sales {$method}","Products_PriceT {$method}","Products_Index {$method}"];
     $fields = "starttime,Products_CreateTime,Users_ID,Products_JSON,products_IsNew,products_IsRecommend,products_IsHot,Is_Draw,Products_ID,Products_Index,Products_Name,stoptime,Products_Sales,Products_PriceT,Products_PriceD,people_num";
-    $sql = "SELECT {$fields} FROM `pintuan_products` WHERE Users_ID='{$UsersID}' AND Products_Category in ({$catelist})  AND Biz_ID={$BizID} ORDER BY {$order[$sort]} LIMIT {$offset},{$pagesize}";
+    
+    $sql = "SELECT {$fields} FROM (SELECT {$fields} FROM `pintuan_products` WHERE Users_ID='{$UsersID}' 
+     LIMIT {$offset},{$bizCount}) as t ".
+    ($sort?"ORDER BY {$order[$sort]}":"ORDER BY field(Products_ID,{$listGoods})")." LIMIT 0,{$pagesize}";
+    
     $result = $DB->query($sql);
     $list = [];
     if($result){

@@ -58,6 +58,9 @@ if (empty($ShopMenuJsons)) {
     $ShopMenu = $DefaultMenu;
 } else {
     $ShopMenu = $ShopMenuJsons;
+    foreach ($ShopMenu['menu'] as $k => $v) {
+        $ShopMenu['menu']['isDefault'] = basename($_SERVER['REQUEST_URI']) == basename($v['login_menu_href']) ? 1 : 0;
+    }
 }
 ?>
 <footer id="footer">  
@@ -65,9 +68,9 @@ if (empty($ShopMenuJsons)) {
 		<?php foreach ($ShopMenu['menu'] as $k => $v) : ?>
 		<li style="width: <?php echo 100/count($ShopMenu['menu']); ?>%;">
 			<?php if($v['bind_action_attr'] == 1 && $distribute_flag):?>
-				<a href="<?php echo $v['login_menu_href']; ?>" style="background:url(<?php echo $v['icon']; ?>) center center no-repeat;<?=$v['isDefault']?"color:#F36767":"" ?>"><?php echo $v['login_menu_name']; ?></a>
+				<a href="<?php echo $v['login_menu_href']; ?>" style="background:url(<?php echo $v['icon']; ?>) center center no-repeat;<?=isset($v['isDefault']) && $v['isDefault'] ?"color:#F36767":"" ?>"><?php echo $v['login_menu_name']; ?></a>
 			<?php else: ?>
-				<a href="<?php echo $v['menu_href']; ?>" style="background:url(<?php echo $v['icon']; ?>) center center no-repeat;<?=$v['isDefault']?"color:#F36767":"" ?>"><?php echo $v['menu_name']; ?></a>
+				<a href="<?php echo $v['menu_href']; ?>" style="background:url(<?php echo $v['icon']; ?>) center center no-repeat;<?=isset($v['isDefault']) && $v['isDefault'] ?"color:#F36767":"" ?>"><?php echo $v['menu_name']; ?></a>
 			<?php endif; ?>
 
 			<?php if($v['bind_action_attr'] == 2): ?>

@@ -43,7 +43,7 @@ if($BizID){
     }else if("define" == $action){
         $orderby .= "ORDER BY Products_Order {$method}";
     }else{
-        $orderby .= "ORDER BY Products_PriceY {$method} DESC,Products_ID ASC";
+        $orderby .= "ORDER BY Products_PriceY DESC,Products_ID ASC";
     }
     $counts = $DB->GetRs("cloud_products","count(Products_ID) as count","where Users_ID='".$UsersID."' and Biz_ID={$BizID}");
     $num = 20;//每页记录数
