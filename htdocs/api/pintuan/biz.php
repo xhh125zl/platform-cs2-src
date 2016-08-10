@@ -7,7 +7,7 @@ $ActiveID     = isset($_GET['ActiveID']) && $_GET['ActiveID']?$_GET['ActiveID']:
 if(!$ActiveID){
     sendAlert("ActiveID不存在");
 }
-$sql = "SELECT a.Users_ID,a.Active_ID,a.MaxBizCount,a.ListShowGoodsCount FROM active AS a LEFT JOIN active_type AS t ON a.Type_ID=t.Type_ID WHERE a.Users_ID='{$UsersID}' AND t.module='pintuan' AND a.Active_ID={$ActiveID} ";
+$sql = "SELECT a.Users_ID,a.Active_ID,a.MaxBizCount,a.ListShowGoodsCount,BizShowGoodsCount FROM active AS a LEFT JOIN active_type AS t ON a.Type_ID=t.Type_ID WHERE a.Users_ID='{$UsersID}' AND t.module='pintuan' AND a.Active_ID={$ActiveID} ";
 $result = $DB->query($sql);
 $rsActive = $DB->fetch_assoc($result);
 if(empty($rsActive)) {

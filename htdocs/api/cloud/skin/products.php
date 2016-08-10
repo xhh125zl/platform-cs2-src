@@ -65,7 +65,7 @@
     <div class="conbox">
 		<div id="product_brief_info">
 		  <?php if($isOpenShop){ ?>
-		  <div class="guangguang"><a href="/api/<?=$UsersID ?>/cloud/biz/<?=$biz ?>/">逛逛店铺</a></div>
+		  <div class="guangguang"><a href="/api/<?=$UsersID ?>/cloud/biz/<?=$biz ?>/act_<?=$_SESSION[$UsersID.'_CurrentActive'] ?>/">逛逛店铺</a></div>
 		  <?php } ?>
 		  <div id="name_and_share"> <span id="product_name" style="padding:0;">
 			(第<?php echo $rsProducts["qishu"];?>期)&nbsp;<?=$rsProducts["Products_Name"]?>

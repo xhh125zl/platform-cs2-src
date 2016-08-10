@@ -32,8 +32,17 @@ if($BizID){
     {
        die("商家不存在");
     }
+    
+    $sql = "SELECT a.Users_ID,a.Active_ID,a.MaxBizCount,a.ListShowGoodsCount,a.BizShowGoodsCount FROM active AS a LEFT JOIN active_type AS t ON a.Type_ID=t.Type_ID WHERE a.Users_ID='{$UsersID}' AND t.module='cloud' AND a.Active_ID={$ActiveID} ";
+    $result = $DB->query($sql);
+    $rsActive = $DB->fetch_assoc($result);
+    if(empty($rsActive)) {
+        die("活动不存在");
+    }
+    $bizCount = $rsActive['BizShowGoodsCount'];
     $method=!isset($_POST["method"])?"asc":$_POST["method"];
     $orderby = "";
+    $fields = "Products_Name,Products_ID,Products_IsVirtual,Products_IsShippingFree,Products_Weight,Products_JSON,Products_PriceX,Products_PriceY,qishu,canyurenshu,zongrenci,Products_xiangoutimes";
     if("republicTime" == $action){
         $orderby .= "ORDER BY Products_CreateTime {$method}";
     }else if("sales" == $action){
@@ -43,15 +52,16 @@ if($BizID){
     }else if("define" == $action){
         $orderby .= "ORDER BY Products_Order {$method}";
     }else{
-        $orderby .= "ORDER BY Products_PriceY DESC,Products_ID ASC";
+        $orderby .= "ORDER BY Products_ID DESC";
     }
-    $counts = $DB->GetRs("cloud_products","count(Products_ID) as count","where Users_ID='".$UsersID."' and Biz_ID={$BizID}");
+    $counts = $DB->GetRs("cloud_products","count(Products_ID) as count","where Users_ID='".$UsersID."' and Biz_ID={$BizID} AND zongrenci<>canyurenshu");
     $num = 20;//每页记录数
     $p = !empty($_POST['p'])?intval(trim($_POST['p'])):1;
     $total = $counts['count'];//数据记录总数
     $totalpage = ceil($total/$num);//总计页数
     $limitpage = ($p-1)*$num;//每次查询取记录
-    $goods = $DB->get("cloud_products","Products_Name,Products_ID,Products_IsVirtual,Products_IsShippingFree,Products_Weight,Products_JSON,Products_PriceX,Products_PriceY,qishu,canyurenshu,zongrenci,Products_xiangoutimes","where Users_ID='".$UsersID."' and Biz_ID={$BizID} {$orderby} limit $limitpage,$num");
+    $sql = "SELECT {$fields} FROM (SELECT {$fields} FROM `cloud_products` WHERE Users_ID='{$UsersID}' AND Products_Status = 1 AND zongrenci<>canyurenshu  LIMIT {$limitpage},{$bizCount}) as t {$orderby} LIMIT 0,{$num}";
+    $goods = $DB->query($sql);
     $list = $DB->toArray($goods);
     $products = [];
     foreach($list as $key=>$item){
