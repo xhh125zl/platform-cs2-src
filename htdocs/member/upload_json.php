@@ -105,7 +105,7 @@ if (empty($_FILES) === false) {
 		alert("上传文件扩展名是不允许的扩展名。\n只允许" . implode(",", $ext_arr[$dir_name]) . "格式。");
 	}
 	//创建文件夹
-	$Users_ID = empty($_SESSION["Users_ID"])?$_GET["Users_ID"]:$_SESSION["Users_ID"];
+	$Users_ID = isset($_SESSION["Users_ID"]) && $_SESSION["Users_ID"]?$_SESSION["Users_ID"]:'';
 	$save_path .= $Users_ID . "/";
 	$save_url .= $Users_ID . "/";
 	if (!file_exists($save_path)) {

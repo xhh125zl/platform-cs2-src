@@ -1,1 +1,1 @@
-ALTER TABLE `user_order` ADD COLUMN IF NOT EXISTS `Order_Reduce`  int NULL DEFAULT 0 COMMENT '订单满多少减多少' AFTER `Service_billId`;
+ALTER TABLE `user_order` ADD COLUMN `Order_Reduce`  int NULL DEFAULT 0 COMMENT '订单满多少减多少' AFTER `Service_billId`;

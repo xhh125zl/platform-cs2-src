@@ -60,7 +60,18 @@
     <script src="/static/api/pintuan/js/slide.js"></script>
     <script type="text/javascript" src="/static/api/pintuan/js/layer/1.9.3/layer.js"></script>
     <style type="text/css">
-    .guangguang {    width: 200px;  height: 30px; line-height: 30px; background: #f61d4b; padding-left: 20px; color: #fff;}
+    .guangguang {    
+        width: 80px;
+        height: 30px;
+        line-height: 30px;
+        background: #f61d4b;
+        padding-left: 20px;
+        color: #fff;
+        float: right;
+        clear: both;
+        overflow: hidden;
+        margin-right: 10px;
+    }
     .guangguang a {display:block;color:#fff;}
     .buy_bj1,buy_bj a{display:block;}
     </style>
@@ -171,6 +182,7 @@
             if($flag){
     ?>
     <div class="guangguang"><a href="/api/<?=$UsersID ?>/pintuan/biz/<?=$biz ?>/">逛逛店铺</a></div>
+    <div class="clear"></div>
     <?php 
             }
         }
@@ -220,9 +232,14 @@
 		 <?php $time = time();
 		 	if ($time >= $v['starttime'] && $time <= $v['stoptime'] && $v['teamstatus'] == 0) { ?>
 		 		<a href="<?php echo "/api/$UsersID/pintuan/teamdetail/{$v['id']}/" ;?>">去参团</a>
-		 	<?php } else { ?>
-		 		<a>已结束</a>
-		 	<?php } ?>
+		 	<?php } else { 
+          if($v['teamstatus']==1){
+              echo "<a>已完成</a>";   
+          }else{
+              echo '<a>已结束</a>';
+          }
+		 	
+		 	 } ?>
 		 </div>
 		 </div>
 		 <div class="clear"></div>
@@ -303,48 +320,48 @@
   href="javascript:void(0)">购买记录</a> </li>
 </ul>
 <div id="tagContent">
-<div class="tagContent  selectTag" id="tagContent0">
-		<?php
-		    if(!empty($goodsInfo['Products_Description'])){
-		    	$str=htmlspecialchars_decode($goodsInfo['Products_Description']);
-		        echo"<div class='jj'>".$str."</div>";  
-		    }else{
-		        echo'<div class="jj">此商品暂无产品详情!</div>';         
-		    } 
-		?>
-</div>
+    <div class="tagContent  selectTag" id="tagContent0">
+        <?php
+            if(!empty($goodsInfo['Products_Description'])){
+              $str=htmlspecialchars_decode($goodsInfo['Products_Description']);
+                echo"<div class='jj'>".$str."</div>";  
+            }else{
+                echo'<div class="jj">此商品暂无产品详情!</div>';         
+            } 
+        ?>
+    </div>
 <div class="tagContent " id="tagContent1">
-<div class="bq2">
-	<ul>
-		<?php
-		$DB->query("SELECT * FROM `user_order` as o left join user as u on o.User_ID=u.User_ID  where o.Users_ID='".$UsersID."' and (o.Order_Type='pintuan' or o.Order_Type='dangou') and o.Order_Status='2' and o.Order_CartList like '%".$goodsid."%' ORDER BY Order_CreateTime desc LIMIT 0,5");
-		$li=$DB->toArray();
-		if (empty($li)) {
-			echo '<li>暂时无数据</li>';
-		}else{
-			foreach ($li as $key => $v) {
-				if ($v['User_NickName']==Null){
-					//产品的数量
-					$num=isset(json_decode($v['Order_CartList'],true)['num'])?json_decode($v['Order_CartList'],true)["num"]:1;
-					echo '<li>
-					<div class="pj2"><span class="l">匿名</span><span class="r">'.date("Y-m-d H:i:s",$v['Order_CreateTime']).'</span>
-					<div class="clear"></div><div> <span class="l">'.json_decode($v['Order_CartList'],true)['ProductsName'].'</span><span class="r">件数:'.$num.'</span></div></div>
-					<div class="clear"></div>
-					</li>';
-				}else{
-					//产品的数量
-					$num=isset(json_decode($v['Order_CartList'],true)['num'])?json_decode($v['Order_CartList'],true)["num"]:1;
-					echo '<li>
-					<div class="pj2"><span class="l">'.$v['User_NickName'].'</span><span class="r">'.date("Y-m-d H:i:s",$v['Order_CreateTime']).'</span>
-					<div class="clear"></div><div> <span class="l">'.json_decode($v['Order_CartList'],true)['ProductsName'].'</span><span class="r">件数'.$num.'</span></div></div>
-					<div class="clear"></div>
-					</li>';
-				}
-			}
-		}
-	?>
-</ul>
-</div>
+    <div class="bq2">
+      <ul>
+        <?php
+        $DB->query("SELECT * FROM `user_order` as o left join user as u on o.User_ID=u.User_ID  where o.Users_ID='".$UsersID."' and (o.Order_Type='pintuan' or o.Order_Type='dangou') and o.Order_Status>2 and o.Order_CartList like '%\"Products_ID\":\"{$goodsid}\"%' ORDER BY Order_CreateTime desc LIMIT 0,5");
+        $li=$DB->toArray();
+        if (empty($li)) {
+          echo '<li>暂时无数据</li>';
+        }else{
+          foreach ($li as $key => $v) {
+            if ($v['User_NickName']==Null){
+              //产品的数量
+              $num=isset(json_decode($v['Order_CartList'],true)['num'])?json_decode($v['Order_CartList'],true)["num"]:1;
+              echo '<li>
+              <div class="pj2"><span class="l">匿名</span><span class="r">'.date("Y-m-d H:i:s",$v['Order_CreateTime']).'</span>
+              <div class="clear"></div><div> <span class="l">'.json_decode($v['Order_CartList'],true)['ProductsName'].'</span><span class="r">件数:'.$num.'</span></div></div>
+              <div class="clear"></div>
+              </li>';
+            }else{
+              //产品的数量
+              $num=isset(json_decode($v['Order_CartList'],true)['num'])?json_decode($v['Order_CartList'],true)["num"]:1;
+              echo '<li>
+              <div class="pj2"><span class="l">'.$v['User_NickName'].'</span><span class="r">'.date("Y-m-d H:i:s",$v['Order_CreateTime']).'</span>
+              <div class="clear"></div><div> <span class="l">'.json_decode($v['Order_CartList'],true)['ProductsName'].'</span><span class="r">件数'.$num.'</span></div></div>
+              <div class="clear"></div>
+              </li>';
+            }
+          }
+        }
+      ?>
+    </ul>
+    </div>
 </div>
 
 <div class="clear"></div>
@@ -371,7 +388,7 @@ function selectTag(showContent,selfObj){
 <div class="bottom1">
 <div class="footer1">
   <ul style="margin-top: 5px;">
-	<li><a href="<?php echo "/api/$UsersID/pintuan/"; ?>"><img src="/static/api/pintuan/images/552cd5641bbec_128.png" width="25px" height="25px" /><br>首页</a></li>
+	<li><a href="<?=isset($_SESSION["Index_URI"])?$_SESSION["Index_URI"]:'' ?>"><img src="/static/api/pintuan/images/552cd5641bbec_128.png" width="25px" height="25px" /><br>首页</a></li>
     <?php
 		$aa=false;
 		$DB->query("SELECT * FROM `pintuan_collet` where users_id='".$UsersID."'and userid ='".$UserID."'");
@@ -395,6 +412,7 @@ function selectTag(showContent,selfObj){
 		}else if($goodsInfo['stoptime']<$time - 86398){
 		    $tip_title = "团购失效<br/>时间过期";
 		}
+		if($is_only_buy){
     ?>    
     <li>
         <div class="buy_bj1">
@@ -402,21 +420,16 @@ function selectTag(showContent,selfObj){
             	<?php 
             	if($tip_title){
             	   echo $tip_title; 
-            	}else{
-            	   if($is_only_buy){ 
+            	} 
             	?>
                 <input type="button" id="dangou" value="¥&nbsp;<?php echo empty($goodsInfo['Products_PriceD'])?0:$goodsInfo['Products_PriceD'];?>" class="va"/>
                 <br/>
                 <input type="button" id="price" value="单独购买" class="va"/>
-                <?php }else{ ?>
-               	 本产品不<br/>支持单购买
-                <?php
-            	   }
-            	}?>
             </a>
         </div>
         <div class="clear"></div>
     </li>
+    <?php } ?>
     <!-- 团购页面 -->
     <li>
         <div class="buy_bj">
@@ -435,6 +448,13 @@ function selectTag(showContent,selfObj){
         </div>
         <div class="clear"></div>
     </li>
+    <?php if(!$is_only_buy){?>
+     <li>
+    	<div class="buy_bj1">
+    		<a href="<?php echo "/api/$UsersID/pintuan/user/"; ?>" style="display: block;color:#fff;font-weight:bold;"><img src="/static/api/pintuan/images/002-3.png" width="22px" height="22px" style="margin-top: 3px;" /><br />我的</a>
+   		</div>
+    </li>
+    <?php }?>
   </ul>
 </div>
 </div> 
@@ -465,7 +485,7 @@ function selectTag(showContent,selfObj){
 	  	}, 'json');  
 	})
   //单人按钮的设置
-  	$('#dangou,#price').click(function(){
+  	$('#dangou,#price,.buy_bj1').click(function(){
     	  var goodsid=<?php echo $goodsid;?>;
           var orderstype=<?php echo $orderstype;?>;
           var UsersID = "<?php echo $UsersID;?>";
@@ -498,7 +518,7 @@ function selectTag(showContent,selfObj){
      });  
 
     //团购
-    $('#tuangou, #prices').click(function(){
+    $('#tuangou, #prices,.buy_bj').click(function(){
 	      var goodsid=<?php echo $goodsid;?>;
 	      var orderstype=<?php echo $orderstype;?>;
 	      var UsersID = "<?php echo $UsersID;?>";

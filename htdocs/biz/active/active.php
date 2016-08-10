@@ -1,6 +1,15 @@
 <?php
 require_once($_SERVER["DOCUMENT_ROOT"].'/include/update/common.php');
 
+if(IS_GET && isset($_GET['action']) && $_GET['action']=='del'){
+   $flag = $DB->Del("biz_active","ID=".$_GET["id"]);
+   if($flag){
+			echo '<script language="javascript">alert("删除成功");window.location="'.$_SERVER['HTTP_REFERER'].'";</script>';
+		}else{
+			echo '<script language="javascript">alert("删除失败");history.back();</script>';
+		}
+		exit;
+}
 $lists = array();
 $condition = "LEFT JOIN active as a ON b.Active_ID=a.Active_ID WHERE b.Users_ID = '{$UsersID}' AND b.Biz_ID={$BizID} ORDER BY ID DESC";
 $result = $DB->getPages("biz_active as b","a.Type_ID,a.Active_Name,a.starttime,a.stoptime,b.*",$condition,10);
@@ -41,13 +50,10 @@ function view(id)
     <script type='text/javascript' src='/static/member/js/shop.js'></script>
     <div class="r_nav">
       <ul>
-        <li class="cur"><a href="./orders.php">我的活动</a></li>
+        <li class="cur"><a href="./active.php">我的活动</a></li>
       </ul>
     </div>
     <div id="products" class="r_con_wrap">
-      <div class="control_btn">
-      <a href="active_add.php" class="btn_green btn_w_120">申请参加活动</a>
-      </div>
       <table align="center" border="0" cellpadding="5" cellspacing="0" class="r_con_table">
         <thead>
           <tr>
@@ -79,9 +85,10 @@ function view(id)
             	<?php if($v['Status']<4){?>
             	<a href="active_edit.php?id=<?php echo $v["ID"]; ?>"><img src="/static/member/images/ico/mod.gif" align="absmiddle" alt="修改" /></a>&nbsp;&nbsp;
 				<?php } ?>
+              <a href="#" activeid="<?php echo $v["ID"]; ?>" class="del"><img src="/static/member/images/ico/del.gif" align="absmiddle" alt="删除" /></a>
 			</td>
           </tr>
-          <?php }?>
+          <?php } ?>
         </tbody>
       </table>
       <div class="blank20"></div>
@@ -92,14 +99,15 @@ function view(id)
 <script>
 $(document).ready(function(){
       //设置删除的ajax
-      $('.onclik').click(function(){
+      $('.del').click(function(){
         //获取服务id
-        var id=$(this).attr('activeid').val();
+        var id=$(this).attr('activeid');
         if(confirm('您确定删除此服务')){   
           //发送ajax
-          $.get("active.php",{Active_ID:id,action:'del'},function(data){
-            }, 'json');
-          $(this).parents('tr').remove();
+          $.get("active.php",{id:id,action:'del'},function(data){
+        	  document.write(data);
+            }, 'html');
+				
         }   
       })
 });

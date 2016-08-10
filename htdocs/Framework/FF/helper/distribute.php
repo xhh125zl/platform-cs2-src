@@ -127,7 +127,7 @@ if (!function_exists('add_distribute_record')) {
 			return false;
 		}
 
-		$Product = model('shop_products')->field('Products_ID,Products_PriceX,Products_Distributes,Biz_ID,Products_Name,commission_ratio,platForm_Income_Reward')->where(array('Users_ID' => $UsersID, 'Products_ID' => $ProductID))->find();
+		$Product = model('shop_products')->field('Products_ID,Products_PriceX,Products_Distributes,Biz_ID,Products_Name,commission_ratio,platForm_Income_Reward,nobi_ratio')->where(array('Users_ID' => $UsersID, 'Products_ID' => $ProductID))->find();
 
 		
 		if($Product['commission_ratio'] <= 0) {//佣金比例
@@ -879,7 +879,7 @@ if (!function_exists('getAncestorIds')) {
 			$res = trim($Disaccount_info['Dis_Path'], ',');
 			$list = explode(',', $res);
 
-			$ids = array_slice($list, 0, $level);
+			$ids = array_slice($list, -$level);
 
 			//convert id from  string to int
 			foreach ($ids as $key => $item) {
@@ -991,7 +991,7 @@ if (!function_exists('getPosterity')) {
 				//为分销账号动态指定级别
 				$descendants[$k]['level'] = $curLevel;
 			}else{
-			    break;
+			    continue;
 			}
 		}
 		return $descendants;
@@ -1040,17 +1040,15 @@ function delete_distribute_record($UsersID, $OrderID) {
 	$recordIDS = array();
 	$record_list = $shop_distribute_record->field('Record_ID')->where($condition)->select();
 	foreach($record_list as $id){
-		$recordIDS[] = $id;
+            $recordIDS[] = $id['Record_ID'];
 	}
 	$shop_distribute_record->where($condition)->delete();
 	//删除分销账户记录
 	if($record_list){
-		$condition = array(
-		    'Users_ID'=>$UsersID,
-			'Ds_Record_ID'=>$recordIDS
-		);
-
-		model('distribute_account_record')->where($condition)->delete();
+            $recordIDSs = implode(',',$recordIDS); 
+            $conditions['Users_ID'] = $UsersID;
+            $conditions['Ds_Record_ID'] = array('in',$recordIDSs);
+            model('distribute_account_record')->where($conditions)->delete();
 
 	}
 }

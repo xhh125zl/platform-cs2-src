@@ -1,9 +1,9 @@
     
     //根据AjAx获取内容
-    function getContainer(url,page,sort)
+    function getContainer(url,page,sort,method)
 		{
 			if(page=="" || page==undefined)  page = 1;
-			$.post(url,{page:page,sort:sort},function(data){
+			$.post(url,{page:page,sort:sort,sortmethod:method},function(data){
 				var strData = "";
 				if(data.status==1){
 					var list = data.data;
@@ -12,9 +12,9 @@
 						strData +='<div class="chanpin">';
 						strData +='	  <div class="biaoqian"><img src="/static/api/pintuan/images/xp_'+list[i].Tie+'.png" width="55px" height="55px"></div>';
 						strData +='   <div class="tt"></div>';
-						strData +='   <div class="tp l"><img src="'+list[i].imgpath+'"></div>';
+						strData +='   <div class="tp l"><a href="/api/' + list[i].Users_ID + '/pintuan/xiangqing/' +list[i].Products_ID+'/"><img src="' + list[i].imgpath + '"></a></div>';
 						strData +='   <div class="jianjie1 l">';
-						strData +='       <div><span class="ct l">'+list[i].Products_Name+'</span>';
+						strData +='       <div><span class="ct l"><a href="/api/' + list[i].Users_ID + '/pintuan/xiangqing/' + list[i].Products_ID + '/">' + list[i].Products_Name + '</a></span>';
 						if(list[i].Draw==1){
                 			strData +='       <span class="cj_choujiang r">抽奖</span>';
 						}
@@ -40,7 +40,7 @@
 						strData +='</div>';
 						strData +='<div class="clear"></div>';
 					}
-					$("#container").append(strData);
+					$("#container").html(strData);
 				}
 			},"JSON");
 		}

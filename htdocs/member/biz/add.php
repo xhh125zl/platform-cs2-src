@@ -108,7 +108,7 @@ KindEditor.ready(function(K) {
 	K.create('textarea[name="Introduce"]', {
         themeType : 'simple',
 		filterMode : false,
-        uploadJson : '/member/upload_json.php?TableField=biz&UsersID=<?php echo $_SESSION["Users_ID"];?>',
+        uploadJson : '/member/upload_json.php?TableField=biz',
         fileManagerJson : '/member/file_manager_json.php',
         allowFileManager : true,
 		items : [
@@ -116,7 +116,7 @@ KindEditor.ready(function(K) {
 			'removeformat', 'undo', 'redo', '|', 'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist', 'insertunorderedlist', '|', 'emoticons', 'image', 'link' , '|', 'preview']
     });
 	var editor = K.editor({
-		uploadJson : '/member/upload_json.php?TableField=biz&UsersID=<?php echo $_SESSION["Users_ID"];?>',
+		uploadJson : '/member/upload_json.php?TableField=biz',
 		fileManagerJson : '/member/file_manager_json.php',
 		showRemote : true,
 		allowFileManager : true,

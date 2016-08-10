@@ -1,6 +1,5 @@
 <?php  
-require_once($_SERVER["DOCUMENT_ROOT"].'/biz/global.php');
-require_once($_SERVER["DOCUMENT_ROOT"].'/include/helper/tools.php');
+require_once($_SERVER["DOCUMENT_ROOT"].'/include/update/common.php');
 
 //设置常规固定常量
 define('NO_RELATION_PRODUCTS_STATUS', '未设置关联商品');
@@ -13,7 +12,7 @@ if(isset($_POST['action']) && $_POST['action'] == 'use')
     $cardid = intval($_POST['Card_Id']);
     $status = $_POST['Card_Status'];
     if($cardid){
-        $DB->Set("pintuan_virtual_card", [ 'Card_Status'=> $status], "WHERE Users_ID='".$_SESSION["Users_ID"]."' AND Card_Id='{$cardid}'");
+        $DB->Set("pintuan_virtual_card", [ 'Card_Status'=> $status], "WHERE Users_ID='{$UsersID}' AND Card_Id='{$cardid}'");
         die(json_encode([ 'status' => 1 ,'code'=> $status ]));
     }else{
         die(json_encode([ 'status' => 0 ,'code'=> $status ]));
@@ -22,7 +21,7 @@ if(isset($_POST['action']) && $_POST['action'] == 'use')
 
 if (isset($_GET['action'])) {
   if ($_GET['action'] == 'del') {
-    $Flag=$DB->Del("pintuan_virtual_card","Users_ID='".$_SESSION["Users_ID"]."' AND Card_Id=".$_GET["CardId"]);
+    $Flag=$DB->Del("pintuan_virtual_card","Users_ID='{$UsersID}' AND Card_Id=".$_GET["CardId"]);
     if($Flag){
       echo '<script language="javascript">alert("删除成功");window.location="'.$_SERVER['HTTP_REFERER'].'";</script>';
     }else{
@@ -34,7 +33,7 @@ if (isset($_GET['action'])) {
 
 $Type_Arr = $DB->Get('pintuan_virtual_card_type', 'Type_Id, Type_Name', '');
 
-$condition = "WHERE `Users_ID` = '".$_SESSION['Users_ID']."' AND Biz_ID={$_SESSION["BIZ_ID"]}";
+$condition = "WHERE `Users_ID` = '{$UsersID}' AND Biz_ID={$BizID}";
 
 if (isset($_GET['search'])) {
   if($_GET['Card_Name']){

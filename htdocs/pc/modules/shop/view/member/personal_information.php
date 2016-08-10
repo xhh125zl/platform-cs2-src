@@ -87,7 +87,7 @@
 				</div>
 				
 				<div style="margin-top:20px;"><span class="xiang"><i>*</i>手机号码：</span>
-				  <input type="text" name="Mobile" value="<?php echo $output['rsUser']['User_Mobile']?>">
+                                    <input type="text" name="Mobile" readonly="" value="<?php echo $output['rsUser']['User_Mobile']?>">
 				</div>
 				<div style="margin-top:20px;"><span class="xiang">登录密码：</span>
 				  <input type="text" name="Password" value="">

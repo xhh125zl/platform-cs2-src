@@ -1,28 +1,33 @@
 <?php
-require_once($_SERVER["DOCUMENT_ROOT"].'/biz/global.php');
+require_once ($_SERVER["DOCUMENT_ROOT"] . '/include/update/common.php');
 
-if(isset($_GET["action"])){
-	if($_GET["action"]=="del"){
-
-    $Flag=$DB->Del("pintuan_products","Users_ID='".$_SESSION["Users_ID"]."' AND Biz_ID={$_SESSION['BIZ_ID']}  and Products_ID=".$_GET["PintuanID"]);
-
-    if($Flag){
-			echo '<script language="javascript">alert("删除成功");window.location="'.$_SERVER['HTTP_REFERER'].'";</script>';
-		}else{
-			echo '<script language="javascript">alert("删除失败");history.back();</script>';
-		}
-		exit;
-	}
+if (isset($_GET["action"])) {
+    if ($_GET["action"] == "del") {
+        
+        $Flag = $DB->Del("pintuan_products", "Users_ID='{$UsersID}' AND Biz_ID={$BizID}  and Products_ID=" . $_GET["PintuanID"]);
+        
+        if ($Flag) {
+            echo '<script language="javascript">alert("删除成功");window.location="' . $_SERVER['HTTP_REFERER'] . '";</script>';
+        } else {
+            echo '<script language="javascript">alert("删除失败");history.back();</script>';
+        }
+        exit();
+    }
 }
-//搜索
-$Pt = $DB->Get('pintuan_products','Products_Name','people_num');
-$condition = "where Users_ID='".$_SESSION["Users_ID"]."' AND Biz_ID={$_SESSION['BIZ_ID']}";
-if (isset($_GET['search']) || isset($_GET['people_num'])){
-  if (isset($_GET['pintuan_name']) && $_GET['pintuan_name']){
-    $condition .= " and products_name like '%".$_GET['pintuan_name']."%' ORDER BY Products_ID desc";
-  }else{
-    $condition .= " and people_num=".(int)$_GET["people_num"]." ORDER BY Products_ID desc";
-  }
+// 搜索
+$Pt = $DB->Get('pintuan_products', 'Products_Name', 'people_num');
+$condition = " where Users_ID='{$UsersID}' AND Biz_ID={$BizID} ";
+if (isset($_GET['search']) || isset($_GET['people_num'])) {
+    setcookie("{$UsersID}_PTSearchIsShow", 1);
+    if (isset($_GET['pintuan_name']) && $_GET['pintuan_name']) {
+        setcookie("{$UsersID}_PTKeyword", $_GET['pintuan_name']);
+        $condition .= "  and products_name like '%" . $_GET['pintuan_name'] . "%' ";
+    }
+    if (isset($_GET['people_num']) && $_GET['people_num']) {
+        setcookie("{$UsersID}_PTpeoplenum", $_GET['people_num']);
+        $condition .= "  and people_num=" . (int) $_GET["people_num"];
+    }
+    $condition .= " ORDER BY Products_ID desc";
 }
 
 ?>
@@ -61,11 +66,11 @@ if (isset($_GET['search']) || isset($_GET['people_num'])){
       </div>
 
       <!-- 搜索 -->
-      <form class="search" method="get" action="products.php">
+      <form class="search" method="get" action="products.php" <?=isset($_COOKIE["{$UsersID}_PTSearchIsShow"]) && $_COOKIE["{$UsersID}_PTSearchIsShow"]?"style='display:block;'":"" ?>>
         商品名称：
-        <input type="text" name="pintuan_name" value="" class="form_input" size="15" />&nbsp;
+        <input type="text" name="pintuan_name" value="<?=isset($_COOKIE["{$UsersID}_PTKeyword"]) && $_COOKIE["{$UsersID}_PTKeyword"]?$_COOKIE["{$UsersID}_PTKeyword"]:"" ?>" class="form_input" size="15" />&nbsp;
         拼团人数
-        <input type="text" name="people_num" value="" class="form_input" size="15">
+        <input type="text" name="people_num" value="<?=isset($_COOKIE["{$UsersID}_PTpeoplenum"]) && $_COOKIE["{$UsersID}_PTpeoplenum"]?$_COOKIE["{$UsersID}_PTpeoplenum"]:"" ?>" class="form_input" size="15">
 		<input type="hidden" name="search" value="1" />
         <input type="submit" class="search_btn" value="搜索" />
       </form>

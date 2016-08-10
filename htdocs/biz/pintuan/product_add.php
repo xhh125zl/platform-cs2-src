@@ -1,14 +1,11 @@
 <?php 
-require_once($_SERVER["DOCUMENT_ROOT"].'/biz/global.php');
-require_once($_SERVER["DOCUMENT_ROOT"].'/include/helper/url.php');
-require_once($_SERVER["DOCUMENT_ROOT"].'/include/helper/tools.php');
-require_once($_SERVER["DOCUMENT_ROOT"].'/include/helper/lib_products.php');
+require_once($_SERVER["DOCUMENT_ROOT"].'/include/update/common.php');
 
 if($_POST){ 
   if($_POST["Isdraw"]==0) {
-          if($_POST['T_count']==0 || $_POST['ratio'] ==0 ) 
+          if($_POST['T_count']==0) 
           {
-            echo '<script language="javascript">alert("拼团比例和拼图数  不能为0!");history.back();</script>'; exit();
+            echo '<script language="javascript">alert("允许中奖团数  不能为0!");history.back();</script>'; exit();
           }
   }else{
       $_POST['T_count']=0;
@@ -42,7 +39,7 @@ if($_POST){
     $str=array();
     $str[0]=$_POST['TypeID'];
     $Category_IDs=$DB->get('pintuan_category','cate_id',"  where 
-    cate_id=(SELECT parent_id FROM pintuan_category WHERE cate_id='".$_POST['TypeID']."' ) and Users_ID='".$_SESSION["Users_ID"]."'");
+    cate_id=(SELECT parent_id FROM pintuan_category WHERE cate_id='".$_POST['TypeID']."' ) and Users_ID='{$UsersID}'");
     
    while ( $res=$DB->fetch_assoc()) {
       $str[]=$res['cate_id'];
@@ -96,8 +93,8 @@ if($_POST){
     "Team_Count"=>$t_count,
     /*edit in 20160318*/
   );
-  $Data["Users_ID"] = $rsBiz["Users_ID"];
-  $Data["Biz_ID"] = $_SESSION['BIZ_ID'];
+  $Data["Users_ID"] = $UsersID;
+  $Data["Biz_ID"] = $BizID;
   //产品结算形式
 
   if($rsBiz["Finance_Type"]==0){//商品按交易额比例
@@ -135,7 +132,7 @@ if($_POST){
       if(isset($_POST["cardids"]) && $_POST["cardids"]){
             $idcards = $_POST["cardids"];
             $idcards = trim($idcards,",");
-            $DB->Set("pintuan_virtual_card", [ 'Products_Relation_ID' => $product_id ],"WHERE Users_ID='{$_SESSION["Users_ID"]}' AND Card_ID IN({$idcards})");
+            $DB->Set("pintuan_virtual_card", [ 'Products_Relation_ID' => $product_id ],"WHERE Users_ID='{$UsersID}' AND Card_ID IN({$idcards})");
       }
      echo '<script language="javascript">alert("添加成功");window.location="products.php";</script>';
   }else{
@@ -143,8 +140,8 @@ if($_POST){
   }
   exit;
 }else{
-  $shop_config = shop_config($_SESSION["Users_ID"]);  
-  $dis_config = dis_config($_SESSION["Users_ID"]);
+  $shop_config = shop_config($UsersID);  
+  $dis_config = dis_config($UsersID);
 
   $Shop_Commision_Reward_Arr = array();
   if (!is_null($shop_config['Shop_Commision_Reward_Json'])) 
@@ -218,6 +215,7 @@ function treelist($arr,$html='--',$level=0){
 <script type='text/javascript' src="/third_party/kindeditor/kindeditor-min.js"></script>
 <script type='text/javascript' src="/third_party/kindeditor/lang/zh_CN.js"></script>
 <script type='text/javascript' src='/static/member/js/shop.js'></script>
+<script type='text/javascript' src="/static/js/plugin/laydate/laydate.js"></script>
 <script type='text/javascript' src='/static/js/plugin/layer/layer.js'></script>
 <script>
 var Browser = new Object(); 
@@ -225,12 +223,13 @@ KindEditor.ready(function(K) {
   K.create('textarea[name="Description"]', {
     themeType : 'simple',
     filterMode : false,
-    uploadJson : '/member/upload_json.php?TableField=web_column&Users_ID=<?php echo $_SESSION["Users_ID"];?>',
+    uploadJson : '/member/upload_json.php?TableField=web_column&Users_ID=<?php echo $UsersID;?>',
     fileManagerJson : '/member/file_manager_json.php',
     allowFileManager : true,
+    
   });
   var editor = K.editor({
-    uploadJson : '/member/upload_json.php?TableField=web_article',
+    uploadJson : '/member/upload_json.php?TableField=web_article&Users_ID=<?php echo $UsersID;?>',
     fileManagerJson : '/member/file_manager_json.php',
     showRemote : true,
     allowFileManager : true,
@@ -243,7 +242,7 @@ KindEditor.ready(function(K) {
     editor.loadPlugin('image', function() {
       editor.plugin.imageDialog({
         clickFn : function(url, title, width, height, border, align) {
-          K('#PicDetail').append('<div><a href="'+url+'" target="_blank"><img src="'+url+'" /></a> <span>删除</span><input type="hidden" name="JSON[ImgPath][]" value="'+url+'" /></div>');
+          K('#PicDetail').append('<div><a href="'+url+'" target="_blank"><img src="'+url+'" /></a><a onclick="return imagedel(this);"><span>删除</span></a><input type="hidden" name="JSON[ImgPath][]" value="'+url+'" /></div>');
           editor.hideDialog();
         }
       });
@@ -252,9 +251,9 @@ KindEditor.ready(function(K) {
   K('#PicDetail div span').click(function(){
     K(this).parent().remove();
   });
-})
-$(document).ready(shop_obj.products_add_init);
+});
 
+$(document).ready(shop_obj.products_add_init);
 $(document).ready(function(){
     $('.rows input[name=ordertype]').click(function(){
       var sVal = $('.rows input[name=ordertype]:checked').val();
@@ -275,6 +274,7 @@ $(document).ready(function(){
 <style type="text/css">
 .dislevelcss{float:left;margin:5px 0px 0px 8px;text-align:center;border:solid 1px #858585;padding:5px;}
 .dislevelcss th{border-bottom:dashed 1px #858585;font-size:16px;}
+.r_con_form .rows .input .error { color:#f00; }
 </style>
 </head>
 <body>
@@ -320,7 +320,7 @@ $(document).ready(function(){
    <select name="TypeID" style="width:180px;" id="Type_ID" notnull>
     <option value="">请选择类型</option>
       <?php   
-        $result = $DB->get("pintuan_category","*","where Users_ID='".$_SESSION["Users_ID"]."' order by  sort asc");
+        $result = $DB->get("pintuan_category","*","where Users_ID='{$UsersID}' order by  sort asc");
         $catelist = array();
         while($rsType= $DB->fetch_assoc($result)){
            $catelist[]=$rsType;
@@ -437,7 +437,7 @@ $(document).ready(function(){
         <div class="rows">
           <label>拼团人数</label>
           <span class="input">
-          <input type="text" name="Peoplenum" value="10" class="form_input" size="5" maxlength="10" /> <span class="tips" />&nbsp;注:若不限则填写0.</span>
+          <input type="text" name="Peoplenum" value="10" class="form_input" size="5" maxlength="10" notnull/> <span class="tips" />&nbsp;注:若不限则填写0.</span>
           </span>
           <div class="clear"></div>
         </div>
@@ -463,10 +463,12 @@ $(document).ready(function(){
           </span>
             </tr>  
             <tr id="444">  
-                <td class="tl"><span color="f_red">中奖比率</span></td>  
-                <td class="tr"><input type="text" size="6" name="ratio" id="ratio" value="" />%</td>
+                <td class="tl"><span color="f_red">允许中奖团数</span></td>  
+                <td class="tr">
+                <input type="text" size="8" name="T_count" value=""/>
+                <input type="hidden" size="6" name="ratio" id="ratio" value="0" /></td>
                 <span>
-                <td>拼团总数&nbsp&nbsp<input type="text" size="8" name="T_count" value=""/></td></span>
+                <td></td></span>
             </tr>  
         </table>  
           <div class="clear"></div>
@@ -520,30 +522,35 @@ $(document).ready(function(){
           <div class="clear"></div>
         </div>
         <input type='hidden' value='' id='cardids' name='cardids' />
-        <input type="hidden" id="UsersID" value="<?=$_SESSION["Users_ID"]?>" />
+        <input type="hidden" id="UsersID" value="<?=$UsersID ?>" />
         <input type="hidden" id="ProductsID" value="0">        
       </form>
     </div>
   </div>
 </div>
-    <script type="text/javascript">
-      //控制商品参数输入框的加减
-      var index = 0;      
-        $('.icon-plus').click(function(){
-              index ++;
-              var html = $(this).closest('.form-group').clone();
-              html.find('.icon-plus').removeClass('icon-plus').addClass('icon-minus');
-              html.find(".ProductsParametername").attr('name','Products_Parameter['+index+'][name]');
-              html.find(".ProductsParametervalue").attr('name','Products_Parameter['+index+'][value]');
-              $(this).closest('.form-group').after(html);
-             $(".icon-minus").html("[-]");
-        }); 
-        $('.skipForm').on('click','.icon-minus',function(){
-              $(this).closest('.form-group').remove();
-        })
-</script>
 <script type="text/javascript">  
         $(document).ready(function(){
+			$("#product_add_form").submit(function(){
+				var Peoplenum=$("input[name='Peoplenum']").val();
+				if(Peoplenum<2){
+					$("input[name='Peoplenum']").parent().find(".tips").addClass("error").html("拼团人数不能小于2");
+					return false;
+				}else{
+					$("input[name='Peoplenum']").parent().find(".tips").removeClass("error").html("");
+				}
+			});
+			$("input[name='Peoplenum']").blur(function(){
+				var Peoplenum=$(this).val();
+				if(Peoplenum<2){
+					$(this).parent().find(".tips").addClass("error").html("拼团人数不能小于2");
+					$(this).focus();
+					return false;
+				}else{
+					$(this).parent().find(".tips").removeClass("error").html("");
+				}
+			});
+
+            
            		if($("#draw").has('checked')){  
                     $("#333").hide();  
                     $("#444").hide();  
@@ -561,91 +568,19 @@ $(document).ready(function(){
                 }else{   
                     $("#333").show();  
                     $("#444").show();
-                    var Peoplenum = $("input[name='Peoplenum']").val();
-                    var count = $("input[name='Count']").val();
-    				var num = parseInt(count/Peoplenum);
-    				var foalt = num/num*100;
-    				$("input[name='T_count']").val(num);
-    				$("input[name='ratio']").val(foalt.toFixed(2));
                 }     
-        });
-
-        $("#ratio").blur(function() {
-            /* Act on the event */
-            cacl();
-          });
-          $("input[name='Peoplenum']").blur(function() {
-            /* Act on the event */
-            cacl();
-          });
-          $("input[name='count']").blur(function() {
-            /* Act on the event */
-            cacl();
-          });
-          
-          function cacl()
-          {
-        	  var Peoplenum = $("input[name='Peoplenum']").val();
-              var count = $("input[name='count']").val();
-              var ratio = $("input[name='ratio']").val();
-              var TCount=parseInt($("input[name='T_count']").val());
-              var num;
-              if(ratio>0){
-                  num = parseInt(count/(ratio/100)/Peoplenum);
-              }else{
-                num = 0;
-              }
-              $("input[name='T_count']").val(num);
-
-              var foalt = count/(Peoplenum*num)*100;
-              if(foalt>=100){
-            	  foalt=100;
-              }
-
-              $("input[name='ratio']").val(foalt.toFixed(2));
-          }
-  		
+        }); 
         
+  function imagedel(o) {
+    $(o).parent().remove();
+    return false;
+  }
+
+function imagedel1(i) {
+    $('.imagedel' + i).remove();
+    return false;
+  }
 </script>  
-
-<script type="text/javascript">
-//商品库存  拼团人数 中奖比率 拼团总数  之间的联动
-    $("input[name='T_count']").change(function(){
-        var kucun=parseInt($("input[name='Count']").val());
-        var Prople=parseInt($("input[name='Peoplenum']").val());
-        var Count=parseInt($("input[name='T_count']").val());
-        mm = kucun/(Count*Prople)*100;
-        if(mm>=100){
-        	mm=100;
-          }
-        $("input[name='ratio']").val(mm.toFixed(2));
-    })
-    
-//中奖比率
-    $("input[name='ratio']").change(function(){
-          var aa=parseInt($("input[name='ratio']").val());
-          var kucun=parseInt($("input[name='Count']").val());
-          var Prople=parseInt($("input[name='Peoplenum']").val());
-          var Count=parseInt($("input[name='T_count']").val());
-          var flot = parseInt(kucun/(aa/100)/Prople);
-          $("input[name='T_count']").val(flot);
-    })
-// 关于  商品库存  拼团人数 中奖比率 拼团总数  之间的联动 且不能为0
-      if($("#draw").has('checked')){  
-        
-      }else{
-          $("input[name='submit_button']").click(function(){
-            var kucun=$("input[name='Count']").val();
-            var Prople=$("input[name='Peoplenum']").val();
-            var Count=$("input[name='T_count']").val();
-            var Bilv=$("input[name='ratio']").val();
-            if(Count=='0'||Bilv=='0'){
-              alert('中奖比率、拼团总数 不能填写0');
-            }
-            return false;
-          })
-      }
-</script>
 </body>
 </html>
                   

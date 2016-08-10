@@ -1,0 +1,4 @@
+
+   {{foreach from=$mobileLevel key=level item=selected}}
+    <option {{if $selected}}selected{{/if}} value="{{$level}}">{{$level}}级</option>
+   {{/foreach}}  

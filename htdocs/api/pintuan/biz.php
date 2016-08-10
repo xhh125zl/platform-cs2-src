@@ -24,21 +24,25 @@ if(empty($rsBiz)){
   sendAlert("商家店铺不存在");
 }
 $shopname = isset($rsBiz['Biz_Name']) && $rsBiz['Biz_Name']?$rsBiz['Biz_Name']:"";
+$result = $DB->Get("pintuan_category", "cate_id", "WHERE Users_ID='{$UsersID}' AND istop=1");
+$catelist = "";
+while ($res = $DB->fetch_assoc()) {
+    $catelist .= "'," . $res['cate_id'] . ",',";
+}
+$catelist = trim($catelist, ',');
+
+$totalInfo = $DB->GetRs("pintuan_products","count(*) as total","WHERE Users_ID='{$UsersID}' AND Products_Category in ({$catelist})  AND Biz_ID={$BizID} ");
+$pagesize = 5;
+$totalPage = $totalInfo['total'] % $pagesize ==0?($totalInfo['total']/$pagesize):(intval($totalInfo['total']/$pagesize)+1);
 
 if(IS_AJAX){
     $time = time();
-    $result = $DB->Get("pintuan_category", "cate_id", "WHERE Users_ID='{$UsersID}' AND istop=1");
-    $catelist = "";
-    while ($res = $DB->fetch_assoc()) {
-        $catelist .= "'," . $res['cate_id'] . ",',";
-    }
-    $catelist = trim($catelist, ',');
     $page = isset($_POST['page']) && $_POST['page']?$_POST['page']:1;
     $sort = isset($_POST['sort']) && $_POST['sort']?$_POST['sort']:1;
-    $pagesize = 6;
     $offset = ($page-1)*$pagesize;
-    $order = ["Products_ID ASC","Products_CreateTime DESC","Products_Sales DESC","Products_PriceT DESC","Products_Index DESC"];
-    $fields = "starttime,Users_ID,Products_JSON,products_IsNew,products_IsRecommend,products_IsHot,Is_Draw,Products_ID,Products_Name,stoptime,Products_Sales,Products_PriceT,Products_PriceD,people_num";
+    $method = isset($_POST['sortmethod']) && $_POST['sortmethod']?$_POST['sortmethod']:'asc';
+    $order = ["Products_ID {$method}","Products_CreateTime {$method}","Products_Sales {$method}","Products_PriceT {$method}","Products_Index {$method}"];
+    $fields = "starttime,Products_CreateTime,Users_ID,Products_JSON,products_IsNew,products_IsRecommend,products_IsHot,Is_Draw,Products_ID,Products_Index,Products_Name,stoptime,Products_Sales,Products_PriceT,Products_PriceD,people_num";
     $sql = "SELECT {$fields} FROM `pintuan_products` WHERE Users_ID='{$UsersID}' AND Products_Category in ({$catelist})  AND Biz_ID={$BizID} ORDER BY {$order[$sort]} LIMIT {$offset},{$pagesize}";
     $result = $DB->query($sql);
     $list = [];
@@ -98,29 +102,43 @@ if(IS_AJAX){
 <script src="/static/api/pintuan/js/responsiveslides.min.js"></script>
 <script src="/static/api/pintuan/js/common.js"></script>
 <style>
-.sort ul li {     font-size: 16px;
-    width: 45%;
+.sort ul li {
+    font-size: 13px;
+    width: 23.5%;
+    float:left;
     margin-bottom: 10px;
     background: #f61d4b;
     height: 30px;
+    text-align:center;
     line-height: 30px;
     color: #fff;
     cursor:pointer;
-    font-family: '微软雅黑'; }
-.sort ul li:nth-child(2n-1){
-    float:left;
-    margin-left: 5px;
-    padding-left: 10px;
-    margin-right:3px;
-}
-.sort ul li:nth-child(2n){
-    float:right;
-    padding-left:10px;
-}
+    font-family: '微软雅黑'; 
+  }
+  .sort ul li:nth-child(2){
+      float:left;
+      margin-right:5px;
+  }
+  .sort ul li:nth-child(3){
+      float:left;
+      margin-right:5px;
+  }
+  .sort ul li:nth-child(1){
+      float:left;
+      margin-right:5px;
+  }
+  .sort ul li:nth-child(4){
+      float:left;
+  }
 </style>
 </head>
 <body>
 	<div class="w">
+    <?php 
+        $referUrl = "/api/{$UsersID}/shop/";
+        $headTitle = "{$shopname}的拼团商城";
+        include_once("top.php");     
+    ?>
 		<!-- 代码 开始 -->
 		<div class="device">
 			<a class="arrow-left" href="#"></a> <a class="arrow-right" href="#"></a>
@@ -170,44 +188,87 @@ if(IS_AJAX){
 		<!-- 代码 结束 -->
 		<div class="sort">
 			<ul>
-				<li sort="1">按发布时间</li>
-				<li sort="2">按销量</li>
-				<li sort="3">按价格</li>
-				<li sort="4">按手动</li>
+				<li sort="1" method="asc">时间<span>↑↓</span></li>
+				<li sort="2" method="asc">销量<span>↑↓</span></li>
+				<li sort="3" method="asc">价格<span>↑↓</span></li>
+				<li sort="4" method="asc">综合<span>↑↓</span></li>
 			</ul>
 		</div>
 		<div class="clear"></div>
-        <div id="container"></div>
-        <script>
+		<script src="/static/api/pintuan/js/dropload.min.js"></script>
+    <div id="container"></div>
+    <script>
 		$(function(){
-			var page = 1;
-			var url = "/api/<?=$UsersID ?>/pintuan/biz/<?=$BizID ?>/";
-			getContainer(url,page,1);
-			$(".sort ul li").click(function(){
-				var sort = $(this).attr("sort");
-				sessionStorage.setItem("<?=$UsersID ?>BizListSort", sort);
-				sessionStorage.setItem("<?=$UsersID ?>BizcurrentPage", page);
-				$("#container").empty();
-				getContainer(url,page,sort);
-			});
-			
-			$(window).scroll(function(){
-				page++; 
-				page = sessionStorage.getItem("<?=$UsersID ?>BizcurrentPage")?sessionStorage.getItem("<?=$UsersID ?>BizcurrentPage"):page;
-				sort = sessionStorage.getItem("<?=$UsersID ?>BizcurrentPage")?sessionStorage.getItem("<?=$UsersID ?>BizListSort"):1;
-				
-			    var heightwindow = $(window).height();
-			    var scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
-			    var heightwindowsishewuru = Math.round(heightwindow/100) * 100;
-				if( (document.body.scrollTop % heightwindowsishewuru  == 0  && document.body.scrollTop != 0 && document.documentElement.scrollTop == 0)  || 
-					(document.body.scrollTop == 0 && document.documentElement.scrollTop % heightwindowsishewuru == 0  && document.documentElement.scrollTop != 0))
-				{
-					getContainer(url,page,1);
-				}
-
-			});
+          var url = "/api/<?=$UsersID ?>/pintuan/biz/<?=$BizID ?>/";
+          var page = 1;
+          var sort = 1;
+          var method="asc";
+          var marrow = "↑";
+          var totalPage = <?=$totalPage?>;
+          sessionStorage.setItem("<?=$UsersID ?>BizListSort", sort);
+          sessionStorage.setItem("<?=$UsersID ?>ListMethod", method);
+          sessionStorage.setItem("<?=$UsersID ?>BizcurrentPage", page);
+          getContainer(url,page,sort,method);
+          $(".sort ul li").click(function(){
+            method = sessionStorage.getItem("<?=$UsersID ?>ListMethod");
+            if(method=="asc"){
+                method = "desc";
+                marrow = "↓↑";
+            }else{
+                method = "asc";
+                marrow = "↑↓";
+            }
+            $(this).attr("method",method);
+            $(this).find("span").text(marrow);
+            sort = $(this).attr("sort");
+            method = $(this).attr("method");
+          
+            sessionStorage.setItem("<?=$UsersID ?>BizListSort", sort);
+            sessionStorage.setItem("<?=$UsersID ?>BizcurrentPage", page);
+            sessionStorage.setItem("<?=$UsersID ?>ListMethod", method);
+            $("#container").empty();
+            getContainer(url,page,sort,method);
+          });
+          $("#container").dropload({
+              domUp : {
+              domClass   : 'dropload-up',
+              domRefresh : '<div class="dropload-refresh">下拉刷新</div>',
+              domUpdate  : '<div class="dropload-update">释放更新</div>',
+              domLoad    : '<div class="dropload-load"></div>'
+              },
+              domDown : {
+                  domClass   : 'dropload-down',
+                  domRefresh : '<div class="dropload-refresh">上拉加载更多</div>',
+                  domUpdate  : '<div class="dropload-update">释放加载</div>',
+                  domLoad    : '<div class="dropload-load"></div>'
+              },
+              loadUpFn : function(me){
+                  page = sessionStorage.getItem("<?=$UsersID ?>BizcurrentPage")?sessionStorage.getItem("<?=$UsersID ?>BizcurrentPage"):page;
+                  sort = sessionStorage.getItem("<?=$UsersID ?>BizListSort")?sessionStorage.getItem("<?=$UsersID ?>BizListSort"):1;
+                  method = sessionStorage.getItem("<?=$UsersID ?>ListMethod")?sessionStorage.getItem("<?=$UsersID ?>ListMethod"):'asc';
+                  if(page>1){
+                    page--;
+                    sessionStorage.setItem("<?=$UsersID ?>BizListSort", sort);
+                    sessionStorage.setItem("<?=$UsersID ?>BizcurrentPage", page);
+                    getContainer(url,page,sort,method); 
+                  }
+                  me.resetload();
+              },
+              loadDownFn : function(me){
+                  page = sessionStorage.getItem("<?=$UsersID ?>BizcurrentPage")?sessionStorage.getItem("<?=$UsersID ?>BizcurrentPage"):page;
+                  sort = sessionStorage.getItem("<?=$UsersID ?>BizListSort")?sessionStorage.getItem("<?=$UsersID ?>BizListSort"):1;
+                  method = sessionStorage.getItem("<?=$UsersID ?>ListMethod")?sessionStorage.getItem("<?=$UsersID ?>ListMethod"):'asc';
+                  if(page<=totalPage){
+                    page++;
+                    sessionStorage.setItem("<?=$UsersID ?>BizListSort", sort);
+                    sessionStorage.setItem("<?=$UsersID ?>BizcurrentPage", page);
+                    getContainer(url,page,sort,method); 
+                  } 
+                  me.resetload();
+              }
+        });
 		});
-        </script>
+    </script>
 		<?php include 'bottom.php';?>
 	</div>
 </body>

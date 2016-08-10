@@ -1,10 +1,9 @@
 <?php  
-require_once($_SERVER["DOCUMENT_ROOT"].'/biz/global.php');
-require_once($_SERVER["DOCUMENT_ROOT"].'/include/helper/tools.php');
+require_once($_SERVER["DOCUMENT_ROOT"].'/include/update/common.php');
 
-$condition = "WHERE `Users_ID` = '".$_SESSION['Users_ID']."' AND Card_Status=0";
+$condition = "WHERE `Users_ID` = '{$UsersID}' AND Card_Status=0";
 
-$productId = "-1";
+$productId = "0";
 if (isset($_GET['productId']) && !empty($productId)) 
 {
     $productId = intval($_GET['productId']);
@@ -59,7 +58,7 @@ $condition .= " ORDER BY Card_Id DESC";
         <select name='Type_Id'>
           <option value=''>--请选择--</option>
           <?php 
-            $Type_Arr = $DB->Get('pintuan_virtual_card_type', 'Type_Id, Type_Name,Users_ID', "WHERE Users_ID = '".$_SESSION['Users_ID']."'");
+            $Type_Arr = $DB->Get('pintuan_virtual_card_type', 'Type_Id, Type_Name,Users_ID', "WHERE Users_ID = '{$UsersID}'");
             while ($r = $DB->fetch_assoc($Type_Arr)) { 
           ?>
           <option value="<?php echo $r['Type_Id']; ?>"><?php echo $r['Type_Name']; ?></option>

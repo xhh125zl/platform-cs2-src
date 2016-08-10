@@ -1,0 +1,31 @@
+画红色删除线表示此省代理资格已被他人获得
+<br/>
+<br/>
+<ul id="J_ProvinceList">
+	 {{foreach from=$region_list key=region_name item=province_id_list name="region_list"}}
+     <li>
+         <div class="dcity clearfix">
+    		<div class="ecity gcity">
+    			{{$i = $smarty.foreach.region_list.index}}										
+					<span class="group-label"><input value="{{$province_id_list|implode:','}}" class="J_Group" id="J_Group_{{$i}}" type="checkbox">
+					<label for="J_Group_{{$i}}">{{$region_name}}</label></span>
+			</div>
+    		<div class="province-list">	
+       			{{foreach from=$province_id_list key=key item=province_id}} 
+        		<div class="ecity">
+					<span class="gareas">
+                 	{{$province = $province_data_list[$province_id]}}
+                    <input value="{{$province_id}}_{{$province.Province_Name}}" id="J_Province_{{$province_id}}" name="J_Province" class="J_Province" type="checkbox" 
+                    {{if $province.checked eq TRUE }}checked{{/if}}  
+                    {{if $province.disabled eq TRUE }}disabled{{/if}} 
+                    >
+        			
+                    <label for="J_Province_{{$province_id}}" {{if $province.disabled}}class="del-line"{{/if}}>{{$province.Province_Name}}</label>
+  			  		</span>
+				</div>
+			{{/foreach}}
+			</div>
+    	</div>         	
+     </li>	
+     {{/foreach}}
+</ul>

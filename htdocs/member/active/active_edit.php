@@ -43,6 +43,11 @@ if(IS_POST){
     if(!$rsActive){
         sendAlert("不正确的参数传递", "active_list.php", 2);
     }
+    $typelist = $DB->Get("active_type","*","WHERE Status=1");
+    $typelist = $DB->toArray($typelist);
+    if(empty($typelist)){
+         sendAlert("请添加活动类型","type_add.php" ,2);
+    }
 }
 ?>
 <!DOCTYPE HTML>
@@ -82,7 +87,7 @@ if(IS_POST){
                 
               });
               var editor = K.editor({
-                uploadJson : '/member/upload_json.php?TableField=web_article',
+                uploadJson : '/member/upload_json.php?TableField=web_article&Users_ID=<?=$UsersID?>',
                 fileManagerJson : '/member/file_manager_json.php',
                 showRemote : true,
                 allowFileManager : true,
@@ -101,7 +106,21 @@ if(IS_POST){
                 K(this).parent().remove();
               });
             });
+            
+            function imagedel(o) {
+                $(o).parent().remove();
+                return false;
+              }
+
+            function imagedel1(i) {
+                $('.imagedel' + i).remove();
+                return false;
+              }
         </script>
+        <style>
+            #PicDetail img { width:100px;}
+            .r_con_form .rows .input .error { color:#f00; }
+        </style>
     </head>
 	<body>
         <div id="iframe_page">
@@ -116,6 +135,17 @@ if(IS_POST){
                       </span>
                       <div class="clear"></div>
                     </div>
+                    <div class="rows">
+                      <label>活动类型</label>
+                      <span class="input">
+                          <select name="ActiveType">
+                             <?php foreach ($typelist as $k => $v) {?>
+                             <option value="<?=$v['Type_ID'] ?>" <?=$rsActive['Type_ID']==$v['Type_ID']?'selected':'' ?>><?=$v['Type_Name'] ?></option>
+                             <?php }?>
+                          </select>
+                      </span>
+                      <div class="clear"></div>
+                    </div> 
                     <div class="rows">
                       <div class="rows">
                       <label>产品图片</label>
@@ -143,17 +173,6 @@ if(IS_POST){
                       <div class="clear"></div>
                     </div>
                     <div class="rows">
-                      <label>活动类型</label>
-                      <span class="input">
-					  <select name="ActiveType">
-					  	 <?php foreach ($ActiveType as $k => $v) {?>
-					  	 <option value="<?=$k ?>" <?=$k==$rsActive['Type_ID']?'selected':'' ?>><?=$ActiveType[$k] ?></option>
-					  	 <?php }?>
-					  </select>
-                      </span>
-                      <div class="clear"></div>
-                    </div>  
-                    <div class="rows">
                       <label>商家数</label>
                       <span class="input">
                       <input type="text" name="MaxBizCount" value="<?=$rsActive['MaxBizCount']?>" class="form_input" size="5" maxlength="10" /> <span class="tips" />&nbsp;（允许多少个商家参加活动）</span>
@@ -161,7 +180,7 @@ if(IS_POST){
                       <div class="clear"></div>
                     </div>
                     <div class="rows">
-                      <label>最多产品数</label>
+                      <label>活动最多产品数</label>
                       <span class="input">
                       <input type="text" name="MaxGoodsCount" value="<?=$rsActive['MaxGoodsCount']?>" class="form_input" size="5" maxlength="100" /> <span class="tips" />&nbsp;</span>
                       	（拼团活动总共可以参加的产品数量）
@@ -169,7 +188,7 @@ if(IS_POST){
                       <div class="clear"></div>
                     </div>
                     <div class="rows">
-                      <label>推荐产品数</label>
+                      <label>商家推荐产品数</label>
                       <span class="input">
                       <input type="text" name="BizGoodsCount" value="<?=$rsActive['BizGoodsCount']?>" class="form_input" size="5" maxlength="100" /> <span class="tips" />&nbsp;</span>
                       	（每个商家最多可推荐的产品数量）
@@ -177,7 +196,7 @@ if(IS_POST){
                       <div class="clear"></div>
                     </div>
                     <div class="rows">
-                      <label>推荐产品数</label>
+                      <label>推荐首页产品数</label>
                       <span class="input">
                       <input type="text" name="IndexBizGoodsCount" value="<?=$rsActive['IndexBizGoodsCount']?>" class="form_input" size="5" maxlength="100" /> <span class="tips" />&nbsp;</span>
                       	（每个商家可以推荐到首页的产品数量）
@@ -244,6 +263,70 @@ if(IS_POST){
             </div>
           </div>
         </div>
+        <script>
+        $(function(){
+            $("#product_add_form").submit(function(){
+            	var MaxBizCount=parseInt($("input[name='MaxBizCount']").val()),
+                    MaxGoodsCount=parseInt($("input[name='MaxGoodsCount']").val()),
+                    BizGoodsCount=parseInt($("input[name='BizGoodsCount']").val()),
+                    IndexBizGoodsCount=parseInt($("input[name='IndexBizGoodsCount']").val()),
+                    IndexShowGoodsCount=parseInt($("input[name='IndexShowGoodsCount']").val()),
+                    ListShowGoodsCount=parseInt($("input[name='ListShowGoodsCount']").val()),
+                    BizShowGoodsCount=parseInt($("input[name='BizShowGoodsCount']").val());
+
+                if(IndexBizGoodsCount>3){
+                    $("input[name='IndexBizGoodsCount']").parent().find(".tips").html("推荐首页产品数不能大于3").addClass("error").show();
+                    return false;
+                }else{
+                    $("input[name='IndexBizGoodsCount']").parent().find(".tips").hide();
+                }
+                if(MaxGoodsCount<IndexShowGoodsCount){
+                    $("input[name='IndexShowGoodsCount']").parent().find(".tips").html("首页显示产品数不能大于活动最多产品数").addClass("error").show();
+                    return false;
+                }else{
+                    $("input[name='IndexShowGoodsCount']").parent().find(".tips").hide();
+                }
+
+                if(MaxGoodsCount<ListShowGoodsCount){
+                    $("input[name='ListShowGoodsCount']").parent().find(".tips").html("列表页显示产品数不能大于活动最多产品数").addClass("error").show();
+                    return false;
+                }else{
+                    $("input[name='ListShowGoodsCount']").parent().find(".tips").hide();
+                }
+
+                if(MaxGoodsCount<BizShowGoodsCount){
+                    $("input[name='BizShowGoodsCount']").parent().find(".tips").html("商家店铺页显示产品数不能大于活动最多产品数").addClass("error").show();
+                    return false;
+                }else{
+                    $("input[name='BizShowGoodsCount']").parent().find(".tips").hide();
+                }
+            });
+
+            $("input[name='BizGoodsCount'],input[name='IndexBizGoodsCount'],input[name='IndexShowGoodsCount'],input[name='ListShowGoodsCount'],input[name='BizShowGoodsCount']").blur(function(){
+                var IndexShowGoodsCount = parseInt($(this).val());
+                var MaxGoodsCount = parseInt($("input[name='MaxGoodsCount']").val());
+                if(IndexShowGoodsCount>=MaxGoodsCount){
+                    var msg = '';
+                    if($(this).attr("name")=='BizGoodsCount'){
+                        msg = "商家推荐产品数要少于活动最多产品数";
+                    }else if($(this).attr("name")=='IndexBizGoodsCount'){
+                        msg = "推荐首页产品数要少于活动最多产品数";
+                    }else if($(this).attr("name")=='IndexShowGoodsCount'){
+                        msg = "首页显示产品数要少于活动最多产品数";
+                    }else if($(this).attr("name")=='ListShowGoodsCount'){
+                        msg = "列表页显示产品数要少于活动最多产品数";
+                    }else if($(this).attr("name")=='BizShowGoodsCount'){
+                        msg = "商家店铺页显示产品数要少于活动最多产品数";
+                    }
+                    $(this).focus();
+                    $(this).parent().find(".tips").html(msg).addClass("error").show();
+                }else{
+                    $(this).parent().find(".tips").hide();
+                }
+            
+            });
+        });
+       </script>
 	</body>
 </html>
                   

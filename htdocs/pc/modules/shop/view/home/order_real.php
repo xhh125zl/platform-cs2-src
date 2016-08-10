@@ -117,8 +117,8 @@ input[type="text"], input[type="password"], input.text, input.password {padding:
 									</dl>
 								</td>
 								<td><em><?php echo $product["ProductsPriceX"];?></em></td>
-								<td><?php echo $qty2;?></td>
-								<td><em wzw_type="eachGoodsTotal"><?php echo $xiaoji;?></em></td>
+								<td><?php echo $product['Qty'];?></td>
+								<td><em wzw_type="eachGoodsTotal"><?php echo $product['Qty']*$product['ProductsPriceX'];?></em></td>
 								<td></td>
 							</tr>
 							<?php }?>
@@ -200,7 +200,7 @@ input[type="text"], input[type="password"], input.text, input.password {padding:
 				<!-- 配送方式end --> 
 				<?php }?>
                                 <!-- 积分begin -->
-				<?php if($output['order_total_info']['man_array']){?>
+				<?php if(!empty($output['order_total_info']['man_array'])){?>
 				<div class="wzw-receipt-info">
 				    <div class="wzw-receipt-info-title">
 						<h3>此次购物可获得<span id="total_integral" style="color:#F60;"><?=$output['order_total_info']['integral']?></span>个积分</h3>

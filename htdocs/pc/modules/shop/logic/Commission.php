@@ -75,7 +75,15 @@ class Commission {
 			$commission_ratio = 0;
 		}
 		$profit = $qty * $products['Products_Profit'];
-		$nobility = $profit * (100 - $commission_ratio) / 100;//爵位奖励
+		//$nobility = $profit * (100 - $commission_ratio) / 100;//爵位奖励
+                $nobi_ratio = $products['nobi_ratio'];//佣金/爵位奖比例
+		if($nobi_ratio >100){
+			$nobi_ratio = 100;
+		}elseif($nobi_ratio<0){
+			$nobi_ratio = 0;
+		}
+		$nobility = $profit*$nobi_ratio*0.01*($products['platForm_Income_Reward']/100);
+
 			
 
 		//$dis_bonus_limit = json_decode($dis_config['Dis_Bonus_Limit'], true);//佣金发放条件
@@ -127,6 +135,7 @@ class Commission {
 		$nobi_total = 0;
 		$nobi_level = '';
 		$Pro_Title_Level[0]['Bonus'] = 0;
+                $nobi_temp = 0;
 		foreach($nobility_level_new as $k => $v){	
 			$nobility_commission[$k]['Nobi_Level'] = !empty($Pro_Title_Level[$v]['Name']) ? $Pro_Title_Level[$v]['Name'] : '无爵位';
 			if($v == '0'){
@@ -134,8 +143,7 @@ class Commission {
 				$nobility_commission[$k]['Nobi_Description'] = '您还没有爵位';
 				continue;
 			}		
-			$nobility_commission[$k]['Nobi_Money'] = (($nobility - $nobi_total) > 0 && (($nobility * $Pro_Title_Level[$v]['Bonus'] / 100 - $nobility * $Pro_Title_Level[($v-1)]['Bonus'] / 100)<=($nobility - $nobi_total))) ? ($nobility * $Pro_Title_Level[$v]['Bonus'] / 100 - $nobility * $Pro_Title_Level[($v-1)]['Bonus'] / 100) : 0;
-			
+                        $nobility_commission[$k]['Nobi_Money'] = (($nobility - $nobi_total) > 0 && (($nobility * $Pro_Title_Level[$v]['Bonus'] / 100 - $nobility * $Pro_Title_Level[($v-1)]['Bonus'] / 100)<=($nobility - $nobi_total))) ? ($nobility * ($Pro_Title_Level[$v]['Bonus']- $nobi_temp) / 100) : 0;			
 			$nobility_commission[$k]['Nobi_Money'] = ($nobility_commission[$k]['Nobi_Money'] > 0) ? $nobility_commission[$k]['Nobi_Money'] : 0;
 			$nobility_commission[$k]['Nobi_Description'] = ($nobility > 0) ? ($nobility_commission[$k]['Nobi_Money'] > 0) ? '正常' : ($nobility_commission[$k]['Nobi_Money'] == 0) ? '爵位奖金已发完' : ($nobility_commission[$k]['Nobi_Money'] < 0) ? '商家设置有误' : '' : '该商品无爵位奖';		
 
@@ -150,6 +158,10 @@ class Commission {
 			}else {
 				$nobi_level = intval($v);
 			}
+                        if ($nobility_commission[$k]['Nobi_Money'] != 0) {
+                            $nobi_temp = $Pro_Title_Level[$v]['Bonus'];	
+                        }
+                        
 		}			
 		return $nobility_commission;
 	}

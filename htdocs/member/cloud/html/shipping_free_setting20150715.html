@@ -1,0 +1,40 @@
+<table style="display: table;">
+  <tbody>
+    <tr>
+      <th>选择地区</th>
+      <th>选择运送方式</th>
+      <th>设置包邮条件</th>
+      <th>操作</th>
+    </tr>
+    {{foreach from=$free_content key=key item=item}}
+    	<tr data-index="0">
+      <td><span>未制定区域</span> <a href="javascript:void(0)" area_type="set_free" area_value_container="address-area-{{$key}}" class="Edit_Area" title="编辑运送区域" data-areas="">编辑</a>
+        <input class="address-area" name="areas[]" id="address-area-{{$key}}" value="" type="hidden"></td>
+      <td><select name="transType[]" class="J_Service">
+          <option value="express">快递</option>
+          <option value="ems">EMS</option>
+        </select></td>
+      <td><select class="J_ChageContion" name="designated[]">
+          
+          <option value="0" {{if $item.designated eq 0}}selected{{/if}}>件数</option>
+          <option value="1" {{if $item.designated eq 1}}selected{{/if}}>金额</option>
+          <option value="2" {{if $item.designated eq 2}}selected{{/if}}>件数 + 金额</option>
+          
+        </select>
+        <p class="free-contion"> 
+         {{if $item.designated eq 0}}
+          满<input class="input-text" name="preferentialQty[]" value="{{$item['prefrrendial_qty']}}" notnull type="text">件包邮
+           <input value="0" type="hidden" name="preferentialMoney[]" />
+         {{elseif $item.designated eq 1}}
+          满<input class="input-text" name="preferentialMoney[]" value="{{$item['prefrrendial_money']}}" notnull type="text"> 元包邮 
+               <input value="0"  name="preferentialQty[]" notnull type="hidden">
+         {{elseif $item.designated eq 2}}
+         
+         满 <input  class="input-text" name="preferentialQty[]" notnull value="{{$item['prefrrendial_qty']}}"type="text"> 件 , <input name="preferentialMoney[]" class="input-text input-65" value="{{$item['prefrrendial_money']}}" type="text"> 元以上 包邮      
+         {{/if}} 
+          </p></td>
+      <td><a data-spm-anchor-id="0.0.0.0" href="javascript:void(0)" class="J_AddItem small-icon"></a> <a href="javascript:void(0)" class="J_DelateItem small-icon"></a></td>
+    </tr>
+    {{/foreach}}
+  </tbody>
+</table>

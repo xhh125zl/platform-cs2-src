@@ -1,7 +1,7 @@
 
 CREATE TABLE IF NOT EXISTS `active` (
   `Active_ID` int(11) NOT NULL AUTO_INCREMENT COMMENT '活动id',
-  `Type_ID` tinyint(1) NOT NULL DEFAULT '0' COMMENT '类型：0、拼团，1、云购  2、众筹  3、微砍价 4、微促销',
+  `Type_ID` tinyint(1) NOT NULL DEFAULT '0' COMMENT '类型：0、拼团，1、云购 ',
   `Active_Name` varchar(10) NOT NULL COMMENT '活动名称',
   `Users_ID` varchar(10) NOT NULL COMMENT '商城id',
   `MaxGoodsCount` tinyint(3) NOT NULL COMMENT '拼团活动总共可以参加的产品数量',
@@ -10,6 +10,7 @@ CREATE TABLE IF NOT EXISTS `active` (
   `IndexBizGoodsCount` tinyint(3) NOT NULL DEFAULT '0' COMMENT '每个商家可以推荐到首页的产品数量',
   `IndexShowGoodsCount` tinyint(3) NOT NULL DEFAULT '0' COMMENT '活动首页可以显示的产品的数量',
   `ListShowGoodsCount` tinyint(3) NOT NULL DEFAULT '0' COMMENT '活动列表页可以显示的产品的数量',
+  `ListBizGoodsCount` tinyint(3) NOT NULL DEFAULT '0' COMMENT '每个商家可以推荐到列表页的产品数量',
   `BizShowGoodsCount` tinyint(3) NOT NULL DEFAULT '0' COMMENT '商家店铺页可以显示的产品的数量',
   `imgurl` varchar(100) NULL DEFAULT '' COMMENT '活动图片', 
   `Status` tinyint(1) NOT NULL DEFAULT '0' COMMENT '活动状态',

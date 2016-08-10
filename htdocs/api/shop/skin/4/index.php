@@ -70,6 +70,7 @@ ad($UsersID, 1, 1);
             <a href="<?php echo $shop_url;?>allcategory/" class="category"></a>
         </div>
     </div>
+    <?php require_once("skin/activelist.php"); ?>
     <div class="shop_skin_index_list list" rel="edit-t02">
         <div class="img"></div>
     </div>

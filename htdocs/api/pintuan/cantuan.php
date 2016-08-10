@@ -39,7 +39,7 @@
     </div>
 	<div class="pintuan">
 		<?php 
-			$sql1 = "select t.productid,t.id,t.teamnum,t.teamstatus,t.userid,u.User_NickName,u.User_Mobile,u.User_HeadImg,u.User_Area,p.starttime,p.stoptime,t.people_num from pintuan_team t left join user u on t.userid=u.user_id LEFT JOIN pintuan_products AS p ON t.productid=p.Products_ID  where t.productid={$goodsid} order by t.addtime desc";
+			$sql1 = "select t.productid,t.id,t.teamnum,t.teamstatus,t.userid,u.User_NickName,u.User_Mobile,u.User_HeadImg,u.User_Area,p.starttime,p.stoptime,p.people_num from pintuan_team t left join user u on t.userid=u.user_id LEFT JOIN pintuan_products AS p ON t.productid=p.Products_ID  where t.productid={$goodsid} order by t.addtime desc";
 			$result1 = $DB->query($sql1);
 			$teams = array();
 			while ($res = $DB->fetch_assoc($result1)) {
@@ -79,7 +79,11 @@
 				<?php if ($time >= $item['starttime'] && $time <= $item['stoptime'] && $item['teamstatus'] == 0) {
 						echo '<a href="/api/'.$UsersID.'/pintuan/teamdetail/'.$item['id'].'/">去参团</a>';
 					} else {
-						echo '<a>已结束</a>';
+						  if($item['teamstatus']==1){
+                   echo "<a>已完成</a>";   
+              }else{
+                   echo '<a>已结束</a>';
+              }
 					}
 				 ?>
 			</div>
@@ -88,11 +92,6 @@
 		<?php } ?>
 	</div>
 </div>
-<div style="height:70px;"></div>
-<div class="cotrs">
-  <a id="f1" href="<?php echo "/api/$UsersID/pintuan/"; ?>" class="thisclass"><img src="/static/api/pintuan/images/002-1.png" width="25px" height="25px" /><br/>首页</a>
-  <a id="f2" href="<?php echo "/api/$UsersID/pintuan/seach/0/"; ?>"><img src="/static/api/pintuan/images/002-2.png" width="25px" height="25px" /><br/>搜索</a>
-  <a id="f3" href="<?php echo "/api/$UsersID/pintuan/user/"; ?>"><img src="/static/api/pintuan/images/002-3.png" width="25px" height="25px" /><br/>我的</a>
-</div> 
+<?php include 'bottom.php';?> 
 </body>
 </html>

@@ -112,6 +112,7 @@ if(!empty($rsConfig1["UserLevel"])){
 	<a href="/api/<?=$UsersID?>/user/my/address/" class="item item_3"><span class="ico"></span>收货地址管理<span class="jt"></span></a>
     <a href="/api/<?=$UsersID?>/shop/member/favourite/" class="item item_6"><span class="ico"></span>我的收藏夹<span class="jt"></span></a>
     <a href="/api/<?=$UsersID?>/shop/member/backup/status/0/" class="item item_7"><span class="ico"></span>我的退货单<span class="jt"></span></a>
+    <a href="/api/<?=$UsersID?>/user/logout/" class="item item_8"><span class="ico"></span>切换账号<span class="jt"></span></a>
     <?php if($rsUser['Is_Distribute'] == 1):?>
     <?php endif;?> 
 	

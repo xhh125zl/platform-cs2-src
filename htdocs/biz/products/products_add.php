@@ -3,8 +3,7 @@ require_once('../global.php');
 require_once($_SERVER["DOCUMENT_ROOT"].'/include/helper/url.php');
 require_once($_SERVER["DOCUMENT_ROOT"].'/include/helper/tools.php');
 require_once($_SERVER["DOCUMENT_ROOT"].'/include/helper/lib_products.php');
-//print_r($_SESSION);print_r($rsBiz);
-//商品属性的html
+
 if($_POST)
 {
 	if(!is_numeric($_POST["PriceY"])){

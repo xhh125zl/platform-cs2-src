@@ -78,6 +78,7 @@ if(isset($_GET["action"])){
       <dt>活动管理</dt>
       <dd>
         <div><a href="active/active.php" target="iframe">申请活动列表</a></div>
+        <div><a href="active/active_add.php" target="iframe">申请活动</a></div>
       </dd>
       <dt>财务结算</dt>
       <dd>
@@ -98,32 +99,20 @@ if(isset($_GET["action"])){
         <div><a href="pintuan/orders.php" target="iframe">订单管理</a></div>
         <div><a href="pintuan/comment.php" target="iframe">评论管理</a></div>
         <div><a href="pintuan/virtual_card.php" target="iframe">虚拟卡密管理</a></div>
+      </dd>
+      <dt>云购管理</dt>
+	 <dd>
+	    <div><a href="cloud/products.php" target="iframe">产品管理</a></div>
+        <div><a href="cloud/orders.php" target="iframe">订单管理</a></div>
+        <div><a href="cloud/shipping_orders.php" target="iframe">订单领取管理</a></div>
+        <div><a href="cloud/virtual_orders.php" target="iframe">虚拟订单管理</a></div>
       </dd>	
     </dl>
   </div>
-  <div class="iframe" style="width:75%; ">
-    <iframe src="account/account.php" name="iframe" frameborder="0" scrolling="auto" style="width:75%;"></iframe>
+  <div class="iframe" >
+    <iframe src="account/account.php" name="iframe" frameborder="0" scrolling="auto" ></iframe>
   </div>
-  <div class=" msg">
-  	 <script>
-  	 	 $.get("/biz/active/msg.php",{action:"msg"},function(data){ 
-			if(data.status==1){
-				var str = "";
-				var msg = data.data;
-				for(var i=0;i<msg.length;i++)
-				{
-					str += "<li><a href='/biz/active/active_add.php?activeid="+msg[i].id+"'>"+msg[i].title+"</a></li>";
-				}
-			}
-  	  	 	$("#msg").html(str); 
-
-  	  	 },"JSON");</script>
-  	  	 <div class="title">活动消息</div>
-  	  	 <ul id="msg">
-  	  	 	
-  	  	 </ul>
-  </div>
-  <div class="clear"></div>
+  
 </div>
 <div id="footer">
   <div class="oem"><?php echo $Copyright;?></div>

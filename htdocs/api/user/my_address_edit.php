@@ -130,21 +130,21 @@ if($rsAdressNum['num'] == 0){
                 <li class="list-group-item">
 					<label>所在省份：</label>
 					<select name="Province"  id="loc_province" required style="width:65%">
-						<option value="">选择省份</option>
+						
 					</select>
 				</li>
 				
 				<li class="list-group-item">
 					<label>所在城市：</label>
 					<select name="City" id="loc_city"  required  style="width:65%">
-						<option value="">选择城市</option>
+						
 					</select>
 				</li>
 				
 				<li class="list-group-item">
 					<label>所在区县：</label>
 					<select name="Area"  id="loc_town" required  style="width:65%">
-						<option value="">选择区县</option>
+						
 					</select>
 				</li>
 			

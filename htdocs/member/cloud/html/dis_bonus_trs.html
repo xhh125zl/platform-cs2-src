@@ -1,0 +1,16 @@
+{{foreach from=$levelList key=key item=item}}
+
+    {{if $key-1 is div by 3}}<tr>{{/if}}
+      {{if $item neq FALSE}}
+    	<td>
+		{{$item.name}}级<input type="text"  notnull  name="Bonus_Limit[{{$key}}][Cost]" value="{{$item.Cost}}" class="bonus-limit"  />
+            <input type="checkbox" value="1" level="{{$key}}" class="Bonus_Limit_Enable" name="Bonus_Limit[{{$key}}][Enable]" {{if $item.Enable eq true }}checked{{/if}} />
+    	</td>
+       {{else}}
+         <td></td>
+       {{/if}}
+       
+    {{if $key is div by 3}}</tr>{{/if}}
+  	
+
+{{/foreach}}

@@ -10,6 +10,7 @@ if($_POST){
 			echo '<script language="javascript">alert("账号已被禁用，无法登录");window.location="login.php";</script>';
 		}else{
 			$_SESSION["BIZ_ID"]=$rsBiz["Biz_ID"];
+			$_SESSION["Users_ID"]=$rsBiz["Users_ID"];
 			header("Location:index.php");
 		}
 	}else{

@@ -19,9 +19,11 @@
                     </div>
                     <div class="center">
                     	<ul>
-						<?php foreach($output['posterity_list'] as $k => $v) {?>
-						    <li><span class="time"><?php echo $v['Account_CreateTime']?></span><span class="change"><?php echo $v['Shop_Name']?:'暂无'?></span><span class="zhuangtai"><?php echo $output['level_name_list'][$v['level']];?></span></li>
-						<?php }?>
+						<?php foreach($output['posterity_list'] as $k => $v) {
+                                                        if(!empty($v['level'])){?>
+                                                            <li><span class="time"><?php echo $v['Account_CreateTime']?></span><span class="change"><?php echo $v['Shop_Name']?:'暂无'?></span><span class="zhuangtai"><?php echo $output['level_name_list'][$v['level']];?></span></li>
+						<?php  }
+                                                    }?>
 						</ul>
                     </div>
                 </div>

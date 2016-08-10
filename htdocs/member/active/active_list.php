@@ -1,14 +1,16 @@
 <?php
 require_once($_SERVER["DOCUMENT_ROOT"].'/include/update/common.php');
 
-if(IS_GET && isset($_GET["action"]) && $_GET["action"]=="del"){
+if (IS_GET && isset($_GET["action"]) && $_GET["action"] == "del") {
     $Active_ID = intval($_GET["Active_ID"]);
-    $Flag=$DB->Del("active","Users_ID='{$UsersID}' AND Active_ID='{$Active_ID}'");
-    if($Flag){
-        sendAlert("删除成功!",$_SERVER['HTTP_REFERER'],3);
-	}else{
-	    sendAlert("删除失败!",$_SERVER['HTTP_REFERER'],3);
-	}
+    $rsActive = $DB->GetRs("active", "Active_Name", "WHERE Users_ID='{$UsersID}' AND Active_ID='{$Active_ID}'");
+    $Flag = $DB->Del("active", "Users_ID='{$UsersID}' AND Active_ID='{$Active_ID}'");
+    $Flag2 = $DB->Del("biz_active", "Users_ID='{$UsersID}' AND Active_ID='{$Active_ID}'");
+    if ($Flag && $Flag2) {
+        sendAlert("{$rsActive['Active_Name']} 活动已经删除!", $_SERVER['HTTP_REFERER'], 3);
+    } else {
+        sendAlert("{$rsActive['Active_Name']} 活动删除失败!", $_SERVER['HTTP_REFERER'], 3);
+    }
 }
 ?>
 <!DOCTYPE HTML>
@@ -34,6 +36,7 @@ if(IS_GET && isset($_GET["action"]) && $_GET["action"]=="del"){
     <div id="products" class="r_con_wrap">
       <div class="control_btn">
       <a href="active_add.php" class="btn_green btn_w_120">添加活动</a>
+      <a href="type_add.php" class="btn_green btn_w_120">活动类型</a>
       </div>
       <table align="center" border="0" cellpadding="5" cellspacing="0" class="r_con_table">
         <thead>
@@ -51,16 +54,16 @@ if(IS_GET && isset($_GET["action"]) && $_GET["action"]=="del"){
           </tr>
         </thead>
         <tbody>
-    	<?php 
-		  $lists = array();
-		  $result = $DB->getPage("active","*","WHERE Users_ID='{$UsersID}'",10);
-		  $lists = $DB->toArray($result);
-		  foreach($lists as $k => $v){
-	    ?>      
+    	<?php
+    $lists = array();
+    $result = $DB->getPages("active as a", "a.*,t.module,t.Type_Name", "LEFT JOIN active_type as t ON a.Type_ID=t.Type_ID WHERE a.Users_ID='{$UsersID}' ORDER BY a.Status ASC,a.Active_ID DESC", 10);
+    $lists = $DB->toArray($result);
+    foreach ($lists as $k => $v) {
+        ?>      
           <tr>
             <td nowrap="nowrap" class="id"><?=$v["Active_ID"] ?></td>
             <td nowrap="nowrap" class="id"><?=$v["Active_Name"] ?></td>
-            <td nowrap="nowrap"><?=$ActiveType[$v["Type_ID"]] ?></td>
+            <td nowrap="nowrap"><?=$v["Type_Name"] ?></td>
             <td nowrap="nowrap"><?=$v["MaxGoodsCount"] ?></td>
             <td nowrap="nowrap"><?=$v["MaxBizCount"] ?></td>
             <td nowrap="nowrap"><a href="biz_active.php?activeid=<?=$v["Active_ID"] ?>">查看</a></td>

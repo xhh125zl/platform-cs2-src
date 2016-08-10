@@ -1,13 +1,12 @@
 <?php 
-require_once($_SERVER["DOCUMENT_ROOT"].'/biz/global.php');
-require_once($_SERVER["DOCUMENT_ROOT"].'/include/helper/tools.php');
+require_once($_SERVER["DOCUMENT_ROOT"].'/include/update/common.php');
 
 if (!empty($_POST)) {
 	$Data = array(
 		'Type_Name' => htmlentities($_POST['Type_Name']),
 		'Type_CreateTime' => time(),
-        'Users_ID' => $_SESSION['Users_ID'],
-	    'Biz_Id' => $_SESSION['BIZ_ID']
+        'Users_ID' => $UsersID,
+	    'Biz_Id' => $BizID
 	);
 
 	$Flag = $DB->Add("pintuan_virtual_card_type",$Data);

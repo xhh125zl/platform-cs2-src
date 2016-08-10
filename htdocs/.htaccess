@@ -208,6 +208,82 @@ RewriteRule ^api/([0-9a-z]+)/shop/(?:(\?.*))* /api/shop/index.php$2&UsersID=$1
 
 #shop end
 
+#云购
+RewriteRule ^api/([0-9a-z]+)/cloud/$ /api/cloud/index.php?UsersID=$1
+RewriteRule ^api/([0-9a-z]+)/cloud/biz/([0-9]+)/$ /api/cloud/index.php?UsersID=$1&BizID=$2
+RewriteRule ^api/([0-9a-z]+)/cloud/products/([0-9]+)/$ /api/cloud/products.php?UsersID=$1&ProductsID=$2
+RewriteRule ^api/([0-9a-z]+)/cloud/act_([0-9]+)/$ /api/cloud/index.php?UsersID=$1&ActiveID=$2
+
+
+RewriteRule ^api/([0-9a-z]+)/cloud/cart/$ /api/cloud/cart/index.php?UsersID=$1
+RewriteRule ^api/([0-9a-z]+)/cloud/cart/ajax/$ /api/cloud/cart/ajax.php?UsersID=$1
+RewriteRule ^api/([0-9a-z]+)/cloud/cart/checkout/([0-9]+)/$ /api/cloud/cart/checkout.php?UsersID=$1&needcart=$2
+RewriteRule ^api/([0-9a-z]+)/cloud/cart/checkout/([0-9]+)/([0-9]+)/$ /api/cloud/cart/checkout.php?UsersID=$1&needcart=$2&AddressID=$3
+RewriteRule ^api/([0-9a-z]+)/cloud/cart/checkout/$ /api/cloud/cart/checkout.php?UsersID=$1
+RewriteRule ^api/([0-9a-z]+)/cloud/cart/checkout_virtual/$ /api/cloud/cart/checkout_virtual.php?UsersID=$1
+RewriteRule ^api/([0-9a-z]+)/cloud/cart/payment/([0-9]+)/$ /api/cloud/cart/payment.php?UsersID=$1&OrderID=$2
+RewriteRule ^api/([0-9a-z]+)/cloud/cart/complete_pay/([a-z]+)/([0-9]+)/$ /api/cloud/cart/complete_pay.php?UsersID=$1&Paymethod=$2&OrderID=$3
+RewriteRule ^api/([0-9a-z]+)/cloud/cart/pay/([0-9]+)/([0-9]+)/$ /api/cloud/cart/pay.php?UsersID=$1&OrderID=$2&Method=$3
+RewriteRule ^api/([0-9a-z]+)/cloud/category/([0-9]+)/$ /api/cloud/category.php?UsersID=$1&CategoryID=$2
+
+RewriteRule ^api/([0-9a-z]+)/cloud/member/$ /api/cloud/member/index.php?UsersID=$1
+RewriteRule ^api/([0-9a-z]+)/cloud/member/ajax/$ /api/cloud/member/ajax.php?UsersID=$1
+RewriteRule ^api/([0-9a-z]+)/cloud/member/products/$ /api/cloud/member/products/index.php?UsersID=$1
+RewriteRule ^api/([0-9a-z]+)/cloud/member/products/no/$ /api/cloud/member/products/no.php?UsersID=$1
+RewriteRule ^api/([0-9a-z]+)/cloud/member/products/detail/([0-9]+)/$ /api/cloud/member/products/detail.php?UsersID=$1&DetailID=$2
+RewriteRule ^api/([0-9a-z]+)/cloud/member/products/ajax/$ /api/cloud/member/products/ajax.php?UsersID=$1
+RewriteRule ^api/([0-9a-z]+)/cloud/member/products/order/([0-9]+)/$ /api/cloud/member/products/order.php?UsersID=$1&DetailID=$2
+RewriteRule ^api/([0-9a-z]+)/cloud/member/products/order/([0-9]+)/([0-9]+)/$ /api/cloud/member/products/order.php?UsersID=$1&DetailID=$2&AddressID=$3
+
+RewriteRule ^api/([0-9a-z]+)/cloud/member/products/payment/([0-9]+)/$ /api/cloud/member/products/payment.php?UsersID=$1&OrderID=$2
+RewriteRule ^api/([0-9a-z]+)/cloud/member/products/complete_pay/([a-z]+)/([0-9]+)/$ /api/cloud/member/products/complete_pay.php?UsersID=$1&Paymethod=$2&OrderID=$3
+RewriteRule ^api/([0-9a-z]+)/cloud/member/products/pay/([0-9]+)/([0-9]+)/$ /api/cloud/member/products/pay.php?UsersID=$1&OrderID=$2&Method=$3
+
+
+RewriteRule ^api/([0-9a-z]+)/cloud/member/status/([0-9]+)/$ /api/cloud/member/orders.php?UsersID=$1&Status=$2
+RewriteRule ^api/([0-9a-z]+)/cloud/member/detail/([0-9]+)/$ /api/cloud/member/detail.php?UsersID=$1&OrderID=$2
+RewriteRule ^api/([0-9a-z]+)/cloud/member/address/$ /api/cloud/member/address.php?UsersID=$1
+RewriteRule ^api/([0-9a-z]+)/cloud/member/address/add/$ /api/cloud/member/address_add.php?UsersID=$1
+RewriteRule ^api/([0-9a-z]+)/cloud/member/address/edit/([0-9]+)/$ /api/cloud/member/address_edit.php?UsersID=$1&AddressID=$2
+RewriteRule ^api/([0-9a-z]+)/cloud/member/address/del/([0-9]+)/$ /api/cloud/member/address.php?UsersID=$1&action=del&AddressID=$2
+RewriteRule ^api/([0-9a-z]+)/cloud/member/commit/([0-9]+)/$ /api/cloud/member/commit.php?UsersID=$1&OrderID=$2
+RewriteRule ^api/([0-9a-z]+)/cloud/member/favourite/$ /api/cloud/member/favourite.php?UsersID=$1
+RewriteRule ^api/([0-9a-z]+)/cloud/member/favourite/del/([0-9]+)/$ /api/cloud/member/favourite.php?UsersID=$1&favour_id=$2&action=del
+
+
+RewriteRule ^api/([0-9a-z]+)/cloud/commit/([0-9]+)/$ /api/cloud/commit.php?UsersID=$1&DetailID=$2
+RewriteRule ^api/([0-9a-z]+)/cloud/([0-9]+)/commit/([0-9]+)/$ /api/cloud/commit.php?UsersID=$1&OwnerID=$2&ProductsID=$3
+RewriteRule ^api/([0-9a-z]+)/cloud/lottery/([0-9]+)/$ /api/cloud/lottery.php?UsersID=$1&DetailID=$2
+RewriteRule ^api/([0-9a-z]+)/cloud/lottery_detail/([0-9]+)/$ /api/cloud/lottery_detail.php?UsersID=$1&DetailID=$2
+RewriteRule ^api/([0-9a-z]+)/cloud/lottery_result/([0-9]+)/$ /api/cloud/lottery_result.php?UsersID=$1&DetailID=$2
+RewriteRule ^api/([0-9a-z]+)/cloud/buyrecords/([0-9]+)/$ /api/cloud/buyrecords.php?UsersID=$1&DetailID=$2
+RewriteRule ^api/([0-9a-z]+)/cloud/active_buyrecords/([0-9]+)/$ /api/cloud/active_buyrecords.php?UsersID=$1&ProductsID=$2
+RewriteRule ^api/([0-9a-z]+)/cloud/Morelottery/([0-9]+)/$ /api/cloud/morelottery.php?UsersID=$1&ProductsID=$2
+RewriteRule ^api/([0-9a-z]+)/cloud/active_buyrecords/([0-9]+)/myself/([0-9]+)/$ /api/cloud/active_buyrecords.php?UsersID=$1&ProductsID=$2&myself=$3
+
+RewriteRule ^api/([0-9a-z]+)/cloud/ajax/$ /api/cloud/ajax.php?UsersID=$1
+
+RewriteRule ^api/([0-9a-z]+)/cloud/([0-9]+)/$ /api/cloud/index.php?UsersID=$1&OwnerID=$1
+RewriteRule ^api/([0-9a-z]+)/cloud/([0-9]+)/products/([0-9]+)/$ /api/cloud/products.php?UsersID=$1&OwnerID=$2&ProductsID=$3
+RewriteRule ^api/([0-9a-z]+)/cloud/([0-9]+)/commit/([0-9]+)/$ /api/cloud/commit.php?UsersID=$1&OwnerID=$2&ProductsID=$3
+RewriteRule ^api/([0-9a-z]+)/cloud/([0-9]+)/cart/$ /api/cloud/cart/index.php?UsersID=$1&OwnerID=$2
+RewriteRule ^api/([0-9a-z]+)/cloud/([0-9]+)/lottery/([0-9]+)/$ /api/cloud/lottery.php?UsersID=$1&OwnerID=$2&DetailID=$3
+RewriteRule ^api/([0-9a-z]+)/cloud/([0-9]+)/lottery_detail/([0-9]+)/$ /api/cloud/lottery_detail.php?UsersID=$1&OwnerID=$2&DetailID=$3
+RewriteRule ^api/([0-9a-z]+)/cloud/([0-9]+)/lottery_result/([0-9]+)/$ /api/cloud/lottery_result.php?UsersID=$1&OwnerID=$2&DetailID=$3
+RewriteRule ^api/([0-9a-z]+)/cloud/([0-9]+)/buyrecords/([0-9]+)/$ /api/cloud/buyrecords.php?UsersID=$1&OwnerID=$2&DetailID=$3
+RewriteRule ^api/([0-9a-z]+)/cloud/([0-9]+)/active_buyrecords/([0-9]+)/$ /api/cloud/active_buyrecords.php?UsersID=$1&OwnerID=$2&ProductsID=$3
+RewriteRule ^api/([0-9a-z]+)/cloud/([0-9]+)/Morelottery/([0-9]+)/$ /api/cloud/morelottery.php?UsersID=$1&OwnerID=$2&ProductsID=$3
+RewriteRule ^api/([0-9a-z]+)/cloud/([0-9]+)/active_buyrecords/([0-9]+)/myself/([0-9]+)/$ /api/cloud/active_buyrecords.php?UsersID=$1&OwnerID=$2&ProductsID=$3&myself=$4
+RewriteRule ^api/([0-9a-z]+)/cloud/([0-9]+)/category/([0-9]+)/$ /api/cloud/category.php?UsersID=$1&OwnerID=$2&CategoryID=$3
+
+#领取商品
+RewriteRule ^api/([0-9a-z]+)/cloud/member/products/buy/([0-9]+)/$ /api/cloud/member/products/buy.php?UsersID=$1&DetailID=$2
+RewriteRule ^api/([0-9a-z]+)/cloud/member/shipping_order/status/([0-9]+)/$ /api/cloud/member/products/shipping_order.php?UsersID=$1&Status=$2
+RewriteRule ^api/([0-9a-z]+)/cloud/member/shipping_order/detail/([0-9]+)/$ /api/cloud/member/products/detail.php?UsersID=$1&OrderID=$2
+RewriteRule ^api/([0-9a-z]+)/shipping/member/status/([0-9]+)/$ /api/cloud/member/products/shipping_order.php?UsersID=$1&Status=$2
+
+
+
 RewriteRule ^api/([0-9a-z]+)/scratch/$ /api/scratch/index.php?UsersID=$1
 RewriteRule ^api/([0-9a-z]+)/scratch/([0-9a-zA-Z_-]+)/$ /api/scratch/index.php?UsersID=$1&OpenID=$2
 
@@ -293,7 +369,8 @@ RewriteRule ^member/(.*)$ /member/control.php
 RewriteRule ^api/([0-9a-z]+)/pintuan/$ /api/pintuan/index.php?UsersID=$1
 RewriteRule ^api/([0-9a-z]+)/pintuan/list/([0-9]+)/$ /api/pintuan/list.php?UsersID=$1&ActiveID=$2
 RewriteRule ^api/([0-9a-z]+)/pintuan/biz/([0-9]+)/$ /api/pintuan/biz.php?UsersID=$1&BizID=$2
-RewriteRule ^api/([0-9a-z]+)/pintuan/([0-9]+)/$ /api/pintuan/index.php?UsersID=$1&BizID=$2
+RewriteRule ^api/([0-9a-z]+)/pintuan/act_([0-9]+)/$ /api/pintuan/index.php?UsersID=$1&ActiveID=$2
+RewriteRule ^api/([0-9a-z]+)/pintuan/seach/$ /api/pintuan/seach.php?UsersID=$1
 RewriteRule ^api/([0-9a-z]+)/pintuan/seach/([0-9a-z]+)/$ /api/pintuan/seach.php?UsersID=$1&id=$2
 RewriteRule ^api/([0-9a-z]+)/pintuan/sousuo/([0-9a-z]+)/$ /api/pintuan/sousuo.php?UsersID=$1&id=$2
 RewriteRule ^api/([0-9a-z]+)/pintuan/xiangqing/([0-9a-z]+)/(([0-9a-z]+)/)?$ /api/pintuan/xiangqing.php?UsersID=$1&productid=$2&teamid=$4
@@ -356,3 +433,4 @@ RewriteRule ^api/([0-9a-z]+)/pintuan/teamdetail/([0-9]+)/$ /api/pintuan/teamdeta
 RewriteRule ^api/([0-9a-z]+)/pintuan/liucheng/$ /api/pintuan/liucheng.html?UsersID=$1
 #异步
 RewriteRule ^api/pintuan/sync$ /api/pintuan/sync.php
+RewriteRule ^api/pintuan/sync/$ /api/pintuan/sync.php

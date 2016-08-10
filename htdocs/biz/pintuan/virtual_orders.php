@@ -1,5 +1,5 @@
 <?php
-require_once($_SERVER["DOCUMENT_ROOT"].'/biz/global.php');
+require_once($_SERVER["DOCUMENT_ROOT"].'/include/update/common.php');
 require_once($_SERVER["DOCUMENT_ROOT"].'/include/helper/order.php');
 require_once($_SERVER["DOCUMENT_ROOT"].'/include/helper/distribute.php');
 
@@ -11,7 +11,7 @@ if(isset($_GET["action"])){
 			echo '<script language="javascript">alert("请输入消费券码");history.back();</script>';
 			exit;
 		}else{
-			$rsOrder = $DB->GetRs("user_order","*","where Users_ID='".$_SESSION["Users_ID"]."' and Order_Virtual_Cards='".$_GET["code"]."'");
+			$rsOrder = $DB->GetRs("user_order","*","where Users_ID='{$UsersID}' and Order_Virtual_Cards='".$_GET["code"]."'");
 			if(!$rsOrder){
 				echo '<script language="javascript">alert("该订单不存在");history.back();</script>';
 				exit;
@@ -33,11 +33,11 @@ if($_POST){
 	}else{
 		$orderid = trim($_POST["orderid"]);
 	}
-	if(!isset($_SESSION["Users_ID"])){
+	if(!isset($UsersID)){
 	    echo '<script language="javascript">alert("Session过期");window.location="/member/login.php";</script>';
 	    exit;
 	}
-	$rsOrder = $DB->GetRs("user_order","*","where Order_ID=".$orderid." and Order_Virtual_Cards='".$code."' and Users_ID='".$_SESSION["Users_ID"]."'");
+	$rsOrder = $DB->GetRs("user_order","*","where Order_ID=".$orderid." and Order_Virtual_Cards='".$code."' and Users_ID='{$UsersID}'");
 	if(!$rsOrder){
 		echo '<script language="javascript">alert("该订单不存在");history.back();</script>';
 		exit;

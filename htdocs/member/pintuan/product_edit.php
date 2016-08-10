@@ -3,9 +3,9 @@ require_once($_SERVER["DOCUMENT_ROOT"].'/include/update/common.php');
 
 if($_POST){ 
   if($_POST["Isdraw"]==0) {
-      if($_POST['T_count']==0 || $_POST['ratio'] ==0 ) 
+      if($_POST['T_count']==0) 
       {
-        echo '<script language="javascript">alert("拼团比例和拼团数  不能为0!");history.back();</script>'; exit();
+        echo '<script language="javascript">alert("允许中奖团数不能为0!");history.back();</script>'; exit();
       }
   }
   if(!isset($_POST['id'])) die('<script language="javascript">alert("无效的产品ID！");history.back();</script>');
@@ -206,7 +206,7 @@ KindEditor.ready(function(K) {
     
   });
   var editor = K.editor({
-    uploadJson : '/member/upload_json.php?TableField=web_article',
+    uploadJson : '/member/upload_json.php?TableField=web_article&Users_ID=<?php echo $_SESSION["Users_ID"];?>',
     fileManagerJson : '/member/file_manager_json.php',
     showRemote : true,
     allowFileManager : true,
@@ -433,9 +433,11 @@ $(document).ready(function(){
           </span>
             </tr>  
             <tr id="444">  
-                <td class="tl"><span color="f_red">中奖比率</span></td>  
-                <td class="tr"><input type="text" size="6" name="ratio" id="ratio" value="<?php echo $pintuan["Ratio"]?>"/>%</td>  
-                <td>拼团总数&nbsp&nbsp<input type="text" size="8" name="T_count" value="<?php echo intval($pintuan["Team_Count"]);?>"/></td></span>
+                <td class="tl"><span color="f_red">允许中奖团数</span></td>  
+                <td class="tr">
+                <input type="text" size="8" name="T_count" value="<?php echo $pintuan["Team_Count"];?>"/>
+                <input type="hidden" size="6" name="ratio" id="ratio" value="<?php echo $pintuan["Ratio"]?>"/></td>  
+                <td></td></span>
             </tr>  
         
         </table>  
@@ -517,93 +519,29 @@ $(document).ready(function(){
         $('.skipForm').on('click','.icon-minus',function(){
             $(this).closest('.form-group').remove();
         });
-        $("#ratio").blur(function() {
-          /* Act on the event */
-          cacl();
-        });
-        $("input[name='Peoplenum']").blur(function() {
-          /* Act on the event */
-          cacl();
-        });
-        $("input[name='Count']").blur(function() {
-          /* Act on the event */
-          cacl();
-        });
-        cacl();
-        function cacl()
-        {
-          var Peoplenum = $("input[name='Peoplenum']").val();
-          var count = $("input[name='Count']").val();
-          var ratio = $("input[name='ratio']").val();
-          var TCount=parseInt($("input[name='T_count']").val());
-          var num;
-          if(ratio>0){
-              num = parseInt(count/(ratio/100)/Peoplenum);
-          }else{
-            num = 0;
-          }
-          $("input[name='T_count']").val(num);
-
-          var foalt = count/(Peoplenum*num)*100;
-          if(foalt>=100){
-        	  foalt=100;
-          }
-          $("input[name='ratio']").val(foalt.toFixed(2));
-        }
+        
 
          $(document).ready(function(){
-           if($("input[name='Isdraw']:checked").val()=='1'){  
+                if($("input[name='Isdraw']:checked").val()=='1'){  
                     $("#333").hide();  
                     $("#444").hide();  
                 }else{   
                     $("#333").show();  
                     $("#444").show();  
-                }     
-           })     
-        $("input[name='Isdraw']").click(function(){  
-              var type=$(this).val();  
-                if(type=='1'){  
-                    $("#333").hide();  
-                    $("#444").hide();  
-                }else{   
-                    $("#333").show();  
-                    $("#444").show();  
-                }     
-        });
-//商品库存  拼团人数 中奖比率 拼团总数  之间的联动
-    $("input[name='T_count']").change(function(){
-        var kucun=parseInt($("input[name='Count']").val());
-        var Prople=parseInt($("input[name='Peoplenum']").val());
-        var Count=parseInt($("input[name='T_count']").val());
-        mm = kucun/(Count*Prople)*100;
-        if(mm>=100){
-        	mm=100;
-          }
-         $("input[name='ratio']").val(mm.toFixed(2));
-    });   
-//中奖比率
-    $("input[name='ratio']").change(function(){
-          var aa=parseInt($("input[name='ratio']").val());
-          var kucun=parseInt($("input[name='Count']").val());
-          var Prople=parseInt($("input[name='Peoplenum']").val());
-          var Count=parseInt($("input[name='T_count']").val());
-          var flot = parseInt(kucun/(aa/100)/Prople);
-          $("input[name='T_count']").val(flot);
-    });
-// 关于  商品库存  拼团人数 中奖比率 拼团总数  之间的联动 且不能为0
-if(!$("#draw").has('checked')){  
-  $("input[name='submit_button']").click(function(){
-    var kucun=$("input[name='Count']").val();
-    var Prople=$("input[name='Peoplenum']").val();
-    var Count=$("input[name='T_count']").val();
-    var Bilv=$("input[name='ratio']").val();
+                }
+                $("input[name='Isdraw']").click(function(){  
+                      var type=$(this).val();  
+                        if(type=='1'){  
+                            $("#333").hide();  
+                            $("#444").hide();  
+                        }else{   
+                            $("#333").show();  
+                            $("#444").show();  
+                        }     
+                });     
+         });     
+        
 
-    if(Count=='0'||Bilv=='0'){
-      alert('中奖比率、拼团总数 不能填写0');
-    }
-    return false;
-  })
-}
 
 function imagedel(o) {
     $(o).parent().remove();

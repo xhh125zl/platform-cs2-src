@@ -1,15 +1,11 @@
 <?php 
-require_once($_SERVER["DOCUMENT_ROOT"].'/biz/global.php');
-/*edit in 20160318*/
-require_once($_SERVER["DOCUMENT_ROOT"].'/include/helper/url.php');
-require_once($_SERVER["DOCUMENT_ROOT"].'/include/helper/tools.php');
-require_once($_SERVER["DOCUMENT_ROOT"].'/include/helper/lib_products.php');
+require_once($_SERVER["DOCUMENT_ROOT"].'/include/update/common.php');
 
 if($_POST){ 
   if($_POST["Isdraw"]==0) {
-      if($_POST['T_count']==0 || $_POST['ratio'] ==0 ) 
+      if($_POST['T_count']==0) 
       {
-        echo '<script language="javascript">alert("拼团比例和拼团数  不能为0!");history.back();</script>'; exit();
+        echo '<script language="javascript">alert("允许中奖团数  不能为0!");history.back();</script>'; exit();
       }
   }
   if(!isset($_POST['id'])) die('<script language="javascript">alert("无效的产品ID！");history.back();</script>');
@@ -35,7 +31,7 @@ if($_POST){
   $str=array();
     $str[0]=$_POST['TypeID'];
     $Category_IDs=$DB->get('pintuan_category','cate_id',"  where 
-    cate_id=(SELECT parent_id FROM pintuan_category WHERE cate_id='".$_POST['TypeID']."' ) and Users_ID='".$_SESSION["Users_ID"]."'");   
+    cate_id=(SELECT parent_id FROM pintuan_category WHERE cate_id='".$_POST['TypeID']."' ) and Users_ID='{$UsersID}'");   
    while ( $res=$DB->fetch_assoc()) {
       $str[]=$res['cate_id'];
    }
@@ -43,7 +39,7 @@ if($_POST){
     $pintuanid=$DB->query('SELECT IFNULL(MAX(Products_ID),"0") from pintuan_products');
     $REG=$DB->fetch_assoc($pintuanid); 
     //处理图片路径
-    $goodsinfo = $DB->GetRs("pintuan_products","Products_JSON","where Products_ID='{$id}' and Users_ID='{$_SESSION["Users_ID"]}'");
+    $goodsinfo = $DB->GetRs("pintuan_products","Products_JSON","where Products_ID='{$id}' and Users_ID='{$UsersID}'");
     if($goodsinfo && $goodsinfo['Products_JSON']){
         $imageInfo = json_decode($goodsinfo['Products_JSON'],true);
         
@@ -91,8 +87,8 @@ if($_POST){
     
     /*edit in 20160318*/
   );
-  $Data["Users_ID"] = $rsBiz["Users_ID"];
-  $Data["Biz_ID"] = $_SESSION['BIZ_ID'];
+  $Data["Users_ID"] = $UsersID;
+  $Data["Biz_ID"] = $BizID;
   if(isset($_POST["compensation"]) && !empty($_POST["compensation"])){
       $Data['Products_compensation'] = $_POST["compensation"];
   }
@@ -142,7 +138,7 @@ if($_POST){
       if(isset($_POST["cardids"]) && $_POST["cardids"]){
           $idcards = $_POST["cardids"];
           $idcards = trim($idcards,",");
-          $DB->Set("pintuan_virtual_card", [ 'Products_Relation_ID' => $id ],"WHERE Users_ID='{$_SESSION["Users_ID"]}' AND Card_ID IN({$idcards})");
+          $DB->Set("pintuan_virtual_card", [ 'Products_Relation_ID' => $id ],"WHERE Users_ID='{$UsersID}' AND Card_ID IN({$idcards})");
       }
     echo '<script language="javascript">alert("修改成功");window.location="products.php";</script>';
   }else{
@@ -150,8 +146,8 @@ if($_POST){
   }
   exit;
 }else{
-  $shop_config = shop_config($_SESSION["Users_ID"]);  
-  $dis_config = dis_config($_SESSION["Users_ID"]);
+  $shop_config = shop_config($UsersID);  
+  $dis_config = dis_config($UsersID);
 
   $Shop_Commision_Reward_Arr = array();
   if (!is_null($shop_config['Shop_Commision_Reward_Json'])) 
@@ -214,13 +210,13 @@ KindEditor.ready(function(K) {
   K.create('textarea[name="Description"]', {
     themeType : 'simple',
     filterMode : false,
-    uploadJson : '/member/upload_json.php?TableField=web_column&Users_ID=<?php echo $_SESSION["Users_ID"];?>',
+    uploadJson : '/member/upload_json.php?TableField=web_column&Users_ID=<?php echo $UsersID;?>',
     fileManagerJson : '/member/file_manager_json.php',
     allowFileManager : true,
     
   });
   var editor = K.editor({
-    uploadJson : '/member/upload_json.php?TableField=web_article',
+    uploadJson : '/member/upload_json.php?TableField=web_article&Users_ID=<?php echo $UsersID;?>',
     fileManagerJson : '/member/file_manager_json.php',
     showRemote : true,
     allowFileManager : true,
@@ -265,6 +261,7 @@ $(document).ready(function(){
 <style type="text/css">
 .dislevelcss{float:left;margin:5px 0px 0px 8px;text-align:center;border:solid 1px #858585;padding:5px;}
 .dislevelcss th{border-bottom:dashed 1px #858585;font-size:16px;}
+.r_con_form .rows .input .error { color:#f00; }
 </style>
 </head>
 
@@ -296,7 +293,7 @@ $(document).ready(function(){
       <script language="javascript">$(document).ready(user_obj.coupon_add_init);</script>
 <?php
       $pintuanid=$_GET['id'];
-      $pintuan=$DB->getRs("pintuan_products","*","where Users_ID='".$_SESSION["Users_ID"]."'and Products_ID='".$pintuanid."'");
+      $pintuan=$DB->getRs("pintuan_products","*","where Users_ID='{$UsersID}'and Products_ID='".$pintuanid."'");
 ?>
       <form id="product_add_form" class="r_con_form skipForm" method="post" action="product_edit.php">
         <input type="hidden" name="id" value="<?php echo $_GET['id']?>" />
@@ -314,7 +311,7 @@ $(document).ready(function(){
     <option value="">请选择类型</option>
       <?php
         $typeid = explode(',',$pintuan['Products_Category']);
-        $DB->get("pintuan_category","*","where Users_ID='".$_SESSION["Users_ID"]."' order by  sort asc");
+        $DB->get("pintuan_category","*","where Users_ID='{$UsersID}' order by  sort asc");
         while($rsType= $DB->fetch_assoc()){
           $t = in_array($rsType["cate_id"],$typeid)?'selected':'';
           echo '<option value="'.$rsType["cate_id"].'"'.$t.'  >'.$rsType["cate_name"].'</option>';
@@ -449,12 +446,13 @@ $(document).ready(function(){
           </span>
             </tr>  
             <tr id="444">  
-                <td class="tl"><span color="f_red">中奖比率</span></td>  
-                <td class="tr"><input type="text" size="6" name="ratio" id="ratio" value="<?php echo $pintuan["Ratio"]?>"/>%</td>  
-                <td>拼团总数&nbsp&nbsp<input type="text" size="8" name="T_count" value="<?php echo intval($pintuan["Team_Count"]);?>"/></td></span>
-            </tr>  
-        
-        </table>  
+                <td class="tl"><span color="f_red">允许中奖团数</span></td>  
+                <td class="tr">
+                <input type="text" size="8" name="T_count" value="<?php echo $pintuan["Team_Count"];?>"/>
+                <input type="hidden" size="6" name="ratio" id="ratio" value="<?php echo $pintuan["Ratio"]?>"/></td>  
+                <td></td></span>
+            </tr>
+        </table>
           <div class="clear"></div>
         </div>
         <div id="store_part" style="display:none">
@@ -476,9 +474,6 @@ $(document).ready(function(){
           </span>
           <font class="fc_red">*</font></span>
           <div class="clear"></div>
-        
-
-
         <div class="rows">
           <label>拼团有效时间</label>
            <span class="input time">
@@ -507,70 +502,43 @@ $(document).ready(function(){
           <div class="clear"></div>
         </div>
         <input type='hidden' value='' id='cardids' name='cardids' />
-        <input type="hidden" id="UsersID" value="<?=$_SESSION["Users_ID"]?>" />
+        <input type="hidden" id="UsersID" value="<?=$UsersID ?>" />
         <input type="hidden" id="ProductsID" value="0">        
       </form>
     </div>
   </div>
 </div>
     <script type="text/javascript">
+		$(document).ready(function(){
+			$("#product_add_form").submit(function(){
+				var Peoplenum=$("input[name='Peoplenum']").val();
+				if(Peoplenum<2){
+					$("input[name='Peoplenum']").parent().find(".tips").addClass("error").html("拼团人数不能小于2");
+					return false;
+				}else{
+					$("input[name='Peoplenum']").parent().find(".tips").removeClass("error").html("");
+				}
+			});
+			$("input[name='Peoplenum']").blur(function(){
+				var Peoplenum=$(this).val();
+				if(Peoplenum<2){
+					$(this).parent().find(".tips").addClass("error").html("拼团人数不能小于2");
+					$(this).focus();
+					return false;
+				}else{
+					$(this).parent().find(".tips").removeClass("error").html("");
+				}
+			});
 
-        var index = 0;      
-        $('.icon-plus').click(function(){
-            index ++;
-            var html = $(this).closest('.form-group').clone();
-            html.find('.icon-plus').removeClass('icon-plus').addClass('icon-minus');
-            html.find(".ProductsParametername").attr('name','Products_Parameter['+index+'][name]');
-            html.find(".ProductsParametervalue").attr('name','Products_Parameter['+index+'][value]');
-            $(this).closest('.form-group').after(html);
-          $(".icon-minus").html("[-]");
-        }); 
-        $('.skipForm').on('click','.icon-minus',function(){
-            $(this).closest('.form-group').remove();
-        });
-        $("#ratio").blur(function() {
-          /* Act on the event */
-          cacl();
-        });
-        $("input[name='Peoplenum']").blur(function() {
-          /* Act on the event */
-          cacl();
-        });
-        $("input[name='Count']").blur(function() {
-          /* Act on the event */
-          cacl();
-        });
-        cacl();
-        function cacl()
-        {
-          var Peoplenum = $("input[name='Peoplenum']").val();
-          var count = $("input[name='Count']").val();
-          var ratio = $("input[name='ratio']").val();
-          var TCount=parseInt($("input[name='T_count']").val());
-          var num;
-          if(ratio>0){
-              num = parseInt(count/(ratio/100)/Peoplenum);
-          }else{
-            num = 0;
-          }
-          $("input[name='T_count']").val(num);
-
-          var foalt = count/(Peoplenum*num)*100;
-          if(foalt>=100){
-        	  foalt=100;
-          }
-          $("input[name='ratio']").val(foalt.toFixed(2));
-        }
-
-         $(document).ready(function(){
-           if($("input[name='Isdraw']:checked").val()=='1'){  
-                    $("#333").hide();  
-                    $("#444").hide();  
-                }else{   
-                    $("#333").show();  
-                    $("#444").show();  
-                }     
-           })     
+             
+			if($("input[name='Isdraw']:checked").val()=='1'){  
+				$("#333").hide();  
+				$("#444").hide();  
+			}else{   
+				$("#333").show();  
+				$("#444").show();  
+			}     
+		})     
         $("input[name='Isdraw']").click(function(){  
               var type=$(this).val();  
                 if(type=='1'){  
@@ -581,40 +549,7 @@ $(document).ready(function(){
                     $("#444").show();  
                 }     
         });
-//商品库存  拼团人数 中奖比率 拼团总数  之间的联动
-    $("input[name='T_count']").change(function(){
-        var kucun=parseInt($("input[name='Count']").val());
-        var Prople=parseInt($("input[name='Peoplenum']").val());
-        var Count=parseInt($("input[name='T_count']").val());
-        mm = kucun/(Count*Prople)*100;
-        if(mm>=100){
-        	mm=100;
-          }
-         $("input[name='ratio']").val(mm.toFixed(2));
-    });   
-//中奖比率
-    $("input[name='ratio']").change(function(){
-          var aa=parseInt($("input[name='ratio']").val());
-          var kucun=parseInt($("input[name='Count']").val());
-          var Prople=parseInt($("input[name='Peoplenum']").val());
-          var Count=parseInt($("input[name='T_count']").val());
-          var flot = parseInt(kucun/(aa/100)/Prople);
-          $("input[name='T_count']").val(flot);
-    });
-// 关于  商品库存  拼团人数 中奖比率 拼团总数  之间的联动 且不能为0
-if(!$("#draw").has('checked')){  
-  $("input[name='submit_button']").click(function(){
-    var kucun=$("input[name='Count']").val();
-    var Prople=$("input[name='Peoplenum']").val();
-    var Count=$("input[name='T_count']").val();
-    var Bilv=$("input[name='ratio']").val();
 
-    if(Count=='0'||Bilv=='0'){
-      alert('中奖比率、拼团总数 不能填写0');
-    }
-    return false;
-  })
-}
 
 function imagedel(o) {
     $(o).parent().remove();

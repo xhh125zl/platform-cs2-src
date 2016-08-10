@@ -144,6 +144,7 @@ ad($UsersID, 1, 1);
     <?php require_once('skin/index_info.php');?>
     <div class="clear"></div>
  </div>
+ <?php require_once("skin/activelist.php"); ?>
  <div class="index_cate">
   <ul>
    <?php foreach($category_list as $kye=>$item):?>
