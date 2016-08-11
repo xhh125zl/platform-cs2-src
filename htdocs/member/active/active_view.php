@@ -9,6 +9,7 @@ if(!$rsActive){
     sendAlert("已申请的活动不存在");
 }
 $list = [];
+$goods = [];
 if($rsActive['ListConfig']){
     if($rsActive['module']=='pintuan'){    //拼团
         $table = "pintuan_products";    
@@ -24,6 +25,13 @@ if($rsActive['ListConfig']){
         while($res = $DB->fetch_assoc($result))
         {
             $list[$res['Products_ID']]=$res;
+        }
+    }
+    $result = $DB->Get($table,"*","WHERE Users_ID='{$UsersID}' AND Products_Status = 1");
+    if($result){
+        while($res = $DB->fetch_assoc($result))
+        {
+            $goods[$res['Products_ID']]=$res;
         }
     }
 }
@@ -69,10 +77,11 @@ if($rsActive['ListConfig']){
                       	<?php 
                       	if(!empty($rsActive['IndexConfig']) && $rsActive['IndexConfig']){
                       	    $indexList = explode(',', $rsActive['IndexConfig']);
+                      	    
                       	    if(!empty($indexList)){
                       	     foreach ($indexList as $v){
                       	?>
-                      	<li><?= isset($list[$v]['Products_Name']) ? $list[$v]['Products_Name'] : '' ?></li>
+                      	<li><?= isset($goods[$v]['Products_Name']) ? $goods[$v]['Products_Name'] : '' ?></li>
                       	<?php 
                       	}
                       	}

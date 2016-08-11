@@ -370,7 +370,7 @@ RewriteRule ^api/([0-9a-z]+)/pintuan/$ /api/pintuan/index.php?UsersID=$1
 RewriteRule ^api/([0-9a-z]+)/pintuan/list/([0-9]+)/$ /api/pintuan/list.php?UsersID=$1&ActiveID=$2
 RewriteRule ^api/([0-9a-z]+)/pintuan/biz/([0-9]+)/$ /api/pintuan/biz.php?UsersID=$1&BizID=$2
 RewriteRule ^api/([0-9a-z]+)/pintuan/act_([0-9]+)/$ /api/pintuan/index.php?UsersID=$1&ActiveID=$2
-RewriteRule ^api/([0-9a-z]+)/pintuan/biz/([0-9]+)/act_([0-9]+)/$ /api/pintuan/index.php?UsersID=$1&BizID=$2&ActiveID=$3
+RewriteRule ^api/([0-9a-z]+)/pintuan/biz/([0-9]+)/act_([0-9]+)/$ /api/pintuan/biz.php?UsersID=$1&BizID=$2&ActiveID=$3
 RewriteRule ^api/([0-9a-z]+)/pintuan/seach/$ /api/pintuan/seach.php?UsersID=$1
 RewriteRule ^api/([0-9a-z]+)/pintuan/seach/([0-9a-z]+)/$ /api/pintuan/seach.php?UsersID=$1&id=$2
 RewriteRule ^api/([0-9a-z]+)/pintuan/sousuo/([0-9a-z]+)/$ /api/pintuan/sousuo.php?UsersID=$1&id=$2

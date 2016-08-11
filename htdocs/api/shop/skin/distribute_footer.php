@@ -66,7 +66,7 @@ if (empty($ShopMenuJsons)) {
 <footer id="footer">  
   <ul class="list-group" id="footer-nav">
 		<?php foreach ($ShopMenu['menu'] as $k => $v) : ?>
-		<li style="width: <?php echo 100/count($ShopMenu['menu']); ?>%;">
+		<li>
 			<?php if($v['bind_action_attr'] == 1 && $distribute_flag):?>
 				<a href="<?php echo $v['login_menu_href']; ?>" style="background:url(<?php echo $v['icon']; ?>) center center no-repeat;<?=isset($v['isDefault']) && $v['isDefault'] ?"color:#F36767":"" ?>"><?php echo $v['login_menu_name']; ?></a>
 			<?php else: ?>

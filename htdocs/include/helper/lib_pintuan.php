@@ -34,7 +34,7 @@ function sendAlert($msg,$url="",$timeout=3)
 function  sendWXMessage($UsersID,$orderid,$msg,$userid){
     global $DB;
     require_once($_SERVER["DOCUMENT_ROOT"].'/include/library/weixin_message.class.php');
-    $weixin_message = new weixin_message($DB,$UsersID,!empty($userid)?$userid:isset($_SESSION[$UsersID."User_ID"])?$_SESSION[$UsersID."User_ID"]:0);
+    $weixin_message = new weixin_message($DB,$UsersID,$userid);
     $contentStr = $msg;
     $weixin_message->sendscorenotice($contentStr);
 }
@@ -50,7 +50,7 @@ function addSales($goodsid,$sellerid,$char='+')
     }
 }
 
-function payDone($UsersID,$OrderID,$paymethod)
+function payDone($UsersID,$OrderID,$paymethod,$mix = '')
 {
     global $DB;
     $orderids = '';
@@ -59,6 +59,7 @@ function payDone($UsersID,$OrderID,$paymethod)
     $orderFlag = $DB->query($sql);
     $rsOrder=$DB->fetch_assoc($orderFlag);
     $isajax = false;
+    $Data = [];
     if($isajax){
         if(!$orderFlag) die(json_encode(["status"=>0,"msg"=>'订单不存在'],JSON_UNESCAPED_UNICODE));
     }else{
@@ -71,7 +72,32 @@ function payDone($UsersID,$OrderID,$paymethod)
             return $Data;
         }
     }
-
+    if(is_bool($mix)){
+        $totalinfo = $DB->GetRs("pintuan_teamdetail","count(*) as total,teamid","WHERE order_id={$OrderID}");
+        if($totalinfo){
+            $rsTeam = $DB->GetRs("pintuan_team","id,teamstatus,teamnum","WHERE id={$totalinfo['teamid']}");
+            if($rsTeam['teamstatus'] == 1 && $rsTeam['teamnum'] == $totalinfo['total']) {
+                $Data=array(
+                    "status"=>1,
+                    "msg"=>'拼团成功',
+                    'url'=>'/api/'.$UsersID.'/pintuan/orderlist/0/'
+                );
+            }else{
+                $Data=array(
+                    'status'=>1,
+                    'msg'=>'支付成功',
+                    'url'=>'/api/'.$UsersID.'/pintuan/orderlist/0/'
+                );
+            }
+        }else{
+            $Data=array(
+                'status'=>1,
+                'msg'=>'支付成功',
+                'url'=>'/api/'.$UsersID.'/pintuan/orderlist/0/'
+            );
+        }
+        return $Data;
+    }
 
     $order_status = $rsOrder["Order_Status"];
     $order_total = $rsOrder["Order_TotalPrice"];
@@ -259,7 +285,7 @@ function payDone($UsersID,$OrderID,$paymethod)
                   $balance_sales->add_sales($orderids);
                 }
                 
-                sendWXMessage($UsersID,$orderids,'您使用微信支付已'.$tdata['msg']."，支付金额：".$order_total."，订单号为：".$rsOrder["Order_Code"]);
+                sendWXMessage($UsersID,$orderids,'您使用微信支付已'.$tdata['msg']."，支付金额：".$order_total."，订单号为：".$rsOrder["Order_Code"],$rsOrder["User_ID"]);
                 if($isajax){
                     die(json_encode($tdata,JSON_UNESCAPED_UNICODE));
                 }else{
@@ -333,7 +359,7 @@ function payDone($UsersID,$OrderID,$paymethod)
                   $balance_sales= new balance($DB,$UsersID);
                   $balance_sales->add_sales($orderids);
                 }
-                sendWXMessage($UsersID,$orderids,'您使用微信支付已'.$tdata['msg']."，支付金额：".$order_total."，订单号为：".$rsOrder["Order_Code"]);
+                sendWXMessage($UsersID,$orderids,'您使用微信支付已'.$tdata['msg']."，支付金额：".$order_total."，订单号为：".$rsOrder["Order_Code"],$rsOrder["User_ID"]);
                 if($isajax){
                     die(json_encode($tdata,JSON_UNESCAPED_UNICODE));
                 }else{

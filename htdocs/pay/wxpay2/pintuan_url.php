@@ -53,7 +53,7 @@ if($xml){
 		}else{
 			$pay_order = new pay_order($DB,$oid);
 			$rsUser=$DB->GetRs("user","*","where Users_ID='".$UsersID."' and User_ID=".$UserID);
-			$info = payDone($UsersID,$oid,"微支付");
+			$info = payDone($UsersID,$oid,"微支付",$tid);
         	exit;
 		}
 	}
@@ -66,12 +66,12 @@ if($xml){
 	}
 	$UsersID = $rsOrder["Users_ID"];
 	$Status = $rsOrder["Order_Status"];
-	$info = ['url' => '/api/'.$UsersID.'/pintuan/orderlist/0/', 'msg' => '支付完成'];
-	$url = $info['url'];
+	$info = payDone($UsersID,$OrderID,"微支付",true);
+    
 	echo '<!doctype html><html><head><title>'.$info['msg'].'</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no,minimal-ui">';
-echo '<script type="text/javascript" src="/static/api/pintuan/js/jquery.min.js"></script><script type="text/javascript" src="/static/api/pintuan/js/layer/1.9.3/layer.js"></script></head><body>';
-	echo '<script>layer.msg("'.$info['msg'].'",{icon:1,time:3000},function(){ window.location="'.$url.'";});</script>';
+    echo '<script type="text/javascript" src="/static/api/pintuan/js/jquery.min.js"></script><script type="text/javascript" src="/static/api/pintuan/js/layer/1.9.3/layer.js"></script></head><body>';
+	echo '<script>layer.msg("'.$info['msg'].'",{icon:1,time:3000},function(){ window.location="'.$info['url'].'";});</script>';
 	echo "</body></html>";
 	exit;
 }

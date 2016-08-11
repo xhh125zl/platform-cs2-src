@@ -76,7 +76,7 @@
 				</div>
 			</div>
 			<div class="bjtp">
-				<?php if ($time >= $item['starttime'] && $time <= $item['stoptime'] && $item['teamstatus'] == 0) {
+				<?php if ($time >= $item['starttime'] && $time <= $item['stoptime'] && $item['teamstatus'] == 0  && $item['teamnum'] != $product['people_num']) {
 						echo '<a href="/api/'.$UsersID.'/pintuan/teamdetail/'.$item['id'].'/">去参团</a>';
 					} else {
 						  if($item['teamstatus']==1){

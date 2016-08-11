@@ -61,7 +61,7 @@ foreach ($activelist as $k => $v)
         $sql = "SELECT {$fields} FROM `{$tablename}` WHERE Users_ID='{$UsersID}' AND Products_ID IN ({$indexGoods}) LIMIT 0,{$v['IndexShowGoodsCount']} ";
         if($curGoods['total']<$v['IndexShowGoodsCount']){
             $lastCount = $v['IndexShowGoodsCount'] - $curGoods['total'];
-            $sql .= "union (SELECT {$fields} FROM `{$tablename}` WHERE Users_ID='{$UsersID}' AND Products_ID IN ({$listGoods}) LIMIT 0,$lastCount)";
+            $sql .= "union (SELECT {$fields} FROM `{$tablename}` WHERE Users_ID='{$UsersID}' AND Products_ID IN ({$listGoods}) AND Products_ID NOT IN ({$indexGoods}) LIMIT 0,$lastCount)";
         }
 
         $result = $DB->query($sql);
