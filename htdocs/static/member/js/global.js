@@ -245,7 +245,7 @@ var global_obj={
 			shadeClose: (shadeclose==0 ? true : false),
 			maxmin: true,
 			area: [width+'px', height+'px'],
-			content: url,
+			content: url
 		});
 	},
 	

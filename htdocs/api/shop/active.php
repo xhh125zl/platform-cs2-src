@@ -63,7 +63,7 @@ foreach ($activelist as $k => $v)
             $lastCount = $v['IndexShowGoodsCount'] - $curGoods['total'];
             $sql .= "union (SELECT {$fields} FROM `{$tablename}` WHERE Users_ID='{$UsersID}' AND Products_ID IN ({$listGoods}) AND Products_ID NOT IN ({$indexGoods}) LIMIT 0,$lastCount)";
         }
-
+        
         $result = $DB->query($sql);
         $list = $DB->toArray($result);
         $goodslist[$k]['goods']=$list;
