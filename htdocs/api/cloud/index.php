@@ -6,7 +6,7 @@ $BizInfo = $DB->GetRs("biz","*","WHERE Biz_ID='{$BizID}'");
 $base_url = base_url();
 $cloud_url = base_url().'api/'.$UsersID.'/cloud/';
 $cloud_jjjxurl = base_url().'api/'.$UsersID.'/cloud/';
-
+$_SESSION[$UsersID.'_CurrentActive'] = $ActiveID;
 $share_name = '';
 
 if($owner['id'] != '0'){

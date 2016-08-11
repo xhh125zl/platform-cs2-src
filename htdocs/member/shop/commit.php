@@ -55,6 +55,7 @@ function get_title($itemid){
         <li class=""><a href="products.php">产品列表</a></li>
         <li class=""><a href="category.php">产品分类</a></li>
         <li class="cur"><a href="commit.php">产品评论</a></li>
+        <li class=""><a href="commision_setting.php">佣金设置</a></li>
       </ul>
     </div>
     <div id="reviews" class="r_con_wrap">

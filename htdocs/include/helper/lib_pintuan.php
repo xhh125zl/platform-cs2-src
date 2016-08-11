@@ -31,10 +31,10 @@ function sendAlert($msg,$url="",$timeout=3)
     exit;
 }
 
-function  sendWXMessage($UsersID,$orderid,$msg='',$userid=''){
+function  sendWXMessage($UsersID,$orderid,$msg,$userid){
     global $DB;
     require_once($_SERVER["DOCUMENT_ROOT"].'/include/library/weixin_message.class.php');
-    $weixin_message = new weixin_message($DB,$UsersID,!empty($userid)?$userid:$_SESSION[$UsersID."User_ID"]);
+    $weixin_message = new weixin_message($DB,$UsersID,!empty($userid)?$userid:isset($_SESSION[$UsersID."User_ID"])?$_SESSION[$UsersID."User_ID"]:0);
     $contentStr = $msg;
     $weixin_message->sendscorenotice($contentStr);
 }
@@ -55,7 +55,7 @@ function payDone($UsersID,$OrderID,$paymethod)
     global $DB;
     $orderids = '';
     $orderids = $OrderID;
-    $sql = "SELECT u.Users_ID AS Users_ID,u.Order_Status AS Order_Status,u.Order_CartList AS Order_CartList,u.Order_TotalPrice AS Order_TotalPrice,u.Order_Type AS Order_Type,u.Order_IsRecieve AS Order_IsRecieve,u.Order_Code AS Order_Code,u.Address_Mobile AS Address_Mobile,p.pintuan_status AS pintuan_status,p.products_status AS products_status,p.is_vgoods AS is_vgoods,p.order_status AS porder_status FROM user_order AS u LEFT JOIN pintuan_order p ON u.Order_ID=p.order_id WHERE u.Users_ID='{$UsersID}' AND u.Order_ID='{$OrderID}'";
+    $sql = "SELECT u.Users_ID AS Users_ID,u.User_ID,u.Order_Status AS Order_Status,u.Order_CartList AS Order_CartList,u.Order_TotalPrice AS Order_TotalPrice,u.Order_Type AS Order_Type,u.Order_IsRecieve AS Order_IsRecieve,u.Order_Code AS Order_Code,u.Address_Mobile AS Address_Mobile,p.pintuan_status AS pintuan_status,p.products_status AS products_status,p.is_vgoods AS is_vgoods,p.order_status AS porder_status FROM user_order AS u LEFT JOIN pintuan_order p ON u.Order_ID=p.order_id WHERE u.Users_ID='{$UsersID}' AND u.Order_ID='{$OrderID}'";
     $orderFlag = $DB->query($sql);
     $rsOrder=$DB->fetch_assoc($orderFlag);
     $isajax = false;
@@ -107,7 +107,7 @@ function payDone($UsersID,$OrderID,$paymethod)
     }
 
 
-    $rsUser = $DB->GetRs("user","User_Money,User_PayPassword,Is_Distribute,User_Name,User_NickName,Owner_Id,User_Integral,User_Cost","WHERE Users_ID='".$UsersID."' AND User_ID=".$_SESSION[$UsersID.'User_ID']);
+    $rsUser = $DB->GetRs("user","User_Money,User_PayPassword,Is_Distribute,User_Name,User_NickName,Owner_Id,User_Integral,User_Cost","WHERE Users_ID='".$UsersID."' AND User_ID=".$rsOrder['User_ID']);
     if($isajax){
         if(!$rsUser) die(json_encode(["status"=>0,"msg"=>'用户信息不存在'],JSON_UNESCAPED_UNICODE));
     }else{
@@ -169,7 +169,7 @@ function payDone($UsersID,$OrderID,$paymethod)
                 mysql_query("BEGIN");
                 $Data = array(
                     'Users_ID' => $UsersID,
-                    'User_ID' => $_SESSION [$UsersID . 'User_ID'],
+                    'User_ID' => $rsOrder['User_ID'],
                     'Type' => 0,
                     'Amount' => $order_total,
                     'Total' => $rsUser ['User_Money'] - $order_total,
@@ -178,7 +178,7 @@ function payDone($UsersID,$OrderID,$paymethod)
                 );
                 $Flag = $DB->Add('user_money_record', $Data);
 
-                $FlagCost = $DB->Set('user',[ 'User_Cost' =>$rsUser['User_Cost'] + $order_total ],"where Users_ID='".$UsersID."' and User_ID=".$_SESSION[$UsersID.'User_ID']);
+                $FlagCost = $DB->Set('user',[ 'User_Cost' =>$rsUser['User_Cost'] + $order_total ],"where Users_ID='".$UsersID."' and User_ID=".$rsOrder['User_ID']);
                 if(!$FlagCost){
                     $transflag = false;
                     mysql_query("ROLLBACK");
@@ -237,7 +237,7 @@ function payDone($UsersID,$OrderID,$paymethod)
                     $sms_mess = '您已成功购买商品，订单号'.$rsOrder['Order_Code'].'，消费券码为 '.$confirm_code;
                     send_sms($rsOrder["Address_Mobile"], $sms_mess, $rsOrder["Users_ID"]);
                 }
-                $userorderFlag = $DB->Set ('user_order', $Data, "where Users_ID='" . $UsersID . "' and User_ID='" . $_SESSION [$UsersID . "User_ID"] . "' and Order_ID in(".$orderids.")");
+                $userorderFlag = $DB->Set ('user_order', $Data, "where Users_ID='" . $UsersID . "' and User_ID='" . $rsOrder['User_ID'] . "' and Order_ID in(".$orderids.")");
                 $pintuanorderFlag = $pintuan_orderone=$DB->Set('pintuan_order',$payData['pintuanorder'],"where order_id ='".$orderids."' ");
                 if(!$userorderFlag){
                     $transflag = false;
@@ -273,7 +273,7 @@ function payDone($UsersID,$OrderID,$paymethod)
                 ];
                 $Data = array(
                     'Users_ID' => $UsersID,
-                    'User_ID' => $_SESSION [$UsersID . 'User_ID'],
+                    'User_ID' => $rsOrder['User_ID'],
                     'Type' => 0,
                     'Amount' => $order_total,
                     'Total' => $rsUser ['User_Money'] - $order_total,
@@ -283,7 +283,7 @@ function payDone($UsersID,$OrderID,$paymethod)
                 
                 mysql_query("SET AUTOCOMMIT=0");
                 mysql_query("BEGIN");
-                $Flag = $DB->Set('user',['User_Cost' =>$rsUser['User_Cost'] + $order_total],"where Users_ID='".$UsersID."' and User_ID=".$_SESSION[$UsersID.'User_ID']);
+                $Flag = $DB->Set('user',['User_Cost' =>$rsUser['User_Cost'] + $order_total],"where Users_ID='".$UsersID."' and User_ID=".$rsOrder['User_ID']);
                 if(!$Flag){
                     mysql_query("ROLLBACK");
                 }

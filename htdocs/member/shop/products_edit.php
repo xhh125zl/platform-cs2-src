@@ -198,6 +198,7 @@ function insertRow(){
 <style type="text/css">
 .dislevelcss{float:left;margin:5px 0px 0px 8px;text-align:center;border:solid 1px #858585;padding:5px;}
 .dislevelcss th{border-bottom:dashed 1px #858585;font-size:16px;}
+.error { color:#f00; border-color:#f00; }
 </style>
 <div id="iframe_page">
   <div class="iframe_content">
@@ -409,7 +410,7 @@ function insertRow(){
 							<?php echo $arr[$i]?>级
                             <?php }?>
                             &nbsp;&nbsp;%
-								<input id="dischange<?=$disinfo['Level_ID'].$i?>" name="Distribute[<?=$disinfo['Level_ID']?>][<?php echo $i;?>]" value="<?php if(!empty($distribute_list[$disinfo['Level_ID']][$i])) { echo $distribute_list[$disinfo['Level_ID']][$i]; } elseif(isset($Shop_Commision_Reward_Arr['Distribute'][$disinfo['Level_ID']][$i])) { echo $Shop_Commision_Reward_Arr['Distribute'][$disinfo['Level_ID']][$i]; } else { echo "0"; } ?>" class="form_input commision_config" data-value="<?php if(!empty($distribute_list[$disinfo['Level_ID']][$i])) { echo $distribute_list[$disinfo['Level_ID']][$i]; } elseif(isset($Shop_Commision_Reward_Arr['Distribute'][$disinfo['Level_ID']][$i])) { echo $Shop_Commision_Reward_Arr['Distribute'][$disinfo['Level_ID']][$i]; } else { echo "0"; } ?>" size="5" maxlength="10" type="text">
+								<input onblur="Distribute(this);"  id="dischange<?=$disinfo['Level_ID'].$i?>" name="Distribute[<?=$disinfo['Level_ID']?>][<?php echo $i;?>]" value="<?php if(!empty($distribute_list[$disinfo['Level_ID']][$i])) { echo $distribute_list[$disinfo['Level_ID']][$i]; } elseif(isset($Shop_Commision_Reward_Arr['Distribute'][$disinfo['Level_ID']][$i])) { echo $Shop_Commision_Reward_Arr['Distribute'][$disinfo['Level_ID']][$i]; } else { echo "0"; } ?>" class="form_input commision_config" data-value="<?php if(!empty($distribute_list[$disinfo['Level_ID']][$i])) { echo $distribute_list[$disinfo['Level_ID']][$i]; } elseif(isset($Shop_Commision_Reward_Arr['Distribute'][$disinfo['Level_ID']][$i])) { echo $Shop_Commision_Reward_Arr['Distribute'][$disinfo['Level_ID']][$i]; } else { echo "0"; } ?>" size="5" maxlength="10" type="text">
 								(佣金比例的百分比)
 							</td>
 						</tr>
@@ -420,7 +421,24 @@ function insertRow(){
             </span>
             <div class="clear"></div>
         </div>
-
+		<script>
+			function Distribute(obj)
+			{
+				var curVal = $(obj).val();
+				var topobj = $(obj).parent().parent().parent().find("input");
+				var count = 0;
+					topobj.each(function(){
+						count += parseFloat($(this).val());
+					});
+					if(count>100){
+						topobj.addClass("error");
+						topobj.first().focus();
+						alert("分销商比例不能大于100");
+					}else{
+						topobj.removeClass("error");
+					}
+			}
+		</script>
         <div class="rows disnone">
           <label>各级业务提成比例</label>		  
           <span class="input">
@@ -428,21 +446,21 @@ function insertRow(){
                   <tr>
                       <td>
                        一级业务<span>%</span>
-          <input type="text" name="salesman_level_ratio[0]" value="<?php if(!empty($salesman_ratio_list[0])){ echo $salesman_ratio_list[0]; }elseif(isset($Shop_Commision_Reward_Arr['salesman_level_ratio'][0])){ echo $Shop_Commision_Reward_Arr['salesman_level_ratio'][0]; }else{ echo "0"; } ?>" class="form_input commision_config" data-value="<?php if(!empty($salesman_ratio_list["salesman_level_ratio"][0])){ echo $salesman_ratio_list["salesman_level_ratio"][0]; }elseif(isset($Shop_Commision_Reward_Arr['salesman_level_ratio'][0])){ echo $Shop_Commision_Reward_Arr['salesman_level_ratio'][0]; }else{ echo "0"; } ?>" size="5" maxlength="10" notnull />
+          <input type="text" name="salesman_level_ratio[0]" onblur="Distribute(this);"  value="<?php if(!empty($salesman_ratio_list[0])){ echo $salesman_ratio_list[0]; }elseif(isset($Shop_Commision_Reward_Arr['salesman_level_ratio'][0])){ echo $Shop_Commision_Reward_Arr['salesman_level_ratio'][0]; }else{ echo "0"; } ?>" class="form_input commision_config" data-value="<?php if(!empty($salesman_ratio_list["salesman_level_ratio"][0])){ echo $salesman_ratio_list["salesman_level_ratio"][0]; }elseif(isset($Shop_Commision_Reward_Arr['salesman_level_ratio'][0])){ echo $Shop_Commision_Reward_Arr['salesman_level_ratio'][0]; }else{ echo "0"; } ?>" size="5" maxlength="10" notnull />
           <span>(业务比例的百分比)</span>
                       </td>
                   </tr>
                   <tr>
                       <td>
                        二级业务<span>%</span>
-          <input type="text" name="salesman_level_ratio[1]" value="<?php if(!empty($salesman_ratio_list[1])){ echo $salesman_ratio_list[1]; }elseif(isset($Shop_Commision_Reward_Arr['salesman_level_ratio'][1])){ echo $Shop_Commision_Reward_Arr['salesman_level_ratio'][1]; }else{ echo "0"; } ?>" class="form_input commision_config" data-value="<?php if(!empty($salesman_ratio_list["salesman_level_ratio"][1])){ echo $salesman_ratio_list["salesman_level_ratio"][1]; }elseif(isset($Shop_Commision_Reward_Arr['salesman_level_ratio'][1])){ echo $Shop_Commision_Reward_Arr['salesman_level_ratio'][1]; }else{ echo "0"; } ?>" size="5" maxlength="10" notnull />
+          <input type="text" name="salesman_level_ratio[1]" onblur="Distribute(this);"  value="<?php if(!empty($salesman_ratio_list[1])){ echo $salesman_ratio_list[1]; }elseif(isset($Shop_Commision_Reward_Arr['salesman_level_ratio'][1])){ echo $Shop_Commision_Reward_Arr['salesman_level_ratio'][1]; }else{ echo "0"; } ?>" class="form_input commision_config" data-value="<?php if(!empty($salesman_ratio_list["salesman_level_ratio"][1])){ echo $salesman_ratio_list["salesman_level_ratio"][1]; }elseif(isset($Shop_Commision_Reward_Arr['salesman_level_ratio'][1])){ echo $Shop_Commision_Reward_Arr['salesman_level_ratio'][1]; }else{ echo "0"; } ?>" size="5" maxlength="10" notnull />
           <span>(业务比例的百分比)</span>
                       </td>
                   </tr>
                   <tr>
                       <td>
                        三级业务<span>%</span>
-          <input type="text" name="salesman_level_ratio[2]" value="<?php if(!empty($salesman_ratio_list[2])){ echo $salesman_ratio_list[2]; }elseif(isset($Shop_Commision_Reward_Arr['salesman_level_ratio'][2])){ echo $Shop_Commision_Reward_Arr['salesman_level_ratio'][2]; }else{ echo "0"; } ?>" class="form_input commision_config" data-value="<?php if(!empty($salesman_ratio_list["salesman_level_ratio"][2])){ echo $salesman_ratio_list["salesman_level_ratio"][2]; }elseif(isset($Shop_Commision_Reward_Arr['salesman_level_ratio'][2])){ echo $Shop_Commision_Reward_Arr['salesman_level_ratio'][2]; }else{ echo "0"; } ?>" size="5" maxlength="10" notnull />
+          <input type="text" name="salesman_level_ratio[2]" onblur="Distribute(this);"  value="<?php if(!empty($salesman_ratio_list[2])){ echo $salesman_ratio_list[2]; }elseif(isset($Shop_Commision_Reward_Arr['salesman_level_ratio'][2])){ echo $Shop_Commision_Reward_Arr['salesman_level_ratio'][2]; }else{ echo "0"; } ?>" class="form_input commision_config" data-value="<?php if(!empty($salesman_ratio_list["salesman_level_ratio"][2])){ echo $salesman_ratio_list["salesman_level_ratio"][2]; }elseif(isset($Shop_Commision_Reward_Arr['salesman_level_ratio'][2])){ echo $Shop_Commision_Reward_Arr['salesman_level_ratio'][2]; }else{ echo "0"; } ?>" size="5" maxlength="10" notnull />
           <span>(业务比例的百分比)</span>
                       </td>
                   </tr>

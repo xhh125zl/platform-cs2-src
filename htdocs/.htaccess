@@ -211,9 +211,9 @@ RewriteRule ^api/([0-9a-z]+)/shop/(?:(\?.*))* /api/shop/index.php$2&UsersID=$1
 #云购
 RewriteRule ^api/([0-9a-z]+)/cloud/$ /api/cloud/index.php?UsersID=$1
 RewriteRule ^api/([0-9a-z]+)/cloud/biz/([0-9]+)/$ /api/cloud/index.php?UsersID=$1&BizID=$2
+RewriteRule ^api/([0-9a-z]+)/cloud/biz/([0-9]+)/act_([0-9]+)/$ /api/cloud/index.php?UsersID=$1&BizID=$2&ActiveID=$3
 RewriteRule ^api/([0-9a-z]+)/cloud/products/([0-9]+)/$ /api/cloud/products.php?UsersID=$1&ProductsID=$2
 RewriteRule ^api/([0-9a-z]+)/cloud/act_([0-9]+)/$ /api/cloud/index.php?UsersID=$1&ActiveID=$2
-
 
 RewriteRule ^api/([0-9a-z]+)/cloud/cart/$ /api/cloud/cart/index.php?UsersID=$1
 RewriteRule ^api/([0-9a-z]+)/cloud/cart/ajax/$ /api/cloud/cart/ajax.php?UsersID=$1
@@ -370,6 +370,7 @@ RewriteRule ^api/([0-9a-z]+)/pintuan/$ /api/pintuan/index.php?UsersID=$1
 RewriteRule ^api/([0-9a-z]+)/pintuan/list/([0-9]+)/$ /api/pintuan/list.php?UsersID=$1&ActiveID=$2
 RewriteRule ^api/([0-9a-z]+)/pintuan/biz/([0-9]+)/$ /api/pintuan/biz.php?UsersID=$1&BizID=$2
 RewriteRule ^api/([0-9a-z]+)/pintuan/act_([0-9]+)/$ /api/pintuan/index.php?UsersID=$1&ActiveID=$2
+RewriteRule ^api/([0-9a-z]+)/pintuan/biz/([0-9]+)/act_([0-9]+)/$ /api/pintuan/index.php?UsersID=$1&BizID=$2&ActiveID=$3
 RewriteRule ^api/([0-9a-z]+)/pintuan/seach/$ /api/pintuan/seach.php?UsersID=$1
 RewriteRule ^api/([0-9a-z]+)/pintuan/seach/([0-9a-z]+)/$ /api/pintuan/seach.php?UsersID=$1&id=$2
 RewriteRule ^api/([0-9a-z]+)/pintuan/sousuo/([0-9a-z]+)/$ /api/pintuan/sousuo.php?UsersID=$1&id=$2

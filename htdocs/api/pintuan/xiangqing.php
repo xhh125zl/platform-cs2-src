@@ -181,7 +181,7 @@
             $flag = $DB->fetch_assoc($result);
             if($flag){
     ?>
-    <div class="guangguang"><a href="/api/<?=$UsersID ?>/pintuan/biz/<?=$biz ?>/">逛逛店铺</a></div>
+    <div class="guangguang"><a href="/api/<?=$UsersID ?>/pintuan/biz/<?=$biz ?>/act_<?=$_SESSION[$UsersID.'_CurrentActive'] ?>/">逛逛店铺</a></div>
     <div class="clear"></div>
     <?php 
             }

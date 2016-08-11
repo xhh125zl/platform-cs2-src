@@ -60,7 +60,6 @@ class pay_order{
         require_once($_SERVER["DOCUMENT_ROOT"].'/include/compser_library/Salesman_ Commission.php');
 		$sales_man = new Salesman_commission();
 		$sales_man->up_sales_status($orderid,1);
-                
 		if(strpos($rsOrder["Order_Type"],'zhongchou')>-1){
 			$url = '/api/'.$rsOrder["Users_ID"].'/zhongchou/orders/';
 			return array("status"=>1,"url"=>$url);
@@ -321,6 +320,8 @@ class pay_order{
 					$pay_subject = "微商圈在线付款，订单编号:".$this->orderid;
 				}elseif($orderinfo["Order_Type"]=='kanjia'){
 					$pay_subject = "微砍价在线付款，订单编号:".$this->orderid;
+				}elseif($orderinfo["Order_Type"]=='pintuan' || $orderinfo["Order_Type"]=='dangou'){
+					$pay_subject = "拼团在线付款，订单编号:".$this->orderid;
 				}else{
 					$pay_subject = "微商城在线付款，订单编号:".$this->orderid;
 				}
@@ -328,7 +329,7 @@ class pay_order{
 				$pay_subject = "微众筹在线付款，订单编号:".$this->orderid;
 			}
 			$data = array(
-				"out_trade_no"=>$orderinfo["Order_CreateTime"].$this->orderid,
+				"out_trade_no"=>($orderinfo["Order_Type"]=='pintuan' || $orderinfo["Order_Type"]=='dangou') ?$orderinfo["Order_Code"]:$orderinfo["Order_CreateTime"].$this->orderid,
 				"subject"=>$pay_subject,
 				"total_fee"=>$orderinfo["Order_TotalPrice"]
 			);

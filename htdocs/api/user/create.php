@@ -129,7 +129,6 @@ if($_POST){
 			$Data["Owner_Id"] = $owner['id'] ;
 			$Data["Root_ID"] = $owner['Root_ID'];
 		}
-
 		$Flag = $DB->Add("user",$Data);
 		if($Flag){
 			$_SESSION[$UsersID."User_ID"]=$DB->insert_id();
@@ -186,7 +185,7 @@ html, body{background:#fff;}
 </div>
 
 <script language="javascript">$(document).ready(user_obj.user_create_init);</script>
-<form action="?" method="post" id="user_form">
+<form  method="post" id="user_form">
   <h1>会员注册</h1>
   <div class="input">
     <input type="tel" name="Mobile" value="" maxlength="11" placeholder="手机号码" pattern="[0-9]*" notnull />
@@ -294,7 +293,7 @@ html, body{background:#fff;}
                          </div>
                         <?php }}}?>
   <div class="submit">
-    <input name="提交" type="submit" value="立即注册" />
+    <input name="提交" type="button" value="立即注册" />
   </div>
 </form>
 </body>
