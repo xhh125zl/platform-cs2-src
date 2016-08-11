@@ -153,7 +153,7 @@ if($pintuan_shops["is_vgoods"]==0){    //实物订单
                     commit_trans();
                     // 此处调用微信推送接口，告知用户已下单
                     try {
-                        sendWXMessage($Users_ID,$order_id,"您已成功提交拼团订单，订单号为：".$order_no);
+                        sendWXMessage($Users_ID,$order_id,"您已成功提交拼团订单，订单号为：".$order_no,$UserID);
                     } catch (Exception $e) {
                         
                     }
@@ -214,7 +214,7 @@ if($pintuan_shops["is_vgoods"]==0){    //实物订单
                     commit_trans();
                     // 此处调用微信推送接口，告知用户已下单
                     try {
-                        sendWXMessage($Users_ID,$order_id,"您已成功提交拼团订单，订单号为：".$order_no);
+                        sendWXMessage($Users_ID,$order_id,"您已成功提交拼团订单，订单号为：".$order_no,$UserID);
                     } catch (Exception $e) {
                         
                     }
@@ -275,7 +275,7 @@ if($pintuan_shops["is_vgoods"]==0){    //实物订单
                 commit_trans();
                 // 此处调用微信推送接口，告知用户已下单
                 try {
-                    sendWXMessage($Users_ID,$neworderid,"您已成功提订单，订单号为：".$order_no);
+                    sendWXMessage($Users_ID,$neworderid,"您已成功提订单，订单号为：".$order_no,$UserID);
                 } catch (Exception $e) {
                     
                 }
@@ -342,7 +342,7 @@ if($pintuan_shops["is_vgoods"]==0){    //实物订单
                     commit_trans();
                     // 此处调用微信推送接口，告知用户已下单
                     try {
-                        sendWXMessage($Users_ID,$neworderid,"您已成功提交拼团订单，订单号为：".$order_no);
+                        sendWXMessage($Users_ID,$neworderid,"您已成功提交拼团订单，订单号为：".$order_no,$UserID);
                     } catch (Exception $e) {
                         
                     }
@@ -391,7 +391,7 @@ if($pintuan_shops["is_vgoods"]==0){    //实物订单
                     commit_trans();
                     // 此处调用微信推送接口，告知用户已下单
                     try {
-                        sendWXMessage($Users_ID,$order_id ,"您已成功提交拼团订单，订单号为：".$order_no);
+                        sendWXMessage($Users_ID,$order_id ,"您已成功提交拼团订单，订单号为：".$order_no,$UserID);
                     } catch (Exception $e) {
                         
                     }
@@ -444,7 +444,7 @@ if($pintuan_shops["is_vgoods"]==0){    //实物订单
                 commit_trans();
                 // 此处调用微信推送接口，告知用户已下单
                 try {
-                    sendWXMessage($Users_ID,$neworderid ,"您已成功提交订单，订单号为：".$order_no);
+                    sendWXMessage($Users_ID,$neworderid ,"您已成功提交订单，订单号为：".$order_no,$UserID);
                 } catch (Exception $e) {
                     
                 }

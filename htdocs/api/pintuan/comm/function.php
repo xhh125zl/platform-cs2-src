@@ -25,7 +25,7 @@ function addTeam($orderid,$Users_ID)
             $DB->Add('pintuan_team', $data);
             $teamid = $flag1 = $DB->insert_id();
             if($flag1){
-                $ef = enterTeam($flag1,$orderid,$Users_ID);
+                $ef = enterTeam($flag1,$orderid,$Users_ID,$userid);
             }
         }
     }else{

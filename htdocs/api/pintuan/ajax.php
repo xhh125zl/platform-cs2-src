@@ -295,7 +295,7 @@ if($action=="payment"){
     $orderids = '';
     $orderids = $OrderID;
 
-    $sql = "SELECT u.Users_ID AS Users_ID,u.Order_Status AS Order_Status,u.Order_CartList AS Order_CartList,u.Order_TotalPrice AS Order_TotalPrice,u.Order_Type AS Order_Type,u.Order_IsRecieve AS Order_IsRecieve,u.Order_Code AS Order_Code,u.Address_Mobile AS Address_Mobile,p.pintuan_status AS pintuan_status,p.products_status AS products_status,p.is_vgoods AS is_vgoods,p.order_status AS porder_status FROM user_order AS u LEFT JOIN pintuan_order p ON u.Order_ID=p.order_id WHERE u.Users_ID='{$UsersID}' AND u.Order_ID='{$OrderID}'";
+    $sql = "SELECT u.Users_ID AS Users_ID,u.User_ID,u.Order_Status AS Order_Status,u.Order_CartList AS Order_CartList,u.Order_TotalPrice AS Order_TotalPrice,u.Order_Type AS Order_Type,u.Order_IsRecieve AS Order_IsRecieve,u.Order_Code AS Order_Code,u.Address_Mobile AS Address_Mobile,p.pintuan_status AS pintuan_status,p.products_status AS products_status,p.is_vgoods AS is_vgoods,p.order_status AS porder_status FROM user_order AS u LEFT JOIN pintuan_order p ON u.Order_ID=p.order_id WHERE u.Users_ID='{$UsersID}' AND u.Order_ID='{$OrderID}'";
     $orderFlag = $DB->query($sql);
     if(!$orderFlag) die(json_encode(["status"=>0,"msg"=>'订单不存在']));
     $rsOrder=$DB->fetch_assoc($orderFlag);
@@ -477,7 +477,7 @@ if($action=="payment"){
                   $balance_sales->add_sales($orderids);
                 }
                 
-	sendWXMessage( $UsersID,$orderids,$tdata['msg']."，支付金额：".$order_total."，订单号为：".$rsOrder["Order_Code"]);
+	sendWXMessage( $UsersID,$orderids,$tdata['msg']."，支付金额：".$order_total."，订单号为：".$rsOrder["Order_Code"],$rsOrder['User_ID']);
                 die(json_encode($tdata,JSON_UNESCAPED_UNICODE));
             }else{      //单购支付
                 $tdata = [
@@ -540,7 +540,7 @@ if($action=="payment"){
                   $balance_sales= new balance($DB,$UsersID);
                   $balance_sales->add_sales($orderids);
                 }
-	sendWXMessage( $UsersID,$orderids,$tdata['msg']."，支付金额：".$order_total."，订单号为：".$rsOrder["Order_Code"]);
+	sendWXMessage( $UsersID,$orderids,$tdata['msg']."，支付金额：".$order_total."，订单号为：".$rsOrder["Order_Code"],$rsOrder['User_ID']);
                 die(json_encode($tdata,JSON_UNESCAPED_UNICODE));
             }	
         }
