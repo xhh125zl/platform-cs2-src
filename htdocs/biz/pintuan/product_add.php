@@ -225,14 +225,14 @@ KindEditor.ready(function(K) {
     filterMode : false,
     uploadJson : '/member/upload_json.php?TableField=web_column&Users_ID=<?php echo $UsersID;?>',
     fileManagerJson : '/member/file_manager_json.php',
-    allowFileManager : true,
+    allowFileManager : true
     
   });
   var editor = K.editor({
     uploadJson : '/member/upload_json.php?TableField=web_article&Users_ID=<?php echo $UsersID;?>',
     fileManagerJson : '/member/file_manager_json.php',
     showRemote : true,
-    allowFileManager : true,
+    allowFileManager : true
   });
   K('#ImgUpload').click(function(){
     if(K('#PicDetail').children().length>=5){
@@ -281,176 +281,171 @@ $(document).ready(function(){
 <!--[if lte IE 9]><script type='text/javascript' src='/static/js/plugin/jquery/jquery.watermark-1.3.js'></script>
 <![endif]-->
 <div id="iframe_page">
-  <div class="iframe_content">
-    <link href='/static/member/css/shop.css' rel='stylesheet' type='text/css' />
-    <link href='/static/member/css/user.css' rel='stylesheet' type='text/css' />
-    <script type='text/javascript' src='/static/member/js/user.js'></script>
-    <div class="r_nav">
-       <ul>
-        <li class="cur"><a href="./products.php">产品管理</a></li>
-        <li><a href="./orders.php">订单管理</a></li>
-        <li><a href="./comment.php">评论管理</a></li>
-        <li><a href="./virtual_card.php">虚拟卡密管理</a></li>
-      </ul>
-    </div>
-    <div id="products" class="r_con_wrap">
-      <link href='/static/js/plugin/lean-modal/style.css' rel='stylesheet' type='text/css' />
-      <script type='text/javascript' src='/static/js/plugin/lean-modal/lean-modal.min.js'></script>
-      <link href='/static/js/plugin/operamasks/operamasks-ui.css' rel='stylesheet' type='text/css' />
-      <script type='text/javascript' src='/static/js/plugin/operamasks/operamasks-ui.min.js'></script>
-      
-      <script type='text/javascript' src='/static/js/plugin/daterangepicker/moment_min.js'></script>
-      <link href='/static/js/plugin/daterangepicker/daterangepicker.css' rel='stylesheet' type='text/css' />
-      <script type='text/javascript' src='/static/js/plugin/daterangepicker/daterangepicker.js'></script> 
-      <script src="/static/js/plugin/laydate/laydate.js"></script>
-
-      <form id="product_add_form" class="r_con_form skipForm" method="post" action="product_add.php">
-        
-        <div class="rows">
-          <label>产品名称</label>
-          <span class="input">
-          <input type="text" name="Name" value="" class="form_input" size="35" maxlength="100" notnull />
-          <font class="fc_red">*</font></span>
-          <div class="clear"></div>
+	<div class="iframe_content">
+        <link href='/static/member/css/shop.css' rel='stylesheet' type='text/css' />
+        <link href='/static/member/css/user.css' rel='stylesheet' type='text/css' />
+        <script type='text/javascript' src='/static/member/js/user.js'></script>
+        <div class="r_nav">
+           <ul>
+            <li class="cur"><a href="./products.php">产品管理</a></li>
+            <li><a href="./orders.php">订单管理</a></li>
+            <li><a href="./comment.php">评论管理</a></li>
+            <li><a href="./virtual_card.php">虚拟卡密管理</a></li>
+          </ul>
         </div>
-
-    <div class="rows" id="type_html">
-   <label>产品类型：</label>
-   <span class="input">
-   <select name="TypeID" style="width:180px;" id="Type_ID" notnull>
-    <option value="">请选择类型</option>
-      <?php   
-        $result = $DB->get("pintuan_category","*","where Users_ID='{$UsersID}' order by  sort asc");
-        $catelist = array();
-        while($rsType= $DB->fetch_assoc($result)){
-           $catelist[]=$rsType;
-        }
-        treelist($catelist);
-        ?>
-     
-   </select>
-   <font class="fc_red">*</font></span>
-   <div class="clear"></div>
-</div>
-        <div class="rows">
-          <label>产品价格</label>
-          <span class="input price"> 单购价格:￥
-          <input type="text" name="PriceD" value="" class="form_input" size="5" maxlength="10" notnull />
-                 团购价格:￥
-          <input type="text" name="PriceT" value="" class="form_input" size="5" maxlength="10" notnull />
-          </span>
-          <div class="clear"></div>
-        </div>
-        <?php if($rsBiz["Finance_Type"]==1){?>
-        <div class="rows">
-          <label>财务结算类型</label>
-          <span class="input">
-              <input type="radio" name="FinanceType" value="0" id="FinanceType_0" onClick="$('#PriceS').hide();$('#FinanceRate').show();" checked /><label for="FinanceType_0"> 按交易额比例</label>&nbsp;&nbsp;<input type="radio" name="FinanceType" value="1" id="FinanceType_1" onClick="$('#FinanceRate').hide();$('#PriceS').show();" /><label for="FinanceType_1"> 按供货价</label><br />
-          <span class="tips">注：若按交易额比例，则网站提成为：产品售价*比例%</span>
-          </span>
-          <div class="clear"></div>
-        </div>
-        <div class="rows" id="FinanceRate">
-          <label>网站提成</label>
-          <span class="input">
-          <input type="text" name="FinanceRate" value="" class="form_input" size="10" /> %
-          </span>
-          <div class="clear"></div>
-        </div>
-        <div class="rows" id="PriceS" style="display:none">
-          <label>供货价</label>
-          <span class="input">
-          <input type="text" name="PriceS" value="" class="form_input" size="10" /> 元
-          </span>
-          <div class="clear"></div>
-        </div>
-		<?php }?>
-        <div class="rows">
-          <label>产品重量</label>
-          <span class="input">
-         <input type="text" name="Weight" value="" notnull class="form_input" size="5" />&nbsp;&nbsp;千克 <font class="fc_red">*</font>
-          </span>
-          <div class="clear"></div>
-        </div>
-  
-        <div class="rows">
-          <label>产品图片</label>
-          <span class="input"> <span class="upload_file">
-          <div>
-            <div class="up_input">
-              <input type="button" id="ImgUpload" value="添加图片" style="width:80px;" notnull />
+		<div id="products" class="r_con_wrap">
+            <link href='/static/js/plugin/lean-modal/style.css' rel='stylesheet' type='text/css' />
+            <script type='text/javascript' src='/static/js/plugin/lean-modal/lean-modal.min.js'></script>
+            <link href='/static/js/plugin/operamasks/operamasks-ui.css' rel='stylesheet' type='text/css' />
+            <script type='text/javascript' src='/static/js/plugin/operamasks/operamasks-ui.min.js'></script>
+            <script type='text/javascript' src='/static/js/plugin/daterangepicker/moment_min.js'></script>
+            <link href='/static/js/plugin/daterangepicker/daterangepicker.css' rel='stylesheet' type='text/css' />
+            <script type='text/javascript' src='/static/js/plugin/daterangepicker/daterangepicker.js'></script> 
+            <script src="/static/js/plugin/laydate/laydate.js"></script>
+			<form id="product_add_form" class="r_con_form skipForm" method="post" action="product_add.php">
+            <div class="rows">
+              <label>产品名称</label>
+              <span class="input">
+              <input type="text" name="Name" value="" class="form_input" size="35" maxlength="100" notnull />
+              <font class="fc_red">*</font>
+              </span>
+              <div class="clear"></div>
             </div>
-            <div class="tips">共可上传<span id="pic_count">5</span>张图片，图片大小建议：640*640像素</div>
-            <div class="clear"></div>
-          </div>
-          </span>
-          <div class="img" id="PicDetail"></div>
-          </span>
-          <div class="clear"></div>
-        </div>
-        
-        <div class="rows">
-          <label>简短介绍</label>
-          <span class="input">
-          <textarea name="BriefDescription" class="briefdesc" notnull ></textarea>
-          </span>
-          <div class="clear"></div>
-        </div>
-       
-        <div id="propertys" display="none"></div> 
-        <div class="rows">
-          <div class="rows">
-          <label>商家信誉</label>
-          <span class="input">
-          <label>包邮&nbsp;&nbsp;<input name="pinkage" type="checkbox"  value="1" />&nbsp;&nbsp;</label>
-          <label>七天退款&nbsp;&nbsp;<input name="refund" type="checkbox"  value="1" />&nbsp;&nbsp;</label>
-          <label>假一赔十&nbsp;&nbsp;<input name="compensation" type="checkbox"  value="1" />&nbsp;&nbsp;</label>
-        </div>
-         <div class="rows">
-          <label>商品属性</label>
-          <span class="input">
-          <label>新品&nbsp;<input type="radio" checked  value="0" name="Radio"></label>&nbsp;&nbsp;
-          <label>热销&nbsp;<input type="radio" value="1" name="Radio"></label>&nbsp;&nbsp;
-          <label>促销&nbsp;<input type="radio" value="2" name="Radio"></label>
-          <div class="clear"></div>
-        </div>
-        <div class="rows">
-        <div class="rows">
-          <label>订单流程</label>
-          <span class="input" style="font-size:12px; line-height:22px;">
-              <input type="radio" id="order_0" value="0" name="ordertype" checked /><label for="order_0"> 实物订单&nbsp;&nbsp;( 买家下单 -> 买家付款 -> 商家发货 -> 买家收货 -> 订单完成 ) </label><br />
-              <!-- 
-              <input type="radio" id="order_1" value="1" name="ordertype" /><label for="order_1"> 虚拟订单&nbsp;&nbsp;( 买家下单 -> 买家付款 -> 系统发送消费券码到买家手机 -> 商家认证消费 -> 订单完成 ) </label><br /> 
-              <input type="radio" id="order_2" value="2" name="ordertype" /><label for="order_2"> 其他&nbsp;&nbsp;( 买家下单 -> 买家付款 -> 订单完成 ) </label>
-               -->
-          </span>
-          <div class="clear"></div>
-        </div>
-        <div class="rows">
-          <label>是否支持单购</label>
-          <span class="input">
-          <label>既支持单购又支持团购&nbsp;<input type="radio"  value="1" name="Isbuy"></label>&nbsp;&nbsp;
-          <label>仅支持团购&nbsp;<input type="radio" checked  value="0" name="Isbuy"></label>&nbsp;&nbsp;&nbsp;&nbsp;
-          <span class="tips" >注:抽奖商品不支持单独购买</span>
-          <div class="clear"></div>
-        </div>
-        <div class="rows">
-          <label>拼团人数</label>
-          <span class="input">
-          <input type="text" name="Peoplenum" value="10" class="form_input" size="5" maxlength="10" notnull/> <span class="tips" />&nbsp;注:若不限则填写0.</span>
-          </span>
-          <div class="clear"></div>
-        </div>
-        <div class="rows">
-          <label>累计销量</label>
-          <span class="input">
-          <input type="text" name="Psales" value="0" class="form_input" size="5" maxlength="100" /> <span class="tips" />&nbsp;</span>
-          </span>
-          <div class="clear"></div>
-        </div>
-        <div class="rows">
-          <label>是否支持抽奖</label>
-        <table cellspacing="1" cellpadding="6" class="tb">  
+            <div class="rows" id="type_html">
+               <label>产品类型：</label>
+               <span class="input">
+               <select name="TypeID" style="width:180px;" id="Type_ID" notnull>
+                <option value="">请选择类型</option>
+                  <?php   
+                    $result = $DB->get("pintuan_category","*","where Users_ID='{$UsersID}' order by  sort asc");
+                    $catelist = array();
+                    while($rsType= $DB->fetch_assoc($result)){
+                       $catelist[]=$rsType;
+                    }
+                    treelist($catelist);
+                    ?>
+                 
+               </select>
+               <font class="fc_red">*</font>
+               </span>
+               <div class="clear"></div>
+			</div>
+            <div class="rows">
+				<label>产品价格</label>
+                <span class="input price"> 单购价格:￥
+                <input type="text" name="PriceD" value="" class="form_input" size="5" maxlength="10" notnull />
+                     团购价格:￥
+                <input type="text" name="PriceT" value="" class="form_input" size="5" maxlength="10" notnull />
+                </span>
+                <div class="clear"></div>
+            </div>
+            <?php if($rsBiz["Finance_Type"]==1){?>
+            <div class="rows">
+              <label>财务结算类型</label>
+              <span class="input">
+                    <input type="radio" name="FinanceType" value="0" id="FinanceType_0" onClick="$('#PriceS').hide();$('#FinanceRate').show();" checked /><label for="FinanceType_0"> 按交易额比例</label>&nbsp;&nbsp;<input type="radio" name="FinanceType" value="1" id="FinanceType_1" onClick="$('#FinanceRate').hide();$('#PriceS').show();" /><label for="FinanceType_1"> 按供货价</label><br />
+             		<span class="tips">注：若按交易额比例，则网站提成为：产品售价*比例%</span>
+              </span>
+              <div class="clear"></div>
+            </div>
+            <div class="rows" id="FinanceRate">
+              <label>网站提成</label>
+              <span class="input">
+              <input type="text" name="FinanceRate" value="" class="form_input" size="10" /> %
+              </span>
+              <div class="clear"></div>
+            </div>
+            <div class="rows" id="PriceS" style="display:none">
+              <label>供货价</label>
+              <span class="input">
+              <input type="text" name="PriceS" value="" class="form_input" size="10" /> 元
+              </span>
+              <div class="clear"></div>
+            </div>
+    		<?php }?>
+            <div class="rows">
+              <label>产品重量</label>
+              <span class="input">
+             <input type="text" name="Weight" value="" notnull class="form_input" size="5" />&nbsp;&nbsp;千克 <font class="fc_red">*</font>
+              </span>
+              <div class="clear"></div>
+            </div>
+            <div class="rows">
+              <label>产品图片</label>
+              <span class="input"> <span class="upload_file">
+              <div>
+                <div class="up_input">
+                  <input type="button" id="ImgUpload" value="添加图片" style="width:80px;" notnull />
+                </div>
+                <div class="tips">共可上传<span id="pic_count">5</span>张图片，图片大小建议：640*640像素</div>
+                <div class="clear"></div>
+              </div>
+              </span>
+              <div class="img" id="PicDetail"></div>
+              </span>
+              <div class="clear"></div>
+            </div>
+            <div class="rows">
+              <label>简短介绍</label>
+              <span class="input">
+              <textarea name="BriefDescription" class="briefdesc" notnull ></textarea>
+              </span>
+              <div class="clear"></div>
+            </div>
+            <div class="rows">
+              <label>商家信誉</label>
+              <span class="input">
+              <label>包邮&nbsp;&nbsp;<input name="pinkage" type="checkbox"  value="1" />&nbsp;&nbsp;</label>
+              <label>七天退款&nbsp;&nbsp;<input name="refund" type="checkbox"  value="1" />&nbsp;&nbsp;</label>
+              <label>假一赔十&nbsp;&nbsp;<input name="compensation" type="checkbox"  value="1" />&nbsp;&nbsp;</label>
+              </span>
+            </div>
+             <div class="rows">
+              <label>商品属性</label>
+              <span class="input">
+              <label>新品&nbsp;<input type="radio" checked  value="0" name="Radio"></label>&nbsp;&nbsp;
+              <label>热销&nbsp;<input type="radio" value="1" name="Radio"></label>&nbsp;&nbsp;
+              <label>促销&nbsp;<input type="radio" value="2" name="Radio"></label>
+              </span>
+              <div class="clear"></div>
+            </div>
+            <div class="rows">
+              <label>订单流程</label>
+              <span class="input" style="font-size:12px; line-height:22px;">
+                  <input type="radio" id="order_0" value="0" name="ordertype" checked /><label for="order_0"> 实物订单&nbsp;&nbsp;( 买家下单 -> 买家付款 -> 商家发货 -> 买家收货 -> 订单完成 ) </label><br />
+                  <!-- 
+                  <input type="radio" id="order_1" value="1" name="ordertype" /><label for="order_1"> 虚拟订单&nbsp;&nbsp;( 买家下单 -> 买家付款 -> 系统发送消费券码到买家手机 -> 商家认证消费 -> 订单完成 ) </label><br /> 
+                  <input type="radio" id="order_2" value="2" name="ordertype" /><label for="order_2"> 其他&nbsp;&nbsp;( 买家下单 -> 买家付款 -> 订单完成 ) </label>
+                   -->
+              </span>
+              <div class="clear"></div>
+            </div>
+            <div class="rows">
+              <label>是否支持单购</label>
+              <span class="input">
+              <label>既支持单购又支持团购&nbsp;<input type="radio"  value="1" name="Isbuy"></label>&nbsp;&nbsp;
+              <label>仅支持团购&nbsp;<input type="radio" checked  value="0" name="Isbuy"></label>&nbsp;&nbsp;&nbsp;&nbsp;
+              <span class="tips" >注:抽奖商品不支持单独购买</span>
+              </span>
+              <div class="clear"></div>
+            </div>
+            <div class="rows">
+              <label>拼团人数</label>
+              <span class="input">
+              <input type="text" name="Peoplenum" value="10" class="form_input" size="5" maxlength="10" notnull/> <span class="tips" >&nbsp;注:若不限则填写0.</span>
+              </span>
+              <div class="clear"></div>
+            </div>
+            <div class="rows">
+              <label>累计销量</label>
+              <span class="input">
+              		<input type="text" name="Psales" value="0" class="form_input" size="5" maxlength="100" /> <span class="tips" >&nbsp;</span>
+              </span>
+              <div class="clear"></div>
+            </div>
+        	<div class="rows">
+          	<label>是否支持抽奖</label>
+        	<table cellspacing="1" cellpadding="6" class="tb">  
             <tr>  
                 <td class="tr">
                 <input type="radio" name="Isdraw" id="#draw" value="1" checked/>不支持抽奖    
@@ -459,51 +454,50 @@ $(document).ready(function(){
             <tr id="333">  
                 <td class="tl"><span color="f_red">抽奖规则</span></td>  
                 <td class="tr">
-         <span> <textarea name="Awardrule" id="Awardrule" value="" class="briefdesc" ></textarea>
-          </span>
+         		<span> <textarea name="Awardrule" id="Awardrule" value="" class="briefdesc" ></textarea>
+          		</span>
+          		</td>
+          		<td></td>
             </tr>  
             <tr id="444">  
                 <td class="tl"><span color="f_red">允许中奖团数</span></td>  
                 <td class="tr">
                 <input type="text" size="8" name="T_count" value=""/>
-                <input type="hidden" size="6" name="ratio" id="ratio" value="0" /></td>
-                <span>
-                <td></td></span>
+                <input type="hidden" size="6" name="ratio" id="ratio" value="0" />
+                </td>
+                <td></td>
             </tr>  
-        </table>  
-          <div class="clear"></div>
+        	</table>  
+          	<div class="clear"></div>
         </div>
         <div id="store_part" style="display:none">
-          <div class="rows">
+            <div class="rows">
                 <div class="clear"></div>
             </div>
             <div class="rows">
                 <div class="clear"></div>
             </div>
         </div>
+        <input type="hidden" name="people_once" value="1"  /> 
         <div class="rows">
-          <div class="clear"></div>
-        </div>
-        <div class="rows">
-          <input type="hidden" name="people_once" value="1"  /> 
-        </div>
-          <div class="rows">
           <label>商品库存</label>
           <span class="input">
           <input type="text" name="Count" value="100" class="form_input" size="5" maxlength="10" notnull /> <span class="tips"></span>
           </span>
           <div class="clear"></div>
+        </div>
         <div class="rows">
           <label>拼团有效时间</label>
            <span class="input time">
           <div class="l">
               <div class="form-group">
                   <div class="input-group" id="reportrange" style="width:auto">
-                  <input placeholder="开始时间" class="laydate-icon" name="starttime" value="<?php echo ($_GET)?$_GET['starttime']:"$searchStartdate"?>" onclick="laydate()">-
-                  <input placeholder="截止时间" class="laydate-icon" name="stoptime" value="<?php echo ($_GET)?$_GET['stoptime']:"$searchEnddate"?>" onclick="laydate()">
+                  <input placeholder="开始时间" class="laydate-icon" name="starttime" value="<?php echo $searchStartdate ?>" onclick="laydate()">-
+                  <input placeholder="截止时间" class="laydate-icon" name="stoptime" value="<?php echo $searchEnddate ?>" onclick="laydate()">
                   </div>
               </div>
           </div>
+          </span>
           <div class="clear"></div>
         </div>
         <div class="rows">
@@ -518,7 +512,8 @@ $(document).ready(function(){
           <label></label>
           <span class="input">
           <input type="submit" class="btn_green" name="submit_button" value="提交保存" />
-          <a href="goods.php" class="btn_gray">返回</a></span>
+          <a href="goods.php" class="btn_gray">返回</a>
+          </span>
           <div class="clear"></div>
         </div>
         <input type='hidden' value='' id='cardids' name='cardids' />

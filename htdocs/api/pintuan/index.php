@@ -183,7 +183,7 @@ if(IS_AJAX){
   .dropload-refresh,.dropload-update,.dropload-load{ text-align:center;color:#777;width:100%;}
 </style>
 </head>
-<body>
+<body id="loader">
 	<div class="w">
     <?php 
         $referUrl = "/api/{$UsersID}/shop/";
@@ -276,11 +276,10 @@ if(IS_AJAX){
 				sessionStorage.setItem("<?=$UsersID ?>ListSort", sort);
 				sessionStorage.setItem("<?=$UsersID ?>currentPage", page);
 				sessionStorage.setItem("<?=$UsersID ?>ListMethod", method);
-				$("#container").empty();
 				getContainer(url,page,sort,method);
 			});
 			
-			$("#container").dropload({
+			$("#loader").dropload({
                 domUp : {
                 	domClass   : 'dropload-up',
                 	domRefresh : '<div class="dropload-refresh">下拉刷新</div>',
@@ -291,7 +290,7 @@ if(IS_AJAX){
                     domClass   : 'dropload-down',
                     domRefresh : '<div class="dropload-refresh">上拉加载更多</div>',
                     domUpdate  : '<div class="dropload-update">释放加载</div>',
-                    domLoad    : '<div class="dropload-load"></div>'
+                    domLoad    : '<div class="dropload-load">test</div>'
                 },
                 loadUpFn : function(me){
                     page = sessionStorage.getItem("<?=$UsersID ?>currentPage")?sessionStorage.getItem("<?=$UsersID ?>currentPage"):page;

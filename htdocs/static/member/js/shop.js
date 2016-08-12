@@ -589,7 +589,7 @@ var shop_obj={
 						var select_dom = $(select);
 						select_dom.attr("name","Attr_Group");
 						var opt_item = $(document.createElement("div"));
-						opt_item.attr({class:"opt_item",id:"attr_group_opt"});
+						opt_item.attr({"class":"opt_item",id:"attr_group_opt"});
 					    
 						var span_input = $('<span class="input"></span>');
 						span_input.append(select_dom);
@@ -3052,7 +3052,7 @@ var shop_obj={
 				}
 			}
 		});
-	},
+	}
 	//------------ 公用函数end ------------//
 	
 }

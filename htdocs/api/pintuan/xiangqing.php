@@ -230,7 +230,7 @@
 		 </div>
 		 <div class="bjtp">
 		 <?php $time = time();
-		 	if ($time >= $v['starttime'] && $time <= $v['stoptime'] && $v['teamstatus'] == 0) { ?>
+		 	if ($time >= $v['starttime'] && $time <= $v['stoptime'] && $v['teamstatus'] == 0 && $v['teamnum'] != $v['people_num'] ) { ?>
 		 		<a href="<?php echo "/api/$UsersID/pintuan/teamdetail/{$v['id']}/" ;?>">去参团</a>
 		 	<?php } else { 
           if($v['teamstatus']==1){
@@ -485,6 +485,7 @@ function selectTag(showContent,selfObj){
 	  	}, 'json');  
 	})
   //单人按钮的设置
+  <?php if($is_only_buy){?>
   	$('#dangou,#price,.buy_bj1').click(function(){
     	  var goodsid=<?php echo $goodsid;?>;
           var orderstype=<?php echo $orderstype;?>;
@@ -516,7 +517,7 @@ function selectTag(showContent,selfObj){
 			  }
 		  }, 'json'); 	
      });  
-
+	<?php } ?>
     //团购
     $('#tuangou, #prices,.buy_bj').click(function(){
 	      var goodsid=<?php echo $goodsid;?>;

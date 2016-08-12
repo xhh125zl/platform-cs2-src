@@ -54,6 +54,9 @@ var UsersID = "<?=$UsersID?>";
 var ajax_url  = "<?=distribute_url()?>ajax/";
 $(document).ready(apply_obj.apply_init);
 </script>
+<style>
+.level_param ul li label { width:100px; }
+</style>
 </head>
 
 <body>
@@ -91,10 +94,10 @@ $(document).ready(apply_obj.apply_init);
     </div>
     <div class="level_param">
     	<ul>
-        	<li><label>姓名</label><input name="Name" type="text" notnull></li>
-            <li><label>手机</label><input name="Mobile" type="text" notnull></li>
-            <li><label>微信号</label><input name="WeixinID" type="text" notnull></li>
-            <li><label>详细地址</label><input name="Detail" type="text" notnull></li>
+        	<li><label>姓名：</label><input name="Name" type="text" notnull></li>
+            <li><label>手机：</label><input name="Mobile" type="text" notnull></li>
+            <li><label>微信号：</label><input name="WeixinID" type="text" notnull></li>
+            <li><label>详细地址：</label><input name="Detail" type="text" notnull></li>
         </ul>
     </div>
 	<input type="hidden" name="agree" value="<?php echo $rsConfig["Distribute_AgreementOpen"];?>" />

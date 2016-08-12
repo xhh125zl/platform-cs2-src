@@ -7,12 +7,13 @@ $ActiveID     = isset($_GET['ActiveID']) && $_GET['ActiveID']?$_GET['ActiveID']:
 if(!$ActiveID){
     sendAlert("ActiveID不存在");
 }
-$sql = "SELECT a.Users_ID,a.Active_ID,a.MaxBizCount,a.ListShowGoodsCount,BizShowGoodsCount FROM active AS a LEFT JOIN active_type AS t ON a.Type_ID=t.Type_ID WHERE a.Users_ID='{$UsersID}' AND t.module='pintuan' AND a.Active_ID={$ActiveID} ";
+$sql = "SELECT a.Users_ID,a.Active_ID,a.MaxBizCount,a.ListShowGoodsCount,a.BizShowGoodsCount FROM active AS a LEFT JOIN active_type AS t ON a.Type_ID=t.Type_ID WHERE a.Users_ID='{$UsersID}' AND t.module='pintuan' AND a.Active_ID={$ActiveID} ";
 $result = $DB->query($sql);
 $rsActive = $DB->fetch_assoc($result);
 if(empty($rsActive)) {
     sendAlert("活动不存在");
 }
+
 $bizCount = $rsActive['BizShowGoodsCount'];
 //获取幻灯片列表
 if (! empty($rsConfig['banner_img'])) {
@@ -40,7 +41,6 @@ while ($res = $DB->fetch_assoc()) {
     $catelist .= "'," . $res['cate_id'] . ",',";
 }
 $catelist = trim($catelist, ',');
-
 $totalInfo = $DB->GetRs("pintuan_products","count(*) as total","WHERE Users_ID='{$UsersID}' AND Products_Category in ({$catelist})  AND Biz_ID={$BizID} ");
 $pagesize = 5;
 $totalPage = $totalInfo['total'] % $pagesize ==0?($totalInfo['total']/$pagesize):(intval($totalInfo['total']/$pagesize)+1);
@@ -57,7 +57,6 @@ if(IS_AJAX){
     $sql = "SELECT {$fields} FROM (SELECT {$fields} FROM `pintuan_products` WHERE Users_ID='{$UsersID}' 
      LIMIT {$offset},{$bizCount}) as t ".
     ($sort?"ORDER BY {$order[$sort]}":"ORDER BY field(Products_ID,{$listGoods})")." LIMIT 0,{$pagesize}";
-    
     $result = $DB->query($sql);
     $list = [];
     if($result){
@@ -213,7 +212,7 @@ if(IS_AJAX){
     <div id="container"></div>
     <script>
 		$(function(){
-          var url = "/api/<?=$UsersID ?>/pintuan/biz/<?=$BizID ?>/";
+          var url = "/api/<?=$UsersID ?>/pintuan/biz/<?=$BizID ?>/act_<?=$ActiveID ?>/";
           var page = 1;
           var sort = 1;
           var method="asc";

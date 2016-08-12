@@ -44,7 +44,7 @@ if(IS_POST){
     $Stoptime = strtotime(date("Y-m-d")." 23:59:59")+3*86400;
     $Starttime = date('Y-m-d',$Starttime);
     $Stoptime = date('Y-m-d',$Stoptime);
-    $typelist = $DB->Get("active_type","*","WHERE Status=1");
+    $typelist = $DB->Get("active_type","*","WHERE Users_ID='{$UsersID}' AND Status=1");
     $typelist = $DB->toArray($typelist);
     if(empty($typelist)){
          sendAlert("请添加活动类型","type_add.php" ,2);

@@ -202,14 +202,14 @@ KindEditor.ready(function(K) {
     filterMode : false,
     uploadJson : '/member/upload_json.php?TableField=web_column&Users_ID=<?php echo $_SESSION["Users_ID"];?>',
     fileManagerJson : '/member/file_manager_json.php',
-    allowFileManager : true,
+    allowFileManager : true
     
   });
   var editor = K.editor({
     uploadJson : '/member/upload_json.php?TableField=web_article&Users_ID=<?php echo $_SESSION["Users_ID"];?>',
     fileManagerJson : '/member/file_manager_json.php',
     showRemote : true,
-    allowFileManager : true,
+    allowFileManager : true
   });
   K('#ImgUpload').click(function(){
     if(K('#PicDetail').children().length>=5){
@@ -384,19 +384,19 @@ $(document).ready(function(){
           <label>新品&nbsp;<input type="radio" checked  value="0" name="Radio" <?php echo $pintuan["products_IsNew"]==0?'checked' : '';?>/></label>&nbsp;&nbsp;
           <label>热销&nbsp;<input type="radio" value="1" name="Radio" <?php echo $pintuan["products_IsHot"]==1?'checked' : '';?>/></label>
           <label>促销&nbsp;<input type="radio" value="2" name="Radio" <?php echo $pintuan["products_IsRecommend"]==2?'checked' : '';?>/></label>
+          </span>
           <div class="clear"></div>
         </div>
          <div class="rows">
-          <div class="rows">
           <label>商家信誉</label>
           <span class="input">
           <label>包邮&nbsp;&nbsp;<input name="pinkage" type="checkbox"  value="1" <?php echo empty($pintuan["Products_pinkage"])?"":" checked" ?> />&nbsp;&nbsp;</label>&nbsp;&nbsp;
           <label>七天退款&nbsp;&nbsp;<input name="refund" type="checkbox"  value="1" <?php echo empty($pintuan["Products_refund"])?"":" checked" ?> />&nbsp;&nbsp;</label>
           <label>假一赔十&nbsp;&nbsp;<input name="compensation" type="checkbox"  value="1" <?php echo empty($pintuan["Products_compensation"])?"":" checked" ?> />&nbsp;&nbsp;</label>
+          </span>
           <div class="clear"></div>
         </div>
           <div class="clear"></div>
-        <div class="rows">
         <div class="rows">
           <label>订单流程</label>
           <span class="input" style="font-size:12px; line-height:22px;">
@@ -411,6 +411,7 @@ $(document).ready(function(){
           <span class="input">
           <label>既支持单购又支持团购&nbsp;<input type="radio" id="aa" value="1" name="Isbuy" <?php echo $pintuan["is_buy"]==1?'checked' : '';?> /></label>&nbsp;&nbsp;
           <label>仅支持团购&nbsp;<input type="radio" value="0" id="bb" name="Isbuy" <?php echo $pintuan["is_buy"]==0?'checked' : '';?> /></label>
+          </span>
           <div class="clear"></div>
         </div>
         <div class="rows">
@@ -455,13 +456,14 @@ $(document).ready(function(){
           <input type="hidden" name="people_once" value="1" />
         </div>
           
-          <div class="rows">
+        <div class="rows">
           <label>商品库存</label>
           <span class="input">
           <input type="text" name="Count" value="<?php echo $pintuan["Products_Count"]?>" class="form_input" size="5" maxlength="10"  readonly/> <span class="tips">&nbsp;</span>
           </span>
           <font class="fc_red">*</font></span>
           <div class="clear"></div>
+         </div>
         <div class="rows">
           <label>拼团有效时间</label>
            <span class="input time">
@@ -473,6 +475,7 @@ $(document).ready(function(){
                   </div>
               </div>
           </div>
+          </span>
           <div class="clear"></div>
         </div>
         <div class="rows">

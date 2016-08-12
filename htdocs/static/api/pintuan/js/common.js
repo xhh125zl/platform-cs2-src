@@ -1,8 +1,14 @@
-    
+	
+
     //根据AjAx获取内容
     function getContainer(url,page,sort,method)
-		{
+	{
+
 			if(page=="" || page==undefined)  page = 1;
+			
+			//Load 加载动画
+			var loading = $("<div><img src='/static/api/pintuan/images/loading.gif' /></div>").css({'position':'absolute','z-index':'999','top':'100px'});
+			$('#container').append(loading);
 			$.post(url,{page:page,sort:sort,sortmethod:method},function(data){
 				var strData = "";
 				if(data.status==1){
@@ -40,7 +46,12 @@
 						strData +='</div>';
 						strData +='<div class="clear"></div>';
 					}
+					loading.hide();
 					$("#container").html(strData);
+				}else{
+					setTimeout(function(){
+						loading.hide();
+					},1000);
 				}
 			},"JSON");
 		}

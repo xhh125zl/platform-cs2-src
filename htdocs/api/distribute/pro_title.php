@@ -110,9 +110,9 @@ require_once('header.php');
 	<?php endif;?>
     </h4></p>
      
-	 <p>自身消费额:&nbsp;&nbsp;&yen;<span class="red"><?=$user_consue?></span></p>
-	 <p>自身销售额:&nbsp;&nbsp;&yen;<span class="red"><?=$user_count?></span></p>
-     <p>团队销售额:&nbsp;&nbsp;&yen;<span class="red"><?=$Sales_Group?></span></p>	  
+	 <p>自身消费额:&nbsp;&nbsp;&yen;<span class="red"><?=sprintf("%1\$.2f",$user_consue)?></span></p>
+	 <p>自身销售额:&nbsp;&nbsp;&yen;<span class="red"><?=sprintf("%1\$.2f",$user_count)?></span></p>
+     <p>团队销售额:&nbsp;&nbsp;&yen;<span class="red"><?=sprintf("%1\$.2f",$Sales_Group)?></span></p>	  
 	  
 	  <?php if($ex_bonus["total"]){?>
 		<p>总奖金:&nbsp;&nbsp;<span class="red">&yen;<?=$ex_bonus["total"]?></span></p>

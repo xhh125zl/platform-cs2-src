@@ -109,14 +109,14 @@ KindEditor.ready(function(K) {
 		filterMode : false,
 		uploadJson : '/member/upload_json.php?TableField=web_column&Users_ID=<?php echo $UsersID;?>',
 		fileManagerJson : '/member/file_manager_json.php',
-		allowFileManager : true,
+		allowFileManager : true
 	
 	});
 	var editor = K.editor({
 		uploadJson : '/member/upload_json.php?TableField=web_article&Users_ID=<?php echo $UsersID;?>',
 		fileManagerJson : '/member/file_manager_json.php',
 		showRemote : true,
-		allowFileManager : true,
+		allowFileManager : true
 	});
 	K('#ImgUpload').click(function(){
 		if(K('#PicDetail').children().length>=5){
