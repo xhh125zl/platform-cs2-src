@@ -178,14 +178,14 @@ KindEditor.ready(function(K) {
 		filterMode : false,
 		uploadJson : '/biz/upload_json.php?TableField=shop_products&BIZ_ID=<?php echo $_SESSION["BIZ_ID"]?>',
 		fileManagerJson : '/biz/file_manager_json.php',
-		allowFileManager : true,
+		allowFileManager : true
 		
 	});
 	var editor = K.editor({
 		uploadJson : '/biz/upload_json.php?TableField=shop_products&BIZ_ID=<?php echo $_SESSION["BIZ_ID"]?>',
 		fileManagerJson : '/biz/file_manager_json.php',
 		showRemote : true,
-		allowFileManager : true,
+		allowFileManager : true
 	});
 	K('#ImgUpload').click(function(){
 		if(K('#PicDetail').children().length>=5){
