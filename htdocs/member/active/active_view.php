@@ -38,6 +38,7 @@ if($rsActive['ListConfig']){
         <link href='/static/member/css/main.css' rel='stylesheet' type='text/css' />
         <script type='text/javascript' src='/static/js/jquery-1.7.2.min.js'></script>
         <script type='text/javascript' src='/static/js/plugin/layer/layer.js'></script>
+        <style>.r_con_form .rows .input{width:55%;}</style>
     </head>
 	<body>
         <div id="iframe_page">

@@ -12,9 +12,9 @@
 						strData +='<div class="chanpin">';
 						strData +='	  <div class="biaoqian"><img src="/static/api/pintuan/images/xp_'+list[i].Tie+'.png" width="55px" height="55px"></div>';
 						strData +='   <div class="tt"></div>';
-						strData +='   <div class="tp l"><img src="'+list[i].imgpath+'"></div>';
+						strData +='   <div class="tp l"><a href="/api/' + list[i].Users_ID + '/pintuan/xiangqing/' +list[i].Products_ID+'/"><img src="' + list[i].imgpath + '"></a></div>';
 						strData +='   <div class="jianjie1 l">';
-						strData +='       <div><span class="ct l">'+list[i].Products_Name+'</span>';
+						strData +='       <div><span class="ct l"><a href="/api/' + list[i].Users_ID + '/pintuan/xiangqing/' + list[i].Products_ID + '/">' + list[i].Products_Name + '</a></span>';
 						if(list[i].Draw==1){
                 			strData +='       <span class="cj_choujiang r">抽奖</span>';
 						}

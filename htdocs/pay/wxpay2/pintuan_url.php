@@ -17,7 +17,7 @@ if($xml){
 	$OrderID = $notify->data["out_trade_no"];
 	$tid = $notify->data["transaction_id"];
 	
-	$rsOrder=$DB->GetRs("user_order","Users_ID,User_ID,Order_Status","WHERE Order_Code='".$OrderID."'");
+	$rsOrder=$DB->GetRs("user_order","Users_ID,User_ID,Order_Status,Order_ID","WHERE Order_Code='".$OrderID."'");
 	if(!$rsOrder){
 		echo "订单不存在";
 		exit;
@@ -66,7 +66,7 @@ if($xml){
 	}
 	$UsersID = $rsOrder["Users_ID"];
 	$Status = $rsOrder["Order_Status"];
-	$info = payDone($UsersID,$OrderID,"微支付");
+	$info = ['url' => '/api/'.$UsersID.'/pintuan/orderlist/0/', 'msg' => '支付完成'];
 	$url = $info['url'];
 	echo '<!doctype html><html><head><title>'.$info['msg'].'</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no,minimal-ui">';

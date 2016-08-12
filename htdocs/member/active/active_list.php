@@ -1,15 +1,16 @@
 <?php
 require_once($_SERVER["DOCUMENT_ROOT"].'/include/update/common.php');
 
-if(IS_GET && isset($_GET["action"]) && $_GET["action"]=="del"){
+if (IS_GET && isset($_GET["action"]) && $_GET["action"] == "del") {
     $Active_ID = intval($_GET["Active_ID"]);
-    $Flag=$DB->Del("active","Users_ID='{$UsersID}' AND Active_ID='{$Active_ID}'");
-    if($Flag){
-        $DB->Del("biz_active","Users_ID='{$UsersID}' AND Active_ID='{$Active_ID}'");
-        sendAlert("删除成功!",$_SERVER['HTTP_REFERER'],3);
-	}else{
-	    sendAlert("删除失败!",$_SERVER['HTTP_REFERER'],3);
-	}
+    $rsActive = $DB->GetRs("active", "Active_Name", "WHERE Users_ID='{$UsersID}' AND Active_ID='{$Active_ID}'");
+    $Flag = $DB->Del("active", "Users_ID='{$UsersID}' AND Active_ID='{$Active_ID}'");
+    $Flag2 = $DB->Del("biz_active", "Users_ID='{$UsersID}' AND Active_ID='{$Active_ID}'");
+    if ($Flag && $Flag2) {
+        sendAlert("{$rsActive['Active_Name']} 活动已经删除!", $_SERVER['HTTP_REFERER'], 3);
+    } else {
+        sendAlert("{$rsActive['Active_Name']} 活动删除失败!", $_SERVER['HTTP_REFERER'], 3);
+    }
 }
 ?>
 <!DOCTYPE HTML>
@@ -53,12 +54,12 @@ if(IS_GET && isset($_GET["action"]) && $_GET["action"]=="del"){
           </tr>
         </thead>
         <tbody>
-    	<?php 
-		  $lists = array();
-		  $result = $DB->getPages("active as a","a.*,t.module,t.Type_Name","LEFT JOIN active_type as t ON a.Type_ID=t.Type_ID WHERE a.Users_ID='{$UsersID}' ORDER BY a.Status ASC,a.Active_ID DESC",10);
-		  $lists = $DB->toArray($result);
-		  foreach($lists as $k => $v){
-	    ?>      
+    	<?php
+    $lists = array();
+    $result = $DB->getPages("active as a", "a.*,t.module,t.Type_Name", "LEFT JOIN active_type as t ON a.Type_ID=t.Type_ID WHERE a.Users_ID='{$UsersID}' ORDER BY a.Status ASC,a.Active_ID DESC", 10);
+    $lists = $DB->toArray($result);
+    foreach ($lists as $k => $v) {
+        ?>      
           <tr>
             <td nowrap="nowrap" class="id"><?=$v["Active_ID"] ?></td>
             <td nowrap="nowrap" class="id"><?=$v["Active_Name"] ?></td>

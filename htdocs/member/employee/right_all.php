@@ -32,7 +32,8 @@ $rmenu['basic'] = array(
 $rmenu['product']=array(
 	'product' => '产品管理',
 	'products' => '产品列表',
-	'category' => '产品分类管理',
+	'category' => '产品分类',
+    'commit' => '产品评论',
 	'commision_setting' => '佣金设置'
 );
 $rmenu['active']=array(
@@ -442,4 +443,20 @@ $rmenusub["clo_shipping_orders"] = array(
 	'shipping_orders_recieve' => '批量收货'
 );
 /* 云购配置结束 */
+
+$rmenu["zhongchou"] = array(
+	'zhongchou'=>'微众筹',
+	'config'=>'基本设置',
+	'project'=>'项目管理'
+);
+
+//项目管理
+$rmenusub["zho_project"] = array(
+	'project_add' => '添加项目',
+	'project_edit' => '修改项目',
+	'prize' => '设置',
+	'users' => '查看',
+	'prize_add' => '添加赠品',
+	'prize_edit' => '修改赠品'
+);
 ?>

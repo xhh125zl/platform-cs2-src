@@ -261,6 +261,7 @@ $(document).ready(function(){
 <style type="text/css">
 .dislevelcss{float:left;margin:5px 0px 0px 8px;text-align:center;border:solid 1px #858585;padding:5px;}
 .dislevelcss th{border-bottom:dashed 1px #858585;font-size:16px;}
+.r_con_form .rows .input .error { color:#f00; }
 </style>
 </head>
 
@@ -508,15 +509,36 @@ $(document).ready(function(){
   </div>
 </div>
     <script type="text/javascript">
-         $(document).ready(function(){
-           if($("input[name='Isdraw']:checked").val()=='1'){  
-                    $("#333").hide();  
-                    $("#444").hide();  
-                }else{   
-                    $("#333").show();  
-                    $("#444").show();  
-                }     
-           })     
+		$(document).ready(function(){
+			$("#product_add_form").submit(function(){
+				var Peoplenum=$("input[name='Peoplenum']").val();
+				if(Peoplenum<2){
+					$("input[name='Peoplenum']").parent().find(".tips").addClass("error").html("拼团人数不能小于2");
+					return false;
+				}else{
+					$("input[name='Peoplenum']").parent().find(".tips").removeClass("error").html("");
+				}
+			});
+			$("input[name='Peoplenum']").blur(function(){
+				var Peoplenum=$(this).val();
+				if(Peoplenum<2){
+					$(this).parent().find(".tips").addClass("error").html("拼团人数不能小于2");
+					$(this).focus();
+					return false;
+				}else{
+					$(this).parent().find(".tips").removeClass("error").html("");
+				}
+			});
+
+             
+			if($("input[name='Isdraw']:checked").val()=='1'){  
+				$("#333").hide();  
+				$("#444").hide();  
+			}else{   
+				$("#333").show();  
+				$("#444").show();  
+			}     
+		})     
         $("input[name='Isdraw']").click(function(){  
               var type=$(this).val();  
                 if(type=='1'){  

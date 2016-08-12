@@ -67,7 +67,6 @@ if(IS_POST){
         <link href='/static/member/css/main.css' rel='stylesheet' type='text/css' />
         <script type='text/javascript' src='/static/js/jquery-1.7.2.min.js'></script>
         <script type='text/javascript' src='/static/js/plugin/layer/layer.js'></script>
-        <link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
         <style>
         label { font-weight:900px;font-family:"宋体"}
         </style>
@@ -140,7 +139,7 @@ if(IS_POST){
 	<body>
         <div id="iframe_page">
 			<div class="iframe_content">
-            	<div id="products" class="r_con_wrap">
+            	<div id="products" class="r_con_wrap" style="padding-bottom: 60px;">
               	<form id="product_add_form" class="r_con_form skipForm" method="post" action="active_add.php">
                     <input type="hidden" name="UsersID" value="<?=$UsersID ?>" />
                     <input type="hidden" name="Active_ID" value="<?=$Active_ID?:$rsActive['Active_ID'] ?>" />
@@ -166,17 +165,16 @@ if(IS_POST){
                     <div class="rows">
                     	<label>活动名称</label>
                     	<span class="input" style="width:300px;"><label id="active_name"><?=$rsActive['Active_Name'] ?></label>&nbsp;&nbsp;&nbsp;&nbsp;
-                    	<a href="#" class="btn_green" id="select" style="float: right; margin-right:20px;">选择推荐产品</a>
                     	</span>
                     	<div class="clear"></div>
                     </div>
                     <div class="rows">
                       <label>显示在列表页的产品</label>
                       <span class="input">
-                          <div class="box1 col-md-6">
+                          <div class="box1 col-md-6" style="width:500px;">
+                          	  <a href="#" class="btn_green" id="select" style="float: right;">选择产品</a>
                               <select multiple="multiple" id="bootstrap-duallistbox-nonselected-list_commit" class="form-control" name="commit" style="height: 100px;width:300px;">
-
-                               </select>
+                              </select>
                            </div>
                       </span>
                       <div class="clear"></div>
@@ -184,12 +182,9 @@ if(IS_POST){
                     <div class="rows">
                       <label>推荐到首页的产品</label>
                       <span class="input">
-                      	  <div class="box1 col-md-6">
-                            <div class="btn-group buttons">
-                                <a href="#" class="btn_green" id="selectIndex" style="float: right; margin-right:20px;">选择首页产品</a>
-                            </div>
+                      	  <div class="box1 col-md-6" style="width:500px;">
+							<a href="#" class="btn_green" id="selectIndex" style="float: right;">选择产品</a>
                             <select multiple="multiple" id="bootstrap-duallistbox-nonselected-list_commit" class="form-control" name="Indexcommit" style="height: 100px;width:300px;">
-                            
                             </select>
                         </div>
                       </span>

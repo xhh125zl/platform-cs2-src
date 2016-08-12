@@ -55,15 +55,11 @@ class pay_order{
 			"Order_Status" => 2
 		);
 
-                $this->update_order($orderid, $Data);
-                //更改业务提成状态为已付款
-                require_once($_SERVER["DOCUMENT_ROOT"].'/include/compser_library/Salesman_ Commission.php');
+        $this->update_order($orderid, $Data);
+        //更改业务提成状态为已付款
+        require_once($_SERVER["DOCUMENT_ROOT"].'/include/compser_library/Salesman_ Commission.php');
 		$sales_man = new Salesman_commission();
 		$sales_man->up_sales_status($orderid,1);
-                
-		
-
-		
 		if(strpos($rsOrder["Order_Type"],'zhongchou')>-1){
 			$url = '/api/'.$rsOrder["Users_ID"].'/zhongchou/orders/';
 			return array("status"=>1,"url"=>$url);
@@ -74,14 +70,40 @@ class pay_order{
 		
 		//积分抵用
 		$Flag_b = TRUE;
-		if($rsOrder["Integral_Consumption"] > 0 ){
-			$Flag_b = change_user_integral($rsOrder["Users_ID"],$rsOrder["User_ID"],$rsOrder["Integral_Consumption"],'reduce','积分抵用消耗积分');
+		if($rsOrder['Order_Type'] != 'cloud'){
+    		if($rsOrder["Integral_Consumption"] > 0 ){
+    			$Flag_b = change_user_integral($rsOrder["Users_ID"],$rsOrder["User_ID"],$rsOrder["Integral_Consumption"],'reduce','积分抵用消耗积分');
+    		}
 		}
-		
 		//更改分销账号记录状态,置为已付款
-		$Flag_c = Dis_Account_Record::changeStatusByOrderID($orderid,1);
+		if($rsOrder['Order_Type'] != 'cloud'){
+		    $Flag_c = Dis_Account_Record::changeStatusByOrderID($orderid,1);
+		}
+        if($rsOrder["Order_Type"] == 'cloud'){
+			$Flag_b = $Flag_c = TRUE;
+			$CartList = json_decode(htmlspecialchars_decode($rsOrder['Order_CartList']), true);
+			$sql1 = 'UPDATE cloud_products SET canyurenshu = CASE Products_ID';
+			$sql2 = "INSERT INTO cloud_record (`User_ID`,`Products_ID`,`Add_Time`,`Cloud_Code`,`qishu`,`Order_ID`) VALUES";
+			$codes = get_cloud_code($CartList);
 
-		handle_products_count($rsOrder["Users_ID"],$rsOrder);
+			foreach($CartList as $key => $value){
+				$cp_arr[] = $key;
+				foreach($value as $j => $v){
+					$sql1 .= ' WHEN '.$key.' THEN canyurenshu+'.$v['Qty'];
+					for($i = 0; $i < $v['Qty']; $i++){
+						$cloud_code = $codes[$key][$i];
+						$sql2 .= ' ('.$rsOrder["User_ID"].', '.$key.', "'.microtime(true).'", '.$cloud_code.', '.$v['qishu'].', '.$rsOrder['Order_ID'].'),';
+					}
+				}
+			}
+			$cp_ids = implode(',', $cp_arr);
+			$sql1 .= ' END WHERE Products_ID IN ('.$cp_ids.')';
+			$sql2 = substr($sql2, 0, strlen($sql2)-1).';';
+            $this->db->query($sql1);
+			$this->db->query($sql2);
+		}else{
+			handle_products_count($rsOrder["Users_ID"], $rsOrder);
+		}
 		
 		if($Flag_b&&$Flag_c){
 			$isvirtual = $rsOrder["Order_IsVirtual"];
@@ -95,167 +117,167 @@ class pay_order{
 			
 			//分销商级别数组			
 			$level_data = get_dis_level($this->db,$rsConfig['Users_ID']);
-			
-			if($is_distribute==0){//不是分销商，判定成为分销商条件
-				$LevelID = 0;//分销商级别
-				if($rsConfig["Distribute_Type"]==2){//购买商品
-					$LevelID = get_user_distribute_level_buy($level_data,$rsConfig,$productids);
-				}elseif($rsConfig["Distribute_Type"]==1){//消费金额
-					$LevelID = get_user_distribute_level_cost($level_data,$rsConfig,$rsOrder['Order_TotalPrice']);
-				}
-				
-				if($LevelID >= 1){
-					$is_distribute = 1;
-					$f = create_distribute_acccount($rsConfig, $rsUser, $LevelID, '', 1);
-				}
-				
-				//爵位晋级
-				if($rsConfig["Pro_Title_Status"]==2){
-					$pro = new ProTitle($rsOrder["Users_ID"],$rsUser["Owner_Id"]);
-					$flag_x = $pro->up_nobility_level();
-				}
-			}else{//是分销商判定可提现条件
-				$tixian = 0;
-				$rsAccount = $this->db->GetRs("distribute_account","User_ID,Enable_Tixian,Account_ID,Is_Dongjie,Is_Delete,Users_ID,Level_ID","where Users_ID='".$rsOrder["Users_ID"]."' and User_ID=".$rsOrder["User_ID"]);
-				if($rsAccount){
-					//爵位晋级
-					if($rsConfig["Pro_Title_Status"]==2){
-						$pro = new ProTitle($rsOrder["Users_ID"],$rsOrder["User_ID"]);
-						$flag_x = $pro->up_nobility_level();
-					}
-					
-					$is_distribute = 1;
-					$account_data = array();
-					if($rsAccount["Enable_Tixian"]==0){
-						if($rsConfig["Withdraw_Type"] == 0){
-							$tixian = 1;
-						}elseif($rsConfig["Withdraw_Type"] == 2){
-							$arr_temp = explode("|",$rsConfig["Withdraw_Limit"]);
-							if($arr_temp[0]==0){
-								$tixian = 1;
-							}else{
-								if(!empty($arr_temp[1])){
-									$productsid = explode(",",$arr_temp[1]);
-									foreach($productsid as $id){
-										if(!empty($CartList[$id])){
-											$tixian = 1;
-											break;
-										}
-									}
-								}
-							}
-						}
-						if($tixian==1){
-							$account_data['Enable_Tixian'] = 1;
-						}
-					}
-					
-					//判定升级级别
-					$LevelID = get_user_distribute_level_upgrade($level_data,$rsConfig,$productids);
-					if($LevelID>$rsAccount['Level_ID']){
-						$account_data['Level_ID'] = $LevelID;
-					}
-					
-					if(!empty($account_data)){
-						$this->db->Set("distribute_account",$account_data,"where Users_ID='".$rsOrder["Users_ID"]."' and Account_ID=".$rsAccount["Account_ID"]);
-					}
-					
-					if($rsConfig["Fuxiao_Open"]==1 && $rsAccount["Is_Delete"]==0){//开启复销功能
-						distribute_fuxiao_return_action($this->db,$rsConfig["Fuxiao_Rules"],$rsAccount,$rsUser["User_OpenID"]);//是否达到复销要求并处理
-					}
-				}
+			if($rsOrder['Order_Type'] != 'cloud'){
+    			if($is_distribute==0){//不是分销商，判定成为分销商条件
+    				$LevelID = 0;//分销商级别
+    				if($rsConfig["Distribute_Type"]==2){//购买商品
+    					$LevelID = get_user_distribute_level_buy($level_data,$rsConfig,$productids);
+    				}elseif($rsConfig["Distribute_Type"]==1){//消费金额
+    					$LevelID = get_user_distribute_level_cost($level_data,$rsConfig,$rsOrder['Order_TotalPrice']);
+    				}
+    				
+    				if($LevelID >= 1){
+    					$is_distribute = 1;
+    					$f = create_distribute_acccount($rsConfig, $rsUser, $LevelID, '', 1);
+    				}
+    				
+    				//爵位晋级
+    				if($rsConfig["Pro_Title_Status"]==2){
+    					$pro = new ProTitle($rsOrder["Users_ID"],$rsUser["Owner_Id"]);
+    					$flag_x = $pro->up_nobility_level();
+    				}
+    			}else{//是分销商判定可提现条件
+    				$tixian = 0;
+    				$rsAccount = $this->db->GetRs("distribute_account","User_ID,Enable_Tixian,Account_ID,Is_Dongjie,Is_Delete,Users_ID,Level_ID","where Users_ID='".$rsOrder["Users_ID"]."' and User_ID=".$rsOrder["User_ID"]);
+    				if($rsAccount){
+    					//爵位晋级
+    					if($rsConfig["Pro_Title_Status"]==2){
+    						$pro = new ProTitle($rsOrder["Users_ID"],$rsOrder["User_ID"]);
+    						$flag_x = $pro->up_nobility_level();
+    					}
+    					
+    					$is_distribute = 1;
+    					$account_data = array();
+    					if($rsAccount["Enable_Tixian"]==0){
+    						if($rsConfig["Withdraw_Type"] == 0){
+    							$tixian = 1;
+    						}elseif($rsConfig["Withdraw_Type"] == 2){
+    							$arr_temp = explode("|",$rsConfig["Withdraw_Limit"]);
+    							if($arr_temp[0]==0){
+    								$tixian = 1;
+    							}else{
+    								if(!empty($arr_temp[1])){
+    									$productsid = explode(",",$arr_temp[1]);
+    									foreach($productsid as $id){
+    										if(!empty($CartList[$id])){
+    											$tixian = 1;
+    											break;
+    										}
+    									}
+    								}
+    							}
+    						}
+    						if($tixian==1){
+    							$account_data['Enable_Tixian'] = 1;
+    						}
+    					}
+    					
+    					//判定升级级别
+    					$LevelID = get_user_distribute_level_upgrade($level_data,$rsConfig,$productids);
+    					if($LevelID>$rsAccount['Level_ID']){
+    						$account_data['Level_ID'] = $LevelID;
+    					}
+    					
+    					if(!empty($account_data)){
+    						$this->db->Set("distribute_account",$account_data,"where Users_ID='".$rsOrder["Users_ID"]."' and Account_ID=".$rsAccount["Account_ID"]);
+    					}
+    					
+    					if($rsConfig["Fuxiao_Open"]==1 && $rsAccount["Is_Delete"]==0){//开启复销功能
+    						distribute_fuxiao_return_action($this->db,$rsConfig["Fuxiao_Rules"],$rsAccount,$rsUser["User_OpenID"]);//是否达到复销要求并处理
+    					}
+    				}
+    			}
+    			
+    			if($is_distribute == 1 && $rsUser["Owner_Id"]>0 && $rsConfig["Fanben_Open"]==1 && $rsConfig["Fanben_Type"]==1 && $rsConfig["Fanben_Limit"]){//返本规则开启，下级限制开启，限制条件设置，会员是分销商，有推荐人
+    				$productids = array_keys($CartList);
+    				$arr_temp = explode(',',$rsConfig["Fanben_Limit"]);
+    				$condition = "";
+    				foreach($productids as $pid){
+    					if(!in_array($pid,$arr_temp)){
+    						continue;
+    					}
+    					$str_temp = '{"'.$pid.'":';
+    					$condition = $condition ? " or Order_CartList like '%".$str_temp."%'" : "Order_CartList like '%".$str_temp."%'";
+    				}
+    				if(!empty($condition)){
+    					$condition = "where Order_Status>1 and Order_ID<>".$orderid." and User_ID=".$rsOrder["User_ID"]." and (".$condition.")";
+    					
+    					$r_temp = $this->db->GetRs("user_order","count(Order_ID) as num",$condition);
+    					if($r_temp["num"]==0){
+    						$Fanben = $rsConfig["Fanben_Rules"] ? json_decode($rsConfig['Fanben_Rules'],true) : array();
+    						deal_distribute_fanben($Fanben, $rsUser["Owner_Id"]);
+    					}
+    				}
+    			}
+    			
+    			$confirm_code = '';
+    			$cardinfo = '';
+    			if($rsOrder["Order_IsVirtual"]==1){
+    				if($rsOrder["Order_IsRecieve"]==1){
+    					$pids = 0;
+    					$pqty = 0;
+    
+    					foreach($CartList as $productsid=>$productsinfo){
+    						$pids = $productsid;
+    						foreach ($productsinfo as $pk => $pv) {
+    							$pqty = $pv['Qty'];
+    						}
+    					}
+    
+    					$cardids = array();
+    					$this->db->query('select Card_ID,Card_Name,Card_Password from shop_virtual_card where Products_Relation_ID='.$pids.' and Card_Status=0 limit '.$pqty);
+    					$cardinfo = '';
+    					$i = 0;
+    					while($rrr = $this->db->fetch_assoc()){
+    						if ($pqty > $i) { $cardids[] = $rrr['Card_ID']; }
+    						
+    						$cardinfo .= '卡号:'.$rrr['Card_Name'].',密码:'.$rrr['Card_Password'].';';
+    						$i++;
+    					}
+    					
+    					if($cardinfo){
+    						$this->db->query('UPDATE shop_virtual_card SET Card_Status=1 WHERE Card_ID IN('.implode(',', $cardids).')');
+    						$Data = array('Order_Virtual_Cards'=>$cardinfo);
+    						$this->update_order($orderid,$Data);
+    					}
+    			
+    					Order::observe(new OrderObserver());
+    					$order = Order::find($orderid);
+    					$Flag = $order->confirmReceive();
+    					
+    					$url="/api/".$rsOrder["Users_ID"]."/".$rsOrder["Order_Type"]."/member/status/4/";
+    				
+    				}else{
+    					$confirm_code = get_virtual_confirm_code($rsOrder["Users_ID"]);
+    					$Data = array('Order_Code'=>$confirm_code);
+    					$this->update_order($orderid,$Data);
+    				}
+    			}
+    			
+    			$setting = $this->db->GetRs("setting","sms_enabled","where id=1");
+    			if($rsConfig["SendSms"]==1 && $setting["sms_enabled"]==1){
+    				/*
+    				if($rsConfig["MobilePhone"]){
+    					$sms_mess = '您的商品有订单付款，订单号'.$orderid.'请及时查看！';
+    					send_sms($rsConfig["MobilePhone"], $sms_mess, $rsOrder["Users_ID"]);
+    				}
+    				*/
+    				$rsBiz = $this->db->GetRs('biz','Biz_SmsPhone','where Biz_ID='.$rsOrder['Biz_ID']);
+    				if($rsBiz["Biz_SmsPhone"]){
+    					$sms_mess = '您的商品有订单付款，订单号'.$orderid.'请及时查看！';
+    					send_sms($rsBiz["Biz_SmsPhone"], $sms_mess, $rsOrder["Users_ID"]);
+    				}
+    				if($rsOrder["Order_IsVirtual"]==1 && $rsOrder["Order_IsRecieve"]==0){
+    					$sms_mess = '您已成功购买商品，订单号'.$orderid.'，消费券码为 '.$confirm_code;
+    					send_sms($rsOrder["Address_Mobile"], $sms_mess, $rsOrder["Users_ID"]);
+    				}
+    				
+    				if($rsOrder["Order_IsVirtual"]==1 && $rsOrder["Order_IsRecieve"]==1 && $cardinfo){
+    					$sms_mess = '您已成功购买商品，订单号'.$orderid.'，'.$cardinfo;
+    					send_sms($rsOrder["Address_Mobile"], $sms_mess, $rsOrder["Users_ID"]);
+    				}
+    			}
 			}
-			
-			if($is_distribute == 1 && $rsUser["Owner_Id"]>0 && $rsConfig["Fanben_Open"]==1 && $rsConfig["Fanben_Type"]==1 && $rsConfig["Fanben_Limit"]){//返本规则开启，下级限制开启，限制条件设置，会员是分销商，有推荐人
-				$productids = array_keys($CartList);
-				$arr_temp = explode(',',$rsConfig["Fanben_Limit"]);
-				$condition = "";
-				foreach($productids as $pid){
-					if(!in_array($pid,$arr_temp)){
-						continue;
-					}
-					$str_temp = '{"'.$pid.'":';
-					$condition = $condition ? " or Order_CartList like '%".$str_temp."%'" : "Order_CartList like '%".$str_temp."%'";
-				}
-				if(!empty($condition)){
-					$condition = "where Order_Status>1 and Order_ID<>".$orderid." and User_ID=".$rsOrder["User_ID"]." and (".$condition.")";
-					
-					$r_temp = $this->db->GetRs("user_order","count(Order_ID) as num",$condition);
-					if($r_temp["num"]==0){
-						$Fanben = $rsConfig["Fanben_Rules"] ? json_decode($rsConfig['Fanben_Rules'],true) : array();
-						deal_distribute_fanben($Fanben, $rsUser["Owner_Id"]);
-					}
-				}
-			}
-			
-			$confirm_code = '';
-			$cardinfo = '';
-			if($rsOrder["Order_IsVirtual"]==1){
-				if($rsOrder["Order_IsRecieve"]==1){
-					$pids = 0;
-					$pqty = 0;
-
-					foreach($CartList as $productsid=>$productsinfo){
-						$pids = $productsid;
-						foreach ($productsinfo as $pk => $pv) {
-							$pqty = $pv['Qty'];
-						}
-					}
-
-					$cardids = array();
-					$this->db->query('select Card_ID,Card_Name,Card_Password from shop_virtual_card where Products_Relation_ID='.$pids.' and Card_Status=0 limit '.$pqty);
-					$cardinfo = '';
-					$i = 0;
-					while($rrr = $this->db->fetch_assoc()){
-						if ($pqty > $i) { $cardids[] = $rrr['Card_ID']; }
-						
-						$cardinfo .= '卡号:'.$rrr['Card_Name'].',密码:'.$rrr['Card_Password'].';';
-						$i++;
-					}
-					
-					if($cardinfo){
-						$this->db->query('UPDATE shop_virtual_card SET Card_Status=1 WHERE Card_ID IN('.implode(',', $cardids).')');
-						$Data = array('Order_Virtual_Cards'=>$cardinfo);
-						$this->update_order($orderid,$Data);
-					}
-			
-					Order::observe(new OrderObserver());
-					$order = Order::find($orderid);
-					$Flag = $order->confirmReceive();
-					
-					$url="/api/".$rsOrder["Users_ID"]."/".$rsOrder["Order_Type"]."/member/status/4/";
-				
-				}else{
-					$confirm_code = get_virtual_confirm_code($rsOrder["Users_ID"]);
-					$Data = array('Order_Code'=>$confirm_code);
-					$this->update_order($orderid,$Data);
-				}
-			}
-			
-			$setting = $this->db->GetRs("setting","sms_enabled","where id=1");
-			if($rsConfig["SendSms"]==1 && $setting["sms_enabled"]==1){
-				/*
-				if($rsConfig["MobilePhone"]){
-					$sms_mess = '您的商品有订单付款，订单号'.$orderid.'请及时查看！';
-					send_sms($rsConfig["MobilePhone"], $sms_mess, $rsOrder["Users_ID"]);
-				}
-				*/
-				$rsBiz = $this->db->GetRs('biz','Biz_SmsPhone','where Biz_ID='.$rsOrder['Biz_ID']);
-				if($rsBiz["Biz_SmsPhone"]){
-					$sms_mess = '您的商品有订单付款，订单号'.$orderid.'请及时查看！';
-					send_sms($rsBiz["Biz_SmsPhone"], $sms_mess, $rsOrder["Users_ID"]);
-				}
-				if($rsOrder["Order_IsVirtual"]==1 && $rsOrder["Order_IsRecieve"]==0){
-					$sms_mess = '您已成功购买商品，订单号'.$orderid.'，消费券码为 '.$confirm_code;
-					send_sms($rsOrder["Address_Mobile"], $sms_mess, $rsOrder["Users_ID"]);
-				}
-				
-				if($rsOrder["Order_IsVirtual"]==1 && $rsOrder["Order_IsRecieve"]==1 && $cardinfo){
-					$sms_mess = '您已成功购买商品，订单号'.$orderid.'，'.$cardinfo;
-					send_sms($rsOrder["Address_Mobile"], $sms_mess, $rsOrder["Users_ID"]);
-				}
-			}
-			
 			require_once($_SERVER["DOCUMENT_ROOT"].'/include/library/weixin_message.class.php');
 			$weixin_message = new weixin_message($this->db,$rsOrder["Users_ID"],$rsOrder["User_ID"]);
 			$weixin_message->sendorder($rsOrder["Order_TotalPrice"],$orderid);
@@ -298,6 +320,8 @@ class pay_order{
 					$pay_subject = "微商圈在线付款，订单编号:".$this->orderid;
 				}elseif($orderinfo["Order_Type"]=='kanjia'){
 					$pay_subject = "微砍价在线付款，订单编号:".$this->orderid;
+				}elseif($orderinfo["Order_Type"]=='pintuan' || $orderinfo["Order_Type"]=='dangou'){
+					$pay_subject = "拼团在线付款，订单编号:".$this->orderid;
 				}else{
 					$pay_subject = "微商城在线付款，订单编号:".$this->orderid;
 				}
@@ -305,7 +329,7 @@ class pay_order{
 				$pay_subject = "微众筹在线付款，订单编号:".$this->orderid;
 			}
 			$data = array(
-				"out_trade_no"=>$orderinfo["Order_CreateTime"].$this->orderid,
+				"out_trade_no"=>($orderinfo["Order_Type"]=='pintuan' || $orderinfo["Order_Type"]=='dangou') ?$orderinfo["Order_Code"]:$orderinfo["Order_CreateTime"].$this->orderid,
 				"subject"=>$pay_subject,
 				"total_fee"=>$orderinfo["Order_TotalPrice"]
 			);

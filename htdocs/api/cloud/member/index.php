@@ -99,7 +99,7 @@ $show_support = true;
 	</div>
 		<div class="list_item">
 		<div class="dline"></div>
-		<a href="/api/<?=$UsersID?>/cloud/member/status/2/" class="item item_0"><span class="ico"></span><span>云购记录</span></a> 
+		<a href="/api/<?=$UsersID?>/cloud/member/status/4/" class="item item_0"><span class="ico"></span><span>云购记录</span></a> 
 		<a href="/api/<?=$UsersID?>/cloud/member/products/" class="item item_5"><span class="ico"></span>获得的商品<span class="jt"></span></a> 
 		<a href="/api/<?=$UsersID?>/user/my/address/" class="item item_3"><span class="ico"></span>收货地址管理<span class="jt"></span></a> 
 		<a href="/api/<?=$UsersID?>/cloud/member/favourite/" class="item item_6"><span class="ico"></span>我的云购收藏夹<span class="jt"></span></a>

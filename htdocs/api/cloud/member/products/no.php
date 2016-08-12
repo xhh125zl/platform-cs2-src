@@ -33,9 +33,26 @@ $rsUser = $DB->GetRs("user","*","where Users_ID='".$UsersID."' and User_ID=".$_S
 <script type='text/javascript' src='/static/js/jquery-1.7.2.min.js'></script>
 <script type='text/javascript' src='/static/api/js/global.js'></script>
 <script type='text/javascript' src='/static/api/js/user.js'></script>
-</head>
+<style>
+.pull-left {
+	float: left;
+}
 
+.column img {
+	margin: 4px;
+}
+body { background:#FFFFFF; }
+#shop_page_contents { clear:both; }
+</style>
+</head>
 <body>
+<div class="column">
+	<h2 style="text-align: center;height: 37px;line-height: 37px;color: #999;">
+	<a href="javascript:history.go(-1)" class="pull-left"><img src="/static/api/shop/skin/default/images/black_arrow_left.png" /></a>
+	云购商品领取
+	<h2>
+</div>
+<div class="clear"></div>
 <script language="javascript">$(document).ready(user_obj.gift_init);</script>
 <div id="gift">
   <div class="t_list"> <a href="/api/<?php echo $UsersID ?>/cloud/member/products/">已领取</a> <a href="/api/<?php echo $UsersID ?>/cloud/member/products/no/" class="c">未领取</a> </div>

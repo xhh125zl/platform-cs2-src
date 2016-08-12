@@ -6,33 +6,71 @@
 <div id="footer_points"></div>
 <?php
 $DefaultMenu = array(
-	'menu' => array(
-		array('menu_name' => '首页', 'login_menu_name' => '', 'icon' => '/static/api/distribute/images/home.png', 'menu_href' => '/api/' . $UsersID . '/shop/', 'login_menu_href' => '/api/' . $UsersID . '/shop/', 'bind_action_attr' => 0, 'menu_order' => '1'),
-		array('menu_name' => '我要分销', 'login_menu_name' => '分销中心', 'icon' => '/static/api/distribute/images/sitemap.png', 'menu_href' => '/api/' . $UsersID . '/distribute/join/', 'login_menu_href' => '/api/' . $UsersID . '/distribute/', 'bind_action_attr' => 1, 'menu_order' => '2'),
-		array('menu_name' => '购物车', 'login_menu_name' => '', 'icon' => '/static/api/distribute/images/cart.png', 'menu_href' => '/api/' . $UsersID . '/shop/cart/', 'login_menu_href' => '/api/' . $UsersID . '/shop/cart/', 'bind_action_attr' => 2, 'menu_order' => '3'),
-		array('menu_name' => '个人中心', 'login_menu_name' => '', 'icon' => '/static/api/distribute/images/user.png', 'menu_href' => '/api/' . $UsersID . '/shop/member/', 'login_menu_href' => '/api/' . $UsersID . '/shop/member/', 'bind_action_attr' => 0, 'menu_order' => '4'),
-	)
+    'menu' => array(
+        array(
+            'menu_name' => '首页',
+            'isDefault' => basename($_SERVER['REQUEST_URI']) == "shop" ? 1 : 0,
+            'login_menu_name' => '',
+            'icon' => '/static/api/distribute/images/' . (basename($_SERVER['REQUEST_URI']) == "shop" ? 'home_cur.png' : 'home.png'),
+            'menu_href' => '/api/' . $UsersID . '/shop/',
+            'login_menu_href' => '/api/' . $UsersID . '/shop/',
+            'bind_action_attr' => 0,
+            'menu_order' => '1'
+        ),
+        array(
+            'menu_name' => '我要分销',
+            'isDefault' => basename($_SERVER['REQUEST_URI']) == "distribute" ? 1 : 0,
+            'login_menu_name' => '分销中心',
+            'icon' => '/static/api/distribute/images/' . (basename($_SERVER['REQUEST_URI']) == "distribute" ? 'sitemap_cur.png' : 'sitemap.png'),
+            'menu_href' => '/api/' . $UsersID . '/distribute/join/',
+            'login_menu_href' => '/api/' . $UsersID . '/distribute/',
+            'bind_action_attr' => 1,
+            'menu_order' => '2'
+        ),
+        array(
+            'menu_name' => '购物车',
+            'isDefault' => basename($_SERVER['REQUEST_URI']) == "cart" ? 1 : 0,
+            'login_menu_name' => '',
+            'icon' => '/static/api/distribute/images/' . (basename($_SERVER['REQUEST_URI']) == "cart" ? 'cart_cur.png' : 'cart.png'),
+            'menu_href' => '/api/' . $UsersID . '/shop/cart/',
+            'login_menu_href' => '/api/' . $UsersID . '/shop/cart/',
+            'bind_action_attr' => 2,
+            'menu_order' => '3'
+        ),
+        array(
+            'menu_name' => '个人中心',
+            'isDefault' => basename($_SERVER['REQUEST_URI']) == "member" ? 1 : 0,
+            'login_menu_name' => '',
+            'icon' => '/static/api/distribute/images/' . (basename($_SERVER['REQUEST_URI']) == "member" ? 'user_cur.png' : 'user.png'),
+            'menu_href' => '/api/' . $UsersID . '/shop/member/',
+            'login_menu_href' => '/api/' . $UsersID . '/shop/member/',
+            'bind_action_attr' => 0,
+            'menu_order' => '4'
+        )
+    )
 );
 
-$rsMenuConfig = $DB->GetRs('shop_config', 'ShopMenuJson', ' WHERE  Users_ID="' .$UsersID. '"');
+$rsMenuConfig = $DB->GetRs('shop_config', 'ShopMenuJson', ' WHERE  Users_ID="' . $UsersID . '"');
 
-//$ShopMenu = empty(json_decode($rsMenuConfig['ShopMenuJson'], TRUE)) ? $DefaultMenu : json_decode($rsMenuConfig['ShopMenuJson'], TRUE);
+// $ShopMenu = empty(json_decode($rsMenuConfig['ShopMenuJson'], TRUE)) ? $DefaultMenu : json_decode($rsMenuConfig['ShopMenuJson'], TRUE);
 $ShopMenuJsons = json_decode($rsMenuConfig['ShopMenuJson'], TRUE);
-if(empty($ShopMenuJsons)){
-  $ShopMenu = $DefaultMenu;
-}else{
-  $ShopMenu = $ShopMenuJsons;
+if (empty($ShopMenuJsons)) {
+    $ShopMenu = $DefaultMenu;
+} else {
+    $ShopMenu = $ShopMenuJsons;
+    foreach ($ShopMenu['menu'] as $k => $v) {
+        $ShopMenu['menu']['isDefault'] = basename($_SERVER['REQUEST_URI']) == basename($v['login_menu_href']) ? 1 : 0;
+    }
 }
-
 ?>
 <footer id="footer">  
   <ul class="list-group" id="footer-nav">
 		<?php foreach ($ShopMenu['menu'] as $k => $v) : ?>
 		<li style="width: <?php echo 100/count($ShopMenu['menu']); ?>%;">
 			<?php if($v['bind_action_attr'] == 1 && $distribute_flag):?>
-				<a href="<?php echo $v['login_menu_href']; ?>" style="background:url(<?php echo $v['icon']; ?>) center center no-repeat;"><?php echo $v['login_menu_name']; ?></a>
+				<a href="<?php echo $v['login_menu_href']; ?>" style="background:url(<?php echo $v['icon']; ?>) center center no-repeat;<?=isset($v['isDefault']) && $v['isDefault'] ?"color:#F36767":"" ?>"><?php echo $v['login_menu_name']; ?></a>
 			<?php else: ?>
-				<a href="<?php echo $v['menu_href']; ?>" style="background:url(<?php echo $v['icon']; ?>) center center no-repeat;"><?php echo $v['menu_name']; ?></a>
+				<a href="<?php echo $v['menu_href']; ?>" style="background:url(<?php echo $v['icon']; ?>) center center no-repeat;<?=isset($v['isDefault']) && $v['isDefault'] ?"color:#F36767":"" ?>"><?php echo $v['menu_name']; ?></a>
 			<?php endif; ?>
 
 			<?php if($v['bind_action_attr'] == 2): ?>

@@ -6,7 +6,7 @@ function addTeam($orderid,$Users_ID)
     if(!$orderid) return false;
     $orderInfo = $DB->GetRs("user_order","*","where Order_ID='{$orderid}' and Users_ID='{$Users_ID}'");
     $CartList = json_decode($orderInfo['Order_CartList'],true);
-    $userid = $_SESSION[$Users_ID."User_ID"];
+    $userid = $orderInfo["User_ID"];
     $productid = $CartList['Products_ID'];
     $data = [];
     $teamid = $CartList['TeamID'];
@@ -25,12 +25,12 @@ function addTeam($orderid,$Users_ID)
             $DB->Add('pintuan_team', $data);
             $teamid = $flag1 = $DB->insert_id();
             if($flag1){
-                $ef = enterTeam($flag1,$orderid,$Users_ID);
+                $ef = enterTeam($flag1,$orderid,$Users_ID,$userid);
             }
         }
     }else{
         //参团
-        $ef = enterTeam($teamid,$orderid,$Users_ID);
+        $ef = enterTeam($teamid,$orderid,$Users_ID,$userid);
     }
     
     $return = false;
@@ -38,7 +38,6 @@ function addTeam($orderid,$Users_ID)
         $flag = $DB->GetRs("pintuan_team","teamnum","where id='{$teamid}'");
         if($flag['teamnum']==$CartList['people_num']){
             $return =-1;   //拼团成功
-            $DB->Set("pintuan_team","teamnum=teamnum+1,teamstatus=1","where id='{$teamid}'");
         }else{
             $return = true;
         }
@@ -46,10 +45,9 @@ function addTeam($orderid,$Users_ID)
     return $return;
 }
 //  参团
-function enterTeam($pid,$order_id,$Users_ID)
+function enterTeam($pid,$order_id,$Users_ID,$userid)
 {
     global $DB;
-    $userid = $_SESSION[$Users_ID."User_ID"];
     $flag = $DB->GetRs("pintuan_teamdetail","*","where teamid='{$pid}' and userid='{$userid}'");
         if(!$flag){
             $data['teamid']=$pid;

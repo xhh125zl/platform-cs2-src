@@ -7,7 +7,9 @@ $Users_ID = $rsBiz['Users_ID'];
 
 if($_POST){
 	$Data = array();
-	$Data["Shipping"] = json_encode($_POST['Default_Template'],JSON_UNESCAPED_UNICODE);
+	if(isset($_POST['Default_Template']) && $_POST['Default_Template']){
+	   $Data["Shipping"] = json_encode($_POST['Default_Template'],JSON_UNESCAPED_UNICODE);
+	}
 	$Data["Default_Shipping"]= isset($_POST["Default_Shipping"])?$_POST["Default_Shipping"]:null;
 	$Data["Default_Business"] = 'express';
 

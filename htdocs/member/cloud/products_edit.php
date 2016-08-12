@@ -230,9 +230,9 @@ function insertRow(){
 				<div class="rows">
 					<label>产品价格</label>
 					<span class="input price"> 商品总价格:￥
-					<input type="text" name="PriceY" value="<?php echo $rsProducts["Products_PriceY"] ?>" class="form_input" size="5" maxlength="10" />
+					<input type="text" name="PriceY" value="<?php echo $rsProducts["Products_PriceY"] ?>" class="form_input" size="5" maxlength="10" readonly/>
 					云购单次价格:￥
-					<input type="text" name="PriceX" value="<?php echo $rsProducts["Products_PriceX"] ?>" class="form_input" size="5" maxlength="10" />
+					<input type="text" name="PriceX" value="<?php echo $rsProducts["Products_PriceX"] ?>" class="form_input" size="5" maxlength="10" readonly/>
 					</span>
 					<div class="clear"></div>
 				</div>

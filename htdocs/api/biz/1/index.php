@@ -73,4 +73,59 @@ $(document).ready(index_obj.index_init);
   <div class="clear"></div>
  </div>
  <?php }?>
+ <?php
+  	  $i=0;
+  	  $pintuan_url = "/api/{$UsersID}/pintuan/biz/{$BizID}/";
+  	  $time = time();
+      $result = $DB->get("pintuan_products","*","where Users_ID='{$UsersID}' and Biz_ID={$BizID} and Products_Status=1 and starttime<={$time} and stoptime>={$time} order by Products_CreateTime desc limit 0,4");
+      $pt_goods = $DB->toArray($result);
+       if(!empty($pt_goods)){
+ ?>     
+ <div id="products">
+  <h1>拼团产品</h1>
+  <?php
+    foreach($pt_goods as $k => $v){
+		  $i++;
+		  $JSON=json_decode($v['Products_JSON'],true);
+  ?>
+  <div class="item">
+	<ul>
+		<li class="img"><a href="<?=$pintuan_url ?>"><img src="<?php echo $JSON["ImgPath"][0];?>" /></a></li>
+		<li class="name"><a href="<?=$pintuan_url ?>"><?php echo $v["Products_Name"];?></a></li>
+     <li class="price">团购：￥<?php echo $v["Products_PriceT"];?> 单购：￥<?php echo $v["Products_PriceD"];?></li>
+	</ul>
+  </div>
+  <?php echo $i%2==0 ? '<div class="clear"></div>' : '';?>
+  <?php }?>
+  <div class="clear"></div>
+ </div>
+ <?php } ?>
+ 
+ <?php
+  	  $i=0;
+  	  $pintuan_url = "/api/{$UsersID}/cloud/biz/{$BizID}/";
+  	  $time = time();
+      $result = $DB->get("cloud_products","*","where Users_ID='{$UsersID}' and Biz_ID={$BizID} and Products_Status=1 and Products_SoldOut=0 order by Products_CreateTime desc limit 0,4");
+      $pt_goods = $DB->toArray($result);
+       if(!empty($pt_goods)){
+ ?>     
+ <div id="products">
+  <h1>云购产品</h1>
+  <?php
+    foreach($pt_goods as $k => $v){
+		  $i++;
+		  $JSON=json_decode($v['Products_JSON'],true);
+  ?>
+  <div class="item">
+	<ul>
+		<li class="img"><a href="<?=$pintuan_url ?>"><img src="<?php echo $JSON["ImgPath"][0];?>" /></a></li>
+		<li class="name"><a href="<?=$pintuan_url ?>"><?php echo $v["Products_Name"];?></a></li>
+     <li class="price">￥<?php echo $v["Products_PriceX"];?><span>￥<?php echo $v["Products_PriceY"];?></span></li>
+	</ul>
+  </div>
+  <?php echo $i%2==0 ? '<div class="clear"></div>' : '';?>
+  <?php }?>
+  <div class="clear"></div>
+ </div>
+ <?php } ?>
  <?php require_once($rsBiz["Skin_ID"]."/footer.php");?>

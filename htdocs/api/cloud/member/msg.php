@@ -1,18 +1,11 @@
 <?php
-require_once($_SERVER["DOCUMENT_ROOT"].'/Framework/Conn.php');
-require_once($_SERVER["DOCUMENT_ROOT"].'/include/helper/url.php');
+require_once($_SERVER["DOCUMENT_ROOT"].'/include/update/common.php');
+
 $base_url = base_url();
 $shop_url = shop_url();
 /*分享页面初始化配置*/
 $share_flag = 1;
 $signature = '';
-
-if(isset($_GET["UsersID"])){
-	$UsersID=$_GET["UsersID"];
-}else{
-	echo '缺少必要的参数';
-	exit;
-}
 
 if(!empty($_SESSION[$UsersID."User_ID"])){
 	$userexit = $DB->GetRs("user","*","where User_ID=".$_SESSION[$UsersID."User_ID"]." and Users_ID='".$UsersID."'");

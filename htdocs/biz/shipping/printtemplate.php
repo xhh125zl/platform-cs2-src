@@ -1,12 +1,12 @@
 <?php
 require_once('../global.php');
 $UsersID = $rsBiz['Users_ID'];
-
+if(!$UsersID) header("Location: /api/{$UsersID}/user/");
 $action=empty($_REQUEST['action'])?'':$_REQUEST['action'];
 if(!empty($action)){
 	if($action=="del"){
 		//删除
-		$Flag=$DB->Del("shop_shipping_print_template","usersid='".$Users_ID."' and bizid=".$_SESSION["BIZ_ID"]." and itemid=".$_GET["itemid"]);
+		$Flag=$DB->Del("shop_shipping_print_template","usersid='".$UsersID."' and bizid=".$_SESSION["BIZ_ID"]." and itemid=".$_GET["itemid"]);
 		if($Flag){
 			echo '<script language="javascript">alert("删除成功");window.location="printtemplate.php";</script>';
 		}else{

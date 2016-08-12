@@ -1,10 +1,12 @@
 var index_obj={
 	index_init:function(){
 		function load_page(type,page){
+        var method = sessionStorage.getItem(UsersID+"CloudListMethod");
+		
 			$.ajax({
 				type:'post',
 				url:'/api/'+UsersID+'/cloud/ajax/',
-				data:{action:type,p:page,BizID:BizID,ActiveID:ActiveID,UsersID:UsersID},
+				data:{action:type,p:page,BizID:BizID,ActiveID:ActiveID,UsersID:UsersID,method:method},
 				beforeSend:function() {
 					$("body").append("<div id='load'><div class='double-bounce1'></div><div class='double-bounce2'></div></div>");
 				},
@@ -19,8 +21,8 @@ var index_obj={
 							if(v['Products_xiangoutimes'] > 0){
 								xiangou = true;
 							}
-							$htmltmp += '<li><a href="'+cloud_url+'products/'+v['Products_ID']+'/" class="g-pic" style="display:block;width:100px;height:100px;overflow:hidden;margin:0 auto;">';
-							    if(xiangou){
+							$htmltmp += '<li><a href="'+cloud_url+'products/'+v['Products_ID']+'/" class="g-pic" style="display:block;width:150px;height:100px;overflow:hidden;margin:0 auto;">';
+							 if(xiangou){
 								    $htmltmp += '<div class="pTitle pPurchase">限购</div>';
 								}
 							    $htmltmp += '<img src="'+v['ImgPath']+'"></a>'+
@@ -40,6 +42,7 @@ var index_obj={
 								}
 								$htmltmp += '</li>';
 						})
+
 						$("#ulGoodsList").html($htmltmp);
 						if(data['totalpage'] == $(".loading").attr('page')){
 							$(".loading").hide();
@@ -61,6 +64,18 @@ var index_obj={
 		load_page('IsRecommend', $(".loading").attr('page'));
 		
 		$('#ulOrder li').click(function(){
+        method = sessionStorage.getItem(UsersID+"CloudListMethod");
+
+        if(method=="asc"){
+            method = "desc";
+        }else{
+            method = "asc";
+        }
+        $(this).attr("method", method);
+				method = $(this).attr("method");
+				sessionStorage.setItem(UsersID + "CloudListMethod", method);
+		
+		
 			$('#ulOrder li').removeClass('current');
 			$(this).addClass('current');
 			var type = $(this).attr('order');

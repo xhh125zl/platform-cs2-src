@@ -240,12 +240,6 @@ if(empty($action)) {
 	echo json_encode($Data,JSON_UNESCAPED_UNICODE);
 }elseif($action == "checkout"){ //提交订单
 
-
-	$Data = array(
-		"Users_ID"=>$UsersID,
-		"User_ID"=>$_SESSION[$UsersID."User_ID"]
-	);
-
 	$virtual = isset($_POST['virtual']) ? $_POST['virtual'] : 1;
 	$needcart = isset($_POST['needcart']) ? $_POST['needcart'] : 1;
 	
@@ -259,6 +253,32 @@ if(empty($action)) {
 		}
 	}
 
+	$Data = array (
+	    "Users_ID" => $UsersID,
+	    "User_ID" => $_SESSION [$UsersID . "User_ID"]
+	);
+	
+	if ($cart_key == $UsersID . 'CloudCart' || $cart_key == $UsersID . 'CloudBuy') {
+	
+	    $AddressID = empty ( $_POST ['AddressID'] ) ? 0 : $_POST ['AddressID'];
+	    $Need_Shipping = $_POST ['Need_Shipping'];
+	    if ($Need_Shipping == 1) {
+	        if (! empty ( $_POST ['AddressID'] )) {
+	            $rsAddress = $DB->GetRs ( "user_address", "*", "where Users_ID='" . $UsersID . "' and User_ID='" . $_SESSION [$UsersID . "User_ID"] . "' and Address_ID='" . $AddressID . "'" );
+	
+	            $Data ["Address_Name"] = $rsAddress ['Address_Name'];
+	            $Data ["Address_Mobile"] = $rsAddress ["Address_Mobile"];
+	            $Data ["Address_Province"] = $rsAddress ["Address_Province"];
+	            $Data ["Address_City"] = $rsAddress ["Address_City"];
+	            $Data ["Address_Area"] = $rsAddress ["Address_Area"];
+	            $Data ["Address_Detailed"] = $rsAddress ["Address_Detailed"];
+	        }
+	    }
+	} else {
+	    $Data ["Order_IsVirtual"] = 1;
+	    $Data ["Order_IsRecieve"] = $_POST ["recieve"];
+	    $Data ["Address_Mobile"] = $_POST ["Mobile"];
+	}
 	if($virtual == 0){
 		$CartList = json_decode($_SESSION[$cart_key], true);
 		$_SESSION[$cart_key] = json_encode($CartList, JSON_UNESCAPED_UNICODE);

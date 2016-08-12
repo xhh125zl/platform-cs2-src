@@ -120,7 +120,7 @@ function get_category($catid){
 		}
 	  </style>
 	  <div class="tips_info">
-	    注：<font style="color:#F00; font-size:12px;">已经购买过的商品不能再修改，点击查看往期可以查看该商品的所有期数商品！ </font><br />
+	    注：<font style="color:#F00; font-size:12px;">点击查看往期可以查看该商品的所有期数商品！ </font><br />
 	  </div>
       <table width="100%" align="center" border="0" cellpadding="5" cellspacing="0" class="r_con_table">
         <thead>

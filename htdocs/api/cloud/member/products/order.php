@@ -33,6 +33,7 @@ if(!$rsDetail){
 	echo "该奖品不存在";
 	exit;
 }
+$BizID = $rsProducts['Biz_ID'];
 $rsConfig = $DB->GetRs("shop_config","*","where Users_ID='".$UsersID."'");
 $rsPay = $DB->GetRs("users_payconfig","Shipping,Delivery_AddressEnabled,Delivery_Address","where Users_ID='".$UsersID."'");
 $Address_ID = !empty($_GET['AddressID'])?$_GET['AddressID']:0;
@@ -55,14 +56,14 @@ if($rsAddress){
 	$_SESSION[$UsersID."From_Checkout"] = 1;
 	header("location:/api/".$UsersID."/user/my/address/edit/");
 }
-	
-if(empty($rsConfig['Default_Business'])||empty($rsConfig['Default_Shipping'])){
+$rsBiz = $DB->GetRs("biz", "Shipping,Biz_ID" ,"WHERE Users_ID = '{$UsersID}' AND Biz_ID={$BizID}");
+if(empty($rsBiz)){
 	echo '<p style="text-align:center;color:red;font-size:30px;"><br/><br/>基本运费信息没有设置，请联系管理员</p>';
 	exit();
 }
-	
+
 //获取前台可用的快递公司
-$shipping_company_dropdown = get_front_shiping_company_dropdown($UsersID,$rsConfig);
+$shipping_company_dropdown = get_front_shiping_company_dropdown($UsersID,$rsBiz);
 $Business = 'express';
 //获取产品列表
 	
@@ -122,6 +123,21 @@ $Business_List = array('express'=>'快递','common'=>'平邮');
 		shipping_obj.shipping_checkout_init();
 	});
 </script>
+<style>
+    .gift_order_info img{ width:96%;}
+    .integral {
+        font-size: 20px;
+	font-weight: 500;
+	color: #EA6101;
+    }
+	.integral del {
+    	color: #C5C3C3;
+    	clear: both;
+    	font-size: 12px;
+    }
+    .gift_order_info ul li { padding-left:5px; }
+    .gift_order_info ul li:nth-child(1){ font-size: 20px; }
+</style>
 </head>
 
 <body style="background:#FFF">
@@ -158,7 +174,6 @@ $Business_List = array('express'=>'快递','common'=>'平邮');
 		</div>
 	</div>
 	<div class="b15"></div>
-	
 	<!-- 地址信息简述end-->
 	<form id="checkout_form" action="<?=$base_url?>api/<?=$UsersID?>/cloud/member/products/ajax/">
 		<input type="hidden" name="DetailID" value="<?php echo $DetailID;?>" />
@@ -171,8 +186,11 @@ $Business_List = array('express'=>'快递','common'=>'平邮');
 			<ul>
 				<li><?php echo $rsProducts['Products_Name'];?></li>
 				<li class="integral">
-					0
-					<font style="font-size:12px; color:#999">&nbsp;元</font></li>
+					<?=$rsProducts["Products_PriceX"]?>
+            		元&nbsp;&nbsp;&nbsp;&nbsp; <del>&yen;
+            			<?=$rsProducts["Products_PriceY"]?>
+            			元</del>
+				</li>
 			</ul>
 			<div class="clear"></div>
 		</div>

@@ -8,7 +8,7 @@ $result       = "";
 $time         = time();
 $ListShowGoodsCount = 0;
 $sql = "SELECT a.Users_ID,a.Active_ID,a.MaxBizCount,a.ListShowGoodsCount FROM active AS a LEFT JOIN active_type AS t ON a.Type_ID=t.Type_ID WHERE a.Users_ID='{$UsersID}' AND t.module='pintuan' AND a.starttime<={$time} AND a.stoptime>{$time} AND a.Status = 1 ";
-
+$_SESSION[$UsersID.'_CurrentActive'] = $ActiveID;
 if($ActiveID){
     $sql.= "AND a.Active_ID={$ActiveID}";
     $result = $DB->query($sql);
@@ -74,9 +74,13 @@ while ($res = $DB->fetch_assoc()) {
 $catelist = trim($catelist, ',');
 
 $totalInfo = $DB->GetRs("pintuan_products","count(*) as total","WHERE Users_ID='{$UsersID}' AND Products_Category in ({$catelist})  AND Products_ID IN ({$listGoods})");
-$pagesize = 5;
+$pagesize = 3;
+if($totalInfo['total']>$ListShowGoodsCount){
+    $totalInfo['total'] = $ListShowGoodsCount;
+}
 
-$totalPage = $totalInfo['total'] % $pagesize ==0?($totalInfo['total']/$pagesize):(intval($totalInfo['total']/$pagesize)+1);
+$totalPage = round($totalInfo['total']/$pagesize)+1;
+
 if(!isset($_SESSION[$UsersID."_pintuan_CurLists"]))
 {
     $_SESSION[$UsersID."_pintuan_CurLists"] = 0;
@@ -88,8 +92,7 @@ if(IS_AJAX){
     $offset = ($page-1)*$pagesize;
     $order = ["Products_ID {$method}","Products_CreateTime {$method}","Products_Sales {$method}","Products_PriceT {$method}","Products_Index {$method}"];
     $fields = "starttime,Products_CreateTime,Users_ID,Products_JSON,products_IsNew,products_IsRecommend,products_IsHot,Is_Draw,Products_ID,Products_Index,Products_Name,stoptime,Products_Sales,Products_PriceT,Products_PriceD,people_num";
-    $sql = "SELECT {$fields} FROM (SELECT {$fields} FROM `pintuan_products` WHERE Users_ID='{$UsersID}' AND Products_Category in ({$catelist}) AND Products_ID IN ({$listGoods}) LIMIT 0,{$ListShowGoodsCount}) as t ".($sort?"ORDER BY {$order[$sort]}":"ORDER BY field(Products_ID,{$listGoods})")." LIMIT {$offset},{$pagesize}";
-
+    $sql = "SELECT {$fields} FROM (SELECT {$fields} FROM `pintuan_products` WHERE Users_ID='{$UsersID}' AND Products_Category in ({$catelist}) AND Products_ID IN ({$listGoods}) LIMIT {$offset},{$ListShowGoodsCount}) as t ".($sort?"ORDER BY {$order[$sort]}":"ORDER BY field(Products_ID,{$listGoods})")." LIMIT 0,{$pagesize}";
     $result = $DB->query($sql);
     $list = [];
     if($result){
@@ -147,7 +150,6 @@ if(IS_AJAX){
 <script src="/static/api/pintuan/js/jquery.min.js"></script>
 <script src="/static/api/pintuan/js/responsiveslides.min.js"></script>
 <script src="/static/api/pintuan/js/common.js"></script>
-
 <style>
   .sort ul li {
     font-size: 13px;
@@ -178,6 +180,7 @@ if(IS_AJAX){
       float:left;
   }
   .sort ul li span { margin-left:8px;font-size::15px;}
+  .dropload-refresh,.dropload-update,.dropload-load{ text-align:center;color:#777;width:100%;}
 </style>
 </head>
 <body>
@@ -258,19 +261,18 @@ if(IS_AJAX){
 			sessionStorage.setItem("<?=$UsersID ?>currentPage", page);
 			getContainer(url,page,sort,method);
 			$(".sort ul li").click(function(){
-			  method = sessionStorage.getItem("<?=$UsersID ?>ListMethod");
-			  if(method=="asc"){
-            method = "desc";
-            marrow = "↓↑";
-			  }else{
-            method = "asc";
-            marrow = "↑↓";
-			  }
-        $(this).attr("method",method);
-        $(this).find("span").text(marrow);
+                method = sessionStorage.getItem("<?=$UsersID ?>ListMethod");
+                if(method=="asc"){
+                    method = "desc";
+                    marrow = "↓↑";
+                }else{
+                    method = "asc";
+                    marrow = "↑↓";
+                }
+        		$(this).attr("method",method);
+        		$(this).find("span").text(marrow);
 				sort = $(this).attr("sort");
 				method = $(this).attr("method");
-
 				sessionStorage.setItem("<?=$UsersID ?>ListSort", sort);
 				sessionStorage.setItem("<?=$UsersID ?>currentPage", page);
 				sessionStorage.setItem("<?=$UsersID ?>ListMethod", method);
@@ -279,44 +281,44 @@ if(IS_AJAX){
 			});
 			
 			$("#container").dropload({
-        domUp : {
-        domClass   : 'dropload-up',
-        domRefresh : '<div class="dropload-refresh">下拉刷新</div>',
-        domUpdate  : '<div class="dropload-update">释放更新</div>',
-        domLoad    : '<div class="dropload-load"></div>'
-        },
-        domDown : {
-            domClass   : 'dropload-down',
-            domRefresh : '<div class="dropload-refresh">上拉加载更多</div>',
-            domUpdate  : '<div class="dropload-update">释放加载</div>',
-            domLoad    : '<div class="dropload-load"></div>'
-        },
-        loadUpFn : function(me){
-            page = sessionStorage.getItem("<?=$UsersID ?>currentPage")?sessionStorage.getItem("<?=$UsersID ?>currentPage"):page;
-            sort = sessionStorage.getItem("<?=$UsersID ?>ListSort")?sessionStorage.getItem("<?=$UsersID ?>ListSort"):1;
-            method = sessionStorage.getItem("<?=$UsersID ?>ListMethod")?sessionStorage.getItem("<?=$UsersID ?>ListMethod"):'asc';
-            if(page>1){
-              page--;
-              sessionStorage.setItem("<?=$UsersID ?>ListSort", sort);
-              sessionStorage.setItem("<?=$UsersID ?>currentPage", page);
-              getContainer(url,page,sort,method); 
-            }
-            me.resetload();
-        },
-        loadDownFn : function(me){
-            page = sessionStorage.getItem("<?=$UsersID ?>currentPage")?sessionStorage.getItem("<?=$UsersID ?>currentPage"):page;
-            sort = sessionStorage.getItem("<?=$UsersID ?>ListSort")?sessionStorage.getItem("<?=$UsersID ?>ListSort"):1;
-            method = sessionStorage.getItem("<?=$UsersID ?>ListMethod")?sessionStorage.getItem("<?=$UsersID ?>ListMethod"):'asc';
-            if(page<=totalPage){
-              page++;
-              sessionStorage.setItem("<?=$UsersID ?>ListSort", sort);
-              sessionStorage.setItem("<?=$UsersID ?>currentPage", page);
-              getContainer(url,page,sort,method);
-            } 
-            me.resetload();
-        }
-    });	
-});
+                domUp : {
+                	domClass   : 'dropload-up',
+                	domRefresh : '<div class="dropload-refresh">下拉刷新</div>',
+                	domUpdate  : '<div class="dropload-update">释放更新</div>',
+                	domLoad    : '<div class="dropload-load"></div>'
+                },
+                domDown : {
+                    domClass   : 'dropload-down',
+                    domRefresh : '<div class="dropload-refresh">上拉加载更多</div>',
+                    domUpdate  : '<div class="dropload-update">释放加载</div>',
+                    domLoad    : '<div class="dropload-load"></div>'
+                },
+                loadUpFn : function(me){
+                    page = sessionStorage.getItem("<?=$UsersID ?>currentPage")?sessionStorage.getItem("<?=$UsersID ?>currentPage"):page;
+                    sort = sessionStorage.getItem("<?=$UsersID ?>ListSort")?sessionStorage.getItem("<?=$UsersID ?>ListSort"):1;
+                    method = sessionStorage.getItem("<?=$UsersID ?>ListMethod")?sessionStorage.getItem("<?=$UsersID ?>ListMethod"):'asc';
+                    if(page>1){
+                      page--;
+                      sessionStorage.setItem("<?=$UsersID ?>ListSort", sort);
+                      sessionStorage.setItem("<?=$UsersID ?>currentPage", page);
+                      getContainer(url,page,sort,method); 
+                    }
+                    me.resetload();
+                },
+                loadDownFn : function(me){
+                    page = sessionStorage.getItem("<?=$UsersID ?>currentPage")?sessionStorage.getItem("<?=$UsersID ?>currentPage"):page;
+                    sort = sessionStorage.getItem("<?=$UsersID ?>ListSort")?sessionStorage.getItem("<?=$UsersID ?>ListSort"):1;
+                    method = sessionStorage.getItem("<?=$UsersID ?>ListMethod")?sessionStorage.getItem("<?=$UsersID ?>ListMethod"):'asc';
+                    if(page<totalPage){
+                      page++;
+                      sessionStorage.setItem("<?=$UsersID ?>ListSort", sort);
+                      sessionStorage.setItem("<?=$UsersID ?>currentPage", page);
+                      getContainer(url,page,sort,method);
+                    } 
+                    me.resetload();
+                }
+    		});	
+		});
         </script>
 		<?php include 'bottom.php';?>
 	</div>

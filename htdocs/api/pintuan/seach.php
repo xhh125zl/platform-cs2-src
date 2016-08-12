@@ -58,6 +58,8 @@ $(function(){
 </script>
 <style>
 .hide{ display:none; }
+.hide ul li{height:160px;}
+}
 </style>
 <div id="wrap">
           <div id="menu">
@@ -98,7 +100,12 @@ $(function(){
                     foreach($goods as $k => $v){
          ?>
                      <li class="l">
-                          <a href="/api/<?=$UsersID ?>/pintuan/xiangqing/<?=$v['Products_ID'] ?>/"><img style="height:80px;" src="<?=json_decode($v['Products_JSON'],true)['ImgPath']['0'] ?>"><br/><?=sub_str($v['Products_Name'],10,false)?></a></li>	
+                          <a href="/api/<?=$UsersID ?>/pintuan/xiangqing/<?=$v['Products_ID'] ?>/">
+                          <img style="height:80px;" src="<?=json_decode($v['Products_JSON'],true)['ImgPath']['0'] ?>">
+                          <span>
+                          <?=sub_str($v['Products_Name'],10,false)?></a>
+                          </span>
+                     </li>	
          
          <?php 
                     }
@@ -114,14 +121,7 @@ $(function(){
           </div>
     <div class="clear"></div>
     <!--代码结束 -->
-    <div class="kb"></div>
-    <div class="clear"></div>
-    <div style="height:70px;"></div>
-    <div class="cotrs">
-        <a  href="/api/<?=$UsersID ?>/pintuan/"><img src="/static/api/pintuan/images/002-1.png" width="25px" height="25px" /><br />首页</a>
-        <a  class="thisclass" href="/api/<?=$UsersID ?>/pintuan/seach/"><img src="/static/api/pintuan/images/002-2.png" width="22px" height="22px" style="margin-top:3px;"/><br />搜索</a>
-        <a href="/api/<?=$UsersID ?>/pintuan/user/"><img src="/static/api/pintuan/images/002-3.png" width="22px" height="22px" style="margin-top:3px;"/><br />我的</a>
-    </div>
+    <?php include 'bottom.php';?>
 </div>
 </body>
 </html>
