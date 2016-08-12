@@ -4,6 +4,9 @@ header("Cache-Control: no-cache");
 header("Pragma: no-cache");
 header("Expires: ".gmdate("D, d M Y H:i:s",time())." GMT");
 header('Content-Type:text/html; charset=utf-8');
+
+define('CMS_ROOT', $_SERVER["DOCUMENT_ROOT"]);
+
 require_once('Ext/mysql.inc.php');
 require_once('dbconfig.php');
 require_once('eloquent.php');
