@@ -16,7 +16,7 @@ if(!empty($_GET["action"])){
 		}else{
 		    if($rsOrder['Front_Order_Status']==3 && $rsBack['Back_Status']==0){//已发货的状态下
 			
-                        $backup->update_backup("seller_agree",$BackID);
+                $backup->update_backup("seller_agree",$BackID);
 		    }
 			if($rsOrder['Front_Order_Status']==2 && $rsBack['Back_Status']==0){  //已付款未发货的状态下
                            
@@ -149,7 +149,7 @@ if(!empty($_GET["action"])){
               <td nowrap>&nbsp;</td>
               <td>
               <?php
-              if($Status==0){
+                   if($Status==0){
 			  ?>
                 <?php if($rsOrder["Order_IsVirtual"]==0){?>
               	<a href="?action=agree&BackID=<?php echo $BackID;?>" class="back_btn_blue">同意</a>&nbsp;&nbsp;<a href="javascript:void(0);" id="reject_btn" class="back_btn_grey">驳回</a>
