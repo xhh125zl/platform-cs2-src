@@ -1,6 +1,4 @@
 <?php
-require_once($_SERVER["DOCUMENT_ROOT"].'/include/update/common.php');
-
 $DB->Get("shipping_orders","Orders_SendTime,Orders_Status,User_ID,Orders_IsShipping,Orders_ID","where Users_ID='{$UsersID}' and Orders_Status=2 and Orders_SendTime<=".(time()-86400*7));
 	$lists = array();
 	while($r = $DB->fetch_assoc()){

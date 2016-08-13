@@ -1,5 +1,4 @@
 <?php 
-require_once($_SERVER["DOCUMENT_ROOT"].'/include/update/common.php');
 
 $ID =  isset($_GET['id']) && $_GET['id']?$_GET['id']:0;
 $sql = "SELECT a.Type_ID,a.*,b.*,t.module,t.Type_Name FROM biz_active as b LEFT JOIN active as a ON b.Active_ID=a.Active_ID LEFT JOIN active_type AS t ON a.Type_ID=t.Type_ID  WHERE b.Users_ID='{$UsersID}' AND b.Biz_ID='{$BizID}' AND b.ID='{$ID}'";
@@ -11,26 +10,44 @@ if(!$rsActive){
 $list = [];
 $goods = [];
 if($rsActive['ListConfig']){
+$condition = "WHERE ";
     if($rsActive['module']=='pintuan'){    //拼团
-        $table = "pintuan_products";    
+        $table = "pintuan_products";
+        $time = time();
+        $condition .= " `Users_ID` = '{$UsersID}' AND Biz_ID={$BizID} AND Products_Status=1  AND starttime<={$time} AND stoptime>={$time} AND Products_ID in ({$rsActive['ListConfig']})";
     }elseif($rsActive['module']=='cloud'){   //云购
         $table = "cloud_products";
+        $condition .= " `Users_ID` = '{$UsersID}' AND Biz_ID={$BizID} AND Products_Status=1 AND Products_SoldOut=0 AND Products_ID in ({$rsActive['ListConfig']})";
     }elseif($rsActive['module']=='pifa'){   //批发
         $table = "pifa_products";
+        $condition .= " `Users_ID` = '{$UsersID}' AND Biz_ID={$BizID} AND Products_Status=1 AND Products_SoldOut=0 AND Products_ID in ({$rsActive['ListConfig']})";
+    }elseif($rsActive['module']=='zhongchou'){  //重筹
+        $table = "zhongchou_project";
+        $time = time();
+        $condition .= " usersid='{$UsersID}' AND Biz_ID={$BizID} AND fromtime<={$time} AND totime>={$time} AND itemid in ({$rsActive['ListConfig']})";
     }else{
         $table = "shop_products";
+        $condition .= " `Users_ID` = '{$UsersID}' AND Biz_ID={$BizID} AND Products_Status=1 AND Products_SoldOut=0 AND Products_ID in ({$rsActive['ListConfig']})";
     }
-    $result = $DB->Get($table,"*","WHERE Users_ID='{$UsersID}' AND Biz_ID='{$BizID}' AND Products_ID in ({$rsActive['ListConfig']})");
+    $result = $DB->Get($table,"*",$condition);
     if($result){
         while($res = $DB->fetch_assoc($result))
         {
+            if($rsActive['module']=='zhongchou'){
+                $res['Products_ID'] = $res['itemid'];
+                $res['Products_Name'] = $res['title'];
+            }
             $list[$res['Products_ID']]=$res;
         }
     }
-    $result = $DB->Get($table,"*","WHERE Users_ID='{$UsersID}' AND Biz_ID='{$BizID}' AND Products_Status = 1");
+    $result = $DB->Get($table,"*",$condition);
     if($result){
         while($res = $DB->fetch_assoc($result))
         {
+            if($rsActive['module']=='zhongchou'){
+                $res['Products_ID'] = $res['itemid'];
+                $res['Products_Name'] = $res['title'];
+            }
             $goods[$res['Products_ID']]=$res;
         }
     }

@@ -1,6 +1,4 @@
 <?php
-require_once($_SERVER["DOCUMENT_ROOT"].'/include/update/common.php');
-
 $_STATUS=array("待确认","待付款","已付款","已发货","已完成");
 $step = isset($_GET["step"]) ? $_GET["step"] : 0;
 if(isset($_GET["action"])){

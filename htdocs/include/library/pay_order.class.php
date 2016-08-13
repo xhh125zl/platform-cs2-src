@@ -83,7 +83,7 @@ class pay_order{
 			$Flag_b = $Flag_c = TRUE;
 			$CartList = json_decode(htmlspecialchars_decode($rsOrder['Order_CartList']), true);
 			$sql1 = 'UPDATE cloud_products SET canyurenshu = CASE Products_ID';
-			$sql2 = "INSERT INTO cloud_record (`User_ID`,`Products_ID`,`Add_Time`,`Cloud_Code`,`qishu`,`Order_ID`) VALUES";
+			$sql2 = "INSERT INTO cloud_record (`User_ID`,`Products_ID`,`Add_Time`,`Cloud_Code`,`qishu`,`Order_ID`,`Biz_ID`) VALUES";
 			$codes = get_cloud_code($CartList);
 
 			foreach($CartList as $key => $value){
@@ -92,7 +92,7 @@ class pay_order{
 					$sql1 .= ' WHEN '.$key.' THEN canyurenshu+'.$v['Qty'];
 					for($i = 0; $i < $v['Qty']; $i++){
 						$cloud_code = $codes[$key][$i];
-						$sql2 .= ' ('.$rsOrder["User_ID"].', '.$key.', "'.microtime(true).'", '.$cloud_code.', '.$v['qishu'].', '.$rsOrder['Order_ID'].'),';
+						$sql2 .= ' ('.$rsOrder["User_ID"].', '.$key.', "'.microtime(true).'", '.$cloud_code.', '.$v['qishu'].', '.$rsOrder['Order_ID'].','.$rsOrder["Biz_ID"].'),';
 					}
 				}
 			}

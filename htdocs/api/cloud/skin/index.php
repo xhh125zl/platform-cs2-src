@@ -18,7 +18,6 @@
 
 	var method="asc";
 	var marrow = "↑";
-	
 	sessionStorage.setItem("<?=$UsersID ?>CloudListMethod", method);
 	
     $(document).ready(function(){

@@ -1,14 +1,14 @@
 ﻿<?php
-require_once($_SERVER["DOCUMENT_ROOT"].'/Framework/Conn.php');
+require_once($_SERVER ["DOCUMENT_ROOT"].'/Framework/Conn.php');
 ini_set("display_errors","On");
-require_once($_SERVER["DOCUMENT_ROOT"].'/include/helper/shipping.php');
-require_once($_SERVER["DOCUMENT_ROOT"].'/include/helper/tools.php');
-require_once($_SERVER["DOCUMENT_ROOT"].'/include/helper/flow.php');
-require_once($_SERVER["DOCUMENT_ROOT"].'/include/helper/lib_products.php');
-require_once($_SERVER["DOCUMENT_ROOT"].'/include/helper/order.php');
-require_once($_SERVER["DOCUMENT_ROOT"].'/include/library/smarty.php');
-require_once($_SERVER ["DOCUMENT_ROOT"] . '/Framework/Ext/virtual.func.php');
-require_once($_SERVER ["DOCUMENT_ROOT"] . '/Framework/Ext/sms.func.php');
+require_once(CMS_ROOT.'/include/helper/shipping.php');
+require_once(CMS_ROOT.'/include/helper/tools.php');
+require_once(CMS_ROOT.'/include/helper/flow.php');
+require_once(CMS_ROOT.'/include/helper/lib_products.php');
+require_once(CMS_ROOT.'/include/helper/order.php');
+require_once(CMS_ROOT.'/include/library/smarty.php');
+require_once(CMS_ROOT.'/Framework/Ext/virtual.func.php');
+require_once(CMS_ROOT.'/Framework/Ext/sms.func.php');
 
 if(isset($_REQUEST["UsersID"])){
 	$UsersID = $_REQUEST["UsersID"];
@@ -25,8 +25,9 @@ $listGoods    = "";
 $result       = "";
 $time         = time();
 $action=empty($_REQUEST["action"])?"":$_REQUEST["action"];
+$ListShowGoodsCount = 0;
 
-if($BizID){
+if($BizID && $action != 'category'){
     $BizInfo = $DB->GetRs("biz","*","WHERE Users_ID='{$UsersID}' AND Biz_ID='{$BizID}'");
     if(empty($BizInfo))
     {
@@ -39,10 +40,31 @@ if($BizID){
     if(empty($rsActive)) {
         die("活动不存在");
     }
+    $result = $DB->Get("biz_active","ListConfig,IndexConfig,Biz_ID,Active_ID","WHERE Users_ID='{$UsersID}' AND Active_ID={$ActiveID} AND Status=2 LIMIT 0,{$rsActive['MaxBizCount']}");
+    $activelist = $DB->toArray($result);
+    if(empty($activelist)){
+        sendAlert("没有商家参与相关活动");
+    }
+    $indexGoods = "";
+    $listGoods = "";
+    foreach ($activelist as $k => $v)
+    {
+        $indexGoods .= $v['IndexConfig'].',';
+        $listGoods .= $v['ListConfig'].',';
+    }
+    $listGoods = trim($listGoods,',');
+    $indexGoods = trim($indexGoods,',');
+    $listGoods_temp = explode(",",$listGoods);
+    $indexGoods_temp = explode(",",$indexGoods);
+    $dis_temp = array_diff($listGoods_temp,$indexGoods_temp);
+    $dis_temp = implode($dis_temp,',');
+    $listGoods = $indexGoods.','.$dis_temp;
+    $listGoods = trim($listGoods,',');
+    
     $bizCount = $rsActive['BizShowGoodsCount'];
     $method=!isset($_POST["method"])?"asc":$_POST["method"];
     $orderby = "";
-    $fields = "Products_Name,Products_ID,Products_IsVirtual,Products_IsShippingFree,Products_Weight,Products_JSON,Products_PriceX,Products_PriceY,qishu,canyurenshu,zongrenci,Products_xiangoutimes";
+    $fields = "Products_Name,Products_ID,Products_IsVirtual,Products_IsShippingFree,Products_Weight,Products_JSON,Products_PriceX,Products_PriceY,qishu,canyurenshu,zongrenci,Products_xiangoutimes,Products_CreateTime";
     if("republicTime" == $action){
         $orderby .= "ORDER BY Products_CreateTime {$method}";
     }else if("sales" == $action){
@@ -52,15 +74,15 @@ if($BizID){
     }else if("define" == $action){
         $orderby .= "ORDER BY Products_Order {$method}";
     }else{
-        $orderby .= "ORDER BY Products_ID DESC";
+        $orderby .= "ORDER BY Products_CreateTime {$method}";
     }
-    $counts = $DB->GetRs("cloud_products","count(Products_ID) as count","where Users_ID='".$UsersID."' and Biz_ID={$BizID} AND zongrenci<>canyurenshu");
-    $num = 20;//每页记录数
+    $counts = $DB->GetRs("cloud_products","count(Products_ID) as count","WHERE Users_ID='".$UsersID."' AND Biz_ID={$BizID} AND Products_Status = 1 AND zongrenci<>canyurenshu AND Products_ID IN ({$listGoods})");
+    $num = 6;//每页记录数
     $p = !empty($_POST['p'])?intval(trim($_POST['p'])):1;
     $total = $counts['count'];//数据记录总数
     $totalpage = ceil($total/$num);//总计页数
     $limitpage = ($p-1)*$num;//每次查询取记录
-    $sql = "SELECT {$fields} FROM (SELECT {$fields} FROM `cloud_products` WHERE Users_ID='{$UsersID}' AND Products_Status = 1 AND zongrenci<>canyurenshu  LIMIT {$limitpage},{$bizCount}) as t {$orderby} LIMIT 0,{$num}";
+    $sql = "SELECT {$fields} FROM (SELECT {$fields} FROM `cloud_products` WHERE Users_ID='{$UsersID}' AND Biz_ID={$BizID} AND Products_Status = 1 AND zongrenci<>canyurenshu AND Products_ID IN ({$listGoods}) LIMIT {$bizCount}) as t {$orderby} LIMIT {$limitpage},{$num}";
     $goods = $DB->query($sql);
     $list = $DB->toArray($goods);
     $products = [];
@@ -83,10 +105,9 @@ if($BizID){
         'totalpage' => $totalpage,
       );
     }
-    echo json_encode($data, JSON_UNESCAPED_UNICODE);
-    exit;
+    echo json_encode($data, JSON_UNESCAPED_UNICODE);exit;
 }else{
-    $sql = "SELECT a.Users_ID,a.Active_ID,a.MaxBizCount FROM active AS a LEFT JOIN active_type AS t ON a.Type_ID=t.Type_ID WHERE a.Users_ID='{$UsersID}' AND t.module='cloud' AND a.starttime<={$time} AND a.stoptime>{$time} AND a.Status = 1 ";
+    $sql = "SELECT a.Users_ID,a.Active_ID,a.MaxBizCount,a.ListShowGoodsCount FROM active AS a LEFT JOIN active_type AS t ON a.Type_ID=t.Type_ID WHERE a.Users_ID='{$UsersID}' AND t.module='cloud' AND a.starttime<={$time} AND a.stoptime>{$time} AND a.Status = 1 ";
 
     if($ActiveID){
         $sql.= "AND a.Active_ID={$ActiveID}";
@@ -104,6 +125,7 @@ if($BizID){
         }
         $ActiveID = $result['Active_ID'];
     }
+    $ListShowGoodsCount = $result['ListShowGoodsCount'];
     $result = $DB->Get("biz_active","ListConfig,IndexConfig,Biz_ID,Active_ID","WHERE Users_ID='{$UsersID}' AND Active_ID={$ActiveID} AND Status=2 LIMIT 0,{$result['MaxBizCount']}");
     $activelist = $DB->toArray($result);
 
@@ -124,16 +146,18 @@ if($BizID){
 }
 
 /* 获取活动首页列表 */
+$condition = "Users_ID='".$UsersID."' AND Products_Status = 1  and Products_SoldOut=0 AND Products_ID in ({$listGoods})";
+$fields = "Products_Name,Products_ID,Products_IsVirtual,Products_IsShippingFree,Products_Weight,Products_JSON,Products_PriceX,Products_PriceY,qishu,canyurenshu,zongrenci,Products_xiangoutimes,Products_Order,Products_CreateTime";
 
 if($action == "jjjx"){//即将揭晓(参与人数与总人数的比例大于80%的为即将揭晓)
-	$counts = $DB->GetRs("cloud_products","count(Products_ID) as count","where Users_ID='".$UsersID."' and Products_SoldOut=0 and (canyurenshu/zongrenci)=1");
+	$counts = $DB->GetRs("cloud_products","count(Products_ID) as count","where {$condition} and (canyurenshu/zongrenci)=1 ");
 	$num = 20;//每页记录数
 	$p = !empty($_POST['p'])?intval(trim($_POST['p'])):1;
 	$total = $counts['count'];//数据记录总数
 	$totalpage = ceil($total/$num);//总计页数
 	$limitpage = ($p-1)*$num;//每次查询取记录
-	
-	$rsJjjxProducts = $DB->get("cloud_products","Products_Name,Products_ID,Products_IsVirtual,Products_IsShippingFree,Products_Weight,Products_JSON,Products_PriceX,Products_PriceY,qishu,canyurenshu,zongrenci,Products_xiangoutimes","where Users_ID='".$UsersID."' and Products_SoldOut=0 AND Products_ID in ({$listGoods}) order by ROUND(canyurenshu/zongrenci,2) desc, Products_Order asc, Products_CreateTime desc limit $limitpage,$num");
+	$sql = "SELECT {$fields} FROM (SELECT {$fields} FROM `cloud_products` WHERE {$condition} and (canyurenshu/zongrenci)=1 LIMIT {$ListShowGoodsCount}) as t order by ROUND(canyurenshu/zongrenci,2) desc, Products_Order asc, Products_CreateTime desc LIMIT {$limitpage},{$num}";
+	$rsJjjxProducts = $DB->query($sql);
 	$products_tmp = handle_product_list($DB->toArray($rsJjjxProducts));
 	$products = array();
 	foreach($products_tmp as $key => $val){
@@ -142,18 +166,6 @@ if($action == "jjjx"){//即将揭晓(参与人数与总人数的比例大于80%�
 			//$products[$key]['near'] = $val['canyurenshu']/$val['zongrenci'];
 		}
 	}
-	//冒泡
-	/*$m = count($products);
-	for ($i = 0; $i < count($products); $i++){
-		$m-=1;
-        for ($j = 1; $j <= $m; $j++){
-            if ($products[$j]['near'] < $products[$j+1]['near']){
-                $temp = $products[$j];
-                $products[$j] = $products[$j+1];
-                $products[$j+1] = $temp;
-            }
-        }
-    }*/
 	
 	if(count($products) > 0){
 		$data = array(
@@ -169,14 +181,14 @@ if($action == "jjjx"){//即将揭晓(参与人数与总人数的比例大于80%�
 	echo json_encode($data, JSON_UNESCAPED_UNICODE);
 	exit;
 }elseif($action == "IsNew"){
-	$counts = $DB->GetRs("cloud_products","count(Products_ID) as count","where Users_ID='".$UsersID."' and Products_IsNew=1 and Products_SoldOut=0 and ROUND(canyurenshu/zongrenci,2)<1");
+	$counts = $DB->GetRs("cloud_products","count(Products_ID) as count","where {$condition} and Products_IsNew=1 and ROUND(canyurenshu/zongrenci,2)<1 ");
 	$num = 20;//每页记录数
 	$p = !empty($_POST['p'])?intval(trim($_POST['p'])):1;
 	$total = $counts['count'];//数据记录总数
 	$totalpage = ceil($total/$num);//总计页数
 	$limitpage = ($p-1)*$num;//每次查询取记录
-		
-	$rsProducts = $DB->get("cloud_products","Products_Name,Products_ID,Products_IsVirtual,Products_IsShippingFree,Products_Weight,Products_JSON,Products_PriceX,Products_PriceY,qishu,canyurenshu,zongrenci,Products_xiangoutimes","where Users_ID='".$UsersID."' and Products_IsNew=1 and Products_SoldOut=0 and ROUND(canyurenshu/zongrenci,2)<1 and Products_ID in ({$listGoods})  order by Products_Order asc, Products_CreateTime asc limit $limitpage,$num");
+	$sql = "SELECT {$fields} FROM (SELECT {$fields} FROM `cloud_products` WHERE {$condition} and Products_IsNew=1 and ROUND(canyurenshu/zongrenci,2)<1 LIMIT {$ListShowGoodsCount}) as t order by Products_Order asc, Products_CreateTime asc LIMIT {$limitpage},{$num}";
+	$rsProducts = $DB->query($sql);
 	$products = handle_product_list($DB->toArray($rsProducts));
 	
 	if(count($products) > 0){
@@ -193,14 +205,14 @@ if($action == "jjjx"){//即将揭晓(参与人数与总人数的比例大于80%�
 	echo json_encode($data, JSON_UNESCAPED_UNICODE);
 	exit;
 }elseif($action == "IsHot"){
-	$counts = $DB->GetRs("cloud_products","count(Products_ID) as count","where Users_ID='".$UsersID."' and Products_IsHot=1 and Products_SoldOut=0 and ROUND(canyurenshu/zongrenci,2)<1");
+	$counts = $DB->GetRs("cloud_products","count(Products_ID) as count","where {$condition} and Products_IsHot=1 and ROUND(canyurenshu/zongrenci,2)<1");
 	$num = 20;//每页记录数
 	$p = !empty($_POST['p'])?intval(trim($_POST['p'])):1;
 	$total = $counts['count'];//数据记录总数
 	$totalpage = ceil($total/$num);//总计页数
 	$limitpage = ($p-1)*$num;//每次查询取记录
-	
-	$rsProducts = $DB->get("cloud_products","Products_Name,Products_ID,Products_IsVirtual,Products_IsShippingFree,Products_Weight,Products_JSON,Products_PriceX,Products_PriceY,qishu,canyurenshu,zongrenci,Products_xiangoutimes","where Users_ID='".$UsersID."' and Products_IsHot=1 and Products_SoldOut=0 and ROUND(canyurenshu/zongrenci,2)<1 and Products_ID in ({$listGoods})  order by Products_Order asc, Products_CreateTime asc limit $limitpage,$num");
+	$sql = "SELECT {$fields} FROM (SELECT {$fields} FROM `cloud_products` WHERE {$condition} and Products_IsHot=1 and ROUND(canyurenshu/zongrenci,2)<1 LIMIT {$ListShowGoodsCount}) as t order by Products_Order asc, Products_CreateTime asc LIMIT {$limitpage},{$num}";
+	$rsProducts = $DB->query($sql);
 	$products = handle_product_list($DB->toArray($rsProducts));
 	if(count($products) > 0){
 		$data = array(
@@ -216,14 +228,14 @@ if($action == "jjjx"){//即将揭晓(参与人数与总人数的比例大于80%�
 	echo json_encode($data, JSON_UNESCAPED_UNICODE);
 	exit;
 }elseif($action == "IsRecommend"){
-	$counts = $DB->GetRs("cloud_products","count(Products_ID) as count","where Users_ID='".$UsersID."' and Products_IsRecommend=1 and Products_SoldOut=0 and ROUND(canyurenshu/zongrenci,2)<1");
+	$counts = $DB->GetRs("cloud_products","count(Products_ID) as count","where {$condition} and Products_IsRecommend=1 and ROUND(canyurenshu/zongrenci,2)<1");
 	$num = 20;//每页记录数
 	$p = !empty($_POST['p'])?intval(trim($_POST['p'])):1;
 	$total = $counts['count'];//数据记录总数
 	$totalpage = ceil($total/$num);//总计页数
 	$limitpage = ($p-1)*$num;//每次查询取记录
-	
-	$rsProducts = $DB->get("cloud_products","Products_Name,Products_ID,Products_IsVirtual,Products_IsShippingFree,Products_Weight,Products_JSON,Products_PriceX,Products_PriceY,qishu,canyurenshu,zongrenci,Products_xiangoutimes","where Users_ID='".$UsersID."' and Products_IsRecommend=1 and Products_SoldOut=0 and ROUND(canyurenshu/zongrenci,2)<1 and Products_ID in ({$listGoods})  order by Products_Order asc, Products_CreateTime asc limit $limitpage,$num");
+	$sql = "SELECT {$fields} FROM (SELECT {$fields} FROM `cloud_products` WHERE {$condition} and Products_IsRecommend=1 and ROUND(canyurenshu/zongrenci,2)<1 LIMIT {$ListShowGoodsCount}) as t order by Products_Order asc, Products_CreateTime asc LIMIT {$limitpage},{$num}";
+	$rsProducts = $DB->query($sql);
 	$products = handle_product_list($DB->toArray($rsProducts));
 	if(count($products) > 0){
 		$data = array(
@@ -302,7 +314,7 @@ if($action == "jjjx"){//即将揭晓(参与人数与总人数的比例大于80%�
 	
 	$Flag = $Flag && $DB->query('UPDATE `cloud_shopcodes` SET s_codes_tmp=s_codes where s_id = '.$rsProducts['Products_ID']);
 	if($Flag){
-		require_once($_SERVER["DOCUMENT_ROOT"].'/include/library/weixin_message.class.php');
+		require_once(CMS_ROOT.'/include/library/weixin_message.class.php');
 		$weixin_message = new weixin_message($DB,$UsersID,$UserID);
 		$contentStr = '恭喜，您获得了本期商品：'.$rsProducts['Products_Name'].'  <a href="http://'.$_SERVER["HTTP_HOST"].'/api/'.$UsersID.'/cloud/member/products/order/'.$detail_id.'/">点击领取</a>';
 		$weixin_message->sendscorenotice($contentStr);
@@ -315,18 +327,24 @@ if($action == "jjjx"){//即将揭晓(参与人数与总人数的比例大于80%�
 	}
 }elseif($action == 'category'){
 	$CategoryID = $_POST['cid'];
-	if($CategoryID){
-		$where = "where Users_ID='".$UsersID."' and Products_Category=".$CategoryID." and Products_SoldOut=0 and ROUND(canyurenshu/zongrenci,2)<1";
-	}else{
-		$where = "where Users_ID='".$UsersID."' and Products_SoldOut=0 and ROUND(canyurenshu/zongrenci,2)<1";
+	$condition = '';
+	if($BizID){
+	    $condition = ' AND Biz_ID = '.$BizID;
 	}
+
+	if($CategoryID){
+		$where = "where Users_ID='".$UsersID."' {$condition} and Products_Category=".$CategoryID." and Products_SoldOut=0 and ROUND(canyurenshu/zongrenci,2)<1";
+	}else{
+		$where = "where Users_ID='".$UsersID."' {$condition} and Products_SoldOut=0 and ROUND(canyurenshu/zongrenci,2)<1";
+	}
+
 	$counts = $DB->GetRs("cloud_products","count(Products_ID) as count",$where);
 	$num = 20;//每页记录数
 	$p = !empty($_POST['p'])?intval(trim($_POST['p'])):1;
 	$total = $counts['count'];//数据记录总数
 	$totalpage = ceil($total/$num);//总计页数
 	$limitpage = ($p-1)*$num;//每次查询取记录
-	$where .= " and Products_ID in ({$listGoods})  order by Products_Order asc, Products_CreateTime asc limit $limitpage,$num";
+	$where .= " order by Products_Order asc, Products_CreateTime asc limit $limitpage,$num";
 	$rsProducts = $DB->get("cloud_products","Products_Name,Products_ID,Products_IsVirtual,Products_IsShippingFree,Products_Weight,Products_JSON,Products_PriceX,Products_PriceY,qishu,canyurenshu,zongrenci,Products_xiangoutimes",$where);
 	$products = handle_product_list($DB->toArray($rsProducts));
 	if(count($products) > 0){

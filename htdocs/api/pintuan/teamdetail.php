@@ -143,15 +143,15 @@
                           });
                           return false;
                       }else{
-                          var res=data.id;
-                          var ss=data.v;
-                          if(res==''){
-                              layer.msg("系统繁忙，购买失败！请稍后再试！",{icon:1,time:3000});
+                          var id=data.id;
+                          var status=data.v;
+                          if(id==''){
+                              layer.msg("不能参加自己开的团！",{icon:1,time:3000});
                           }else{
-                            if (ss==1){
-                                location.href="/api/<?php echo $UsersID;?>/pintuan/vorder/"+res+"/";
-                            }else if(ss==0){
-                               location.href="/api/<?php echo $UsersID;?>/pintuan/order/"+res+"/";
+                            if (status==1){
+                                location.href="/api/<?php echo $UsersID;?>/pintuan/vorder/"+id+"/";
+                            }else if(status==0){
+                               location.href="/api/<?php echo $UsersID;?>/pintuan/order/"+id+"/";
                             }
                           }
                       }

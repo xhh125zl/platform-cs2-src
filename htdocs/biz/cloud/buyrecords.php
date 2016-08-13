@@ -1,6 +1,4 @@
 <?php  
-require_once($_SERVER["DOCUMENT_ROOT"].'/include/update/common.php');
-
 if(isset($_GET["action"]))
 {
 	if($_GET["action"]=="del")
@@ -24,7 +22,8 @@ $rsUser = $DB->GetRS('user','*','where User_ID='.$rsDetail['User_ID']);
 $ProductsID = $rsDetail['Products_ID'];
 $rsProducts = $DB->GetRs("cloud_Products","*","where Users_ID='{$UsersID}' and Biz_ID={$BizID} and Products_ID=".$ProductsID);
 $cate = $DB->GetRs("cloud_category","*","where Category_ID='".$rsProducts['Products_Category']."'");
-
+$cloud_record = $DB->GetRs("cloud_record","count(*) as total", "WHERE Products_ID={$ProductsID} AND qishu={$rsDetail['qishu']} AND Biz_ID={$BizID}");
+$cloud_record['total'] = isset($cloud_record['total'])?$cloud_record['total']:0;
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -62,7 +61,11 @@ $cate = $DB->GetRs("cloud_category","*","where Category_ID='".$rsProducts['Produ
 			商品&nbsp;&nbsp;ID：<font style="color:#F00; font-size:12px;"><?php echo $ProductsID;?></font><br />
 			商品期数：<font style="color:#F00; font-size:12px;">第(<?php echo $rsDetail['qishu'];?>)期</font><br />
 			商品标题：<font style="color:#F00; font-size:12px;"><?php echo $rsProducts['Products_Name'];?></font><br />
-			商品信息：<font style="color:#F00; font-size:12px;">总价格:<?php echo $rsProducts['Products_PriceY'];?>&nbsp;&nbsp;单价:<?php echo $rsProducts['Products_PriceX'];?>&nbsp;&nbsp;总需人次:<?php echo $rsProducts['zongrenci'];?>&nbsp;&nbsp;参与人次:<?php echo $rsProducts['canyurenshu'];?>&nbsp;&nbsp;剩余人次:<?php echo $rsProducts['zongrenci']-$rsProducts['canyurenshu'];?></font> <br />
+			商品信息：<font style="color:#F00; font-size:12px;">总价格:<?php echo $rsProducts['Products_PriceY'];?>&nbsp;&nbsp;
+			单价:<?php echo $rsProducts['Products_PriceX'];?>&nbsp;&nbsp;
+			总需人次:<?php echo $rsProducts['zongrenci'];?>&nbsp;&nbsp;
+			参与人次:<?php echo $cloud_record['total'];?>&nbsp;&nbsp;
+			剩余人次:<?php echo $rsProducts['zongrenci']-$cloud_record['total'];?></font> <br />
 			本期得主：<font style="color:#F00; font-size:12px;"><?php echo $rsUser['User_NickName'];?></font><br />
 			幸&nbsp;运&nbsp;码：<font style="color:#F00; font-size:12px;"><?php echo $rsDetail['Luck_Sn'];?></font><br />
 			</div>
@@ -79,9 +82,13 @@ $cate = $DB->GetRs("cloud_category","*","where Category_ID='".$rsProducts['Produ
 				</thead>
 				<tbody>
 					<?php 
-						$DB->query("SELECT o.Order_ID,o.Order_CreateTime,o.Order_CartList,r.Cloud_Code,r.User_ID,u.User_NickName,u.User_Province,u.User_City FROM user_order o RIGHT JOIN cloud_record r ON o.Order_ID = r.Order_ID LEFT JOIN user u ON r.User_ID = u.User_ID WHERE r.Products_ID={$rsProducts['Products_ID']} and Biz_ID={$BizID} and r.qishu=".$rsDetail['qishu']);
+					    $sql = "SELECT o.Order_ID,o.Order_CreateTime,o.Order_CartList,r.Cloud_Code,r.User_ID,u.User_NickName,u.User_Province,u.User_City 
+					    FROM user_order o RIGHT JOIN cloud_record r ON o.Order_ID = r.Order_ID LEFT JOIN user u ON r.User_ID = u.User_ID 
+					    WHERE r.Products_ID={$rsProducts['Products_ID']} and r.Biz_ID={$BizID} and r.qishu=".$rsDetail['qishu'];
+					    
+						$res = $DB->query($sql);
 						$lists = array();
-						while($rs = $DB->fetch_assoc()){		
+						while($rs = $DB->fetch_assoc($res)){		
 							$lists[$rs["Order_ID"]][] = $rs;	
 						}
 						if(!empty($lists)){

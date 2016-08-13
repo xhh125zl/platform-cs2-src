@@ -119,11 +119,12 @@ $condition .= " order by Back_CreateTime desc";
 					$rsBack["Biz_Name"] = "已被删除";
 				}
 			}
-			$rsOrder = $DB->GetRs("user_order","Order_Type,Order_IsVirtual","where Order_ID=".$rsBack["Order_ID"]);
+			$rsOrder = $DB->GetRs("user_order","Order_Type,Order_IsVirtual,Order_CreateTime","where Order_ID=".$rsBack["Order_ID"]);
 		?>
           <tr>
             <td nowrap="nowrap"><?php echo $key+1; ?></td>
             <td nowrap="nowrap"><?php echo $rsBack["Back_Sn"]  ?>
+			（<?=date("Ymd",$rsOrder["Order_CreateTime"]).$rsBack['Order_ID'] ?>）
 			 &nbsp;&nbsp;&nbsp;&nbsp;<a href="<?php echo $rsOrder["Order_IsVirtual"]==1 ? 'virtual_' : '';?>orders_view.php?OrderID=<?=$rsBack['Order_ID']?>">相关订单&nbsp;&nbsp;<img src="/static/member/images/ico/jt.gif"/></a>
 			</td>
             <td nowrap="nowrap"><?php echo $rsBack["Back_Qty"] ?></td>

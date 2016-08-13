@@ -7,6 +7,9 @@
 var cloud_url = '<?php echo $cloud_url;?>';
 var OwnerID = <?php echo $owner['id'];?>;
 var cid = <?php echo $CategoryID;?>;
+var ActiveID = <?=isset($_SESSION[$UsersID.'_CurrentActive'])?$_SESSION[$UsersID.'_CurrentActive']:0 ?>;
+var BizID = <?=isset($_SESSION[$UsersID.'_CurrentBiz'])?$_SESSION[$UsersID.'_CurrentBiz']:0 ?>;
+var category = 'category';
 $(document).ready(function(){
 	category_obj.category_init();
 });

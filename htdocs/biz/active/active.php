@@ -1,5 +1,4 @@
 <?php
-require_once($_SERVER["DOCUMENT_ROOT"].'/include/update/common.php');
 
 if(IS_GET && isset($_GET['action']) && $_GET['action']=='del'){
    $flag = $DB->Del("biz_active","ID=".$_GET["id"]);

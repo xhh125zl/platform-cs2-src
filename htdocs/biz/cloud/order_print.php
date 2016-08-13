@@ -1,12 +1,11 @@
 <?php
-require_once($_SERVER["DOCUMENT_ROOT"].'/include/update/common.php');
-require_once($_SERVER["DOCUMENT_ROOT"].'/include/library/smarty.php');
+require_once(CMS_ROOT.'/include/library/smarty.php');
 
 //设置smarty
 $smarty->left_delimiter = "{{";
 $smarty->right_delimiter = "}}";
 
-$template_dir = $_SERVER["DOCUMENT_ROOT"].'/biz/cloud/html';
+$template_dir = CMS_ROOT.'/biz/cloud/html';
 $smarty->template_dir = $template_dir;
 
 $OrderID=empty($_REQUEST['OrderID']) ? 0 : $_REQUEST['OrderID'];
@@ -44,7 +43,7 @@ foreach($order['Order_CartList'] as $Product_ID=>$Products){
 
 }
 if(is_numeric($order['Address_Province'])){
-	$area_json = read_file($_SERVER["DOCUMENT_ROOT"].'/data/area.js');
+	$area_json = read_file(CMS_ROOT.'/data/area.js');
 	$area_array = json_decode($area_json,TRUE);
 	$province_list = $area_array[0];
 	$Province = '';

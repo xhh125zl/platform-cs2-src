@@ -1,4 +1,13 @@
 <link href='/static/api/shop/skin/default/page.css' rel='stylesheet' type='text/css' />
+<style>
+.products .items {
+    width: 24%;
+    margin: 6px 0 6px 1%;
+    float: left;
+}
+.products .items .pro_img { width:100%; }
+.products .items .name { text-align:center; }
+</style>
 <?php 
   if(!empty($goodslist)){ 
       foreach($goodslist as $k => $v){
@@ -12,6 +21,9 @@
 <?php
               foreach($v['goods'] as $key => $value){
                   $imgpath = json_decode($value['Products_JSON'],true);
+                  if(!file_exists(CMS_ROOT.$imgpath['ImgPath'][0])){
+                      $imgpath['ImgPath'][0] = '/static/api/shop/skin/default/y9.png';
+                  }
 ?>
         <div class="items">
             <div class="pro_img">

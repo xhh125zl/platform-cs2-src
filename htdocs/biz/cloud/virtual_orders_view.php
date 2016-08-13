@@ -1,6 +1,4 @@
 <?php
-require_once($_SERVER["DOCUMENT_ROOT"].'/include/update/common.php');
-
 $OrderID=empty($_REQUEST['OrderID'])?0:$_REQUEST['OrderID'];
 $rsOrder=$DB->GetRs("user_order","*","where Users_ID='{$UsersID}' and Order_ID='".$OrderID."'");
 if($_POST){

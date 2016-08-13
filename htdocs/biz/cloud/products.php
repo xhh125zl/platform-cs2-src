@@ -1,6 +1,4 @@
 <?php  
-require_once ($_SERVER["DOCUMENT_ROOT"] . '/include/update/common.php');
-
 if (isset($_GET["action"])) {
     if ($_GET["action"] == "del") {
         $Flag = $DB->Del("cloud_products", "Users_ID='{$UsersID}' and Products_ID=" . $_GET["ProductsID"]);
@@ -64,9 +62,9 @@ function get_category($catid)
       <div class="control_btn">
       <a href="products_add.php" class="btn_green btn_w_120">添加产品</a> <a href="#search" class="btn_green btn_w_120">产品搜索</a> 
       </div>
-      <form class="search" method="get" action="products.php" <?=isset($_COOKIE["{$UsersID}_SearchIsShow"]) && $_COOKIE["{$UsersID}_SearchIsShow"]?"style='display:block;'":"" ?> >
+      <form class="search" method="get" action="products.php"  >
         关键词：
-        <input type="text" name="Keyword" value="<?=isset($_COOKIE["{$UsersID}_Keyword"]) && $_COOKIE["{$UsersID}_Keyword"]?$_COOKIE["{$UsersID}_Keyword"]:"" ?>" class="form_input" size="15" />
+        <input type="text" name="Keyword" value="" class="form_input" size="15" />
         产品分类：
         <select name='SearchCateId'>
           <option value=''>--请选择--</option>

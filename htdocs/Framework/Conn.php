@@ -8,6 +8,8 @@ require_once('Ext/mysql.inc.php');
 require_once('dbconfig.php');
 require_once('eloquent.php');
 
+define('CMS_ROOT', $_SERVER["DOCUMENT_ROOT"]);
+
 global $DB1;
 $DB1=$DB=new mysql($host,$user,$pass,$data,$code="utf8",$conn="conn");
 

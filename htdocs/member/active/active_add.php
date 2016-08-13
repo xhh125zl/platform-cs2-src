@@ -1,5 +1,5 @@
 <?php 
-require_once($_SERVER["DOCUMENT_ROOT"].'/include/update/common.php');
+require_once(CMS_ROOT . '/include/update/common.php');
 
 if(IS_POST){ 
     $post  =  $_POST;
@@ -188,7 +188,7 @@ if(IS_POST){
                     <div class="rows">
                       <label>首页显示产品数</label>
                       <span class="input">
-                      <input type="text" name="IndexShowGoodsCount" value="20" class="form_input" size="5" maxlength="100" /> <span class="tips" />&nbsp;</span>
+                      <input type="text" name="IndexShowGoodsCount" value="6" class="form_input" size="5" maxlength="100" /> <span class="tips" />&nbsp;</span>
                       	（活动首页可以显示的产品的数量）
                       </span>
                       <div class="clear"></div>
@@ -251,28 +251,40 @@ if(IS_POST){
                     ListShowGoodsCount=parseInt($("input[name='ListShowGoodsCount']").val()),
                     BizShowGoodsCount=parseInt($("input[name='BizShowGoodsCount']").val());
 
-                if(IndexBizGoodsCount>3){
+            	if(IndexBizGoodsCount>3){
                     $("input[name='IndexBizGoodsCount']").parent().find(".tips").html("推荐首页产品数不能大于3").addClass("error").show();
                     return false;
                 }else{
                     $("input[name='IndexBizGoodsCount']").parent().find(".tips").hide();
                 }
-                if(MaxGoodsCount<IndexShowGoodsCount){
-                    $("input[name='IndexShowGoodsCount']").parent().find(".tips").html("首页显示产品数不能大于活动最多产品数").addClass("error").show();
+            	if(IndexShowGoodsCount>8){
+                    $("input[name='IndexShowGoodsCount']").parent().find(".tips").html("推荐首页产品数不能大于8").addClass("error").show();
+                    return false;
+                }else{
+                    $("input[name='IndexShowGoodsCount']").parent().find(".tips").hide();
+                }
+            	if(MaxGoodsCount<=BizGoodsCount){
+                    $("input[name='BizGoodsCount']").parent().find(".tips").html("商家推荐产品数要小于活动最多产品数").addClass("error").show();
+                    return false;
+                }else{
+                    $("input[name='BizGoodsCount']").parent().find(".tips").hide();
+                }
+                if(MaxGoodsCount<=IndexShowGoodsCount){
+                    $("input[name='IndexShowGoodsCount']").parent().find(".tips").html("首页显示产品数要小于活动最多产品数").addClass("error").show();
                     return false;
                 }else{
                     $("input[name='IndexShowGoodsCount']").parent().find(".tips").hide();
                 }
 
-                if(MaxGoodsCount<ListShowGoodsCount){
-                    $("input[name='ListShowGoodsCount']").parent().find(".tips").html("列表页显示产品数不能大于活动最多产品数").addClass("error").show();
+                if(MaxGoodsCount<=ListShowGoodsCount){
+                    $("input[name='ListShowGoodsCount']").parent().find(".tips").html("列表页显示产品数要小于活动最多产品数").addClass("error").show();
                     return false;
                 }else{
                     $("input[name='ListShowGoodsCount']").parent().find(".tips").hide();
                 }
 
-                if(MaxGoodsCount<BizShowGoodsCount){
-                    $("input[name='BizShowGoodsCount']").parent().find(".tips").html("商家店铺页显示产品数不能大于活动最多产品数").addClass("error").show();
+                if(MaxGoodsCount<=BizShowGoodsCount){
+                    $("input[name='BizShowGoodsCount']").parent().find(".tips").html("商家店铺页显示产品数要小于活动最多产品数").addClass("error").show();
                     return false;
                 }else{
                     $("input[name='BizShowGoodsCount']").parent().find(".tips").hide();
@@ -282,18 +294,24 @@ if(IS_POST){
             $("input[name='BizGoodsCount'],input[name='IndexBizGoodsCount'],input[name='IndexShowGoodsCount'],input[name='ListShowGoodsCount'],input[name='BizShowGoodsCount']").blur(function(){
                 var IndexShowGoodsCount = parseInt($(this).val());
                 var MaxGoodsCount = parseInt($("input[name='MaxGoodsCount']").val());
+                if(IndexShowGoodsCount>8){
+                    $("input[name='IndexShowGoodsCount']").parent().find(".tips").html("推荐首页产品数不能大于8").addClass("error").show();
+                    return false;
+                }else{
+                    $("input[name='IndexShowGoodsCount']").parent().find(".tips").hide();
+                }
                 if(IndexShowGoodsCount>=MaxGoodsCount){
                     var msg = '';
                     if($(this).attr("name")=='BizGoodsCount'){
-                        msg = "商家推荐产品数要少于活动最多产品数";
+                        msg = "商家推荐产品数要小于活动最多产品数";
                     }else if($(this).attr("name")=='IndexBizGoodsCount'){
-                        msg = "推荐首页产品数要少于活动最多产品数";
+                        msg = "推荐首页产品数要小于活动最多产品数";
                     }else if($(this).attr("name")=='IndexShowGoodsCount'){
-                        msg = "首页显示产品数要少于活动最多产品数";
+                        msg = "首页显示产品数要小于活动最多产品数";
                     }else if($(this).attr("name")=='ListShowGoodsCount'){
-                        msg = "列表页显示产品数要少于活动最多产品数";
+                        msg = "列表页显示产品数要小于活动最多产品数";
                     }else if($(this).attr("name")=='BizShowGoodsCount'){
-                        msg = "商家店铺页显示产品数要少于活动最多产品数";
+                        msg = "商家店铺页显示产品数要小于活动最多产品数";
                     }
                     $(this).focus();
                     $(this).parent().find(".tips").html(msg).addClass("error").show();

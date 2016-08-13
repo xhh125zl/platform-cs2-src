@@ -1,12 +1,12 @@
 <?php
 require_once ($_SERVER["DOCUMENT_ROOT"] . '/Framework/Conn.php');
-require_once ($_SERVER["DOCUMENT_ROOT"] . '/include/helper/tools.php');
-require_once ($_SERVER["DOCUMENT_ROOT"] . '/include/helper/url.php');
-require_once ($_SERVER["DOCUMENT_ROOT"] . '/include/helper/shipping.php');
-require_once ($_SERVER["DOCUMENT_ROOT"] . '/include/helper/lib_pintuan.php');
-require_once ($_SERVER["DOCUMENT_ROOT"] . '/include/helper/lib_products.php');
-require_once ($_SERVER["DOCUMENT_ROOT"] . '/include/helper/distribute.php');
-require_once ($_SERVER["DOCUMENT_ROOT"] . '/include/helper/flow.php');
+require_once (CMS_ROOT . '/include/helper/tools.php');
+require_once (CMS_ROOT . '/include/helper/url.php');
+require_once (CMS_ROOT . '/include/helper/shipping.php');
+require_once (CMS_ROOT . '/include/helper/lib_pintuan.php');
+require_once (CMS_ROOT . '/include/helper/lib_products.php');
+require_once (CMS_ROOT . '/include/helper/distribute.php');
+require_once (CMS_ROOT . '/include/helper/flow.php');
 
 define('REQUEST_METHOD', $_SERVER['REQUEST_METHOD']);
 define('IS_GET', REQUEST_METHOD == 'GET' ? true : false);
@@ -53,9 +53,11 @@ $ActiveType = [
 
 $_SESSION[$UsersID . "HTTP_REFERER"] = $_SERVER['REQUEST_URI'];
 if (stripos($request_uri, "api")) { // 对于前台的初始化
+    
     if (isset($_SERVER["HTTP_REFERER"]) && stripos($_SERVER["HTTP_REFERER"], 'shop') > 0) {
         $_SESSION["Index_URI"] = $_SERVER['REQUEST_URI'];
     }
+    
     ! isset($_GET["UsersID"]) && die("缺少必要的参数");
     $UsersID = $_GET["UsersID"];
     $rsConfig = shop_config($UsersID);
@@ -76,7 +78,7 @@ if (stripos($request_uri, "api")) { // 对于前台的初始化
     $rsConfig = array_merge($rsConfig, $dis_config);
     $is_login = 1;
     $owner = get_owner($rsConfig, $UsersID);
-    require_once ($_SERVER["DOCUMENT_ROOT"] . '/include/library/wechatuser.php');
+    require_once (CMS_ROOT . '/include/library/wechatuser.php');
 } else if (stripos($request_uri, "member")) { // 对于商城后台的初始化
     ! ($_SESSION && $_SESSION['Users_ID']) && header("Location: /member/login.php");
     $UsersID = $_SESSION['Users_ID'];

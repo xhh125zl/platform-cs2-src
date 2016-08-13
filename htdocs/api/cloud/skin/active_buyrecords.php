@@ -13,6 +13,7 @@
 	<?php echo empty($_GET['myself']) ? '所有参与记录-本商品' : '我的购买记录-本商品';?>
 	<h2>
 </div>
+<div class="clear"></div>
 <div class="buy_records">
 	<ul id="divRecordList">
 		<?php if(!empty($records)){?>
@@ -23,12 +24,13 @@
 				$username = $val['User_NickName'];
 				$faceImg = $val['User_HeadImg'];
 				$time = $val['Order_CreateTime'];
+				$qishu = $val['qishu'];
 			}
 		?>
 		<li buyids="<?php echo implode(' ', $buyids);?>" buynum="<?php echo count($arr);?>" username="<?php echo $username;?>"><i class="fr z-set"></i>
 			<p><img src="<?php echo $faceImg;?>"></p>
 			<dl>
-				<dt><span class="fl blue"><?php echo $username;?></span><cite class="fl">云购了<b class="orange"><?php echo count($arr);?></b>人次</cite></dt>
+				<dt><span class="fl blue"><?php echo $username;?></span><cite class="fl">云购了<b class="orange"><?php echo count($arr);?></b>人次</cite>（第<?=$qishu ?>期）</dt>
 				<dd class="gray9">下单时间：<?php echo date('Y-m-d H:i:s', $time);;?></dd>
 			</dl>
 		</li>

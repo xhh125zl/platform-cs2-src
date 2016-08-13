@@ -1,6 +1,4 @@
 <?php
-require_once($_SERVER["DOCUMENT_ROOT"].'/include/update/common.php');
-
 if(isset($_GET["OrderId"])){
 	$OrderID = $_GET["OrderId"];
 }else{

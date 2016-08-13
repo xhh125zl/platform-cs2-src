@@ -1,6 +1,4 @@
 <?php  
-require_once($_SERVER["DOCUMENT_ROOT"].'/include/update/common.php');
-
 $ProductsID = empty($_REQUEST['ProductsID']) ? 0 : $_REQUEST['ProductsID'];
 $rsProducts = $DB->GetRs("cloud_Products","*","where Users_ID='{$UsersID}' and Products_ID=".$ProductsID);
 $shop_config = $DB->GetRs('shop_config','*',"where Users_ID='{$UsersID}'");

@@ -7,6 +7,7 @@ $base_url = base_url();
 $cloud_url = base_url().'api/'.$UsersID.'/cloud/';
 $cloud_jjjxurl = base_url().'api/'.$UsersID.'/cloud/';
 $_SESSION[$UsersID.'_CurrentActive'] = $ActiveID;
+$_SESSION[$UsersID.'_CurrentBiz'] = $BizID;
 $share_name = '';
 
 if($owner['id'] != '0'){

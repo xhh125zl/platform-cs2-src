@@ -1,6 +1,4 @@
 <?php
-require_once($_SERVER["DOCUMENT_ROOT"].'/include/update/common.php');
-
 $condition = "where Users_ID='{$UsersID}' and Orders_Status<4";
 if(isset($_GET["search"])){
 	if($_GET["search"]==1){
