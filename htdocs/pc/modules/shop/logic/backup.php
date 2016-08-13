@@ -43,15 +43,32 @@ class backup{
 			unset($CartList[$productid]);
 		}
 		
-		$data = array(
+		/*$data = array(
 			'Is_Backup'=>1,
 			'Order_CartList'=>json_encode($CartList, JSON_UNESCAPED_UNICODE),
 			'Back_Amount'=>$rsOrder["Back_Amount"] + $amount
-		);
+		);*/
+                if (!empty($CartList)) {
+                    $data = array(
+			'Front_Order_Status'=>$rsOrder['Order_Status'],
+			'Is_Backup'=>1,
+			'Order_CartList'=>json_encode($CartList,JSON_UNESCAPED_UNICODE),
+			'Back_Amount'=>$rsOrder["Back_Amount"]+$amount
+                    );
+                } else{
+                    $data = array(
+			'Order_Status'=>5,
+			'Is_Backup'=>1,
+			'Front_Order_Status'=>$rsOrder['Order_Status'],
+                        'Order_CartList'=>json_encode($CartList, JSON_UNESCAPED_UNICODE),
+			'Back_Amount'=>$rsOrder["Back_Amount"] + $amount
+                    );
+                }
+                
 		model('user_order')->where(array('Order_ID'=>$rsOrder['Order_ID']))->update($data);
-		if($rsOrder["Order_Status"]==2 && $rsOrder["Order_IsVirtual"]==0){//已付款,商家未发货订单退款
+		/*if($rsOrder["Order_Status"]==2 && $rsOrder["Order_IsVirtual"]==0){//已付款,商家未发货订单退款
 			$this->update_backup("seller_recieve",$recordid,"$amount||%$%已付款/商家未发货订单退款，系统自动完成");				
-		}
+		}*/
 		//减少退款佣金记录
 		$this->update_distribute_money($rsOrder["Order_ID"],$productid,$cartid,$qty,0);
 	}
