@@ -1,5 +1,6 @@
 <?php
 /*导出表格处理文件*/
+require_once ($_SERVER["DOCUMENT_ROOT"] . '/include/update/common.php');
 require_once(CMS_ROOT.'/include/library/outputExcel.php');
 require_once(CMS_ROOT.'/include/helper/balance.class.php');
 $balance = new balance($DB,$UsersID);

@@ -1,4 +1,5 @@
 <?php
+require_once ($_SERVER["DOCUMENT_ROOT"] . '/include/update/common.php');
 // 获取活动配置
 $active_id = isset($_GET['activeid']) ? $_GET['activeid'] : 0;
 $time = time();

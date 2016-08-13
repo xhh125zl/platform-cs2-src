@@ -1,4 +1,6 @@
-<?php  
+<?php 
+require_once ($_SERVER["DOCUMENT_ROOT"] . '/include/update/common.php');
+
 if (isset($_GET["action"])) {
     if ($_GET["action"] == "del") {
         $Flag = $DB->Del("cloud_products", "Users_ID='{$UsersID}' AND Products_ID=" . $_GET["ProductsID"]);

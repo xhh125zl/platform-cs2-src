@@ -1,4 +1,6 @@
 <?php
+require_once ($_SERVER["DOCUMENT_ROOT"] . '/include/update/common.php');
+
 $_STATUS = array(
     "待确认",
     "待付款",

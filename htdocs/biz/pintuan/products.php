@@ -1,4 +1,5 @@
 <?php
+require_once ($_SERVER["DOCUMENT_ROOT"] . '/include/update/common.php');
 
 if (isset($_GET["action"])) {
     if ($_GET["action"] == "del") {

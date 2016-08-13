@@ -1,4 +1,5 @@
 <?php 
+require_once ($_SERVER["DOCUMENT_ROOT"] . '/include/update/common.php');
 if (IS_POST) {
     $post = $_POST;
     $data = [];

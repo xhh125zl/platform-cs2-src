@@ -1,4 +1,5 @@
 <?php
+require_once ($_SERVER["DOCUMENT_ROOT"] . '/include/update/common.php');
 $action = isset($_GET['action']) ? $_GET['action'] : "";
 
 if (IS_AJAX && $action) {

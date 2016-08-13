@@ -1,4 +1,6 @@
 <?php
+require_once ($_SERVER["DOCUMENT_ROOT"] . '/include/update/common.php');
+
 // 计算物流模板数量
 $condition = "WHERE Users_ID='{$UsersID}' AND Template_Status = 1 ";
 $rsShippingTemplates = $DB->Get("shop_shipping_template", "*", $condition);

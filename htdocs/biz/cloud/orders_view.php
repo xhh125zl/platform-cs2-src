@@ -1,4 +1,6 @@
 <?php
+require_once ($_SERVER["DOCUMENT_ROOT"] . '/include/update/common.php');
+
 $OrderID = empty($_REQUEST['OrderID']) ? 0 : $_REQUEST['OrderID'];
 $rsOrder = $DB->GetRs("user_order", "*", "WHERE Users_ID='{$UsersID}' AND Order_ID='{$OrderID}");
 $Shipping = json_decode(htmlspecialchars_decode($rsOrder["Order_Shipping"]), true);

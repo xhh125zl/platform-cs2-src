@@ -1,4 +1,5 @@
 <?php 
+require_once ($_SERVER["DOCUMENT_ROOT"] . '/include/update/common.php');
 $ID = isset($_GET['id']) && $_GET['id'] ? $_GET['id'] : 0;
 $sql = "SELECT a.Type_ID,a.*,b.*,t.module,t.Type_Name FROM biz_active AS b LEFT JOIN active AS a ON b.Active_ID=a.Active_ID LEFT JOIN active_type AS t ON a.Type_ID=t.Type_ID  WHERE b.Users_ID='{$UsersID}' AND b.Biz_ID='{$BizID}' AND b.ID='{$ID}'";
 $result = $DB->query($sql);

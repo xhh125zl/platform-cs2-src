@@ -1,4 +1,6 @@
 <?php
+require_once ($_SERVER["DOCUMENT_ROOT"] . '/include/update/common.php');
+
 // 获取所有分销商列表
 $ds_list = Dis_Account::with('User')->where(array(
     'Users_ID' => $UsersID

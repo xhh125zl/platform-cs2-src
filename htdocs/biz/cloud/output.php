@@ -1,4 +1,5 @@
 <?php
+require_once ($_SERVER["DOCUMENT_ROOT"] . '/include/update/common.php');
 require_once (CMS_ROOT . '/include/library/outputExcel.php');
 
 $type = $_REQUEST['type'];

@@ -1,4 +1,5 @@
 <?php 
+require_once ($_SERVER["DOCUMENT_ROOT"] . '/include/update/common.php');
 if (IS_AJAX && isset($_POST['action']) && $_POST['action'] == 'getActive') {
     $active_id = $_POST['aid'];
     $UsersID = $_POST['UsersID'];

@@ -1,4 +1,0 @@
-﻿RewriteEngine on
-
-RewriteBase /biz
-RewriteRule ^(.*)$ control.php [PT,L]
