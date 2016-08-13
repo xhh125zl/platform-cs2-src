@@ -7,7 +7,7 @@ if ($type == 'product_gross_info') {
     
     $table = 'cloud_products';
     $fields = '*';
-    $condition = "where Users_ID='" . $UsersID . "'";
+    $condition = "WHERE Users_ID='" . $UsersID . "'";
     $resource = $DB->get($table, $fields, $condition);
     
     $data = $DB->toArray($resource);
@@ -51,22 +51,22 @@ if ($type == 'product_gross_info') {
     $outputExcel->product_gross_info($data);
 } elseif ($type == 'order_detail_list') {
     
-    $condition = "where Users_ID='{$UsersID}' and Order_Type='cloud'";
+    $condition = "WHERE Users_ID='{$UsersID}' AND Order_Type='cloud'";
     
     if (! empty($_GET["Keyword"])) {
-        $condition .= " and Order_CartList like '%" . $_GET["Keyword"] . "%'";
+        $condition .= " AND Order_CartList LIKE '%" . $_GET["Keyword"] . "%'";
     }
     if (isset($_GET["Status"])) {
         if ($_GET["Status"] != '') {
-            $condition .= " and Order_Status=" . $_GET["Status"];
+            $condition .= " AND Order_Status=" . $_GET["Status"];
         }
     }
     
     if (! empty($_GET["AccTime_S"])) {
-        $condition .= " and Order_CreateTime>=" . strtotime($_GET["AccTime_S"]);
+        $condition .= " AND Order_CreateTime>=" . strtotime($_GET["AccTime_S"]);
     }
     if (! empty($_GET["AccTime_E"])) {
-        $condition .= " and Order_CreateTime<=" . strtotime($_GET["AccTime_E"]);
+        $condition .= " AND Order_CreateTime<=" . strtotime($_GET["AccTime_E"]);
     }
     
     $beginTime = ! empty($_GET["AccTime_S"]) ? $_GET["AccTime_S"] : '未指定';

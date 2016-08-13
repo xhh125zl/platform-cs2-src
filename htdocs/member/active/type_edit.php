@@ -1,31 +1,27 @@
 <?php 
-require_once($_SERVER["DOCUMENT_ROOT"].'/include/update/common.php');
+require_once ($_SERVER["DOCUMENT_ROOT"] . '/include/update/common.php');
 
-if(IS_POST)
-{   
-  $typeid = $_POST["typeid"];
-	$Data=array(
-        "Type_Name"=>$_POST["Type_Name"],
-        "module"=>$_POST["module"],
-        "Status"=>$_POST["Status"]
-	);
-	if(!$_POST["Type_Name"] || !$_POST["module"])
-	{
-      echo '<script language="javascript">alert("类型名或者活动类型不能为空");history.back();</script>';
-      exit;
-	}
-	$Flag=$DB->Set("active_type",$Data,"WHERE Users_ID='{$UsersID}' AND Type_ID=".$typeid);
-	if($Flag)
-	{
-		echo '<script language="javascript">alert("保存成功");window.location="type.php";</script>';
-	}else
-	{
-		echo '<script language="javascript">alert("保存失败");history.back();</script>';
-	}
-	exit;
-}else{
+if (IS_POST) {
+    $typeid = $_POST["typeid"];
+    $Data = array(
+        "Type_Name" => $_POST["Type_Name"],
+        "module" => $_POST["module"],
+        "Status" => $_POST["Status"]
+    );
+    if (! $_POST["Type_Name"] || ! $_POST["module"]) {
+        echo '<script language="javascript">alert("类型名或者活动类型不能为空");history.back();</script>';
+        exit();
+    }
+    $Flag = $DB->Set("active_type", $Data, "WHERE Users_ID='{$UsersID}' AND Type_ID=" . $typeid);
+    if ($Flag) {
+        echo '<script language="javascript">alert("保存成功");window.location="type.php";</script>';
+    } else {
+        echo '<script language="javascript">alert("保存失败");history.back();</script>';
+    }
+    exit();
+} else {
     $typeid = $_GET['typeid'];
-    $type = $DB->GetRs("active_type","*","WHERE Users_ID='{$UsersID}' AND Type_ID={$typeid}");
+    $type = $DB->GetRs("active_type", "*", "WHERE Users_ID='{$UsersID}' AND Type_ID={$typeid}");
 }
 ?>
 <!DOCTYPE HTML>

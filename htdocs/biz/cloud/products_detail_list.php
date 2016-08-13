@@ -1,24 +1,22 @@
 <?php  
-if(isset($_GET["action"]))
-{
-	if($_GET["action"]=="del")
-	{
-		$Flag=$DB->Del("cloud_products_detail","Users_ID='{$UsersID}' and Cloud_Detail_ID=".$_GET["DetailID"]);
-		if($Flag){
-			echo '<script language="javascript">alert("删除成功");window.location="'.$_SERVER['HTTP_REFERER'].'";</script>';
-		}else{
-			echo '<script language="javascript">alert("删除失败");history.back();</script>';
-		}
-		exit;
-	}
+if (isset($_GET["action"])) {
+    if ($_GET["action"] == "del") {
+        $Flag = $DB->Del("cloud_products_detail", "Users_ID='{$UsersID}' AND Cloud_Detail_ID=" . $_GET["DetailID"]);
+        if ($Flag) {
+            echo '<script language="javascript">alert("删除成功");window.location="' . $_SERVER['HTTP_REFERER'] . '";</script>';
+        } else {
+            echo '<script language="javascript">alert("删除失败");history.back();</script>';
+        }
+        exit();
+    }
 }
-if(!empty($_GET['ProductsID'])){
-	$ProductsID = $_GET['ProductsID'];
-}else{
-	exit('缺少参数');
+if (! empty($_GET['ProductsID'])) {
+    $ProductsID = $_GET['ProductsID'];
+} else {
+    exit('缺少参数');
 }
-$rsProducts = $DB->GetRs("cloud_Products","*","where Users_ID='{$UsersID}' and Products_ID=".$ProductsID);
-$cate = $DB->GetRs("cloud_category","*","where Category_ID='".$rsProducts['Products_Category']."'");
+$rsProducts = $DB->GetRs("cloud_Products", "*", "WHERE Users_ID='{$UsersID}' AND Products_ID=" . $ProductsID);
+$cate = $DB->GetRs("cloud_category", "*", "WHERE Category_ID='" . $rsProducts['Products_Category'] . "'");
 
 ?>
 <!DOCTYPE HTML>
@@ -60,7 +58,7 @@ $cate = $DB->GetRs("cloud_category","*","where Category_ID='".$rsProducts['Produ
         <tbody>
           <?php 
 		  $lists = array();
-		  $condition = "where Users_ID='{$UsersID}' and Products_ID=".$ProductsID;
+		  $condition = "WHERE Users_ID='{$UsersID}' AND Products_ID=".$ProductsID;
 		  $DB->getPage("cloud_products_detail","*",$condition,10);
 		  
 		  while($r=$DB->fetch_assoc()){

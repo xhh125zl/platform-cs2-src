@@ -1,19 +1,24 @@
 <?php
-
-if(IS_GET && isset($_GET['action']) && $_GET['action']=='del'){
-   $flag = $DB->Del("biz_active","ID=".$_GET["id"]);
-   if($flag){
-			echo '<script language="javascript">alert("删除成功");window.location="'.$_SERVER['HTTP_REFERER'].'";</script>';
-		}else{
-			echo '<script language="javascript">alert("删除失败");history.back();</script>';
-		}
-		exit;
+if (IS_GET && isset($_GET['action']) && $_GET['action'] == 'del') {
+    $flag = $DB->Del("biz_active", "ID=" . $_GET["id"]);
+    if ($flag) {
+        echo '<script language="javascript">alert("删除成功");window.location="' . $_SERVER['HTTP_REFERER'] . '";</script>';
+    } else {
+        echo '<script language="javascript">alert("删除失败");history.back();</script>';
+    }
+    exit();
 }
 $lists = array();
-$condition = "LEFT JOIN active as a ON b.Active_ID=a.Active_ID WHERE b.Users_ID = '{$UsersID}' AND b.Biz_ID={$BizID} ORDER BY ID DESC";
-$result = $DB->getPages("biz_active as b","a.Type_ID,a.Active_Name,a.starttime,a.stoptime,b.*",$condition,10);
+$condition = "LEFT JOIN active AS a ON b.Active_ID=a.Active_ID WHERE b.Users_ID = '{$UsersID}' AND b.Biz_ID={$BizID} ORDER BY ID DESC";
+$result = $DB->getPages("biz_active AS b", "a.Type_ID,a.Active_Name,a.starttime,a.stoptime,b.*", $condition, 10);
 $lists = $DB->toArray($result);
-$Status = ['未开始','申请中','已同意','已拒绝','已结束'];
+$Status = [
+    '未开始',
+    '申请中',
+    '已同意',
+    '已拒绝',
+    '已结束'
+];
 ?>
 <!DOCTYPE HTML>
 <html>

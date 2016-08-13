@@ -1,72 +1,77 @@
-<?php 
-//获取所有分销商列表
-$ds_list = Dis_Account::with('User')
-	->where(array('Users_ID' => $UsersID))
-	->get(array('Users_ID', 'User_ID', 'invite_id', 'User_Name', 'Account_ID', 'Shop_Name','Account_CreateTime'))
-	->toArray();
-			
+<?php
+// 获取所有分销商列表
+$ds_list = Dis_Account::with('User')->where(array(
+    'Users_ID' => $UsersID
+))
+    ->get(array(
+    'Users_ID',
+    'User_ID',
+    'invite_id',
+    'User_Name',
+    'Account_ID',
+    'Shop_Name',
+    'Account_CreateTime'
+))
+    ->toArray();
+
 $ds_list_dropdown = array();
-foreach($ds_list as $key=>$item){
-	if(!empty($item['user'])){
-		$ds_list_dropdown[$item['User_ID']] = $item['user']['User_NickName'];
-	}
+foreach ($ds_list as $key => $item) {
+    if (! empty($item['user'])) {
+        $ds_list_dropdown[$item['User_ID']] = $item['user']['User_NickName'];
+    }
 }
 
-//取出商城配置信息
-$rsConfig = $DB->GetRs("shop_config","ShopName,NeedShipping","where Users_ID='{$UsersID}'");
+// 取出商城配置信息
+$rsConfig = $DB->GetRs("shop_config", "ShopName,NeedShipping", "WHERE Users_ID='{$UsersID}'");
 
-$condition = "where Users_ID='{$UsersID}' and Biz_ID={$BizID} AND Order_Type='cloud'";
-if(isset($_GET["search"])){
-	if($_GET["search"]==1){
-		if(!empty($_GET["Keyword"])){
-			$condition .= " and `".$_GET["Fields"]."` like '%".$_GET["Keyword"]."%'";
-		}
-		if(isset($_GET["Status"])){
-			if($_GET["Status"]<>''){
-				$condition .= " and Order_Status=".$_GET["Status"];
-			}
-		}
-		if(!empty($_GET["AccTime_S"])){
-			$condition .= " and Order_CreateTime>=".strtotime($_GET["AccTime_S"]);
-		}
-		if(!empty($_GET["AccTime_E"])){
-			$condition .= " and Order_CreateTime<=".strtotime($_GET["AccTime_E"]);
-		}
-	}
+$condition = "WHERE Users_ID='{$UsersID}' AND Biz_ID={$BizID} AND Order_Type='cloud'";
+if (isset($_GET["search"])) {
+    if ($_GET["search"] == 1) {
+        if (! empty($_GET["Keyword"])) {
+            $condition .= " AND `" . $_GET["Fields"] . "` LIKE '%" . $_GET["Keyword"] . "%'";
+        }
+        if (isset($_GET["Status"])) {
+            if ($_GET["Status"] != '') {
+                $condition .= " AND Order_Status=" . $_GET["Status"];
+            }
+        }
+        if (! empty($_GET["AccTime_S"])) {
+            $condition .= " AND Order_CreateTime>=" . strtotime($_GET["AccTime_S"]);
+        }
+        if (! empty($_GET["AccTime_E"])) {
+            $condition .= " AND Order_CreateTime<=" . strtotime($_GET["AccTime_E"]);
+        }
+    }
 }
 
-$condition .= " order by Order_CreateTime desc";
+$condition .= " ORDER BY Order_CreateTime DESC";
 
-if(isset($_GET["action"]))
-{
-	if($_GET["action"]=="del")
-	{
-		$Flag=$DB->Del("user_order","Users_ID='{$UsersID}' and Order_ID=".$_GET["OrderID"]);
-		if($Flag)
-		{
-			echo '<script language="javascript">alert("删除成功");window.location="orders.php'.(isset($_GET["page"]) ? '?page='.$_GET["page"] : '').'";</script>';
-		}else
-		{
-			echo '<script language="javascript">alert("删除失败");history.back();</script>';
-		}
-		exit;
-	}elseif($_GET["action"]=="set_read")
-	{
-		$Flag=$DB->Set("user_order","Order_IsRead=1","where Users_ID='{$UsersID}' and Order_ID=".$_GET["OrderID"]);
-		$Data=array("ret"=>1);
-		echo json_encode($Data,JSON_UNESCAPED_UNICODE);
-		exit;
-	}elseif($_GET["action"]=="is_not_read")
-	{
-		$Flag=$DB->Set("user_order","Order_IsRead=1","where Users_ID='{$UsersID}' and Order_ID=".$_GET["OrderID"]);
-		$Data=array(
-			"ret"=>1,
-			"msg"=>""
-		);
-		
-		echo json_encode($Data,JSON_UNESCAPED_UNICODE);
-		exit;
-	}
+if (isset($_GET["action"])) {
+    if ($_GET["action"] == "del") {
+        $Flag = $DB->Del("user_order", "Users_ID='{$UsersID}' AND Order_ID=" . $_GET["OrderID"]);
+        if ($Flag) {
+            echo '<script language="javascript">alert("删除成功");window.location="orders.php' . (isset($_GET["page"]) ? '?page=' . $_GET["page"] : '') . '";</script>';
+        } else {
+            echo '<script language="javascript">alert("删除失败");history.back();</script>';
+        }
+        exit();
+    } elseif ($_GET["action"] == "set_read") {
+        $Flag = $DB->Set("user_order", "Order_IsRead=1", "WHERE Users_ID='{$UsersID}' AND Order_ID=" . $_GET["OrderID"]);
+        $Data = array(
+            "ret" => 1
+        );
+        echo json_encode($Data, JSON_UNESCAPED_UNICODE);
+        exit();
+    } elseif ($_GET["action"] == "is_not_read") {
+        $Flag = $DB->Set("user_order", "Order_IsRead=1", "WHERE Users_ID='{$UsersID}' AND Order_ID=" . $_GET["OrderID"]);
+        $Data = array(
+            "ret" => 1,
+            "msg" => ""
+        );
+        
+        echo json_encode($Data, JSON_UNESCAPED_UNICODE);
+        exit();
+    }
 }
 ?>
 <!DOCTYPE HTML>
@@ -183,7 +188,7 @@ if(isset($_GET["action"]))
 						}
 						if(!empty($lists)){
 							foreach($lists as $k=>$rsOrder){
-								$rsUser = $DB->GetRs('user','*',"WHERE Users_ID='{$UsersID}' and User_ID=".$rsOrder['User_ID']);
+								$rsUser = $DB->GetRs('user','*',"WHERE Users_ID='{$UsersID}' AND User_ID=".$rsOrder['User_ID']);
 								$Shipping=json_decode(htmlspecialchars_decode($rsOrder["Order_Shipping"]),true);
 							?>
 						<tr class="<?php echo empty($rsOrder["Order_IsRead"])?"is_not_read":"" ?>" IsRead="<?php echo $rsOrder["Order_IsRead"] ?>" OrderId="<?php echo $rsOrder["Order_ID"] ?>">

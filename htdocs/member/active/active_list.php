@@ -1,5 +1,5 @@
 <?php
-require_once(CMS_ROOT .'/include/update/common.php');
+require_once (CMS_ROOT . '/include/update/common.php');
 
 if (IS_GET && isset($_GET["action"]) && $_GET["action"] == "del") {
     $Active_ID = intval($_GET["Active_ID"]);
@@ -7,7 +7,7 @@ if (IS_GET && isset($_GET["action"]) && $_GET["action"] == "del") {
     begin_trans();
     $Flag = $DB->Del("active", "Users_ID='{$UsersID}' AND Active_ID={$Active_ID}");
     $Flag2 = $DB->Del("biz_active", "Users_ID='{$UsersID}' AND Active_ID={$Active_ID}");
-    if(!$Flag || !$Flag2) {
+    if (! $Flag || ! $Flag2) {
         back_trans();
         sendAlert("{$rsActive['Active_Name']} 活动删除失败!", $_SERVER['HTTP_REFERER'], 3);
     }

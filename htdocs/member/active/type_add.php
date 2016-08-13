@@ -1,34 +1,30 @@
 <?php 
-require_once($_SERVER["DOCUMENT_ROOT"].'/include/update/common.php');
+require_once ($_SERVER["DOCUMENT_ROOT"] . '/include/update/common.php');
 
-if(IS_POST)
-{   
-	$Data=array(
-        "Type_Name"=>$_POST["Type_Name"],
-        "module"=>$_POST["module"],
-        "Users_ID"=>$UsersID,
-        "Status"=>1,
-        "addtime"=>time()
-	);
-	if(!$_POST["Type_Name"] || !$_POST["module"])
-	{
-      echo '<script language="javascript">alert("类型名或者活动类型不能为空");history.back();</script>';
-      exit;
-	}
-	$rsFlag = $DB->GetRs("active_type","*","WHERE Users_ID='{$UsersID}' AND module='{$_POST["module"]}'");
-	if($rsFlag){
-      echo '<script language="javascript">alert("活动类型已存在");history.back();</script>';
-      exit;
-	}
-	$Flag=$DB->Add("active_type",$Data);
-	if($Flag)
-	{
-		echo '<script language="javascript">alert("添加成功");window.location="type.php";</script>';
-	}else
-	{
-		echo '<script language="javascript">alert("保存失败");history.back();</script>';
-	}
-	exit;
+if (IS_POST) {
+    $Data = array(
+        "Type_Name" => $_POST["Type_Name"],
+        "module" => $_POST["module"],
+        "Users_ID" => $UsersID,
+        "Status" => 1,
+        "addtime" => time()
+    );
+    if (! $_POST["Type_Name"] || ! $_POST["module"]) {
+        echo '<script language="javascript">alert("类型名或者活动类型不能为空");history.back();</script>';
+        exit();
+    }
+    $rsFlag = $DB->GetRs("active_type", "*", "WHERE Users_ID='{$UsersID}' AND module='{$_POST["module"]}'");
+    if ($rsFlag) {
+        echo '<script language="javascript">alert("活动类型已存在");history.back();</script>';
+        exit();
+    }
+    $Flag = $DB->Add("active_type", $Data);
+    if ($Flag) {
+        echo '<script language="javascript">alert("添加成功");window.location="type.php";</script>';
+    } else {
+        echo '<script language="javascript">alert("保存失败");history.back();</script>';
+    }
+    exit();
 }
 ?>
 <!DOCTYPE HTML>

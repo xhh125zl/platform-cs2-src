@@ -1,47 +1,53 @@
 <?php
-$_STATUS=array("待确认","待付款","已付款","已发货","已完成");
+$_STATUS = array(
+    "待确认",
+    "待付款",
+    "已付款",
+    "已发货",
+    "已完成"
+);
 $step = isset($_GET["step"]) ? $_GET["step"] : 0;
-if(isset($_GET["action"])){
-	if($_GET["action"]=='search'){
-		if(empty($_GET["code"])){
-			echo '<script language="javascript">alert("请输入消费券码");history.back();</script>';
-			exit;
-		}else{
-			$rsOrder = $DB->GetRs("user_order","*","where Users_ID='{$UsersID}' and Order_Code='".$_GET["code"]."'");
-			if(!$rsOrder){
-				echo '<script language="javascript">alert("该订单不存在");history.back();</script>';
-				exit;
-			}
-			$step = 1;
-		}
-	}
+if (isset($_GET["action"])) {
+    if ($_GET["action"] == 'search') {
+        if (empty($_GET["code"])) {
+            echo '<script language="javascript">alert("请输入消费券码");history.back();</script>';
+            exit();
+        } else {
+            $rsOrder = $DB->GetRs("user_order", "*", "WHERE Users_ID='{$UsersID}' AND Order_Code='" . $_GET["code"] . "'");
+            if (! $rsOrder) {
+                echo '<script language="javascript">alert("该订单不存在");history.back();</script>';
+                exit();
+            }
+            $step = 1;
+        }
+    }
 }
-if($_POST){
-	if(empty($_POST["code"])){
-		echo '<script language="javascript">alert("非法提交");history.back();</script>';
-		exit;
-	}else{
-		$code = trim($_POST["code"]);
-	}
-	if(empty($_POST["orderid"])){
-		echo '<script language="javascript">alert("非法提交");history.back();</script>';
-		exit;
-	}else{
-		$orderid = trim($_POST["orderid"]);
-	}
-	$rsOrder = $DB->GetRs("user_order","*","where Order_ID=".$orderid." and Order_Code='".$code."' and Users_ID='{$UsersID}'");
-	if(!$rsOrder){
-		echo '<script language="javascript">alert("该订单不存在");history.back();</script>';
-		exit;
-	}
-	if($rsOrder["Order_Status"]!=2){
-		echo '<script language="javascript">alert("该订单为“'.$_STATUS[$rsOrder["Order_Status"]].'”状态，不能消费");history.back();</script>';
-		exit;
-	}
-	
-	confirm_receive($DB,$UsersID,$orderid);
-	echo '<script language="javascript">alert("该订单消费成功");window.location="virtual_orders.php";</script>';
-	exit;
+if ($_POST) {
+    if (empty($_POST["code"])) {
+        echo '<script language="javascript">alert("非法提交");history.back();</script>';
+        exit();
+    } else {
+        $code = trim($_POST["code"]);
+    }
+    if (empty($_POST["orderid"])) {
+        echo '<script language="javascript">alert("非法提交");history.back();</script>';
+        exit();
+    } else {
+        $orderid = trim($_POST["orderid"]);
+    }
+    $rsOrder = $DB->GetRs("user_order", "*", "WHERE Order_ID=" . $orderid . " AND Order_Code='" . $code . "' AND Users_ID='{$UsersID}'");
+    if (! $rsOrder) {
+        echo '<script language="javascript">alert("该订单不存在");history.back();</script>';
+        exit();
+    }
+    if ($rsOrder["Order_Status"] != 2) {
+        echo '<script language="javascript">alert("该订单为“' . $_STATUS[$rsOrder["Order_Status"]] . '”状态，不能消费");history.back();</script>';
+        exit();
+    }
+    
+    confirm_receive($DB, $UsersID, $orderid);
+    echo '<script language="javascript">alert("该订单消费成功");window.location="virtual_orders.php";</script>';
+    exit();
 }
 
 ?>

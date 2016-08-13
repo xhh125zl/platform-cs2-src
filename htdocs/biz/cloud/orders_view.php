@@ -1,73 +1,79 @@
 <?php
-$OrderID=empty($_REQUEST['OrderID'])?0:$_REQUEST['OrderID'];
-$rsOrder=$DB->GetRs("user_order","*","where Users_ID='{$UsersID}' and Order_ID='{$OrderID}");
-$Shipping=json_decode(htmlspecialchars_decode($rsOrder["Order_Shipping"]),true);
-if($_POST){
-	$Data=array(
-		"Order_TotalPrice"=>$_POST['TotalPrice'],
-		"Address_Name"=>$_POST['Name'],
-		"Address_Mobile"=>$_POST["Mobile"],
-		"Order_ShippingID"=>$_POST["ShippingID"],
-		"Address_Province"=>$_POST["Province"],
-		"Address_City"=>$_POST["City"],
-		"Address_Area"=>$_POST["Area"],
-		"Address_Detailed"=>$_POST["Detailed"],
-		"Order_Remark"=>$_POST["Remark"],
-		"Order_Status"=>$_POST["Status"]
-	);
-	if(!empty($_POST["Shipping"]["Express"])){
-		$ShippingN = array(
-			"Express"=>$_POST["Shipping"]["Express"],
-			"Price"=>empty($Shipping["Price"]) ? 0 : $Shipping["Price"]
-		);
-		$Data["Order_Shipping"] = json_encode($ShippingN,JSON_UNESCAPED_UNICODE);
-	}
-	$Flag=$DB->Set("user_order",$Data,"where Users_ID='{$UsersID}' and Order_ID=".$OrderID);
-	if($Flag){		
-		if($rsOrder['Order_Status']<3 && $Data['Order_Status']>=3){
-			$rsConfig=$DB->GetRs("shop_config","CheckOrder","where Users_ID='".$Flag['Users_ID']."'");
-			$url='http://'.$_SERVER["HTTP_HOST"]."/api/".$rsOrder['Users_ID']."/cloud/member/detail/".$rsOrder['Order_ID']."/";
-			require_once($_SERVER["DOCUMENT_ROOT"].'/include/library/weixin_message.class.php');
-			$weixin_message = new weixin_message($DB,$UsersID,$rsOrder["User_ID"]);
-			$contentStr = '您购买的商品已发货，<a href="'.$url.'">查看详情</a>';
-			$weixin_message->sendscorenotice($contentStr);
-		}
-		echo '<script language="javascript">alert("修改成功");window.location="'.$_SERVER['HTTP_REFERER'].'";</script>';
-	}else{
-		echo '<script language="javascript">alert("保存失败");history.back();</script>';
-	}
-}else{
-	$rsConfig=$DB->GetRs("shop_config","*","where Users_ID='{$UsersID}'");
-	$rsPay=$DB->GetRs("users_payconfig","Shipping","where Users_ID='{$UsersID}'");
-
-	$Status=$rsOrder["Order_Status"];
-	$Order_Status=array("待确认","待付款","已付款","已发货","已完成");
-	
-	$PayShipping = get_front_shiping_company_dropdown({$UsersID},$rsConfig);
-	$CartList=json_decode(htmlspecialchars_decode($rsOrder["Order_CartList"]),true);
-	$amount = $fee = 0;
-	if(is_numeric($rsOrder['Address_Province'])){
-		$area_json = read_file($_SERVER["DOCUMENT_ROOT"].'/data/area.js');
-		$area_array = json_decode($area_json,TRUE);
-		$province_list = $area_array[0];
-		$Province = '';
-		if(!empty($rsOrder['Address_Province'])){
-			$Province = $province_list[$rsOrder['Address_Province']].',';
-		}
-		$City = '';
-		if(!empty($rsOrder['Address_City'])){
-			$City = $area_array['0,'.$rsOrder['Address_Province']][$rsOrder['Address_City']].',';
-		}
-
-		$Area = '';
-		if(!empty($rsOrder['Address_Area'])){
-			$Area = $area_array['0,'.$rsOrder['Address_Province'].','.$rsOrder['Address_City']][$rsOrder['Address_Area']];
-		}
-	}else{
-		$Province = $rsOrder['Address_Province'];
-		$City = $rsOrder['Address_City'];
-		$Area = $rsOrder['Address_Area'];
-	}
+$OrderID = empty($_REQUEST['OrderID']) ? 0 : $_REQUEST['OrderID'];
+$rsOrder = $DB->GetRs("user_order", "*", "WHERE Users_ID='{$UsersID}' AND Order_ID='{$OrderID}");
+$Shipping = json_decode(htmlspecialchars_decode($rsOrder["Order_Shipping"]), true);
+if ($_POST) {
+    $Data = array(
+        "Order_TotalPrice" => $_POST['TotalPrice'],
+        "Address_Name" => $_POST['Name'],
+        "Address_Mobile" => $_POST["Mobile"],
+        "Order_ShippingID" => $_POST["ShippingID"],
+        "Address_Province" => $_POST["Province"],
+        "Address_City" => $_POST["City"],
+        "Address_Area" => $_POST["Area"],
+        "Address_Detailed" => $_POST["Detailed"],
+        "Order_Remark" => $_POST["Remark"],
+        "Order_Status" => $_POST["Status"]
+    );
+    if (! empty($_POST["Shipping"]["Express"])) {
+        $ShippingN = array(
+            "Express" => $_POST["Shipping"]["Express"],
+            "Price" => empty($Shipping["Price"]) ? 0 : $Shipping["Price"]
+        );
+        $Data["Order_Shipping"] = json_encode($ShippingN, JSON_UNESCAPED_UNICODE);
+    }
+    $Flag = $DB->Set("user_order", $Data, "where Users_ID='{$UsersID}' and Order_ID=" . $OrderID);
+    if ($Flag) {
+        if ($rsOrder['Order_Status'] < 3 && $Data['Order_Status'] >= 3) {
+            $rsConfig = $DB->GetRs("shop_config", "CheckOrder", "where Users_ID='" . $Flag['Users_ID'] . "'");
+            $url = 'http://' . $_SERVER["HTTP_HOST"] . "/api/" . $rsOrder['Users_ID'] . "/cloud/member/detail/" . $rsOrder['Order_ID'] . "/";
+            require_once ($_SERVER["DOCUMENT_ROOT"] . '/include/library/weixin_message.class.php');
+            $weixin_message = new weixin_message($DB, $UsersID, $rsOrder["User_ID"]);
+            $contentStr = '您购买的商品已发货，<a href="' . $url . '">查看详情</a>';
+            $weixin_message->sendscorenotice($contentStr);
+        }
+        echo '<script language="javascript">alert("修改成功");window.location="' . $_SERVER['HTTP_REFERER'] . '";</script>';
+    } else {
+        echo '<script language="javascript">alert("保存失败");history.back();</script>';
+    }
+} else {
+    $rsConfig = $DB->GetRs("shop_config", "*", "where Users_ID='{$UsersID}'");
+    $rsPay = $DB->GetRs("users_payconfig", "Shipping", "where Users_ID='{$UsersID}'");
+    
+    $Status = $rsOrder["Order_Status"];
+    $Order_Status = array(
+        "待确认",
+        "待付款",
+        "已付款",
+        "已发货",
+        "已完成"
+    );
+    
+    $PayShipping = get_front_shiping_company_dropdown($UsersID, $rsConfig);
+    $CartList = json_decode(htmlspecialchars_decode($rsOrder["Order_CartList"]), true);
+    $amount = $fee = 0;
+    if (is_numeric($rsOrder['Address_Province'])) {
+        $area_json = read_file($_SERVER["DOCUMENT_ROOT"] . '/data/area.js');
+        $area_array = json_decode($area_json, TRUE);
+        $province_list = $area_array[0];
+        $Province = '';
+        if (! empty($rsOrder['Address_Province'])) {
+            $Province = $province_list[$rsOrder['Address_Province']] . ',';
+        }
+        $City = '';
+        if (! empty($rsOrder['Address_City'])) {
+            $City = $area_array['0,' . $rsOrder['Address_Province']][$rsOrder['Address_City']] . ',';
+        }
+        
+        $Area = '';
+        if (! empty($rsOrder['Address_Area'])) {
+            $Area = $area_array['0,' . $rsOrder['Address_Province'] . ',' . $rsOrder['Address_City']][$rsOrder['Address_Area']];
+        }
+    } else {
+        $Province = $rsOrder['Address_Province'];
+        $City = $rsOrder['Address_City'];
+        $Area = $rsOrder['Address_Area'];
+    }
 }
 ?>
 <!DOCTYPE HTML>

@@ -1,89 +1,89 @@
 <?php  
 $ProductsID = empty($_REQUEST['ProductsID']) ? 0 : $_REQUEST['ProductsID'];
-$rsProducts = $DB->GetRs("cloud_Products","*","where Users_ID='{$UsersID}' and Products_ID=".$ProductsID);
-$shop_config = $DB->GetRs('shop_config','*',"where Users_ID='{$UsersID}'");
+$rsProducts = $DB->GetRs("cloud_Products", "*", "WHERE Users_ID='{$UsersID}' AND Products_ID=" . $ProductsID);
+$shop_config = $DB->GetRs('shop_config', '*', "WHERE Users_ID='{$UsersID}'");
 
-$JSON = json_decode($rsProducts['Products_JSON'],true);
+$JSON = json_decode($rsProducts['Products_JSON'], true);
 
-$distribute_list = json_decode($rsProducts['Products_Distributes'],true);  //分佣金额列表
+$distribute_list = json_decode($rsProducts['Products_Distributes'], true); // 分佣金额列表
 
-if(!isset($JSON["Wholesale"][0]["Qty"])) $JSON["Wholesale"] = array();
-
-//计算物流模板数量
-$condition = "where Users_ID='{$UsersID}' and Template_Status = 1 ";
-$rsShippingTemplates = $DB->Get("shop_shipping_template","*",$condition);
+if (! isset($JSON["Wholesale"][0]["Qty"]))
+    $JSON["Wholesale"] = array();
+    
+    // 计算物流模板数量
+$condition = "WHERE Users_ID='{$UsersID}' AND Template_Status = 1 ";
+$rsShippingTemplates = $DB->Get("shop_shipping_template", "*", $condition);
 $Templates = $DB->toArray($rsShippingTemplates);
 $ShippingNum = count($Templates);
-//获取有物流模板的物流公司
+// 获取有物流模板的物流公司
 $ShippingIDS = '';
-if($ShippingNum > 0 ){
-	foreach($Templates as $key=>$item){
-		$Shipping_ID_List[] = $item['Shipping_ID'];
-	}  
-    $ShippingIDS = implode(',',$Shipping_ID_List);
-	
-	$condition = "where Users_ID='{$UsersID}' and Shipping_Status = 1 And Shipping_ID in (". $ShippingIDS.")";
-	$rsCompanies = $DB->Get("shop_shipping_company","Shipping_ID,Shipping_Name",$condition);
-	$Company_List = $DB->toArray($rsCompanies);
-}else{
+if ($ShippingNum > 0) {
+    foreach ($Templates as $key => $item) {
+        $Shipping_ID_List[] = $item['Shipping_ID'];
+    }
+    $ShippingIDS = implode(',', $Shipping_ID_List);
+    
+    $condition = "WHERE Users_ID='{$UsersID}' AND Shipping_Status = 1 AND Shipping_ID IN (" . $ShippingIDS . ")";
+    $rsCompanies = $DB->Get("shop_shipping_company", "Shipping_ID,Shipping_Name", $condition);
+    $Company_List = $DB->toArray($rsCompanies);
+} else {
     $Company_List = array();
 }
 
-
-if($_POST){
-
-	if(!isset($_POST["JSON"])){
-		echo '<script language="javascript">alert("请上传商品图片");history.back();</script>';
-		exit;
-	}
-	
-	if($_POST['PriceY'] < $_POST['PriceX']){
-		echo '<script language="javascript">alert("商品价格不能小于购买价格");history.back();</script>';
-		exit;
-	};					
-	$zongrenci = ceil($_POST['PriceY']/$_POST['PriceX']);
-	
-	$_POST['Description'] = str_replace('"','&quot;',$_POST['Description']);
-	$_POST['Description'] = str_replace("'","&quot;",$_POST['Description']);
-	$_POST['Description'] = str_replace('>','&gt;',$_POST['Description']);
-	$_POST['Description'] = str_replace('<','&lt;',$_POST['Description']);
-	
- 
-	$Data=array(
-		"Products_Name"=>$_POST['Name'],
-		"Products_Category"=>empty($_POST['Category'])?"0":$_POST['Category'],
-		"Products_PriceY"=>empty($_POST['PriceY'])?"0":$_POST['PriceY'],
-		"Products_PriceX"=>empty($_POST['PriceX'])?"1":$_POST['PriceX'],
-		"Products_Profit"=>empty($_POST['Products_Profit'])?"0":$_POST['Products_Profit'],
-		"Products_Distributes"=>empty($_POST['Distribute'])?"":json_encode($_POST['Distribute'],JSON_UNESCAPED_UNICODE),
-		"Products_JSON"=>json_encode((isset($_POST["JSON"])?$_POST["JSON"]:array()),JSON_UNESCAPED_UNICODE),
-		"Products_SoldOut"=>isset($_POST["SoldOut"])?$_POST["SoldOut"]:0,
-		"Products_IsNew"=>isset($_POST["IsNew"])?$_POST["IsNew"]:0,
-		"Products_IsHot"=>isset($_POST["IsHot"])?$_POST["IsHot"]:0,
-		"Products_IsRecommend"=>isset($_POST["IsRecommend"])?$_POST["IsRecommend"]:0,
-		"Products_IsShippingFree"=>isset($_POST["Products_IsShippingFree"])?$_POST["Products_IsShippingFree"]:0,
-		"Products_IsVirtual"=>isset($_POST["IsVirtual"])?$_POST["IsVirtual"]:0,
-		"commission_ratio"=>isset($_POST["commission_ratio"])?intval($_POST["commission_ratio"]):0,
-		"Products_IsRecieve"=>isset($_POST["IsRecieve"])?$_POST["IsRecieve"]:0,
-		"Products_Description"=>$_POST['Description'],
-		"Products_Weight"=>$_POST['Products_Weight'],
-		"Shipping_Free_Company"=>isset($_POST["Shipping_Free_Company"])?intval($_POST["Shipping_Free_Company"]):0,
-		"Products_Qrcode"=>generate_qrcode(base_url().'api/'.$UsersID.'/cloud/products/'.$rsProducts['Products_ID'].'/'),
-		"Products_xiangoutimes"=>empty($_POST['xiangoutimes'])?"0":$_POST['xiangoutimes'],
-		"zongrenci"=>$zongrenci,
-		"Products_Status"=>0
-	);
-	
-	$Flag = $DB->Set("cloud_Products",$Data,"where Users_ID='{$UsersID}' and Products_ID=".$ProductsID);
-	//跟新云购码
-	$Flag = $Flag && $DB->Del("cloud_shopcodes","s_id=".$ProductsID);
-	$Flag = $Flag && content_get_go_codes($zongrenci, 3000, $ProductsID);
-	if($Flag) {
-		echo '<script language="javascript">alert("修改成功");window.location="products.php";</script>';
-	}else {
-		echo '<script language="javascript">alert("保存失败");history.back();</script>';
-	}
-	exit;
+if ($_POST) {
+    
+    if (! isset($_POST["JSON"])) {
+        echo '<script language="javascript">alert("请上传商品图片");history.back();</script>';
+        exit();
+    }
+    
+    if ($_POST['PriceY'] < $_POST['PriceX']) {
+        echo '<script language="javascript">alert("商品价格不能小于购买价格");history.back();</script>';
+        exit();
+    }
+    ;
+    $zongrenci = ceil($_POST['PriceY'] / $_POST['PriceX']);
+    
+    $_POST['Description'] = str_replace('"', '&quot;', $_POST['Description']);
+    $_POST['Description'] = str_replace("'", "&quot;", $_POST['Description']);
+    $_POST['Description'] = str_replace('>', '&gt;', $_POST['Description']);
+    $_POST['Description'] = str_replace('<', '&lt;', $_POST['Description']);
+    
+    $Data = array(
+        "Products_Name" => $_POST['Name'],
+        "Products_Category" => empty($_POST['Category']) ? "0" : $_POST['Category'],
+        "Products_PriceY" => empty($_POST['PriceY']) ? "0" : $_POST['PriceY'],
+        "Products_PriceX" => empty($_POST['PriceX']) ? "1" : $_POST['PriceX'],
+        "Products_Profit" => empty($_POST['Products_Profit']) ? "0" : $_POST['Products_Profit'],
+        "Products_Distributes" => empty($_POST['Distribute']) ? "" : json_encode($_POST['Distribute'], JSON_UNESCAPED_UNICODE),
+        "Products_JSON" => json_encode((isset($_POST["JSON"]) ? $_POST["JSON"] : array()), JSON_UNESCAPED_UNICODE),
+        "Products_SoldOut" => isset($_POST["SoldOut"]) ? $_POST["SoldOut"] : 0,
+        "Products_IsNew" => isset($_POST["IsNew"]) ? $_POST["IsNew"] : 0,
+        "Products_IsHot" => isset($_POST["IsHot"]) ? $_POST["IsHot"] : 0,
+        "Products_IsRecommend" => isset($_POST["IsRecommend"]) ? $_POST["IsRecommend"] : 0,
+        "Products_IsShippingFree" => isset($_POST["Products_IsShippingFree"]) ? $_POST["Products_IsShippingFree"] : 0,
+        "Products_IsVirtual" => isset($_POST["IsVirtual"]) ? $_POST["IsVirtual"] : 0,
+        "commission_ratio" => isset($_POST["commission_ratio"]) ? intval($_POST["commission_ratio"]) : 0,
+        "Products_IsRecieve" => isset($_POST["IsRecieve"]) ? $_POST["IsRecieve"] : 0,
+        "Products_Description" => $_POST['Description'],
+        "Products_Weight" => $_POST['Products_Weight'],
+        "Shipping_Free_Company" => isset($_POST["Shipping_Free_Company"]) ? intval($_POST["Shipping_Free_Company"]) : 0,
+        "Products_Qrcode" => generate_qrcode(base_url() . 'api/' . $UsersID . '/cloud/products/' . $rsProducts['Products_ID'] . '/'),
+        "Products_xiangoutimes" => empty($_POST['xiangoutimes']) ? "0" : $_POST['xiangoutimes'],
+        "zongrenci" => $zongrenci,
+        "Products_Status" => 0
+    );
+    
+    $Flag = $DB->Set("cloud_Products", $Data, "WHERE Users_ID='{$UsersID}' AND Products_ID=" . $ProductsID);
+    // 跟新云购码
+    $Flag = $Flag && $DB->Del("cloud_shopcodes", "s_id=" . $ProductsID);
+    $Flag = $Flag && content_get_go_codes($zongrenci, 3000, $ProductsID);
+    if ($Flag) {
+        echo '<script language="javascript">alert("修改成功");window.location="products.php";</script>';
+    } else {
+        echo '<script language="javascript">alert("保存失败");history.back();</script>';
+    }
+    exit();
 }
 ?>
 <!DOCTYPE HTML>

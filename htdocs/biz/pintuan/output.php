@@ -1,8 +1,7 @@
 <?php
 /*导出表格处理文件*/
-require_once($_SERVER["DOCUMENT_ROOT"].'/include/update/common.php');
-require_once($_SERVER["DOCUMENT_ROOT"].'/include/library/outputExcel.php');
-require_once($_SERVER["DOCUMENT_ROOT"].'/include/helper/balance.class.php');
+require_once(CMS_ROOT.'/include/library/outputExcel.php');
+require_once(CMS_ROOT.'/include/helper/balance.class.php');
 $balance = new balance($DB,$UsersID);
 
 $type = $_REQUEST['type'];
@@ -84,7 +83,7 @@ if($type == 'product_gross_info'){
 		
 		
 		if(is_numeric($item['Address_Province'])){
-			$area_json = read_file($_SERVER["DOCUMENT_ROOT"].'/data/area.js');
+			$area_json = read_file(CMS_ROOT.'/data/area.js');
 			$area_array = json_decode($area_json,TRUE);
 			$province_list = $area_array[0];
 			$Province = '';
@@ -154,7 +153,7 @@ if($type == 'product_gross_info'){
 		
 		
 		if(is_numeric($item['Address_Province'])){
-			$area_json = read_file($_SERVER["DOCUMENT_ROOT"].'/data/area.js');
+			$area_json = read_file(CMS_ROOT.'/data/area.js');
 			$area_array = json_decode($area_json,TRUE);
 			$province_list = $area_array[0];
 			$Province = '';

@@ -1,68 +1,67 @@
-<?php  
-//获取活动配置
-$active_id = isset($_GET['activeid'])?$_GET['activeid']:0;
+<?php
+// 获取活动配置
+$active_id = isset($_GET['activeid']) ? $_GET['activeid'] : 0;
 $time = time();
 $sql = "SELECT * FROM active AS a LEFT JOIN active_type AS t ON a.Type_ID = t.Type_ID WHERE a.Users_ID='{$UsersID}' AND a.Active_ID='{$active_id}' AND a.Status=1";
 
 $res = $DB->query($sql);
 $rsActive = $DB->fetch_array($res);
-if(empty($rsActive)){
+if (empty($rsActive)) {
     sendAlert("没有要参加的活动");
 }
 $condition = "WHERE ";
 $List = Array();
 
 $searchKey = "Products_Name";
-if($rsActive['module']=='pintuan'){    //拼团
-        $table = "pintuan_products";
-        $time = time();
-        $condition .= " `Users_ID` = '{$UsersID}' AND Biz_ID={$BizID} AND Products_Status=1  AND starttime<={$time} AND stoptime>={$time}";
-}elseif($rsActive['module']=='cloud'){   //云购
-        $table = "cloud_products";
-        $condition .= " `Users_ID` = '{$UsersID}' AND Biz_ID={$BizID} AND Products_Status=1 AND Products_SoldOut=0";
-}elseif($rsActive['module']=='pifa'){   //批发
-        $table = "pifa_products";
-        $condition .= " `Users_ID` = '{$UsersID}' AND Biz_ID={$BizID} AND Products_Status=1 AND Products_SoldOut=0";
-}elseif($rsActive['module']=='zhongchou'){  //重筹
-        $table = "zhongchou_project";
-        $time = time();
-        $condition .= " usersid='{$UsersID}' AND Biz_ID={$BizID} AND fromtime<={$time} AND totime>={$time}";
-        $searchKey = "title";
-}else{
-        $table = "shop_products";
-        $condition .= " `Users_ID` = '{$UsersID}' AND Biz_ID={$BizID} AND Products_Status=1 AND Products_SoldOut=0";
+if ($rsActive['module'] == 'pintuan') { // 拼团
+    $table = "pintuan_products";
+    $time = time();
+    $condition .= " `Users_ID` = '{$UsersID}' AND Biz_ID={$BizID} AND Products_Status=1  AND starttime<={$time} AND stoptime>={$time}";
+} elseif ($rsActive['module'] == 'cloud') { // 云购
+    $table = "cloud_products";
+    $condition .= " `Users_ID` = '{$UsersID}' AND Biz_ID={$BizID} AND Products_Status=1 AND Products_SoldOut=0";
+} elseif ($rsActive['module'] == 'pifa') { // 批发
+    $table = "pifa_products";
+    $condition .= " `Users_ID` = '{$UsersID}' AND Biz_ID={$BizID} AND Products_Status=1 AND Products_SoldOut=0";
+} elseif ($rsActive['module'] == 'zhongchou') { // 重筹
+    $table = "zhongchou_project";
+    $time = time();
+    $condition .= " usersid='{$UsersID}' AND Biz_ID={$BizID} AND fromtime<={$time} AND totime>={$time}";
+    $searchKey = "title";
+} else {
+    $table = "shop_products";
+    $condition .= " `Users_ID` = '{$UsersID}' AND Biz_ID={$BizID} AND Products_Status=1 AND Products_SoldOut=0";
 }
 
 if (isset($_GET['search'])) {
-    if($_GET['keyword']){
-        $condition .= " and {$searchKey} like '%".$_GET['keyword']."%'";
+    if ($_GET['keyword']) {
+        $condition .= " AND {$searchKey} LIKE '%" . $_GET['keyword'] . "%'";
     }
 }
 
-$result = $DB->getPage($table,"*",$condition);
+$result = $DB->getPage($table, "*", $condition);
 $List = $DB->toArray($result);
 // 获取参加活动的商品数量
-$res = $DB->Get("biz_active","*","WHERE Users_ID='{$UsersID}' AND Active_ID={$active_id}");
+$res = $DB->Get("biz_active", "*", "WHERE Users_ID='{$UsersID}' AND Active_ID={$active_id}");
 $glist = $DB->toArray($res);
 $goodscount = 0;
-if(!empty($glist)){
+if (! empty($glist)) {
     $goodsid = '';
     $goodsidlist = [];
-    foreach($glist as $k => $v)
-    {
-        if($v['ListConfig'] && $v['IndexConfig']){
-            $goodsid .= $v['ListConfig'].','.$v['IndexConfig'];
+    foreach ($glist as $k => $v) {
+        if ($v['ListConfig'] && $v['IndexConfig']) {
+            $goodsid .= $v['ListConfig'] . ',' . $v['IndexConfig'];
         }
     }
-    if($goodsid){
-        $goodsid = trim($goodsid,',');
-        $goodsidlist = explode(',',$goodsid);
+    if ($goodsid) {
+        $goodsid = trim($goodsid, ',');
+        $goodsidlist = explode(',', $goodsid);
         $goodsidlist = array_unique($goodsidlist);
-        $goodsidlist = implode(',',$goodsidlist);  
+        $goodsidlist = implode(',', $goodsidlist);
     }
-
-    $res = $DB->GetRs($table,"count(*) as total",$condition.($rsActive['module']=='zhongchou'?" AND itemid IN ($goodsidlist)":" AND Products_ID IN ($goodsidlist)"));
-    $goodscount = !empty($res)?$res['total']:0;
+    
+    $res = $DB->GetRs($table, "count(*) AS total", $condition . ($rsActive['module'] == 'zhongchou' ? " AND itemid IN ($goodsidlist)" : " AND Products_ID IN ($goodsidlist)"));
+    $goodscount = ! empty($res) ? $res['total'] : 0;
 }
 ?>
 <!DOCTYPE HTML>

@@ -1,16 +1,16 @@
 <?php 
-require_once($_SERVER["DOCUMENT_ROOT"].'/include/update/common.php');
+require_once ($_SERVER["DOCUMENT_ROOT"] . '/include/update/common.php');
 
-if(isset($_GET["action"])){
-	if($_GET["action"]=="del"){
-		
-				$Flag=$DB->Del("active_type","Users_ID='{$UsersID}' AND Type_ID=".$_GET['typeid']);
-				if($Flag){
-					echo '<script language="javascript">alert("删除成功");window.location="'.$_SERVER['HTTP_REFERER'].'";</script>';
-				}else{
-					echo '<script language="javascript">alert("删除失败");history.back();</script>';
-				}
-	}
+if (isset($_GET["action"])) {
+    if ($_GET["action"] == "del") {
+        
+        $Flag = $DB->Del("active_type", "Users_ID='{$UsersID}' AND Type_ID=" . $_GET['typeid']);
+        if ($Flag) {
+            echo '<script language="javascript">alert("删除成功");window.location="' . $_SERVER['HTTP_REFERER'] . '";</script>';
+        } else {
+            echo '<script language="javascript">alert("删除失败");history.back();</script>';
+        }
+    }
 }
 ?>
 <!DOCTYPE HTML>
@@ -50,7 +50,7 @@ if(isset($_GET["action"])){
             <td width="60" align="center"><strong>操作</strong></td>
           </tr>
           <?php
-          $res = $DB->get("active_type","*","where Users_ID='{$UsersID}' order by Type_ID asc");
+          $res = $DB->get("active_type","*","WHERE Users_ID='{$UsersID}' ORDER BY Type_ID ASC");
           $list = $DB->toArray($res);
           foreach($list as $key => $val){
           ?>
