@@ -177,7 +177,7 @@ while($rsTemplate = $DB->fetch_assoc()){
 					}
 				}
 			?></td>	
-            <td nowrap="nowrap"><?php if($rsOrder["Order_TotalPrice"]<=$rsOrder["Back_Amount"] && $rsOrder['Is_Backup']==1){?><font style="color:#f00; ">已退款</font><?php }else{?><?php echo $Order_Status[$rsOrder["Order_Status"]] ?><?php }?></td>
+            <td nowrap="nowrap"><?php if(($rsOrder["Order_TotalPrice"]<=$rsOrder["Back_Amount"] || $rsOrder['Order_Status']==4) && $rsOrder['Is_Backup']==1){?><font style="color:#f00; ">已退款</font><?php }else{?><?php echo $Order_Status[$rsOrder["Order_Status"]] ?><?php }?></td>
             <td nowrap="nowrap"><?php echo date("Y-m-d H:i:s",$rsOrder["Order_CreateTime"]) ?></td>
             <td class="last" nowrap="nowrap">
             <a href="<?php echo $rsOrder["Order_IsVirtual"]==1 ? 'virtual_' : '';?>orders_view.php?OrderID=<?php echo $rsOrder["Order_ID"] ?>">[详情]</a>

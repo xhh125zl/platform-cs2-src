@@ -19,6 +19,9 @@ if(!empty($_POST) && $_POST['action'] == 'gogo') {
 <?php require_once('top.php'); ?>
 <body id="loadingPicBlock" class="g-acc-bg">
 <link href="/static/api/cloud/css/goodsrecords.css?t=<?php echo time();?>" rel="stylesheet" type="text/css" />
+<style>
+@-moz-document url-prefix() {    .m-search .f-search-text input {        height:22px;  line-height:22px; width: 90px;   }}
+</style>
 <div class="g-winner-con clearfix">
 	<div class="m-search gray9"> <span class="fl">直达第</span> <span class="fr"><a id="btnGo" href="javascript:;">云<i class="z-set"></i></a></span>
 		<div class="f-search-text">

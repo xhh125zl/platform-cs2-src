@@ -19,7 +19,7 @@
       <?php include_once("top.php"); ?>
     <div>
     <div>
-                <form action="/api/<?=$UsersID ?>/pintuan/sousuo/" method="post">
+                <form action="/api/<?=$UsersID ?>/pintuan/sousuo/0/" method="post">
                       <span class="box l"><input type="text" class="text" name="name" value="" style="width:99%;"/></span>
                       <span class="btnSubmit l"><input name="sousuo" type="submit" value="搜索"   class="btnSubmit" style="line-height: 28px;"/></span>
                 </form>

@@ -1,15 +1,8 @@
 <?php
+require_once($_SERVER["DOCUMENT_ROOT"].'/include/update/common.php');
 
-if(empty($_SESSION["Users_Account"])){
-	header("location:/member/login.php");
-}
-require_once('vertify.php');
-$rsConfig = $DB->GetRs("zhongchou_config","*","where usersid='".$_SESSION["Users_ID"]."'");
-if(!$rsConfig){
-	header("location:config.php");
-}
 $projectid=empty($_REQUEST['projectid'])?0:$_REQUEST['projectid'];
-$item=$DB->GetRs("zhongchou_project","*","where usersid='".$_SESSION["Users_ID"]."' and itemid=".$projectid);
+$item=$DB->GetRs("zhongchou_project","*","WHERE usersid='{$UsersID}' AND Biz_ID={$BizID} AND itemid=".$projectid);
 if(!$item){
 	echo '<script language="javascript">alert("该项目不存在！");window.location="project.php";</script>';
 }
@@ -30,7 +23,7 @@ if($_POST){
 		"introduce"=>$_POST["introduce"],
 		"maxtimes"=>$maxtimes,
 		"addtime"=>time(),
-		"usersid"=>$_SESSION["Users_ID"]
+		"usersid"=>$UsersID
 	);
 	$Flag=$DB->Add("zhongchou_prize",$Data);
 	if($Flag){
@@ -59,7 +52,7 @@ KindEditor.ready(function(K) {
 		uploadJson : '/member/upload_json.php?TableField=zhongchou',
 		fileManagerJson : '/member/file_manager_json.php',
 		showRemote : true,
-		allowFileManager : true,
+		allowFileManager : true
 	});
 	K('#ImgUpload').click(function(){
 		editor.loadPlugin('image', function(){
@@ -89,7 +82,6 @@ KindEditor.ready(function(K) {
     <script language="javascript">$(document).ready(zhongchou_obj.form_submit);</script>
     <div class="r_nav">
       <ul>
-        <li class=""><a href="config.php">基本设置</a></li>
         <li class="cur"><a href="project.php">项目管理</a></li>
       </ul>
     </div>

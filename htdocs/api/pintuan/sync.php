@@ -5,20 +5,18 @@
     require_once($_SERVER["DOCUMENT_ROOT"].'/include/helper/lib_pintuan.php');
     require_once($_SERVER["DOCUMENT_ROOT"].'/include/helper/backup.class.php');
     require_once($_SERVER["DOCUMENT_ROOT"].'/api/pintuan/cart/PTBackup.php');
-    ini_set("display_errors","Off"); 
+    ini_set("display_errors","On"); 
     //结束拼团活动
-
     
+
     pintuanend($DB);
     function pintuanend($DB) {
         global $DB;
     
         $list = array();
-        //结束10天之内的未完成的团
         $time = time() - 86400;
 
-        $sql = "select t.id,p.people_num,t.teamnum from pintuan_team t left join pintuan_products p on t.productid=p.products_id 
-        where  p.stoptime <{$time} AND t.teamstatus = 0";
+        $sql = "select t.id,p.people_num,t.teamnum from pintuan_team t left join pintuan_products p on t.productid=p.products_id where  p.stoptime <{$time} AND t.teamstatus = 0";
         $result = $DB->query($sql);
         $list = $DB->toArray($result);
         if (empty($list)) { return; }
@@ -37,7 +35,7 @@
         $time = time() - 86400;
         
         //根据所参加的团获取产品数
-        $sql = "SELECT t.id,t.productid,t.users_id,p.Users_ID,p.people_num,p.Team_Count,p.starttime,p.stoptime FROM pintuan_team AS t LEFT JOIN pintuan_products as p ON t.productid=p.Products_ID WHERE teamstatus=1 AND p.stoptime<{$time} AND p.is_draw=0";
+        $sql = "SELECT t.id,t.productid,t.users_id,p.Users_ID,p.people_num,p.Team_Count,p.starttime,p.stoptime FROM pintuan_team AS t LEFT JOIN pintuan_products as p ON t.productid=p.Products_ID WHERE teamstatus=1 AND  p.stoptime<{$time} AND p.is_draw=0";
         $result = $DB->query($sql);
         $list = $DB->toArray($result);
         //抽奖前统计信息，获取产品列表id 和开团列表id，并统计个数
@@ -78,7 +76,7 @@
         $awordteamlistStr = "";
         $noneteamlistStr = "";
         $goodsjson = [];
-        
+
         if(!empty($goodslist))
         {
             $awordteamlist = [];    //中奖团id列表
@@ -99,9 +97,11 @@
                     {
                         do{
                             $num = mt_rand(0,count($gTeamlist));
-                            if(!in_array($gTeamlist[$num],$goodsAwordlist)){
-                                $goodsAwordlist[] = $gTeamlist[$num];
-                                break;
+                            if(isset($gTeamlist[$num])){
+                                if(!in_array($gTeamlist[$num],$goodsAwordlist)){
+                                    $goodsAwordlist[] = $gTeamlist[$num];
+                                    break;
+                                }
                             }
                         }while(true);
                     }
@@ -116,20 +116,23 @@
             if(!empty($awordteamlist)){
                 $awordteamlistStr = implode(',', $awordteamlist);
                 $DB->Set("pintuan_team",['teamstatus'=>2],"WHERE id in ($awordteamlistStr)");
-                $result = $DB->query("select o.order_id as order_id,o.Users_ID as Users_ID,o.User_ID as User_ID from pintuan_teamdetail as t left join pintuan_order as o on t.order_id=o.order_id where t.teamid in ($awordteamlistStr) and o.is_ok is NULL");
+                $result = $DB->query("select o.order_id as order_id,o.Users_ID as Users_ID,uo.Order_Code,o.User_ID as User_ID,uo.Order_CartList from pintuan_teamdetail as t left join pintuan_order as o on t.order_id=o.order_id left join user_order as uo ON o.order_id=uo.Order_ID where t.teamid in ($awordteamlistStr) and o.is_ok is NULL");
                 while($res_t= $DB->fetch_assoc($result))
                 {
-                    sendWXMessage($res_t['Users_ID'],$res_t['order_id'],'恭喜您，已中奖',$res_t['User_ID']);
+                    $Order_CartList = json_decode($res_t['Order_CartList'],true);
+                    $activename = $Order_CartList['ProductsName'];
+                    sendWXMessage($res_t['Users_ID'],$res_t['order_id'],'恭喜您参与的拼团活动已中奖，订单号为：<a href="'.base_url().'/api/'.$res_t['Users_ID'].'/pintuan/orderdetails/'.$res_t['order_id'].'/">'.$res_t['Order_Code'].'</a>',$res_t['User_ID']);
                 }
             }
             if(!empty($noneteamlist)){
                 $noneteamlistStr = implode(',', $noneteamlist);
                 $DB->Set("pintuan_team",['teamstatus'=>3],"WHERE id in ($noneteamlistStr)");
-                $result = $DB->query("select o.order_id as order_id,o.Users_ID as Users_ID,o.User_ID as User_ID from pintuan_teamdetail as t left join pintuan_order as o on t.order_id=o.order_id where t.teamid in ($noneteamlistStr) and o.is_ok is NULL");
+                /*$result = $DB->query("select o.order_id as order_id,o.Order_Code,o.Users_ID as Users_ID,o.User_ID as User_ID from pintuan_teamdetail as t left join pintuan_order as o on t.order_id=o.order_id where t.teamid in ($noneteamlistStr) and o.is_ok is NULL");
+                
                 while($res_t= $DB->fetch_assoc($result))
                 {
-                    sendWXMessage($res_t['Users_ID'],$res_t['order_id'],'很遗憾，未中奖',$res_t['User_ID']);
-                }
+                    sendWXMessage($res_t['Users_ID'],$res_t['order_id'],'很遗憾您参与的拼团活动未中奖，订单号为：'.$res_t['Order_Code'],$res_t['User_ID']);
+                }*/
             }
         }
         if(!empty($orderlist)){
@@ -150,40 +153,25 @@
           'Users_ID' =>isset($_SESSION['Users_ID'])?$_SESSION['Users_ID']:''
         ];
         $DB->add("pintuan_aword",$data);
-        
     }
 
 	  tuikuan($DB);
     function  tuikuan($DB){
         global $DB;
         //获取所有未中奖或者拼团失败的团
-        $result = $DB->Get("pintuan_team","*","where teamstatus='3' or teamstatus='4'");
-        $orderid = [];
-        $ids = '';
-        if($result){
-            while($list = $DB->fetch_assoc($result)){
-                $idlist[] = $list['id'];
-            }
-            if(!empty($idlist)){
-                $ids = implode(',',$idlist);
-            }else{
-                return;
-            }
-            
-            //获取拼团失败或者未中奖用户的orderid
-            $result2 = $DB->Get("pintuan_teamdetail","*","where teamid in ($ids)");
-            if($result2){
-                while($list = $DB->fetch_assoc($result2)){
-                    $orderid[] = $list;
-                }
-                
+        $sql = "select order_id,teamid from pintuan_teamdetail where teamid in (select id from pintuan_team where teamstatus='3' or teamstatus='4')";
+        $result2 = $DB->query($sql);
+
+        if($result2){
+                $orderid = $DB->toArray($result2);
+                if(empty($orderid)) return ;
                 mysql_query("SET AUTOCOMMIT=0");
                 foreach($orderid as $v){
-                    $order = $DB->query("select * from user_order as u left join pintuan_order as p on u.Order_ID=p.order_id where p.order_status >= 2 and u.Order_ID='{$v['order_id']}' ");
+                    $order = $DB->query("select u.Order_ID,u.Order_CartList,Order_PaymentMethod,Order_Type,u.Users_ID,Order_TotalPrice,u.User_ID,u.Order_Status,Order_Code from user_order as u left join pintuan_order as p on u.Order_ID=p.order_id where p.order_status >= 2 and u.Order_ID='{$v['order_id']}' ");
                     $order = $DB->fetch_assoc($order);
                     $product = json_decode($order['Order_CartList'],true);
                     $productid = $product['Products_ID'];
-                    $goods = $DB->GetRs("pintuan_products","*","where Products_ID='{$productid}'");
+                    $goods = $DB->GetRs("pintuan_products","stoptime","where Products_ID='{$productid}'");
                     
                     if(($order['Order_PaymentMethod'] && $goods['stoptime']<time())){
                             mysql_query("BEGIN");
@@ -231,22 +219,22 @@
                             }
                             $sellerid = $order['Users_ID'];
                             $goodsinfo = json_decode($order['Order_CartList'],true);
-                            $userinfo = $DB->GetRs("user","*","where User_ID='{$order['User_ID']}'");
+                            
                             $flag = Stock($goodsinfo['Products_ID'], $Users_ID,'+');
                             if(!$flag){
                                 mysql_query("ROLLBACK");
                             }
                             $PTBackup = new PTBackup($DB,$Users_ID);
                             $pbflag = $PTBackup->add($order, $goodsinfo['Products_ID'], $v['teamid'], "拼团失败退款记录", $userinfo['User_Name']?$userinfo['User_Name']:$userinfo['User_Mobile']);
+                            
+                            mysql_query("COMMIT");
                             if(in_array($order['Order_Status'],array(2,3,4,5))){
                                 sendWXMessage($order['Users_ID'],$v['order_id'],'拼团没有成功已退款，订单号：'.$order['Order_Code']."，退款金额：".$order['Order_TotalPrice'],$order['User_ID']);
                             }
-                            mysql_query("COMMIT");
                             
                     }
                 }
-            }
-        }
+           }
         
     }
 

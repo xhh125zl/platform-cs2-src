@@ -1,5 +1,5 @@
 <?php 
-require_once($_SERVER["DOCUMENT_ROOT"].'/include/update/common.php');
+require_once ($_SERVER["DOCUMENT_ROOT"] . '/include/update/common.php');
 
 if($_POST){ 
   if($_POST["Isdraw"]==0) {

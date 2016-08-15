@@ -1,16 +1,18 @@
 <?php
-require_once($_SERVER["DOCUMENT_ROOT"].'/include/update/common.php');
+require_once (CMS_ROOT . '/include/update/common.php');
 
 if (IS_GET && isset($_GET["action"]) && $_GET["action"] == "del") {
     $Active_ID = intval($_GET["Active_ID"]);
     $rsActive = $DB->GetRs("active", "Active_Name", "WHERE Users_ID='{$UsersID}' AND Active_ID='{$Active_ID}'");
-    $Flag = $DB->Del("active", "Users_ID='{$UsersID}' AND Active_ID='{$Active_ID}'");
-    $Flag2 = $DB->Del("biz_active", "Users_ID='{$UsersID}' AND Active_ID='{$Active_ID}'");
-    if ($Flag && $Flag2) {
-        sendAlert("{$rsActive['Active_Name']} 活动已经删除!", $_SERVER['HTTP_REFERER'], 3);
-    } else {
+    begin_trans();
+    $Flag = $DB->Del("active", "Users_ID='{$UsersID}' AND Active_ID={$Active_ID}");
+    $Flag2 = $DB->Del("biz_active", "Users_ID='{$UsersID}' AND Active_ID={$Active_ID}");
+    if (! $Flag || ! $Flag2) {
+        back_trans();
         sendAlert("{$rsActive['Active_Name']} 活动删除失败!", $_SERVER['HTTP_REFERER'], 3);
     }
+    commit_trans();
+    sendAlert("{$rsActive['Active_Name']} 活动已经删除!", $_SERVER['HTTP_REFERER'], 3);
 }
 ?>
 <!DOCTYPE HTML>

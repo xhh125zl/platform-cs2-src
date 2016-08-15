@@ -1,44 +1,55 @@
 <?php
-require_once($_SERVER["DOCUMENT_ROOT"].'/include/update/common.php');
+require_once ($_SERVER["DOCUMENT_ROOT"] . '/include/update/common.php');
 
-if(isset($_GET["OrderId"])){
-	$OrderID = $_GET["OrderId"];
-}else{
-	echo '缺少必要的参数';
-	exit;
+if (isset($_GET["OrderId"])) {
+    $OrderID = $_GET["OrderId"];
+} else {
+    echo '缺少必要的参数';
+    exit();
 }
-$shipping_orders = $DB->GetRs("shipping_orders","*","where Orders_ID=".$_GET['OrderId']."");
-$Shipping = json_decode($shipping_orders["Orders_Shipping"],true);
+$shipping_orders = $DB->GetRs("shipping_orders", "*", "WHERE Orders_ID=" . $_GET['OrderId'] . "");
+$Shipping = json_decode($shipping_orders["Orders_Shipping"], true);
 
-if($shipping_orders['Detail_ID']){
-	$rsDetail = $DB->GetRs("cloud_products_detail","*","where Cloud_Detail_ID=".$shipping_orders['Detail_ID']."");
-	$rsProducts = $DB->GetRs("cloud_products","*","where Products_ID=".$rsDetail['Products_ID']."");
-	$ImgPath = get_prodocut_cover_img($rsProducts);
+if ($shipping_orders['Detail_ID']) {
+    $rsDetail = $DB->GetRs("cloud_products_detail", "*", "WHERE Cloud_Detail_ID=" . $shipping_orders['Detail_ID'] . "");
+    $rsProducts = $DB->GetRs("cloud_products", "*", "WHERE Products_ID=" . $rsDetail['Products_ID'] . "");
+    $ImgPath = get_prodocut_cover_img($rsProducts);
 }
-$_STATUS_SHIPPING = array('<font style="color:#FF0000">待付款</font>','<font style="color:#03A84E">待发货</font>','<font style="color:#F60">待收货</font>','<font style="color:blue">已领取</font>','<font style="color:#999; text-decoration:line-through">&nbsp;已取消&nbsp;</font>');
-$_STATUS = array('','<font style="color:#FF0000">未领取</font>','','<font style="color:blue">已领取</font>');
-if(is_numeric($shipping_orders['Address_Province'])){
-		$area_json = read_file($_SERVER["DOCUMENT_ROOT"].'/data/area.js');
-		$area_array = json_decode($area_json,TRUE);
-		$province_list = $area_array[0];
-		$Province = '';
-		if(!empty($shipping_orders['Address_Province'])){
-			$Province = $province_list[$shipping_orders['Address_Province']].',';
-		}
-		$City = '';
-		if(!empty($shipping_orders['Address_City'])){
-			$City = $area_array['0,'.$shipping_orders['Address_Province']][$shipping_orders['Address_City']].',';
-		}
-
-		$Area = '';
-		if(!empty($shipping_orders['Address_Area'])){
-			$Area = $area_array['0,'.$shipping_orders['Address_Province'].','.$shipping_orders['Address_City']][$shipping_orders['Address_Area']];
-		}
-	}else{
-		$Province = $shipping_orders['Address_Province'];
-		$City = $shipping_orders['Address_City'];
-		$Area = $shipping_orders['Address_Area'];
-	}
+$_STATUS_SHIPPING = array(
+    '<font style="color:#FF0000">待付款</font>',
+    '<font style="color:#03A84E">待发货</font>',
+    '<font style="color:#F60">待收货</font>',
+    '<font style="color:blue">已领取</font>',
+    '<font style="color:#999; text-decoration:line-through">&nbsp;已取消&nbsp;</font>'
+);
+$_STATUS = array(
+    '',
+    '<font style="color:#FF0000">未领取</font>',
+    '',
+    '<font style="color:blue">已领取</font>'
+);
+if (is_numeric($shipping_orders['Address_Province'])) {
+    $area_json = read_file($_SERVER["DOCUMENT_ROOT"] . '/data/area.js');
+    $area_array = json_decode($area_json, TRUE);
+    $province_list = $area_array[0];
+    $Province = '';
+    if (! empty($shipping_orders['Address_Province'])) {
+        $Province = $province_list[$shipping_orders['Address_Province']] . ',';
+    }
+    $City = '';
+    if (! empty($shipping_orders['Address_City'])) {
+        $City = $area_array['0,' . $shipping_orders['Address_Province']][$shipping_orders['Address_City']] . ',';
+    }
+    
+    $Area = '';
+    if (! empty($shipping_orders['Address_Area'])) {
+        $Area = $area_array['0,' . $shipping_orders['Address_Province'] . ',' . $shipping_orders['Address_City']][$shipping_orders['Address_Area']];
+    }
+} else {
+    $Province = $shipping_orders['Address_Province'];
+    $City = $shipping_orders['Address_City'];
+    $Area = $shipping_orders['Address_Area'];
+}
 ?>
 <!DOCTYPE HTML>
 <html>

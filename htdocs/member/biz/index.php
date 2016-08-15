@@ -38,11 +38,10 @@ $condition .= " order by ".$OrderBy;
 $_Status = array('<font style="color:#ff6600">正常</font>','<font style="color:blue">禁用</font>');
 //商家分组
 $groups = array();
-$DB->Get("biz_group","*","where Users_ID='".$_SESSION["Users_ID"]."' order by Group_index asc, Group_ID asc");
-while($r=$DB->Fetch_assoc()){
+$res = $DB->Get("biz_group","*","where Users_ID='".$_SESSION["Users_ID"]."' order by Group_index asc, Group_ID asc");
+while($r=$DB->Fetch_assoc($res)){
 	$groups[$r["Group_ID"]] = $r;
 }
-
 
 $salesman_array = array();
 $is_salesman_array = array();
@@ -97,12 +96,11 @@ while($row = $DB->fetch_assoc()){
           <option value="Biz_Phone">联系电话</option>
         </select>
         <input type="text" name="Keyword" value="<?=isset($_GET['Keyword']) && $_GET['Keyword']==0?$_GET['Keyword']:'' ?>" class="form_input" size="15" />
-        
         所属分组：
         <select name="GroupID">
           <option value="">全部</option>
           <?php foreach($groups as $GroupID=>$g){?>
-          <option value="<?php $GroupID;?>"><?php echo $g["Group_Name"];?></option>
+          <option value="<?=$GroupID;?>"><?=$g["Group_Name"];?></option>
           <?php }?>
         </select>
        

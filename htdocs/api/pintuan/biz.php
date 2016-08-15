@@ -35,15 +35,29 @@ if(empty($rsBiz)){
   sendAlert("商家店铺不存在");
 }
 $shopname = isset($rsBiz['Biz_Name']) && $rsBiz['Biz_Name']?$rsBiz['Biz_Name']:"";
-$result = $DB->Get("pintuan_category", "cate_id", "WHERE Users_ID='{$UsersID}' AND istop=1");
-$catelist = "";
-while ($res = $DB->fetch_assoc()) {
-    $catelist .= "'," . $res['cate_id'] . ",',";
+$result = $DB->Get("biz_active","ListConfig,IndexConfig,Biz_ID,Active_ID","WHERE Users_ID='{$UsersID}' AND Active_ID={$ActiveID} AND Status=2 LIMIT 0,{$rsActive['MaxBizCount']}");
+$activelist = $DB->toArray($result);
+if(empty($activelist)){
+    sendAlert("没有商家参与相关活动");
 }
-$catelist = trim($catelist, ',');
-$totalInfo = $DB->GetRs("pintuan_products","count(*) as total","WHERE Users_ID='{$UsersID}' AND Products_Category in ({$catelist})  AND Biz_ID={$BizID} ");
+$indexGoods = "";
+$listGoods = "";
+foreach ($activelist as $k => $v)
+{
+    $indexGoods .= $v['IndexConfig'].',';
+    $listGoods .= $v['ListConfig'].',';
+}
+$listGoods = trim($listGoods,',');
+$indexGoods = trim($indexGoods,',');
+$listGoods_temp = explode(",",$listGoods);
+$indexGoods_temp = explode(",",$indexGoods);
+$dis_temp = array_diff($listGoods_temp,$indexGoods_temp);
+$dis_temp = implode($dis_temp,',');
+$listGoods = $indexGoods.','.$dis_temp;
+$listGoods = trim($listGoods,',');
+$totalInfo = $DB->GetRs("pintuan_products","count(*) as total","WHERE Users_ID='{$UsersID}'  AND Biz_ID={$BizID} AND Products_ID IN ({$listGoods})");
 $pagesize = 5;
-$totalPage = $totalInfo['total'] % $pagesize ==0?($totalInfo['total']/$pagesize):(intval($totalInfo['total']/$pagesize)+1);
+$totalPage = round($totalInfo['total']/$pagesize);
 
 if(IS_AJAX){
     $time = time();
@@ -54,9 +68,9 @@ if(IS_AJAX){
     $order = ["Products_ID {$method}","Products_CreateTime {$method}","Products_Sales {$method}","Products_PriceT {$method}","Products_Index {$method}"];
     $fields = "starttime,Products_CreateTime,Users_ID,Products_JSON,products_IsNew,products_IsRecommend,products_IsHot,Is_Draw,Products_ID,Products_Index,Products_Name,stoptime,Products_Sales,Products_PriceT,Products_PriceD,people_num";
     
-    $sql = "SELECT {$fields} FROM (SELECT {$fields} FROM `pintuan_products` WHERE Users_ID='{$UsersID}' 
-     LIMIT {$offset},{$bizCount}) as t ".
-    ($sort?"ORDER BY {$order[$sort]}":"ORDER BY field(Products_ID,{$listGoods})")." LIMIT 0,{$pagesize}";
+    $sql = "SELECT {$fields} FROM (SELECT {$fields} FROM `pintuan_products` WHERE Users_ID='{$UsersID}' AND Biz_ID = {$BizID} AND Products_ID IN ({$listGoods})
+     LIMIT {$bizCount}) as t ".
+    ($sort?"ORDER BY {$order[$sort]}":"ORDER BY field(Products_ID,{$listGoods})")." LIMIT {$offset},{$pagesize}";
     $result = $DB->query($sql);
     $list = [];
     if($result){

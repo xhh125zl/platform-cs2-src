@@ -4,7 +4,7 @@ var category_obj={
 			$.ajax({
 				type:'post',
 				url:'/api/'+UsersID+'/cloud/ajax/',
-				data:{action:type,p:page,cid:cid},
+				data:{action:type,p:page,cid:cid,BizID:BizID},
 				beforeSend:function() {
 					$("body").append("<div id='load'><div class='double-bounce1'></div><div class='double-bounce2'></div></div>");
 				},

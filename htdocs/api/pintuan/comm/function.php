@@ -37,6 +37,8 @@ function addTeam($orderid,$Users_ID)
     if($ef){
         $flag = $DB->GetRs("pintuan_team","teamnum","where id='{$teamid}'");
         if($flag['teamnum']==$CartList['people_num']){
+            $ptData = [ 'teamstatus' => 1 ];
+            $DB->Set("pintuan_team",$ptData,"where id='{$teamid}'");
             $return =-1;   //拼团成功
         }else{
             $return = true;

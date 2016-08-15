@@ -1,28 +1,35 @@
 <?php 
-require_once($_SERVER["DOCUMENT_ROOT"].'/include/update/common.php');
-if(IS_AJAX && isset($_POST['action']) && $_POST['action']=='getActive'){
+require_once ($_SERVER["DOCUMENT_ROOT"] . '/include/update/common.php');
+if (IS_AJAX && isset($_POST['action']) && $_POST['action'] == 'getActive') {
     $active_id = $_POST['aid'];
     $UsersID = $_POST['UsersID'];
-    if($active_id){
-        $rsActive = $DB->GetRs("active","*","WHERE Users_ID='{$UsersID}' AND Active_ID='{$active_id}'");
-        if(!empty($rsActive)){
-            die(json_encode(['status'=>1,'data'=>$rsActive],JSON_UNESCAPED_UNICODE));
+    if ($active_id) {
+        $rsActive = $DB->GetRs("active", "*", "WHERE Users_ID='{$UsersID}' AND Active_ID='{$active_id}'");
+        if (! empty($rsActive)) {
+            $data = [
+                'status' => 1,
+                'data' => $rsActive
+            ];
+            die(json_encode($data, JSON_UNESCAPED_UNICODE));
         }
     }
-    die(json_encode(['status'=>0]));
+    $data = [
+        'status' => 0
+    ];
+    die(json_encode($data));
 }
-if(IS_POST){ 
-    $post  =  $_POST;
+if (IS_POST) {
+    $post = $_POST;
     $active_id = $post['Active_ID'];
     $return_uri = "active.php";
-    $rsActive = $DB->GetRs("active","*","WHERE Users_ID='{$post['UsersID']}' AND Active_ID='{$active_id}'");
-
-    $rsActiveBiz = $DB->GetRs("biz_active","count(*) as total","WHERE Users_ID='{$post['UsersID']}'  AND Active_ID='{$active_id}'");
+    $rsActive = $DB->GetRs("active", "*", "WHERE Users_ID='{$post['UsersID']}' AND Active_ID='{$active_id}'");
     
-    if($rsActiveBiz['total']>=$rsActive['MaxBizCount']){
-        sendAlert("只允许{$rsActive['MaxBizCount']}个商家参加活动",$return_uri ,2);
+    $rsActiveBiz = $DB->GetRs("biz_active", "count(*) AS total", "WHERE Users_ID='{$post['UsersID']}'  AND Active_ID='{$active_id}'");
+    
+    if ($rsActiveBiz['total'] >= $rsActive['MaxBizCount']) {
+        sendAlert("只允许{$rsActive['MaxBizCount']}个商家参加活动", $return_uri, 2);
     }
-    $data  = [];
+    $data = [];
     $data['Users_ID'] = $post['UsersID'];
     $data['Active_ID'] = $post['Active_ID'];
     $data['Biz_ID'] = $post['BizID'];
@@ -31,29 +38,29 @@ if(IS_POST){
     $data['Status'] = 1;
     $data['addtime'] = time();
     $flag = $DB->Add("biz_active", $data);
-    if(true == $flag)
-    {
-        sendAlert("添加成功","active.php", 2);
-    }else{
-        sendAlert("添加失败",$return_uri ,2);
+    if (true == $flag) {
+        sendAlert("添加成功", "active.php", 2);
+    } else {
+        sendAlert("添加失败", $return_uri, 2);
     }
-}else{
-    $Active_ID = isset($_GET['activeid']) && $_GET['activeid']?$_GET['activeid']:0;
+} else {
+    $Active_ID = isset($_GET['activeid']) && $_GET['activeid'] ? $_GET['activeid'] : 0;
     $rsActive = [];
-    if($Active_ID){
-        $rsActive = $DB->GetRs("active","*","WHERE Users_ID='{$UsersID}' AND Active_ID='{$Active_ID}'");
+    if ($Active_ID) {
+        $rsActive = $DB->GetRs("active", "*", "WHERE Users_ID='{$UsersID}' AND Active_ID='{$Active_ID}'");
     }
-    $flag = $DB->GetRs("biz_active","*","WHERE Users_ID='{$UsersID}' AND Biz_ID='{$BizID}' AND Active_ID='{$Active_ID}' ");
+    $flag = $DB->GetRs("biz_active", "*", "WHERE Users_ID='{$UsersID}' AND Biz_ID='{$BizID}' AND Active_ID='{$Active_ID}' ");
     $activelist = [];
-    if(!$Active_ID){
+    if (! $Active_ID) {
         $time = time();
         $sql = "SELECT * FROM active WHERE Status=1 AND starttime<{$time} AND {$time}<stoptime AND Users_ID='{$UsersID}' AND Active_ID NOT IN ( SELECT Active_ID FROM biz_active WHERE Users_ID='{$UsersID}' AND Biz_ID='{$BizID}' )  ORDER BY Type_ID ASC";
         $res = $DB->query($sql);
         $activelist = $DB->toArray($res);
-        if(empty($activelist)) sendAlert("没有可以参加的活动");
-        $rsActive = $activelist [0];
+        if (empty($activelist))
+            sendAlert("没有可以参加的活动");
+        $rsActive = $activelist[0];
     }
-    if($flag){
+    if ($flag) {
         sendAlert("不能重复推荐产品");
     }
 }

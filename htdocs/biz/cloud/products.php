@@ -1,9 +1,9 @@
-<?php  
+<?php 
 require_once ($_SERVER["DOCUMENT_ROOT"] . '/include/update/common.php');
 
 if (isset($_GET["action"])) {
     if ($_GET["action"] == "del") {
-        $Flag = $DB->Del("cloud_products", "Users_ID='{$UsersID}' and Products_ID=" . $_GET["ProductsID"]);
+        $Flag = $DB->Del("cloud_products", "Users_ID='{$UsersID}' AND Products_ID=" . $_GET["ProductsID"]);
         if ($Flag) {
             echo '<script language="javascript">alert("删除成功");window.location="' . $_SERVER['HTTP_REFERER'] . '";</script>';
         } else {
@@ -13,28 +13,28 @@ if (isset($_GET["action"])) {
     }
 }
 
-$condition = "where Users_ID='{$UsersID}' AND Biz_ID={$BizID}";
+$condition = "WHERE Users_ID='{$UsersID}' AND Biz_ID={$BizID}";
 if (isset($_GET['search'])) {
     setcookie("{$UsersID}_SearchIsShow", 1);
     if ($_GET['Keyword']) {
         setcookie("{$UsersID}_Keyword", $_GET['Keyword']);
-        $condition .= " and Products_Name like '%" . trim($_GET['Keyword']) . "%'";
+        $condition .= " AND Products_Name LIKE '%" . trim($_GET['Keyword']) . "%'";
     }
     if ($_GET['SearchCateId']) {
         setcookie("{$UsersID}_SearchCateId", $_GET['SearchCateId']);
-        $condition .= " and Products_Category=" . $_GET['SearchCateId'];
+        $condition .= " AND Products_Category=" . $_GET['SearchCateId'];
     }
     if ($_GET["Attr"]) {
         setcookie("{$UsersID}_Attr", $_GET['Attr']);
-        $condition .= " and Products_" . $_GET["Attr"] . "=1";
+        $condition .= " AND Products_" . $_GET["Attr"] . "=1";
     }
 }
-$condition .= " order by Products_ID desc";
+$condition .= " ORDER BY Products_ID DESC";
 
 function get_category($catid)
 {
     global $DB;
-    $r = $DB->GetRs("cloud_category", "*", "where Category_ID='" . $catid . "'");
+    $r = $DB->GetRs("cloud_category", "*", "WHERE Category_ID='" . $catid . "'");
     return $r['Category_Name'];
 }
 
@@ -64,14 +64,14 @@ function get_category($catid)
       <div class="control_btn">
       <a href="products_add.php" class="btn_green btn_w_120">添加产品</a> <a href="#search" class="btn_green btn_w_120">产品搜索</a> 
       </div>
-      <form class="search" method="get" action="products.php" <?=isset($_COOKIE["{$UsersID}_SearchIsShow"]) && $_COOKIE["{$UsersID}_SearchIsShow"]?"style='display:block;'":"" ?> >
+      <form class="search" method="get" action="products.php"  >
         关键词：
-        <input type="text" name="Keyword" value="<?=isset($_COOKIE["{$UsersID}_Keyword"]) && $_COOKIE["{$UsersID}_Keyword"]?$_COOKIE["{$UsersID}_Keyword"]:"" ?>" class="form_input" size="15" />
+        <input type="text" name="Keyword" value="" class="form_input" size="15" />
         产品分类：
         <select name='SearchCateId'>
           <option value=''>--请选择--</option>
           <?php
-        $DB->get("cloud_category", "*", "where Users_ID='{$UsersID}' and Category_ParentID=0 order by Category_Index asc");
+        $DB->get("cloud_category", "*", "WHERE Users_ID='{$UsersID}' AND Category_ParentID=0 ORDER BY Category_Index ASC");
         $ParentCategory = array();
         $i = 1;
         while ($rsPCategory = $DB->fetch_assoc()) {
@@ -79,7 +79,7 @@ function get_category($catid)
             $i ++;
         }
         foreach ($ParentCategory as $key => $value) {
-            $DB->get("cloud_category", "*", "where Users_ID='{$UsersID}' and Category_ParentID=" . $value["Category_ID"] . " order by Category_Index asc");
+            $DB->get("cloud_category", "*", "WHERE Users_ID='{$UsersID}' AND Category_ParentID=" . $value["Category_ID"] . " ORDER BY Category_Index ASC");
             if ($DB->num_rows() > 0) {
                 echo '<optgroup label="' . $value["Category_Name"] . '">';
                 while ($rsCategory = $DB->fetch_assoc()) {

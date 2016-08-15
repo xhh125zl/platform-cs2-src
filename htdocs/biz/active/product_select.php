@@ -1,65 +1,68 @@
-<?php  
-require_once($_SERVER["DOCUMENT_ROOT"].'/include/update/common.php');
-
-$condition = "WHERE `Users_ID` = '{$UsersID}' AND Products_Status=1 ";
-
-if (isset($_GET['search'])) {
-  if($_GET['Products_Name']){
-    $condition .= " and Products_Name like '%".$_GET['Products_Name']."%'";
-  }
-}
-
-$List = Array();
-
-//获取活动配置
-$active_id = isset($_GET['activeid'])?$_GET['activeid']:0;
+<?php
+require_once ($_SERVER["DOCUMENT_ROOT"] . '/include/update/common.php');
+// 获取活动配置
+$active_id = isset($_GET['activeid']) ? $_GET['activeid'] : 0;
 $time = time();
 $sql = "SELECT * FROM active AS a LEFT JOIN active_type AS t ON a.Type_ID = t.Type_ID WHERE a.Users_ID='{$UsersID}' AND a.Active_ID='{$active_id}' AND a.Status=1";
 
 $res = $DB->query($sql);
 $rsActive = $DB->fetch_array($res);
-if(empty($rsActive)){
+if (empty($rsActive)) {
     sendAlert("没有要参加的活动");
 }
+$condition = "WHERE ";
+$List = Array();
 
-if($rsActive['module']=='pintuan'){    //拼团
-        $table = "pintuan_products";
-        $time = time();
-        $condition .= " AND starttime<={$time} AND stoptime>={$time}";
-}elseif($rsActive['module']=='cloud'){   //云购
-        $table = "cloud_products";
-        $condition .= " AND Products_SoldOut=0";
-}elseif($rsActive['module']=='pifa'){   //批发
-        $table = "pifa_products";
-        $condition .= " AND Products_SoldOut=0";
-}else{
-        $table = "shop_products";
-        $condition .= " AND Products_SoldOut=0";
+$searchKey = "Products_Name";
+if ($rsActive['module'] == 'pintuan') { // 拼团
+    $table = "pintuan_products";
+    $time = time();
+    $condition .= " `Users_ID` = '{$UsersID}' AND Biz_ID={$BizID} AND Products_Status=1  AND starttime<={$time} AND stoptime>={$time}";
+} elseif ($rsActive['module'] == 'cloud') { // 云购
+    $table = "cloud_products";
+    $condition .= " `Users_ID` = '{$UsersID}' AND Biz_ID={$BizID} AND Products_Status=1 AND Products_SoldOut=0";
+} elseif ($rsActive['module'] == 'pifa') { // 批发
+    $table = "pifa_products";
+    $condition .= " `Users_ID` = '{$UsersID}' AND Biz_ID={$BizID} AND Products_Status=1 AND Products_SoldOut=0";
+} elseif ($rsActive['module'] == 'zhongchou') { // 重筹
+    $table = "zhongchou_project";
+    $time = time();
+    $condition .= " usersid='{$UsersID}' AND Biz_ID={$BizID} AND fromtime<={$time} AND totime>={$time}";
+    $searchKey = "title";
+} else {
+    $table = "shop_products";
+    $condition .= " `Users_ID` = '{$UsersID}' AND Biz_ID={$BizID} AND Products_Status=1 AND Products_SoldOut=0";
 }
-$result = $DB->getPage($table,"*",$condition." AND Biz_ID={$BizID}  ORDER BY Products_ID DESC");
+
+if (isset($_GET['search'])) {
+    if ($_GET['keyword']) {
+        $condition .= " AND {$searchKey} LIKE '%" . $_GET['keyword'] . "%'";
+    }
+}
+
+$result = $DB->getPage($table, "*", $condition);
 $List = $DB->toArray($result);
 // 获取参加活动的商品数量
-$res = $DB->Get("biz_active","*","WHERE Users_ID='{$UsersID}' AND Active_ID={$active_id}");
+$res = $DB->Get("biz_active", "*", "WHERE Users_ID='{$UsersID}' AND Active_ID={$active_id}");
 $glist = $DB->toArray($res);
 $goodscount = 0;
-if(!empty($glist)){
+if (! empty($glist)) {
     $goodsid = '';
     $goodsidlist = [];
-    foreach($glist as $k => $v)
-    {
-        if($v['ListConfig'] && $v['IndexConfig']){
-            $goodsid .= $v['ListConfig'].','.$v['IndexConfig'];
+    foreach ($glist as $k => $v) {
+        if ($v['ListConfig'] && $v['IndexConfig']) {
+            $goodsid .= $v['ListConfig'] . ',' . $v['IndexConfig'];
         }
     }
-    if($goodsid){
-        $goodsid = trim($goodsid,',');
-        $goodsidlist = explode(',',$goodsid);
+    if ($goodsid) {
+        $goodsid = trim($goodsid, ',');
+        $goodsidlist = explode(',', $goodsid);
         $goodsidlist = array_unique($goodsidlist);
-        $goodsidlist = implode(',',$goodsidlist);  
+        $goodsidlist = implode(',', $goodsidlist);
     }
-
-    $res = $DB->GetRs($table,"count(*) as total",$condition." AND Products_ID IN ($goodsidlist)");
-    $goodscount = !empty($res)?$res['total']:0;
+    
+    $res = $DB->GetRs($table, "count(*) AS total", $condition . ($rsActive['module'] == 'zhongchou' ? " AND itemid IN ($goodsidlist)" : " AND Products_ID IN ($goodsidlist)"));
+    $goodscount = ! empty($res) ? $res['total'] : 0;
 }
 ?>
 <!DOCTYPE HTML>
@@ -88,8 +91,8 @@ if(!empty($glist)){
     <script type='text/javascript' src='/static/member/js/shop.js'></script>
     <div id="products" class="r_con_wrap"> 
       <form class="search" method="get" action="?" style="display:block">
-       	 商品名：
-        <input type="text" name="Products_Name" value="" class="form_input" size="15" />&nbsp;
+       	 关键词：
+        <input type="text" name="keyword" value="" class="form_input" size="15" />&nbsp;
         <input type="hidden" name="search" value="1" />
         <input type="submit" class="search_btn" value="搜索" />
       </form> 
@@ -97,12 +100,17 @@ if(!empty($glist)){
         <thead>
           <tr>
             <td width="8%" nowrap="nowrap">全选<input type="checkbox" id="chose" class="listNum" value="" ></td>
-            <td width="8%" nowrap="nowrap">商品名</td>
             <?php if($rsActive['module']=='pintuan'){ ?>
+            <td width="8%" nowrap="nowrap">商品名</td>
             <td width="8%" nowrap="nowrap">库存</td>
             <td width="8%" nowrap="nowrap">价格</td>
             <td width="8%" nowrap="nowrap">销量</td>
+            <?php }else if($rsActive['module']=='zhongchou'){ ?>
+            <td width="8%" nowrap="nowrap">项目名</td>
+            <td width="8%" nowrap="nowrap">金额</td>
+            <td width="8%" nowrap="nowrap">期限</td>
             <?php }else{ ?>
+            <td width="8%" nowrap="nowrap">商品名</td>
             <td width="8%" nowrap="nowrap">价格</td>
             <td width="8%" nowrap="nowrap">重量</td>
             <?php } ?>
@@ -114,16 +122,27 @@ if(!empty($glist)){
 	    	foreach ($List as $k => $v) {
         ?>
 	        <tr>
+	          <?php if($rsActive['module']=='pintuan'){ ?>
 	          <td nowrap="nowrap" vkname="<?=$v['Products_Name'] ?>">
 	          	<input type="checkbox" name="select[]" id="n<?=$v['Products_ID'] ?>" class="listNum<?=$v['Products_ID'] ?>" value="<?=$v['Products_ID'] ?>" >
 	          </td>
 	          <td><?=$v['Products_Name'] ?></td>
-	          <?php if($rsActive['module']=='pintuan'){ ?>
 	          <td><?=isset($v['Products_Count'])?$v['Products_Count']:0 ?></td>
 	          <td>单购：<?=isset($v["Products_PriceD"])?$v["Products_PriceD"]:0 ?><br/>
                 团购：<?=isset($v["Products_PriceT"])?$v["Products_PriceT"]:0 ?></td>
 	          <td nowrap="nowrap"><?=isset($v["Products_Sales"])?$v["Products_Sales"]:0 ?></td>
+	          <?php }else if($rsActive['module']=='zhongchou'){ ?>
+	          <td nowrap="nowrap" vkname="<?=$v['title'] ?>">
+	          	<input type="checkbox" name="select[]" id="n<?=$v['itemid'] ?>" class="listNum<?=$v['itemid'] ?>" value="<?=$v['itemid'] ?>" >
+	          </td>
+	          <td><?=$v['title'] ?></td>
+	          <td><?=isset($v['amount'])?$v['amount']:0 ?></td>
+	          <td nowrap="nowrap"><?=isset($v["fromtime"])?date("Y-m-d H:i",$v["fromtime"]):date("Y-m-d H:i") ?>-<?=isset($v["totime"])?date("Y-m-d H:i",$v["totime"]):date("Y-m-d H:i") ?></td>
 	          <?php }else{ ?>
+	          <td nowrap="nowrap" vkname="<?=$v['Products_Name'] ?>">
+	          	<input type="checkbox" name="select[]" id="n<?=$v['Products_ID'] ?>" class="listNum<?=$v['Products_ID'] ?>" value="<?=$v['Products_ID'] ?>" >
+	          </td>
+	          <td><?=$v['Products_Name'] ?></td>
 	          <td>商品总价：<?=isset($v["Products_PriceY"])?$v["Products_PriceY"]:0 ?><br/>
                 云购单次价格：<?=isset($v["Products_PriceX"])?$v["Products_PriceX"]:0 ?></td>
 	          <td nowrap="nowrap"><?=isset($v["Products_Weight"])?$v["Products_Weight"]:0 ?></td>

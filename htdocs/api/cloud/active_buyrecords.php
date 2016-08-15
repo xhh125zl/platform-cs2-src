@@ -65,9 +65,9 @@ if($owner['id'] != '0' && $rsConfig["Distribute_Customize"]==1){
 }
 //记录列表
 if(empty($_GET['myself'])){
-	$DB->query('SELECT o.Order_ID,o.Order_CreateTime,r.Cloud_Code,u.User_NickName,u.User_HeadImg FROM user_order o RIGHT JOIN cloud_record r ON o.Order_ID = r.Order_ID LEFT JOIN user u ON r.User_ID = u.User_ID WHERE r.Products_ID='.$rsProducts['Products_ID'].' and r.qishu='.$rsProducts['qishu']);
+	$DB->query('SELECT o.Order_ID,o.Order_CreateTime,r.Cloud_Code,u.User_NickName,u.User_HeadImg,r.qishu FROM user_order o RIGHT JOIN cloud_record r ON o.Order_ID = r.Order_ID LEFT JOIN user u ON r.User_ID = u.User_ID WHERE r.Products_ID='.$rsProducts['Products_ID']);
 }else{
-	$DB->query('SELECT o.Order_ID,o.Order_CreateTime,r.Cloud_Code,u.User_NickName,u.User_HeadImg FROM user_order o RIGHT JOIN cloud_record r ON o.Order_ID = r.Order_ID LEFT JOIN user u ON r.User_ID = u.User_ID WHERE r.Products_ID='.$rsProducts['Products_ID'].' and r.qishu='.$rsProducts['qishu'].' and r.User_ID='.$_SESSION[$UsersID."User_ID"]);
+	$DB->query('SELECT o.Order_ID,o.Order_CreateTime,r.Cloud_Code,u.User_NickName,u.User_HeadImg,r.qishu FROM user_order o RIGHT JOIN cloud_record r ON o.Order_ID = r.Order_ID LEFT JOIN user u ON r.User_ID = u.User_ID WHERE r.Products_ID='.$rsProducts['Products_ID'].' and r.User_ID='.$_SESSION[$UsersID."User_ID"]);
 }
 $records = array();
 while($rs = $DB->fetch_assoc()){	

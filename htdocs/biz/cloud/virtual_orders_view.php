@@ -1,13 +1,13 @@
 <?php
-require_once($_SERVER["DOCUMENT_ROOT"].'/include/update/common.php');
+require_once ($_SERVER["DOCUMENT_ROOT"] . '/include/update/common.php');
 
 $OrderID=empty($_REQUEST['OrderID'])?0:$_REQUEST['OrderID'];
-$rsOrder=$DB->GetRs("user_order","*","where Users_ID='{$UsersID}' and Order_ID='".$OrderID."'");
+$rsOrder=$DB->GetRs("user_order","*","WHERE Users_ID='{$UsersID}' AND Order_ID='".$OrderID."'");
 if($_POST){
 	$Data=array(
 		"Order_Status"=>1
 	);
-	$Flag=$DB->Set("user_order",$Data,"where Users_ID='{$UsersID}' and Order_ID=".$OrderID);
+	$Flag=$DB->Set("user_order",$Data,"WHERE Users_ID='{$UsersID}' AND Order_ID=".$OrderID);
 	if($Flag){
 		echo '<script language="javascript">alert("确认订单成功");window.location="'.$_SERVER['HTTP_REFERER'].'";</script>';
 	}else{

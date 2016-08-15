@@ -79,7 +79,7 @@ if($totalInfo['total']>$ListShowGoodsCount){
     $totalInfo['total'] = $ListShowGoodsCount;
 }
 
-$totalPage = round($totalInfo['total']/$pagesize)+1;
+$totalPage = round($totalInfo['total']/$pagesize);
 
 if(!isset($_SESSION[$UsersID."_pintuan_CurLists"]))
 {
@@ -92,7 +92,7 @@ if(IS_AJAX){
     $offset = ($page-1)*$pagesize;
     $order = ["Products_ID {$method}","Products_CreateTime {$method}","Products_Sales {$method}","Products_PriceT {$method}","Products_Index {$method}"];
     $fields = "starttime,Products_CreateTime,Users_ID,Products_JSON,products_IsNew,products_IsRecommend,products_IsHot,Is_Draw,Products_ID,Products_Index,Products_Name,stoptime,Products_Sales,Products_PriceT,Products_PriceD,people_num";
-    $sql = "SELECT {$fields} FROM (SELECT {$fields} FROM `pintuan_products` WHERE Users_ID='{$UsersID}' AND Products_Category in ({$catelist}) AND Products_ID IN ({$listGoods}) LIMIT {$offset},{$ListShowGoodsCount}) as t ".($sort?"ORDER BY {$order[$sort]}":"ORDER BY field(Products_ID,{$listGoods})")." LIMIT 0,{$pagesize}";
+    $sql = "SELECT {$fields} FROM (SELECT {$fields} FROM `pintuan_products` WHERE Users_ID='{$UsersID}' AND Products_Category in ({$catelist}) AND Products_ID IN ({$listGoods}) LIMIT {$ListShowGoodsCount}) as t ".($sort?"ORDER BY {$order[$sort]}":"ORDER BY field(Products_ID,{$listGoods})")." LIMIT {$offset},{$pagesize}";
     $result = $DB->query($sql);
     $list = [];
     if($result){
@@ -101,7 +101,6 @@ if(IS_AJAX){
         {
             foreach($list as $k => $v)
             {
-                
                 $image = json_decode($v['Products_JSON'], true);
                 $path = $image['ImgPath']['0'];
                 $list[$k]['imgpath'] = $path;

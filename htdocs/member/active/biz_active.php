@@ -1,34 +1,52 @@
 <?php
-require_once($_SERVER["DOCUMENT_ROOT"].'/include/update/common.php');
+require_once ($_SERVER["DOCUMENT_ROOT"] . '/include/update/common.php');
 
-if(IS_GET && isset($_GET["action"]) && $_GET["action"]=="del"){
+if (IS_GET && isset($_GET["action"]) && $_GET["action"] == "del") {
     $Active_ID = intval($_GET["Active_ID"]);
-    $Flag=$DB->Del("active","Users_ID='{$UsersID}' AND Active_ID='{$Active_ID}'");
-    if($Flag){
-        sendAlert("删除成功!",$_SERVER['HTTP_REFERER'],3);
-	}else{
-	    sendAlert("删除失败!",$_SERVER['HTTP_REFERER'],3);
-	}
-}
-if(IS_AJAX && isset($_POST['action']) && $_POST['action']=='adult')
-{
-    $id = $_POST['id'];
-    $rsBizActive = $DB->GetRs("biz_active","*","WHERE ID={$id}");
-    $status = $rsBizActive['Status']==1?2:($rsBizActive['Status']==2?3:2);
-    $flag = $DB->Set("biz_active", ['Status' => $status], "WHERE ID='{$id}'");
-    if($flag){
-        $rsBizActive = $DB->GetRs("biz_active","*","WHERE ID={$id}");
-        die(json_encode([ 'code'=>1,'data'=>['status'=>$rsBizActive['Status']]]));
-    }else{
-        die(json_encode([ 'code'=>0,'data'=>['status'=>$rsBizActive['Status']]]));
+    $Flag = $DB->Del("active", "Users_ID='{$UsersID}' AND Active_ID='{$Active_ID}'");
+    if ($Flag) {
+        sendAlert("删除成功!", $_SERVER['HTTP_REFERER'], 3);
+    } else {
+        sendAlert("删除失败!", $_SERVER['HTTP_REFERER'], 3);
     }
 }
-$activeid = isset($_GET['activeid'])?$_GET['activeid']:0;
+if (IS_AJAX && isset($_POST['action']) && $_POST['action'] == 'adult') {
+    $id = $_POST['id'];
+    $rsBizActive = $DB->GetRs("biz_active", "*", "WHERE ID={$id}");
+    $status = $rsBizActive['Status'] == 1 ? 2 : ($rsBizActive['Status'] == 2 ? 3 : 2);
+    $flag = $DB->Set("biz_active", [
+        'Status' => $status
+    ], "WHERE ID='{$id}'");
+    if ($flag) {
+        $rsBizActive = $DB->GetRs("biz_active", "*", "WHERE ID={$id}");
+        die(json_encode([
+            'code' => 1,
+            'data' => [
+                'status' => $rsBizActive['Status']
+            ]
+        ]));
+    } else {
+        die(json_encode([
+            'code' => 0,
+            'data' => [
+                'status' => $rsBizActive['Status']
+            ]
+        ]));
+    }
+}
+$activeid = isset($_GET['activeid']) ? $_GET['activeid'] : 0;
 $lists = array();
-$condition = " LEFT JOIN active AS a ON b.Active_ID=a.Active_ID  LEFT JOIN biz AS bz ON b.Biz_ID=bz.Biz_ID LEFT JOIN active_type as t ON a.Type_ID=t.Type_ID WHERE b.Users_ID='{$UsersID}' AND b.Active_ID={$activeid}  ORDER BY b.ID DESC";
-$result = $DB->getPages("biz_active as b","a.Type_ID,a.Active_Name,a.stoptime,a.starttime,b.*,bz.Biz_Account,bz.Biz_Name,t.Type_Name",$condition,10);
+$condition = " LEFT JOIN active AS a ON b.Active_ID=a.Active_ID  LEFT JOIN biz AS bz ON b.Biz_ID=bz.Biz_ID LEFT JOIN active_type AS t ON a.Type_ID=t.Type_ID WHERE b.Users_ID='{$UsersID}' AND b.Active_ID={$activeid}  ORDER BY b.ID DESC";
+$fields = "a.Type_ID,a.Active_Name,a.stoptime,a.starttime,b.*,bz.Biz_Account,bz.Biz_Name,t.Type_Name";
+$result = $DB->getPages("biz_active AS b", $fields, $condition, 10);
 $lists = $DB->toArray($result);
-$Status = ['未开始','申请中','已同意','已拒绝','已结束'];
+$Status = [
+    '未开始',
+    '申请中',
+    '已同意',
+    '已拒绝',
+    '已结束'
+];
 ?>
 <!DOCTYPE HTML>
 <html>

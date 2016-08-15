@@ -316,7 +316,7 @@ if(empty($action)) {
 	foreach($CartList as $key => $value){
 		//本期商品一共购买次数
 		$rsProducts = $DB->GetRs('cloud_products','Products_ID,Products_xiangoutimes,qishu,Biz_ID','where Products_ID='.$key);
-		$rsRecords = $DB->GetRs('cloud_record','count(Record_ID) as count','where Products_ID='.$rsProducts['Products_ID'].' and qishu='.$rsProducts['qishu'].' and User_ID='.$_SESSION[$UsersID."User_ID"]);
+		$rsRecords = $DB->GetRs('cloud_record','count(Record_ID) as count','where Products_ID='.$rsProducts['Products_ID'].' and qishu='.$rsProducts['qishu'].' and User_ID='.$_SESSION[$UsersID."User_ID"].' AND Biz_ID = '.$rsProducts['Biz_ID']);
 		$Data["Biz_ID"] = $rsProducts['Biz_ID'];
 		foreach($value as $j => $v){
 			if(!empty($rsProducts['Products_xiangoutimes']) && $rsProducts['Products_xiangoutimes']< ($v["Qty"]+$rsRecords['count'])){

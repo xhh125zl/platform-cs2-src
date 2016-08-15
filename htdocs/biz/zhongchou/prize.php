@@ -1,13 +1,8 @@
 <?php
 require_once($_SERVER["DOCUMENT_ROOT"].'/include/update/common.php');
 
-require_once('vertify.php');
-$rsConfig = $DB->GetRs("zhongchou_config","*","where usersid='{$UsersID}'");
-if(!$rsConfig){
-	header("location:config.php");
-}
 $projectid=empty($_REQUEST['projectid'])?0:$_REQUEST['projectid'];
-$item=$DB->GetRs("zhongchou_project","*","where usersid='{$UsersID}' and itemid=".$projectid);
+$item=$DB->GetRs("zhongchou_project","*","WHERE usersid='{$UsersID}' AND Biz_ID={$BizID} AND itemid=".$projectid);
 if(!$item){
 	echo '<script language="javascript">alert("该项目不存在！");window.location="project.php";</script>';
 }
@@ -43,7 +38,6 @@ if(isset($_GET["action"])){
   <div class="iframe_content">
     <div class="r_nav">
       <ul>
-        <li class=""><a href="config.php">基本设置</a></li>
         <li class="cur"><a href="project.php">项目管理</a></li>
       </ul>
     </div>

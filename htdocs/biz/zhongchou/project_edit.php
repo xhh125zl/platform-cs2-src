@@ -1,14 +1,12 @@
 <?php
+require_once($_SERVER["DOCUMENT_ROOT"].'/include/update/common.php');
 
-$DB->showErr=false;
-if(empty($_SESSION["Users_Account"])){
-	header("location:/member/login.php");
+$itemid=empty($_REQUEST['itemid'])?0:$_REQUEST['itemid'];
+$item=$DB->GetRs("zhongchou_project","*","WHERE usersid='{$UsersID}' AND Biz_ID={$BizID} AND itemid=".$itemid);
+if(!$item){
+	echo '<script language="javascript">alert("要修改的信息不存在！");window.location="project.php";</script>';
 }
-require_once('vertify.php');
-$rsConfig = $DB->GetRs("zhongchou_config","*","where usersid='".$_SESSION["Users_ID"]."'");
-if(!$rsConfig){
-	header("location:config.php");
-}
+
 if($_POST){
 	$amount = empty($_POST["Amount"]) ? 0 : floatval($_POST["Amount"]);
 	if($amount<=0){
@@ -29,14 +27,13 @@ if($_POST){
 		"introduce"=>$_POST["Introduce"],
 		"description"=>$_POST["Description"],
 		"amount"=>$amount,
-		"addtime"=>time(),
-		"usersid"=>$_SESSION["Users_ID"]
+	    "status"=>0
 	);
-	$Flag=$DB->Add("zhongchou_project",$Data);
+	$Flag=$DB->Set("zhongchou_project",$Data,"where usersid='{$UsersID}' AND Biz_ID={$BizID} AND itemid=$itemid");
 	if($Flag){
-		echo '<script language="javascript">alert("添加成功");window.location="project.php";</script>';
+		echo '<script language="javascript">alert("修改成功");window.location="project.php";</script>';
 	}else{
-		echo '<script language="javascript">alert("添加失败");history.back();</script>';
+		echo '<script language="javascript">alert("修改失败");history.back();</script>';
 	}
 	exit;
 }
@@ -69,7 +66,7 @@ KindEditor.ready(function(K) {
 		uploadJson : '/member/upload_json.php?TableField=zhongchou',
 		fileManagerJson : '/member/file_manager_json.php',
 		showRemote : true,
-		allowFileManager : true,
+		allowFileManager : true
 	});
 	K('#ImgUpload').click(function(){
 		editor.loadPlugin('image', function(){
@@ -98,7 +95,6 @@ body, html{background:url(/static/member/images/main/main-bg.jpg) left top fixed
     <script type='text/javascript' src='/static/member/js/zhongchou.js'></script>
     <div class="r_nav">
       <ul>
-        <li class=""><a href="config.php">基本设置</a></li>
         <li class="cur"><a href="project.php">项目管理</a></li>
       </ul>
     </div>
@@ -109,11 +105,11 @@ body, html{background:url(/static/member/images/main/main-bg.jpg) left top fixed
       <link href='/static/js/plugin/daterangepicker/daterangepicker.css' rel='stylesheet' type='text/css' />
       <script type='text/javascript' src='/static/js/plugin/daterangepicker/daterangepicker.js'></script> 
       <script language="javascript">$(document).ready(zhongchou_obj.project_edit);</script>
-      <form id="form_submit" action="project_add.php" class="r_con_form" method="post">
+      <form id="form_submit" action="project_edit.php" class="r_con_form" method="post">
         <div class="rows">
           <label>项目名称</label>
           <span class="input">
-          <input type="text" class="form_input" name="Title" value="" maxlength="100" size="35" notnull />
+          <input type="text" class="form_input" name="Title" value="<?php echo $item["title"];?>" maxlength="100" size="35" notnull />
           <font class="fc_red">*</font></span>
           <div class="clear"></div>
         </div>
@@ -127,35 +123,37 @@ body, html{background:url(/static/member/images/main/main-bg.jpg) left top fixed
             <div class="tips">图片建议尺寸：640*400px</div>
             <div class="clear"></div>
           </div>
-          <div class="img" id="ImgDetail"></div>
+          <div class="img" id="ImgDetail">
+          <?php echo $item["thumb"] ? '<img src="'.$item["thumb"].'" />' : '';?>
+          </div>
           </span> </span>
           <div class="clear"></div>
         </div>
         <div class="rows">
           <label>活动时间</label>
           <span class="input">
-          <input name="Time" type="text" value="<?php echo date("Y-m-d H:i:s",time())." - ".date("Y-m-d H:i:s",time()+7*86400) ?>" class="form_input" size="42" readonly notnull />
+          <input name="Time" type="text" value="<?php echo date("Y-m-d H:i:s",$item["fromtime"])." - ".date("Y-m-d H:i:s",$item["totime"]) ?>" class="form_input" size="42" readonly notnull />
           <font class="fc_red">*</font></span>
           <div class="clear"></div>
         </div>
         <div class="rows">
           <label>筹款金额</label>
           <span class="input">
-          <input name="Amount" value="0.00" type="text" class="form_input" size="15" maxlength="20" notnull> 元
+          <input name="Amount" value="<?php echo $item["amount"];?>" type="text" class="form_input" size="15" maxlength="20" notnull> 元
           <font class="fc_red">*</font></span>
           <div class="clear"></div>
         </div>
         <div class="rows">
           <label>简短介绍</label>
           <span class="input">
-          <textarea name="Introduce" class="textarea"></textarea>
+          <textarea name="Introduce" class="textarea"><?php echo $item["introduce"];?></textarea>
           </span>
           <div class="clear"></div>
         </div>
         <div class="rows">
           <label>项目详情</label>
           <span class="input">
-          <textarea  name="Description" id="Description"></textarea>
+          <textarea  name="Description" id="Description"><?php echo $item["description"];?></textarea>
           </span>
           <div class="clear"></div>
         </div>
@@ -166,7 +164,8 @@ body, html{background:url(/static/member/images/main/main-bg.jpg) left top fixed
           <a href="#" onClick="history.go(-1);" class="btn_gray">返回</a></span>
           <div class="clear"></div>
         </div>        
-        <input type="hidden" id="ImgPath" name="ImgPath" value="" />
+        <input type="hidden" id="ImgPath" name="ImgPath" value="<?php echo $item["thumb"];?>" />
+        <input type="hidden" name="itemid" value="<?php echo $itemid;?>" />
       </form>
     </div>
   </div>

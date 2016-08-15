@@ -1,22 +1,17 @@
 <?php
 require_once($_SERVER["DOCUMENT_ROOT"].'/include/update/common.php');
 
-require_once('vertify.php');
-$rsConfig = $DB->GetRs("zhongchou_config","*","where usersid='{$UsersID}'");
-if(!$rsConfig){
-	header("location:config.php");
-}
 $orderid=empty($_REQUEST['orderid'])?0:$_REQUEST['orderid'];
-$orderinfo=$DB->GetRs("user_order","*","where Users_ID='{$UsersID}' and Order_ID=".$orderid);
+$orderinfo=$DB->GetRs("user_order","*","WHERE Users_ID='{$UsersID}' AND Biz_ID={$BizID} AND Order_ID=".$orderid);
 if(!$orderinfo){
 	echo '<script language="javascript">alert("该订单不存在！");window.location="project.php";</script>';
 }
 $projectid=empty($_REQUEST['projectid'])?0:$_REQUEST['projectid'];
-$item=$DB->GetRs("zhongchou_project","*","where usersid='{$UsersID}' and itemid=".$projectid);
+$item=$DB->GetRs("zhongchou_project","*","WHERE usersid='{$UsersID}' AND Biz_ID={$BizID} AND itemid=".$projectid);
 if(!$item){
 	echo '<script language="javascript">alert("该项目不存在！");window.location="project.php";</script>';
 }
-$userinfo = $DB->GetRs("user","User_HeadImg,User_NickName","where User_ID=".$orderinfo["User_ID"]);
+$userinfo = $DB->GetRs("user","User_HeadImg,User_NickName","WHERE Users_ID='{$UsersID}' AND User_ID=".$orderinfo["User_ID"]);
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -38,7 +33,6 @@ $userinfo = $DB->GetRs("user","User_HeadImg,User_NickName","where User_ID=".$ord
   <div class="iframe_content">
 	<div class="r_nav">
 	  <ul>
-        <li class=""><a href="config.php">基本设置</a></li>
         <li class="cur"><a href="project.php">项目管理</a></li>
       </ul>
     </div>

@@ -18,6 +18,7 @@ if($xml){
 	$tid = $notify->data["transaction_id"];
 	
 	$rsOrder=$DB->GetRs("user_order","Users_ID,User_ID,Order_Status,Order_ID","WHERE Order_Code='".$OrderID."'");
+	$Status = $rsOrder["Order_Status"];
 	if(!$rsOrder){
 		echo "订单不存在";
 		exit;
@@ -51,10 +52,21 @@ if($xml){
 		}elseif($notify->data["result_code"] == "FAIL"){
 			echo "【业务出错】";
 		}else{
-			$pay_order = new pay_order($DB,$oid);
-			$rsUser=$DB->GetRs("user","*","where Users_ID='".$UsersID."' and User_ID=".$UserID);
-			$info = payDone($UsersID,$oid,"微支付",$tid);
-        	exit;
+        	if($Status==1){
+        	    $pay_order = new pay_order($DB,$oid);
+    			$rsUser=$DB->GetRs("user","*","where Users_ID='".$UsersID."' and User_ID=".$UserID);
+    			$info = payDone($UsersID,$oid,"微支付",$tid);
+        	    if($info["status"]==1){
+        	        echo "SUCCESS";
+        	        exit;
+        	    }else{
+        	        echo $info["msg"];
+        	        exit;
+        	    }
+        	}else{
+        	    echo "SUCCESS";
+        	    exit;
+        	}
 		}
 	}
 }else{

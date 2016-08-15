@@ -1,22 +1,22 @@
 <?php
-require_once($_SERVER["DOCUMENT_ROOT"].'/include/update/common.php');
+require_once ($_SERVER["DOCUMENT_ROOT"] . '/include/update/common.php');
 
-$condition = "where Users_ID='{$UsersID}' and Orders_Status<4";
+$condition = "WHERE Users_ID='{$UsersID}' AND Orders_Status<4";
 if(isset($_GET["search"])){
 	if($_GET["search"]==1){
 		if(!empty($_GET["Keyword"])){
-			$condition .= " and `".$_GET["Fields"]."` like '%".$_GET["Keyword"]."%'";
+			$condition .= " AND `".$_GET["Fields"]."` LIKE '%".$_GET["Keyword"]."%'";
 		}
 		if(isset($_GET["Status"])){
 			if($_GET["Status"]<>''){
-				$condition .= " and Orders_Status=".$_GET["Status"];
+				$condition .= " AND Orders_Status=".$_GET["Status"];
 			}
 		}
 		if(!empty($_GET["AccTime_S"])){
-			$condition .= " and Orders_CreateTime>=".strtotime($_GET["AccTime_S"]);
+			$condition .= " AND Orders_CreateTime>=".strtotime($_GET["AccTime_S"]);
 		}
 		if(!empty($_GET["AccTime_E"])){
-			$condition .= " and Orders_CreateTime<=".strtotime($_GET["AccTime_E"]);
+			$condition .= " AND Orders_CreateTime<=".strtotime($_GET["AccTime_E"]);
 		}
 	}
 }
@@ -100,8 +100,8 @@ $_STATUS = array('','<font style="color:#FF0000">未领取</font>','','<font sty
 			$lists[] = $rs;
 		}
 		foreach($lists as $k=>$v){
-			$rsDetail = $DB->GetRs("cloud_products_detail","*","where Cloud_Detail_ID=".$v['Detail_ID']."");
-			$rsProducts = $DB->GetRs("cloud_products","*","where Products_ID=".$rsDetail['Products_ID']."");
+			$rsDetail = $DB->GetRs("cloud_products_detail","*","WHERE Cloud_Detail_ID=".$v['Detail_ID']."");
+			$rsProducts = $DB->GetRs("cloud_products","*","WHERE Products_ID=".$rsDetail['Products_ID']."");
 			$v['Products_Name'] = $rsProducts['Products_Name'];
 			$ImgPath = get_prodocut_cover_img($rsProducts);
 			?>

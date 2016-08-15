@@ -248,7 +248,7 @@ $Shipping=json_decode(htmlspecialchars_decode($rsOrder["Order_Shipping"]), true)
 			?></td>
 			
 	
-            <td nowrap="nowrap"><?php if($rsOrder["Order_TotalPrice"]<=$rsOrder["Back_Amount"]){?><font style="color:#999; text-decoration:line-through">已退款</font><?php }else{?><?php echo $Order_Status[$rsOrder["Order_Status"]] ?><?php }?></td>
+            <td nowrap="nowrap"><?php if(($rsOrder["Order_TotalPrice"]<=$rsOrder["Back_Amount"] || $rsOrder['Order_Status']==4) && $rsOrder['Is_Backup']==1){?><font style="color:#999; text-decoration:line-through">已退款</font><?php }else{?><?php echo $Order_Status[$rsOrder["Order_Status"]] ?><?php }?></td>
             <td nowrap="nowrap"><?php echo date("Y-m-d H:i:s",$rsOrder["Order_CreateTime"]) ?></td>
             <td class="last" nowrap="nowrap"><a href="<?php echo $rsOrder["Order_IsVirtual"]==1 ? 'virtual_' : '';?>orders_view.php?OrderID=<?php echo $rsOrder["Order_ID"] ?>"><img src="/static/member/images/ico/view.gif" align="absmiddle" alt="修改" /></a>
           </tr>

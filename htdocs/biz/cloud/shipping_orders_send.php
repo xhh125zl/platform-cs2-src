@@ -31,7 +31,7 @@ if ($_POST) {
         );
         $Data["Orders_Shipping"] = json_encode($ShippingN, JSON_UNESCAPED_UNICODE);
     }
-    $Flag = $DB->Set("shipping_orders", $Data, "where Users_ID='{$UsersID}' and Orders_ID=" . $OrderID);
+    $Flag = $DB->Set("shipping_orders", $Data, "WHERE Users_ID='{$UsersID}' AND Orders_ID=" . $OrderID);
     if ($Flag) {
         $url = 'http://' . $_SERVER["HTTP_HOST"] . "/api/" . $UsersID . "/cloud/member/products/";
         require_once ($_SERVER["DOCUMENT_ROOT"] . '/include/library/weixin_message.class.php');
@@ -44,8 +44,8 @@ if ($_POST) {
     }
 } else {
     if ($shipping_orders['Detail_ID']) {
-        $rsDetail = $DB->GetRs("cloud_products_detail", "*", "where Cloud_Detail_ID=" . $shipping_orders['Detail_ID'] . "");
-        $rsProducts = $DB->GetRs("cloud_products", "*", "where Products_ID=" . $rsDetail['Products_ID'] . "");
+        $rsDetail = $DB->GetRs("cloud_products_detail", "*", "WHERE Cloud_Detail_ID=" . $shipping_orders['Detail_ID'] . "");
+        $rsProducts = $DB->GetRs("cloud_products", "*", "WHERE Products_ID=" . $rsDetail['Products_ID'] . "");
         $ImgPath = get_prodocut_cover_img($rsProducts);
     }
     $_STATUS_SHIPPING = array(
@@ -62,8 +62,8 @@ if ($_POST) {
         '<font style="color:blue">已领取</font>'
     );
     
-    $rsConfig = $DB->GetRs("shop_config", "*", "where Users_ID='{$UsersID}'");
-    $rsPay = $DB->GetRs("users_payconfig", "Shipping", "where Users_ID='{$UsersID}'");
+    $rsConfig = $DB->GetRs("shop_config", "*", "WHERE Users_ID='{$UsersID}'");
+    $rsPay = $DB->GetRs("users_payconfig", "Shipping", "WHERE Users_ID='{$UsersID}'");
     $rsBiz = $DB->GetRs("biz", "Shipping,Biz_ID", "WHERE Users_ID = '{$UsersID}' AND Biz_ID={$BizID}");
     $PayShipping = get_front_shiping_company_dropdown($UsersID, $rsBiz);
     if (is_numeric($shipping_orders['Address_Province'])) {
