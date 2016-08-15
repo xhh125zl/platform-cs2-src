@@ -1,14 +1,8 @@
 <?php
 require_once($_SERVER["DOCUMENT_ROOT"].'/include/update/common.php');
 
-require_once('vertify.php');
-$rsConfig = $DB->GetRs("zhongchou_config","*","where usersid='{$UsersID}'");
-if(!$rsConfig){
-	header("location:config.php");
-}
-
 $itemid=empty($_REQUEST['itemid'])?0:$_REQUEST['itemid'];
-$item=$DB->GetRs("zhongchou_project","*","where usersid='{$UsersID}' and itemid=".$itemid);
+$item=$DB->GetRs("zhongchou_project","*","WHERE usersid='{$UsersID}' AND Biz_ID={$BizID} AND itemid=".$itemid);
 if(!$item){
 	echo '<script language="javascript">alert("要修改的信息不存在！");window.location="project.php";</script>';
 }
@@ -33,9 +27,9 @@ if($_POST){
 		"introduce"=>$_POST["Introduce"],
 		"description"=>$_POST["Description"],
 		"amount"=>$amount,
-	    "status"=>$_POST["status"]
+	    "status"=>0
 	);
-	$Flag=$DB->Set("zhongchou_project",$Data,"where usersid='{$UsersID}' and itemid=$itemid");
+	$Flag=$DB->Set("zhongchou_project",$Data,"where usersid='{$UsersID}' AND Biz_ID={$BizID} AND itemid=$itemid");
 	if($Flag){
 		echo '<script language="javascript">alert("修改成功");window.location="project.php";</script>';
 	}else{
@@ -101,7 +95,6 @@ body, html{background:url(/static/member/images/main/main-bg.jpg) left top fixed
     <script type='text/javascript' src='/static/member/js/zhongchou.js'></script>
     <div class="r_nav">
       <ul>
-        <li class=""><a href="config.php">基本设置</a></li>
         <li class="cur"><a href="project.php">项目管理</a></li>
       </ul>
     </div>
@@ -161,14 +154,6 @@ body, html{background:url(/static/member/images/main/main-bg.jpg) left top fixed
           <label>项目详情</label>
           <span class="input">
           <textarea  name="Description" id="Description"><?php echo $item["description"];?></textarea>
-          </span>
-          <div class="clear"></div>
-        </div>
-        <div class="rows">
-          <label>是否审核</label>
-          <span class="input" style="font-size:12px;">
-              <input type="radio" id="status_0" value="0" name="status"<?php echo $item["status"]==0 ? ' checked' : '';?> /><label for="status_0"> 待审核 </label>&nbsp;&nbsp;
-              <input type="radio" id="status_1" value="1" name="status"<?php echo $item["status"]==1 ? ' checked' : '';?> /><label for="status_1"> 通过审核 </label>
           </span>
           <div class="clear"></div>
         </div>

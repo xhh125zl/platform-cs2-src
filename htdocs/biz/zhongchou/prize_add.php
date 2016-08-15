@@ -1,15 +1,10 @@
 <?php
 require_once($_SERVER["DOCUMENT_ROOT"].'/include/update/common.php');
 
-require_once('vertify.php');
-$rsConfig = $DB->GetRs("zhongchou_config","*","where usersid='{$UsersID}'");
-if(!$rsConfig){
-	header("location:config.php");
-}
-$prizeid=empty($_REQUEST['prizeid'])?0:$_REQUEST['prizeid'];
-$item=$DB->GetRs("zhongchou_prize","*","where usersid='{$UsersID}' and prizeid=".$prizeid);
+$projectid=empty($_REQUEST['projectid'])?0:$_REQUEST['projectid'];
+$item=$DB->GetRs("zhongchou_project","*","WHERE usersid='{$UsersID}' AND Biz_ID={$BizID} AND itemid=".$projectid);
 if(!$item){
-	echo '<script language="javascript">alert("要修改的信息不存在！");window.location="prize.php?projectid='.$projectid.'";</script>';
+	echo '<script language="javascript">alert("该项目不存在！");window.location="project.php";</script>';
 }
 if($_POST){
 	$money = empty($_POST["money"]) ? 0 : floatval($_POST["money"]);
@@ -22,16 +17,19 @@ if($_POST){
 	}
 	$Data=array(
 		"money"=>$money,
+		"projectid"=>$projectid,
 		"title"=>$_POST["title"],
-		"maxtimes"=>$maxtimes,
 		"thumb"=>$_POST["ImgPath"],
-		"introduce"=>$_POST["introduce"]
+		"introduce"=>$_POST["introduce"],
+		"maxtimes"=>$maxtimes,
+		"addtime"=>time(),
+		"usersid"=>$UsersID
 	);
-	$Flag=$DB->Set("zhongchou_prize",$Data,"where usersid='{$UsersID}' and prizeid=".$prizeid);
+	$Flag=$DB->Add("zhongchou_prize",$Data);
 	if($Flag){
-		echo '<script language="javascript">alert("修改成功");window.location="prize.php?projectid='.$item["projectid"].'";</script>';
+		echo '<script language="javascript">alert("添加成功");window.location="prize.php?projectid='.$projectid.'";</script>';
 	}else{
-		echo '<script language="javascript">alert("修改失败");history.back();</script>';
+		echo '<script language="javascript">alert("添加失败");history.back();</script>';
 	}
 	exit;
 }
@@ -84,23 +82,22 @@ KindEditor.ready(function(K) {
     <script language="javascript">$(document).ready(zhongchou_obj.form_submit);</script>
     <div class="r_nav">
       <ul>
-        <li class=""><a href="config.php">基本设置</a></li>
         <li class="cur"><a href="project.php">项目管理</a></li>
       </ul>
     </div>
     <div class="r_con_wrap">
-      <form id="form_submit" class="r_con_form" method="post" action="prize_edit.php">
+      <form id="form_submit" class="r_con_form" method="post" action="prize_add.php">
       	<div class="rows">
           <label>支持金额</label>
           <span class="input">
-          <input name="money" value="<?php echo $item["money"];?>" type="text" class="form_input" size="20" notnull>
+          <input name="money" value="" type="text" class="form_input" size="20" notnull>
           <font class="fc_red">* (支持金额必须大于零)</font></span>
           <div class="clear"></div>
         </div>
         <div class="rows">
           <label>赠品名称</label>
           <span class="input">
-          <input name="title" value="<?php echo $item["title"];?>" type="text" class="form_input" size="50" notnull>
+          <input name="title" value="" type="text" class="form_input" size="20" notnull>
           <font class="fc_red">*</font></span>
           <div class="clear"></div>
         </div>
@@ -114,23 +111,21 @@ KindEditor.ready(function(K) {
             <div class="tips">图片建议尺寸：320*200px</div>
             <div class="clear"></div>
           </div>
-          <div class="img" id="ImgDetail">
-           <?php echo $item["thumb"] ? '<img src="'.$item["thumb"].'" style="margin-top:10px;">' : '';?>
-          </div>
+          <div class="img" id="ImgDetail"></div>
           </span> </span>
           <div class="clear"></div>
         </div>
         <div class="rows">
           <label>赠品简介</label>
           <span class="input">
-           <textarea name="introduce" class="textarea"><?php echo $item["introduce"];?></textarea>
+           <textarea name="introduce" class="textarea"></textarea>
           </span>
           <div class="clear"></div>
         </div>
         <div class="rows">
           <label>每人最多支持次数</label>
           <span class="input">
-          <input name="maxtimes" value="<?php echo $item["maxtimes"];?>" type="text" class="form_input" size="20" notnull>
+          <input name="maxtimes" value="0" type="text" class="form_input" size="20" notnull>
           <font class="fc_red">(填0，表示不限制)</font></span>
           <div class="clear"></div>
         </div>
@@ -141,8 +136,8 @@ KindEditor.ready(function(K) {
           <a href="#" onclick="history.go(-1);" class="btn_gray">返回</a></span>
           <div class="clear"></div>
         </div>
-        <input type="hidden" id="ImgPath" name="ImgPath" value="<?php echo $item["thumb"];?>" />
-        <input type="hidden" name="prizeid" value="<?php echo $prizeid;?>" />
+        <input type="hidden" id="ImgPath" name="ImgPath" value="" />
+        <input type="hidden" id="projectid" name="projectid" value="<?php echo $projectid;?>" />
       </form>
     </div>
   </div>

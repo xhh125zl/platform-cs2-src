@@ -107,6 +107,10 @@ if(isset($_GET["action"])){
         <div><a href="cloud/shipping_orders.php" target="iframe">订单领取管理</a></div>
         <div><a href="cloud/virtual_orders.php" target="iframe">虚拟订单管理</a></div>
       </dd>	
+      <dt>重筹管理</dt>
+	 <dd>
+	    <div><a href="zhongchou/project.php" target="iframe">项目管理</a></div>
+      </dd>	
     </dl>
   </div>
   <div class="iframe" >

@@ -1,13 +1,8 @@
 <?php
 require_once($_SERVER["DOCUMENT_ROOT"].'/include/update/common.php');
 
-require_once('vertify.php');
-$rsConfig = $DB->GetRs("zhongchou_config","*","where usersid='{$UsersID}'");
-if(!$rsConfig){
-	header("location:config.php");
-}
 $prizeid=empty($_REQUEST['prizeid'])?0:$_REQUEST['prizeid'];
-$item=$DB->GetRs("zhongchou_prize","*","where usersid='{$UsersID}' and prizeid=".$prizeid);
+$item=$DB->GetRs("zhongchou_prize","*","WHERE usersid='{$UsersID}' AND prizeid=".$prizeid);
 if(!$item){
 	echo '<script language="javascript">alert("要修改的信息不存在！");window.location="prize.php?projectid='.$projectid.'";</script>';
 }
@@ -84,7 +79,6 @@ KindEditor.ready(function(K) {
     <script language="javascript">$(document).ready(zhongchou_obj.form_submit);</script>
     <div class="r_nav">
       <ul>
-        <li class=""><a href="config.php">基本设置</a></li>
         <li class="cur"><a href="project.php">项目管理</a></li>
       </ul>
     </div>

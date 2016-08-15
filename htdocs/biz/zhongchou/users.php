@@ -1,17 +1,12 @@
 <?php
 require_once($_SERVER["DOCUMENT_ROOT"].'/include/update/common.php');
 
-require_once('vertify.php');
-$rsConfig = $DB->GetRs("zhongchou_config","*","where usersid='{$UsersID}'");
-if(!$rsConfig){
-	header("location:config.php");
-}
 $projectid=empty($_REQUEST['projectid'])?0:$_REQUEST['projectid'];
-$item=$DB->GetRs("zhongchou_project","*","where usersid='{$UsersID}' and itemid=".$projectid);
+$item=$DB->GetRs("zhongchou_project","*","WHERE usersid='{$UsersID}' AND Biz_ID={$BizID} AND itemid=".$projectid);
 if(!$item){
 	echo '<script language="javascript">alert("该项目不存在！");window.location="project.php";</script>';
 }
-$condition = "where Users_ID='{$UsersID}' and Order_Type='zhongchou_".$projectid."' and Order_Status=2";
+$condition = "where Users_ID='{$UsersID}' AND Biz_ID={$BizID} AND Order_Type='zhongchou_".$projectid."' and Order_Status=2";
 $OrderBy = "Order_CreateTime desc";
 if(isset($_GET['search'])){
 	if($_GET['money']==""){
@@ -51,7 +46,6 @@ body, html{background:url(/static/member/images/main/main-bg.jpg) left top fixed
   <div class="iframe_content">
     <div class="r_nav">
       <ul>
-        <li class=""><a href="config.php">基本设置</a></li>
         <li class="cur"><a href="project.php">项目管理</a></li>
       </ul>
     </div>
@@ -88,7 +82,7 @@ body, html{background:url(/static/member/images/main/main-bg.jpg) left top fixed
 				  $lists[] = $r;
 			  }
 			  foreach($lists as $k=>$v){
-				$user = $DB->GetRs("user","User_HeadImg,User_NickName","where User_ID=".$v["User_ID"]);
+				$user = $DB->GetRs("user","User_HeadImg,User_NickName","WHERE Users_ID='{$UsersID}' AND User_ID=".$v["User_ID"]);
 				$v["User_HeadImg"] = $user["User_HeadImg"];
 				$v["User_NickName"] = $user["User_NickName"];
 		  ?>

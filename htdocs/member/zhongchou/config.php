@@ -1,34 +1,31 @@
 <?php
+require_once($_SERVER["DOCUMENT_ROOT"].'/include/update/common.php');
 
-$DB->showErr=false;
-if(empty($_SESSION["Users_Account"])){
-	header("location:/member/login.php");
-}
 require_once('vertify.php');
-$rsPay = $DB->GetRs("users_payconfig","*","where Users_ID='".$_SESSION["Users_ID"]."' and PaymentWxpayEnabled=1");
+$rsPay = $DB->GetRs("users_payconfig","*","where Users_ID='{$UsersID}' and PaymentWxpayEnabled=1");
 if(!$rsPay){
 	echo '<script language="javascript">alert("您还未设置微信支付信息，请先设置！");window.location="../wechat/shopping.php";</script>';
 }
 
-$rsConfig = $DB->GetRs("zhongchou_config","*","where usersid='".$_SESSION["Users_ID"]."'");
+$rsConfig = $DB->GetRs("zhongchou_config","*","where usersid='{$UsersID}'");
 if(!$rsConfig){
 	$Data=array(
-		"usersid"=>$_SESSION["Users_ID"],
+		"usersid"=>$UsersID,
 		"name"=>"微众筹",
 	);
 	$DB->Add("zhongchou_config",$Data);
 	$rsConfig = $Data;
 }
-$json=$DB->GetRs("wechat_material","*","where Users_ID='".$_SESSION["Users_ID"]."' and Material_Table='zhongchou' and Material_TableID=0 and Material_Display=0");
+$json=$DB->GetRs("wechat_material","*","where Users_ID='{$UsersID}' and Material_Table='zhongchou' and Material_TableID=0 and Material_Display=0");
 if(empty($json)){
 	$Material=array(
 		"Title"=>"微众筹",
 		"ImgPath"=>"/static/api/images/cover_img/zhongchou.jpg",
 		"TextContents"=>"",
-		"Url"=>"/api/".$_SESSION["Users_ID"]."/zhongchou/"
+		"Url"=>"/api/{$UsersID}/zhongchou/"
 	);
 	$Data=array(
-		"Users_ID"=>$_SESSION["Users_ID"],
+		"Users_ID"=>$UsersID,
 		"Material_Table"=>"zhongchou",
 		"Material_TableID"=>0,
 		"Material_Display"=>0,
@@ -42,11 +39,11 @@ if(empty($json)){
 }else{
 	$rsMaterial=json_decode($json['Material_Json'],true);
 }
-$rsKeyword=$DB->GetRs("wechat_keyword_reply","*","where Users_ID='".$_SESSION["Users_ID"]."' and Reply_Table='zhongchou' and Reply_TableID=0 and Reply_Display=0");
+$rsKeyword=$DB->GetRs("wechat_keyword_reply","*","where Users_ID='{$UsersID}' and Reply_Table='zhongchou' and Reply_TableID=0 and Reply_Display=0");
 if(empty($rsKeyword)){
 	$MaterialID=empty($json['Material_Json'])?$MaterialID:$json['Material_Json'];
 	$Data=array(
-		"Users_ID"=>$_SESSION["Users_ID"],
+		"Users_ID"=>$UsersID,
 		"Reply_Table"=>"zhongchou",
 		"Reply_TableID"=>0,
 		"Reply_Display"=>0,
@@ -68,24 +65,24 @@ if($_POST)
 	$Data=array(
 		"name"=>$_POST["Name"]
 	);
-	$Set=$DB->Set("zhongchou_config",$Data,"where usersid='".$_SESSION["Users_ID"]."'");
+	$Set=$DB->Set("zhongchou_config",$Data,"where usersid='{$UsersID}'");
 	$flag=$flag&&$Set;
 	$Data=array(
 		"Reply_Keywords"=>$_POST["Keywords"],
 		"Reply_PatternMethod"=>isset($_POST["PatternMethod"])?$_POST["PatternMethod"]:0
 	);
-	$Set=$DB->Set("wechat_keyword_reply",$Data,"where Users_ID='".$_SESSION["Users_ID"]."' and Reply_Table='zhongchou' and Reply_TableID=0 and Reply_Display=0");
+	$Set=$DB->Set("wechat_keyword_reply",$Data,"where Users_ID='{$UsersID}' and Reply_Table='zhongchou' and Reply_TableID=0 and Reply_Display=0");
 	$flag=$flag&&$Set;
 	$Material=array(
 		"Title"=>$_POST["Title"],
 		"ImgPath"=>$_POST["ImgPath"],
 		"TextContents"=>"",
-		"Url"=>"/api/".$_SESSION["Users_ID"]."/zhongchou/"
+		"Url"=>"/api/{$UsersID}/zhongchou/"
 	);
 	$Data=array(
 		"Material_Json"=>json_encode($Material,JSON_UNESCAPED_UNICODE)
 	);
-	$Set=$DB->Set("wechat_material",$Data,"where Users_ID='".$_SESSION["Users_ID"]."' and Material_Table='zhongchou' and Material_TableID=0 and Material_Display=0");
+	$Set=$DB->Set("wechat_material",$Data,"where Users_ID='{$UsersID}' and Material_Table='zhongchou' and Material_TableID=0 and Material_Display=0");
 	$flag=$flag&&$Set;
 	if($flag)
 	{

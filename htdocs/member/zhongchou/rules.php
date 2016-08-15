@@ -1,10 +1,8 @@
 <?php
+require_once($_SERVER["DOCUMENT_ROOT"].'/include/update/common.php');
 
-if(empty($_SESSION["Users_Account"])){
-	header("location:/member/login.php");
-}
 require_once('vertify.php');
-$rsConfig = $DB->GetRs("hongbao_config","*","where usersid='".$_SESSION["Users_ID"]."'");
+$rsConfig = $DB->GetRs("hongbao_config","*","where usersid='{$UsersID}'");
 if(!$rsConfig){
 	header("location:config.php");
 }
@@ -13,7 +11,7 @@ if($_POST){
 	$Data=array(		
 		"rules"=>$_POST['Description']
 	);
-	$Flag=$DB->Set("hongbao_config",$Data,"where usersid='".$_SESSION["Users_ID"]."'");
+	$Flag=$DB->Set("hongbao_config",$Data,"where usersid='{$UsersID}'");
 	if($Flag){
 		echo '<script language="javascript">alert("设置成功");window.location="rules.php";</script>';
 	}else{

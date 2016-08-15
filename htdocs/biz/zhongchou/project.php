@@ -1,15 +1,9 @@
 <?php
 require_once($_SERVER["DOCUMENT_ROOT"].'/include/update/common.php');
 
-require_once('vertify.php');
-$rsConfig = $DB->GetRs("zhongchou_config","*","where usersid='{$UsersID}'");
-if(!$rsConfig){
-	header("location:config.php");
-}
-
 if(isset($_GET["action"])){
 	if($_GET["action"]=="del"){
-		$Flag=$DB->Del("zhongchou_project","usersid='{$UsersID}' and itemid=".$_GET["itemid"]);
+		$Flag=$DB->Del("zhongchou_project","usersid='{$UsersID}' AND Biz_ID={$BizID} AND itemid=".$_GET["itemid"]);
 		if($Flag){
 			echo '<script language="javascript">alert("删除成功");window.location="'.$_SERVER['HTTP_REFERER'].'";</script>';
 		}else{
@@ -40,11 +34,11 @@ body, html{background:url(/static/member/images/main/main-bg.jpg) left top fixed
   <div class="iframe_content">
     <div class="r_nav">
       <ul>
-        <li class=""><a href="config.php">基本设置</a></li>
         <li class="cur"><a href="project.php">项目管理</a></li>
       </ul>
     </div>
     <div id="project" class="r_con_wrap">
+      <div class="control_btn"><a href="project_add.php" class="btn_green btn_w_120">添加项目</a></div>
       <table border="0" cellpadding="5" cellspacing="0" class="r_con_table">
         <thead>
           <tr>
@@ -62,15 +56,15 @@ body, html{background:url(/static/member/images/main/main-bg.jpg) left top fixed
         <tbody>
           <?php
 		  	$lists = array();
-          	$DB->getPage("zhongchou_project","*","where usersid='{$UsersID}' order by addtime desc",10);
+          	$DB->getPage("zhongchou_project","*","WHERE usersid='{$UsersID}' AND Biz_ID={$BizID} order by addtime desc",10);
 		  	while($r=$DB->fetch_assoc()){
             	$lists[] = $r;
 			}
 			foreach($lists as $k=>$v){
-				$item = $DB->GetRs("user_order","count(*) as num,sum(Order_TotalPrice) as amount","WHERE Order_Type='zhongchou_".$v["itemid"]."' AND Users_ID='{$UsersID}' AND Biz_ID={$v['Biz_ID']}");
+				$item = $DB->GetRs("user_order","count(*) as num,sum(Order_TotalPrice) as amount","WHERE Order_Type='zhongchou_".$v["itemid"]."' and Users_ID='{$UsersID}' AND Biz_ID={$BizID}");
 				$v["people"] = empty($item["num"]) ? 0 : $item["num"];
 				$v["complete"] = empty($item["amount"]) ? 0 : $item["amount"];
-				$item = $DB->GetRs("zhongchou_prize","count(*) as num","where usersid='{$UsersID}' and projectid=".$v["itemid"]);
+				$item = $DB->GetRs("zhongchou_prize","count(*) as num","WHERE usersid='{$UsersID}' AND projectid=".$v["itemid"]);
 				$v["prize"] = $item["num"];
 		  ?>
           <tr>
