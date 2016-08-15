@@ -6,52 +6,134 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title><?php echo $rsConfig["name"];?></title>
+<title><?php echo $BizID?'店铺':''.$rsConfig["name"];?></title>
 <link href='/static/css/global.css?t=<?php echo time();?>' rel='stylesheet' type='text/css' />
 <link href='/static/api/zhongchou/css/zhongchou.css?t=<?php echo time();?>' rel='stylesheet' type='text/css' />
 <script type='text/javascript' src='/static/js/jquery-1.7.2.min.js?t=<?php echo time();?>'></script>
 <script type='text/javascript' src='/static/api/js/global.js?t=<?php echo time();?>'></script>
 <script type='text/javascript' src='/static/api/zhongchou/js/zhongchou.js?t=<?php echo time();?>'></script>
+<script src="/static/api/zhongchou/js/dropload.min.js"></script>
+<script src="/static/api/zhongchou/js/common.js"></script>
+<style>
+  .sort { margin-top:5px; }
+  .sort ul li {
+    font-size: 13px;
+    width: 23.5%;
+    float:left;
+    margin-bottom: 10px;
+    background: #0dc05d;
+    height: 30px;
+    text-align:center;
+    line-height: 30px;
+    color: #fff;
+    cursor:pointer;
+    font-family: '微软雅黑'; 
+  }
+  .sort ul li:nth-child(2){
+      float:left;
+      margin-right:5px;
+  }
+  .sort ul li:nth-child(3){
+      float:left;
+      margin-right:5px;
+  }
+  .sort ul li:nth-child(1){
+      float:left;
+      margin-right:5px;
+  }
+  .sort ul li:nth-child(4){
+      float:left;
+  }
+  .sort ul li span { margin-left:8px;font-size::15px;}
+  .dropload-refresh,.dropload-update,.dropload-load{ text-align:center;color:#777;width:100%;}
+</style>
 </head>
-
 <body>
-<div class="header">
- <?php echo $rsConfig["name"];?>首页
- <a href="/api/<?php echo $UsersID;?>/zhongchou/orders/" id="user"></a>
-</div>
-
-<div class="main">
-  <?php
-    foreach($lists as $k=>$v){
-        $item = $DB->GetRs("user_order","count(*) as num,sum(Order_TotalPrice) as amount","where Order_Type='zhongchou_".$v["itemid"]."' and Order_Status=2 and Users_ID='".$UsersID."'");
-		$v["people"] = empty($item["num"]) ? 0 : $item["num"];
-		$v["complete"] = empty($item["amount"]) ? 0 : $item["amount"];
-  ?>
-  <div class="item">
-  	<div class="flag">
-    <?php if($v["fromtime"]>time()){?>
-    未开始
-    <?php }elseif($v["totime"]<time()){?>
-    已过期
-    <?php }else{?>
-    众筹中
-    <?php }?>
+    <div class="header">
+     <?php echo $BizID?'店铺':''.$rsConfig["name"];?>
+     <a href="/api/<?php echo $UsersID;?>/zhongchou/orders/" id="user"></a>
     </div>
-   <div class="time">活动时间：<?php echo date("Y.m.d",$v["fromtime"]);?> - <?php echo date("Y.m.d",$v["totime"]);?></div>
-   <div class="title"><a href="/api/<?php echo $UsersID;?>/zhongchou/detail/<?php echo $v["itemid"];?>/"><?php echo $v["title"];?></a></div>
-   <div class="info">
-    <a href="/api/<?php echo $UsersID;?>/zhongchou/detail/<?php echo $v["itemid"];?>/"><img src="<?php echo $v["thumb"];?>" ></a>
-     <?php echo $v["introduce"];?>
-   </div>
-   <div class="jindu">
-    <p>目标<font style="font-family:'Times New Roman'; font-size:14px;">￥<?php echo $v["amount"];?></font></p>
-    <p>筹集<font style="font-family:'Times New Roman'; font-size:14px; color:#F60">￥<?php echo $v["complete"];?></font></p>
-    <p class="nobg">支持<font style="font-family:'Times New Roman'; font-size:14px; color:#0dc05d"><?php echo $v["people"];?></font>人</p>
-    <div class="clear"></div>    
-   </div>
-  </div>
-  <?php }?>
-</div>
+    <div class="sort">
+    	<ul>
+    		<li sort="1" method="asc">时间<span>↑↓</span></li>
+    		<li sort="2" method="asc">销量<span>↑↓</span></li>
+    		<li sort="3" method="asc">价格<span>↑↓</span></li>
+    		<li sort="4" method="asc">综合<span>↑↓</span></li>
+    	</ul>
+    </div>
+    <div class="clear"></div>
+    <div id="container" class="main"></div>
+	<script>
+		$(function(){
+			var url = "<?=$_SERVER['REQUEST_URI']?>";
+			var page = 1;
+			var sort = 0;
+			var method="asc";
+			var marrow = "↑";
+			var totalPage = <?=$totalPage?>;
+			sessionStorage.setItem("<?=$UsersID ?>ListSort", sort);
+			sessionStorage.setItem("<?=$UsersID ?>ListMethod", method);
+			sessionStorage.setItem("<?=$UsersID ?>currentPage", page);
+			getContainer(url,page,sort,method);
+			$(".sort ul li").click(function(){
+                method = sessionStorage.getItem("<?=$UsersID ?>ListMethod");
+                if(method=="asc"){
+                    method = "desc";
+                    marrow = "↓↑";
+                }else{
+                    method = "asc";
+                    marrow = "↑↓";
+                }
+        		$(this).attr("method",method);
+        		$(this).find("span").text(marrow);
+				sort = $(this).attr("sort");
+				method = $(this).attr("method");
+				sessionStorage.setItem("<?=$UsersID ?>ListSort", sort);
+				sessionStorage.setItem("<?=$UsersID ?>currentPage", page);
+				sessionStorage.setItem("<?=$UsersID ?>ListMethod", method);
+				getContainer(url,page,sort,method);
+			});
+			
+			$("#loader").dropload({
+                domUp : {
+                	domClass   : 'dropload-up',
+                	domRefresh : '<div class="dropload-refresh">下拉刷新</div>',
+                	domUpdate  : '<div class="dropload-update">释放更新</div>',
+                	domLoad    : '<div class="dropload-load"></div>'
+                },
+                domDown : {
+                    domClass   : 'dropload-down',
+                    domRefresh : '<div class="dropload-refresh">上拉加载更多</div>',
+                    domUpdate  : '<div class="dropload-update">释放加载</div>',
+                    domLoad    : '<div class="dropload-load">test</div>'
+                },
+                loadUpFn : function(me){
+                    page = sessionStorage.getItem("<?=$UsersID ?>currentPage")?sessionStorage.getItem("<?=$UsersID ?>currentPage"):page;
+                    sort = sessionStorage.getItem("<?=$UsersID ?>ListSort")?sessionStorage.getItem("<?=$UsersID ?>ListSort"):1;
+                    method = sessionStorage.getItem("<?=$UsersID ?>ListMethod")?sessionStorage.getItem("<?=$UsersID ?>ListMethod"):'asc';
+                    if(page>1){
+                      page--;
+                      sessionStorage.setItem("<?=$UsersID ?>ListSort", sort);
+                      sessionStorage.setItem("<?=$UsersID ?>currentPage", page);
+                      getContainer(url,page,sort,method); 
+                    }
+                    me.resetload();
+                },
+                loadDownFn : function(me){
+                    page = sessionStorage.getItem("<?=$UsersID ?>currentPage")?sessionStorage.getItem("<?=$UsersID ?>currentPage"):page;
+                    sort = sessionStorage.getItem("<?=$UsersID ?>ListSort")?sessionStorage.getItem("<?=$UsersID ?>ListSort"):1;
+                    method = sessionStorage.getItem("<?=$UsersID ?>ListMethod")?sessionStorage.getItem("<?=$UsersID ?>ListMethod"):'asc';
+                    if(page<totalPage){
+                      page++;
+                      sessionStorage.setItem("<?=$UsersID ?>ListSort", sort);
+                      sessionStorage.setItem("<?=$UsersID ?>currentPage", page);
+                      getContainer(url,page,sort,method);
+                    } 
+                    me.resetload();
+                }
+    		});	
+		});
+	</script>
 <?php if($share_flag==1 && $signature<>""){?>
 	<script language="javascript">
 		var share_config = {

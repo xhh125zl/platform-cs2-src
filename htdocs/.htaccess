@@ -348,6 +348,8 @@ RewriteRule ^api/([0-9a-z]+)/zhuli/$ /api/zhuli/index.php?UsersID=$1
 RewriteRule ^api/([0-9a-z]+)/zhuli/([0-9a-zA-Z_-]+)/$ /api/zhuli/index.php?UsersID=$1
 
 RewriteRule ^api/([0-9a-z]+)/zhongchou/$ /api/zhongchou/index.php?UsersID=$1
+RewriteRule ^api/([0-9a-z]+)/zhongchou/biz/([0-9]+)/act_([0-9]+)/$ /api/zhongchou/index.php?UsersID=$1&BizID=$2&ActiveID=$3
+RewriteRule ^api/([0-9a-z]+)/zhongchou/act_([0-9]+)/$ /api/zhongchou/index.php?UsersID=$1&ActiveID=$2
 RewriteRule ^api/([0-9a-z]+)/zhongchou/detail/([0-9]+)/$ /api/zhongchou/detail.php?UsersID=$1&itemid=$2
 RewriteRule ^api/([0-9a-z]+)/zhongchou/description/([0-9]+)/$ /api/zhongchou/description.php?UsersID=$1&itemid=$2
 RewriteRule ^api/([0-9a-z]+)/zhongchou/checkpay/([0-9]+)/$ /api/zhongchou/checkpay.php?UsersID=$1&itemid=$2
