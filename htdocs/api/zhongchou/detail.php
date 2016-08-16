@@ -1,6 +1,6 @@
 <?php
 require_once($_SERVER["DOCUMENT_ROOT"].'/include/update/common.php');
-require_once($_SERVER["DOCUMENT_ROOT"].'/include/library/wechatuser.php');
+require_once(CMS_ROOT.'/include/library/wechatuser.php');
 require_once('../share.php');
 
 $rsConfig = $DB->GetRs("zhongchou_config","*","where usersid='".$UsersID."'");

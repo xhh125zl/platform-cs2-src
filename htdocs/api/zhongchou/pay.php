@@ -1,11 +1,6 @@
 <?php
-require_once($_SERVER["DOCUMENT_ROOT"].'/Framework/Conn.php');
-if(isset($_GET["UsersID"])){
-	$UsersID=$_GET["UsersID"];
-}else{
-	echo '缺少必要的参数';
-	exit;
-}
+require_once($_SERVER["DOCUMENT_ROOT"].'/include/update/common.php');
+
 if(isset($_GET["OrderID"])){
 	$OrderID=$_GET["OrderID"];
 }else{

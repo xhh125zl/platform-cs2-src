@@ -1,17 +1,12 @@
 <?php
-require_once($_SERVER["DOCUMENT_ROOT"].'/Framework/Conn.php');
+require_once($_SERVER["DOCUMENT_ROOT"].'/include/update/common.php');
 
-if(isset($_GET["UsersID"])){
-	$UsersID = $_GET["UsersID"];
-	$rsConfig = $DB->GetRs("zhongchou_config","*","where usersid='".$UsersID."'");
-	if(!$rsConfig){
-		echo '未开通微众筹';
-		exit;
-	}
-}else{
-	echo '缺少必要的参数';
+$rsConfig = $DB->GetRs("zhongchou_config","*","where usersid='".$UsersID."'");
+if(!$rsConfig){
+	echo '未开通微众筹';
 	exit;
 }
+
 require_once('../share.php');
 if(isset($_GET["itemid"])){
 	$itemid = $_GET["itemid"];
@@ -30,7 +25,7 @@ $_SESSION[$UsersID."HTTP_REFERER"]="/api/zhongchou/description.php?UsersID=".$_G
 $rsUsers = $DB->GetRs("users","*","where Users_ID='".$UsersID."'");
 $rsPay = $DB->GetRs("users_payconfig","*","where Users_ID='".$UsersID."' and PaymentWxpayEnabled=1");
 
-require_once($_SERVER["DOCUMENT_ROOT"].'/include/library/wechatuser.php');
+require_once(CMS_ROOT.'/include/library/wechatuser.php');
 
 $item["description"] = str_replace('&quot;','"',$item["description"]);
 $item["description"] = str_replace("&quot;","'",$item["description"]);
