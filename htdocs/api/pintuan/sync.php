@@ -225,6 +225,7 @@
                                 mysql_query("ROLLBACK");
                             }
                             $PTBackup = new PTBackup($DB,$Users_ID);
+                            $userinfo = $DB->GetRs("user", "User_Name,User_Mobile,User_ID", "WHERE Users_ID='{$Users_ID}' AND User_ID={$order['User_ID']}");
                             $pbflag = $PTBackup->add($order, $goodsinfo['Products_ID'], $v['teamid'], "拼团失败退款记录", $userinfo['User_Name']?$userinfo['User_Name']:$userinfo['User_Mobile']);
                             
                             mysql_query("COMMIT");
