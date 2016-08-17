@@ -1,12 +1,8 @@
-<?php require_once($_SERVER["DOCUMENT_ROOT"].'/Framework/Conn.php');
-if(isset($_GET["UsersID"])){
-	$UsersID=$_GET["UsersID"];
-}else{
-	echo '缺少必要的参数';
-	exit;
-}
+<?php
+require_once($_SERVER["DOCUMENT_ROOT"].'/include/update/common.php');
+
 $is_login = 1;
-require_once($_SERVER["DOCUMENT_ROOT"].'/include/library/wechatuser.php');
+require_once(CMS_ROOT.'/include/library/wechatuser.php');
 
 
 $OrderID=$_GET['OrderID'];

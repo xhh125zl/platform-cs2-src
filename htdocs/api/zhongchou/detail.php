@@ -1,18 +1,14 @@
 <?php
-require_once($_SERVER["DOCUMENT_ROOT"].'/Framework/Conn.php');
+require_once($_SERVER["DOCUMENT_ROOT"].'/include/update/common.php');
+require_once(CMS_ROOT.'/include/library/wechatuser.php');
+require_once('../share.php');
 
-if(isset($_GET["UsersID"])){
-	$UsersID = $_GET["UsersID"];
-	$rsConfig = $DB->GetRs("zhongchou_config","*","where usersid='".$UsersID."'");
-	if(!$rsConfig){
-		echo '未开通微众筹';
-		exit;
-	}
-}else{
-	echo '缺少必要的参数';
+$rsConfig = $DB->GetRs("zhongchou_config","*","where usersid='".$UsersID."'");
+if(!$rsConfig){
+	echo '未开通微众筹';
 	exit;
 }
-require_once('../share.php');
+
 if(isset($_GET["itemid"])){
 	$itemid = $_GET["itemid"];
 	$item = $DB->GetRs("zhongchou_project","*","where usersid='".$UsersID."' and itemid=$itemid");
@@ -25,11 +21,7 @@ if(isset($_GET["itemid"])){
 	exit;
 }
 
-$_SESSION[$UsersID."HTTP_REFERER"]="/api/zhongchou/detail.php?UsersID=".$_GET["UsersID"]."&itemid=".$itemid;
-
-$rsUsers = $DB->GetRs("users","*","where Users_ID='".$UsersID."'");
-$rsPay = $DB->GetRs("users_payconfig","*","where Users_ID='".$UsersID."' and PaymentWxpayEnabled=1");
-require_once($_SERVER["DOCUMENT_ROOT"].'/include/library/wechatuser.php');
+$_SESSION[$UsersID."HTTP_REFERER"]=$request_uri;
 $lists = array();
 $DB->get("zhongchou_prize","*","where usersid='".$UsersID."' and projectid=$itemid");
 while($r = $DB->fetch_assoc()){

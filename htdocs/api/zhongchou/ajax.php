@@ -1,5 +1,5 @@
 <?php
-require_once($_SERVER["DOCUMENT_ROOT"].'/Framework/Conn.php');
+require_once($_SERVER["DOCUMENT_ROOT"].'/include/update/common.php');
 if(isset($_GET["UsersID"])){
 	$UsersID=$_GET["UsersID"];
 }else{
@@ -90,6 +90,7 @@ if($type=="check"){
 	$Data["Order_CreateTime"]=time();
 	$Data["Order_Status"]=0;
 	$Data["Order_PaymentMethod"] = "微支付";
+	$Data["Biz_ID"] = $item['Biz_ID'];
 	$Flag=$DB->Add("user_order",$Data);
 	$neworderid = $DB->insert_id();
 	if($Flag){		
@@ -155,7 +156,9 @@ if($type=="check"){
 	$Data["Order_CreateTime"]=time();
 	$Data["Order_Status"]=0;
 	$Data["Order_PaymentMethod"] = "微支付";
+	$Data["Biz_ID"] = $item['Biz_ID'];
 	$Flag=$DB->Add("user_order",$Data);
+	
 	$neworderid = $DB->insert_id();
 	if($Flag){		
 		$url="/api/".$UsersID."/zhongchou/pay/".$neworderid."/";

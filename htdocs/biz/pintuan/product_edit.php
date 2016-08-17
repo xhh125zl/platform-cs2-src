@@ -435,13 +435,13 @@ $(document).ready(function(){
                     <tr>  
                         <td class="tr"><input type="radio" name="Isdraw" value="1" <?php echo $pintuan["Is_Draw"]==1?'checked':'';?> />不支持抽奖    <input type="radio" name="Isdraw" value="0" <?php echo $pintuan["Is_Draw"]==0?'checked':'';?> /> 支持抽奖</td>
                     </tr>  
-                    <tr id="333">  
+                    <tr id="awordRule">  
                         <td class="tl"><span color="f_red">抽奖规则</span></td>  
                         <td class="tr">
                   <textarea name="Awardrule" class="briefdesc" /><?php echo $pintuan["Award_rule"]?></textarea>
                   </span>
                     </tr>  
-                    <tr id="444">  
+                    <tr id="allowTeams">  
                         <td class="tl"><span color="f_red">允许中奖团数</span></td>  
                         <td class="tr">
                         <input type="text" size="8" name="T_count" value="<?php echo $pintuan["Team_Count"];?>"/>
@@ -528,26 +528,27 @@ $(document).ready(function(){
 					$(this).parent().find(".tips").removeClass("error").html("");
 				}
 			});
-
-             
-			if($("input[name='Isdraw']:checked").val()=='1'){  
-				$("#333").hide();  
-				$("#444").hide();  
-			}else{   
-				$("#333").show();  
-				$("#444").show();  
-			}     
 		})     
-        $("input[name='Isdraw']").click(function(){  
-              var type=$(this).val();  
-                if(type=='1'){  
-                    $("#333").hide();  
-                    $("#444").hide();  
-                }else{   
-                    $("#333").show();  
-                    $("#444").show();  
-                }     
-        });
+        $(document).ready(function(){
+        	var type=$("input[name=Isdraw]").val();
+        	if(type=='1'){
+                $("#awordRule").hide();  
+                $("#allowTeams").hide();  
+            }else{   
+                $("#awordRule").show();
+                $("#allowTeams").show();  
+            }
+        });      
+    	$("input[name=Isdraw]").click(function(){  
+            var type=$(this).val();  
+            if(type=='1'){  
+            	$("#awordRule").hide();  
+                $("#allowTeams").hide();   
+            }else{   
+            	$("#awordRule").show();  
+                $("#allowTeams").show();  
+            }     
+    	});
 
 
 function imagedel(o) {

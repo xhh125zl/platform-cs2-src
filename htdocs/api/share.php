@@ -1,5 +1,5 @@
 <?php
-require_once($_SERVER["DOCUMENT_ROOT"].'/include/library/weixin_jssdk.class.php');
+require_once(CMS_ROOT.'/include/library/weixin_jssdk.class.php');
 $share_user = $DB->GetRs("users","*","where Users_ID='".$UsersID."'");
 $share_flag = 0;
 $signature = "";

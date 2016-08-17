@@ -304,15 +304,16 @@ if (IS_POST) {
             });
 
             $("input[name='BizGoodsCount'],input[name='IndexBizGoodsCount'],input[name='IndexShowGoodsCount'],input[name='ListShowGoodsCount'],input[name='BizShowGoodsCount']").blur(function(){
-                var IndexShowGoodsCount = parseInt($(this).val());
+                var curvalue = parseInt($(this).val());
                 var MaxGoodsCount = parseInt($("input[name='MaxGoodsCount']").val());
+                var IndexShowGoodsCount = parseInt($("input[name='IndexShowGoodsCount']").val());
                 if(IndexShowGoodsCount>8){
                     $("input[name='IndexShowGoodsCount']").parent().find(".tips").html("推荐首页产品数不能大于8").addClass("error").show();
                     return false;
                 }else{
                     $("input[name='IndexShowGoodsCount']").parent().find(".tips").hide();
                 }
-                if(IndexShowGoodsCount>=MaxGoodsCount){
+                if(curvalue>=MaxGoodsCount){
                     var msg = '';
                     if($(this).attr("name")=='BizGoodsCount'){
                         msg = "商家推荐产品数要小于活动最多产品数";

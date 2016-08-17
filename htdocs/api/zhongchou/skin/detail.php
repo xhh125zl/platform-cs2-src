@@ -15,6 +15,24 @@
 <script type="text/javascript">
 $(document).ready(zhongchou_obj.detail_init);
 </script>
+<style type="text/css">
+.guangguang {    
+    width: 80px;
+    height: 30px;
+    line-height: 30px;
+    background: #1dbc64;
+    padding-left: 20px;
+    color: #fff;
+    float: right;
+    clear: both;
+    margin-top: -30px;
+    overflow: hidden;
+    margin-right: 10px;
+}
+.guangguang a {display:block;color:#fff;text-decoration: none;}
+.guangguang a:hover { text-decoration: none; }
+.buy_bj1,buy_bj a{display:block;}
+</style>
 </head>
 
 <body>
@@ -40,6 +58,20 @@ $(document).ready(zhongchou_obj.detail_init);
   </div>
   <div class="time">活动时间：<?php echo date("Y.m.d",$item["fromtime"]);?> - <?php echo date("Y.m.d",$item["totime"]);?></div>
   <div class="title"><?php echo $item["title"];?></div>
+   <?php 
+        $biz = $item['Biz_ID'];
+        if($biz){
+            $sql = "SELECT * FROM biz AS b LEFT JOIN biz_group AS g ON b.Group_ID=g.Group_ID WHERE b.Users_ID='{$UsersID}' AND b.Biz_ID={$biz} AND g.Group_IsStore=1";
+            $result = $DB->query($sql);
+            $flag = $DB->fetch_assoc($result);
+            if($flag){
+    ?>
+    <div class="guangguang"><a href="/api/<?=$UsersID ?>/zhongchou/biz/<?=$item['Biz_ID'] ?>/act_<?=$_SESSION[$UsersID.'_ZhongchouCurrentActive'] ?>/">逛逛店铺</a></div>
+    <div class="clear"></div>
+    <?php 
+            }
+        }
+    ?>
   <div class="jindu">    
     <span>筹集<font style="font-family:'Times New Roman'; font-size:14px; color:#F60"> ￥<?php echo str_replace('.00','',$item["complete"]);?></font></span>
     <span>目标<font style="font-family:'Times New Roman'; font-size:14px;"> ￥<?php echo str_replace('.00','',$item["amount"]);?></font></span>
