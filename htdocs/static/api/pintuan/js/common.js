@@ -7,7 +7,8 @@
 			if(page=="" || page==undefined)  page = 1;
 			
 			//Load 加载动画
-			var loading = $("<div><img src='/static/api/pintuan/images/loading.gif' /></div>").css({'position':'absolute','z-index':'999','top':'100px'});
+			var loading = $("<div><img src='/static/api/pintuan/images/load.gif' /></div>").css({'position':'absolute','z-index':'999','top':'0px','width':'100%','height':'130%','background':'rgba(0,0,0,0.5)'});
+			loading.find('img').css({'margin-top':'180px','margin-left':'30%'});
 			$('#container').append(loading);
 			$.post(url,{page:page,sort:sort,sortmethod:method},function(data){
 				var strData = "";
@@ -47,7 +48,7 @@
 						strData +='<div class="clear"></div>';
 					}
 					loading.hide();
-					$("#container").html(strData);
+					$("#container").append(strData);
 				}else{
 					setTimeout(function(){
 						loading.hide();

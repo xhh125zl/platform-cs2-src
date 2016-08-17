@@ -79,7 +79,7 @@ if($totalInfo['total']>$ListShowGoodsCount){
     $totalInfo['total'] = $ListShowGoodsCount;
 }
 
-$totalPage = round($totalInfo['total']/$pagesize);
+$totalPage = $totalInfo['total']%$pagesize == 0?$totalInfo['total']/$pagesize:intval($totalInfo['total']/$pagesize)+1;
 
 if(!isset($_SESSION[$UsersID."_pintuan_CurLists"]))
 {
@@ -289,9 +289,10 @@ if(IS_AJAX){
                     domClass   : 'dropload-down',
                     domRefresh : '<div class="dropload-refresh">上拉加载更多</div>',
                     domUpdate  : '<div class="dropload-update">释放加载</div>',
-                    domLoad    : '<div class="dropload-load">test</div>'
+                    domLoad    : '<div class="dropload-load">内容已加载</div>'
                 },
                 loadUpFn : function(me){
+                    /***
                     page = sessionStorage.getItem("<?=$UsersID ?>currentPage")?sessionStorage.getItem("<?=$UsersID ?>currentPage"):page;
                     sort = sessionStorage.getItem("<?=$UsersID ?>ListSort")?sessionStorage.getItem("<?=$UsersID ?>ListSort"):1;
                     method = sessionStorage.getItem("<?=$UsersID ?>ListMethod")?sessionStorage.getItem("<?=$UsersID ?>ListMethod"):'asc';
@@ -302,6 +303,7 @@ if(IS_AJAX){
                       getContainer(url,page,sort,method); 
                     }
                     me.resetload();
+                    **/
                 },
                 loadDownFn : function(me){
                     page = sessionStorage.getItem("<?=$UsersID ?>currentPage")?sessionStorage.getItem("<?=$UsersID ?>currentPage"):page;

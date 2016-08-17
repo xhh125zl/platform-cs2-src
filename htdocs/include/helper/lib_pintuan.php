@@ -412,12 +412,12 @@ function order_no($no=''){
     /* 选择一个随机的方案 */
     mt_srand((double) microtime() * 1000000);
     $no = date('Ymd') . str_pad(mt_rand(1, 99999), 5, '0', STR_PAD_LEFT);
-    $flag = $DB->GetRs("user_order","Order_Code,Order_ID","where Order_Code='{$no}' and Order_Code is not NULL");
-    if($flag){
-        return order_no($no);
-    }else{
-        return $no;
-    }
+    do{
+       $flag = $DB->GetRs("user_order","Order_Code,Order_ID","where Order_Code='{$no}'");
+       $no = date('Ymd') . str_pad(mt_rand(1, 99999), 5, '0', STR_PAD_LEFT);
+       if(!$flag)  break;
+    }while(true);
+    return $no;
 }
 
 

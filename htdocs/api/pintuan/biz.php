@@ -56,8 +56,9 @@ $dis_temp = implode($dis_temp,',');
 $listGoods = $indexGoods.','.$dis_temp;
 $listGoods = trim($listGoods,',');
 $totalInfo = $DB->GetRs("pintuan_products","count(*) as total","WHERE Users_ID='{$UsersID}'  AND Biz_ID={$BizID} AND Products_ID IN ({$listGoods})");
-$pagesize = 5;
-$totalPage = round($totalInfo['total']/$pagesize);
+$pagesize = 3;
+
+$totalPage = $totalInfo['total']%$pagesize == 0?$totalInfo['total']/$pagesize:intval($totalInfo['total']/$pagesize)+1;
 
 if(IS_AJAX){
     $time = time();
@@ -270,6 +271,7 @@ if(IS_AJAX){
                   domLoad    : '<div class="dropload-load"></div>'
               },
               loadUpFn : function(me){
+                  /**
                   page = sessionStorage.getItem("<?=$UsersID ?>BizcurrentPage")?sessionStorage.getItem("<?=$UsersID ?>BizcurrentPage"):page;
                   sort = sessionStorage.getItem("<?=$UsersID ?>BizListSort")?sessionStorage.getItem("<?=$UsersID ?>BizListSort"):1;
                   method = sessionStorage.getItem("<?=$UsersID ?>ListMethod")?sessionStorage.getItem("<?=$UsersID ?>ListMethod"):'asc';
@@ -280,6 +282,7 @@ if(IS_AJAX){
                     getContainer(url,page,sort,method); 
                   }
                   me.resetload();
+                  **/
               },
               loadDownFn : function(me){
                   page = sessionStorage.getItem("<?=$UsersID ?>BizcurrentPage")?sessionStorage.getItem("<?=$UsersID ?>BizcurrentPage"):page;
