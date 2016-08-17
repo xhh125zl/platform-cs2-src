@@ -1,1 +1,1 @@
-alter table zhongchou_project add Biz_ID int(11) COMMENT '商家ID';
+alter table zhongchou_project add Biz_ID int(11) default 0 COMMENT '商家ID';
