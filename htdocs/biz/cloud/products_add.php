@@ -13,7 +13,6 @@ if ($ShippingNum > 0) {
         $Shipping_ID_List[] = $item['Shipping_ID'];
     }
     $ShippingIDS = implode(',', $Shipping_ID_List);
-    
     $condition = "WHERE Users_ID='{$UsersID}' AND Shipping_Status = 1 AND Shipping_ID IN (" . $ShippingIDS . ")";
     $rsCompanies = $DB->Get("shop_shipping_company", "Shipping_ID,Shipping_Name", $condition);
     $Company_List = $DB->toArray($rsCompanies);
@@ -34,7 +33,10 @@ if ($_POST) {
         echo '<script language="javascript">alert("商品价格不能小于购买价格");history.back();</script>';
         exit();
     }
-    
+    if ($_POST['PriceY'] % $_POST['PriceX'] != 0) {
+        echo '<script language="javascript">alert("商品总价格必须是云购单价格的整数倍");history.back();</script>';
+        exit();
+    }
     $zongrenci = ceil($_POST['PriceY'] / $_POST['PriceX']);
     $_POST['Description'] = str_replace('"', '&quot;', $_POST['Description']);
     $_POST['Description'] = str_replace("'", "&quot;", $_POST['Description']);
