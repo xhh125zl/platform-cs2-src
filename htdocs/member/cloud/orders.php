@@ -25,8 +25,18 @@ $rsConfig = $DB->GetRs("shop_config","ShopName,NeedShipping","where Users_ID='".
 $condition = "where Users_ID='".$_SESSION["Users_ID"]."' and Order_Type='cloud'";
 if(isset($_GET["search"])){
 	if($_GET["search"]==1){
-		if(!empty($_GET["Keyword"])){
-			$condition .= " and `".$_GET["Fields"]."` like '%".$_GET["Keyword"]."%'";
+	   if(!empty($_GET["Keyword"])){
+		    $field = $_GET['Fields'];
+		    $key = trim($_GET["Keyword"]);
+		    if($field == 'Order_Code') {
+		        $key = substr($key,8);
+		        $condition .= " AND Order_ID = {$key}";
+		    }else if ($field == 'Address_Name'){
+		        $condition .= " AND (Address_Name LIKE '%{$key}%' OR User_ID IN (SELECT User_ID FROM user WHERE User_NickName like '%{$key}%')) ";
+		    }else{
+		        $condition .= " AND `".$_GET["Fields"]."` LIKE '%{$key}%'";
+		    }
+			
 		}
 		if(isset($_GET["Status"])){
 			if($_GET["Status"]<>''){
@@ -128,10 +138,9 @@ if(isset($_GET["action"]))
 		<div id="orders" class="r_con_wrap">
 			<form class="search" id="search_form" method="get" action="?">
 				<select name="Fields">
+					<option value='Order_Code'>订单号</option>
 					<option value='Order_CartList'>商品</option>
 					<option value='Address_Name'>购买人</option>
-					<option value='Address_Mobile'>购买手机</option>
-					<option value='Address_Detailed'>收货地址</option>
 				</select>
 				<input type="text" name="Keyword" value="" class="form_input" size="15" />
 				订单状态：

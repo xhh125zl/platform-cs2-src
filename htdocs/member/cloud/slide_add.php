@@ -64,7 +64,7 @@ KindEditor.ready(function(K) {
 		editor.loadPlugin('image', function() {
 			editor.plugin.imageDialog({
 				clickFn : function(url, title, width, height, border, align) {
-					K('#PicDetail').append('<div><a href="'+url+'" target="_blank"><img src="'+url+'" /></a> <span>删除</span><input type="hidden" name="img" value="'+url+'" /></div>');
+					K('#PicDetail').html('<div><a href="'+url+'" target="_blank"><img src="'+url+'" /></a> <span>删除</span><input type="hidden" name="img" value="'+url+'" /></div>');
 					editor.hideDialog();
 				}
 			});
