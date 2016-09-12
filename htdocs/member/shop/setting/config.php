@@ -136,7 +136,7 @@ body, html {
 					           $time = $sch['StartRunTime'];
 					           $day = $sch['day'];
 					           $lastRunTime = $sch['LastRunTime'];
-					          
+
 					       }
 					?>
 					<div class="rows">
@@ -173,7 +173,7 @@ body, html {
 		$("input[name='removeTask']").click(function(){
 			location.href = "/member/shop/setting/config.php?cfgPay=1&action=taskRemove";
 		});
-		
+
 		$("select[name='RunType']").change(function(){
 
 			var RunType = $("select[name='RunType']").val();
@@ -236,9 +236,9 @@ if ($_POST) {
         "ShareIntro" => $_POST["ShareIntro"]
     )
     ;
-    
+
     $Set = $DB->Set("shop_config", $Data, "where Users_ID='" . $_SESSION["Users_ID"] . "'");
-    
+
     $flag = $flag && $Set;
     $Data = array(
         "Reply_Keywords" => $_POST["Keywords"],
@@ -255,7 +255,7 @@ if ($_POST) {
     $Data = array(
         "Material_Json" => json_encode($Material, JSON_UNESCAPED_UNICODE)
     );
-    
+
     $Set = $DB->Set("wechat_material", $Data, "where Users_ID='" . $_SESSION["Users_ID"] . "' and Material_Table='shop' and Material_TableID=0 and Material_Display=0");
     $flag = $flag && $Set;
     if ($flag) {
@@ -277,6 +277,8 @@ if ($_POST) {
 	type='text/css' />
 <script type='text/javascript' src='/static/js/jquery-1.7.2.min.js'></script>
 <script type='text/javascript' src='/static/member/js/global.js'></script>
+<script type='text/javascript' src='/static/js/plugin/layer/layer.js'></script>
+<script type='text/javascript' src='/include/library/CompanyB2c/js/shopConfig.js'></script>
 <script type='text/javascript' src='/static/member/js/shop.js'></script>
 <link rel="stylesheet"
 	href="/third_party/kindeditor/themes/default/default.css" />
@@ -292,7 +294,7 @@ KindEditor.ready(function(K) {
 		showRemote : true,
 		allowFileManager : true,
 	});
-	
+
 	K('#LogoUpload').click(function(){
 		editor.loadPlugin('image', function(){
 			editor.plugin.imageDialog({
@@ -305,7 +307,7 @@ KindEditor.ready(function(K) {
 			});
 		});
 	});
-	
+
 	K('#ShareLogoUpload').click(function(){
 		editor.loadPlugin('image', function(){
 			editor.plugin.imageDialog({
@@ -318,7 +320,7 @@ KindEditor.ready(function(K) {
 			});
 		});
 	});
-	
+
 	K('#ReplyImgUpload').click(function(){
 		editor.loadPlugin('image', function(){
 			editor.plugin.imageDialog({
@@ -331,7 +333,7 @@ KindEditor.ready(function(K) {
 			});
 		});
 	});
-})
+});
 </script>
 <style type="text/css">
 #config_form img {
@@ -363,10 +365,10 @@ KindEditor.ready(function(K) {
 			<script type='text/javascript'
 				src='/static/js/plugin/operamasks/operamasks-ui.min.js'></script>
 			<script language="javascript">$(document).ready(function(){
-		
+
 		global_obj.config_form_init();
 		shop_obj.confirm_form_init();
-		
+
 	});</script>
 			<div class="r_con_config r_con_wrap">
 				<form id="config_form" action="config.php" method="post">
@@ -377,7 +379,10 @@ KindEditor.ready(function(K) {
 								</h1> <input type="text" class="input" name="ShopName"
 								value="<?php echo $rsConfig["ShopName"] ?>" maxlength="30"
 								notnull /></td>
-							<td width="50%" valign="top"></td>
+							<td width="50%" valign="top">
+								<span class="fc_red">*</span> <strong>商家发布自营产品收费金额,<span style="color:#f00;">点击下方金额即可编辑</span>(如不收费,请填写0)</strong><br />
+								<span id="Users_PayCharge"><p style="padding-left:30px;">&yen;<?php echo $rsConfig["Users_PayCharge"] ?>元</p></span>
+							</td>
 						</tr>
 						<tr>
 							<td width="50%" valign="top"><h1>
@@ -479,7 +484,7 @@ KindEditor.ready(function(K) {
 										<br />
 										<div class="img" id="LogoDetail">
                                 <?php echo $rsConfig && $rsConfig['ShopLogo']<>'' ? '<img src="'.$rsConfig['ShopLogo'].'" />' : ''?>
-								
+
                                 </div>
 										<input type="hidden" id="Logo" name="Logo"
 											value="<?php echo $rsConfig && $rsConfig['ShopLogo']<>'' ? $rsConfig['ShopLogo'] : ''?>" />
@@ -499,7 +504,7 @@ KindEditor.ready(function(K) {
 										<br />
 										<div class="img" id="ShareLogoDetail">
                                 <?php echo $rsConfig && $rsConfig['ShareLogo']<>'' ? '<img src="'.$rsConfig['ShareLogo'].'" />' : ''?>
-								
+
                                 </div>
 										<input type="hidden" id="ShareLogo" name="ShareLogo"
 											value="<?php echo $rsConfig && $rsConfig['ShareLogo']<>'' ? $rsConfig['ShareLogo'] : ''?>" />
