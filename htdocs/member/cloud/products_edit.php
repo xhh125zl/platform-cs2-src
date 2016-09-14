@@ -49,7 +49,11 @@ if($_POST){
 	if($_POST['PriceY'] < $_POST['PriceX']){
 		echo '<script language="javascript">alert("商品价格不能小于购买价格");history.back();</script>';
 		exit;
-	};					
+	}
+	if ($_POST['PriceY'] % $_POST['PriceX'] != 0) {
+	    echo '<script language="javascript">alert("商品总价格必须是云购单价格的整数倍");history.back();</script>';
+	    exit();
+	}
 	$zongrenci = ceil($_POST['PriceY']/$_POST['PriceX']);
 	
 	$_POST['Description'] = str_replace('"','&quot;',$_POST['Description']);

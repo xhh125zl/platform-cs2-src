@@ -136,14 +136,6 @@ function choujiang($DB)
             $DB->Set("pintuan_team", [
                 'teamstatus' => 3
             ], "WHERE id in ($noneteamlistStr)");
-            /*
-             * $result = $DB->query("select o.order_id as order_id,o.Order_Code,o.Users_ID as Users_ID,o.User_ID as User_ID from pintuan_teamdetail as t left join pintuan_order as o on t.order_id=o.order_id where t.teamid in ($noneteamlistStr) and o.is_ok is NULL");
-             *
-             * while($res_t= $DB->fetch_assoc($result))
-             * {
-             * sendWXMessage($res_t['Users_ID'],$res_t['order_id'],'很遗憾您参与的拼团活动未中奖，订单号为：'.$res_t['Order_Code'],$res_t['User_ID']);
-             * }
-             */
         }
     }
     if (! empty($orderlist)) {
@@ -177,40 +169,37 @@ function tuikuan($DB)
 {
     global $DB;
     // 获取所有未中奖或者拼团失败的团
-    $sql = "select order_id,teamid from pintuan_teamdetail where teamid in (select id from pintuan_team where teamstatus='3' or teamstatus='4')";
-    $result2 = $DB->query($sql);
-    
-    if ($result2) {
-        $orderid = $DB->toArray($result2);
-        if (empty($orderid))
-            return;
-        mysql_query("SET AUTOCOMMIT=0");
-        foreach ($orderid as $v) {
-            $order = $DB->query("select u.Order_ID,u.Order_CartList,Order_PaymentMethod,Order_Type,u.Users_ID,Order_TotalPrice,u.User_ID,u.Order_Status,Order_Code from user_order as u left join pintuan_order as p on u.Order_ID=p.order_id where p.order_status >= 2 and u.Order_ID='{$v['order_id']}' ");
-            $order = $DB->fetch_assoc($order);
+    $sql =  "SELECT u.Order_ID,u.Order_CartList,u.Order_PaymentMethod,u.Order_Type,u.Users_ID,u.Order_TotalPrice,u.User_ID,u.Order_Status,u.Order_Code,t.order_id,t.teamid " .
+            "FROM pintuan_teamdetail AS t LEFT JOIN user_order AS u ON t.order_id = u.Order_ID LEFT JOIN pintuan_order AS p ON u.Order_ID = p.order_id " . 
+            "WHERE t.teamid IN (SELECT id FROM pintuan_team AS pt LEFT JOIN pintuan_products AS pp ON pt.productid=pp.Products_ID WHERE pt.teamstatus IN (3,4) AND pp.Is_Draw =0) AND p.order_status >= 2 AND p.order_status<=5 ORDER BY u.User_ID ASC";
+    $result = $DB->query($sql);
+    $orderlist = $DB->toArray($result);
+    if (! empty($orderlist)) {
+        foreach ($orderlist as $order) {
+            begin_trans();
             $product = json_decode($order['Order_CartList'], true);
             $productid = $product['Products_ID'];
             $goods = $DB->GetRs("pintuan_products", "stoptime", "where Products_ID='{$productid}'");
-            
             if (($order['Order_PaymentMethod'] && $goods['stoptime'] < time())) {
                 mysql_query("BEGIN");
                 $Users_ID = $order['Users_ID'];
+                $order_id = $order['Order_ID'];
+                $team_id = $order['teamid'];
                 if ($order['Order_PaymentMethod'] === '微支付') {
                     // 微信支付退款
-                    $weixinFlag = refund($v, $Users_ID);
-                    
+                    $weixinFlag = refund($order, $Users_ID);
                     if ($weixinFlag) {
-                        $pflag = $DB->Set("pintuan_order", "order_status='6'", "where order_id='{$v['order_id']}'");
+                        $pflag = $DB->Set("pintuan_order", "order_status='6'", "where order_id='{$order_id}'");
                         if (! $pflag) {
-                            mysql_query("ROLLBACK");
+                            back_trans();
                         }
-                        $flag2 = $DB->Set("pintuan_team", "teamstatus='5'", "where id='{$v['teamid']}'");
+                        $flag2 = $DB->Set("pintuan_team", "teamstatus='5'", "where id='{$team_id}'");
                         if (! $flag2) {
-                            mysql_query("ROLLBACK");
+                            back_trans();
                         }
-                        $flag3 = $DB->Set("user_order", "Order_Status='6'", "where Order_ID='{$v['order_id']}'");
+                        $flag3 = $DB->Set("user_order", "Order_Status='6'", "where Order_ID='{$order_id}'");
                         if (! $flag3) {
-                            mysql_query("ROLLBACK");
+                            back_trans();
                         }
                     }
                 } else {
@@ -220,41 +209,41 @@ function tuikuan($DB)
                     // 执行余额支付退款
                     $flag1 = $DB->Set("user", "User_Money = User_Money + {$price}", "where User_ID='{$userid}'");
                     if (! $flag1) {
-                        mysql_query("ROLLBACK");
+                        back_trans();
                     }
-                    $flag2 = $DB->Set("pintuan_order", "order_status='6'", "where order_id='{$v['order_id']}'");
+                    $flag2 = $DB->Set("pintuan_order", "order_status='6'", "where order_id='{$order_id}'");
                     if (! $flag2) {
-                        mysql_query("ROLLBACK");
+                        back_trans();
                     }
                     
-                    $flagr = $DB->Set("user_order", "Order_Status='6'", "where Order_ID='{$v['order_id']}'");
+                    $flagr = $DB->Set("user_order", "Order_Status='6'", "where Order_ID='{$order_id}'");
                     if (! $flagr) {
-                        mysql_query("ROLLBACK");
+                        back_trans();
                     }
-                    $flag3 = $DB->Set("pintuan_team", "teamstatus='5'", "where id='{$v['teamid']}'");
+                    $flag3 = $DB->Set("pintuan_team", "teamstatus='5'", "where id='{$team_id}'");
                     if (! $flag3) {
-                        mysql_query("ROLLBACK");
+                        back_trans();
                     }
                 }
-                $sellerid = $order['Users_ID'];
                 $goodsinfo = json_decode($order['Order_CartList'], true);
-                
                 $flag = Stock($goodsinfo['Products_ID'], $Users_ID, '+');
                 if (! $flag) {
-                    mysql_query("ROLLBACK");
+                    back_trans();
                 }
                 $PTBackup = new PTBackup($DB, $Users_ID);
                 $userinfo = $DB->GetRs("user", "User_Name,User_Mobile,User_ID", "WHERE Users_ID='{$Users_ID}' AND User_ID={$order['User_ID']}");
-                $pbflag = $PTBackup->add($order, $goodsinfo['Products_ID'], $v['teamid'], "拼团失败退款记录", $userinfo['User_Name'] ? $userinfo['User_Name'] : $userinfo['User_Mobile']);
-                
-                mysql_query("COMMIT");
+                $pbflag = $PTBackup->add($order, $goodsinfo['Products_ID'], $order['teamid'], "拼团失败退款记录", $userinfo['User_Name'] ? $userinfo['User_Name'] : $userinfo['User_Mobile']);
+                if(!$pbflag){
+                    back_trans();
+                }
+                commit_trans();
                 if (in_array($order['Order_Status'], array(
                     2,
                     3,
                     4,
                     5
                 ))) {
-                    sendWXMessage($order['Users_ID'], $v['order_id'], '拼团没有成功已退款，订单号：' . $order['Order_Code'] . "，退款金额：" . $order['Order_TotalPrice'], $order['User_ID']);
+                    sendWXMessage($Users_ID, $order_id, '拼团没有成功已退款，订单号：' . $order['Order_Code'] . "，退款金额：" . $order['Order_TotalPrice'], $order['User_ID']);
                 }
             }
         }
