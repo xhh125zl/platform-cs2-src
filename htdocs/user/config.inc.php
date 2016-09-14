@@ -9,6 +9,7 @@ $BizID = 0;
 if (isset($_SESSION['BIZ_ID'])) {
 	$UsersID = $_SESSION['Users_ID'];
 	$BizID = $_SESSION["BIZ_ID"];
+	$BizAccount = $_SESSION['Biz_Account'];
 } else {
 	die('请先登录');
 }

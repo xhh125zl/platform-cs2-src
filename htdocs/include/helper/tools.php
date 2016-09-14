@@ -1,6 +1,55 @@
 <?php
 
 /**
+ * 调用接口公共函数
+ */
+
+function curlInterFace($url, $method = 'post', $postdata = array()){
+	$data = createTokenString($postdata);
+	$timestamp = time();
+	$key = '458f_$#@$*!fdjisdJDFHUk4%%653154%^@#(FSD#$@0-T';
+	$sign = strtoupper(md5(base64_encode($data . $key . $timestamp)));
+	$postfields = array('sign' => $sign, 'timestamp' => $timestamp);
+	if (!empty($postdata)) {
+		$postfields = http_build_query(array_merge($postfields, $postdata));
+	}
+	$ch = curl_init($url);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);
+	if ($method == 'post') {
+		curl_setopt($ch, CURLOPT_POST,1);
+		curl_setopt($ch, CURLOPT_POSTFIELDS, $postfields);
+	}
+	$output = curl_exec($ch);
+	$arr = json_decode($output, true);
+	return $arr;
+}
+
+/**
+ * 新版签名
+ * 签名规则:根据传递过来的数组组装成一维数组，去掉sign，去掉空值，进行字典序排列，然后进行http_build_query组装成字符串,然后连接上$key依次进行base64_encode,md5和strtoupper处理
+ */
+function createTokenString($arr) {
+	static $tmp = [] ;
+	if (!is_array($arr)) {
+		return false;
+	}
+	foreach ($arr as $key => $val) {
+		if (is_array($val)) {
+			createTokenString($val);
+		} else {
+			if ($key == 'sign' || $key == 'timestamp' || strlen($val) < 1) {
+				continue;
+			}else{
+				$tmp[] = $val;
+			}
+		}
+	}
+	sort($tmp);
+	return http_build_query($tmp);
+}
+
+
+/**
  *去除字符串中的emoji表情
  */
 function removeEmoji($text) {

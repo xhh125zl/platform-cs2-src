@@ -146,6 +146,31 @@ class mysql{
     *******************************************************************/
     public function copy_tables($tb1,$tb2,$Condition=''){$this->query("SELECT * INTO `{$tb1}` FROM `{$tb2}` {$Condition}");}
 
+
+
+
+    /******************************************************************
+    -- 函数名：GetAssoc($Table,$Fields,$Condition,$Rows)
+    -- 作  用：查询数据
+    -- 参  数：$Table 表名(必填)
+    $Fields 字段名，默认为所有(选填)
+    $Condition 查询条件(选填)
+    $Rows 待查询记录条数，为0表示不限制(选填)
+    -- 返回值：二维关联数组
+    -- 实  例：$DB->GetAssoc('tableName', 'user,password', 'ORDER BY id DESC',10)
+     *******************************************************************/
+    public function GetAssoc($Table, $Fields='*', $Condition='', $Rows=0){
+        if(!$Fields) $Fields='*';
+        if($Rows>0) $Condition.=" LIMIT 0,{$Rows}";
+        $sql="SELECT {$Fields} FROM `{$Table}` {$Condition}";
+        $this->query($sql);
+        $resArr = [];
+        while ($res = $this->fetch_assoc()) {
+            $resArr[] = $res;
+        }
+        return $resArr;
+    }
+
     /******************************************************************
     -- 函数名：Get($Table,$Fileds,$Condition,$Rows)
     -- 作  用：查询数据

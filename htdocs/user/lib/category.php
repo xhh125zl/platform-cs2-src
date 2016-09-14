@@ -1,12 +1,27 @@
 <?php
 require_once "../config.inc.php";
+require_once CMS_ROOT . '/include/api/product_category.class.php';
+require_once CMS_ROOT . '/include/helper/tools.php';
 
 //获取分类
 function getFirstCate()
 {
-    global $DB;
-    $result = $DB->GetAssoc('shop_dist_category', 'Category_ID, Category_Name');
-    return $result;
+    $bizAccount = $_SESSION['Biz_Account'];
+    $result = product_category::getDev401firstCate($bizAccount);
+    return $result['cateData'];
+}
+
+//获取二级分类
+function getSecondCate($firstCateID){
+    $firstCateID = intval($firstCateID);
+    if ($firstCateID == 0) {
+        return NULL;
+    }else{
+        $data['Biz_Account'] = $_SESSION['Biz_Account'];
+        $data['firstCateID'] = $firstCateID;
+        $result = product_category::getDev401SecondCate($data);
+        return $result['cateData'];
+    }
 }
 
 //添加分类
@@ -65,6 +80,9 @@ function updateCate($datapost){
 //获取分类
 if ($_GET['action'] == 'fCate') {
     echo json_encode(getFirstCate(), JSON_UNESCAPED_UNICODE);
+}
+if($_GET['action'] == 'sCate' && isset($_GET['fcateID'])) {
+    echo json_encode(getSecondCate($_GET['fcateID']));
 }
 //添加分类
 if ($_GET['action'] == 'addCate') {
