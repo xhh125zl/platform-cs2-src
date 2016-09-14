@@ -33,7 +33,11 @@ if($_POST){
 			"PaymentYeepayPrivateKey"=>$_POST["PaymentYeepayPrivateKey"],
 			"PaymentYeepayPublicKey"=>$_POST["PaymentYeepayPublicKey"],
 			"PaymentYeepayYeepayPublicKey"=>$_POST["PaymentYeepayYeepayPublicKey"],
-			"PaymentYeepayProductCatalog"=>!empty($_POST["PaymentYeepayProductCatalog"])?$_POST["PaymentYeepayProductCatalog"]:0
+			"PaymentYeepayProductCatalog"=>!empty($_POST["PaymentYeepayProductCatalog"])?$_POST["PaymentYeepayProductCatalog"]:0,
+			"PaymentTeegonEnabled"=>isset($_POST["PaymentTeegonEnabled"])?$_POST["PaymentTeegonEnabled"]:0,
+			"PaymentTeegonClientID"=>$_POST["PaymentTeegonClientID"],
+			"PaymentTeegonClientSecret"=>$_POST["PaymentTeegonClientSecret"]
+			
 		);
 	
 		$string = serialize($Data);
@@ -162,6 +166,19 @@ $(document).ready(shop_obj.pay_shipping_config_init);
                       </dd>
                     </dl>
                   </li>
+                  <li>
+                    <h1>商派天工<span>
+                      <input type="checkbox" value="1" id="check_4" name="PaymentTeegonEnabled"<?php echo empty($rsConfig["PaymentTeegonEnabled"])?"":" checked"; ?>  onclick="show_pay_ment(4);"/>
+                      启用 <a href="https://charging.teegon.com/domain/2aa40378/charging/api" target="_blank">申请</a></span></h1>
+                    <dl id="pay_4" style="display:<?php echo $rsConfig["PaymentTeegonEnabled"] ? 'block' : 'none';?>">
+                      <dd>Client ID：
+                        <input type="text" name="PaymentTeegonClientID" value="<?php echo $rsConfig["PaymentTeegonClientID"]; ?>" maxlength="40" />
+                      </dd>
+                      <dd>Client Secret：
+                        <input type="text" name="PaymentTeegonClientSecret" value="<?php echo $rsConfig["PaymentTeegonClientSecret"]; ?>" maxlength="40" />
+                      </dd>
+                    </dl>
+                  </li>
 				<li>
                     <h1>余额支付<span>
                       <input type="checkbox" value="1" name="RemainderEnabled"<?php echo empty($rsConfig["Payment_RmainderEnabled"])?"":" checked"; ?>/>
@@ -195,7 +212,7 @@ $(document).ready(shop_obj.pay_shipping_config_init);
 </div>
 <script type="text/javascript">
 function show_pay_ment(id){
-	for(var i=0; i<=3; i++){
+	for(var i=0; i<=4; i++){
 		if(i==id){
 			if(document.getElementById('check_'+id).checked==false){
 				document.getElementById('pay_'+id).style.display = 'none';

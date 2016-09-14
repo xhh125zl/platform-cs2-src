@@ -113,7 +113,7 @@ if(isset($_GET["action"])){
       </dd>	
     </dl>
   </div>
-  <div class="iframe" >
+  <div class="iframe" style="width:980px;">
     <iframe src="account/account.php" name="iframe" frameborder="0" scrolling="auto" ></iframe>
   </div>
   

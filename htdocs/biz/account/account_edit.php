@@ -1,5 +1,12 @@
 <?php
 require_once('../global.php');
+
+require_once($_SERVER['DOCUMENT_ROOT'].'/pay/teegon/autoload.php');
+$UsersID = $rsBiz['Users_ID'];
+$rsPay=$DB->GetRs("users_payconfig","*","where Users_ID='".$UsersID."'");
+require_once($_SERVER['DOCUMENT_ROOT'].'/pay/teegon/config.php');
+$rsAccount = new Account();
+
 if($_POST){
 	if(!is_numeric($_POST['Province']) || !is_numeric($_POST['City']) || !is_numeric($_POST['Area'])){
 		echo '<script language="javascript">alert("请选择所在地区");window.location="account_edit.php";</script>';
@@ -20,7 +27,14 @@ if($_POST){
 		"Biz_Logo"=>$_POST['LogoPath'],
 		"Biz_Kfcode"=>$_POST['Kfcode']
 	);
-
+	$Biz_Account_ID = '';
+  if(!$rsBiz['Biz_Account_ID']){
+      $returnData = $rsAccount->create($rsBiz["Biz_Name"]);
+      $Biz_Account_ID = $Data['Biz_Account_ID'] = $returnData['result']['account_id'];
+  }else{
+      $Biz_Account_ID = $rsBiz['Biz_Account_ID'];
+  }
+  
 	$Flag=$DB->Set("biz",$Data,"where Biz_ID=".$_SESSION["BIZ_ID"]);
 	if($Flag){
 		echo '<script language="javascript">alert("修改成功");window.location="account.php";</script>';
@@ -29,6 +43,21 @@ if($_POST){
 	}
 	exit;
 }
+
+if(isset($_GET['action']) && $_GET['action']=='bindbank'){
+    if($rsBiz['Biz_Account_ID']){
+       $bank = new Bank();
+       $returnData = $bank->bind([
+          'account_id' => $rsBiz['Biz_Account_ID'],
+          'notify_url' => TEE_SITE_URL."biz/account/notify_bindbank.php"
+       ]);
+       $url = isset($returnData['result'])?$returnData['result']:'';
+       if($url){
+          header("Location: {$url}");
+       }
+    }
+}
+
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -112,7 +141,7 @@ KindEditor.ready(function(K) {
         <div class="rows">
           <label>商家名称</label>
           <span class="input">
-          <input type="text" name="Name" value="<?php echo $rsBiz["Biz_Name"];?>" class="form_input" size="35" maxlength="50" readonly/>
+          <input type="text" name="Name" value="<?php echo $rsBiz["Biz_Name"];?>" class="form_input" size="35" maxlength="50" readonly/> &nbsp;&nbsp;&nbsp;&nbsp;<a href="?action=bindbank">绑定银行卡</a>
           </span>
           <div class="clear"></div>
         </div>
