@@ -27,7 +27,7 @@ var main_obj={
 		$('#main').height($(window).height()-$('#header').height()-$('#footer').height());
 		var w=$(window).width()-242;
 		w=w<758?758:w;
-		//$('#main .iframe').width(w);
+		$('#main .iframe').width(w);
 		main_obj.page_scroll_init();
 		
 		$('#main .menu dt').off().click(function(){
