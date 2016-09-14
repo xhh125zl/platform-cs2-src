@@ -1,0 +1,350 @@
+<?php
+if (!defined('USER_PATH')) exit();
+
+require_once CMS_ROOT . '/include/api/product.class.php';
+require_once CMS_ROOT . '/include/helper/page.class.php';
+$fid = $sid = 0;
+
+if (isset($_GET['fid'])) {
+    $fid = intval($_GET['fid']);
+}
+
+if (isset($_GET['fid']) && isset($_GET['sid'])) {
+    $sid = intval($_GET['sid']);
+}
+
+//判断当前页面是根据什么排序的,如果有排序的话,把对应的CSS样式加上
+if (isset($_GET['sortby']) && in_array($_GET['sortby'], ['zonghe', 'price', 'sale', 'commission'])) {
+    $sortby = $_GET['sortby'];
+}else{
+    $sortby = 'zonghe';
+}
+if (isset($_GET['sortMethod']) && in_array($_GET['sortMethod'], ['desc', 'asc'])) {
+    $sortMethod = $_GET['sortMethod'];
+}else{
+    $sortMethod = 'desc';
+}
+
+$Users_Account = get_user_account($UsersID);
+
+
+/**
+ * 获取用户账户名
+ * @parma string $Users_ID
+ * @return string 账号
+ */
+function get_user_account($Users_ID) {
+    $map = ['Users_ID' => $Users_ID];
+    $user = Users::select(['Users_Account'])->Multiwhere($map)->first();
+
+    return  (! empty($user)) ? $user->Users_Account : '';
+}
+
+//组装查询条件数组,传递到API进行查询返回数据
+$condition = [];
+
+if ($fid > 0) {
+    $condition['fid'] = $fid;
+}
+if (isset($_GET['fid']) && isset($_GET['sid']) && $_GET['sid'] > 0) {
+    $condition['sid'] = (int)$_GET['sid'];
+}
+
+if (isset($_GET['sortby']) && in_array($_GET['sortby'], ['zonghe', 'sale', 'commission', 'price'])) {
+    $condition['sortby'] = $_GET['sortby'];
+} else {
+    unset($_GET['sortby']);
+}
+
+if (isset($_GET['sortMethod']) && in_array($_GET['sortMethod'], ['asc', 'desc'])) {
+    $condition['sortMethod'] = $_GET['sortMethod'];
+} else {
+    unset($_GET['sortMethod']);
+}
+
+if (isset($_GET['min_price']) && is_numeric($_GET['min_price'])) {
+    $condition['minprice'] = $_GET['min_price'];
+}
+
+if (isset($_GET['max_price']) && is_numeric($_GET['max_price'])) {
+    $condition['maxprice'] = $_GET['max_price'];
+}
+
+if (isset($_GET['keyword']) && $_GET['keyword']) {
+    $condition['keyword'] = trim($_GET['keyword']);
+}
+
+
+//排序方式过滤开始=================================================================
+//综合
+$zongheSortby = false;
+if (isset($_GET['sortby']) && $_GET['sortby'] == 'zonghe' || !isset($_GET['sortby'])) {
+    $zongheSortby = true;
+    $sortMethod = isset($_GET['sortMethod']) ? $_GET['sortMethod'] : 'asc';
+    if ($sortMethod == 'asc') {
+        $sortMethod = 'desc';
+    } else {
+        $sortMethod = 'asc';
+    }
+}
+//销售
+$saleSortby = false;
+if (isset($_GET['sortby']) && $_GET['sortby'] == 'sale') {
+    $saleSortby = true;
+    $sortMethod = isset($_GET['sortMethod']) ? $_GET['sortMethod'] : 'asc';
+    if ($sortMethod == 'asc') {
+        $sortMethod = 'desc';
+    } else {
+        $sortMethod = 'asc';
+    }
+}
+
+//价格
+$priceSortby = false;
+if (isset($_GET['sortby']) && $_GET['sortby'] == 'price') {
+    $priceSortby = true;
+    $sortMethod = isset($_GET['sortMethod']) ? $_GET['sortMethod'] : 'asc';
+    if ($sortMethod == 'asc') {
+        $sortMethod = 'desc';
+    } else {
+        $sortMethod = 'asc';
+    }
+}
+
+//佣金
+$commissionSortby = false;
+if (isset($_GET['sortby']) && $_GET['sortby'] == 'commission') {
+    $commissionSortby = true;
+    $sortMethod = isset($_GET['sortMethod']) ? $_GET['sortMethod'] : 'asc';
+    if ($sortMethod == 'asc') {
+        $sortMethod = 'desc';
+    } else {
+        $sortMethod = 'asc';
+    }
+}
+
+//排序方式过滤结束=========================================================================================
+
+//返回已分销的所有商品数组
+global $DB;
+$isDistributeArr = $DB->GetAssoc('shop_dist_product_db', 'Products_FromId', "where Users_ID = '". $UsersID ."' AND User_ID = ". $UserID);
+if (count($isDistributeArr) > 0) {
+    foreach($isDistributeArr as $k => $v) {
+        $resArr[$k] = $v['Products_FromId'];
+    }
+}else{
+    $resArr = [];
+}
+
+if (isset($_GET['isDistribute']) && $_GET['isDistribute'] == 1) {
+    $condition['isDistribute'] = trim($_GET['isDistribute']);
+}
+$data = ['Users_Account' => $Users_Account];
+
+$result = product::search($condition, $data);
+
+$total = $result['totalCount'];
+
+$infolist = $result['productData'];
+
+?>
+<!doctype html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0">
+<meta name="app-mobile-web-app-capable" content="yes">
+<title>商品库</title>
+</head>
+<link href="../static/user/css/product.css" type="text/css" rel="stylesheet">
+<link href="../static/user/css/page_media.css" type="text/css" rel="stylesheet">
+<link href="../static/user/css/font-awesome.min.css" type="text/css" rel="stylesheet">
+<script type="text/javascript" src="../static/user/js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="../static/js/plugin/layer_mobile/layer.js"></script>
+<body>
+<div class="w">
+	<div class="bj_x">
+          <div class="box">
+              <span class="l"><i class="fa  fa-angle-left fa-2x" aria-hidden="true" id="goback"></i></span>
+              <input type="text" class="sousuo_x" placeholder="请输入您要搜索的内容">
+              <a><span class="ss1_x" id="btn_so">搜索</span></a>
+          </div>
+ 	</div>
+    <div class="sorting">
+    	<ul>
+        	<li><a class="pro_asc" id="zonghe" data-sortMethod="<?=$zongheSortby ? $sortMethod : 'asc'?>">综合&nbsp;<i class="fa fa-caret-down fa-x" aria-hidden="true"></i></a></li>
+            <li><a id="price" data-sortMethod="<?=$priceSortby ? $sortMethod : 'asc'?>">价格&nbsp;<i class="fa fa-caret-up fa-x" aria-hidden="true"></i></a></li>
+            <li><a id="sale" data-sortMethod="<?=$saleSortby ? $sortMethod : 'asc'?>">销量&nbsp;<i class="fa fa-caret-up fa-x" aria-hidden="true"></i></a></li>
+            <li><a id="commission" data-sortMethod="<?=$commissionSortby ? $sortMethod : 'asc'?>">利润&nbsp;<i class="fa fa-caret-up fa-x" aria-hidden="true"></i></a></li>
+        </ul>
+    </div>
+    <div class="clear"></div>
+    <div class="product">
+
+        <input type="hidden" name="fid" id="fid" value=<?php echo isset($_GET['fid']) ? (int)$_GET['fid'] : 0;?>>
+        <input type="hidden" name="sid" id="sid" value=<?php echo isset($_GET['sid']) ? (int)$_GET['sid'] : 0;?>>
+        <input type="hidden" name="sortby" id="sortby" value="<?php echo isset($_GET['sortby']) ? $_GET['sortby'] : '' ?>">
+        <input type="hidden" name="sortMethod" id="sortMethod" value="<?php echo isset($_GET['sortMethod']) ? $_GET['sortMethod'] : '' ?>">
+        <input type="hidden" name="keyword" id="keyword" value="<?php echo isset($_GET['keyword']) ? $_GET['keyword'] : '' ?>">
+    	<ul>
+<?php
+if (count($infolist) > 0) {
+    foreach ($infolist as $product) {
+        $img = json_decode($product['Products_JSON'], true);
+        $product['thumb'] = $img['ImgPath'][0];
+?>
+        	<li style="margin-top: 5px;height:100px;padding:8px 0;">
+            	<div style="overflow:hidden;">
+                	<a><span class="imgs l"><img src="<?php echo $product['thumb'];?>" width="90" height="90"></span>
+                    <span class="main l">
+                        <p><?php echo $product['Products_Name'];?></p>
+                        <span class="l" style="font-size:16px; line-height:25px; color:#333">￥<?=$product['Products_PriceX']?></span>
+                        <span class="r" style="line-height:25px;">三级收益<span style="color:#ff5000; font-size:16px;">￥<?php echo $product['commission'];?></span></span>
+                        <div class="clear"></div>
+                        <span class="l"><?php echo $product['Products_DistPersonCount'];?>人在售<br>
+                        库存<?php echo $product['Products_Count'];?></span>
+                        <span class="r" id="pro<?=$product['Products_FromId']?>">
+                            <?
+                                if (in_array($product['Products_FromId'], $resArr)) {
+                            ?>
+                                    <div class="up_yy">已上架</div>
+                            <?} else { ?><input type="submit" value="一键上架" class="up_xx" data-FromID="<?=$product['Products_FromId']?>">
+                                    <?}?>
+                        </span>
+                        <div class="clear"></div>
+                    </span></a>
+                </div>
+            	<div class="clear"></div>
+            </li>
+<?php
+    }
+}?>
+
+        </ul>
+    </div>
+</div>
+
+</body>
+<script type="text/javascript">
+    //生成跳转的链接
+    function getfilter() {
+        var fid = $("#fid").val();
+        var sid = $("#sid").val();
+        var sortby = $("#sortby").val();
+        var sortMethod = $("#sortMethod").val();
+        var keyword = $("#keyword").val();
+        if (keyword.length > 0) {
+            return '?act=search&isDistribute=1&fid=' + fid + "&sid=" + sid + '&sortby=' + sortby + "&sortMethod=" + sortMethod + "&keyword=" + keyword;
+        } else {
+            return '?act=search&isDistribute=1&fid=' + fid + "&sid=" + sid + '&sortby=' + sortby + "&sortMethod=" + sortMethod;
+        }
+    }
+    //排序跳转
+    $(".sorting ul li a").click(function(){
+        $("#sortby").val($(this).attr("id"));
+        $("#sortMethod").val($(this).attr("data-sortMethod"));
+        var url = getfilter();
+        location.href = url;
+    });
+    $(function(){
+        //点击一键分销按钮进行的操作
+        $(".up_xx").click(function(){
+            var me = $(this);
+            layer.open({
+                type:1,
+                content:"<div class=\"select_containers\">请选择一级分类:<select name=\"firstCate\" class=\"select\" id=\"firstCate\"><option value=\"0\">请选择顶级分类</option></select></div>",
+                title:[
+                    '<span style="float:left">请选择要添加到的分类</span><span style="float: right"><a href="javascript:void(0);">新增分类</a></span>',
+                    'background-color:#f0f0f0;font-weight:bold;'
+                ],
+                style: 'width:100%;position:fixed;bottom:0;left:0;border-radius:8px;',
+                btn:['上架分销','返回重选'],
+                yes:function(index){
+                    var myval = $("#firstCate").val();
+                    if (myval > 0) {
+                        layer.open({
+                            type:2,
+                            time:1,
+                            shadeClose:false,
+                            end:function(){
+                                $.ajax({
+                                    url:"/user/lib/products.php?action=addProducts",
+                                    type:"post",
+                                    data:{"Users_ID":"<?=$UsersID?>", "User_ID":"<?=$UserID?>", "Products_FromID":me.attr("data-FromID"), "Cate_ID":myval},
+                                    dataType:"json",
+                                    success:function(data) {
+                                        layer.open({
+                                            type:0,
+                                            content:data.msg,
+                                            time:2,
+                                            end:function(){
+                                                $("#pro" + me.attr("data-FromID")).html("<div class=\"up_yy\">已上架</div>");
+                                            }
+                                        })
+                                    }
+                                })
+                            }
+                        });
+                    } else {
+                        layer.open({
+                            content:"请选择要添加到的分类!"
+                        });
+                    }
+                    layer.close(index);
+                }
+            });
+            //分类联动菜单第一级
+            $.ajax({
+                type:"get",
+                url:"/user/lib/category.php",
+                data:{"action":"fCate"},
+                dataType:'json',
+                success:function(data){
+                    $.each(data,function(i,n){
+                        var option="<option value='"+ n.Category_ID+"'>"+ n.Category_Name+"</option>";
+                        $("#firstCate").append(option);
+                    })
+                }
+            });
+        });
+
+        //加载页面完毕首先添加默认样式
+        var current = $("#<?=$sortby?>");
+        current.addClass("pro_asc").parent('li').siblings().find("a").removeClass("pro_asc");
+        if ("<?=$sortMethod?>" == 'desc') {
+            current.find("i").removeClass();
+            current.find("i").addClass("fa fa-caret-up fa-x");
+        }else if ("<?=$sortMethod?>" == 'asc') {
+            current.find("i").removeClass();
+            current.find("i").addClass("fa fa-caret-down fa-x");
+        }
+
+        $("#btn_so").click(function(){
+            getfilter_so();
+        });
+        //关键字搜索
+        function getfilter_so() {
+            var kw = $(".sousuo_x").val();
+            var url = getfilter();
+            if (kw != '') {
+                url += '&keyword=' + kw;
+            }
+            location.href = url;
+
+        }
+
+        //监听回车键,用于搜索
+        $('html').bind('keydown',function(e){
+            if(e.keyCode==13){
+                getfilter_so();
+            }
+        });
+        //返回按钮
+        $("#goback").click(function() {
+            location.href = "/user/admin.php?act=products";
+        });
+
+
+    });
+</script>
+</html>

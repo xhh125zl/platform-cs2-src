@@ -48,12 +48,23 @@ if ($_POST) {
         "PaymenteRate" => empty($_POST["PaymenteRate"]) ? 100 : $_POST["PaymenteRate"],
         "Biz_Logo" => $_POST['LogoPath'],
         "Invitation_Code" => isset($_POST['Invitation_Code']) ? trim($_POST['Invitation_Code']) : ''
-    )
-    ;
+    );
     
     if ($password) {
         $Data["Biz_PassWord"] = md5($password);
     }
+	if (isset($_POST['expiresTime']) &&strlen($_POST['expiresTime']) > 0) {
+		if ($rsBiz['Users_ExpiresTime'] > 0) {
+			if ($rsBiz['Users_ExpiresTime'] > time()) {
+				$expiresTime = intval($_POST['expiresTime'])*3600*24 + $rsBiz['Users_ExpiresTime'];
+			}else{
+				$expiresTime = intval($_POST['expiresTime'])*3600*24 + time();
+			}
+		}else{
+			$expiresTime = intval($_POST['expiresTime'])*3600*24 + time();
+		}
+		$Data['Users_ExpiresTime'] = $expiresTime;
+	}
     $Flag = $DB->Set("biz", $Data, "where Biz_ID=" . $BizID);
     if ($Flag) {
         if ($_POST["FinanceType"] == 0) {
@@ -92,6 +103,9 @@ if ($_POST) {
     while ($r = $DB->Fetch_assoc()) {
         $groups[$r["Group_ID"]] = $r;
     }
+
+	$shopConfig = $DB->GetRs('shop_config', '*', "where Users_ID='" . $_SESSION["Users_ID"] . "'");
+	$need_charge = $shopConfig['Users_PayCharge'] > 0 ? 1 : 0;
 }
 ?>
 <!DOCTYPE HTML>
@@ -327,6 +341,24 @@ KindEditor.ready(function(K) {
 						</span>
 						<div class="clear"></div>
 					</div>
+
+					<div class="rows">
+						<label>修改到期时间</label>
+						<?
+							if ($need_charge == 1) {
+								?>
+								<span class="input"><input type="text"
+														   style="width: 150px;height:30px;line-height: 30px;margin-top: 3px;border-radius: 3px;margin-left: 10px;"
+														   name="expiresTime" placeholder="修改到期时间"/>*请输入要修改的时间,单位为天,加1天则输入1,减一天则输入-1,当前用户到期时间为<?= $rsBiz['Users_ExpiresTime'] == 0 ? '<span style="color:green;font-weight: bold;">无限期</span>' : ($rsBiz['Users_ExpiresTime'] > time() ? '<span style="font-weight: bold;color:#f00;">' . ceil(($rsBiz['Users_ExpiresTime'] - time()) / (3600 * 24)) . '天后</span>' : '<span style="color:#ccc;font-weight: bold">已到期</span>') ?></span>
+								<?
+							}else{
+						?>
+							<span class="input" style="color:#f00;">您尚未对商家收费，如需开通收费功能请在商城设置-基本设置右上方修改收费金额</span>
+						<?}?>
+						<div class="clear"></div>
+					</div>
+
+
 					<div class="rows">
 						<label></label> <span class="input"> <input type="submit"
 							class="btn_green" name="submit_button" value="提交保存" /></span>
