@@ -153,4 +153,15 @@ class product extends base
         $result = self::request($url, 'post', $data);
         return $result;
     }
+
+    /**
+     * B2C添加代销产品到401数据库
+     */
+
+    static public function addTo401($data)
+    {
+        $url = "/product/adddistributegoods.html";
+        $result = self::request($url, 'post', $data);
+        return $result;
+    }
 }

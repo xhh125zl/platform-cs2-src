@@ -191,7 +191,7 @@ $infolist = $result['productData'];
                             if (in_array($product['Products_FromId'], $resArr)) {
                                 ?>
                                 <div class="up_yy">已上架</div>
-                            <?} else { ?><input type="submit" value="一键上架" class="up_xx" data-FromID="<?=$product['Products_FromId']?>">
+                            <?} else { ?><input type="button" value="一键上架" class="up_xx" data-FromID="<?=$product['Products_FromId']?>">
                             <?}?>
                         </span>
                         <div class="clear"></div>
@@ -253,9 +253,10 @@ $infolist = $result['productData'];
                             shadeClose:false,
                             end:function(){
                                 $.ajax({
-                                    url:"/user/lib/products.php?action=addProducts",
-                                    type:"post",
-                                    data:{"Products_FromID":me.attr("data-FromID"), "firstCate":firstCate, "secondCate":secondCate},
+                                    url:"/user/lib/products.php?d=" + new Date().getTime(),
+                                    type:"get",
+                                    timeout:6000,
+                                    data:{"action":"addProducts", "Products_FromID":me.attr("data-FromID"), "firstCate":firstCate, "secondCate":secondCate},
                                     dataType:"json",
                                     success:function(data) {
                                         if (data.errorCode == 0) {
@@ -266,13 +267,13 @@ $infolist = $result['productData'];
                                                 end:function(){
                                                     $("#pro" + me.attr("data-FromID")).html("<div class=\"up_yy\">已上架</div>");
                                                 }
-                                            })
+                                            });
                                         } else {
                                             layer.open({
                                                 type:0,
                                                 content:data.msg,
                                                 time:2
-                                            })
+                                            });
                                         }
                                     }
                                 })
