@@ -95,7 +95,7 @@ $(function(){
         var me = $(this);
         var index = layer.open({
             title: [
-                '编辑分类',
+                '编辑一级分类',
                 'background-color: #ff5500; color:#fff;line-height:40px;height:40px'
             ],
             content: '<div class="new_cate"><input type="text" name="Category_Name" id="Category_Name" /><div class="but_x"><span class="left"><button class="edit_button_x">取消</button></span><span class="left"><button class="edit_button_x1">确定</button></span></div></div>'

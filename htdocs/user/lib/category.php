@@ -27,55 +27,37 @@ function getSecondCate($firstCateID){
 //添加分类
 function addCate($data)
 {
-    global $DB;
-    $data['Users_ID'] = $_SESSION['Users_ID'];
-    $data['User_ID'] = $_SESSION[$_SESSION['Users_ID'] . 'User_ID'];
-    $data['Category_Name'] = htmlspecialchars(trim($data['Category_Name']));
-    $exists = $DB->GetRs('shop_dist_category', '*', "where Category_Name = '". $data['Category_Name'] ."'");
-    if ($exists) {
-        return 2;
-    }
-    $flag = $DB->Add('shop_dist_category', $data);
-    if ($flag) {
-        return 1;
+    $postdata['Biz_Account'] = $_SESSION['Biz_Account'];
+    $postdata['Category_Name'] = htmlspecialchars(trim($data['Category_Name']));
+    if (isset($data['firstCateID']) && $data['firstCateID'] > 0) {
+        $postdata['Category_ParentID'] = $data['firstCateID'];
     } else {
-        return 3;
+        $postdata['Category_ParentID'] = 0;
     }
+    $postdata['Category_Img'] = '';
+    $postdata['Category_IndexShow'] = 1;
+    $postdata['Category_ListTypeID'] = 0;
+    $postdata['Category_Index'] = 1;
+    $transfer = ['cateData' => $postdata, 'Biz_Account' => $_SESSION['Biz_Account']];
+    $res = product_category::addCateTo401($transfer);
+    return $res;
 }
 
 //删除分类
 function delCate($cid)
 {
-    global $DB;
-    $cid = intval($cid);
-    $cateGoods = $DB->GetAssoc('shop_dist_product_db', '*', "where Cate_ID = " . $cid);
-    if (count($cateGoods) > 0 ) {
-        return 2;
-    }
-    $cate = $DB->GetRs('shop_dist_category', '*', "where Category_ID = " . $cid);
-    if ($cate) {
-        $flag = $DB->Del('shop_dist_category',"Category_ID = " . $cid);
-        if ($flag) {
-            return 1;
-        }else{
-            return 3;
-        }
-    }else{
-        return 4;
-    }
+    $transfer = ['Biz_Account' => $_SESSION['Biz_Account'], 'Category_ID' => $cid];
+    $res = product_category::delCateFrom401($transfer);
+    return $res;
 }
 
 //更新分类
 function updateCate($datapost){
-    $Cate_ID = intval($datapost['Cate_ID']);
-    $data['Category_Name'] = htmlspecialchars(trim($datapost['Category_Name']));
-    global $DB;
-    $flag = $DB->Set('shop_dist_category',$data,"where Category_ID = " . $Cate_ID);
-    if ($flag) {
-        return true;
-    }else{
-        return false;
-    }
+    $postdata['Category_ID'] = intval($datapost['Cate_ID']);
+    $postdata['Category_Name'] = htmlspecialchars(trim($datapost['Category_Name']));
+    $transfer = ['Biz_Account' => $_SESSION['Biz_Account'], 'cateData' => $postdata];
+    $res = product_category::editCateFrom401($transfer);
+    return $res;
 }
 //获取分类
 if ($_GET['action'] == 'fCate') {
@@ -86,39 +68,28 @@ if($_GET['action'] == 'sCate' && isset($_GET['fcateID'])) {
 }
 //添加分类
 if ($_GET['action'] == 'addCate') {
-    $CateName = preg_replace("/[<.*>]/", "", $_POST['Category_Name']);
-    if (strlen(htmlspecialchars(trim($CateName))) == 0) {
+    $post = $_POST;
+    $post['Category_Name'] = preg_replace("/[<.*>]/", "", $_POST['Category_Name']);
+    if (strlen(htmlspecialchars(trim($post['Category_Name']))) == 0) {
         echo json_encode(['errorCode' => 2, 'msg' => '分类名称不能为空!']);
         exit;
     }
-    $flag = addCate($_POST);
-    if ($flag == 1) {
-        echo json_encode(['errorCode' => 0, 'msg' => '添加成功']);
-    } elseif ($flag == 2) {
-        echo json_encode(['errorCode' => 2, 'msg' => '分类名称已存在,添加失败!']);
-    }elseif ($flag == 3) {
-        echo json_encode(['errorCode' => 3, 'msg' => '添加失败']);
-    }
+    $flag = addCate($post);
+    echo json_encode(['errorCode' => $flag['errorCode'], 'msg' => $flag['msg']]);
 }
 //删除分类
 if ($_GET['action'] == 'delCate' && isset($_POST['Cate_ID'])) {
-    $res = delCate($_POST['Cate_ID']);
-    if ($res == 1) {
-        echo json_encode(['errorCode' => 0, 'msg' => '删除成功']);
-    }elseif ($res == 2){
-        echo json_encode(['errorCode' => 1, 'msg' => '分类下有商品,不允许删除!']);
-    }elseif ($res == 3) {
-        echo json_encode(['errorCode' => 2, 'msg' => '删除失败']);
-    }elseif ($res == 4) {
-        echo json_encode(['errorCode' => 3, 'msg' => '不存在此分类']);
-    }
+    $flag = delCate((int)$_POST['Cate_ID']);
+    echo json_encode(['errorCode' => $flag['errorCode'], 'msg' => $flag['msg']]);
 }
 //更新分类
 if ($_GET['action'] == 'updateCate') {
-    if (updateCate($_POST)) {
-        echo json_encode(['errorCode' => 0, 'msg' => '更新成功']);
-    }else{
-        echo json_encode(['errorCode' => 1, 'msg' => '更新失败']);
+    $post = $_POST;
+    $post['Category_Name'] = preg_replace("/[<.*>]/", "", $_POST['Category_Name']);
+    if (strlen(htmlspecialchars(trim($post['Category_Name']))) == 0) {
+        echo json_encode(['errorCode' => 2, 'msg' => '分类名称不能为空!']);
+        exit;
     }
-
+    $flag = updateCate($post);
+    echo json_encode(['errorCode' => $flag['errorCode'], 'msg' => $flag['msg']]);
 }

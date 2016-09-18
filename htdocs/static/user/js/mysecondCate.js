@@ -5,7 +5,7 @@ $(function(){
     $("#addCate").click(function(){
         var index = layer.open({
             title: [
-                '新建一级分类',
+                '新建二级分类',
                 'background-color: #ff5500; color:#fff;line-height:40px;height:40px'
             ],
             content: '<div class="new_cate"><input type="text" name="Category_Name" id="Category_Name" /><div class="but_x"><span class="left"><button class="button_x">取消</button></span><span class="left"><button class="button_x1">确定</button></span></div></div>'
@@ -26,7 +26,7 @@ $(function(){
                 $.ajax({
                     type:"POST",
                     url:"/user/lib/category.php?action=addCate",
-                    data:{"Category_Name":catename},
+                    data:{"Category_Name":catename,"firstCateID":$("input[name=firstCateID]").val()},
                     dataType:"json",
                     success:function(data) {
                         layer.open({
@@ -95,7 +95,7 @@ $(function(){
         var me = $(this);
         var index = layer.open({
             title: [
-                '编辑分类',
+                '编辑二级分类',
                 'background-color: #ff5500; color:#fff;line-height:40px;height:40px'
             ],
             content: '<div class="new_cate"><input type="text" name="Category_Name" id="Category_Name" /><div class="but_x"><span class="left"><button class="edit_button_x">取消</button></span><span class="left"><button class="edit_button_x1">确定</button></span></div></div>'

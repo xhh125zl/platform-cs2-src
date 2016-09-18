@@ -41,4 +41,28 @@ class product_category extends base
 		$result = self::request($url, 'post', $data);
 		return $result;
 	}
+
+	//B2C添加分类到401数据库
+	static public function addCateTo401($data)
+	{
+		$url = "/category/addcateto401.html";
+		$result = self::request($url, 'post', $data);
+		return $result;
+	}
+
+	//B2C编辑401分类名称
+	static public function editCateFrom401($data)
+	{
+		$url = "/category/editcatefrom401.html";
+		$result = self::request($url, 'post', $data);
+		return $result;
+	}
+
+	//B2C删除401分类名称
+	static public function delCateFrom401($data)
+	{
+		$url = "/category/delcatefrom401.html";
+		$result = self::request($url, 'post', $data);
+		return $result;
+	}
 }
