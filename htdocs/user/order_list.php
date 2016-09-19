@@ -16,10 +16,10 @@ require_once "lib/order.php";
 <body>
 <div class="w">
     <div class="bj_x">
-        <form action="">
+        <form action="<?=$_SERVER['REQUEST_URI']?>" method="post">
             <div class="box">
                 <span class="l"><i class="fa  fa-angle-left fa-2x" aria-hidden="true"></i></span>
-                <input type="text" class="sousuo_x" placeholder="请输入您要搜索的内容">
+                <input type="text" name="Order_ID" class="sousuo_x" placeholder="请输入您要搜索的订单号">
                 <a><span class="ss1_x">搜索</span></a>
             </div>
         </form>
@@ -166,7 +166,14 @@ require_once "lib/order.php";
             </ul>
         </div>
     </div>
-    <script type="text/javascript">jQuery(".slideTxtBox").slide();</script>
+    <script type="text/javascript">
+        jQuery(".slideTxtBox").slide();
+        $(function() {
+            $(".ss1_x").click(function() {
+                $("form").submit();
+            })
+        })
+    </script>
 </div>
 </body>
 </html>
