@@ -35,7 +35,7 @@ require_once "lib/order.php";
                     foreach ($resArr[0] as $k => $v){
                         ?>
                         <li>
-                            <div class="line_x"><span class="l">订单号：<?=$v['Order_ID']?></span><span class="state r">待确认</span></div>
+                            <div class="line_x"><span class="l">订单号：<a href="?act=order_details&orderid=<?=$v['Order_ID']?>"><?=$v['Order_ID']?></a></span><span class="state r">待确认</span></div>
                             <div class="clear"></div>
                             <?
                             foreach (json_decode($v['Order_CartList'], true) as $key => $val) {
@@ -62,7 +62,7 @@ require_once "lib/order.php";
                         foreach ($resArr[1] as $k => $v){
                 ?>
                 <li>
-                    <div class="line_x"><span class="l">订单号：<?=$v['Order_ID']?></span><span class="state r">未付款</span></div>
+                    <div class="line_x"><span class="l">订单号：<a href="?act=order_details&orderid=<?=$v['Order_ID']?>"><?=$v['Order_ID']?></a></span><span class="state r">未付款</span></div>
                     <div class="clear"></div>
                     <?
                         foreach (json_decode($v['Order_CartList'], true) as $key => $val) {
@@ -89,7 +89,7 @@ require_once "lib/order.php";
                     foreach ($resArr[2] as $k => $v){
                         ?>
                         <li>
-                            <div class="line_x"><span class="l">订单号：<?=$v['Order_ID']?></span><span class="state r">已付款</span></div>
+                            <div class="line_x"><span class="l">订单号：<a href="?act=order_details&orderid=<?=$v['Order_ID']?>"><?=$v['Order_ID']?></a></span><span class="state r">已付款</span></div>
                             <div class="clear"></div>
                             <?
                             foreach (json_decode($v['Order_CartList'], true) as $key => $val) {
@@ -116,7 +116,7 @@ require_once "lib/order.php";
                     foreach ($resArr[3] as $k => $v){
                         ?>
                         <li>
-                            <div class="line_x"><span class="l">订单号：<?=$v['Order_ID']?></span><span class="state r">已发货</span></div>
+                            <div class="line_x"><span class="l">订单号：<a href="?act=order_details&orderid=<?=$v['Order_ID']?>"><?=$v['Order_ID']?></a></span><span class="state r">已发货</span></div>
                             <div class="clear"></div>
                             <?
                             foreach (json_decode($v['Order_CartList'], true) as $key => $val) {
@@ -143,7 +143,7 @@ require_once "lib/order.php";
                     foreach ($resArr[4] as $k => $v){
                         ?>
                         <li>
-                            <div class="line_x"><span class="l">订单号：<?=$v['Order_ID']?></span><span class="state r">已完成</span></div>
+                            <div class="line_x"><span class="l">订单号：<a href="?act=order_details&orderid=<?=$v['Order_ID']?>"><?=$v['Order_ID']?></a></span><span class="state r">已完成</span></div>
                             <div class="clear"></div>
                             <?
                             foreach (json_decode($v['Order_CartList'], true) as $key => $val) {
