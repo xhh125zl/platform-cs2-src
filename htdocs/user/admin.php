@@ -17,7 +17,10 @@ $actionArr = [
 	'my_cate',
 	'order_details',
 	'order_list',
-	'store'
+	'store',
+	'user_list',
+	'user_detail',
+	'product_add'
 ];
 
 if (! in_array($act, $actionArr)) {
