@@ -84,7 +84,7 @@ require_once "lib/order.php";
                         }
                         //echo empty($Shipping)?"":$Shipping["Express"]
                         ?><strong style="color:#FF0000;">
-                            <?php if(empty($Shipping["Price"])){?>
+                            <?php if(empty($Shipping["Price"])){ $fee = 0;?>
                                 免运费
                             <?php }else{
                                 $fee = $Shipping["Price"];
@@ -112,7 +112,7 @@ require_once "lib/order.php";
                 </li>
                 <?}}?>
                 <li>
-                    <span class="right">订单总价：<a style="color:red">￥<?=$orderDetail['Order_TotalPrice'] - $fee?><?if ($fee > 0) {?>+￥<?=$fee?>(运费)<?}?>=￥<?=$orderDetail['Order_TotalPrice']?></a></span>
+                    <span class="right">订单总价：<a style="color:red">￥<?=$orderDetail['Order_TotalPrice'] - $fee?><?if ($fee > 0) {?>+￥<?=$fee?>(运费)=￥<?=$orderDetail['Order_TotalPrice']?><?}?></a></span>
                 </li>
             </ul>
             <ul>
