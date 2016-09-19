@@ -11,6 +11,7 @@ img{border:none;}
 .right{float:right;}
 body{background-color:#f8f8f8;-webkit-tap-highlight-color:transparent;font-size:14px; font-family:"微软雅黑"}
 .w{width:100%; margin:0 auto;}
+input[type=button], input[type=submit], input[type=file], button { cursor: pointer; -webkit-appearance: none; } 
 
 /*产品首页*/
 .header{ background:#fff; overflow:hidden;}
