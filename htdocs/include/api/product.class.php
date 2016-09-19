@@ -136,4 +136,32 @@ class product extends base
 
        return $result;
     }
+
+
+
+
+    //==================================================401接口逻辑分割线================================================
+
+    /**
+     * B2C获取401对应Users已分销的产品
+     * @param array $data   ['Biz_Account' => 'test01']
+     * @return array
+     */
+    static public function getIsDistributeArr($data)
+    {
+        $url = '/product/getdistributegoods.html';
+        $result = self::request($url, 'post', $data);
+        return $result;
+    }
+
+    /**
+     * B2C添加代销产品到401数据库
+     */
+
+    static public function addTo401($data)
+    {
+        $url = "/product/adddistributegoods.html";
+        $result = self::request($url, 'post', $data);
+        return $result;
+    }
 }

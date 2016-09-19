@@ -1,3 +1,6 @@
+<?
+require_once "lib/order.php";
+?>
 <!doctype html>
 <html>
 <head>
@@ -20,45 +23,96 @@
             <ul>
                 <li>
                     <span class="left">订单编号：</span>
-                    <span class="left">2016091302</span>
+                    <span class="left"><?=$orderDetail['Order_ID']?></span>
                 </li>
                 <li>
                     <span class="left">订单时间：</span>
-                    <span class="left">2016-09-13   11:35:20</span>
+                    <span class="left"><?=date('Y-m-d H:i:s', $orderDetail['Order_CreateTime'])?></span>
                 </li>
                 <li>
                     <span class="left">订单状态：</span>
-                    <span class="left" style="color:red">待确认</span>
+                    <span class="left" style="color:red">
+                        <?
+                        switch ($orderDetail['Order_Status'])
+                        {
+                            case 0:
+                                echo "待处理";
+                                break;
+                            case 1:
+                                echo "未付款";
+                                break;
+                            case 2:
+                                echo "已付款";
+                                break;
+                            case 3:
+                                echo "已发货";
+                                break;
+                            case 4:
+                                echo "已完成";
+                                break;
+                            default:
+                                echo "状态获取失败";
+                        }
+                        ?>
+                    </span>
                 </li>
                 <li>
                     <span class="left">订单总价：</span>
-                    <span class="left" style="color:red">560.00</span>
+                    <span class="left" style="color:red"><?=$orderDetail['Order_TotalPrice']?></span>
                 </li>
                 <li>
                     <span class="left">订单备注：</span>
-                    <span class="left">快点发货</span>
+                    <span class="left"><?=$orderDetail['Order_Remark']?></span>
                 </li>
                 <li>
                     <span class="left">收货地址：</span>
-                    <span class="left">河南省郑州市金水区花园路国基路<br>小苹果   13233333333</span>
+                    <span class="left"><?php echo $Province.$City.$Area.'【'.$orderDetail["Address_Name"].'，'.$orderDetail["Address_Mobile"].'】' ?></span>
                 </li>
                 <li>
                     <span class="left">配送方式：</span>
-                    <span class="left">中通快递&nbsp;<a style="color:red">￥10</a></span>
+                    <span class="left">
+                        <?php
+
+                        if(empty($Shipping)){
+                            echo "暂无信息";
+                        }else{
+                            if(empty($Shipping["Express"])){
+                                echo "暂无信息";
+                            }else{
+                                echo $Shipping["Express"];
+                            }
+                        }
+                        //echo empty($Shipping)?"":$Shipping["Express"]
+                        ?><strong style="color:#FF0000;">
+                            <?php if(empty($Shipping["Price"])){?>
+                                免运费
+                            <?php }else{
+                                $fee = $Shipping["Price"];
+                                ?>
+                                ￥<?php echo $Shipping["Price"];?>
+                            <?php }?>
+
+                        </strong>
+                    </span>
                 </li>
+                <?
+                foreach (json_decode($orderDetail['Order_CartList'], true) as $key => $val) {
+                    foreach ($val as $goodskey => $goodsval) {
+                ?>
                 <li>
                     <div class="pro_xt" style="padding:0">
-                        <div class="img_xt"><a href="#"><img src="../static/user/images/tp03.jpg" height="90" width="90"></a></div>
+                        <div class="img_xt"><a href="#"><img src="<?=$goodsval['ImgPath']?>" height="90" width="90"></a></div>
                         <dl class="info_xt">
-                            <dd class="name_xt"><a href="#">阿卡卡阿卡卡阿卡卡阿卡卡阿卡卡阿卡卡阿卡卡阿卡卡阿卡卡阿卡卡阿卡卡阿卡卡阿卡卡阿卡卡阿卡卡阿卡卡阿卡</a></dd>
-                            <dd>￥150.00×1=￥150</dd>
-                            <dd>下单时间：2016-09-09 09:09</dd>
+                            <dd class="name_xt"><a href="#"><?=$goodsval['ProductsName']?></a></dd>
+                            <dd>￥<?=$goodsval['ProductsPriceX']?>×<?=$goodsval['Qty']?>=￥<?=$goodsval['ProductsPriceX'] * $goodsval['Qty']?></dd>
+                            <dd>下单时间：<?=date('Y-m-d H:i:s', $orderDetail['Order_CreateTime'])?></dd>
                         </dl>
                         <div class="clear"></div>
                     </div>
                 </li>
+                <?}}?>
                 <li>
-                    <span class="right">订单总价：<a style="color:red">￥272+￥10=￥282.00</a></span>
+                    <span class="right">订单总价：<a style="color:red">￥<?=$orderDetail['Order_TotalPrice'] - $fee?><?if ($fee > 0) {?>+￥<?=$fee?>(运费)<?}?>=￥<?=$orderDetail['Order_TotalPrice']?></a></span>
                 </li>
             </ul>
             <ul>

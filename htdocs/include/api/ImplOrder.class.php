@@ -49,9 +49,25 @@ class ImplOrder extends base
      */
     static public function actionOrdersend($data)
     {
-        $url = '/order/actionOrdersend.html';
+        $url = '/order/ordersend.html';
         $result = self::request($url, 'post', $data);
     
+        return $result;
+    }
+
+
+
+
+    //==================================================B2C请求401接口逻辑分割线=====================================================
+
+    /**
+     * @param ['Users_ID' => $Users_ID]
+     * @return 返回订单信息
+     */
+    static public function getOrders($data,$page = 1)
+    {
+        $url = '/order/getorders.html?page=' . $page;
+        $result = self::request($url, 'post', $data);
         return $result;
     }
     
