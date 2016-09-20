@@ -26,22 +26,8 @@ if (isset($_GET['ajax']) && $_GET['ajax'] == 1) {
         
     } else if ($do == 'delete' && $pid > 0) {
 
-        $map = [
-            'Users_ID' => $UsersID,
-            'User_ID' => $UserID,
-            'Products_FromID' => $pid,
-        ];
-
-        $affectedRows = ShopDistProduct::Multiwhere($map)->delete();
-
-        if ($affectedRows > 0) {
-            //减少分销人数
-            $data = [
-                'Products_FromId' => $pid,
-                'DisPerson_Qty' => -1,
-            ];
-            product::updatediscount($data);
-        }
+        $productId = ['Products_ID' => $pid];
+        $affectedRows = product::delete($productId);
 
         $return = [
             'affectRows' => $affectedRows,
@@ -118,46 +104,63 @@ if ($sortMethod == 'asc') {
 $p = isset($_GET['p']) ? (int)$_GET['p'] : 1;
 if ($p < 1) $p = 1;
 
-$pageSize = 8;
+$pageSize = 2;
 $map = [];
 
-$field = 'shop.Products_ID, shop.Products_Name, shop.Products_PriceY, shop.Products_PriceX, shop.Products_JSON, shop.Products_JSON,shop.Products_Count, shop.Products_Sales, shop.commission_ratio, db.Products_FromID AS pid, db.state, db.istop';
-if ($sortby == 'commission') {
-    $field .=",convert((Products_PriceX - Products_PriceS) * platForm_Income_Reward / 100 * commission_ratio /100, decimal(10,2)) AS commission";
-    $sortbyField = "commission";
+$UsersID = 'test2';
+$data = [
+    'pageSize' => $pageSize,
+    'Biz_Account' => $UsersID,
+];
+
+$result = product::getProducts($p, $data);
+if (!isset($result['errorCode'])) {
+    $total = 0;
+    $totalPage = 1;
+    $proudcts = [];
+} else {
+    $products = $result['productData'];
+    $total = $result['totalCount'];
+    $totalPage = ceil($result['totalCount'] / $pageSize);
 }
 
-$sql = "SELECT $field FROM `shop_dist_product_db` db LEFT JOIN `shop_products` shop ON db.Products_FromID = shop.Products_ID WHERE shop.Products_ID>0";
+// $field = 'shop.Products_ID, shop.Products_Name, shop.Products_PriceY, shop.Products_PriceX, shop.Products_JSON, shop.Products_JSON,shop.Products_Count, shop.Products_Sales, shop.commission_ratio, db.Products_FromID AS pid, db.state, db.istop';
+// if ($sortby == 'commission') {
+//     $field .=",convert((Products_PriceX - Products_PriceS) * platForm_Income_Reward / 100 * commission_ratio /100, decimal(10,2)) AS commission";
+//     $sortbyField = "commission";
+// }
+
+//$sql = "SELECT $field FROM `shop_dist_product_db` db LEFT JOIN `shop_products` shop ON db.Products_FromID = shop.Products_ID WHERE shop.Products_ID>0";
 //商城配置，查看是否允许分销所有商品信息
-$shop_config = shop_config($UsersID);
-if ($shop_config['allowDistributeB2c'] == 1) {
-    //不允许分销所有商品的信息，只能分销自己商城的产品
-    $map[] = "shop.Users_ID='" . $UsersID . "'";
-}
+// $shop_config = shop_config($UsersID);
+// if ($shop_config[' '] == 1) {
+//     //不允许分销所有商品的信息，只能分销自己商城的产品
+//     $map[] = "shop.Users_ID='" . $UsersID . "'";
+// }
 
 //下架的商品
-if ($state == 1) {
-    $map[] = "db.state = 1";
-}
+// if ($state == 1) {
+//     $map[] = "db.state = 1";
+// }
 
-if (isset($_GET['total'])) {
-    $total = (int)$_GET['total'];
-    if ($total < 0) {
-        $total = 0;
-    }
-} else {
-    $sqlTotal = "SELECT COUNT(*) AS total FROM `shop_products` shop LEFT JOIN `shop_dist_product_db` db ON shop.Products_ID = db.Products_FromID WHERE shop.Products_FromID>0";
+// if (isset($_GET['total'])) {
+//     $total = (int)$_GET['total'];
+//     if ($total < 0) {
+//         $total = 0;
+//     }
+// } else {
+//     $sqlTotal = "SELECT COUNT(*) AS total FROM `shop_products` shop LEFT JOIN `shop_dist_product_db` db ON shop.Products_ID = db.Products_FromID WHERE shop.Products_FromID>0";
 
-    if (count($map) > 0) {
-        $sqlTotal .= " AND " . implode(' AND ', $map);    
-    }
+//     if (count($map) > 0) {
+//         $sqlTotal .= " AND " . implode(' AND ', $map);    
+//     }
     
 
-   $DB->query($sqlTotal);
-   $ret = $DB->fetch_assoc();
+//    $DB->query($sqlTotal);
+//    $ret = $DB->fetch_assoc();
   
-   $total = $ret['total'];
-}
+//    $total = $ret['total'];
+// }
 
 //分页
 $page = new page();
@@ -165,21 +168,23 @@ $page->setvar([
         'sortby' => $sortby,
         'sortMethod' => $sortMethod,
         'search' => 1,
-        'state' => $state,
+        //'state' => $state,
     ]
 );
 $page->set($pageSize, $total, $p);
 
-if (count($map) > 0) {
-    $sql .= " AND " . implode(' AND ', $map);    
-}
-if ($sortbyField == 'Products_FromID') $sortbyField = 'db.Products_FromID';
-$sql .= " ORDER BY " . $sortbyField . " " . ($sortMethod == 'asc' ? 'desc' : 'asc');
-$sql .= " LIMIT " . $page->limit();
+// if (count($map) > 0) {
+//     $sql .= " AND " . implode(' AND ', $map);    
+// }
+// if ($sortbyField == 'Products_FromID') $sortbyField = 'db.Products_FromID';
+// $sql .= " ORDER BY " . $sortbyField . " " . ($sortMethod == 'asc' ? 'desc' : 'asc');
+// $sql .= " LIMIT " . $page->limit();
+
+// $infolist = [];
+// $DB->query($sql);
 
 $infolist = [];
-$DB->query($sql);
-while ($row = $DB->fetch_assoc()) {
+foreach ($products as $row) {
     $img = json_decode($row['Products_JSON'], true);
     $row['thumb'] = $img['ImgPath'][0];
     unset($row['Products_JSON']);
@@ -214,16 +219,19 @@ if (isset($_POST['ajax']) && $_POST['ajax'] == 1) {
 <script type="text/javascript" src="../static/js/jquery-1.7.2.min.js"></script>
 <script type="text/javascript" src="../static/js/template.js"></script>
 <script type='text/javascript' src='../static/js/plugin/layer_mobile/layer.js'></script>
-
+<style>
+.row{line-height:20px;}
+a.preview p, a.delete p{display:inline}
+</style>
 <body>
 <div class="w">
 <!-- topnav -->
 	<div style="text-align:center; line-height:30px; background:#fff; padding:5px 0">
     	<span class="l"><a><img src="../static/user/images/gdx.png" width="30" height="30" style=""></a></span>商品管理
     </div>
-    <div class="clear"></div>
 <!-- //topnav -->    
 	<!--header -->
+    <!--
 <div class="header">
     	<ul>
         	<li><a href="?act=products">
@@ -240,10 +248,12 @@ if (isset($_POST['ajax']) && $_POST['ajax'] == 1) {
             </a></li>
         </ul>
     </div>    
-    <!--//header -->
-    
     <div class="clear"></div>
+-->      
+    <!--//header -->
+
 <!-- filter -->
+<!--
     <div class="sorting">
     	<ul>
         	<li><a id="normal" href="javascript:;" data-sortby="normal" data-sortMethod="<?php 
@@ -272,7 +282,9 @@ if (isset($_POST['ajax']) && $_POST['ajax'] == 1) {
 			} ;?>"" >利润&nbsp;<i class="fa  fa-caret-up fa-x" aria-hidden="true"></i></a></li>
         </ul> 
     </div>
-    <div class="clear"></div>
+   
+-->
+ <div class="clear"></div>    
 <input type="hidden" name="sortby" id="sortby" value='normal'>
 <input type="hidden" name="sortMethod" id="sortMethod" value='desc'>
 <script type="text/javascript">
@@ -312,7 +324,7 @@ if (count($infolist) > 0)        	 {
 ?>
         <!-- li -->
 		<li>
-            	<div style=" border-bottom:1px #eee solid; overflow:hidden;">
+            	<div style=" border-bottom:1px #eee solid; overflow:hidden;min-height:110px;">
                 	<a><span class="imgs l"><img src="<?php echo $product['thumb'];?>" width="90" height="90"></span>
                     <span class="main l">
                         <p><?php echo $product['Products_Name'];?> <?php echo $product['Products_ID'];?></p>
@@ -320,42 +332,34 @@ if (count($infolist) > 0)        	 {
                         <span class="r" style="line-height:25px;">佣金<sss style="color:#ff5000; font-size:16px;">￥<?php echo ($product['Products_PriceY'] - $product['Products_PriceX'])?><sss/></span>
                         <div class="clear"></div>
                         <span class="l">已售<?php echo $product['Products_Sales'];?></span>
-                        <span class="r">
-<?php
-if (isset($product['Products_DistPersonCount'])) {
-	echo $product['Products_DistPersonCount'] . '人在售';
-}
-?>
-                       </span>
-                        <div class="clear"></div>
-                        <span class="l">库存:<?php echo $product['Products_Count'];?></span>
-                        <span class="r" style="color:#ff5000"><i class="fa  fa-play-circle fa-x" aria-hidden="true"></i></span>
+                        <span class="r">库存:<?php echo $product['Products_Count'];?></span>
+                        
                     </span></a>
                 </div>
             	<div class="clear"></div>
-                <div class="">
+                <div class="row">
                 	<ul>
                     	<li><a class="preview">
                             <i class="fa  fa-eye fa-x" aria-hidden="true" style="font-size:16px;"></i>
                             <p>预览</p>
                         </a></li>
-                        <li>
+                        <li><!--
 <?php
-if ($product['state'] == 1) {
+if (isset($product['state']) && $product['state'] == 1) {
 ?>
 <a class="shop shopdown" data-state="shopdown" data-product-id="<?php echo $product['Products_ID'];?>">
-    <i class="fa  fa-download fa-x" aria-hidden="true" style="font-size:16px;"></i><p>下架</p>
+    <i class="fa fa-download fa-x" aria-hidden="true" style="font-size:16px;"></i><p>下架</p>
 </a>
 <?php
 } else {
 ?>
 <a class="shop shopup" data-state="shopup" data-product-id="<?php echo $product['Products_ID'];?>">
-    <i class="fa  fa-download fa-x" aria-hidden="true" style="font-size:16px;"></i><p>上架</p>
+    <i class="fa fa-download fa-x" aria-hidden="true" style="font-size:16px;"></i><p>上架</p>
 </a>
 <?php
 }
 ?>
-
+-->
                         </li>
                         <li><a class="delete" data-product-id="<?php echo $product['Products_ID'];?>">
                             <i class="fa  fa-trash-o fa-x" aria-hidden="true" style="font-size:16px;"></i>
@@ -363,23 +367,7 @@ if ($product['state'] == 1) {
                         </a></li>
 
                         <li>
-
-
-                        <a class="top"  data-state="<?php echo $product['istop'];?>" data-product-id="<?php echo $product['Products_ID'];?>">
-                            <i class="fa  fa-upload fa-x" aria-hidden="true" style="font-size:16px;"></i>
-                            <p>
-<?php
-if ($product['istop'] == 1) {
-    echo '取消';
-} else {
-    echo '置顶';
-}
-?></p>
-                        </a>
-
-
-
-
+                       
                         </li>
 
                     </ul>                      
@@ -409,31 +397,26 @@ if ($product['istop'] == 1) {
                         <span class="r" style="line-height:25px;">佣金<sss style="color:#ff5000; font-size:16px;">￥{{product.Products_PriceY - product.Products_PriceX}}<sss/></span>
                         <div class="clear"></div>
                         <span class="l">已售{{product.Products_Sales}}</span>
-                        <span class="r">500人在售</span>
-                        <div class="clear"></div>
-                        <span class="l">库存:{{product.Products_Count}}</span>
-                        <span class="r" style="color:#ff5000"><i class="fa  fa-play-circle fa-x" aria-hidden="true"></i></span>
+                        <span class="r">库存:{{product.Products_Count}}</span>
+                        
                     </span></a>
                 </div>
             	<div class="clear"></div>
-                <div class="">
+                <div class="row">
                 	<ul>
                     	<li><a class="preview">
                             <i class="fa  fa-eye fa-x" aria-hidden="true" style="font-size:16px;"></i>
                             <p>预览</p>
                         </a></li>
-                        <li><a class="shop {{if (product.state == 1)}}shopdown{{else}}shopup{{/if}}"  data-state="{{if (product.state == 1)}}shopdown{{else}}shopup{{/if}}" data-product-id="{{product.Products_ID}}">
+                        <li><!--<a class="shop {{if (product.state == 1)}}shopdown{{else}}shopup{{/if}}"  data-state="{{if (product.state == 1)}}shopdown{{else}}shopup{{/if}}" data-product-id="{{product.Products_ID}}">
                             <i class="fa  fa-download fa-x" aria-hidden="true" style="font-size:16px;"></i>
                             <p>{{if (product.state == 1)}}下架{{else}}上架{{/if}}</p>
-                        </a></li>
+                        </a>--></li>
                         <li><a class="delete" data-product-id="{{product.Products_ID}}">
                             <i class="fa  fa-trash-o fa-x" aria-hidden="true" style="font-size:16px;"></i>
                             <p>删除</p>
                         </a></li>
-                        <li><a class="top"  data-state="{{product.state}}" data-product-id="{{product.Products_ID}}">
-                            <i class="fa  fa-upload fa-x" aria-hidden="true" style="font-size:16px;"></i>
-                            <p>{{if product.state == 1}}取消{{else}}置顶{{/if}}</p>
-                        </a></li>
+                        <li></li>
                     </ul>                    
                 </div>
                 <div class="clear"></div>
@@ -457,11 +440,18 @@ if ($return['page']['hasNextPage'] == 'true') {
 $(function(){
 	//加载更多
 	$("#pagemore a").click(function(){
+        var totalPage = <?php echo $totalPage;?>;
         var state = "<?php echo $state;?>"
 		var sortby = '<?php echo $sortby?>';
 		var sortMethod = '<?php echo $sortMethod?>';
 		var pageno = $(this).attr('data-next-pageno');
 		var url = 'admin.php?act=products&state=' + state + '&sortby=' + sortby + "&sortMethod=" + sortMethod + '&p=' + pageno;
+
+        var nextPageno = parseInt(pageno);
+        if (nextPageno > totalPage) {
+            $("#pagemore").html('已经没有了...');
+            return true;
+        }
 
 		$.post(url, {ajax: 1}, function(json){
             if (parseInt(json.page.pagesize) > 0) {
@@ -469,7 +459,7 @@ $(function(){
                 $("ul.productList").append(html);
             }
 			if (json.page.hasNextPage == 'true') {
-				$("#pagemore a").attr('data-next-pageno', parseInt(pageno) + 1);
+				$("#pagemore a").attr('data-next-pageno', nextPageno + 1);
 			} else {
 				$("#pagemore").html('已经没有了...');
 			}
@@ -501,7 +491,6 @@ $(function(){
                     time: 1
                 });  
             }
-            
         },'json')
 	})
 
@@ -510,9 +499,10 @@ $(function(){
         var pid = $(this).attr("data-product-id");
         var tr = $(this).parent().parent().parent().parent();
         $.post(url,{do:'delete', pid:pid}, function(json){
-              if (json.affectRows == '0')  {
+
+              if (json.affectRows.errorCode != '0')  {
                   layer.open({
-                      content: '删除失败',
+                      content: json.affectRows.msg,
                       time: 1
                   });
               } else {
