@@ -232,7 +232,7 @@ input[type=button], input[type=submit], input[type=file], button { cursor: point
 /*我的分类*/
 .cate_list{}
 .cate_list ul{}
-.cate_list ul li{ background:#fff; overflow:hidden; margin:5px 0; padding:10px; line-height:20px; color:#333;}
+.cate_list ul li{ background:#fff; overflow:hidden; margin:5px 0; padding:10px; line-height:20px; color:#333; text-align:left}
 .cate_list ul li span p{ color:#666; height:20px; overflow:hidden}
 .cate_list ul li span h1{ color:#333; height:20px; overflow:hidden; line-height:20px; font-size:14px}
 .cate_list ul li span.title_x{ width:70%; height:40px;}
@@ -311,6 +311,71 @@ input[type=button], input[type=submit], input[type=file], button { cursor: point
 
 
 
+
+/*分销管理*/
+.list_table{ background:#fff; overflow:hidden;margin-top:5px;padding:5px 0}
+.list_table input{ margin:5px auto}
+table{
+    table-layout:fixed;
+    empty-cells:show;
+    border-collapse: collapse;
+    margin:0 auto;
+
+}
+td{
+    height:35px;
+}
+.table{
+    border:1px solid #cad9ea;
+    color:#666;
+}
+.table th {
+    height:30px;
+    border:1px solid #cad9ea;
+    padding:0 1em 0;
+    width:35%
+}
+.table td{
+    border:1px solid #cad9ea;
+    padding:0 1em 0;
+    width:65%
+}
+.table td a{ color:#ff5500}
+
+/*会员管理*/
+
+.table_x{
+    color:#666;
+}
+.table_x th {
+    height:30px;
+    width:30% ;
+    text-align:right;
+    padding-right:0.8em
+}
+.table_x td{
+    padding:0 0.5em 0;
+    width:70%
+}
+.table_x td a{ color:#ff5500}
+.user_input{ border:1px #ddd solid; height:30px; line-height:30px; width:100%; text-indent:0.5em;}
+
+/*发布产品*/
+.name_pro{background:#fff; overflow:hidden;margin-top:5px;padding:5px 0}
+.name_pro input{ width:100%; border:none; line-height:40px; text-indent:1em; color:#666;}
+.name_pro div.img_add{ border:1px #999 dashed; width:46px; height:46px; margin-left:15px; text-align:center;}
+.name_pro div.img_add a{ font-size:35px; color:#999;}
+.name_pro p{ color:#999; margin-left:1em; line-height:35px}
+.table_x td select{
+	text-indent:0.5em;
+    width:100%;
+	height:30px;
+	 border:1px #ddd solid; 
+}
+.but_lab input{ height:15px; margin:10px 0; width:30px}
+.but_lab ul li{ text-align:left}
+.pro_foot{ line-height:35px; text-align:center; width:94%; background:#ff5500; margin:5px auto}
+.pro_foot a{color:#fff;}
 
 
 

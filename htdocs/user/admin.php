@@ -21,6 +21,9 @@ $actionArr = [
 	'learn',
 	'web',
 	'setting',
+	'user_list',
+	'user_detail',
+	'product_add'
 ];
 
 if (! in_array($act, $actionArr)) {
