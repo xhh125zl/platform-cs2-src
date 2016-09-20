@@ -57,12 +57,12 @@ $From_arr = ['微信','注册','PC', 'QQ'];
                 <th>注册时间：</th>
                 <td><input type="text" class="user_input" value="<?=date("Y-m-d H:i:s",$rsUser['User_CreateTime'])?>" readonly></td>
             </tr>
-            <tr>
+            <tr style="display: none;">
                 <th>修改密码：</th>
                 <td><input type="text" class="user_input" value=""></td>
             </tr>
         </table>
-        <input type="button" value="保存" class="up_xx" >
+        <input type="button" value="保存" class="up_xx" style="display: none;">
     </div>
 </div>
 </body>
