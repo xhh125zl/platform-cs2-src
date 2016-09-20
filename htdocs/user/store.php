@@ -73,7 +73,7 @@
                 <a><img src="../static/user/images/ico_02.png" width="25" height="25"><p>我的会员</p></a>
             </li>
             <li>
-                <a><img src="../static/user/images/ico_04.png" width="25" height="25"><p>店铺配置</p></a>
+                <a href='?act=setting'><img src="../static/user/images/ico_04.png" width="25" height="25"><p>店铺配置</p></a>
             </li>
             <li>
                 <a><img src="../static/user/images/ico_01.png" width="25" height="25"><p>分销管理</p></a>
@@ -85,10 +85,10 @@
                 <a><img src="../static/user/images/ico_03.png" width="25" height="25"><p>财务分析</p></a>
             </li>
             <li>
-                <a><img src="../static/user/images/ico_08.png" width="25" height="25"><p>学习中心</p></a>
+                <a href='?act=learn'><img src="../static/user/images/ico_08.png" width="25" height="25"><p>学习中心</p></a>
             </li>
             <li>
-                <a><img src="../static/user/images/ico_05.png" width="25" height="25"><p>网页版</p></a>
+                <a href='?act=web'><img src="../static/user/images/ico_05.png" width="25" height="25"><p>网页版</p></a>
             </li>
         </ul>
     </div>
