@@ -11,6 +11,63 @@
 <link href="../static/user/css/layer.css" type="text/css" rel="stylesheet">
 <script type="text/javascript" src="../static/user/js/jquery-1.8.3.min.js"></script>
 <script type="text/javascript" src="../static/user/js/layer.js"></script>
+<script  type="text/javascript"  src="../static/user/js/jquery.uploadView.js"></script>
+<style type="text/css">
+    .btn-upload {width: 43px;height: 43px;position: relative; float: left; border:1px #999 dashed; margin-left: 10px; }
+    .btn-upload a {display: block;width: 43px;line-height: 43px;text-align: center;color: #4c4c4c;background: #fff;}
+    .btn-upload input {width: 43px;height: 43px;position: absolute;left: 0px;top: 0px;z-index: 1;filter: alpha(opacity=0);-moz-opacity: 0;opacity: 0;cursor: pointer;}
+    .deleted{cursor: pointer;width: 4px;display: block;height: 20px;line-height: 20px;text-align: center;position: relative;background: #000;color: #fff;font-size: 12px;filter: alpha(opacity=50);-moz-opacity: 0.5;-khtml-opacity: 0.5;opacity: 0.5;margin-top: -20px;}
+</style>
+<script type="text/javascript">
+    $(function(){
+        $(".js_upFile").uploadView({
+            uploadBox: '.js_uploadBox',//设置上传框容器
+            showBox : '.js_showBox',//设置显示预览图片的容器
+            width : 43, //预览图片的宽度，单位px
+            height : 43, //预览图片的高度，单位px
+            allowType: ["gif", "jpeg", "jpg", "bmp", "png"], //允许上传图片的类型
+            maxSize :10, //允许上传图片的最大尺寸，单位M
+            success:function(e){
+                $.ajax({
+                    type:"POST",
+                    url:"lib/upload.php",
+                    data:{"act":"uploadFile", "data":$("#image_files").val()},
+                    dataType:"json",
+                    success:function(data){
+                        if (data.errorCode == 0) {
+                            if ($("input[name=image_path]").val().length == 0) {
+                                $("input[name=image_path]").val(data.msg);
+                            } else {
+                                $("input[name=image_path]").val($("input[name=image_path]").val() + ',' + data.msg);
+                            }
+                        } else {
+                            alert(data.msg);
+                        }
+                    }
+                });
+            }
+        });
+        $(document).on('click', '.deleted', function(){
+            var me = $(this);
+            if( confirm('确定删除吗?') ){
+                $.ajax({
+                    type:"POST",
+                    url:"lib/upload.php",
+                    data:{"act":"delImg", "index":$(this).parent().index(),"image_path":$("input[name=image_path]").val()},
+                    dataType:"json",
+                    success:function(data) {
+                        if (data.errorCode == 0) {
+                            $("input[name=image_path]").val(data.msg);
+                            me.parent().remove();
+                        } else {
+                            alert(data.msg);
+                        }
+                    }
+                });
+            }
+        });
+    })
+</script>
 <body>
 <div class="w">
     <div class="back_x">
@@ -19,16 +76,25 @@
     <div class="name_pro">
         <input type="text" value="" placeholder="请输入商品名称">
         <div class="img_add">
-            <a href="#">+</a>
+            <div class="js_uploadBox">
+                <div class="js_showBox"></div>
+                <div class="btn-upload">
+                    <a href="javascript:void(0);">+</a>
+                    <input class="js_upFile" type="file" name="cover">
+                </div>
+                <!--image_files显示base64编码过的字符串,image_path存放所有的图片路径-->
+                <input type="hidden" id="image_files" value="">
+                <input type="hidden" name="image_path" value=""/>
+            </div>
         </div>
         <p>商品封面（最少一张，最多三张）</p>
     </div>
     <div class="name_pro">
-        <input type="text" value="" placeholder="请输入商品描述">
-        <div class="img_add">
-            <a href="#">+</a>
+        <textarea style="width: 100%;height: 100px;line-height: 25px;border: none" placeholder="请输入商品描述信息"></textarea>
+        <!--<div class="img_add">
+            <!--这里写配图的一些代码--
         </div>
-        <p>配图（最多10张）</p>
+        <p>配图（最多6张）</p>-->
     </div>
     <div class="list_table">
         <table width="96%" class="table_x">
@@ -75,18 +141,15 @@
             </tr>
             <tr>
                 <th>是否置顶：</th>
-                <td><i class="fa  fa-toggle-off fa-x" aria-hidden="true" style="font-size:20px; float:right"></i></td>
-                <td style="display:none"><i class="fa  fa-toggle-on fa-x" aria-hidden="true" style="font-size:20px; float:right; color:#ff5500"></i></td>
+                <td><input class="toggle-switch" type="checkbox" checked=""></td>
             </tr>
             <tr>
                 <th>是否推荐：</th>
-                <td><i class="fa  fa-toggle-off fa-x" aria-hidden="true" style="font-size:20px; float:right"></i></td>
-                <td style="display:none"><i class="fa  fa-toggle-on fa-x" aria-hidden="true" style="font-size:20px; float:right; color:#ff5500"></i></td>
+                <td><input class="toggle-switch" type="checkbox" checked=""></td>
             </tr>
             <tr>
                 <th>是否新品：</th>
-                <td><i class="fa  fa-toggle-off fa-x" aria-hidden="true" style="font-size:20px; float:right"></i></td>
-                <td style="display:none"><i class="fa  fa-toggle-on fa-x" aria-hidden="true" style="font-size:20px; float:right; color:#ff5500"></i></td>
+                <td><input class="toggle-switch" type="checkbox" checked=""></td>
             </tr>
         </table>
     </div>
