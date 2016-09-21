@@ -224,7 +224,7 @@ input[type=button], input[type=submit], input[type=file], button { cursor: point
 /*店铺配置*/
 .shop_list{}
 .shop_list ul{ margin-top:5px}
-.shop_list ul li{ background:#fff; overflow:hidden; margin-bottom:5px; padding:5px; line-height:35px;}
+.shop_list ul li{ background:#fff; overflow:hidden; margin-bottom:5px; padding:5px; line-height:35px; color:#666}
 .shop_list ul li a p{ color:#999}
 .shop_list ul li a span span{ color:#999; padding-left:10px; font-size:12px}
 .shop_list ul li a span i{ color:#999; padding-right:15px}
@@ -378,7 +378,62 @@ td{
 .pro_foot a{color:#fff;}
 
 
+/* 筛选项开关 */
+.toggle-switch {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	position: relative;
+	width: 48px;
+	height: 28px;
+	border: 1px solid #dfdfdf;
+	outline: 0;
+	border-radius: 16px;
+	box-sizing: border-box;
+	background: #dfdfdf;
+	float:right
+}
 
+.toggle-switch:before {
+	width: 46px;
+	background-color: #fdfdfd
+}
+
+.toggle-switch:after,.toggle-switch:before {
+	content: " ";
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 26px;
+	border-radius: 15px;
+	-webkit-transition: -webkit-transform .3s;
+	transition: -webkit-transform .3s;
+	transition: transform .3s;
+	transition: transform .3s,-webkit-transform .3s
+}
+
+.toggle-switch:after {
+	width: 26px;
+	background-color: #fff;
+	box-shadow: 0 1px 3px rgba(0,0,0,.4)
+}
+
+.toggle-switch:checked {
+	border-color: #04be02;
+	background-color: #04be02
+}
+
+.toggle-switch:checked:before {
+	-webkit-transform: scale(0);
+	-ms-transform: scale(0);
+	transform: scale(0)
+}
+
+.toggle-switch:checked:after {
+	-webkit-transform: translateX(20px);
+	-ms-transform: translateX(20px);
+	transform: translateX(20px)
+}
 
 
 

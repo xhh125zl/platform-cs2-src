@@ -56,10 +56,10 @@
     <div class="product_x">
         <ul>
             <li style="border-right:1px #eee solid;">
-                <a><i class="fa  fa-plus-square fa-x" aria-hidden="true"></i>&nbsp;产品发布</a>
+                <a href='?act=product_add'><i class="fa  fa-plus-square fa-x" aria-hidden="true"></i>&nbsp;产品发布</a>
             </li>
             <li>
-                <a><i class="fa  fa-check-square fa-x" aria-hidden="true"></i>&nbsp;产品管理</a>
+                <a href='?act=products'><i class="fa  fa-check-square fa-x" aria-hidden="true"></i>&nbsp;产品管理</a>
             </li>
         </ul>
     </div>
@@ -67,10 +67,10 @@
     <div class="plate_x">
         <ul class="list_x">
             <li>
-                <a><img src="../static/user/images/ico_07.png" width="25" height="25"><p>订单管理</p></a>
+                <a href='?act=order_list'><img src="../static/user/images/ico_07.png" width="25" height="25"><p>订单管理</p></a>
             </li>
             <li>
-                <a><img src="../static/user/images/ico_02.png" width="25" height="25"><p>我的会员</p></a>
+                <a href='?act=user_list'><img src="../static/user/images/ico_02.png" width="25" height="25"><p>我的会员</p></a>
             </li>
             <li>
                 <a href='?act=setting'><img src="../static/user/images/ico_04.png" width="25" height="25"><p>店铺配置</p></a>
