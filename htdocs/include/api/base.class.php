@@ -6,7 +6,7 @@
 
 class base
 {
-	static protected $apiUrl = 'http://api.localhost/api/';
+	static protected $apiUrl = 'http://if.wzw.com/api/';
 	static protected $apiVersion = 'v1';
 	
 	public function __construct()

@@ -49,22 +49,27 @@
         });
         $(document).on('click', '.deleted', function(){
             var me = $(this);
-            if( confirm('确定删除吗?') ){
-                $.ajax({
-                    type:"POST",
-                    url:"lib/upload.php",
-                    data:{"act":"delImg", "index":$(this).parent().index(),"image_path":$("input[name=image_path]").val()},
-                    dataType:"json",
-                    success:function(data) {
-                        if (data.errorCode == 0) {
-                            $("input[name=image_path]").val(data.msg);
-                            me.parent().remove();
-                        } else {
-                            alert(data.msg);
+            layer.open({
+                content: '确定删除吗?',
+                btn: ['确定', '取消'],
+                yes: function(){
+                    layer.closeAll();
+                    $.ajax({
+                        type:"POST",
+                        url:"lib/upload.php",
+                        data:{"act":"delImg", "index":me.parent().index(),"image_path":$("input[name=image_path]").val()},
+                        dataType:"json",
+                        success:function(data) {
+                            if (data.errorCode == 0) {
+                                $("input[name=image_path]").val(data.msg);
+                                me.parent().remove();
+                            } else {
+                                alert(data.msg);
+                            }
                         }
-                    }
-                });
-            }
+                    });
+                }
+            });
         });
     })
 </script>
