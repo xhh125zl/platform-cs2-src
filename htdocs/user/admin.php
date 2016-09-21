@@ -19,6 +19,8 @@ $actionArr = [
 	'order_list',
 	'store',
 	'learn',
+	'learn_list',
+	'learn_detail',
 	'web',
 	'setting',
 	'user_list',

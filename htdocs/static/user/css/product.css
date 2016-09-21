@@ -214,6 +214,12 @@ input[type=button], input[type=submit], input[type=file], button { cursor: point
 .learn_list ul{ margin-top:5px}
 .learn_list ul li{ background:#fff; overflow:hidden; margin-bottom:5px; padding:5px; line-height:25px; height:50px}
 .learn_list ul li a p{ color:#999}
+.learn_ll{ margin-bottom:30px; overflow:hidden; margin-top:5px}
+.learn_ll p{ line-height:50px; color:#333; font-size:16px; text-indent:1em;}
+.learn_ll ul{ background:#fff; overflow:hidden}
+.learn_ll ul li{ line-height:20px; border-left:2px solid #ff5500; margin:12px 0;}
+.learn_ll ul li a span.learn_number{ text-indent:2em; color:#666}
+.learn_ll ul li a span.learn_title{ margin-left:15px; width:80%; color:#666}
 
 /*网页版*/
 .logo_name{ background:#fff; margin-top:5px; overflow:hidden; text-align:center; line-height:20px; padding:10px;}

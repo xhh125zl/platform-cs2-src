@@ -37,13 +37,13 @@ class product extends base
 
     /**
      * 删除产品
-     * @param  array $productId [description]
+     * @param  array $data ['Products_ID' => $Products_ID, 'BizAccount' => $BizAccount]
      * @return array            [description]
      */
-    static public function delete($productId)
+    static public function delete($data)
     {
-    	$url = '/product/del.html';
-    	$result = self::request($url, 'post', $productId);
+        $url = '/product/delgoodsfrom401.html';
+        $result = self::request($url, 'post', $data);
 
     	return $result;	
     }
@@ -179,5 +179,6 @@ class product extends base
 
         return $result;
     }
+
 
 }
