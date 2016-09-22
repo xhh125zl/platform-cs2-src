@@ -19,6 +19,22 @@
     .deleted{cursor: pointer;width: 45px;display: block;height: 20px;line-height: 20px;text-align: center;position: relative;background: #000;color: #fff;font-size: 12px;filter: alpha(opacity=50);-moz-opacity: 0.5;-khtml-opacity: 0.5;opacity: 0.5;margin-top: -20px;}
 </style>
 <script type="text/javascript">
+    //检测是否为空
+    function check_null(input) {
+        var self_attr = input.attr('style');
+        var add_attr = ";border:1px solid red;";
+        if($.trim(input.val()) == '') {
+            input.attr('style', self_attr+add_attr);
+            input.focus();
+            return false;
+        } else {
+            if(self_attr != undefined) {
+                self_attr = self_attr.replace(add_attr, '');
+            }
+            input.attr('style', self_attr);
+            return true;
+        }
+    }
     $(function(){
         //判断图片上传的张数
         $('#add_img').click(function(){
@@ -97,9 +113,10 @@
             
         //上架商品  提交数据 并验证
         $('.pro_foot').on('click',function(){
+            var tag = false;
             var productData = {
                 'Products_Name' : $.trim($('input[name="Products_Name"]').val()),      //商品名称
-                'Products_JSON' : $('input[name="image_path"]').val(),      //商品封面图片的路径集
+                'Products_JSON' : $.trim($('input[name="image_path"]').val()),      //商品封面图片的路径集
                 'Products_BriefDescription' : $.trim($('textarea[name="BriefDescription"]').val()),     //商品描述
                 'Products_PriceY' : $.trim($('input[name="PriceY"]').val()),      //商品原价
                 'Products_PriceX' : $.trim($('input[name="PriceX"]').val()),      //商品现价
@@ -116,40 +133,51 @@
                 'Products_IsNew' : $('input[name="IsNew"]:checked').val() == 'on' ? 1 : 0    //是否为新品
             };
             //商品名称非空判断
-            var Products_Name = $('input[name="Products_Name"]');
-            if(productData.Products_Name == '') {
-                Products_Name.attr('style', 'border:1px solid red;');
-                Products_Name.focus();
+            if (!check_null($('input[name="Products_Name"]'))) {
                 return false;
-            } else {
-                Products_Name.attr('style', '');
             }
+            //商品图片非空判断
+            //check_null($('input[name="image_path"]'));
             //判断是否有图片
             if(($('.js_showBox div').length < 1) || (productData.Products_JSON == '')) {
-                layer.open({
-                    content: '最少上传一张图片',
-                });
+                $('#add_img').attr('style', 'border: 1px solid red;');
                 return false;
+            } else {
+                $('#add_img').removeAttr('style');
+            }
+            //商品描述非空判断
+            if (!check_null($('textarea[name="BriefDescription"]'))) {
+                return  false;
             }
 
+            
+            if (!check_null($('input[name="PriceY"]'))) {
+                return false;
+            }
+            if (!check_null($('input[name="PriceX"]'))) {
+                return false;
+            }
+            
+            //选择推荐  判断填写供货价
+            var PriceS = $('input[name="PriceS"]');
+            if(productData.is_Tj == 'on') {
+                if (!check_null($('input[name="PriceS"]'))) {
+                    return false;
+                }
+                /*if(productData.Products_PriceS == '') {
+                    PriceS.attr('style', 'border:1px solid red;');
+                    PriceS.focus();
+                    return false;
+                }*/
+            } else {
+                PriceS.attr('style', '');
+                productData.Products_PriceS = 0;
+            }
             //判断是否选择分类
             if(productData.firstCate == '' || productData.secondCate == '') {
                 $('#test2').attr('style', 'border:1px solid red;');
                 return false;
             }
-            //选择推荐  判断填写供货价
-            var PriceS = $('input[name="PriceS"]');
-            if(productData.is_Tj == 'on') {
-                if(productData.Products_PriceS == '') {
-                    PriceS.attr('style', 'border:1px solid red;');
-                    PriceS.focus();
-                    return false;
-                }
-            } else {
-                PriceS.attr('style', '');
-                productData.Products_PriceS = 0;
-            }
-            
             //数据提交
             $.ajax({
                 type:"POST",
@@ -194,7 +222,7 @@
         <p>商品封面（最少一张，最多三张）</p>
     </div>
     <div class="name_pro">
-        <textarea name="BriefDescription" style="width: 100%;height: 100px;line-height: 25px;border: none" placeholder="请输入商品描述信息"></textarea>
+        <textarea name="BriefDescription" style="width: 100%;height: 100px;line-height: 25px;border: none;" placeholder="请输入商品描述信息"></textarea>
         <!--<div class="img_add">
             <!--这里写配图的一些代码--
         </div>
@@ -204,31 +232,31 @@
         <table width="96%" class="table_x">
             <tr>
                 <th>原价（￥）：</th>
-                <td><input type="text" name="PriceY" class="user_input" value="" placeholder="请输入商品原价"></td>
+                <td><input type="number" name="PriceY" class="user_input" value="" placeholder="请输入商品原价"></td>
             </tr>
             <tr>
                 <th>现价（￥）：</th>
-                <td><input type="text" name="PriceX" class="user_input" value="" placeholder="请输入商品现价"></td>
+                <td><input type="number" name="PriceX" class="user_input" value="" placeholder="请输入商品现价"></td>
             </tr>
             <tr>
-                <th>是否推荐到批发商城：</th>
+                <th>是否推荐&nbsp;&nbsp;&nbsp;<br/>到批发商城：</th>
                 <td><input class="toggle-switch" type="checkbox" name="is_Tj" checked=""></td>
             </tr>
             <tr class="is_Tj" style="">
                 <th>供货价(￥)：</th>
-                <td><input type="text" name="PriceS" class="user_input" value="" placeholder="请输入商品供货价"></td>
+                <td><input type="number" name="PriceS" class="user_input" value="" placeholder="请输入商品供货价"></td>
             </tr>
             <tr>
                 <th>库存（件）：</th>
-                <td><input type="text" name="count" class="user_input" value="" placeholder="请输入商品库存"></td>
+                <td><input type="number" name="count" class="user_input" value="" placeholder="请输入商品库存"></td>
             </tr>
             <tr>
                 <th>产品利润：</th>
-                <td><input type="text" name="Products_Profit" class="user_input" value="" placeholder="佣金将按照产品利润发放" /></td>
+                <td><input type="number" name="Products_Profit" class="user_input" value="" placeholder="佣金将按照产品利润发放" /></td>
             </tr>
             <tr>
                 <th>产品重量：</th>
-                <td><input type="text" name="Products_Weight" class="user_input" value="" placeholder="产品重量,单位为kg" /> </td>
+                <td><input type="number" name="Products_Weight" class="user_input" value="" placeholder="产品重量,单位为kg" /> </td>
             </tr>
             <tr>
                 <th>选择运费：</th>
