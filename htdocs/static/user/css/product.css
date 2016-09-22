@@ -240,6 +240,10 @@ input[type=button], input[type=submit], input[type=file], button { cursor: point
 .shop_list ul li a p{ color:#999}
 .shop_list ul li a span span{ color:#999; padding-left:10px; font-size:12px}
 .shop_list ul li a span i{ color:#999; padding-right:15px}
+.box_setting{ background:#fff; overflow:hidden; margin:5px 0; text-align:center}
+.box_setting input{ width:95%; border:none; line-height:35px; padding:5px; color:#333;}
+.sub_setting{ text-align:center; overflow:hidden}
+.sub_setting input{ width:95%; margin:10px auto; background:#ff5500; color:#fff; text-align:center; line-height:40px; border:none; border-radius:5px; font-size:15px;}
 
 /*我的分类*/
 .cate_list{}

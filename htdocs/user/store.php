@@ -3,7 +3,7 @@ if (!defined('USER_PATH')) exit();
 
 require_once CMS_ROOT . '/include/api/product.class.php';
 require_once CMS_ROOT . '/include/api/count.class.php';
-require_once CMS_ROOT . '/include/helper/page.class.php';
+require_once CMS_ROOT . '/include/api/shopconfig.class.php';
 
 $inajax = isset($_GET['inajax']) ? (int)$_GET['inajax'] : 0;
 if ($inajax == 1) {
@@ -19,6 +19,13 @@ if ($inajax == 1) {
 
     exit();
 }
+
+//获取配置信息
+$data = [
+    'Biz_Account' => $BizAccount,
+];
+$result = shopconfig::getConfig($data);
+$config = $result['data'];
 
 
 ?><!doctype html>
@@ -36,8 +43,8 @@ if ($inajax == 1) {
 <body>
 <div class="w">
     <div class="head_bg">
-        <span class="head_pho l"><a><img src="../static/user/images/2p-5_03.png"></a></span>
-        <span class="head_name l"><a>你是我的小苹果</a></span>
+        <span class="head_pho l"><a><img src="<?php echo IMG_SERVER . $config['ShopLogo'];?>"></a></span>
+        <span class="head_name l"><a><?php echo $config['ShopName'];?></a></span>
         <span class="head_pho r"><a><i class="fa  fa-eye fa-x" aria-hidden="true"></i></a></span>
     </div>
     <div  class="clear"></div>
