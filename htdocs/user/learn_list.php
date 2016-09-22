@@ -1,3 +1,17 @@
+<?php
+require_once "config.inc.php";
+$cateid = isset($_GET['id'])?$_GET['id']:0;
+if($cateid){
+    $result = $DB->Get("web_article", "Article_ID,Article_Title,Article_CreateTime", "WHERE Column_ID='{$cateid}'");
+    $rsArticleList = $DB->toArray($result);
+    foreach($rsArticleList as $k => $v){
+        $v['Article_CreateTime'] = date("Y-m-d",$v['Article_CreateTime']);
+        $rsArticleList[$k] = $v;
+    }
+}
+
+?>
+
 
 <!doctype html>
 <html>
@@ -17,24 +31,17 @@
     </div>
     <div class="learn_list">
     	<ul>
+            <?php
+            if(!empty($rsArticleList)){  
+                foreach($rsArticleList as $k => $v){         
+            ?>
         	<li>
-            	<a href='?act=learn_detail'>好好学习，天天向上，好好学习，天天向上<p>2016-08-30</p></a>
+            	<a href='?act=learn_detail&id=<?=$v['Article_ID'] ?>'><?=$v['Article_Title'] ?><p><?=$v['Article_CreateTime'] ?></p></a>
             </li>
-            <li>
-            	<a href='?act=learn_detail'>好好学习，天天向上，好好学习，天天向上<p>2016-08-30</p></a>
-            </li>
-            <li>
-            	<a href='?act=learn_detail'>好好学习，天天向上，好好学习，天天向上<p>2016-08-30</p></a>
-            </li>
-            <li>
-            	<a href='?act=learn_detail'>好好学习，天天向上，好好学习，天天向上<p>2016-08-30</p></a>
-            </li>
-            <li>
-            	<a href='?act=learn_detail'>好好学习，天天向上，好好学习，天天向上<p>2016-08-30</p></a>
-            </li>
-            <li>
-            	<a href='?act=learn_detail'>好好学习，天天向上，好好学习，天天向上<p>2016-08-30</p></a>
-            </li>
+            <?php
+                }
+             } 
+            ?>
         </ul>
     </div>
 </div>
