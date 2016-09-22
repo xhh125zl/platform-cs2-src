@@ -60,10 +60,6 @@ if(!empty($rsConfig1["UserLevel"])){
 
 <body>
 <div class="wrap">
-	<div class="container">
-    <h4 class="row page-title">个人中心</h4>
-    </div>
-    
     <div class="contaienr">
     	<div id="member_header">
   

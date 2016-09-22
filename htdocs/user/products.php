@@ -26,12 +26,13 @@ if (isset($_GET['ajax']) && $_GET['ajax'] == 1) {
         
     } else if ($do == 'delete' && $pid > 0) {
 
-        $productId = ['Products_ID' => $pid];
-        $affectedRows = product::delete($productId);
-
-        $return = [
-            'affectRows' => $affectedRows,
+        $data = [
+            'Biz_Account' => $BizAccount,
+            'Products_ID' => $pid,
         ];
+
+        $return = product::delete($data);
+
     } else if ($do =='top' && $pid > 0) {
         $state =  isset($_POST['state']) ? (int)$_POST['state'] : '0';
         $state = $state == '0' ? 1 : 0;
@@ -107,60 +108,23 @@ if ($p < 1) $p = 1;
 $pageSize = 2;
 $map = [];
 
-$UsersID = 'test2';
+
 $data = [
     'pageSize' => $pageSize,
-    'Biz_Account' => $UsersID,
+    'Biz_Account' => $BizAccount,
 ];
 
 $result = product::getProducts($p, $data);
-if (!isset($result['errorCode'])) {
+
+if ($result['errorCode'] == 1) {
     $total = 0;
     $totalPage = 1;
-    $proudcts = [];
+    $products = [];
 } else {
     $products = $result['productData'];
     $total = $result['totalCount'];
     $totalPage = ceil($result['totalCount'] / $pageSize);
 }
-
-// $field = 'shop.Products_ID, shop.Products_Name, shop.Products_PriceY, shop.Products_PriceX, shop.Products_JSON, shop.Products_JSON,shop.Products_Count, shop.Products_Sales, shop.commission_ratio, db.Products_FromID AS pid, db.state, db.istop';
-// if ($sortby == 'commission') {
-//     $field .=",convert((Products_PriceX - Products_PriceS) * platForm_Income_Reward / 100 * commission_ratio /100, decimal(10,2)) AS commission";
-//     $sortbyField = "commission";
-// }
-
-//$sql = "SELECT $field FROM `shop_dist_product_db` db LEFT JOIN `shop_products` shop ON db.Products_FromID = shop.Products_ID WHERE shop.Products_ID>0";
-//商城配置，查看是否允许分销所有商品信息
-// $shop_config = shop_config($UsersID);
-// if ($shop_config[' '] == 1) {
-//     //不允许分销所有商品的信息，只能分销自己商城的产品
-//     $map[] = "shop.Users_ID='" . $UsersID . "'";
-// }
-
-//下架的商品
-// if ($state == 1) {
-//     $map[] = "db.state = 1";
-// }
-
-// if (isset($_GET['total'])) {
-//     $total = (int)$_GET['total'];
-//     if ($total < 0) {
-//         $total = 0;
-//     }
-// } else {
-//     $sqlTotal = "SELECT COUNT(*) AS total FROM `shop_products` shop LEFT JOIN `shop_dist_product_db` db ON shop.Products_ID = db.Products_FromID WHERE shop.Products_FromID>0";
-
-//     if (count($map) > 0) {
-//         $sqlTotal .= " AND " . implode(' AND ', $map);    
-//     }
-    
-
-//    $DB->query($sqlTotal);
-//    $ret = $DB->fetch_assoc();
-  
-//    $total = $ret['total'];
-// }
 
 //分页
 $page = new page();
@@ -173,22 +137,15 @@ $page->setvar([
 );
 $page->set($pageSize, $total, $p);
 
-// if (count($map) > 0) {
-//     $sql .= " AND " . implode(' AND ', $map);    
-// }
-// if ($sortbyField == 'Products_FromID') $sortbyField = 'db.Products_FromID';
-// $sql .= " ORDER BY " . $sortbyField . " " . ($sortMethod == 'asc' ? 'desc' : 'asc');
-// $sql .= " LIMIT " . $page->limit();
-
-// $infolist = [];
-// $DB->query($sql);
 
 $infolist = [];
-foreach ($products as $row) {
-    $img = json_decode($row['Products_JSON'], true);
-    $row['thumb'] = $img['ImgPath'][0];
-    unset($row['Products_JSON']);
-    $infolist[] = $row;
+if (count($products) > 0) {
+    foreach ($products as $row) {
+        $img = json_decode($row['Products_JSON'], true);
+        $row['thumb'] = $img['ImgPath'][0];
+        unset($row['Products_JSON']);
+        $infolist[] = $row;
+    }
 }
 
 $return = [

@@ -11,7 +11,8 @@ if (isset($_SESSION['BIZ_ID'])) {
 	$BizID = $_SESSION["BIZ_ID"];
 	$BizAccount = $_SESSION['Biz_Account'];
 } else {
-	die('请先登录');
+	//die('请先登录');
+	header('Location:/biz/login.php');
 }
 
 ?>

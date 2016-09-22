@@ -1,4 +1,27 @@
-<!doctype html>
+<?php
+if (!defined('USER_PATH')) exit();
+
+require_once CMS_ROOT . '/include/api/product.class.php';
+require_once CMS_ROOT . '/include/api/count.class.php';
+require_once CMS_ROOT . '/include/helper/page.class.php';
+
+$inajax = isset($_GET['inajax']) ? (int)$_GET['inajax'] : 0;
+if ($inajax == 1) {
+    $do = isset($_GET['do']) ? $_GET['do'] : '';
+    if ($do == 'count') {
+        $data = [
+            'Biz_Account' => $BizAccount,
+        ];
+        $counter = count::countIncome($data);
+
+        echo json_encode($counter);
+    }
+
+    exit();
+}
+
+
+?><!doctype html>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -9,6 +32,7 @@
 <link href="../static/user/css/product.css" type="text/css" rel="stylesheet">
 <link href="../static/user/css/font-awesome.css" type="text/css" rel="stylesheet">
 <link href="../static/user/css/font-awesome.min.css" type="text/css" rel="stylesheet">
+<script type="text/javascript" src="../static/user/js/jquery-1.8.3.min.js"></script>
 <body>
 <div class="w">
     <div class="head_bg">
@@ -20,10 +44,10 @@
     <div class="income_x">
         <ul class="income_t">
             <li style="border-right:1px #fff solid;">
-                <a>累计收入（元）<p class="price_t">17704.00</p></a>
+                <a>本月收入（元）<p class="price_t" id="monthIncome">0</p></a>
             </li>
             <li>
-                <a>累计收入（元）<p class="price_t">17704.00</p></a>
+                <a>累计收入（元）<p class="price_t" id="totalIncome">0</p></a>
             </li>
         </ul>
     </div>
@@ -31,7 +55,7 @@
     <div class="income_today">
     	<span class="l">
         	<p class="in">今日开店收入（元）</p>
-            <p class="price_in">17704.00</p>
+            <p class="price_in" id="dayIncome">0</p>
         </span>
         <span class="r"><a><i class="fa  fa-angle-right fa-2x" aria-hidden="true"></i></a></span>
     </div>
@@ -39,15 +63,15 @@
     <div class="daily_x">
         <ul>
             <li>
-                <p><strong>1</strong></p>
+                <p><strong>0</strong></p>
                 <p>今日访客</p>
             </li>
             <li>
-                <p><strong>1</strong></p>
+                <p><strong id="orderCount">0</strong></p>
                 <p>本月订单</p>
             </li>
             <li>
-                <p><strong>1</strong></p>
+                <p><strong id="allMoney">0</strong></p>
                 <p>本月交易额</p>
             </li>
         </ul>
@@ -112,5 +136,27 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+$(function(){
+    $.get('?act=store&inajax=1&do=count', {}, function(json) {
+        if (json.errorCode == '0') {
+            var counter = json.count;
+             $("#totalIncome").html(counter.totalAmount);
+             $("#monthIncome").html(counter.monthAmount);
+             $("#dayIncome").html(counter.dayAmount);
+             $('#orderCount').html(counter.orderCount);
+             $('#allMoney').html(counter.allMoney);
+        } else {
+            alert('用户统计数据获取失败，请刷新此页面重试');
+        }
+    }, 'json')
+
+})
+<?php
+
+
+?>
+
+</script>
 </body>
 </html>

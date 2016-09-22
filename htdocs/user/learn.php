@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html>
 <head>
@@ -13,28 +12,36 @@
 <body>
 <div class="w">
 	<div class="back_x">
-    	<a class="l" href='javascript:history.back();'><i class="fa  fa-angle-left fa-2x" aria-hidden="true"></i></a>学习中心
-    </div>
-    <div class="learn_list">
+    	<a class="l"><i class="fa  fa-angle-left fa-2x" aria-hidden="true"></i></a>学习中心
+    </div>    
+    <div class="learn_ll">
+    	<p>操作指南</p>
     	<ul>
-        	<li>
-            	<a>好好学习，天天向上，好好学习，天天向上<p>2016-08-30</p></a>
-            </li>
-            <li>
-            	<a>好好学习，天天向上，好好学习，天天向上<p>2016-08-30</p></a>
-            </li>
-            <li>
-            	<a>好好学习，天天向上，好好学习，天天向上<p>2016-08-30</p></a>
-            </li>
-            <li>
-            	<a>好好学习，天天向上，好好学习，天天向上<p>2016-08-30</p></a>
-            </li>
-            <li>
-            	<a>好好学习，天天向上，好好学习，天天向上<p>2016-08-30</p></a>
-            </li>
-            <li>
-            	<a>好好学习，天天向上，好好学习，天天向上<p>2016-08-30</p></a>
-            </li>
+        	<li><a href='?act=learn_list'><span class="left learn_number">01</span><span class="left learn_title">企业版操作教程</span></a><div class="clear"></div></li>
+            <li><a href='?act=learn_list'><span class="left learn_number">01</span><span class="left learn_title">企业版操作教程</span></a><div class="clear"></div></li>
+            <li><a href='?act=learn_list'><span class="left learn_number">01</span><span class="left learn_title">企业版操作教程</span></a><div class="clear"></div></li>
+            <li><a href='?act=learn_list'><span class="left learn_number">01</span><span class="left learn_title">企业版操作教程</span></a><div class="clear"></div></li>
+        </ul>
+        <p>操作指南</p>
+    	<ul>
+        	<li><a href='?act=learn_list'><span class="left learn_number">01</span><span class="left learn_title">企业版操作教程</span></a><div class="clear"></div></li>
+            <li><a href='?act=learn_list'><span class="left learn_number">01</span><span class="left learn_title">企业版操作教程</span></a><div class="clear"></div></li>
+            <li><a href='?act=learn_list'><span class="left learn_number">01</span><span class="left learn_title">企业版操作教程</span></a><div class="clear"></div></li>
+            <li><a href='?act=learn_list'><span class="left learn_number">01</span><span class="left learn_title">企业版操作教程</span></a><div class="clear"></div></li>
+        </ul>
+        <p>操作指南</p>
+    	<ul>
+        	<li><a href='?act=learn_list'><span class="left learn_number">01</span><span class="left learn_title">企业版操作教程</span></a><div class="clear"></div></li>
+            <li><a href='?act=learn_list'><span class="left learn_number">01</span><span class="left learn_title">企业版操作教程</span></a><div class="clear"></div></li>
+            <li><a href='?act=learn_list'><span class="left learn_number">01</span><span class="left learn_title">企业版操作教程</span></a><div class="clear"></div></li>
+            <li><a href='?act=learn_list'><span class="left learn_number">01</span><span class="left learn_title">企业版操作教程</span></a><div class="clear"></div></li>
+        </ul>
+        <p>操作指南</p>
+    	<ul>
+        	<li><a href='?act=learn_list'><span class="left learn_number">01</span><span class="left learn_title">企业版操作教程</span></a><div class="clear"></div></li>
+            <li><a href='?act=learn_list'><span class="left learn_number">01</span><span class="left learn_title">企业版操作教程</span></a><div class="clear"></div></li>
+            <li><a href='?act=learn_list'><span class="left learn_number">01</span><span class="left learn_title">企业版操作教程</span></a><div class="clear"></div></li>
+            <li><a href='?act=learn_list'><span class="left learn_number">01</span><span class="left learn_title">企业版操作教程</span></a><div class="clear"></div></li>
         </ul>
     </div>
 </div>
