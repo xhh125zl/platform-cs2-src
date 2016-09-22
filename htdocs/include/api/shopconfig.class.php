@@ -17,4 +17,17 @@ class shopconfig extends base
         return $result;
     }
     
+    /**
+     * 修改店铺配置信息
+     * @param array $data 可选参数:configData(shop_config表里的字段),usersData(Users表里的字段),addressData(收货地址表里的字段),请自行判断哪个表的字段.如把表的字段放到其他的变量数组里会导致请求失败
+     * @return array 
+     */
+    static public function updatecolumn($data)
+    {
+        $url = '/shopconfig/updatecolumn.html';
+        $result = self::request($url, 'post', $data);
+
+        return $result;
+    }
+    
 }
