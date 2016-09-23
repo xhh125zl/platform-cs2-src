@@ -2,7 +2,7 @@
 require_once "config.inc.php";
 $articleid = isset($_GET['id'])?$_GET['id']:0;
 if($articleid){
-    $rsArticle = $DB->GetRS("web_article", "Article_ID,Article_Title,Article_CreateTime,Article_ImgPath,Article_Description,Article_BriefDescription", "WHERE Article_ID='{$articleid}'");
+    $rsArticle = $DB->GetRS("shop_articles", "Article_ID,Article_Title,Article_CreateTime,Article_Content,Article_Editor,Article_ImgPath", "WHERE Article_ID='{$articleid}' AND Article_Status = 1");
 
 }
 ?>
@@ -31,7 +31,7 @@ if($articleid){
         <div class="image_x"><img src="<?=$rsArticle['Article_ImgPath'] ?>"></div>
         <?php } ?>
         <p>
-        	<?=$rsArticle['Article_Description']?htmlspecialchars_decode($rsArticle['Article_Description']):"" ?>
+        	<?=$rsArticle['Article_Content']?htmlspecialchars_decode($rsArticle['Article_Content']):"" ?>
         </p>
     </div>
 </div>
