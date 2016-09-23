@@ -199,7 +199,7 @@ class product extends base
      */
     static public function getProductArr($data)
     {
-        $url = "/product/addgoodsto401.html";
+        $url = "/product/detail401.html";
         $result = self::request($url, 'post', $data);
         return $result;
     }

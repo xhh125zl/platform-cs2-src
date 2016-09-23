@@ -95,7 +95,7 @@ if ($_GET['action'] == 'updateCate') {
 }
 
 //获取b2c平台分类
-function get_b2c_FirstCate()
+function get_b2c_Cate()
 {
     $result = product_category::get_all_category();
     return $result;
@@ -103,7 +103,7 @@ function get_b2c_FirstCate()
 
 //获取b2c平台一级分类
 if ($_GET['action'] == 'fB2cCate') {
-    $b2cCate = get_b2c_FirstCate();
+    $b2cCate = get_b2c_Cate();
     //print_r($b2cCate);die;
     $b2c_first_cate = array();
     foreach ($b2cCate as $k => $v) {
@@ -114,7 +114,7 @@ if ($_GET['action'] == 'fB2cCate') {
 }
 //获取b2c平台二级分类
 if ($_GET['action'] == 'sB2cCate' && isset($_GET['fB2cCateID'])) {
-    $b2cCate = get_b2c_FirstCate()[$_GET['fB2cCateID']];
+    $b2cCate = get_b2c_Cate()[$_GET['fB2cCateID']];
     $b2c_second_cate = array();
     foreach ($b2cCate['child'] as $k => $v) {
         $b2c_second_cate[]= $v;
