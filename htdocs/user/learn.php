@@ -1,3 +1,23 @@
+<?php
+require_once "config.inc.php";
+$result = $DB->Get("web_column", "Column_ID,Users_ID,Column_Name,Column_LinkUrl,Column_PageType,Column_ParentID", "WHERE Users_ID='{$UsersID}'");
+$rsArticleList = $DB->toArray($result);
+$rslist = [];
+if(!empty($rsArticleList)){
+    foreach($rsArticleList as $k => $v){
+        if($v['Column_ParentID']==0){ 
+            $rslist[$k]['base'] = $v;
+        }
+    }
+    foreach($rslist as $k => $v){
+        foreach($rsArticleList as $key => $val){
+            if($v['base']['Column_ID']==$val['Column_ParentID']){ 
+                $rslist[$k]['child'][$key] = $val;
+            }
+        }
+    }
+}
+?>
 <!doctype html>
 <html>
 <head>
@@ -12,37 +32,23 @@
 <body>
 <div class="w">
 	<div class="back_x">
-    	<a class="l"><i class="fa  fa-angle-left fa-2x" aria-hidden="true"></i></a>学习中心
+    	<a class="l" href="javascript:history.go(-1);"><i class="fa  fa-angle-left fa-2x" aria-hidden="true"></i></a>学习中心
     </div>    
     <div class="learn_ll">
-    	<p>操作指南</p>
+        <?php if(!empty($rslist)){ ?>
+        <?php foreach($rslist as $k => $v){ ?>
+    	<p><?=$v['base']['Column_Name'] ?></p>
+        <?php if(!empty($v['child'])){ ?>
+        <?php $count = 1; ?>
     	<ul>
-        	<li><a href='?act=learn_list'><span class="left learn_number">01</span><span class="left learn_title">企业版操作教程</span></a><div class="clear"></div></li>
-            <li><a href='?act=learn_list'><span class="left learn_number">01</span><span class="left learn_title">企业版操作教程</span></a><div class="clear"></div></li>
-            <li><a href='?act=learn_list'><span class="left learn_number">01</span><span class="left learn_title">企业版操作教程</span></a><div class="clear"></div></li>
-            <li><a href='?act=learn_list'><span class="left learn_number">01</span><span class="left learn_title">企业版操作教程</span></a><div class="clear"></div></li>
+            <?php foreach($v['child'] as $key => $val){ ?>
+        	<li><a href='?act=learn_list&id=<?=$val['Column_ID'] ?>'><span class="left learn_number"><?=$count<10?"0".$count:$count?> ></span><span class="left learn_title"><?=$val['Column_Name'] ?></span></a><div class="clear"></div></li>
+            <?php $count++; ?>
+            <?php } ?>
         </ul>
-        <p>操作指南</p>
-    	<ul>
-        	<li><a href='?act=learn_list'><span class="left learn_number">01</span><span class="left learn_title">企业版操作教程</span></a><div class="clear"></div></li>
-            <li><a href='?act=learn_list'><span class="left learn_number">01</span><span class="left learn_title">企业版操作教程</span></a><div class="clear"></div></li>
-            <li><a href='?act=learn_list'><span class="left learn_number">01</span><span class="left learn_title">企业版操作教程</span></a><div class="clear"></div></li>
-            <li><a href='?act=learn_list'><span class="left learn_number">01</span><span class="left learn_title">企业版操作教程</span></a><div class="clear"></div></li>
-        </ul>
-        <p>操作指南</p>
-    	<ul>
-        	<li><a href='?act=learn_list'><span class="left learn_number">01</span><span class="left learn_title">企业版操作教程</span></a><div class="clear"></div></li>
-            <li><a href='?act=learn_list'><span class="left learn_number">01</span><span class="left learn_title">企业版操作教程</span></a><div class="clear"></div></li>
-            <li><a href='?act=learn_list'><span class="left learn_number">01</span><span class="left learn_title">企业版操作教程</span></a><div class="clear"></div></li>
-            <li><a href='?act=learn_list'><span class="left learn_number">01</span><span class="left learn_title">企业版操作教程</span></a><div class="clear"></div></li>
-        </ul>
-        <p>操作指南</p>
-    	<ul>
-        	<li><a href='?act=learn_list'><span class="left learn_number">01</span><span class="left learn_title">企业版操作教程</span></a><div class="clear"></div></li>
-            <li><a href='?act=learn_list'><span class="left learn_number">01</span><span class="left learn_title">企业版操作教程</span></a><div class="clear"></div></li>
-            <li><a href='?act=learn_list'><span class="left learn_number">01</span><span class="left learn_title">企业版操作教程</span></a><div class="clear"></div></li>
-            <li><a href='?act=learn_list'><span class="left learn_number">01</span><span class="left learn_title">企业版操作教程</span></a><div class="clear"></div></li>
-        </ul>
+        <?php } ?>
+        <?php } ?>
+        <?php } ?>
     </div>
 </div>
 </body>
