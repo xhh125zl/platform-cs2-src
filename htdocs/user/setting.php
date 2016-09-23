@@ -68,24 +68,24 @@ img{border:none;vertical-align: middle;}
             	<a><span class="l">独立域名<span>zzzzzzzzzzzzz</span></span><span class="r"><i class="fa  fa-angle-right fa-2x" aria-hidden="true"></i></span></a>
             </li>-->
             <li>
-            	<a><span class="l">店铺分享<span><?php
+            	<a href='?act=setting_share'><span class="l">店铺分享<span><?php
                     if (trim($config['ShareIntro']) != '') {
                         echo sub_str($config['ShareIntro'], 16);
                     }
                  ?></span></span><span class="r"><i class="fa  fa-angle-right fa-2x" aria-hidden="true"></i></span></a>
             </li>
             <li>
-            	<a><span class="l">店铺二维码<span><img src="../static/user/images/ewm.png" width="20" height="20"></span></span><span class="r"><i class="fa  fa-angle-right fa-2x" aria-hidden="true"></i></span></a>
+            	<a href='?act=setting_qrcode'><span class="l">店铺二维码<span><img src="../static/user/images/ewm.png" width="20" height="20"></span></span><span class="r"><i class="fa  fa-angle-right fa-2x" aria-hidden="true"></i></span></a>
             </li>
         	<li>
-            	<a><span class="l">店铺公告<span><?php
+            	<a href='?act=setting_announce'><span class="l">店铺公告<span><?php
                     if (trim($config['ShopAnnounce']) != '') {
                         echo sub_str($config['ShopAnnounce'], 16);
                     }
                  ?></span></span><span class="r"><i class="fa  fa-angle-right fa-2x" aria-hidden="true"></i></span></a>
             </li>
             <li>
-            	<a><span class="l">退货地址<span><?php echo $config['RecieveAddress'];?></span></span><span class="r"><i class="fa  fa-angle-right fa-2x" aria-hidden="true"></i></span></a>
+            	<a href='?act=setting_backgoods'><span class="l">退货地址<span><?php echo $config['RecieveAddress'];?></span></span><span class="r"><i class="fa  fa-angle-right fa-2x" aria-hidden="true"></i></span></a>
             </li>
 
             <li>

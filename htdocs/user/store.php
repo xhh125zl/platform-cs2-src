@@ -124,35 +124,42 @@ $config = $result['data'];
         </ul>
     </div>
     <div class="kb"></div>
+    <!-- footer nav -->
+<?php
+$homeUrl = '/api/' . $UsersID . '/shop/';
+$cartUrl = $homeUrl . 'allcategory/';
+$ucenter = $homeUrl . 'member/';
+?>    
     <div class="bottom">
         <div class="footer">
             <ul style="margin-top: 5px;">
-                <li><a href="#">
+                <li><a href="<?php echo $homeUrl;?>">
                         <i class="fa  fa-home fa-2x" aria-hidden="true"></i><br> 首页
                     </a></li>
-                <li><a href="#" style="color:#ff3600">
+                <li><a href="/user/admin.php?act=store" style="color:#ff3600">
                         <i class="fa fa-gift fa-2x" aria-hidden="true"></i><br>开店
                     </a></li>
-                <li><a href="#">
+                <li><a href="<?php echo $cartUrl;?>">
                         <i class="fa  fa-shopping-cart fa-2x" aria-hidden="true"></i><br> 购物
                     </a></li>
-                <li><a href="#">
+                <li><a href="<?php echo $ucenter;?>">
                         <i class="fa  fa-user fa-2x" aria-hidden="true"></i><br> 我的
                     </a></li>
             </ul>
         </div>
     </div>
+    <!--//footer nav -->
 </div>
 <script type="text/javascript">
 $(function(){
     $.get('?act=store&inajax=1&do=count', {}, function(json) {
         if (json.errorCode == '0') {
             var counter = json.count;
-             $("#totalIncome").html(counter.totalAmount);
-             $("#monthIncome").html(counter.monthAmount);
-             $("#dayIncome").html(counter.dayAmount);
-             $('#orderCount').html(counter.orderCount);
-             $('#allMoney').html(counter.allMoney);
+             $("#totalIncome").html(counter.totalCount.Amount);
+             $("#monthIncome").html(counter.monthCount.Amount);
+             $("#dayIncome").html(counter.dayCount.Amount);
+             $('#orderCount').html(counter.monthCount.orderCount);
+             $('#allMoney').html(counter.monthAllMoney.Amount);
         } else {
             alert('用户统计数据获取失败，请刷新此页面重试');
         }

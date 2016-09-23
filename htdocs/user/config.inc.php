@@ -7,8 +7,7 @@ require_once CMS_ROOT . '/include/helper/tools.php';
 
 $UsersID = '';
 $BizID = 0;
-
-
+$BizAccount = '';
 
 if (isset($_SESSION['BIZ_ID'])) {
 	$UsersID = $_SESSION['Users_ID'];

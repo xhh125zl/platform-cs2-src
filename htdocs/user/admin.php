@@ -26,6 +26,10 @@ $actionArr = [
 	'setting_shopname',
 	'setting_wechat',
 	'setting_receive',
+	'setting_share',
+	'setting_qrcode',
+	'setting_announce',
+	'setting_backgoods',
 	'user_list',
 	'user_detail',
 	'product_add'
@@ -39,4 +43,5 @@ if (! in_array($act, $actionArr)) {
 $file = $act . '.php';
 
 include_once $file;
+
 
