@@ -13,6 +13,22 @@ function curl_post($uri, $data) {
 	curl_close ( $ch );
 	return $return;
 }
+//验证是否为数字
+function check_number($value, $type = 0) {
+	if ($type == 0) {	//验证是否为正数
+		if (is_numeric($value) && $value > 0) {
+			return true;
+		} else {
+			return false;
+		}
+	} else if ($type == 1) {	//验证是否为正整数
+		if (is_numeric($value) && $value > 0 && (floor($value) == $value)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+}
 
 if ($_POST['act'] == 'uploadFile') {
 	$uri = "http://401.wzw.com/user/lib/upload.php";
@@ -34,22 +50,35 @@ if ($_POST['act'] == 'uploadFile') {
 	);
 	echo curl_post($uri, $data);
 } elseif ($_POST['act'] == 'addProduct') {
-
     //数据处理
     $productData = $_POST['productData'];
     //图片路径处理
     $imsge_path['ImgPath'] = explode(',' ,$productData['Products_JSON']);
     $productData['Products_JSON'] = json_encode($imsge_path,JSON_UNESCAPED_UNICODE);
     //分类处理
-    $productData['Products_Category'] = ','.(int)$productData['firstCate']. ',' . $productData['secondCate'] . ',';
-    //
-    $productData['Products_IsHot'] = isset($productData['Products_IsHot']) ? 1 : 0;
-    $productData['Products_IsRecommend'] = isset($productData['Products_IsRecommend']) ? 1 : 0;
-    $productData['Products_IsNew'] = isset($productData['Products_IsNew']) ? 1 : 0;
+    $productData['Products_Category'] = ','.(int)$productData['firstCate'].','.(int)$productData['firstCate']. ',' . (int)$productData['secondCate'] . ',';
+    $productData['Products_BriefDescription'] = htmlspecialchars($productData['Products_BriefDescription'], ENT_QUOTES);	//产品简介
+    //$productData['Products_Index'] = 1/9999;	//产品排序
+    //$productData['Products_Type'] = 0/n;		//产品类型
+    //$productData['Shipping_Free_Company'] = 0/n;		//免运费  0为全部 ，n为指定快递
+    //$productData['Products_SoldOut'] = 0/1;		//其他属性  下架
+    //$productData['Products_IsPaysBalance'] = 0/1;		//特殊属性  余额支付
+    //$productData['Products_IsShow'] = 0/1;		//特殊属性  是否显示
+    //$productData['Products_IsVirtual'] = 1;	//订单流程		0,0  1,0  1,1 
+	//$productData['Products_IsRecieve'] = 1;
+    //$productData['Products_Description'] = htmlspecialchars($productData['Products_Description'], ENT_QUOTES);	//详细介绍
+    //$productData['Products_Parameter'] = '[{"name":"","value":""}]';		//产品参数
+    $productData['Users_ID'] = $UsersID;
+    $productData['Products_status'] = 1;
+    $productData['Products_CreateTime'] = time();
+
+    //数据验证
+    if (!check_number($productData['Products_PriceY']) || !check_number($productData['Products_PriceX']) || !check_number($productData['Products_Profit']) || !check_number($productData['Products_Integration'], 1) || !check_number($productData['Products_Weight']) || !check_number($productData['Products_Count'], 1)) {
+    	echo json_encode(['errorCode' => 1, 'msg' => '填写的数据格式不正确']);
+    }
 
     $postdata['Biz_Account'] = $BizAccount;
     $postdata['productData'] = $productData;
-
     $resArr = product::addProductTo401($postdata);
     if ($resArr['errorCode'] == 0) {
         echo json_encode(['errorCode' => 0, 'msg' => '上架成功'], JSON_UNESCAPED_UNICODE);
