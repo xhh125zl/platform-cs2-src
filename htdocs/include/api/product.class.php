@@ -37,13 +37,13 @@ class product extends base
 
     /**
      * 删除产品
-     * @param  array $productId [description]
+     * @param  array $data ['Products_ID' => $Products_ID, 'BizAccount' => $BizAccount]
      * @return array            [description]
      */
-    static public function delete($productId)
+    static public function delete($data)
     {
-    	$url = '/product/del.html';
-    	$result = self::request($url, 'post', $productId);
+        $url = '/product/delgoodsfrom401.html';
+        $result = self::request($url, 'post', $data);
 
     	return $result;	
     }
@@ -186,6 +186,18 @@ class product extends base
      * @return json
      */
     static public function addProductTo401($data)
+    {
+        $url = "/product/addgoodsto401.html";
+        $result = self::request($url, 'post', $data);
+        return $result;
+    }
+
+    /**
+     * B2C编辑产品从401数据库获取数据
+     * @param array $data 二维数组
+     * @return json
+     */
+    static public function getProductArr($data)
     {
         $url = "/product/addgoodsto401.html";
         $result = self::request($url, 'post', $data);

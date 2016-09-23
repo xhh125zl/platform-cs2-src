@@ -1,8 +1,8 @@
 <?php
 require_once "/config.inc.php";
-require_once(CMS_ROOT . '/include/api/product.class.php');
+//require_once(CMS_ROOT . '/include/api/product.class.php');
 require_once(CMS_ROOT . '/include/api/b2cshopconfig.class.php');
-require_once(CMS_ROOT . '/include/api/product_category.class.php');
+//require_once(CMS_ROOT . '/include/api/product_category.class.php');
 
 //检查用户是否登录
 if(empty($BizAccount)){
@@ -22,7 +22,6 @@ if ($users['errorCode'] == 0) {
     echo '<script language="javascript">alert("服务器网络异常,数据通信失败");history.back();</script>';
     exit;
 }
-
 
 ?>
 <!doctype html>
@@ -97,12 +96,12 @@ if ($users['errorCode'] == 0) {
             }
             //选择推荐  判断填写供货价
             var PriceS = $('input[name="PriceS"]');
-            if(productData.is_Tj == 1) {
-                if (!check_null($('input[name="PriceS"]'))) {
+            if (productData.is_Tj == 1) {
+                if (!check_null($('input[name="PriceS"]')) || !check_number($('input[name="PriceS"]'))) {
                     return false;
                 }
                 //判断是否选择b2c平台分类
-                if(productData.B2CProducts_Category == '') {
+                if (productData.B2CProducts_Category == '') {
                     $('#test1').attr('style', 'border:1px solid red;');
                     return false;
                 } else {
@@ -154,7 +153,11 @@ if ($users['errorCode'] == 0) {
                 }
             });
         });
-
+        $(document).keydown(function(e){
+            if (e.keyCode == 13) {
+                $('.pro_foot').click();
+            }
+        });
     });
 </script>
 <body>
@@ -197,13 +200,13 @@ if ($users['errorCode'] == 0) {
             </tr>
             <tr>
                 <th>是否推荐&nbsp;&nbsp;&nbsp;<br/>到批发商城：</th>
-                <td><input class="toggle-switch" type="checkbox" name="is_Tj" checked=""></td>
+                <td><input class="toggle-switch" type="checkbox" name="is_Tj"></td>
             </tr>
-            <tr class="is_Tj" style="">
+            <tr class="is_Tj" style="display:none;">
                 <th><span class="notNull">*</span>供货价(￥)：</th>
                 <td><input type="number" name="PriceS" class="user_input" value="" placeholder="请输入商品供货价"></td>
             </tr>
-            <tr class="is_Tj" style="">
+            <tr class="is_Tj" style="display:none;">
                 <th><span class="notNull">*</span>所属分类：</th>
                 <td id="test1"><span id="b2c_category" firstCate="" secondCate=""></span><span class="right">选择分类&nbsp;<i class="fa  fa-angle-right fa-x" aria-hidden="true" style="font-size:20px;"></i></span></td>
             </tr>
@@ -256,7 +259,6 @@ if ($users['errorCode'] == 0) {
                 <th>是否推荐：</th>
                 <td><input class="toggle-switch" type="checkbox" name="IsRecommend" checked=""></td>
             </tr>
-            
             <tr>
                 <th>是否新品：</th>
                 <td><input class="toggle-switch" type="checkbox" name="IsNew" checked=""></td>
@@ -429,5 +431,26 @@ if ($users['errorCode'] == 0) {
     })
 
 </script>
+
+<script language="javascript">
+$(function(){
+    $('input[name="is_Tj"]').change(function(){
+        if ($('input[name="is_Tj"]:checked').val() == 'on') {
+            var me = $(this);
+            layer.open({
+                content: "对不起,您尚未进行商家认证,请认证后再进行此项操作",
+                btn: '我知道了',
+                yes: function(){
+                    me.prop("checked", false);
+                    $('.is_Tj').attr('style', 'display:none;');
+                    layer.closeAll();
+                    return false;
+                }
+            });
+        }
+    })
+})
+</script>
+
 </body>
 </html>

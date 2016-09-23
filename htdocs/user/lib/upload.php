@@ -58,9 +58,9 @@ if ($_POST['act'] == 'uploadFile') {
     //分类处理
     $productData['Products_Category'] = ','.(int)$productData['firstCate'].','.(int)$productData['firstCate']. ',' . (int)$productData['secondCate'] . ',';
     $productData['Products_BriefDescription'] = htmlspecialchars($productData['Products_BriefDescription'], ENT_QUOTES);	//产品简介
+    $productData['Shipping_Free_Company'] = 0;		//免运费  0为全部 ，n为指定快递
     //$productData['Products_Index'] = 1/9999;	//产品排序
     //$productData['Products_Type'] = 0/n;		//产品类型
-    //$productData['Shipping_Free_Company'] = 0/n;		//免运费  0为全部 ，n为指定快递
     //$productData['Products_SoldOut'] = 0/1;		//其他属性  下架
     //$productData['Products_IsPaysBalance'] = 0/1;		//特殊属性  余额支付
     //$productData['Products_IsShow'] = 0/1;		//特殊属性  是否显示
@@ -72,9 +72,15 @@ if ($_POST['act'] == 'uploadFile') {
     $productData['Products_status'] = 1;
     $productData['Products_CreateTime'] = time();
 
-    //数据验证
+    //数据验证	原价、现价、产品利润、赠送积分、产品重量、库存
     if (!check_number($productData['Products_PriceY']) || !check_number($productData['Products_PriceX']) || !check_number($productData['Products_Profit']) || !check_number($productData['Products_Integration'], 1) || !check_number($productData['Products_Weight']) || !check_number($productData['Products_Count'], 1)) {
-    	echo json_encode(['errorCode' => 1, 'msg' => '填写的数据格式不正确']);
+    	echo json_encode(array('errorCode' => 1, 'msg' => '填写的数据格式不正确'));die;
+    }
+    //推荐后  检测供货价
+    if ($productData['is_Tj'] == 1) {
+    	if (!check_number($productData['Products_PriceS'])) {
+    		echo json_encode(array('errorCode' => 1, 'msg' => '填写的数据格式不正确'));die;
+    	}
     }
 
     $postdata['Biz_Account'] = $BizAccount;
@@ -85,4 +91,10 @@ if ($_POST['act'] == 'uploadFile') {
     } else {
         echo json_encode(['errorCode' => 101, 'msg' => $resArr['msg']]);
     }
+} elseif ($_POST['act'] == 'editProduct') {
+	//获取数据
+	$postdata['Biz_Account'] = $BizAccount;
+	$postdata['Products_ID'] = 60;
+    $postdata['is_Tj'] = 0;
+    $resArr = product::getProductArr($postdata);
 }

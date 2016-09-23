@@ -1,4 +1,23 @@
-
+<?php
+require_once "config.inc.php";
+$result = $DB->Get("web_column", "Column_ID,Users_ID,Column_Name,Column_LinkUrl,Column_PageType,Column_ParentID", "WHERE Users_ID='{$UsersID}'");
+$rsArticleList = $DB->toArray($result);
+$rslist = [];
+if(!empty($rsArticleList)){
+    foreach($rsArticleList as $k => $v){
+        if($v['Column_ParentID']==0){ 
+            $rslist[$k]['base'] = $v;
+        }
+    }
+    foreach($rslist as $k => $v){
+        foreach($rsArticleList as $key => $val){
+            if($v['base']['Column_ID']==$val['Column_ParentID']){ 
+                $rslist[$k]['child'][$key] = $val;
+            }
+        }
+    }
+}
+?>
 <!doctype html>
 <html>
 <head>
@@ -13,29 +32,23 @@
 <body>
 <div class="w">
 	<div class="back_x">
-    	<a class="l" href='javascript:history.back();'><i class="fa  fa-angle-left fa-2x" aria-hidden="true"></i></a>学习中心
-    </div>
-    <div class="learn_list">
+    	<a class="l" href="javascript:history.go(-1);"><i class="fa  fa-angle-left fa-2x" aria-hidden="true"></i></a>学习中心
+    </div>    
+    <div class="learn_ll">
+        <?php if(!empty($rslist)){ ?>
+        <?php foreach($rslist as $k => $v){ ?>
+    	<p><?=$v['base']['Column_Name'] ?></p>
+        <?php if(!empty($v['child'])){ ?>
+        <?php $count = 1; ?>
     	<ul>
-        	<li>
-            	<a>好好学习，天天向上，好好学习，天天向上<p>2016-08-30</p></a>
-            </li>
-            <li>
-            	<a>好好学习，天天向上，好好学习，天天向上<p>2016-08-30</p></a>
-            </li>
-            <li>
-            	<a>好好学习，天天向上，好好学习，天天向上<p>2016-08-30</p></a>
-            </li>
-            <li>
-            	<a>好好学习，天天向上，好好学习，天天向上<p>2016-08-30</p></a>
-            </li>
-            <li>
-            	<a>好好学习，天天向上，好好学习，天天向上<p>2016-08-30</p></a>
-            </li>
-            <li>
-            	<a>好好学习，天天向上，好好学习，天天向上<p>2016-08-30</p></a>
-            </li>
+            <?php foreach($v['child'] as $key => $val){ ?>
+        	<li><a href='?act=learn_list&id=<?=$val['Column_ID'] ?>'><span class="left learn_number"><?=$count<10?"0".$count:$count?> ></span><span class="left learn_title"><?=$val['Column_Name'] ?></span></a><div class="clear"></div></li>
+            <?php $count++; ?>
+            <?php } ?>
         </ul>
+        <?php } ?>
+        <?php } ?>
+        <?php } ?>
     </div>
 </div>
 </body>
