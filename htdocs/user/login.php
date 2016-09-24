@@ -17,11 +17,17 @@ if ($inajax == 1) {
                 'status' => 0,
                 'msg' => '用户名或者密码不能为空'
             ];
+            echo json_encode($result);
+            exit();
         }
-        echo json_encode($result);
-        exit();
+        $condition = "";
+        if(preg_match("/^1[34578]{1}\d{9}$/",$account)){  
+            $condition = "Biz_Phone = '" . addslashes($_POST["Account"]) . "'";
+        }else{  
+            $condition = "Biz_Account= '" . addslashes($_POST["Account"]) . "'";
+        }
 
-        $rsBiz=$DB->GetRs("biz","*","where Biz_Account='" . $_POST["Account"] . "' and Biz_PassWord='" . md5($_POST["Password"]) . "'");
+        $rsBiz=$DB->GetRs("biz","*","where " . $condition . " and Biz_PassWord='" . md5($_POST["Password"]) . "'");
         if ($rsBiz) {
             if ($rsBiz["Biz_Status"] == 1) {
                 $result =  [
