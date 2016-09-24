@@ -3,14 +3,13 @@ ul, li, dt, dd, ol, dl{list-style-type:none;}
 a{color:#666; text-decoration:none;}
 a:active {color:#ff5000;}
 input, textarea, button, a{ -webkit-tap-highlight-color:rgba(0,0,0,0); }
-.l{float:left;}
-.r{float:right;}
 .clear{clear:both;}
 img{border:none;}
-.left{float:left;}
-.right{float:right;}
+.left,.l{float:left;}
+.right,.r{float:right;}
 body{background-color:#f8f8f8;-webkit-tap-highlight-color:transparent;font-size:14px; font-family:"微软雅黑"}
 .w{width:100%; margin:0 auto;}
+.blank10{height:10px;font-size:0px;clear:both;margin:0px auto;}
 input[type=button], input[type=submit], input[type=file], button { cursor: pointer; -webkit-appearance: none; } 
 
 /*产品首页*/
@@ -240,6 +239,19 @@ input[type=button], input[type=submit], input[type=file], button { cursor: point
 .shop_list ul li a p{ color:#999}
 .shop_list ul li a span span{ color:#999; padding-left:10px; font-size:12px}
 .shop_list ul li a span i{ color:#999; padding-right:15px}
+.box_setting{ background:#fff; overflow:hidden; margin:5px 0; text-align:center}
+.box_setting input{ width:95%; border:none; line-height:35px; padding:5px; color:#333;}
+.sub_setting{ text-align:center; overflow:hidden}
+.sub_setting input{ width:95%; margin:10px auto; background:#ff5500; color:#fff; text-align:center; line-height:40px; border:none; border-radius:5px; font-size:15px;}
+
+.shop_share{text-align: center; margin-top:20px}
+.shop_share textarea{ color:#666; font-weight:normal; line-height:35px;padding:5px; width:95%; outline:none}
+.pic_add{ width:95%; margin:0 auto; overflow:hidden;}
+.ccc{ text-align:center;position:relative }
+.ccc img{height:200px;}
+.ccc span{ position:absolute; bottom:0px; background:#333; width:95%; left:2.5%; line-height:30px;filter: alpha(opacity=70);-moz-opacity: 0.7;-khtml-opacity: 0.7; opacity: 0.7; color:#fff}
+
+
 
 /*我的分类*/
 .cate_list{}
@@ -409,3 +421,11 @@ td{
 .Financial_list ul li{background:#fff; border-radius:10px; margin:15px auto; width:85%; padding:5px 10px;overflow:hidden; color:#666; line-height:50px}
 .Financial_list ul li span.Financial_m{ color:#ff5500; font-size:20px}
 
+
+/*登陆*/
+.login_title{ width:100%; line-height:50px; border-bottom:1px #ddd  solid; text-align:center; font-size:15px; color:#666;}
+.login_box{ width:90%; margin:10px auto}
+.login_x{line-height: 45px;margin-top:20px;font-size: 14px;width: 100%;background: url(../images/zh.png) no-repeat;background-position: 5px 10px;background-size: 20px 20px;text-indent: 30px;color: #333;border-bottom: 1px #ddd solid;border-top:none;border-left:none;border-right:none;outline:none }
+.login_x1{line-height: 45px;margin-top:20px;font-size: 14px;width: 100%;background: url(../images/mm.png) no-repeat;background-position: 5px 10px;background-size: 20px 20px;text-indent: 30px;color: #333;border-bottom: 1px #ddd solid;border-top:none;border-left:none;border-right:none;outline:none }
+.login_sub{line-height: 45px;height: 45px;width: 100%;color: #ffffff;background-color: #08a5ec;font-size: 16px;text-align: center;display: inline-block;margin: 0 auto;border-radius: 5px;margin-top: 45px;border:none;outline:none}
+.login_t{width: 100%;font-size: 14px;color: #666;line-height: 50px;margin: 0 auto;}

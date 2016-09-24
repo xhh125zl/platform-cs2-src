@@ -3,7 +3,7 @@ if (!defined('USER_PATH')) exit();
 
 require_once CMS_ROOT . '/include/api/product.class.php';
 require_once CMS_ROOT . '/include/api/count.class.php';
-require_once CMS_ROOT . '/include/helper/page.class.php';
+require_once CMS_ROOT . '/include/api/shopconfig.class.php';
 
 $inajax = isset($_GET['inajax']) ? (int)$_GET['inajax'] : 0;
 if ($inajax == 1) {
@@ -19,6 +19,13 @@ if ($inajax == 1) {
 
     exit();
 }
+
+//获取配置信息
+$data = [
+    'Biz_Account' => $BizAccount,
+];
+$result = shopconfig::getConfig($data);
+$config = $result['data'];
 
 
 ?><!doctype html>
@@ -36,8 +43,8 @@ if ($inajax == 1) {
 <body>
 <div class="w">
     <div class="head_bg">
-        <span class="head_pho l"><a><img src="../static/user/images/2p-5_03.png"></a></span>
-        <span class="head_name l"><a>你是我的小苹果</a></span>
+        <span class="head_pho l"><a><img src="<?php echo IMG_SERVER . $config['ShopLogo'];?>"></a></span>
+        <span class="head_name l"><a><?php echo $config['ShopName'];?></a></span>
         <span class="head_pho r"><a><i class="fa  fa-eye fa-x" aria-hidden="true"></i></a></span>
     </div>
     <div  class="clear"></div>
@@ -117,35 +124,44 @@ if ($inajax == 1) {
         </ul>
     </div>
     <div class="kb"></div>
-    <div class="bottom">
+    <!-- footer nav -->
+<?php
+$homeUrl = '/api/' . $UsersID . '/shop/';
+$cartUrl = $homeUrl . 'allcategory/';
+$ucenter = $homeUrl . 'member/';
+?>    
+<!--
+    <div class="bottom" >
         <div class="footer">
             <ul style="margin-top: 5px;">
-                <li><a href="#">
+                <li><a href="<?php echo $homeUrl;?>">
                         <i class="fa  fa-home fa-2x" aria-hidden="true"></i><br> 首页
                     </a></li>
-                <li><a href="#" style="color:#ff3600">
+                <li><a href="/user/admin.php?act=store" style="color:#ff3600">
                         <i class="fa fa-gift fa-2x" aria-hidden="true"></i><br>开店
                     </a></li>
-                <li><a href="#">
+                <li><a href="<?php echo $cartUrl;?>">
                         <i class="fa  fa-shopping-cart fa-2x" aria-hidden="true"></i><br> 购物
                     </a></li>
-                <li><a href="#">
+                <li><a href="<?php echo $ucenter;?>">
                         <i class="fa  fa-user fa-2x" aria-hidden="true"></i><br> 我的
                     </a></li>
             </ul>
         </div>
     </div>
+    -->
+    <!--//footer nav -->
 </div>
 <script type="text/javascript">
 $(function(){
     $.get('?act=store&inajax=1&do=count', {}, function(json) {
         if (json.errorCode == '0') {
             var counter = json.count;
-             $("#totalIncome").html(counter.totalAmount);
-             $("#monthIncome").html(counter.monthAmount);
-             $("#dayIncome").html(counter.dayAmount);
-             $('#orderCount').html(counter.orderCount);
-             $('#allMoney').html(counter.allMoney);
+             $("#totalIncome").html(counter.totalCount.Amount);
+             $("#monthIncome").html(counter.monthCount.Amount);
+             $("#dayIncome").html(counter.dayCount.Amount);
+             $('#orderCount').html(counter.monthCount.orderCount);
+             $('#allMoney').html(counter.monthAllMoney.Amount);
         } else {
             alert('用户统计数据获取失败，请刷新此页面重试');
         }
