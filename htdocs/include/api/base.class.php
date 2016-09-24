@@ -6,7 +6,7 @@
 
 class base
 {
-	static protected $apiUrl = 'http://if.wzw.com/api/';
+	static protected $apiUrl = 'http://api.localhost/api/';
 	static protected $apiVersion = 'v1';
 	
 	public function __construct()
@@ -19,11 +19,6 @@ class base
  		$result = curlInterFace($url, $type, $data);
 
  		return $result;
-	}
-
-	static public function getApiUrl()
-	{
-		return self::$apiUrl . self::$apiVersion;
 	}
 
 }

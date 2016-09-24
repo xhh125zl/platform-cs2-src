@@ -2,7 +2,7 @@
 require_once "config.inc.php";
 $cateid = isset($_GET['id'])?$_GET['id']:0;
 if($cateid){
-    $result = $DB->Get("web_article", "Article_ID,Article_Title,Article_CreateTime", "WHERE Column_ID='{$cateid}'");
+    $result = $DB->Get("shop_articles", "Article_ID,Article_Title,Article_CreateTime,Article_Status", "WHERE Category_ID='{$cateid}' AND Article_Status = 1");
     $rsArticleList = $DB->toArray($result);
     foreach($rsArticleList as $k => $v){
         $v['Article_CreateTime'] = date("Y-m-d",$v['Article_CreateTime']);
