@@ -3,68 +3,35 @@ if (!defined('USER_PATH')) exit();
 require_once "config.inc.php";
 require_once CMS_ROOT . '/include/api/shopconfig.class.php';
 require_once CMS_ROOT . '/include/helper/tools.php';
-$inajax = isset($_GET['inajax']) ? (int)$_GET['inajax'] : 0;
-
-if ($inajax == 1) {
-    $do = isset($_GET['do']) ? $_GET['do'] : '';
-
-    if ($do == 'wechat') {
-        $Users_WechatAccount = isset($_POST['Users_WechatAccount']) ? $_POST['Users_WechatAccount'] : 0;
-
-        $data = [
-            'Biz_Account' => $BizAccount,
-            'usersData' => [
-                'Users_WechatAccount' => $Users_WechatAccount,
-            ],
-        ];
-        
-        $result = shopconfig::updatecolumn($data);
-
-        echo json_encode($result);
-    }
-
-    exit();
-}
 
 if (isset($_POST['do']) && $_POST['do'] == 'uploadFile') {
     $imagepath = trim($_POST['data']);
-	$postfields = http_build_query([
+    $url = IMG_SERVER."user/lib/upload.php";
+	$result = curlInterFace($url,"post",[
         'data' => $imagepath,
         'act' => 'uploadFile',
         'Users_Account' => $BizAccount,
-        'filepath' => 'uploadfiles',
+        'filepath' => '../../uploadfiles',
     ]);
-    $url = IMG_SERVER."user/lib/upload.php";
-	$ch = curl_init($url);
-	curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);
-    curl_setopt($ch, CURLOPT_POST,1);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, $postfields);
-	$output = curl_exec($ch);
-    echo $output;
-    die();
-	$arr = json_decode($output, true);
 
-
-    die();
-    $imgresult = json_decode($result, true);
-    if($imgresult['errorCode']===0){
+    if($result['errorCode']===0){
         $data = [
             'Biz_Account' => $BizAccount,
             'configData' => [
-                'ShareLogo' =>IMG_SERVER.$imgresult['msg']
+                'ShareLogo' =>IMG_SERVER.$result['msg']
             ]
         ];
+
         $result = shopconfig::updatecolumn($data);
         echo json_encode($result);
         exit;
     }
     
-
+    echo json_encode($result);exit;
 }else if (isset($_POST['do']) && $_POST['do'] == 'save') {
     $data = [
             'Biz_Account' => $BizAccount,
             'configData' => [
-                'ShareLogo' => addslashes(IMG_SERVER.$_POST['ShareLogo']),
                 'ShareIntro' => addslashes($_POST['ShareIntro'])
             ]
         ];
@@ -116,15 +83,13 @@ $config = $result['data'];
             <span>修改图片</span>
 
             <input type="file" class="js_upFile" style="position:absolute; top:180px; left:0; height:34px; filter:alpha(opacity:0);opacity: 0;width:100%; cursor:pointer;" name="upthumb" />
-            <input type="hidden" name = "ShareLogo" value="<?=$config['ShareLogo']?$config['ShareLogo']:'' ?>" />
             <input type="hidden" id="image_files" name="image_files" value="">
-            <input type="hidden" id="Users_WechatAccount" name="Users_WechatAccount" value="<?=$config['Users_WechatAccount']  ?>">
         </div>
 		<div class="shop_share">
         	<textarea name="ShareIntro" rows="3"><?=$config['ShareIntro']?$config['ShareIntro']:'请输入店铺分享语' ?></textarea>
         </div>
         <div class="sub_setting">
-            <input  type="submit" name="save" class="" value="保存">
+            <input  type="button" name="save" class="" value="保存">
         </div>
         <input type="hidden" name="do" value="save"/>
         </form> 
@@ -150,9 +115,15 @@ $(function(){
                 dataType:"json",
                 success:function(data){
                     if (data.errorCode == 0) {
-                        alert(data.msg);
+                         layer.open({
+                            content: data.msg
+                            ,btn: '我知道了'
+                        });
                     } else {
-                        alert(data.msg);
+                        layer.open({
+                            content: data.msg
+                            ,btn: '我知道了'
+                        });
                     }
                 }
         });
@@ -174,13 +145,12 @@ $(function(){
                     dataType:"json",
                     success:function(data){
                         if (data.errorCode == 0) {
-                            if ($("input[name=image_path]").val().length == 0) {
-                                $("input[name=image_path]").val(data.msg);
-                            } else {
-                                $("input[name=image_path]").val($("input[name=image_path]").val() + ',' + data.msg);
-                            }
+                             $("input[name=ShareLogo]").val(data.msg);
                         } else {
-                            alert(data.msg);
+                            layer.open({
+                                content: data.msg
+                                ,btn: '我知道了'
+                            });
                         }
                     }
                 });
