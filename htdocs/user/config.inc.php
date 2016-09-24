@@ -1,6 +1,6 @@
 <?php
 define('USER_PATH', dirname(__FILE__) . '/');
-define('IMG_SERVER', 'http://platform-401.localhost/');
+define('IMG_SERVER', 'http://dev-401.localhost/');
 
 include USER_PATH . '../Framework/Conn.php';
 require_once CMS_ROOT . '/include/helper/tools.php';

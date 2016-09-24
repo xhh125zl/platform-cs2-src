@@ -31,14 +31,14 @@ foreach ($category as $cate) {
     if (!isset($cate['child'])) continue;   
 ?>    
     <div class="primary_x1">
-        <p><span class="l"><?php echo $cate['Category_Name'];?></span><span class="r"><a href="?act=search&isDistribute=1&fid=<?php echo $cate['Category_ID'];?>">查看全部>></a></span></p>
+        <p><span class="l"><?php echo $cate['Category_Name'];?></span><span class="r"><a href="?act=search&fid=<?php echo $cate['Category_ID'];?>">查看全部>></a></span></p>
         <div class="clear"></div>
         <ul>
 <?php
     foreach ($cate['child'] as $vcate) {
 ?>        
         	<li>
-            	<span class="primary_pr l"><a href="?act=search&isDistribute=1&fid=<?php echo $cate['Category_ID'];?>&sid=<?php echo $vcate['Category_ID'];?>"><?php echo $vcate['Category_Name'];?></a><p><?php echo $vcate['Category_Name'];?></p></span>
+            	<span class="primary_pr l"><a href="?act=search&fid=<?php echo $cate['Category_ID'];?>&sid=<?php echo $vcate['Category_ID'];?>"><?php echo $vcate['Category_Name'];?></a><p><?php echo $vcate['Category_Name'];?></p></span>
                 <span class="r"><img src="<?php echo $vcate['Category_Img'];?>"></span>
                 <div class="clear"></div>
             </li>

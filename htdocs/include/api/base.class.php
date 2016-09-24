@@ -6,8 +6,8 @@
 
 class base
 {
-	static protected $apiUrl = 'http://if.wzw.com/api/';
-	static protected $apiVersion = 'v1';
+	static public $apiUrl = 'http://if.wzw.com/api/';
+	static public $apiVersion = 'v1';
 	
 	public function __construct()
 	{
