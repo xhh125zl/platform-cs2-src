@@ -56,88 +56,105 @@ if ($_POST['act'] == 'uploadFile') {
 
 } elseif ($_POST['act'] == 'addEditProduct') {
     //数据处理
-    $productData = $_POST['productData'];
+    $input_productData = $_POST['productData'];
 
     //图片路径处理
-    $imsge_path['ImgPath'] = explode(',' ,$productData['Products_JSON']);
-    $productData['Products_JSON'] = json_encode($imsge_path,JSON_UNESCAPED_UNICODE);
+    $imsge_path['ImgPath'] = explode(',' ,$input_productData['Products_JSON']);
+    $input_productData['Products_JSON'] = json_encode($imsge_path,JSON_UNESCAPED_UNICODE);
     //分类处理
-    $productData['Products_Category'] = ','.(int)$productData['firstCate'].','.(int)$productData['firstCate']. ',' . (int)$productData['secondCate'] . ',';
-    $productData['Products_BriefDescription'] = htmlspecialchars($productData['Products_BriefDescription'], ENT_QUOTES);	//产品简介
-    $productData['Shipping_Free_Company'] = 0;		//免运费  0为全部 ，n为指定快递
-    //$productData['Products_Index'] = 1/9999;	//产品排序
-    //$productData['Products_Type'] = 0/n;		//产品类型
-    //$productData['Products_SoldOut'] = 0/1;		//其他属性  下架
-    //$productData['Products_IsPaysBalance'] = 0/1;		//特殊属性  余额支付
-    //$productData['Products_IsShow'] = 0/1;		//特殊属性  是否显示
-    //$productData['Products_IsVirtual'] = 1;	//订单流程		0,0  1,0  1,1 
-	//$productData['Products_IsRecieve'] = 1;
-    //$productData['Products_Description'] = htmlspecialchars($productData['Products_Description'], ENT_QUOTES);	//详细介绍
-    //$productData['Products_Parameter'] = '[{"name":"","value":""}]';		//产品参数
-    $productData['Users_ID'] = $UsersID;
-    $productData['Products_status'] = 1;
+    $input_productData['Products_Category'] = ','.(int)$input_productData['firstCate'].','.(int)$input_productData['firstCate']. ',' . (int)$input_productData['secondCate'] . ',';
+    $input_productData['Products_BriefDescription'] = htmlspecialchars($input_productData['Products_BriefDescription'], ENT_QUOTES);	//产品简介
+    $input_productData['Shipping_Free_Company'] = 0;		//免运费  0为全部 ，n为指定快递
+    //$input_productData['Products_Index'] = 1/9999;	//产品排序
+    //$input_productData['Products_Type'] = 0/n;		//产品类型
+    //$input_productData['Products_SoldOut'] = 0/1;		//其他属性  下架
+    //$input_productData['Products_IsPaysBalance'] = 0/1;		//特殊属性  余额支付
+    //$input_productData['Products_IsShow'] = 0/1;		//特殊属性  是否显示
+    //$input_productData['Products_IsVirtual'] = 1;	//订单流程		0,0  1,0  1,1 
+	//$input_productData['Products_IsRecieve'] = 1;
+    //$input_productData['Products_Description'] = htmlspecialchars($input_productData['Products_Description'], ENT_QUOTES);	//详细介绍
+    //$input_productData['Products_Parameter'] = '[{"name":"","value":""}]';		//产品参数
+    $input_productData['Users_ID'] = $UsersID;
+    $input_productData['Products_status'] = 1;
 
     //数据验证	原价、现价、产品利润、赠送积分、产品重量、库存
-    if (!check_number($productData['Products_PriceY']) || !check_number($productData['Products_PriceX']) || !check_number($productData['Products_Profit']) || !check_number($productData['Products_Integration'], 1) || !check_number($productData['Products_Weight']) || !check_number($productData['Products_Count'], 1)) {
+    if (!check_number($input_productData['Products_PriceY']) || !check_number($input_productData['Products_PriceX']) || !check_number($input_productData['Products_Profit']) || !check_number($input_productData['Products_Integration'], 1) || !check_number($input_productData['Products_Weight']) || !check_number($input_productData['Products_Count'], 1)) {
     	echo json_encode(array('errorCode' => 1, 'msg' => '填写的数据格式不正确'));die;
     }
     //推荐后  检测供货价
-    if ($productData['is_Tj'] == 1) {
-    	if (!check_number($productData['Products_PriceS'])) {
+    if ($input_productData['is_Tj'] == 1) {
+    	if (!check_number($input_productData['Products_PriceS'])) {
     		echo json_encode(array('errorCode' => 1, 'msg' => '填写的数据格式不正确'));die;
     	}
     } else {
-    	unset($productData['B2CProducts_Category']);
+    	unset($input_productData['B2CProducts_Category']);
     }
 
     //判断是上架商品还是编辑商品
-    if (empty($productData['Products_ID'])) {		//上架商品
-    	$productData['Products_CreateTime'] = time();
+    if (empty($input_productData['Products_ID'])) {		//上架商品
+    	$input_productData['Products_CreateTime'] = time();
 
-    	unset($productData['Products_ID']);
-    	unset($productData['firstCate']);
-    	unset($productData['secondCate']);
-    	unset($productData['isSolding']);
-    	unset($productData['old_is_Tj']);
+    	unset($input_productData['Products_ID']);
+    	unset($input_productData['firstCate']);
+    	unset($input_productData['secondCate']);
+    	unset($input_productData['isSolding']);
+    	unset($input_productData['old_is_Tj']);
 
     	$postdata['Biz_Account'] = $BizAccount;
-    	$postdata['productData'] = $productData;
+    	$postdata['productData'] = $input_productData;
     	$resArr = product::addProductTo401($postdata);
 	    if ($resArr['errorCode'] == 0) {
 	        echo json_encode(['errorCode' => 0, 'msg' => $resArr['msg']], JSON_UNESCAPED_UNICODE);
 	    } else {
 	        echo json_encode(['errorCode' => 1, 'msg' => $resArr['msg']]);
 	    }
-    } elseif (ctype_digit($productData['Products_ID']) && $productData['Products_ID'] > 0) {		//编辑商品
+    } elseif (ctype_digit($input_productData['Products_ID']) && $input_productData['Products_ID'] > 0) {		//编辑商品
+    	//获取旧数据
+    	$postdata['Biz_Account'] = $BizAccount;
+		$postdata['Products_ID'] = $input_productData['Products_ID'];
+		$postdata['is_Tj'] = $input_productData['is_Tj'];
+		$resArr = product::getProductArr($postdata);
+		unset($postdata);
+		$old_productData = $resArr['data'];     //产品参数
+		unset($old_productData['Category401']);
+		unset($old_productData['b2cCategory']);
+
+		//合并数据
+    	$new_productData = array_merge($old_productData,$input_productData);
+    	$old_is_Tj = $new_productData['old_is_Tj'];
+    	$is_Tj = $new_productData['is_Tj'];
 
     	//判断推荐的可能，并操作
-    	if ($productData['is_Tj'] == 0 && $productData['old_is_Tj'] == 0) {
-    		unset($productData['isSolding']);
-			$postdata['productdata'] = $productData;
+    	if ($is_Tj == 0 && $old_is_Tj == 0) {		//VVVVV
+    		unset($new_productData['old_is_Tj']);
+    		unset($new_productData['isSolding']);
+			$postdata['productdata'] = $new_productData;
 	    	$resArr = product::editProductTo401($postdata);
 
-		} elseif ($productData['is_Tj'] == 0 && $productData['old_is_Tj'] == 1 && $productData['isSolding'] == 0) {
+		} elseif ($is_Tj == 0 && $old_is_Tj == 1 && $new_productData['isSolding'] == 0) {
 			//取消推荐
-			unset($productData['isSolding']);
-			$product_id = ['Products_ID' => $productData['Products_ID']];
+			unset($new_productData['old_is_Tj']);
+			unset($new_productData['isSolding']);
+			$product_id = ['Products_ID' => $new_productData['Products_ID']];
 			$resArr = product::b2cProductDelete($product_id);
+			//b2c平台推荐商品删除后，更新是否推荐字段
+			$postdata['productdata'] = $new_productData;
+			$resArr = product::edit($postdata);
 
-		} elseif($productData['is_Tj'] == 1 && $productData['old_is_Tj'] == 1) {
-			unset($productData['isSolding']);
-			$postdata['productdata'] = $productData;
-			$resArr = product::edit($data);
+		} elseif($is_Tj == 1 && $old_is_Tj == 1) {
+			unset($new_productData['old_is_Tj']);
+			unset($new_productData['isSolding']);
+			$postdata['productdata'] = $new_productData;
+			$resArr = product::edit($postdata);
 
-		} elseif ($productData['is_Tj'] == 1 && $productData['old_is_Tj'] == 0) {
+		} elseif ($is_Tj == 1 && $old_is_Tj == 0) {
 			//推荐
-			/*unset($productData['isSolding']);
-			$productData['Products_FromId'] = $productData['Products_ID'];
-			$Data['Users_Account'] = $_SESSION['Users_Account'];
-
-			$data = [
-				'productdata' => $Data, 
-				'productAttr' => $product_attr_arr
-			];
-			$arrRes = product::add($data);*/
+			unset($new_productData['old_is_Tj']);
+			unset($new_productData['isSolding']);
+			$new_productData['Products_FromId'] = $new_productData['Products_ID'];
+			$new_productData['Users_Account'] = $BizAccount;
+			$postdata['productdata'] = $new_productData;
+			$resArr = product::add($postdata);
 		}
 
 		if ($resArr['errorCode'] == 0) {

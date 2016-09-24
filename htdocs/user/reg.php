@@ -79,47 +79,31 @@ if (isset($_GET['do']) && $_GET['do'] == 'logout') {
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />  
 <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0">  
 <meta name="app-mobile-web-app-capable" content="yes">
-<title>用户登录</title>
+<title>注册</title>
 </head>
 <link href="../static/user/css/product.css" type="text/css" rel="stylesheet">
 <link href="../static/user/css/font-awesome.min.css" type="text/css" rel="stylesheet">
 <script type="text/javascript" src="../static/js/jquery-1.7.2.min.js"></script>
-<script type='text/javascript' src='../static/js/plugin/layer_mobile/layer.js'></script>
 <body>
 <div class="w">
-	<p class="login_title">登录</p>
+	<p class="login_title">注册</p>
     <div class="login_box">
-    <form id="form1" name="form1" method="post">
-    	<input type="text" name="Account" id="Account" value="" maxlength="11" class="login_x" placeholder="登录名/手机号" notnull="">
-        <input type="password" name="Password" id="Password" value="" maxlength="16" class="login_x1" placeholder="登录密码" notnull="">
-        <input name="提交" type="button" class="login_sub" value="立即登录">
-            <div class="login_t">
-               <span class="l"><a href="forget.php">忘记密码？</a></span>
-               <span class="r"><a href="reg.php">立即注册</a></span>
+    	<input type="tel" name="Mobile" value="" maxlength="11" class="reg_x" placeholder="请输入手机号码">
+        <span class="l" style="width:60%;"><input type="password" name="Password" value="" maxlength="4" class="reg_x1" placeholder="请输入验证码"></span>
+        <span class="l" style="width:40%;"><input type="button" class="reg_x2" value="获取验证码" maxlength="16"></span>
+        <div class="clear"></div>
+        <input type="password" name="Password" value="" maxlength="11" class="reg_x1" placeholder="登录密码" maxlength="16">
+        <input type="password" name="ConfirmPassword" value="" maxlength="16" class="reg_x1" placeholder="确认登录密码">
+        <div class="clear"></div>
+        <div class="reg_t">
+        	<textarea name="copyright" rows="3">我阅读并签署协议协议</textarea>
         </div>
-    </form>
+         <label class="checkbox">
+             <input type="checkbox" checked="" name="agree">
+              我阅读并签署协议协议
+         </label>
+        <input name="提交" type="submit" class="reg_sub" value="立即注册">
     </div>
 </div>
-<script type="text/javascript">
-$(function(){
-    $(".login_sub").click(function(){
-        $(this).attr('disabled', true).val('登录中');
-        $.post('?do=login&inajax=1', $("#form1").serialize(), function(json) {
-            if (json.status == '0') {
-                layer.open({
-                    content: json.msg, 
-                    time:2, 
-                    end:function(){
-                        $(".login_sub").removeAttr("disabled").val('登录');
-                    }
-                })
-            } else {
-                location.href = json.url;
-            }
-        },'json')
-    })
-
-})
-</script>
 </body>
 </html>

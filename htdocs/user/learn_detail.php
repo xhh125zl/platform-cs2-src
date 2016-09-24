@@ -2,8 +2,27 @@
 require_once "config.inc.php";
 $articleid = isset($_GET['id'])?$_GET['id']:0;
 if($articleid){
-    $rsArticle = $DB->GetRS("web_article", "Article_ID,Article_Title,Article_CreateTime,Article_ImgPath,Article_Description,Article_BriefDescription", "WHERE Article_ID='{$articleid}'");
-
+    $rsArticle = $DB->GetRS("shop_articles", "Article_ID,Article_Title,Article_CreateTime,Article_Content,Article_Editor", "WHERE Article_ID='{$articleid}' AND Article_Status = 1");
+    if($rsArticle['Article_Content']){
+        $pattern="/<img.*?src=[\'|\"](.*?(?:[\.gif|\.jpg|\.png]))[\'|\"].*?[\/]?>/";
+        $imglist = [];
+        $order = "ALL";
+        preg_match_all($pattern,htmlspecialchars_decode($rsArticle['Article_Content']),$match);
+        $rsArticle['Article_Content'] = preg_replace($pattern,"", htmlspecialchars_decode($rsArticle['Article_Content']),1);
+        if(isset($match[1])&&!empty($match[1])){
+          if($order==='ALL'){
+            $imglist = $match[1];
+          }
+          if(is_numeric($order)&&isset($match[1][$order])){
+            $imglist = $match[1][$order];
+          }
+        }
+        $rsArticle['Article_ImgPath'] = !empty($imglist)?$imglist[0]:"";
+        
+    }else{
+        $rsArticle['Article_Content'] = htmlspecialchars_decode($rsArticle['Article_Content']);
+        $rsArticle['Article_ImgPath'] = "";
+    }
 }
 ?>
 
@@ -31,7 +50,7 @@ if($articleid){
         <div class="image_x"><img src="<?=$rsArticle['Article_ImgPath'] ?>"></div>
         <?php } ?>
         <p>
-        	<?=$rsArticle['Article_Description']?htmlspecialchars_decode($rsArticle['Article_Description']):"" ?>
+        	<?=$rsArticle['Article_Content'] ?>
         </p>
     </div>
 </div>
