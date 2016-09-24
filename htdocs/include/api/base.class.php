@@ -6,8 +6,8 @@
 
 class base
 {
-	static protected $apiUrl = 'http://api.localhost/api/';
-	static protected $apiVersion = 'v1';
+	static protected $apiUrl = APIURL;
+	static protected $apiVersion = APIVER;
 	
 	public function __construct()
 	{
