@@ -25,9 +25,22 @@ class shopconfig extends base
     static public function updatecolumn($data)
     {
         $url = '/shopconfig/updatecolumn.html';
+
         $result = self::request($url, 'post', $data);
 
         return $result;
     }
     
+    /**
+     * 获取店铺二维码(401网站上的链接)
+     * @param string $UsersID
+     * @return string
+     */
+    static public function getQrcode($UsersID)
+    {
+        $url = self::getApiUrl() . '/qrcode/get401shopqrcode.html?usersid=' . $UsersID;
+
+        return $url;
+
+    }
 }

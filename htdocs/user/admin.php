@@ -23,6 +23,7 @@ $actionArr = [
 	'learn_detail',
 	'web',
 	'setting',
+	'setting_avatar',
 	'setting_shopname',
 	'setting_wechat',
 	'setting_receive',

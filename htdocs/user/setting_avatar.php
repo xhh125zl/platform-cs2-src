@@ -8,13 +8,13 @@ $inajax = isset($_GET['inajax']) ? (int)$_GET['inajax'] : 0;
 if ($inajax == 1) {
     $do = isset($_GET['do']) ? $_GET['do'] : '';
 
-    if ($do == 'save') {
-        $content = isset($_POST['content']) ? $_POST['content'] : 0;
+    if ($do == 'wechat') {
+        $Users_WechatAccount = isset($_POST['Users_WechatAccount']) ? $_POST['Users_WechatAccount'] : 0;
 
         $data = [
             'Biz_Account' => $BizAccount,
-            'configData' => [
-                'ShopAnnounce' => $content,
+            'usersData' => [
+                'Users_WechatAccount' => $Users_WechatAccount,
             ],
         ];
         
@@ -40,7 +40,7 @@ $config = $result['data'];
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />  
 <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0">  
 <meta name="app-mobile-web-app-capable" content="yes">
-<title>店铺公告</title>
+<title>店铺头像</title>
 </head>
 <link href="../static/user/css/product.css" type="text/css" rel="stylesheet">
 <link href="../static/user/css/font-awesome.min.css" type="text/css" rel="stylesheet">
@@ -49,21 +49,21 @@ $config = $result['data'];
 <body>
 <div class="w">
 	<div class="back_x">
-    	<a href="javascript:history.back()" class="l"><i class="fa  fa-angle-left fa-2x" aria-hidden="true"></i></a>店铺公告
+    	<a href="javascript:history.back()" class="l"><i class="fa  fa-angle-left fa-2x" aria-hidden="true"></i></a>店铺头像
     </div>
-	<div class="shop_share">
-    	<img src="http://img0.bdstatic.com/img/image/shouye/xinshouye/toux.png">
-        <h3><textarea name="content" id="content"><?php echo $config['ShopAnnounce'];?></textarea></h3>
-    </div> 
-        <div class="sub_setting">
-    	<input type="button" class="btnsubmit" value="保存">
-    </div>
+    <div class="blank10"></div>
+	<div class="pic_add">
+    	<div class="ccc">
+        	<img src="http://upload.cankaoxiaoxi.com/2016/0923/1474600254126.jpg">
+            <span>修改图片</span>
+        </div> 
+	</div>
 </div>
 <script type="text/javascript">
 $(function(){
     $(".btnsubmit").click(function(){
-        var content = $("#content").val();
-        $.post("?act=setting_announce&inajax=1&do=save", {content:content}, function(json){
+        var Users_WechatAccount = $("#Users_WechatAccount").val();
+        $.post("?act=setting_wechat&inajax=1&do=wechat", {Users_WechatAccount:Users_WechatAccount}, function(json){
             if(json.errorCode == '0') {
                 layer.open({content:json.msg, time:2, end:function() {
                     history.back();
