@@ -130,7 +130,8 @@ $homeUrl = '/api/' . $UsersID . '/shop/';
 $cartUrl = $homeUrl . 'allcategory/';
 $ucenter = $homeUrl . 'member/';
 ?>    
-    <div class="bottom">
+<!--
+    <div class="bottom" >
         <div class="footer">
             <ul style="margin-top: 5px;">
                 <li><a href="<?php echo $homeUrl;?>">
@@ -148,6 +149,7 @@ $ucenter = $homeUrl . 'member/';
             </ul>
         </div>
     </div>
+    -->
     <!--//footer nav -->
 </div>
 <script type="text/javascript">

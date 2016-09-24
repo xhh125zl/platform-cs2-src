@@ -49,12 +49,21 @@ $config = $result['data'];
 <body>
 <div class="w">
 	<div class="back_x">
-    	<a href="javascript:history.back()" class="l"><i class="fa  fa-angle-left fa-2x" aria-hidden="true"></i></a>微信号
+    	<a href="javascript:history.back()" class="l"><i class="fa  fa-angle-left fa-2x" aria-hidden="true"></i></a>店铺分享
     </div>
-	<div class="shop_share">
-    	<img src="http://img0.bdstatic.com/img/image/shouye/xinshouye/toux.png">
-        <h3><textarea>分享我的店铺分享我的店铺分享我的店铺分享我的店铺分享我的店铺分享我的店铺分享我的店铺分享我的店铺</textarea></h3>
-    </div> 
+    <div class="blank10"></div>
+	<div class="pic_add">
+    	<div class="ccc">
+        	<img src="http://upload.cankaoxiaoxi.com/2016/0923/1474600254126.jpg">
+            <span>修改图片</span>
+        </div>
+		<div class="shop_share">
+        	<textarea name="copyright" rows="3">请输入店铺分享语</textarea>
+        </div>
+        <div class="sub_setting">
+            <input  type="submit" class="" value="保存">
+        </div>	 
+	</div>
 </div>
 <script type="text/javascript">
 $(function(){

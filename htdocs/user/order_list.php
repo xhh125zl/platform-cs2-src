@@ -18,7 +18,7 @@ require_once "lib/order.php";
     <div class="bj_x">
         <form action="<?=$_SERVER['REQUEST_URI']?>" method="post">
             <div class="box">
-                <span class="l"><i class="fa  fa-angle-left fa-2x" aria-hidden="true"></i></span>
+                <span class="l"><a href='?act=store'><i class="fa  fa-angle-left fa-2x" aria-hidden="true"></i></a></span>
                 <input type="text" name="Order_ID" class="sousuo_x" placeholder="请输入您要搜索的订单号">
                 <a><span class="ss1_x">搜索</span></a>
             </div>
