@@ -21,4 +21,8 @@ class base
  		return $result;
 	}
 
+	static public function getApiUrl()
+	{
+		return self::$apiUrl . self::$apiVersion;
+	}
 }
