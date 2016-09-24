@@ -17,9 +17,11 @@ if ($inajax == 1) {
                 'status' => 0,
                 'msg' => '用户名或者密码不能为空'
             ];
+            
+            echo json_encode($result);
+            exit();
         }
-        echo json_encode($result);
-        exit();
+
 
         $rsBiz=$DB->GetRs("biz","*","where Biz_Account='" . $_POST["Account"] . "' and Biz_PassWord='" . md5($_POST["Password"]) . "'");
         if ($rsBiz) {
