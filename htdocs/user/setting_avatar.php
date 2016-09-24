@@ -24,6 +24,29 @@ if ($inajax == 1) {
     }
 
     exit();
+}else if (isset($_POST['do']) && $_POST['do'] == 'uploadFile') {
+    $imagepath = trim($_POST['data']);
+    $url = IMG_SERVER."user/lib/upload.php";
+	$result = curlInterFace($url,"post",[
+        'data' => $imagepath,
+        'act' => 'uploadFile',
+        'Users_Account' => $BizAccount,
+        'filepath' => '../../uploadfiles/avatar',
+    ]);
+    if($result['errorCode']===0){
+        $data = [
+            'Biz_Account' => $BizAccount,
+            'configData' => [
+                'ShopLogo' =>$result['msg']
+            ]
+        ];
+
+        $result = shopconfig::updatecolumn($data);
+        echo json_encode($result);
+        exit;
+    }
+    
+    echo json_encode($result);exit;
 }
 
 //获取配置信息
@@ -45,6 +68,7 @@ $config = $result['data'];
 <link href="../static/user/css/product.css" type="text/css" rel="stylesheet">
 <link href="../static/user/css/font-awesome.min.css" type="text/css" rel="stylesheet">
 <script type="text/javascript" src="../static/js/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="../static/user/js/jquery.uploadView.js"></script>
 <script type="text/javascript" src="../static/js/plugin/layer_mobile/layer.js"></script>
 <body>
 <div class="w">
@@ -53,9 +77,13 @@ $config = $result['data'];
     </div>
     <div class="blank10"></div>
 	<div class="pic_add">
-    	<div class="ccc">
-        	<img src="http://upload.cankaoxiaoxi.com/2016/0923/1474600254126.jpg">
+    	<div class="ccc js_uploadBox">
+        	<img src="<?=$config['ShopLogo']?IMG_SERVER.$config['ShopLogo']:'' ?>" class="showimg">
             <span>修改图片</span>
+            <input type="file" class="js_upFile" style="position:absolute; top:180px; left:0; height:34px; filter:alpha(opacity:0);opacity: 0;width:100%; cursor:pointer;" name="upthumb" />
+            <input type="hidden" id="image_files" name="image_files" value="">
+            <input type="hidden" name="ShopLogo" value="">
+            <input type="hidden" id="Users_WechatAccount" name="Users_WechatAccount" value="">
         </div> 
 	</div>
 </div>
@@ -70,7 +98,34 @@ $(function(){
                 }});
             }
         },'json')
-    })
+    });
+    $(".js_upFile").uploadView({
+            uploadBox: '.js_uploadBox',//设置上传框容器
+            showBox : '.js_showBox',//设置显示预览图片的容器
+            width : 220, //预览图片的宽度，单位px
+            height : 120, //预览图片的高度，单位px
+            allowType: ["gif", "jpeg", "jpg", "bmp", "png"], //允许上传图片的类型
+            maxSize :10, //允许上传图片的最大尺寸，单位M
+            success:function(e){
+                $(".showimg").attr("src",$("#image_files").val());
+                $.ajax({
+                    type:"POST",
+                    url:"?act=setting_avatar",
+                    data:{"do":"uploadFile", "data":$("#image_files").val()},
+                    dataType:"json",
+                    success:function(data){
+                        if (data.errorCode == 0) {
+                             $("input[name=ShopLogo]").val(data.msg);
+                        } else {
+                            layer.open({
+                                content: data.msg
+                                ,btn: '我知道了'
+                            });
+                        }
+                    }
+                });
+            }
+        });
 })
 </script>
 
