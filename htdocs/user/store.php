@@ -40,6 +40,7 @@ $config = $result['data'];
 <link href="../static/user/css/font-awesome.css" type="text/css" rel="stylesheet">
 <link href="../static/user/css/font-awesome.min.css" type="text/css" rel="stylesheet">
 <script type="text/javascript" src="../static/user/js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="../static/js/plugin/layer_mobile/layer.js"></script>
 <body>
 <div class="w">
     <div class="head_bg">
@@ -87,7 +88,7 @@ $config = $result['data'];
     <div class="product_x">
         <ul>
             <li style="border-right:1px #eee solid;">
-                <a href='?act=product_add'><i class="fa  fa-plus-square fa-x" aria-hidden="true"></i>&nbsp;产品发布</a>
+                <a id="pro_x"><i class="fa  fa-plus-square fa-x" aria-hidden="true"></i>&nbsp;产品发布</a>
             </li>
             <li>
                 <a href='?act=products'><i class="fa  fa-check-square fa-x" aria-hidden="true"></i>&nbsp;产品管理</a>
@@ -153,6 +154,12 @@ $ucenter = $homeUrl . 'member/';
     <!--//footer nav -->
 </div>
 <script type="text/javascript">
+$("#pro_x").click(function(){
+    layer.open({
+    content: '<div class="sto_bg"><ul><li><h3>产品库挑选</h3><p>没有产品，想开分销商城的用户，不能发布自己的产品，只能代销。</p><span class="r"><input type="button"value="立即进入" onclick="location.href=\'?act=search\'"></span><div class="clear"></div></li><li><h3>开通官方分销商城</h3><p>有产品，可绑定自己的微信公众号，独立运营，同时还可以把产品推荐到产品库，同其他代销。</p><span class="r"><input type="button"value="立即进入" onclick="location.href=\'?act=product_add\'"></span><div class="clear"></div></li><li><h3>供货商，只供货</h3><p>只向平台提供货源，不做自己的独立的店铺。</p><span class="r"><input type="button"value="立即进入" onclick="location.href=\'?act=product_add&supply=1\'"></span><div class="clear"></div></li></ul></div>'
+    });	
+})	
+
 $(function(){
     $.get('?act=store&inajax=1&do=count', {}, function(json) {
         if (json.errorCode == '0') {

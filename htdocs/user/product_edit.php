@@ -1,6 +1,6 @@
 <?php
 require_once "/config.inc.php";
-//require_once(CMS_ROOT . '/include/api/product.class.php');
+require_once(CMS_ROOT . '/include/api/product.class.php');
 require_once(CMS_ROOT . '/include/api/b2cshopconfig.class.php');
 //require_once(CMS_ROOT . '/include/api/product_category.class.php');
 
@@ -23,6 +23,38 @@ if ($users['errorCode'] == 0) {
     exit;
 }
 
+//获取商品数据
+//$product_id = $_GET['product_id'];
+$product_id = 32;
+$postdata['Biz_Account'] = $BizAccount;
+$postdata['Products_ID'] = $product_id;
+$postdata['is_Tj'] = 1;
+$resArr = product::getProductArr($postdata);
+//print_r($productData);die;
+$productData = $resArr['data'];     //产品参数
+
+//图片
+$image_path = json_decode($productData['Products_JSON'], true)['ImgPath'];
+
+//推荐到批发商城时的分类
+if ($postdata['is_Tj'] == 1 && $productData['is_Tj'] == 1) {
+    $b2cCate = $productData['b2cCategory'];
+    $b2cCateId = explode(',', $b2cCate['B2CProducts_Category']);
+    $firstCateId = $b2cCateId[0];
+    $secondCateId = $b2cCateId[1];
+    foreach ($b2cCate['B2CShop_Category'] as $k => $v) {
+        if ($v['Category_ID'] == $firstCateId) {
+            $firstCateName = $v['Category_Name'];
+        }
+        if ($v['Category_ID'] == $secondCateId) {
+            $secondCateName = $v['Category_Name'];
+        }
+    }
+    
+    $cateName = $firstCateName.'，'.$secondCateName;
+}
+//var_dump($image_path);die;
+
 ?>
 <!doctype html>
 <html>
@@ -30,7 +62,7 @@ if ($users['errorCode'] == 0) {
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0">
     <meta name="app-mobile-web-app-capable" content="yes">
-    <title>发布产品</title>
+    <title>编辑产品</title>
 </head>
 <link href="../static/user/css/product.css" type="text/css" rel="stylesheet">
 <link href="../static/user/css/font-awesome.min.css" type="text/css" rel="stylesheet">
@@ -163,10 +195,10 @@ if ($users['errorCode'] == 0) {
 <body>
 <div class="w">
     <div class="back_x">
-        <a class="l" href="javascript:history.back();">&nbsp;取消</a><h3>发布产品</h3>
+        <a class="l" href="javascript:history.back();">&nbsp;取消</a><h3>编辑产品</h3>
     </div>
     <div class="name_pro">
-        <input type="text" name="Products_Name" value="" placeholder="请输入商品名称">
+        <input type="text" name="Products_Name" value="<?php echo $productData['Products_Name']; ?>" placeholder="请输入商品名称">
         <div class="img_add">
             <div class="js_uploadBox">
                 <div class="js_showBox"></div>
@@ -192,43 +224,43 @@ if ($users['errorCode'] == 0) {
         <table width="96%" class="table_x">
             <tr>
                 <th><span class="notNull">*</span>原价（￥）：</th>
-                <td><input type="number" name="PriceY" class="user_input" value="" placeholder="请输入商品原价"></td>
+                <td><input type="number" name="PriceY" class="user_input" value="<?php echo $productData['Products_PriceY']; ?>" placeholder="请输入商品原价"></td>
             </tr>
             <tr>
                 <th><span class="notNull">*</span>现价（￥）：</th>
-                <td><input type="number" name="PriceX" class="user_input" value="" placeholder="请输入商品现价"></td>
+                <td><input type="number" name="PriceX" class="user_input" value="<?php echo $productData['Products_PriceX']; ?>" placeholder="请输入商品现价"></td>
             </tr>
             <tr>
                 <th>是否推荐&nbsp;&nbsp;&nbsp;<br/>到批发商城：</th>
-                <td><input class="toggle-switch" type="checkbox" name="is_Tj"></td>
+                <td><input class="toggle-switch" type="checkbox" name="is_Tj" <?php if ($productData['is_Tj'] == 1) {echo 'checked="checked"';} else {echo '';} ?>></td>
             </tr>
             <tr class="is_Tj" style="display:none;">
                 <th><span class="notNull">*</span>供货价(￥)：</th>
-                <td><input type="number" name="PriceS" class="user_input" value="" placeholder="请输入商品供货价"></td>
+                <td><input type="number" name="PriceS" class="user_input" value="<?php echo $productData['Products_PriceS']; ?>" placeholder="请输入商品供货价"></td>
             </tr>
             <tr class="is_Tj" style="display:none;">
                 <th><span class="notNull">*</span>所属分类：</th>
-                <td id="test1"><span id="b2c_category" firstCate="" secondCate=""></span><span class="right">选择分类&nbsp;<i class="fa  fa-angle-right fa-x" aria-hidden="true" style="font-size:20px;"></i></span></td>
+                <td id="test1"><span id="b2c_category" firstCate="<?php if (isset($firstCateId)) {echo $firstCateId;} ?>" secondCate="<?php if (isset($secondCateId)) {echo $secondCateId;} ?>"><?php if (isset($cateName)) {echo $cateName;} ?></span><span class="right">选择分类&nbsp;<i class="fa  fa-angle-right fa-x" aria-hidden="true" style="font-size:20px;"></i></span></td>
             </tr>
             <tr>
                 <th><span class="notNull">*</span>产品利润：</th>
-                <td><input type="number" name="Products_Profit" class="user_input" value="" placeholder="佣金将按照产品利润发放" /></td>
+                <td><input type="number" name="Products_Profit" class="user_input" value="<?php echo $productData['Products_Profit']; ?>" placeholder="佣金将按照产品利润发放" /></td>
             </tr>
             <tr>
                 <th><span class="notNull">*</span>购买送积分：</th>
-                <td><input type="number" name="Products_Integration" class="user_input" value="" placeholder="请输入送积分数" /></td>
+                <td><input type="number" name="Products_Integration" class="user_input" value="<?php echo $productData['Products_Integration']; ?>" placeholder="请输入送积分数" /></td>
             </tr>
             <tr>
                 <th><span class="notNull">*</span>产品重量：</th>
-                <td><input type="number" name="Products_Weight" class="user_input" value="" placeholder="产品重量,单位为kg" /> </td>
+                <td><input type="number" name="Products_Weight" class="user_input" value="<?php echo $productData['Products_Weight']; ?>" placeholder="产品重量,单位为kg" /> </td>
             </tr>
             <tr>
                 <th><span class="notNull">*</span>库存（件）：</th>
-                <td><input type="number" name="count" class="user_input" value="" placeholder="请输入商品库存"></td>
+                <td><input type="number" name="count" class="user_input" value="<?php echo $productData['Products_Count']; ?>" placeholder="请输入商品库存"></td>
             </tr>
             <tr>
                 <th><span class="notNull">*</span>选择运费：</th>
-                <td><input type="radio" value="1" name="freeshipping" checked="checked" />&nbsp;&nbsp;免运费 &nbsp;&nbsp;<input type="radio" value="2" name="freeshipping"/>&nbsp;&nbsp;运费模板 </td>
+                <td><input type="radio" value="1" name="freeshipping" <?php if ($productData['Products_IsShippingFree'] == 1) {echo 'checked="checked"';} else {echo '';} ?> />&nbsp;&nbsp;免运费 &nbsp;&nbsp;<input type="radio" value="2" name="freeshipping" <?php if ($productData['Products_IsShippingFree'] == 2) {echo 'checked="checked"';} else {echo '';} ?> />&nbsp;&nbsp;运费模板 </td>
             </tr>
             <tr style="display: none;">
                 <th>产品类型：</th>
@@ -249,19 +281,19 @@ if ($users['errorCode'] == 0) {
             </tr>
             <tr>
                 <th><span class="notNull">*</span>所属分类：</th>
-                <td id="test2"><span id="category" firstCate="" secondCate=""></span><span class="right">选择分类&nbsp;<i class="fa  fa-angle-right fa-x" aria-hidden="true" style="font-size:20px;"></i></span></td>
+                <td id="test2"><span id="category" firstCate="<?php echo $productData['Products_Name']; ?>" secondCate="<?php echo $productData['Products_Name']; ?>"></span><span class="right">选择分类&nbsp;<i class="fa  fa-angle-right fa-x" aria-hidden="true" style="font-size:20px;"></i></span></td>
             </tr>
             <tr>
                 <th>是否置顶：</th>
-                <td><input class="toggle-switch" type="checkbox" name="IsHot" checked=""></td>
+                <td><input class="toggle-switch" type="checkbox" name="IsHot" <?php if ($productData['Products_IsHot'] == 1) {echo 'checked="checked"';} else {echo '';} ?> ></td>
             </tr>
             <tr>
                 <th>是否推荐：</th>
-                <td><input class="toggle-switch" type="checkbox" name="IsRecommend" checked=""></td>
+                <td><input class="toggle-switch" type="checkbox" name="IsRecommend" <?php if ($productData['Products_IsRecommend'] == 1) {echo 'checked="checked"';} else {echo '';} ?> ></td>
             </tr>
             <tr>
                 <th>是否新品：</th>
-                <td><input class="toggle-switch" type="checkbox" name="IsNew" checked=""></td>
+                <td><input class="toggle-switch" type="checkbox" name="IsNew" <?php if ($productData['Products_IsNew'] == 1) {echo 'checked="checked"';} else {echo '';} ?> ></td>
             </tr>
         </table>
     </div>
@@ -431,7 +463,9 @@ if ($users['errorCode'] == 0) {
     })
 
 </script>
-
+<?php
+if ($bizData['seller_verify'] == 0) {
+?>
 <script language="javascript">
 $(function(){
     $('input[name="is_Tj"]').change(function(){
@@ -451,6 +485,8 @@ $(function(){
     })
 })
 </script>
-
+<?php
+}
+?>
 </body>
 </html>

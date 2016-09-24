@@ -180,5 +180,28 @@ class product extends base
         return $result;
     }
 
+    /**
+     * B2C添加产品到401数据库
+     * @param array $data 二维数组
+     * @return json
+     */
+    static public function addProductTo401($data)
+    {
+        $url = "/product/addgoodsto401.html";
+        $result = self::request($url, 'post', $data);
+        return $result;
+    }
+
+    /**
+     * B2C编辑产品从401数据库获取数据
+     * @param array $data 二维数组
+     * @return json
+     */
+    static public function getProductArr($data)
+    {
+        $url = "/product/detail401.html";
+        $result = self::request($url, 'post', $data);
+        return $result;
+    }
 
 }
