@@ -8,13 +8,13 @@ $inajax = isset($_GET['inajax']) ? (int)$_GET['inajax'] : 0;
 if ($inajax == 1) {
     $do = isset($_GET['do']) ? $_GET['do'] : '';
 
-    if ($do == 'wechat') {
-        $Users_WechatAccount = isset($_POST['Users_WechatAccount']) ? $_POST['Users_WechatAccount'] : 0;
+    if ($do == 'save') {
+        $content = isset($_POST['content']) ? $_POST['content'] : 0;
 
         $data = [
             'Biz_Account' => $BizAccount,
-            'usersData' => [
-                'Users_WechatAccount' => $Users_WechatAccount,
+            'configData' => [
+                'ShopAnnounce' => $content,
             ],
         ];
         
@@ -49,18 +49,21 @@ $config = $result['data'];
 <body>
 <div class="w">
 	<div class="back_x">
-    	<a href="javascript:history.back()" class="l"><i class="fa  fa-angle-left fa-2x" aria-hidden="true"></i></a>微信号
+    	<a href="javascript:history.back()" class="l"><i class="fa  fa-angle-left fa-2x" aria-hidden="true"></i></a>店铺公告
     </div>
 	<div class="shop_share">
     	<img src="http://img0.bdstatic.com/img/image/shouye/xinshouye/toux.png">
-        <h3><textarea>分享我的店铺分享我的店铺分享我的店铺分享我的店铺分享我的店铺分享我的店铺分享我的店铺分享我的店铺</textarea></h3>
+        <h3><textarea name="content" id="content"><?php echo $config['ShopAnnounce'];?></textarea></h3>
     </div> 
+        <div class="sub_setting">
+    	<input type="button" class="btnsubmit" value="保存">
+    </div>
 </div>
 <script type="text/javascript">
 $(function(){
     $(".btnsubmit").click(function(){
-        var Users_WechatAccount = $("#Users_WechatAccount").val();
-        $.post("?act=setting_wechat&inajax=1&do=wechat", {Users_WechatAccount:Users_WechatAccount}, function(json){
+        var content = $("#content").val();
+        $.post("?act=setting_announce&inajax=1&do=save", {content:content}, function(json){
             if(json.errorCode == '0') {
                 layer.open({content:json.msg, time:2, end:function() {
                     history.back();
