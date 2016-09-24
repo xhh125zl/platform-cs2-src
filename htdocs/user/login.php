@@ -28,7 +28,7 @@ if ($inajax == 1) {
             $condition = "Biz_Account= '" . addslashes($_POST["Account"]) . "'";
         }
 
-        $rsBiz=$DB->GetRs("biz","*","where Biz_Account='" . $_POST["Account"] . "' and Biz_PassWord='" . md5($_POST["Password"]) . "'");
+        $rsBiz=$DB->GetRs("biz","*","where " .  $condition . " and Biz_PassWord='" . md5($_POST["Password"]) . "'");
         if ($rsBiz) {
             if ($rsBiz["Biz_Status"] == 1) {
                 $result =  [
