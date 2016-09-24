@@ -43,6 +43,7 @@ $data = [
 $result = shopconfig::getConfig($data);
 $config = $result['data'];
 
+//print_r($config);
 ?>
 <!doctype html>
 <html>
@@ -78,18 +79,18 @@ $(document).ready(function(){
 <div class="blank20"></div>
 
 <form id="form1" name="form1" method="post">
-    <div class="box_setting" style="background:none">
-    <span class="input">
-			<select name="Province"  id="loc_province" style="width:120px">
+    <div class="box_adr">
+
+			<select name="Province"  id="loc_province">
 				<option>选择省份</option>
-			</select>&nbsp;
-			<select name="City" id="loc_city" style="width:120px">
+			</select>
+			<select name="City" id="loc_city">
 				<option>选择城市</option>
 			</select>
-			<select name="Area"  id="loc_town" style="width:120px">
+			<select name="Area"  id="loc_town">
 				<option>选择区县</option>
 			</select>
-    </span>
+
           <div class="clear"></div>
 
     	<input type="text" name="RecieveAddress" id="RecieveAddress" placeholder="收货地址" maxlength="30" value="<?php echo $config['RecieveAddress'];?>">
