@@ -2,7 +2,6 @@
 require_once "/config.inc.php";
 require_once(CMS_ROOT . '/include/api/product.class.php');
 require_once(CMS_ROOT . '/include/api/b2cshopconfig.class.php');
-//require_once(CMS_ROOT . '/include/api/product_category.class.php');
 
 //检查用户是否登录
 if(empty($BizAccount)){
@@ -24,36 +23,73 @@ if ($users['errorCode'] == 0) {
 }
 
 //获取商品数据
-//$product_id = $_GET['product_id'];
-$product_id = 32;
+if (isset($_GET['product_id'])) {
+	$product_id = $_GET['product_id'];
+} else {
+	echo '<script>alert("商品id获取失败");history.back();</script>';
+}
+
 $postdata['Biz_Account'] = $BizAccount;
 $postdata['Products_ID'] = $product_id;
 $postdata['is_Tj'] = 1;
 $resArr = product::getProductArr($postdata);
-//print_r($productData);die;
 $productData = $resArr['data'];     //产品参数
 
 //图片
-$image_path = json_decode($productData['Products_JSON'], true)['ImgPath'];
+$image_path_arr = json_decode($productData['Products_JSON'], true)['ImgPath'];
+$images_path = array();
+$image_path = '';
+foreach ($image_path_arr as $k => $v) {
+	if ( strpos($v, IMG_SERVER) !== false ) {
+		if (substr(IMG_SERVER, -1) == '/') {
+			$image_path .=  '/'.str_replace(IMG_SERVER, '', $v).',';
+		} else {
+			$image_path .=  str_replace(IMG_SERVER, '', $v).',';
+		}
+		$images_path[] = $v;
+    } else {
+    	$image_path .= $v.',';
+    	if (substr(IMG_SERVER, -1) == '/') {
+    		$images_path[] = IMG_SERVER.ltrim($v, '/');
+    	} else {
+    		$images_path[] = IMG_SERVER.$v;
+    	}
+    }
+}
+$image_path = rtrim($image_path, ',');
+//$image_path = implode(',', $image_path_arr);
 
 //推荐到批发商城时的分类
 if ($postdata['is_Tj'] == 1 && $productData['is_Tj'] == 1) {
     $b2cCate = $productData['b2cCategory'];
     $b2cCateId = explode(',', $b2cCate['B2CProducts_Category']);
-    $firstCateId = $b2cCateId[0];
-    $secondCateId = $b2cCateId[1];
+    $b2c_firstCateId = $b2cCateId[0];
+    $b2c_secondCateId = $b2cCateId[1];
     foreach ($b2cCate['B2CShop_Category'] as $k => $v) {
-        if ($v['Category_ID'] == $firstCateId) {
-            $firstCateName = $v['Category_Name'];
+        if ($v['Category_ID'] == $b2c_firstCateId) {
+            $b2c_firstCateName = $v['Category_Name'];
         }
-        if ($v['Category_ID'] == $secondCateId) {
-            $secondCateName = $v['Category_Name'];
+        if ($v['Category_ID'] == $b2c_secondCateId) {
+            $b2c_secondCateName = $v['Category_Name'];
         }
     }
-    
-    $cateName = $firstCateName.'，'.$secondCateName;
+    $b2c_cateName = $b2c_firstCateName.'，'.$b2c_secondCateName;
 }
-//var_dump($image_path);die;
+
+//401商品分类
+$cate = explode(',', $productData['Products_Category']);
+$firstCateId = $cate[2];
+$secondCateId = $cate[3];
+
+foreach ($productData['Category401'] as $k => $v) {
+	if ($v['Category_ID'] == $firstCateId) {
+        $firstCateName = $v['Category_Name'];
+    }
+    if ($v['Category_ID'] == $secondCateId) {
+        $secondCateName = $v['Category_Name'];
+    }
+}
+$cateName = $firstCateName.'，'.$secondCateName;
 
 ?>
 <!doctype html>
@@ -78,143 +114,38 @@ if ($postdata['is_Tj'] == 1 && $productData['is_Tj'] == 1) {
     .deleted{cursor: pointer;width: 45px;display: block;height: 20px;line-height: 20px;text-align: center;position: relative;background: #000;color: #fff;font-size: 12px;filter: alpha(opacity=50);-moz-opacity: 0.5;-khtml-opacity: 0.5;opacity: 0.5;margin-top: -20px;}
     .notNull { color: red; }
 </style>
-<script type="text/javascript">
-    $(function(){
-        //上架商品  提交数据 并验证
-        $('.pro_foot').on('click',function(){
-            var productData = {
-                'Products_Name' : $.trim($('input[name="Products_Name"]').val()),      //商品名称
-                'Products_JSON' : $.trim($('input[name="image_path"]').val()),      //商品封面图片的路径集
-                'Products_BriefDescription' : $.trim($('textarea[name="BriefDescription"]').val()),     //商品描述
-                'Products_PriceY' : $.trim($('input[name="PriceY"]').val()),      //商品原价
-                'Products_PriceX' : $.trim($('input[name="PriceX"]').val()),      //商品现价
-                'is_Tj' : $('input[name="is_Tj"]:checked').val() == 'on' ? 1 : 0,    //是否推荐到批发商城
-                'Products_PriceS' : $.trim($('input[name="PriceS"]').val()),      //商品供货价   推荐到批发商城后
-                //'b2c_firstCate' : $('#b2c_category').attr('firstCate'),      //批发商城商品所属分类  一级
-                'B2CProducts_Category' : $('#b2c_category').attr('secondCate'),      //批发商城商品所属分类  二级
-                'Products_Profit' : $.trim($('input[name="Products_Profit"]').val()),  //商品的利润
-                'Products_Integration' : $.trim($('input[name="Products_Integration"]').val()),  //商品送积分
-                'Products_Weight' : $.trim($('input[name="Products_Weight"]').val()),  //商品重量
-                'Products_Count' : $.trim($('input[name="count"]').val()),      //商品库存
-                'Products_IsShippingFree' : $('input[name="freeshipping"]:checked').val(),    //运费选择
-                'firstCate' : $('#category').attr('firstCate'),      //商品所属分类  一级
-                'secondCate' : $('#category').attr('secondCate'),      //商品所属分类  二级
-                'Products_IsHot' : $('input[name="IsHot"]:checked').val() == 'on' ? 1 : 0,    //是否置顶
-                'Products_IsRecommend' : $('input[name="IsRecommend"]:checked').val() == 'on' ? 1 : 0,    //是否推荐
-                'Products_IsNew' : $('input[name="IsNew"]:checked').val() == 'on' ? 1 : 0    //是否为新品
-            };
-            //商品名称非空判断
-            if (!check_null($('input[name="Products_Name"]'))) {
-                return false;
-            }
-            //判断是否有图片
-            if(($('.js_showBox div').length < 1) || (productData.Products_JSON == '')) {
-                $('#add_img').attr('style', 'border: 1px solid red;');
-                return false;
-            } else {
-                $('#add_img').removeAttr('style');
-            }
-            //商品描述非空判断
-            if (!check_null($('textarea[name="BriefDescription"]'))) {
-                return  false;
-            }
-            //原价
-            if (!check_null($('input[name="PriceY"]')) || !check_number($('input[name="PriceY"]'))) {
-                return false;
-            }
-            //现价
-            if (!check_null($('input[name="PriceX"]')) || !check_number($('input[name="PriceX"]'))) {
-                return false;
-            }
-            //选择推荐  判断填写供货价
-            var PriceS = $('input[name="PriceS"]');
-            if (productData.is_Tj == 1) {
-                if (!check_null($('input[name="PriceS"]')) || !check_number($('input[name="PriceS"]'))) {
-                    return false;
-                }
-                //判断是否选择b2c平台分类
-                if (productData.B2CProducts_Category == '') {
-                    $('#test1').attr('style', 'border:1px solid red;');
-                    return false;
-                } else {
-                    $('#test1').removeAttr('style');
-                }
-            } else {
-                PriceS.attr('style', '');
-                productData.Products_PriceS = 0;
-            }
-            //产品利润
-            if (!check_null($('input[name="Products_Profit"]')) || !check_number($('input[name="Products_Profit"]'))) {
-                return false;
-            }
-            //产品送积分
-            if (!check_null($('input[name="Products_Integration"]')) || !check_number($('input[name="Products_Integration"]'), 1)) {
-                return false;
-            }
-            //产品重量
-            if (!check_null($('input[name="Products_Weight"]')) || !check_number($('input[name="Products_Weight"]'))) {
-                return false;
-            }
-            //库存
-            if (!check_null($('input[name="count"]')) || !check_number($('input[name="count"]'), 1)) {
-                return false;
-            }
-            //判断是否选择分类
-            if(productData.firstCate == '' || productData.secondCate == '') {
-                $('#test2').attr('style', 'border:1px solid red;');
-                return false;
-            } else {
-                $('#test2').removeAttr('style');
-            }
-            //数据提交
-            $.ajax({
-                type:"POST",
-                url:"lib/upload.php",
-                data:{"act":"addProduct", "productData":productData},
-                dataType:"json",
-                success:function(data) {
-                    if (data.errorCode == 0) {
-                        layer.open({
-                           content:data.msg,
-                        });
-                    } else {
-                        layer.open({
-                           content:data.msg,
-                        });
-                    }
-                }
-            });
-        });
-        $(document).keydown(function(e){
-            if (e.keyCode == 13) {
-                $('.pro_foot').click();
-            }
-        });
-    });
-</script>
 <body>
 <div class="w">
     <div class="back_x">
         <a class="l" href="javascript:history.back();">&nbsp;取消</a><h3>编辑产品</h3>
     </div>
+    <input type="hidden" name="Products_ID" value="<?php echo $postdata['Products_ID']; ?>">
     <div class="name_pro">
         <input type="text" name="Products_Name" value="<?php echo $productData['Products_Name']; ?>" placeholder="请输入商品名称">
         <div class="img_add">
             <div class="js_uploadBox">
-                <div class="js_showBox"></div>
+                <div class="js_showBox">
+                	<?php if (!empty($images_path)) { ?>
+                	<?php foreach ($images_path as $k => $v) { ?>
+                		<div style="width: 45px;float:left;margin:0 2px">
+                			<img title="点击删除图片" src="<?php echo $v; ?>" style="display: block; width: 43px; height: 43px;">
+                			<span class="deleted">删除</span>
+                		</div>
+                	<?php }} ?>
+                </div>
                 <div class="btn-upload">
                     <a href="javascript:void(0);" id="add_img">+</a>
                     <input class="js_upFile" type="file" name="cover">
                 </div>
                 <!--image_files显示base64编码过的字符串,image_path存放所有的图片路径-->
                 <input type="hidden" id="image_files" value="">
-                <input type="hidden" name="image_path" value=""/>
+                <input type="hidden" name="image_path" value="<?php if (!empty($image_path)) {echo $image_path;} ?>"/>
             </div>
         </div>
         <p>商品封面（最少一张，最多三张）</p>
     </div>
     <div class="name_pro">
-        <textarea name="BriefDescription" style="width: 100%;height: 100px;line-height: 25px;border: none;" placeholder="请输入商品描述信息"></textarea>
+        <textarea name="BriefDescription" style="width: 100%;height: 100px;line-height: 25px;border: none;" placeholder="请输入商品描述信息"><?php echo $productData['Products_BriefDescription']; ?></textarea>
         <!--<div class="img_add">
             <!--这里写配图的一些代码--
         </div>
@@ -230,17 +161,18 @@ if ($postdata['is_Tj'] == 1 && $productData['is_Tj'] == 1) {
                 <th><span class="notNull">*</span>现价（￥）：</th>
                 <td><input type="number" name="PriceX" class="user_input" value="<?php echo $productData['Products_PriceX']; ?>" placeholder="请输入商品现价"></td>
             </tr>
+            <input type="hidden" name="isSolding" value="<?php echo $productData['isSolding']; ?>" >
             <tr>
                 <th>是否推荐&nbsp;&nbsp;&nbsp;<br/>到批发商城：</th>
-                <td><input class="toggle-switch" type="checkbox" name="is_Tj" <?php if ($productData['is_Tj'] == 1) {echo 'checked="checked"';} else {echo '';} ?>></td>
+                <td><input type="hidden" name="old_is_Tj" value="<?php echo $productData['is_Tj']; ?>" ><input class="toggle-switch" type="checkbox" name="is_Tj" <?php if ($productData['is_Tj'] == 1) {echo 'checked="checked"';} else {echo '';} ?>></td>
             </tr>
-            <tr class="is_Tj" style="display:none;">
+            <tr class="is_Tj" style="<?php if ($productData['is_Tj'] == 1) {echo 'display:table-row';} else {echo 'display:none;';} ?>">
                 <th><span class="notNull">*</span>供货价(￥)：</th>
-                <td><input type="number" name="PriceS" class="user_input" value="<?php echo $productData['Products_PriceS']; ?>" placeholder="请输入商品供货价"></td>
+                <td><input type="number" name="PriceS" class="user_input" value="<?php if ($productData['is_Tj'] == 1) {echo $productData['Products_PriceS'];} ?>" placeholder="请输入商品供货价"></td>
             </tr>
-            <tr class="is_Tj" style="display:none;">
+            <tr class="is_Tj" style="<?php if ($productData['is_Tj'] == 1) {echo 'display:table-row';} else {echo 'display:none;';} ?>">
                 <th><span class="notNull">*</span>所属分类：</th>
-                <td id="test1"><span id="b2c_category" firstCate="<?php if (isset($firstCateId)) {echo $firstCateId;} ?>" secondCate="<?php if (isset($secondCateId)) {echo $secondCateId;} ?>"><?php if (isset($cateName)) {echo $cateName;} ?></span><span class="right">选择分类&nbsp;<i class="fa  fa-angle-right fa-x" aria-hidden="true" style="font-size:20px;"></i></span></td>
+                <td id="test1"><span id="b2c_category" firstCate="<?php if (isset($b2c_firstCateId)) {echo $b2c_firstCateId;} ?>" secondCate="<?php if (isset($b2c_secondCateId)) {echo $b2c_secondCateId;} ?>"><?php if (isset($b2c_cateName)) {echo $b2c_cateName;} ?></span><span class="right">选择分类&nbsp;<i class="fa  fa-angle-right fa-x" aria-hidden="true" style="font-size:20px;"></i></span></td>
             </tr>
             <tr>
                 <th><span class="notNull">*</span>产品利润：</th>
@@ -260,7 +192,7 @@ if ($postdata['is_Tj'] == 1 && $productData['is_Tj'] == 1) {
             </tr>
             <tr>
                 <th><span class="notNull">*</span>选择运费：</th>
-                <td><input type="radio" value="1" name="freeshipping" <?php if ($productData['Products_IsShippingFree'] == 1) {echo 'checked="checked"';} else {echo '';} ?> />&nbsp;&nbsp;免运费 &nbsp;&nbsp;<input type="radio" value="2" name="freeshipping" <?php if ($productData['Products_IsShippingFree'] == 2) {echo 'checked="checked"';} else {echo '';} ?> />&nbsp;&nbsp;运费模板 </td>
+                <td><input type="radio" value="1" name="freeshipping" <?php if ($productData['Products_IsShippingFree'] == 1) {echo 'checked="checked"';} else {echo '';} ?> />&nbsp;&nbsp;免运费 &nbsp;&nbsp;<input type="radio" value="0" name="freeshipping" <?php if ($productData['Products_IsShippingFree'] == 0) {echo 'checked="checked"';} else {echo '';} ?> />&nbsp;&nbsp;运费模板 </td>
             </tr>
             <tr style="display: none;">
                 <th>产品类型：</th>
@@ -281,7 +213,7 @@ if ($postdata['is_Tj'] == 1 && $productData['is_Tj'] == 1) {
             </tr>
             <tr>
                 <th><span class="notNull">*</span>所属分类：</th>
-                <td id="test2"><span id="category" firstCate="<?php echo $productData['Products_Name']; ?>" secondCate="<?php echo $productData['Products_Name']; ?>"></span><span class="right">选择分类&nbsp;<i class="fa  fa-angle-right fa-x" aria-hidden="true" style="font-size:20px;"></i></span></td>
+                <td id="test2"><span id="category" firstCate="<?php if (isset($firstCateId)) {echo $firstCateId;} ?>" secondCate="<?php if (isset($secondCateId)) {echo $secondCateId;} ?>"><?php if (isset($cateName)) {echo $cateName;} ?></span><span class="right">选择分类&nbsp;<i class="fa  fa-angle-right fa-x" aria-hidden="true" style="font-size:20px;"></i></span></td>
             </tr>
             <tr>
                 <th>是否置顶：</th>
@@ -301,168 +233,10 @@ if ($postdata['is_Tj'] == 1 && $productData['is_Tj'] == 1) {
     <div class="kb"></div>
     <div class="bottom">
         <div class="pro_foot">
-            <a>上架产品</a>
+            <a>编辑产品</a>
         </div>
     </div>
 </div>
-<script>
-    $(function(){
-        $("#set_commission").click(function(){
-            layer.open({
-                type:0,
-                title:"提示信息",
-                content:"请到PC端操作!手机端不支持设置佣金,将按照默认佣金比例!",
-                btn:['确认'],
-            })
-        });
-        //点击推荐到批发商城选择分类进行的操作
-        $("#test1").click(function(){
-            var me = $(this);
-            layer.open({
-                type:1,
-                content:"<div class=\"select_containers\">请选择一级分类:<select name=\"b2c_firstCate\" class=\"select\" id=\"b2c_firstCate\"><option value=\"0\">请选择顶级分类</option></select><br/>请选择二级分类:</div>",
-                title:[
-                    '<span style="float:left">请选择要添加到的分类</span><span style="float: right"><a href="javascript:void(0);">新增分类</a></span>',
-                    'background-color:#f0f0f0;font-weight:bold;'
-                ],
-                style: 'width:100%;position:fixed;bottom:0;left:0;border-radius:8px;',
-                btn:['确定','重选'],
-                shadeClose:false,
-                yes:function(index){
-                    if ($("#b2c_secondCate").length > 0) {
-                        var b2c_firstCate = $("#b2c_firstCate").val();
-                        var b2c_secondCate = $("#b2c_secondCate").val();
-                        var b2c_firstCate_name = $("#b2c_firstCate").find('option:selected').text();
-                        var b2c_secondCate_name = $("#b2c_secondCate").find('option:selected').text();
-                        $('#b2c_category').attr('firstCate', b2c_firstCate);
-                        $('#b2c_category').attr('secondCate', b2c_secondCate);
-                        $('#b2c_category').html(b2c_firstCate_name+'，'+b2c_secondCate_name);
-                        layer.close(index);
-                    }else{
-                        layer.open({
-                            type:0,
-                            title:"提示信息",
-                            content:"商品应放在二级分类下,如您对应的上级分类还没有二级分类,请点击添加分类按钮进行分类添加操作!",
-                            btn:['添加分类','取消'],
-                            yes:function(){
-                                location.reload();
-                            }
-                        });
-                    }
-                }
-            });
-            //分类联动菜单第一级
-            $.ajax({
-                type:"get",
-                url:"/user/lib/category.php",
-                data:{"action":"fB2cCate"},
-                dataType:'json',
-                success:function(data){
-                    $.each(data,function(i,n){
-                        var option="<option value='"+ n.Category_ID+"'>"+ n.Category_Name+"</option>";
-                        $("#b2c_firstCate").append(option);
-                    })
-                }
-            });
-        });
-
-        //分类联动菜单第二级
-        $("#b2c_firstCate").live('change',function(){
-            var me = $(this);
-            $.getJSON("/user/lib/category.php",{"action":"sB2cCate","fB2cCateID":me.val()},function(data){
-                if(data){
-                    if($("#b2c_secondCate").length<=0){
-                        var sel="<select name=\"b2c_secondCate\" class=\"select\" id=\"b2c_secondCate\"></select>"
-                        $(".select_containers").append(sel);
-                    }
-                    $("#b2c_secondCate").empty();
-                    $.each(data, function(i, n){
-                        var option="<option value='"+ n.Category_ID+"'>"+n.Category_Name+"</option>";
-                        $("#b2c_secondCate").append(option);
-                    });
-                }else{
-                    if($("#b2c_secondCate").length>0){
-                        $("#b2c_secondCate").remove();
-                    }
-                }
-            });
-        });
-
-        //点击分类（自营）按钮进行的操作
-        $("#test2").click(function(){
-            var me = $(this);
-            layer.open({
-                type:1,
-                content:"<div class=\"select_containers\">请选择一级分类:<select name=\"firstCate\" class=\"select\" id=\"firstCate\"><option value=\"0\">请选择顶级分类</option></select><br/>请选择二级分类:</div>",
-                title:[
-                    '<span style="float:left">请选择要添加到的分类</span><span style="float: right"><a href="javascript:void(0);">新增分类</a></span>',
-                    'background-color:#f0f0f0;font-weight:bold;'
-                ],
-                style: 'width:100%;position:fixed;bottom:0;left:0;border-radius:8px;',
-                btn:['确定','重选'],
-                shadeClose:false,
-                yes:function(index){
-                    if ($("#secondCate").length > 0) {
-                        var firstCate = $("#firstCate").val();
-                        var secondCate = $("#secondCate").val();
-                        var firstCate_name = $("#firstCate").find('option:selected').text();
-                        var secondCate_name = $("#secondCate").find('option:selected').text();
-                        $('#category').attr('firstCate', firstCate);
-                        $('#category').attr('secondCate', secondCate);
-                        $('#category').html(firstCate_name+'，'+secondCate_name);
-                        layer.close(index);
-                    }else{
-                        layer.open({
-                            type:0,
-                            title:"提示信息",
-                            content:"商品应放在二级分类下,如您对应的上级分类还没有二级分类,请点击添加分类按钮进行分类添加操作!",
-                            btn:['添加分类','取消'],
-                            yes:function(){
-                                location.reload();
-                            }
-                        });
-                    }
-                }
-            });
-            //分类联动菜单第一级
-            $.ajax({
-                type:"get",
-                url:"/user/lib/category.php",
-                data:{"action":"fCate"},
-                dataType:'json',
-                success:function(data){
-                    $.each(data,function(i,n){
-                        var option="<option value='"+ n.Category_ID+"'>"+ n.Category_Name+"</option>";
-                        $("#firstCate").append(option);
-                    })
-                }
-            });
-        });
-
-        //分类联动菜单第二级
-        $("#firstCate").live('change',function(){
-            var me = $(this);
-            $.getJSON("/user/lib/category.php",{"action":"sCate","fcateID":me.val()},function(data){
-                if(data){
-                    if($("#secondCate").length<=0){
-                        var sel="<select name=\"secondCate\" class=\"select\" id=\"secondCate\"></select>"
-                        $(".select_containers").append(sel);
-                    }
-                    $("#secondCate").empty();
-                    $.each(data, function(i, n){
-                        var option="<option value='"+ n.Category_ID+"'>"+n.Category_Name+"</option>";
-                        $("#secondCate").append(option);
-                    });
-                }else{
-                    if($("#secondCate").length>0){
-                        $("#secondCate").remove();
-                    }
-                }
-            });
-        });
-    })
-
-</script>
 <?php
 if ($bizData['seller_verify'] == 0) {
 ?>

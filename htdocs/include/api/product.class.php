@@ -137,6 +137,20 @@ class product extends base
        return $result;
     }
 
+    /**
+     * b2c编辑商品时     推荐--->不推荐  （推荐的商品没有未完成的订单）
+     * 删除b2c平台的推荐产品
+     * @param  array $productId [description]
+     * @return array            [description]
+     */
+    static public function b2cProductDelete($productId)
+    {
+        $url = '/product/del.html';
+        $result = self::request($url, 'post', $productId);
+
+        return $result; 
+    }
+
 
 
 
@@ -204,4 +218,15 @@ class product extends base
         return $result;
     }
 
+    /**
+     * B2C编辑产品到401数据库
+     * @param array $data 二维数组
+     * @return json
+     */
+    static public function editProductTo401($data)
+    {
+        $url = "/product/mod401.html";
+        $result = self::request($url, 'post', $data);
+        return $result;
+    }
 }

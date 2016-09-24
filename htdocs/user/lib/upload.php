@@ -13,25 +13,28 @@ function curl_post($uri, $data) {
 	curl_close ( $ch );
 	return $return;
 }
-//验证是否为数字
+//验证是否为数字	默认检查正浮点数  1：非负浮点数  2：检查正整数 3: 检查非负整数
 function check_number($value, $type = 0) {
-	if ($type == 0) {	//验证是否为正数
-		if (is_numeric($value) && $value > 0) {
-			return true;
-		} else {
-			return false;
-		}
-	} else if ($type == 1) {	//验证是否为正整数
-		if (is_numeric($value) && $value > 0 && (floor($value) == $value)) {
-			return true;
-		} else {
-			return false;
-		}
+	$number_regular = '';
+	if ($type == 0) {
+        $number_regular = $value > 0 ;
+    } else if ($type == 1) {
+        $number_regular = $value >= 0 ;
+    } else if ($type == 2) {
+        $number_regular = $value > 0 && $value%1 == 0 ;
+    } else if ($type == 3) {
+        $number_regular = $value >= 0 && $value%1 == 0 ;
+    }
+
+	if (is_numeric($value) && $number_regular) {
+		return true;
+	} else {
+		return false;
 	}
 }
 
 if ($_POST['act'] == 'uploadFile') {
-	$uri = "http://401.wzw.com/user/lib/upload.php";
+	$uri = rtrim(IMG_SERVER, '/').'/user/lib/upload.php';
 	// 参数数组
 	$data = array (
 		'act' => $_POST['act'],
@@ -40,8 +43,9 @@ if ($_POST['act'] == 'uploadFile') {
         'Users_Account' => $BizAccount
 	);
 	echo curl_post($uri, $data);
+
 } elseif ($_POST['act'] == 'delImg') {
-    $uri = "http://401.wzw.com/user/lib/upload.php";
+    $uri = rtrim(IMG_SERVER, '/').'/user/lib/upload.php';
 	// 参数数组
 	$data = array (
 		'act' => $_POST['act'],
@@ -49,9 +53,11 @@ if ($_POST['act'] == 'uploadFile') {
         'index' => (int)$_POST['index']
 	);
 	echo curl_post($uri, $data);
-} elseif ($_POST['act'] == 'addProduct') {
+
+} elseif ($_POST['act'] == 'addEditProduct') {
     //数据处理
     $productData = $_POST['productData'];
+
     //图片路径处理
     $imsge_path['ImgPath'] = explode(',' ,$productData['Products_JSON']);
     $productData['Products_JSON'] = json_encode($imsge_path,JSON_UNESCAPED_UNICODE);
@@ -70,7 +76,6 @@ if ($_POST['act'] == 'uploadFile') {
     //$productData['Products_Parameter'] = '[{"name":"","value":""}]';		//产品参数
     $productData['Users_ID'] = $UsersID;
     $productData['Products_status'] = 1;
-    $productData['Products_CreateTime'] = time();
 
     //数据验证	原价、现价、产品利润、赠送积分、产品重量、库存
     if (!check_number($productData['Products_PriceY']) || !check_number($productData['Products_PriceX']) || !check_number($productData['Products_Profit']) || !check_number($productData['Products_Integration'], 1) || !check_number($productData['Products_Weight']) || !check_number($productData['Products_Count'], 1)) {
@@ -81,20 +86,68 @@ if ($_POST['act'] == 'uploadFile') {
     	if (!check_number($productData['Products_PriceS'])) {
     		echo json_encode(array('errorCode' => 1, 'msg' => '填写的数据格式不正确'));die;
     	}
+    } else {
+    	unset($productData['B2CProducts_Category']);
     }
 
-    $postdata['Biz_Account'] = $BizAccount;
-    $postdata['productData'] = $productData;
-    $resArr = product::addProductTo401($postdata);
-    if ($resArr['errorCode'] == 0) {
-        echo json_encode(['errorCode' => 0, 'msg' => '上架成功'], JSON_UNESCAPED_UNICODE);
+    //判断是上架商品还是编辑商品
+    if (empty($productData['Products_ID'])) {		//上架商品
+    	$productData['Products_CreateTime'] = time();
+
+    	unset($productData['Products_ID']);
+    	unset($productData['firstCate']);
+    	unset($productData['secondCate']);
+    	unset($productData['isSolding']);
+    	unset($productData['old_is_Tj']);
+
+    	$postdata['Biz_Account'] = $BizAccount;
+    	$postdata['productData'] = $productData;
+    	$resArr = product::addProductTo401($postdata);
+	    if ($resArr['errorCode'] == 0) {
+	        echo json_encode(['errorCode' => 0, 'msg' => $resArr['msg']], JSON_UNESCAPED_UNICODE);
+	    } else {
+	        echo json_encode(['errorCode' => 1, 'msg' => $resArr['msg']]);
+	    }
+    } elseif (ctype_digit($productData['Products_ID']) && $productData['Products_ID'] > 0) {		//编辑商品
+
+    	//判断推荐的可能，并操作
+    	if ($productData['is_Tj'] == 0 && $productData['old_is_Tj'] == 0) {
+    		unset($productData['isSolding']);
+			$postdata['productdata'] = $productData;
+	    	$resArr = product::editProductTo401($postdata);
+
+		} elseif ($productData['is_Tj'] == 0 && $productData['old_is_Tj'] == 1 && $productData['isSolding'] == 0) {
+			//取消推荐
+			unset($productData['isSolding']);
+			$product_id = ['Products_ID' => $productData['Products_ID']];
+			$resArr = product::b2cProductDelete($product_id);
+
+		} elseif($productData['is_Tj'] == 1 && $productData['old_is_Tj'] == 1) {
+			unset($productData['isSolding']);
+			$postdata['productdata'] = $productData;
+			$resArr = product::edit($data);
+
+		} elseif ($productData['is_Tj'] == 1 && $productData['old_is_Tj'] == 0) {
+			//推荐
+			/*unset($productData['isSolding']);
+			$productData['Products_FromId'] = $productData['Products_ID'];
+			$Data['Users_Account'] = $_SESSION['Users_Account'];
+
+			$data = [
+				'productdata' => $Data, 
+				'productAttr' => $product_attr_arr
+			];
+			$arrRes = product::add($data);*/
+		}
+
+		if ($resArr['errorCode'] == 0) {
+	        echo json_encode(['errorCode' => 0, 'msg' => $resArr['msg']], JSON_UNESCAPED_UNICODE);
+	    } else {
+	        echo json_encode(['errorCode' => 1, 'msg' => $resArr['msg']]);
+	    }
+	    	
     } else {
-        echo json_encode(['errorCode' => 101, 'msg' => $resArr['msg']]);
+    	echo json_encode(['errorCode' => 1, 'msg' => '22222222']);die;
     }
-} elseif ($_POST['act'] == 'editProduct') {
-	//获取数据
-	$postdata['Biz_Account'] = $BizAccount;
-	$postdata['Products_ID'] = 60;
-    $postdata['is_Tj'] = 0;
-    $resArr = product::getProductArr($postdata);
+    
 }
