@@ -297,7 +297,6 @@ $(function(){
             'Products_PriceY' : $.trim($('input[name="PriceY"]').val()),      //商品原价
             'Products_PriceX' : $.trim($('input[name="PriceX"]').val()),      //商品现价
             'isSolding' : $('input[name="isSolding"]').val(),    //编辑时  判断此推荐商品是否有未完成订单， 1： 不允许撤销推荐
-            'old_is_Tj' : $('input[name="old_is_Tj"]').val(),    //编辑时  是否推荐到批发商城状态  上架时为0
             'is_Tj' : $('input[name="is_Tj"]:checked').val() == 'on' ? 1 : 0,    //是否推荐到批发商城
             'Products_PriceS' : $.trim($('input[name="PriceS"]').val()),      //商品供货价   推荐到批发商城后
             //'b2c_firstCate' : $('#b2c_category').attr('firstCate'),      //批发商城商品所属分类  一级
@@ -388,10 +387,16 @@ $(function(){
                 if (data.errorCode == 0) {
                     layer.open({
                        content:data.msg,
+                       style: 'border:none; background-color:green; color:#fff;',
+                       time: 1,
+                       success: function(){
+                            //window.location.href = data.url;
+                       }
                     });
                 } else {
                     layer.open({
                        content:data.msg,
+                       btn: '确定'
                     });
                 }
             }

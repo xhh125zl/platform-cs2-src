@@ -12,13 +12,13 @@ if(empty($BizAccount)){
 $users = b2cshopconfig::getConfig(array('Users_Account' => $BizAccount));
 if ($users['errorCode'] == 0) {
     $bizData = $users['configData'];
-        if ($bizData['expiresTime'] != 0 && $bizData['expiresTime'] < time()) {
-            if ($bizData['need_charg'] == 1) {
-                echo '<script language="javascript">alert("此项功能已到期,必须先交费才可以使用");history.back();</script>';
-                exit();
-            }
+    if ($bizData['expiresTime'] != 0 && $bizData['expiresTime'] < time()) {
+        if ($bizData['need_charg'] == 1) {
+            echo '<script language="javascript">alert("此项功能已到期,必须先交费才可以使用");history.back();</script>';
+            exit();
         }
-}else{
+    }
+} else {
     echo '<script language="javascript">alert("服务器网络异常,数据通信失败");history.back();</script>';
     exit;
 }
@@ -69,7 +69,7 @@ if ($users['errorCode'] == 0) {
         <p>商品封面（最少一张，最多三张）</p>
     </div>
     <div class="name_pro">
-        <textarea name="BriefDescription" style="width: 100%;height: 100px;line-height: 25px;border: none;" placeholder="请输入商品描述信息"></textarea>
+        <textarea name="BriefDescription" style="margin-left: 2%; width: 95%;height: 100px;line-height: 25px;border: none;" placeholder="请输入商品描述信息"></textarea>
         <!--<div class="img_add">
             <!--这里写配图的一些代码--
         </div>
@@ -87,7 +87,7 @@ if ($users['errorCode'] == 0) {
             </tr>
             <tr>
                 <th>是否推荐&nbsp;&nbsp;&nbsp;<br/>到批发商城：</th>
-                <td><input type="hidden" name="old_is_Tj" value="0" ><input class="toggle-switch" type="checkbox" name="is_Tj"></td>
+                <td><input class="toggle-switch" type="checkbox" name="is_Tj"></td>
             </tr>
             <tr class="is_Tj" style="display:none;">
                 <th><span class="notNull">*</span>供货价(￥)：</th>

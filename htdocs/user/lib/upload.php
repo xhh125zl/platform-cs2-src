@@ -1,6 +1,6 @@
 <?php
 require_once "../config.inc.php";
-require_once $_SERVER['DOCUMENT_ROOT'] . '/include/api/product.class.php';
+require_once(CMS_ROOT . '/include/api/product.class.php');
 
 function curl_post($uri, $data) {
 	$ch = curl_init ();
@@ -64,13 +64,13 @@ if ($_POST['act'] == 'uploadFile') {
     //分类处理
     $input_productData['Products_Category'] = ','.(int)$input_productData['firstCate'].','.(int)$input_productData['firstCate']. ',' . (int)$input_productData['secondCate'] . ',';
     $input_productData['Products_BriefDescription'] = htmlspecialchars($input_productData['Products_BriefDescription'], ENT_QUOTES);	//产品简介
-    $input_productData['Shipping_Free_Company'] = 0;		//免运费  0为全部 ，n为指定快递
+    $input_productData['Shipping_Free_Company'] = 0;	//免运费  0为全部 ，n为指定快递
     //$input_productData['Products_Index'] = 1/9999;	//产品排序
     //$input_productData['Products_Type'] = 0/n;		//产品类型
     //$input_productData['Products_SoldOut'] = 0/1;		//其他属性  下架
     //$input_productData['Products_IsPaysBalance'] = 0/1;		//特殊属性  余额支付
     //$input_productData['Products_IsShow'] = 0/1;		//特殊属性  是否显示
-    //$input_productData['Products_IsVirtual'] = 1;	//订单流程		0,0  1,0  1,1 
+    //$input_productData['Products_IsVirtual'] = 1;		//订单流程		0,0  1,0  1,1 
 	//$input_productData['Products_IsRecieve'] = 1;
     //$input_productData['Products_Description'] = htmlspecialchars($input_productData['Products_Description'], ENT_QUOTES);	//详细介绍
     //$input_productData['Products_Parameter'] = '[{"name":"","value":""}]';		//产品参数
@@ -98,15 +98,14 @@ if ($_POST['act'] == 'uploadFile') {
     	unset($input_productData['firstCate']);
     	unset($input_productData['secondCate']);
     	unset($input_productData['isSolding']);
-    	unset($input_productData['old_is_Tj']);
 
     	$postdata['Biz_Account'] = $BizAccount;
     	$postdata['productData'] = $input_productData;
     	$resArr = product::addProductTo401($postdata);
 	    if ($resArr['errorCode'] == 0) {
-	        echo json_encode(['errorCode' => 0, 'msg' => $resArr['msg']], JSON_UNESCAPED_UNICODE);
+	        echo json_encode(['errorCode' => 0, 'msg' => '上架成功', 'url' => 'http://'.$_SERVER['HTTP_HOST'].'/user/admin.php'], JSON_UNESCAPED_UNICODE);
 	    } else {
-	        echo json_encode(['errorCode' => 1, 'msg' => $resArr['msg']]);
+	        echo json_encode(['errorCode' => 1, 'msg' => '上架失败']);
 	    }
     } elseif (ctype_digit($input_productData['Products_ID']) && $input_productData['Products_ID'] > 0) {		//编辑商品
     	//获取旧数据
@@ -121,50 +120,50 @@ if ($_POST['act'] == 'uploadFile') {
 
 		//合并数据
     	$new_productData = array_merge($old_productData,$input_productData);
-    	$old_is_Tj = $new_productData['old_is_Tj'];
+    	$old_is_Tj = $old_productData['is_Tj'];
     	$is_Tj = $new_productData['is_Tj'];
+    	
+    	$postdata['productdata'] = $new_productData;
+		$resArr = product::editProductTo401($postdata);
+		unset($postdata);
+		if ($resArr['errorCode'] == 0) {
+			//判断推荐的可能，并操作
+			if ($is_Tj == 0 && $old_is_Tj == 1 && $new_productData['isSolding'] == 0) {
+				//取消推荐
+				unset($new_productData['isSolding']);
+				$product_id = ['Products_ID' => $new_productData['Products_ID']];
+				$b2c_resArr = product::b2cProductDelete($product_id);
 
-    	//判断推荐的可能，并操作
-    	if ($is_Tj == 0 && $old_is_Tj == 0) {		//VVVVV
-    		unset($new_productData['old_is_Tj']);
-    		unset($new_productData['isSolding']);
-			$postdata['productdata'] = $new_productData;
-	    	$resArr = product::editProductTo401($postdata);
-
-		} elseif ($is_Tj == 0 && $old_is_Tj == 1 && $new_productData['isSolding'] == 0) {
-			//取消推荐
-			unset($new_productData['old_is_Tj']);
-			unset($new_productData['isSolding']);
-			$product_id = ['Products_ID' => $new_productData['Products_ID']];
-			$resArr = product::b2cProductDelete($product_id);
-			//b2c平台推荐商品删除后，更新是否推荐字段
-			$postdata['productdata'] = $new_productData;
-			$resArr = product::edit($postdata);
-
-		} elseif($is_Tj == 1 && $old_is_Tj == 1) {
-			unset($new_productData['old_is_Tj']);
-			unset($new_productData['isSolding']);
-			$postdata['productdata'] = $new_productData;
-			$resArr = product::edit($postdata);
-
-		} elseif ($is_Tj == 1 && $old_is_Tj == 0) {
-			//推荐
-			unset($new_productData['old_is_Tj']);
-			unset($new_productData['isSolding']);
-			$new_productData['Products_FromId'] = $new_productData['Products_ID'];
-			$new_productData['Users_Account'] = $BizAccount;
-			$postdata['productdata'] = $new_productData;
-			$resArr = product::add($postdata);
+			} elseif($is_Tj == 1 && $old_is_Tj == 1) {
+				unset($new_productData['isSolding']);
+				$postdata['productdata'] = $new_productData;
+				$b2c_resArr = product::edit($postdata);
+			} elseif ($is_Tj == 1 && $old_is_Tj == 0) {
+				//推荐
+				unset($new_productData['isSolding']);
+				$new_productData['Products_FromId'] = $new_productData['Products_ID'];
+				$new_productData['Users_Account'] = $BizAccount;
+				$new_productData['Products_CreateTime'] = time();
+				$postdata['productdata'] = $new_productData;
+				$postdata['productAttr'] = '';
+				$b2c_resArr = product::add($postdata);
+			}
+			if (isset($b2c_resArr)) {
+				if ($b2c_resArr['errorCode'] == 0) {
+		        	echo json_encode(['errorCode' => 0, 'msg' => '编辑成功', 'url' => 'http://'.$_SERVER['HTTP_HOST'].'/user/admin.php'], JSON_UNESCAPED_UNICODE);
+		    	} else {
+		    		//推荐编辑不成功，做数据还原处理
+			    	$postdata['productdata'] = $old_productData;
+					$rock_resArr = product::editProductTo401($postdata);
+		    		echo json_encode(['errorCode' => 1, 'msg' => 'b2c编辑失败']);
+		    	}
+		    } else {
+		        echo json_encode(['errorCode' => 0, 'msg' => '编辑成功', 'url' => 'http://'.$_SERVER['HTTP_HOST'].'/user/admin.php'], JSON_UNESCAPED_UNICODE);
+		    }
+		} else {
+			echo json_encode(['errorCode' => 1, 'msg' => '401编辑失败']);
 		}
 
-		if ($resArr['errorCode'] == 0) {
-	        echo json_encode(['errorCode' => 0, 'msg' => $resArr['msg']], JSON_UNESCAPED_UNICODE);
-	    } else {
-	        echo json_encode(['errorCode' => 1, 'msg' => $resArr['msg']]);
-	    }
-	    	
-    } else {
-    	echo json_encode(['errorCode' => 1, 'msg' => '22222222']);die;
     }
     
 }

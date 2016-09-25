@@ -11,13 +11,13 @@ if(empty($BizAccount)){
 $users = b2cshopconfig::getConfig(array('Users_Account' => $BizAccount));
 if ($users['errorCode'] == 0) {
     $bizData = $users['configData'];
-        if ($bizData['expiresTime'] != 0 && $bizData['expiresTime'] < time()) {
-            if ($bizData['need_charg'] == 1) {
-                echo '<script language="javascript">alert("此项功能已到期,必须先交费才可以使用");history.back();</script>';
-                exit();
-            }
+    if ($bizData['expiresTime'] != 0 && $bizData['expiresTime'] < time()) {
+        if ($bizData['need_charg'] == 1) {
+            echo '<script language="javascript">alert("此项功能已到期,必须先交费才可以使用");history.back();</script>';
+            exit();
         }
-}else{
+    }
+} else {
     echo '<script language="javascript">alert("服务器网络异常,数据通信失败");history.back();</script>';
     exit;
 }
@@ -33,6 +33,10 @@ $postdata['Biz_Account'] = $BizAccount;
 $postdata['Products_ID'] = $product_id;
 $postdata['is_Tj'] = 1;
 $resArr = product::getProductArr($postdata);
+//检测是否有数据
+if ($resArr['errorCode'] != 0 || empty($resArr['data']['Products_ID'])) {
+    echo '<script>alert("商品不存在，或获取数据失败");history.back();</script>';
+}
 $productData = $resArr['data'];     //产品参数
 
 //图片
@@ -145,7 +149,7 @@ $cateName = $firstCateName.'，'.$secondCateName;
         <p>商品封面（最少一张，最多三张）</p>
     </div>
     <div class="name_pro">
-        <textarea name="BriefDescription" style="width: 100%;height: 100px;line-height: 25px;border: none;" placeholder="请输入商品描述信息"><?php echo $productData['Products_BriefDescription']; ?></textarea>
+        <textarea name="BriefDescription" style="margin-left: 2%; width: 95%;height: 100px;line-height: 25px;border: none;" placeholder="请输入商品描述信息"><?php echo $productData['Products_BriefDescription']; ?></textarea>
         <!--<div class="img_add">
             <!--这里写配图的一些代码--
         </div>
@@ -164,7 +168,7 @@ $cateName = $firstCateName.'，'.$secondCateName;
             <input type="hidden" name="isSolding" value="<?php echo $productData['isSolding']; ?>" >
             <tr>
                 <th>是否推荐&nbsp;&nbsp;&nbsp;<br/>到批发商城：</th>
-                <td><input type="hidden" name="old_is_Tj" value="<?php echo $productData['is_Tj']; ?>" ><input class="toggle-switch" type="checkbox" name="is_Tj" <?php if ($productData['is_Tj'] == 1) {echo 'checked="checked"';} else {echo '';} ?>></td>
+                <td><input class="toggle-switch" type="checkbox" name="is_Tj" <?php if ($productData['is_Tj'] == 1) {echo 'checked="checked"';} else {echo '';} ?>></td>
             </tr>
             <tr class="is_Tj" style="<?php if ($productData['is_Tj'] == 1) {echo 'display:table-row';} else {echo 'display:none;';} ?>">
                 <th><span class="notNull">*</span>供货价(￥)：</th>
