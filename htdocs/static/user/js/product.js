@@ -20,8 +20,7 @@ function check_null(input) {
     }
 }
 //检测是数字类型  默认检查正浮点数  1：非负浮点数  2：检查正整数 3: 检查非负整数
-function check_number(input, type) {
-    if (!type) { type = 0; }
+function check_number(input, type = 0) {
     var self_attr = input.attr('style');
     var value = $.trim(input.val());
     var add_attr = ";border:1px solid blue;";
@@ -50,7 +49,7 @@ function check_number(input, type) {
 
 $(function(){
     //判断图片上传的张数
-    /*$('.add_img').click(function(){
+    $('#add_img').click(function(){
         if($('.js_showBox div').length > 2) {
             layer.open({
                 content: '最多只能上传三张图片',
@@ -59,9 +58,9 @@ $(function(){
         } else {
             return $('.js_upFile').click();
         }
-    });*/
+    });
     //图片上传
-    /*$(".js_upFile").uploadView({
+    $(".js_upFile").uploadView({
         uploadBox: '.js_uploadBox',//设置上传框容器
         showBox : '.js_showBox',//设置显示预览图片的容器
         width : 43, //预览图片的宽度，单位px
@@ -113,54 +112,51 @@ $(function(){
                 });
             }
         });
-    });*/
+    });
 
-    //内容图片上传 start
-    //图片上传
-    $(".add_img").click(function(){
-        var me = $(this);
-        var par = me.parentsUntil('.img_add');
-        if(par.find('.js_showBox div').length > 2) {
+    //内容配图
+    //判断图片上传的张数
+    $('#add_img1').click(function(){
+        if($('.js_showBox1 div').length > 6) {
             layer.open({
-                content: '最多只能上传三张图片',
+                content: '最多只能上传7张图片',
             });
             return false;
         } else {
-            par.find('.js_upFile').click();
+            return $('.js_upFile1').click();
         }
-        par.find(".js_upFile").uploadView({
-            uploadBox: par.find('.js_uploadBox'),//设置上传框容器
-            showBox : par.find('.js_showBox'),//设置显示预览图片的容器
-            width : 43, //预览图片的宽度，单位px
-            height : 43, //预览图片的高度，单位px
-            allowType: ["gif", "jpeg", "jpg", "bmp", "png"], //允许上传图片的类型
-            maxSize :10, //允许上传图片的最大尺寸，单位M
-            success:function(e){
-                $.ajax({
-                    type:"POST",
-                    url:"lib/upload.php",
-                    data:{"act":"uploadFile", "data":par.find('input[name="image_files"]').val()},
-                    dataType:"json",
-                    success:function(data){
-                        if (data.errorCode == 0) {
-                            alert(0);
-                            par.find('.add_img').removeAttr('style');
-                            if (par.find("input[name=image_path]").val().length == 0) {
-                                par.find("input[name=image_path]").val(data.msg);
-                            } else {
-                                par.find("input[name=image_path]").val(par.find("input[name=image_path]").val() + ',' + data.msg);
-                            }
+    });
+    //图片上传
+    $(".js_upFile1").uploadView1({
+        uploadBox: '.js_uploadBox1',//设置上传框容器
+        showBox : '.js_showBox1',//设置显示预览图片的容器
+        width : 43, //预览图片的宽度，单位px
+        height : 43, //预览图片的高度，单位px
+        allowType: ["gif", "jpeg", "jpg", "bmp", "png"], //允许上传图片的类型
+        maxSize :10, //允许上传图片的最大尺寸，单位M
+        success:function(e){
+            $.ajax({
+                type:"POST",
+                url:"lib/upload.php",
+                data:{"act":"uploadFile", "data":$("#image_files1").val()},
+                dataType:"json",
+                success:function(data){
+                    if (data.errorCode == 0) {
+                        $('#add_img1').removeAttr('style');
+                        if ($("input[name=image_path1]").val().length == 0) {
+                            $("input[name=image_path1]").val(data.msg);
                         } else {
-                            alert(1);
-                            alert(data.msg);
+                            $("input[name=image_path1]").val($("input[name=image_path1]").val() + ',' + data.msg);
                         }
+                    } else {
+                        alert(data.msg);
                     }
-                });
-            }
-        });
+                }
+            });
+        }
     });
     //删除图片
-    $(document).on('click', '.deleted', function(){
+    $(document).on('click', '.deleted1', function(){
         var me = $(this);
         layer.open({
             content: '确定删除吗?',
@@ -170,11 +166,11 @@ $(function(){
                 $.ajax({
                     type:"POST",
                     url:"lib/upload.php",
-                    data:{"act":"delImg", "index":me.parent().index(),"image_path":$("input[name=image_path]").val()},
+                    data:{"act":"delImg", "index":me.parent().index(),"image_path":$("input[name=image_path1]").val()},
                     dataType:"json",
                     success:function(data) {
                         if (data.errorCode == 0) {
-                            $("input[name=image_path]").val(data.msg);
+                            $("input[name=image_path1]").val(data.msg);
                             me.parent().remove();
                         } else {
                             alert(data.msg);
@@ -184,8 +180,8 @@ $(function(){
             }
         });
     });
-    //内容图片上传 end
-    
+    //内容配图 end
+
     //是否推荐 推荐填写供货价
     $('input[name="is_Tj"]').click(function(){
         var isSolding = $('input[name="isSolding"]').val();

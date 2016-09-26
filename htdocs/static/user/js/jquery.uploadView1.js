@@ -3,10 +3,10 @@
 //QQ:245629560
 //Blog:http://www.gouguoyin.cn
 (function($){
-	$.fn.uploadView = function(options){
+	$.fn.uploadView1 = function(options){
 		var defaults = {
-			uploadBox: '.js_uploadBox', //设置上传框容器
-			showBox : '.js_showBox', //设置显示预览图片的容器
+			uploadBox: '.js_uploadBox1', //设置上传框容器
+			showBox : '.js_showBox1', //设置显示预览图片的容器
 			width : 200, //设置预览图片的宽度
 			height: 200, //设置预览图片的高度
 			allowType: ["gif", "jpeg", "jpg", "bmp", "png"],
@@ -66,8 +66,8 @@
 						  tmpSrc = tmpSrc.replace('data:,', 'data:image/jpeg;base64,');
 						}
 
-						  var img = '<div style="width: 45px;float:left;margin:0 2px"><img title="点击删除图片" src="' + tmpSrc + '" style="display: block;"/><span class="deleted">删除</span></div>';
-						  $("#image_files").val(tmpSrc);
+						  var img = '<div style="width: 45px;float:left;margin:0 2px 4px"><img title="点击删除图片" src="' + tmpSrc + '" style="display: block;"/><span class="deleted1">删除</span></div>';
+						  $("#image_files1").val(tmpSrc);
 						  var tmpSrc_num =  tmpSrc.length;
 						  if (tmpSrc_num > 20971520) {
 							  alert("上传图片不能大于20M");
@@ -76,14 +76,14 @@
 
 						  //consoleLog(reader, img);
 						  //thisClosest.find(showBox).show().html(img);
-						  var  upload_images = $(".js_showBox div").length;
-						  if(upload_images > 5){
-							  alert('上传图片的不能超过6张');
+						  var  upload_images = $(".js_showBox1 div").length;
+						  if(upload_images > 6){
+							  alert('上传图片的不能超过7张');
 							  return false;
 						  }
-						  var sun_image = $(".js_showBox").html();
-						  $(".js_showBox").css("height","43px");
-						  $(".js_showBox").css("float","left");
+						  var sun_image = $(".js_showBox1").html();
+						  //$(".js_showBox1").css("height","43px");
+						  $(".js_showBox1").css("float","left");
 						  var sun_image = sun_image + img;
 						  thisClosest.find(showBox).removeClass('hidden').html(sun_image);
 						if (_w && _h) {
