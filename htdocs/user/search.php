@@ -180,7 +180,7 @@ $infolist = $result['productData'];
                         <div style="overflow:hidden;">
                             <a><span class="imgs l"><img src="<?php echo $product['thumb'];?>" width="90" height="90"></span>
                     <span class="main l">
-                        <p><?php echo $product['Products_Name'];?></p>
+                        <p style="max-height: 30px;"><?php echo $product['Products_Name'];?></p>
                         <span class="l" style="font-size:16px; line-height:25px; color:#333">￥<?=$product['Products_PriceX']?></span>
                         <span class="r" style="line-height:25px;">三级收益<span style="color:#ff5000; font-size:16px;">￥<?php echo $product['commission'];?></span></span>
                         <div class="clear"></div>
@@ -237,7 +237,7 @@ $infolist = $result['productData'];
                 type:1,
                 content:"<div class=\"select_containers\">请选择一级分类:<select name=\"firstCate\" class=\"select\" id=\"firstCate\"><option value=\"0\">请选择顶级分类</option></select><br/>请选择二级分类:</div>",
                 title:[
-                    '<span style="float:left">请选择要添加到的分类</span><span style="float: right"><a href="javascript:void(0);">新增分类</a></span>',
+                    '<span style="float:left">请选择要添加到的分类</span><span style="float: right"><a href="/user/admin.php?act=my_cate">分类管理</a></span>',
                     'background-color:#f0f0f0;font-weight:bold;'
                 ],
                 style: 'width:100%;position:fixed;bottom:0;left:0;border-radius:8px;',
