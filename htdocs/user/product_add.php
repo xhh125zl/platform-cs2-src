@@ -58,11 +58,11 @@ if ($users['errorCode'] == 0) {
             <div class="js_uploadBox">
                 <div class="js_showBox"></div>
                 <div class="btn-upload">
-                    <a href="javascript:void(0);" id="add_img">+</a>
+                    <a href="javascript:void(0);" class="add_img">+</a>
                     <input class="js_upFile" type="file" name="cover">
                 </div>
                 <!--image_files显示base64编码过的字符串,image_path存放所有的图片路径-->
-                <input type="hidden" id="image_files" value="">
+                <input type="hidden" name="image_files" value="">
                 <input type="hidden" name="image_path" value=""/>
             </div>
         </div>
@@ -70,6 +70,18 @@ if ($users['errorCode'] == 0) {
     </div>
     <div class="name_pro">
         <textarea name="BriefDescription" style="margin-left: 2%; width: 95%;height: 100px;line-height: 25px;border: none;" placeholder="请输入商品描述信息"></textarea>
+        <div class="img_add">
+            <div class="js_uploadBox">
+                <div class="js_showBox"></div>
+                <div class="btn-upload">
+                    <a href="javascript:void(0);" class="add_img">+</a>
+                    <input class="js_upFile" type="file" name="cover">
+                </div>
+                <!--image_files显示base64编码过的字符串,image_path存放所有的图片路径-->
+                <input type="hidden" name="image_files" value="">
+                <input type="hidden" name="image_path" value=""/>
+            </div>
+        </div>
         <!--<div class="img_add">
             <!--这里写配图的一些代码--
         </div>

@@ -4,6 +4,7 @@
 //Blog:http://www.gouguoyin.cn
 (function($){
 	$.fn.uploadView = function(options){
+		//var par = $(this).parentsUntil('.img_add');
 		var defaults = {
 			uploadBox: '.js_uploadBox', //设置上传框容器
 			showBox : '.js_showBox', //设置显示预览图片的容器
