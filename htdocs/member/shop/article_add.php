@@ -34,6 +34,22 @@ if($_POST){
 		exit();
 	}
 }
+$DB->get("shop_articles_category","*","where Users_ID='".$_SESSION["Users_ID"]."' order by Category_Index asc");
+$arr = $DB->toArray();
+$list = [];
+foreach($arr as $k=>$v){
+    if($v['Category_ParentID']==0){
+        $list[$k]['base'] = $v;
+    }
+}
+
+foreach ($list as $k => $v){
+    foreach($arr as $key => $val){
+        if($v['base']['Category_ID']==$val['Category_ParentID']){
+            $list[$k]['child'][] = $val;
+        }
+    }
+}
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -88,13 +104,19 @@ if($_POST){
                 <span class="input">
                  <select name="CategoryID" notnull>
                 <?php
-                	$DB->get("shop_articles_category","*","where Users_ID='".$_SESSION["Users_ID"]."' order by Category_Index asc");
-                                    while($rsCategory=$DB->fetch_assoc()){
-					//if($rsCategory["Category_Type"] == '列表'){
+                	foreach ($list as $k => $v){
 		?>
-                                            <option value="<?php echo $rsCategory["Category_ID"];?>"><?php echo $rsCategory["Category_Name"];?></option>
-                                 <?php //}?>
-                            <?php }?>
+                     <option value="<?=$v['base']["Category_ID"];?>" disabled><?=$v['base']["Category_Name"];?></option>
+                <?php 
+                  if(!empty($v['child'])){
+                    foreach ($v['child'] as $key => $val){
+                ?>
+                <option value="<?=$val["Category_ID"];?>">——<?=$val["Category_Name"];?></option>
+                <?php
+                    }
+                  }
+                 ?>
+                <?php }?>
                  </select>
                 </span>
                 <div class="clear"></div>

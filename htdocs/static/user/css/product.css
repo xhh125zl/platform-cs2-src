@@ -421,3 +421,13 @@ td{
 .sto_bg ul li h3{ color:#666; line-height:30px; font-weight:bold; height:30px; text-align:left; padding:0}
 .sto_bg ul li p{ color:#999;}
 .sto_bg ul li input{ background:#1fb4f8; padding:6px 15px; border:none; color:#fff; outline:none; border-radius:5px}
+
+/* 退货 */
+.box_adr{overflow:hidden; margin:5px auto; background:#fff;text-align:center;}
+.box_adr select{ width:96%; line-height:40px; height:40px; outline:none; border:1px #ddd solid; color:#666; margin:2% 2%}
+.box_adr select option{}
+.box_adr .select2-container{clear:both; width:96%;  margin:10px auto;}
+.box_adr input{ width:96%;line-height:40px; height:40px; outline:none; border:1px #ddd solid; color:#666; margin:2% 2%; text-indent:5px}
+
+
+input.btnsubmit{ width:96%; margin:10px auto; background:#ff5500; color:#fff; text-align:center; line-height:40px; border:none; border-radius:5px; font-size:15px; outline:none}

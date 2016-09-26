@@ -6,8 +6,8 @@
 
 class base
 {
-	static public $apiUrl = 'http://if.wzw.com/api/';
-	static public $apiVersion = 'v1';
+	static public $apiUrl = APIURL;
+	static public $apiVersion = APIVER;
 	
 	public function __construct()
 	{
@@ -25,5 +25,4 @@ class base
 	{
 		return self::$apiUrl . self::$apiVersion;
 	}
-
 }
