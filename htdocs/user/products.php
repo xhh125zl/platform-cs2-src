@@ -525,7 +525,7 @@ $(function(){
 <div class="bottom_x">
     <div class="foot_nav">
         <ul>
-            <a href="?act=search&isDistribute=1"><li><i class="fa  fa-plus-square fa-x" aria-hidden="true" style="font-size:16px; color:#ff5500"></i>&nbsp;产品库</li></a>
+            <a href="?act=search"><li><i class="fa  fa-plus-square fa-x" aria-hidden="true" style="font-size:16px; color:#ff5500"></i>&nbsp;产品库</li></a>
             <a href="?act=category"><li><i class="fa  fa-plus-square fa-x" aria-hidden="true" style="font-size:16px; color:#ff5500"></i>&nbsp;商品分类</li></a>
             <li><i class="fa  fa-check-square fa-x" aria-hidden="true" style="font-size:16px; color:#ff5500"></i>&nbsp;批量管理</li>
         </ul>
