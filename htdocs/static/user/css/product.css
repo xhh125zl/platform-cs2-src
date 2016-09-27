@@ -31,7 +31,7 @@ input[type=button], input[type=submit], input[type=file], button { cursor: point
 .product ul li div a span.main{ width:58%;}
 .product ul li div a span.main p{ line-height:25px; max-height:50px; overflow:hidden; color:#333;}
 .product ul li div a span span{ color:#999; line-height:22px; font-weight:normal; font-size:12px}
-.product ul li div ul li{ width:25%; float:left; text-align:center; padding-top:5px}
+.product ul li div ul li{ width:33%; float:left; text-align:center; padding-top:5px}
 .product ul li div ul li a{ color:#999;}
 .kb{ margin-top:50px;}
 .bottom_x{ position:fixed; z-index:1000; overflow:hidden; width:100%; bottom:0px; left:0; border-top:1px #eee solid; background:#fff;}

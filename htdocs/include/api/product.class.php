@@ -68,12 +68,12 @@ class product extends base
      * @param  string [<description>]
      * @return array            [description]
      */
-    static public function search($condition, $data = [])
+    static public function search($pageno = 1, $condition, $data = [])
     {
-        $url = '/product/list.html';
+        $url = '/product/list.html?page=' . intval($pageno);
 
         if (is_array($condition) && count($condition) > 0) {
-            $url .= "?" . http_build_query($condition);
+            $url .= "&" . http_build_query($condition);
         }
 
         $result = self::request($url, 'post', $data);

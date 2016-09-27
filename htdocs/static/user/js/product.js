@@ -206,7 +206,8 @@ $(function(){
         layer.open({
             type:0,
             title:"提示信息",
-            content:"请到PC端操作!手机端不支持设置佣金,将按照默认佣金比例!",
+            content:"请到PC端操作!<br/>手机端不支持设置佣金<br/>将按照默认佣金比例!",
+            style: 'line-height:25px;',
             btn:['确认'],
         })
     });
@@ -362,7 +363,9 @@ $(function(){
             'Products_ID' : $.trim($('input[name="Products_ID"]').val()),      //商品id
             'Products_Name' : $.trim($('input[name="Products_Name"]').val()),      //商品名称
             'Products_JSON' : $.trim($('input[name="image_path"]').val()),      //商品封面图片的路径集
-            'Products_BriefDescription' : $.trim($('textarea[name="BriefDescription"]').val()),     //商品描述
+            //'Products_BriefDescription' : $.trim($('textarea[name="BriefDescription"]').val()),     //商品简介
+            'Products_Description' : $.trim($('textarea[name="Description"]').val()),     //商品详情描述
+            'Products_JSON1' : $.trim($('input[name="image_path1"]').val()),      //商品详情添加的图片
             'Products_PriceY' : $.trim($('input[name="PriceY"]').val()),      //商品原价
             'Products_PriceX' : $.trim($('input[name="PriceX"]').val()),      //商品现价
             'isSolding' : $('input[name="isSolding"]').val(),    //编辑时  判断此推荐商品是否有未完成订单， 1： 不允许撤销推荐
@@ -459,7 +462,7 @@ $(function(){
                        style: 'border:none; background-color:green; color:#fff;',
                        time: 1,
                        success: function(){
-                            //window.location.href = data.url;
+                            window.location.href = data.url;
                        }
                     });
                 } else {

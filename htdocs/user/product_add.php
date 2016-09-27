@@ -71,7 +71,8 @@ if ($users['errorCode'] == 0) {
         <div class="note">商品封面（最少一张，最多三张）</div>
     </div>
     <div class="name_pro">
-        <textarea name="BriefDescription" style="margin-left: 2%; width: 95%;height: 100px;line-height: 25px;border: none;" placeholder="请输入商品描述信息"></textarea>
+        <!-- <textarea name="BriefDescription" style="margin-left: 2%; width: 95%;height: 100px;line-height: 25px;border: none;" placeholder="请输入商品简介"></textarea> -->
+        <textarea name="Description" style="margin-left: 2%; width: 95%;height: 100px;line-height: 25px;border: none;" placeholder="请输入商品详细介绍"></textarea>
         <div class="img_add">
             <div class="js_uploadBox1">
                 <div class="js_showBox1"></div>
