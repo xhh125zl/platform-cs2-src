@@ -51,7 +51,7 @@ if ($users['errorCode'] == 0) {
 <body>
 <div class="w">
     <div class="back_x">
-        <a class="l" href="javascript:history.back();">&nbsp;取消</a><h3>发布产品</h3>
+        <a class="l" href="?act=store">&nbsp;取消</a><h3>发布产品</h3>
     </div>
     <input type="hidden" name="Products_Id" value="">
     <div class="name_pro">

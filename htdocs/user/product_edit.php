@@ -153,7 +153,7 @@ $cateName = $firstCateName.'，'.$secondCateName;
 <body>
 <div class="w">
     <div class="back_x">
-        <a class="l" href="javascript:history.back();">&nbsp;取消</a><h3>编辑产品</h3>
+        <a class="l" href="javascript:self.location=document.referrer;">&nbsp;取消</a><h3>编辑产品</h3>
     </div>
     <input type="hidden" name="Products_ID" value="<?php echo $postdata['Products_ID']; ?>">
     <div class="name_pro">

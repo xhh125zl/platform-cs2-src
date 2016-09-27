@@ -20,7 +20,8 @@ function check_null(input) {
     }
 }
 //检测是数字类型  默认检查正浮点数  1：非负浮点数  2：检查正整数 3: 检查非负整数
-function check_number(input, type = 0) {
+function check_number(input, type) {
+    if(!type) {type = 0;}
     var self_attr = input.attr('style');
     var value = $.trim(input.val());
     var add_attr = ";border:1px solid blue;";
@@ -457,14 +458,13 @@ $(function(){
             success:function(data) {
                 layer.closeAll();
                 if (data.errorCode == 0) {
+                    window.location.href = data.url;
                     layer.open({
                        content:data.msg,
                        style: 'border:none; background-color:green; color:#fff;',
-                       time: 1,
-                       success: function(){
-                            window.location.href = data.url;
-                       }
+                       time: 1
                     });
+                    
                 } else {
                     layer.open({
                        content:data.msg,

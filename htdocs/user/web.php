@@ -13,27 +13,24 @@
 <body>
 <div class="w">
 	<div class="back_x">
-    	<a class="l" href='javascript:history.back();'><i class="fa  fa-angle-left fa-2x" aria-hidden="true"></i></a>网页版
+    	<a class="l" href='?act=store'><i class="fa  fa-angle-left fa-2x" aria-hidden="true"></i></a>网页版
     </div>
     <div class="logo_name">
     	<p><a>好分销</a>&nbsp;|&nbsp;网页版</p>
-        <a>www.haofenxiao.net</a>
+        <a>www.netcnnet.net</a>
     </div>
     <p class="function_x">功能特点</p>
     <div class="function_list">
-    	① 在线发布商品，内容编辑更丰富;<br>
-        ① 在线发布商品，内容编辑更丰富;<br>
-        ① 在线发布商品，内容编辑更丰富;<br>
-        ① 在线发布商品，内容编辑更丰富;<br>
-        ① 在线发布商品，内容编辑更丰富;<br>
-        ① 在线发布商品，内容编辑更丰富;<br>
+    	① 商品编辑更多内容，属性、规格、详细介绍<br>
+        ② 绑定微信公众号、发布微信菜单<br>
+        ③ 多种营销活动插件<br>
+        ④ 数据查看更详细<br>
+        ⑤ 开通pc店铺<br>
     </div>
     <p class="function_x">登陆方法</p>
     <div class="function_list">
-    	① 在线发布商品，内容编辑更丰富;<br>
-        ① 在线发布商品，内容编辑更丰富;<br>
-        ① 在线发布商品，内容编辑更丰富;<br>
-        ① 在线发布商品，内容编辑更丰富;<br>
+    	① 在电脑浏览器上输入：<a>www.netcnnet.net</a><br>
+        ② 登录账号、密码，是这个一样<br>
     </div>
 </div>
 </body>

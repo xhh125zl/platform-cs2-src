@@ -184,7 +184,7 @@ a.preview p, a.delete p, a.edit p{display:inline}
 <div class="w">
 <!-- topnav -->
 	<div style="text-align:center; line-height:30px; background:#fff; padding:5px 0">
-    	<span class="l"><a><img src="../static/user/images/gdx.png" width="30" height="30" style=""></a></span>商品管理
+    	<span class="l"><a href="?act=store"><img src="../static/user/images/gdx.png" width="30" height="30" style=""></a></span>商品管理
     </div>
 <!-- //topnav -->    
 	<!--header -->
@@ -309,7 +309,7 @@ if (count($infolist) > 0)        	 {
                         </li>
                         <li><a class="delete" data-product-id="<?php echo $product['Products_ID'];?>">
                             <i class="fa  fa-trash-o fa-x" aria-hidden="true" style="font-size:16px;"></i>
-                            <p>删除<?php echo $product['Products_FromId'];?></p>
+                            <p>删除</p>
                         </a></li>
 
                         <li>
@@ -355,7 +355,7 @@ if (count($infolist) > 0)        	 {
                             <p>预览</p>
                         </a></li>
                         <li>
-                        {{if $product.Products_FromId == 0}}
+                        {{if product.Products_FromId == 0}}
                                 <a class="edit" href="?act=product_edit&product_id=<?php echo $product['Products_ID'];?>">
                                 <i class="fa  fa-pencil fa-x" aria-hidden="true" style="font-size:16px;"></i>
                                 <p>编辑</p></a>
@@ -363,7 +363,7 @@ if (count($infolist) > 0)        	 {
                         </li>
                         <li><a class="delete" data-product-id="{{product.Products_ID}}">
                             <i class="fa  fa-trash-o fa-x" aria-hidden="true" style="font-size:16px;"></i>
-                            <p>删除<?php echo $product['Products_FromId'];?></p>
+                            <p>删除</p>
                         </a></li>
                         <li></li>
                     </ul>                    

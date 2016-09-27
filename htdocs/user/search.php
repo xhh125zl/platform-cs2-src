@@ -124,15 +124,16 @@ if (isset($_GET['isDistribute']) && $_GET['isDistribute'] == 1) {
     $condition['isDistribute'] = trim($_GET['isDistribute']);
 }
 
-
+//分页初始化
 $p = isset($_GET['p']) ? (int)$_GET['p'] : 1;
 if ($p < 1) $p = 1;
+//每页显示个数
 $pageSize = 2;
 
 $data = ['pageSize' => $pageSize,'Users_Account' => $BizAccount];
 $result = product::search($p ,$condition, $data);
 
-if ($result['errorCode'] != 0) {
+if (isset($result['errorCode']) && $result['errorCode'] != 0) {
     $total = 0;
     $totalPage = 1;
     $products = [];
