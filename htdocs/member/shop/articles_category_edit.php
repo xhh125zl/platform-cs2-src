@@ -28,9 +28,10 @@ if($_POST)
 	exit;
 }
 $shop_category = [];
-$DB->get("shop_articles_category","*","where Users_ID='".$_SESSION["Users_ID"]."'  order by Category_Index asc");
-while($r=$DB->fetch_assoc()){
-    if($r["Category_ParentID"]==0){
+$isChild = $DB->GetRs("shop_articles_category", "*", "WHERE Category_ParentID = ".$rsCategory['Category_ID']);
+$result = $DB->get("shop_articles_category","*","where Users_ID='".$_SESSION["Users_ID"]."' AND Category_ParentID = 0 order by Category_Index asc");
+while($r=$DB->fetch_assoc($result)){
+    if(!$isChild && $r["Category_ID"]<>$rsCategory['Category_ID']){
       $shop_category[$r["Category_ID"]] = $r;
     }
 }
