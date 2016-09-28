@@ -557,6 +557,20 @@ function get_cloud_code($CartList = array()) {
 	return $codes;
 }
 
+
 /**
- * 
+ * 检查是否为手机号合法
+ * @param string $mobile 手机号
+ * @return boolean
+ * @author sxf
  */
+function is_mobile($mobile) {
+	if (empty($mobile)) return false;
+
+	$search ='/^(1(([35][0-9])|(47)|[8][0126789]))\d{8}$/';
+	if (preg_match($search,$mobile)) {
+		return true;
+	}
+
+	return false;
+}
