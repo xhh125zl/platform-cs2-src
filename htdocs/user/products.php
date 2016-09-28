@@ -320,7 +320,7 @@ if (isset($product['state']) && $product['state'] == 1) {
                         </li>
                         <li><a class="delete" data-product-id="<?php echo $product['Products_ID'];?>">
                             <i class="fa  fa-trash-o fa-x" aria-hidden="true" style="font-size:16px;"></i>
-                            <p>删除</p>
+                            <p>下架</p>
                         </a></li>
 
                         <li>
@@ -371,7 +371,7 @@ if (isset($product['state']) && $product['state'] == 1) {
                         </a>--></li>
                         <li><a class="delete" data-product-id="{{product.Products_ID}}">
                             <i class="fa  fa-trash-o fa-x" aria-hidden="true" style="font-size:16px;"></i>
-                            <p>删除</p>
+                            <p>下架</p>
                         </a></li>
                         <li></li>
                     </ul>                    
