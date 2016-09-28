@@ -22,8 +22,12 @@ if ($inajax == 1) {
             exit();
         }
 
-
-        $rsBiz=$DB->GetRs("biz","*","where Biz_Account='" . $_POST["Account"] . "' and Biz_PassWord='" . md5($_POST["Password"]) . "'");
+        if (is_mobile($account)) {
+            $rsBiz=$DB->GetRs("biz","*","where Biz_Phone='" . $_POST["Account"] . "' and Biz_PassWord='" . md5($_POST["Password"]) . "'");
+        } else {
+            $rsBiz=$DB->GetRs("biz","*","where Biz_Account='" . $_POST["Account"] . "' and Biz_PassWord='" . md5($_POST["Password"]) . "'");
+        }
+        
         if ($rsBiz) {
             if ($rsBiz["Biz_Status"] == 1) {
                 $result =  [
