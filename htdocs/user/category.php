@@ -23,7 +23,7 @@ $category = product_category::get_all_category();
 <body>
 <div class="w">
 	<div class="back_x">
-    	<a class="l"><i class="fa  fa-angle-left fa-2x" aria-hidden="true"></i></a>产品分类
+    	<a class="l" href="javascript:history.back();"><i class="fa  fa-angle-left fa-2x" aria-hidden="true"></i></a>产品分类
     </div>
 
 <?php
