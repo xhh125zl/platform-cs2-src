@@ -154,15 +154,16 @@ if ($inajax == 1) {
 		}
   
 //远程注册新用户
+$time = time();
 $data = [
 	'usersData' => [
 		'Users_ID' => RandChar(10),
 		'Users_Account' => $Account,
 		'Users_Password' => md5($password),
 		'Users_Phone' => $mobile,
-		'Users_CreateTime' => time(),
+		'Users_CreateTime' => $time,
 		'Users_Status' => 1,
-		'Users_ExpireDate' => time() + 86400 * 365 * 5,
+		'Users_ExpireDate' => $time + 86400 * 365 * 5,
 		'Users_Right' => '{"web":["web"],"kanjia":["kanjia"],"zhuli":["zhuli"],"zhongchou":["zhongchou"],"games":["games"],"weicuxiao":["sctrach","fruit","turntable","battle"],"hongbao":["hongbao"],"votes":["votes"]}',
 	]
 ];
@@ -170,10 +171,9 @@ $ret = users::addUsers($data);
 if ($ret['errorCode'] != 0) {
 	$result = [
 		'status' => 1,
-		'msg' => '注册成功',
-		'url' => 'login.php'
+		'msg' => '注册失败'
 	];
-	echo json_encode($Data,JSON_UNESCAPED_UNICODE);
+	echo json_encode($result, JSON_UNESCAPED_UNICODE);
 	exit;	
 }
 
@@ -182,13 +182,15 @@ if ($ret['errorCode'] != 0) {
 			'Biz_Account' => $Account,
 			'Biz_PassWord' => md5($password),
 			'Biz_Phone' => $mobile,
+			'Biz_CreateTime' => $time,
+			'Users_ExpiresTime' => $time + 86400 * 7
 		];
 
 		$flag = $DB->Add('biz', $data);
 		if ($flag) {
 			$result = [
 				'status' => 1,
-				'msg' => '注册成功',
+				'msg' => '注册成功,请登录!',
 				'url' => 'login.php'
 			];
 		} else {
