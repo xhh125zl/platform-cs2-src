@@ -39,7 +39,7 @@ if (isset($_GET['do']) && $_GET['do'] == 'edit') {
 <body>
 <div class="w">
     <div style="text-align:center; line-height:30px; background:#fff; padding:5px 0">
-        <span class="l"><a href="<?=strpos($_SERVER['REQUEST_URI'],'firstCateID') ? substr($_SERVER['REQUEST_URI'],0,strrpos($_SERVER['REQUEST_URI'],'&')) : ''?>"><img src="../static/user/images/gdx.png" width="30" height="30" style=""></a></span>商品管理
+        <span class="l"><a href="<?=strpos($_SERVER['REQUEST_URI'],'firstCateID') ? substr($_SERVER['REQUEST_URI'],0,strrpos($_SERVER['REQUEST_URI'],'&')) : 'javascript:history.back();' ?>"><img src="../static/user/images/gdx.png" width="30" height="30" style=""></a></span>商品管理
     </div>
     <div class="clear"></div>
     <div class="header">
