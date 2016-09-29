@@ -34,6 +34,7 @@ $actionArr = [
 	'user_list',
 	'user_detail',
 	'product_add',
+	'product_supply',
 	'product_edit',
 	'data_statistics',
 	'financial_analysis'

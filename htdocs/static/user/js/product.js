@@ -219,7 +219,7 @@ $(function(){
             type:1,
             content:"<div class=\"select_containers\">请选择一级分类:<select name=\"b2c_firstCate\" class=\"select\" id=\"b2c_firstCate\"><option value=\"0\">请选择顶级分类</option></select><br/>请选择二级分类:</div>",
             title:[
-                '<span style="float:left">请选择要添加到的分类</span><span style="float: right"><a href="javascript:void(0);">新增分类</a></span>',
+                '<span style="float:left">请选择要添加到的分类</span>',
                 'background-color:#f0f0f0;font-weight:bold;'
             ],
             style: 'width:100%;position:fixed;bottom:0;left:0;border-radius:8px;',
@@ -292,7 +292,7 @@ $(function(){
             type:1,
             content:"<div class=\"select_containers\">请选择一级分类:<select name=\"firstCate\" class=\"select\" id=\"firstCate\"><option value=\"0\">请选择顶级分类</option></select><br/>请选择二级分类:</div>",
             title:[
-                '<span style="float:left">请选择要添加到的分类</span><span style="float: right"><a href="javascript:void(0);">新增分类</a></span>',
+                '<span style="float:left">请选择要添加到的分类</span><span style="float: right"><a href="/user/admin.php?act=my_cate">分类管理</a></span>',
                 'background-color:#f0f0f0;font-weight:bold;'
             ],
             style: 'width:100%;position:fixed;bottom:0;left:0;border-radius:8px;',

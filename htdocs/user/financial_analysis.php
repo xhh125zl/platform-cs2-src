@@ -25,7 +25,7 @@ if (isset($resArr['errorCode']) && $resArr['errorCode'] == 0) {
 <link href="../static/user/css/font-awesome.min.css" type="text/css" rel="stylesheet">
 <body style="background:#ff5500">
 <div class="w">
-    <div class="data_title">财务分析</div>
+    <div class="data_title"><a class="l" href='?act=store' style="margin: -30px 0 0 20px;"><i class="fa  fa-angle-left fa-2x" aria-hidden="true"></i></a><span style="margin-left: -20px;">财务分析</span></div>
     <div class="Financial_list">
     	<ul>
         	<li>
