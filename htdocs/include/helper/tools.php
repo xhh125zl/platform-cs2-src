@@ -589,3 +589,19 @@ function RandChar($length = 10){
 	}
 	return $temchars;
 }
+
+/**
+ * 检查用户名是否合法
+ * @param string $username
+ * @return boolean
+ */
+function check_username($username) {
+		$guestexp = '\xA1\xA1|\xAC\xA3|^Guest|^\xD3\xCE\xBF\xCD|\xB9\x43\xAB\xC8';
+		$len = strlen($username);
+
+		if ($len > 15 || $len < 3 || preg_match("/\s+|^c:\\con\\con|[%,\*\"\s\<\>\&]|$guestexp/is", $username)) {
+			return FALSE;
+		} else {
+			return TRUE;
+		}
+	}

@@ -11,14 +11,16 @@ $inajax = isset($_GET['inajax']) ? (int)$_GET['inajax'] : 0;
 if ($inajax == 1) {
 
     //手机验证码校验开始
+	$Account = isset($_POST['Account']) ? $_POST['Account'] : '';
 	$mobile = isset($_POST['Mobile']) ? $_POST['Mobile'] : '';
 	$smsMobileKey = isset($_POST['Mobile']) ? 'reg' . $_POST['Mobile'] : '';
 
 
 	//发送手机验证码
 	if (isset($_POST['do']) && ($_POST['do'] == 'send') && isset($_POST['Mobile']) && $_POST['Mobile']) {
+
 		//检查手机号是否已经存在
-		$row = $DB->GetRs('biz', '*', "WHERE Biz_Phone='" . $_POST['Mobile'] . "'");
+		$row = $DB->GetRs('biz', '*', "WHERE Biz_Phone='" . $mobile . "'");
 		if (!empty($row)) {
 			$Data = array(
 				"status" => 0,
@@ -58,10 +60,12 @@ if ($inajax == 1) {
 
     if (isset($_POST['do']) && $_POST['do'] == 'reg') {
 
-        $account = isset($_POST['Mobile']) ? $_POST['Mobile'] : '';
+		$Account = isset($_POST['Account']) ? $_POST['Account'] : '';
+        $mobile = isset($_POST['Mobile']) ? $_POST['Mobile'] : '';
         $password = isset($_POST['Password']) ? $_POST['Password'] : '';
 
-        if (empty($account) || empty($password)) {
+		//为空判断
+        if (empty($Account) || empty($password)) {
             $result = [
                 'status' => 0,
                 'msg' => '用户名或者密码不能为空'
@@ -69,7 +73,39 @@ if ($inajax == 1) {
             
             echo json_encode($result);
             exit();
-        }	
+        }
+
+		//用户名合法判断
+		if (! check_username($Account)) {
+			$result = [
+                'status' => 0,
+                'msg' => '登录名不法，不能使用特殊字符'
+            ];
+            
+            echo json_encode($result);
+            exit();
+		}
+
+		//检查用户名是否已经存在
+		$row = $DB->GetRs('biz', '*', "WHERE Biz_Account='" . $Account . "'");
+		if (!empty($row)) {
+			$Data = array(
+				"status" => 0,
+				"msg" => "登录名已被占用"
+			);
+			echo json_encode($Data, JSON_UNESCAPED_UNICODE);
+			exit;
+		}		
+
+		//手机号格式
+		if (! is_mobile($mobile)) {
+			$Data = array(
+				"status" => 0,
+				"msg" => "手机号格式非法"
+			);
+			echo json_encode($Data, JSON_UNESCAPED_UNICODE);
+			exit;
+		}
 
 		//验证码
 		$captcha = isset($_POST['captcha']) ? $_POST['captcha'] : '';
@@ -94,7 +130,7 @@ if ($inajax == 1) {
 		}		
 
 
-		$rsBiz=$DB->GetRs("biz","*","where Biz_Phone='" . $account . "'");
+		$rsBiz=$DB->GetRs("biz","*","where Biz_Phone='" . $mobile . "'");
 		
         if ($rsBiz) {
             $result =  [
@@ -108,8 +144,9 @@ if ($inajax == 1) {
   
 		$data = [
 			'Users_ID' => $Users_ID,
+			'Biz_Account' => $Account,
 			'Biz_PassWord' => md5($password),
-			'Biz_Phone' => $account,
+			'Biz_Phone' => $mobile,
 		];
 
 		$flag = $DB->Add('biz', $data);
@@ -161,13 +198,16 @@ if ($inajax == 1) {
 	<p class="login_title">注册</p>
     <div class="login_box">
 	<form id="user_form" name="user_form">
-    	<input type="tel" name="Mobile" id="Mobile" value="" maxlength="11" class="reg_x" placeholder="请输入手机号码">
-        <span class="l" style="width:60%;"><input type="text" name="captcha" id="captcha" value="" maxlength="4" class="reg_x1" placeholder="请输入验证码"></span>
-        <span class="l" style="width:40%;"><input type="button" id="btn_send" state="0" class="reg_x2" value="获取验证码" maxlength="16"></span>
-        <div class="clear"></div>
-        <input type="password" name="Password" id="Password" value="" maxlength="11" class="reg_x1" placeholder="登录密码" maxlength="16">
+	<input type="tel" name="Account" id="Account" value="" maxlength="11" class="reg_x" placeholder="请填写登录名">
+
+    	<input type="password" name="Password" id="Password" value="" maxlength="11" class="reg_x1" placeholder="登录密码" maxlength="16">
         <input type="password" name="ConfirmPassword" id="ConfirmPassword" value="" maxlength="16" class="reg_x1" placeholder="确认登录密码">
         <div class="clear"></div>
+        
+        <input type="tel" name="Mobile" id="Mobile" value="" maxlength="11" class="reg_x" placeholder="请输入手机号码">
+        <span class="l" style="width:60%;"><input type="text" name="captcha" id="captcha" value="" maxlength="4" class="reg_x1" placeholder="请输入验证码"></span>
+        <span class="l" style="width:40%;"><input type="button" id="btn_send" state="0" class="reg_x2" value="获取验证码" maxlength="16"></span>
+		<div class="clear"></div>
         <div class="reg_t">
         	<textarea name="copyright" rows="3">我阅读并签署协议协议</textarea>
         </div>
@@ -220,6 +260,20 @@ $(function(){
 
 	//注册新用户
 	$(".reg_sub").click(function(){
+
+		var Account=$('#user_form input[name=Account]').val();
+		if(Account=='' || Account.length<3){
+			layer.open({
+				content:'请填写登录名,至少三个字符！',
+				time:2,
+				end:function(){
+					$('input[name=Account]').focus();
+				} 
+			});
+			
+			return false;
+		}
+
 		var Mobile=$('#user_form input[name=Mobile]').val();
 		if(Mobile=='' || Mobile.length!=11){
 			layer.open({
