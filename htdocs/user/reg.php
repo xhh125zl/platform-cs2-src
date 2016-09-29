@@ -4,6 +4,8 @@ define('USER_PATH', dirname(__FILE__) . '/');
 include USER_PATH . '../Framework/Conn.php';
 require_once CMS_ROOT . '/include/helper/tools.php';
 
+$Users_ID = 'pl2hu3uczz';
+
 $inajax = isset($_GET['inajax']) ? (int)$_GET['inajax'] : 0;
 
 if ($inajax == 1) {
@@ -105,7 +107,7 @@ if ($inajax == 1) {
 		}
   
 		$data = [
-			'Users_ID' => RandChar(10),
+			'Users_ID' => $Users_ID,
 			'Biz_PassWord' => md5($password),
 			'Biz_Phone' => $account,
 		];
