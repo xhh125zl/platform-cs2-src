@@ -58,12 +58,20 @@ if ($_POST['act'] == 'uploadFile') {
     //数据处理
     $input_productData = $_POST['productData'];
 
-    //图片路径处理
+    //封面图片路径处理
     $imsge_path['ImgPath'] = explode(',' ,$input_productData['Products_JSON']);
     $input_productData['Products_JSON'] = json_encode($imsge_path,JSON_UNESCAPED_UNICODE);
+    //商品详情处理  图片，内容
+    $des_img = explode(',' ,$input_productData['Products_JSON1']);
+    $img_show = '';
+    foreach ($des_img as $k => $v) {
+    	$img_show .= '<br/><img src="'.$v.'"/>';
+    }
+    $input_productData['Products_Description'] = preg_replace('/\n|\r/', "<br/>", $input_productData['Products_Description']);
+    $input_productData['Products_Description'] = htmlspecialchars($input_productData['Products_Description'].$img_show, ENT_QUOTES);
     //分类处理
     $input_productData['Products_Category'] = ','.(int)$input_productData['firstCate'].','.(int)$input_productData['firstCate']. ',' . (int)$input_productData['secondCate'] . ',';
-    $input_productData['Products_BriefDescription'] = htmlspecialchars($input_productData['Products_BriefDescription'], ENT_QUOTES);	//产品简介
+    //$input_productData['Products_BriefDescription'] = htmlspecialchars($input_productData['Products_BriefDescription'], ENT_QUOTES);	//产品简介
     $input_productData['Shipping_Free_Company'] = 0;	//免运费  0为全部 ，n为指定快递
     //$input_productData['Products_Index'] = 1/9999;	//产品排序
     //$input_productData['Products_Type'] = 0/n;		//产品类型
@@ -103,7 +111,7 @@ if ($_POST['act'] == 'uploadFile') {
     	$postdata['productData'] = $input_productData;
     	$resArr = product::addProductTo401($postdata);
 	    if ($resArr['errorCode'] == 0) {
-	        echo json_encode(['errorCode' => 0, 'msg' => '上架成功', 'url' => 'http://'.$_SERVER['HTTP_HOST'].'/user/admin.php'], JSON_UNESCAPED_UNICODE);
+	        echo json_encode(['errorCode' => 0, 'msg' => '上架成功', 'url' => 'http://'.$_SERVER['HTTP_HOST'].'/user/admin.php?act=products'], JSON_UNESCAPED_UNICODE);
 	    } else {
 	        echo json_encode(['errorCode' => 1, 'msg' => '上架失败']);
 	    }
@@ -150,7 +158,7 @@ if ($_POST['act'] == 'uploadFile') {
 			}
 			if (isset($b2c_resArr)) {
 				if ($b2c_resArr['errorCode'] == 0) {
-		        	echo json_encode(['errorCode' => 0, 'msg' => '编辑成功', 'url' => 'http://'.$_SERVER['HTTP_HOST'].'/user/admin.php'], JSON_UNESCAPED_UNICODE);
+		        	echo json_encode(['errorCode' => 0, 'msg' => '编辑成功', 'url' => 'http://'.$_SERVER['HTTP_HOST'].'/user/admin.php?act=products'], JSON_UNESCAPED_UNICODE);
 		    	} else {
 		    		//推荐编辑不成功，做数据还原处理
 			    	$postdata['productdata'] = $old_productData;
@@ -158,7 +166,7 @@ if ($_POST['act'] == 'uploadFile') {
 		    		echo json_encode(['errorCode' => 1, 'msg' => 'b2c编辑失败']);
 		    	}
 		    } else {
-		        echo json_encode(['errorCode' => 0, 'msg' => '编辑成功', 'url' => 'http://'.$_SERVER['HTTP_HOST'].'/user/admin.php'], JSON_UNESCAPED_UNICODE);
+		        echo json_encode(['errorCode' => 0, 'msg' => '编辑成功', 'url' => 'http://'.$_SERVER['HTTP_HOST'].'/user/admin.php?act=products'], JSON_UNESCAPED_UNICODE);
 		    }
 		} else {
 			echo json_encode(['errorCode' => 1, 'msg' => '401编辑失败']);

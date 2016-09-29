@@ -178,13 +178,13 @@ if (isset($_POST['ajax']) && $_POST['ajax'] == 1) {
 <script type='text/javascript' src='../static/js/plugin/layer_mobile/layer.js'></script>
 <style>
 .row{line-height:20px;}
-a.preview p, a.delete p{display:inline}
+a.preview p, a.delete p, a.edit p{display:inline}
 </style>
 <body>
 <div class="w">
 <!-- topnav -->
 	<div style="text-align:center; line-height:30px; background:#fff; padding:5px 0">
-    	<span class="l"><a><img src="../static/user/images/gdx.png" width="30" height="30" style=""></a></span>商品管理
+    	<span class="l"><a href="?act=store"><img src="../static/user/images/gdx.png" width="30" height="30" style=""></a></span>商品管理
     </div>
 <!-- //topnav -->    
 	<!--header -->
@@ -300,23 +300,12 @@ if (count($infolist) > 0)        	 {
                             <i class="fa  fa-eye fa-x" aria-hidden="true" style="font-size:16px;"></i>
                             <p>预览</p>
                         </a></li>
-                        <li><!--
-<?php
-if (isset($product['state']) && $product['state'] == 1) {
-?>
-<a class="shop shopdown" data-state="shopdown" data-product-id="<?php echo $product['Products_ID'];?>">
-    <i class="fa fa-download fa-x" aria-hidden="true" style="font-size:16px;"></i><p>下架</p>
-</a>
-<?php
-} else {
-?>
-<a class="shop shopup" data-state="shopup" data-product-id="<?php echo $product['Products_ID'];?>">
-    <i class="fa fa-download fa-x" aria-hidden="true" style="font-size:16px;"></i><p>上架</p>
-</a>
-<?php
-}
-?>
--->
+                        <li>
+                        <?php if ($product['Products_FromId'] == '0') { ?>
+                                <a class="edit" href="?act=product_edit&product_id=<?php echo $product['Products_ID'];?>">
+                                <i class="fa  fa-pencil fa-x" aria-hidden="true" style="font-size:16px;"></i>
+                                <p>编辑</p></a>
+                        <?php } ?>
                         </li>
                         <li><a class="delete" data-product-id="<?php echo $product['Products_ID'];?>">
                             <i class="fa  fa-trash-o fa-x" aria-hidden="true" style="font-size:16px;"></i>
@@ -346,7 +335,7 @@ if (isset($product['state']) && $product['state'] == 1) {
 <script id="product-row" type="text/html">
 {{each data as product i}}
 		<li>
-            	<div style="border-bottom:1px #eee solid; overflow:hidden;">
+            	<div style="border-bottom:1px #eee solid; overflow:hidden;min-height:110px;">
                 	<a><span class="imgs l"><img src="{{product.thumb}}" width="90" height="90"></span>
                     <span class="main l">
                         <p>{{product.Products_Name}}【{{product.Products_ID}}】</p>
@@ -365,10 +354,13 @@ if (isset($product['state']) && $product['state'] == 1) {
                             <i class="fa  fa-eye fa-x" aria-hidden="true" style="font-size:16px;"></i>
                             <p>预览</p>
                         </a></li>
-                        <li><!--<a class="shop {{if (product.state == 1)}}shopdown{{else}}shopup{{/if}}"  data-state="{{if (product.state == 1)}}shopdown{{else}}shopup{{/if}}" data-product-id="{{product.Products_ID}}">
-                            <i class="fa  fa-download fa-x" aria-hidden="true" style="font-size:16px;"></i>
-                            <p>{{if (product.state == 1)}}下架{{else}}上架{{/if}}</p>
-                        </a>--></li>
+                        <li>
+                        {{if product.Products_FromId == 0}}
+                                <a class="edit" href="?act=product_edit&product_id=<?php echo $product['Products_ID'];?>">
+                                <i class="fa  fa-pencil fa-x" aria-hidden="true" style="font-size:16px;"></i>
+                                <p>编辑</p></a>
+                        {{/if}}
+                        </li>
                         <li><a class="delete" data-product-id="{{product.Products_ID}}">
                             <i class="fa  fa-trash-o fa-x" aria-hidden="true" style="font-size:16px;"></i>
                             <p>下架</p>

@@ -20,7 +20,8 @@ function check_null(input) {
     }
 }
 //检测是数字类型  默认检查正浮点数  1：非负浮点数  2：检查正整数 3: 检查非负整数
-function check_number(input, type = 0) {
+function check_number(input, type) {
+    if(!type) {type = 0;}
     var self_attr = input.attr('style');
     var value = $.trim(input.val());
     var add_attr = ";border:1px solid blue;";
@@ -113,6 +114,75 @@ $(function(){
             }
         });
     });
+
+    //内容配图
+    //判断图片上传的张数
+    $('#add_img1').click(function(){
+        if($('.js_showBox1 div').length > 6) {
+            layer.open({
+                content: '最多只能上传7张图片',
+            });
+            return false;
+        } else {
+            return $('.js_upFile1').click();
+        }
+    });
+    //图片上传
+    $(".js_upFile1").uploadView1({
+        uploadBox: '.js_uploadBox1',//设置上传框容器
+        showBox : '.js_showBox1',//设置显示预览图片的容器
+        width : 43, //预览图片的宽度，单位px
+        height : 43, //预览图片的高度，单位px
+        allowType: ["gif", "jpeg", "jpg", "bmp", "png"], //允许上传图片的类型
+        maxSize :10, //允许上传图片的最大尺寸，单位M
+        success:function(e){
+            $.ajax({
+                type:"POST",
+                url:"lib/upload.php",
+                data:{"act":"uploadFile", "data":$("#image_files1").val()},
+                dataType:"json",
+                success:function(data){
+                    if (data.errorCode == 0) {
+                        $('#add_img1').removeAttr('style');
+                        if ($("input[name=image_path1]").val().length == 0) {
+                            $("input[name=image_path1]").val(data.msg);
+                        } else {
+                            $("input[name=image_path1]").val($("input[name=image_path1]").val() + ',' + data.msg);
+                        }
+                    } else {
+                        alert(data.msg);
+                    }
+                }
+            });
+        }
+    });
+    //删除图片
+    $(document).on('click', '.deleted1', function(){
+        var me = $(this);
+        layer.open({
+            content: '确定删除吗?',
+            btn: ['确定', '取消'],
+            yes: function(){
+                layer.closeAll();
+                $.ajax({
+                    type:"POST",
+                    url:"lib/upload.php",
+                    data:{"act":"delImg", "index":me.parent().index(),"image_path":$("input[name=image_path1]").val()},
+                    dataType:"json",
+                    success:function(data) {
+                        if (data.errorCode == 0) {
+                            $("input[name=image_path1]").val(data.msg);
+                            me.parent().remove();
+                        } else {
+                            alert(data.msg);
+                        }
+                    }
+                });
+            }
+        });
+    });
+    //内容配图 end
+
     //是否推荐 推荐填写供货价
     $('input[name="is_Tj"]').click(function(){
         var isSolding = $('input[name="isSolding"]').val();
@@ -137,7 +207,8 @@ $(function(){
         layer.open({
             type:0,
             title:"提示信息",
-            content:"请到PC端操作!手机端不支持设置佣金,将按照默认佣金比例!",
+            content:"请到PC端操作!<br/>手机端不支持设置佣金<br/>将按照默认佣金比例!",
+            style: 'line-height:25px;',
             btn:['确认'],
         })
     });
@@ -293,7 +364,9 @@ $(function(){
             'Products_ID' : $.trim($('input[name="Products_ID"]').val()),      //商品id
             'Products_Name' : $.trim($('input[name="Products_Name"]').val()),      //商品名称
             'Products_JSON' : $.trim($('input[name="image_path"]').val()),      //商品封面图片的路径集
-            'Products_BriefDescription' : $.trim($('textarea[name="BriefDescription"]').val()),     //商品描述
+            //'Products_BriefDescription' : $.trim($('textarea[name="BriefDescription"]').val()),     //商品简介
+            'Products_Description' : $.trim($('textarea[name="Description"]').val()),     //商品详情描述
+            'Products_JSON1' : $.trim($('input[name="image_path1"]').val()),      //商品详情添加的图片
             'Products_PriceY' : $.trim($('input[name="PriceY"]').val()),      //商品原价
             'Products_PriceX' : $.trim($('input[name="PriceX"]').val()),      //商品现价
             'isSolding' : $('input[name="isSolding"]').val(),    //编辑时  判断此推荐商品是否有未完成订单， 1： 不允许撤销推荐
@@ -385,14 +458,13 @@ $(function(){
             success:function(data) {
                 layer.closeAll();
                 if (data.errorCode == 0) {
+                    window.location.href = data.url;
                     layer.open({
                        content:data.msg,
                        style: 'border:none; background-color:green; color:#fff;',
-                       time: 1,
-                       success: function(){
-                            //window.location.href = data.url;
-                       }
+                       time: 1
                     });
+                    
                 } else {
                     layer.open({
                        content:data.msg,
@@ -402,9 +474,9 @@ $(function(){
             }
         });
     });
-    $(document).keydown(function(e){
+    /*$(document).keydown(function(e){
         if (e.keyCode == 13) {
             $('.pro_foot').click();
         }
-    });
+    });*/
 });
