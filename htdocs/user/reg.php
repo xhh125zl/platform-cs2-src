@@ -239,8 +239,8 @@ if ($ret['errorCode'] != 0) {
         <input type="password" name="ConfirmPassword" id="ConfirmPassword" value="" maxlength="16" class="reg_x1" placeholder="确认登录密码">
         <div class="clear"></div>
         
-        <input type="tel" name="Mobile" id="Mobile" value="" maxlength="11" class="reg_x" placeholder="请输入手机号码">
-        <span class="l" style="width:60%;"><input type="text" name="captcha" id="captcha" value="" maxlength="4" class="reg_x1" placeholder="请输入验证码"></span>
+        <input type="tel" name="Mobile" id="Mobile" value="" maxlength="11" class="reg_x reg_mobile_icon" placeholder="请输入手机号码">
+        <span class="l" style="width:60%;"><input type="text" name="captcha" id="captcha" value="" maxlength="4" class="reg_x1 reg_captcha_icon" placeholder="请输入验证码"></span>
         <span class="l" style="width:40%;"><input type="button" id="btn_send" state="0" class="reg_x2" value="获取验证码" maxlength="16"></span>
 		<div class="clear"></div>
         <div class="reg_t">

@@ -406,8 +406,11 @@ td{
 
 /*注册*/
 
-.reg_x{line-height: 45px;margin-top:10px;font-size: 14px;width: 100%;background: url(../images/zh.png) no-repeat;background-position: 5px 10px;background-size: 20px 20px;text-indent: 30px;color: #333;border-bottom: 1px #ddd solid;border-top:none;border-left:none;border-right:none;outline:none }
-.reg_x1{line-height: 45px;margin-top:10px;font-size: 14px;width: 100%;background: url(../images/mm.png) no-repeat;background-position: 5px 10px;background-size: 20px 20px;text-indent: 30px;color: #333;border-bottom: 1px #ddd solid;border-top:none;border-left:none;border-right:none;outline:none }
+.reg_x,.reg_mobile_icon{line-height: 45px;margin-top:10px;font-size: 14px;width: 100%;background: url(../images/zh.png) no-repeat;background-position: 5px 10px;background-size: 20px 20px;text-indent: 30px;color: #333;border-bottom: 1px #ddd solid;border-top:none;border-left:none;border-right:none;outline:none }
+.reg_mobile_icon{background-image:url(../images/pho.png)}
+
+.reg_x1,.reg_captcha{line-height: 45px;margin-top:10px;font-size: 14px;width: 100%;background: url(../images/mm.png) no-repeat;background-position: 5px 10px;background-size: 20px 20px;text-indent: 30px;color: #333;border-bottom: 1px #ddd solid;border-top:none;border-left:none;border-right:none;outline:none }
+.reg_captcha_icon{background-image:url(../images/ys.png)}
 .reg_x2{line-height: 45px;margin-top:10px;font-size: 14px;width: 100%;color: #333;border-bottom: 1px #ddd solid;border-top:none;border-right:none;outline:none;border-left:1px #ddd solid;text-align:center;background:none;color:#666}
 .reg_t{text-align: center; margin-top:20px}
 .reg_t textarea{ color:#666; font-weight:normal; line-height:35px;padding:5px; width:95%; outline:none; background:none}
