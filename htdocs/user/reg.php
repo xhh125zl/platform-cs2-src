@@ -233,7 +233,7 @@ if ($ret['errorCode'] != 0) {
 	<p class="login_title">注册</p>
     <div class="login_box">
 	<form id="user_form" name="user_form">
-	<input type="tel" name="Account" id="Account" value="" maxlength="11" class="reg_x" placeholder="请填写登录名">
+	<input type="tel" name="Account" id="Account" value="" maxlength="11" class="reg_x" placeholder="请输入登录名">
 
     	<input type="password" name="Password" id="Password" value="" maxlength="11" class="reg_x1" placeholder="登录密码" maxlength="16">
         <input type="password" name="ConfirmPassword" id="ConfirmPassword" value="" maxlength="16" class="reg_x1" placeholder="确认登录密码">
