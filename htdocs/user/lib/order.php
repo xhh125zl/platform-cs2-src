@@ -22,6 +22,7 @@ function getOrderDetail($Biz_Account,$orderID){
 
 if ($_GET['act'] == 'order_list') {
     $res = getOrders($_SESSION['Biz_Account'], isset($_GET['page']) ? $_GET['page'] : 1, isset($_POST['Order_ID']) ? (int)$_POST['Order_ID'] : '')['data'];
+    //print_r($res);die;
     foreach ($res as $k => $v) {
         $resArr[$v['Order_Status']][] = $v;
     }
