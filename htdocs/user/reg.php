@@ -393,7 +393,7 @@ $(function(){
 					content:data.msg,
 					time:2,
 					end:function(){
-						
+						$(".reg_sub").attr('disabled', false);
 					} 
 				});
 			}
