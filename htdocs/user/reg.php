@@ -18,6 +18,16 @@ if ($inajax == 1) {
 
 	//发送手机验证码
 	if (isset($_POST['do']) && ($_POST['do'] == 'send') && isset($_POST['Mobile']) && $_POST['Mobile']) {
+		//手机号格式
+		if (! is_mobile($mobile)) {
+			$Data = array(
+				"status" => 0,
+				"msg" => "手机号格式非法"
+			);
+			echo json_encode($Data, JSON_UNESCAPED_UNICODE);
+			exit;
+		}
+
 
 		//检查手机号是否已经存在
 		$row = $DB->GetRs('biz', '*', "WHERE Biz_Phone='" . $mobile . "'");
