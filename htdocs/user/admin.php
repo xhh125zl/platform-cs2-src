@@ -33,7 +33,10 @@ $actionArr = [
 	'setting_backgoods',
 	'user_list',
 	'user_detail',
-	'product_add'
+	'product_add',
+	'product_edit',
+	'data_statistics',
+	'financial_analysis'
 ];
 
 if (! in_array($act, $actionArr)) {

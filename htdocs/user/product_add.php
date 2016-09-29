@@ -38,18 +38,20 @@ if ($users['errorCode'] == 0) {
 <script type="text/javascript" src="../static/user/js/jquery-1.8.3.min.js"></script>
 <script type="text/javascript" src="../static/user/js/layer.js"></script>
 <script  type="text/javascript"  src="../static/user/js/jquery.uploadView.js"></script>
+<script  type="text/javascript"  src="../static/user/js/jquery.uploadView1.js"></script>
 <script  type="text/javascript"  src="../static/user/js/product.js"></script>
 <style type="text/css">
-    .btn-upload {width: 43px;height: 43px;position: relative; float: left; border:1px #999 dashed; margin-left: 10px; }
+    .btn-upload {width: 43px;height: 43px;position: relative;float:left; border:1px #999 dashed; margin-left: 10px; }
     .btn-upload a {display: block;width: 43px;line-height: 43px;text-align: center;color: #4c4c4c;background: #fff;}
     .btn-upload input {width: 43px;height: 43px;position: absolute;left: 0px;top: 0px;z-index: -1;filter: alpha(opacity=0);-moz-opacity: 0;opacity: 0;cursor: pointer;}
     .deleted{cursor: pointer;width: 45px;display: block;height: 20px;line-height: 20px;text-align: center;position: relative;background: #000;color: #fff;font-size: 12px;filter: alpha(opacity=50);-moz-opacity: 0.5;-khtml-opacity: 0.5;opacity: 0.5;margin-top: -20px;}
+    .deleted1{cursor: pointer;width: 45px;display: block;height: 20px;line-height: 20px;text-align: center;position: relative;background: #000;color: #fff;font-size: 12px;filter: alpha(opacity=50);-moz-opacity: 0.5;-khtml-opacity: 0.5;opacity: 0.5;margin-top: -20px;}
     .notNull { color: red; }
 </style>
 <body>
 <div class="w">
     <div class="back_x">
-        <a class="l" href="javascript:history.back();">&nbsp;取消</a><h3>发布产品</h3>
+        <a class="l" href="?act=store">&nbsp;取消</a><h3>发布产品</h3>
     </div>
     <input type="hidden" name="Products_Id" value="">
     <div class="name_pro">
@@ -66,10 +68,23 @@ if ($users['errorCode'] == 0) {
                 <input type="hidden" name="image_path" value=""/>
             </div>
         </div>
-        <p>商品封面（最少一张，最多三张）</p>
+        <div class="note">商品封面（最少一张，最多三张）</div>
     </div>
     <div class="name_pro">
-        <textarea name="BriefDescription" style="margin-left: 2%; width: 95%;height: 100px;line-height: 25px;border: none;" placeholder="请输入商品描述信息"></textarea>
+        <!-- <textarea name="BriefDescription" style="margin-left: 2%; width: 95%;height: 100px;line-height: 25px;border: none;" placeholder="请输入商品简介"></textarea> -->
+        <textarea name="Description" style="margin-left: 2%; width: 95%;height: 100px;line-height: 25px;border: none;" placeholder="请输入商品详细介绍"></textarea>
+        <div class="img_add">
+            <div class="js_uploadBox1">
+                <div class="js_showBox1"></div>
+                <div class="btn-upload">
+                    <a href="javascript:void(0);" id="add_img1">+</a>
+                    <input class="js_upFile1" type="file" name="cover">
+                </div>
+                <!--image_files显示base64编码过的字符串,image_path存放所有的图片路径-->
+                <input type="hidden" id="image_files1" value="">
+                <input type="hidden" name="image_path1" value=""/>
+            </div>
+        </div>
         <!--<div class="img_add">
             <!--这里写配图的一些代码--
         </div>

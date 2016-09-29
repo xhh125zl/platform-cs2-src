@@ -111,10 +111,10 @@ $config = $result['data'];
                 <a><img src="../static/user/images/ico_01.png" width="25" height="25"><p>分销管理</p></a>
             </li>
             <li>
-                <a><img src="../static/user/images/ico_06.png" width="25" height="25"><p>数据统计</p></a>
+                <a href='?act=data_statistics'><img src="../static/user/images/ico_06.png" width="25" height="25"><p>数据统计</p></a>
             </li>
             <li>
-                <a><img src="../static/user/images/ico_03.png" width="25" height="25"><p>财务分析</p></a>
+                <a href='?act=financial_analysis'><img src="../static/user/images/ico_03.png" width="25" height="25"><p>财务分析</p></a>
             </li>
             <li>
                 <a href='?act=learn'><img src="../static/user/images/ico_08.png" width="25" height="25"><p>学习中心</p></a>
