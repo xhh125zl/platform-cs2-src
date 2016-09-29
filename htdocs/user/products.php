@@ -309,7 +309,7 @@ if (count($infolist) > 0)        	 {
                         </li>
                         <li><a class="delete" data-product-id="<?php echo $product['Products_ID'];?>">
                             <i class="fa  fa-trash-o fa-x" aria-hidden="true" style="font-size:16px;"></i>
-                            <p>删除</p>
+                            <p>下架</p>
                         </a></li>
 
                         <li>
@@ -363,7 +363,7 @@ if (count($infolist) > 0)        	 {
                         </li>
                         <li><a class="delete" data-product-id="{{product.Products_ID}}">
                             <i class="fa  fa-trash-o fa-x" aria-hidden="true" style="font-size:16px;"></i>
-                            <p>删除</p>
+                            <p>下架</p>
                         </a></li>
                         <li></li>
                     </ul>                    
@@ -449,9 +449,9 @@ $(function(){
         var tr = $(this).parent().parent().parent().parent();
         $.post(url,{do:'delete', pid:pid}, function(json){
 
-              if (json.affectRows.errorCode != '0')  {
+              if (json.errorCode != '0')  {
                   layer.open({
-                      content: json.affectRows.msg,
+                      content: json.msg,
                       time: 1
                   });
               } else {
@@ -466,7 +466,7 @@ $(function(){
         },'json')
 	})
 
-	//删除
+	//置顶
 	$(".productList").on('click', '.top', function(){
         var pid = $(this).attr("data-product-id");
         var state = $(this).attr("data-state");

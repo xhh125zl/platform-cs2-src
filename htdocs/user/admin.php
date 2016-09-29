@@ -40,7 +40,7 @@ $actionArr = [
 ];
 
 if (! in_array($act, $actionArr)) {
-	$act = 'product';
+	$act = 'products';
 }
 
 

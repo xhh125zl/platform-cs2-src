@@ -23,7 +23,7 @@ $category = product_category::get_all_category();
 <body>
 <div class="w">
 	<div class="back_x">
-    	<a class="l"><i class="fa  fa-angle-left fa-2x" aria-hidden="true"></i></a>产品分类
+    	<a class="l" href="javascript:history.back();"><i class="fa  fa-angle-left fa-2x" aria-hidden="true"></i></a>产品分类
     </div>
 
 <?php
@@ -39,7 +39,7 @@ foreach ($category as $cate) {
 ?>        
         	<li>
             	<span class="primary_pr l"><a href="?act=search&fid=<?php echo $cate['Category_ID'];?>&sid=<?php echo $vcate['Category_ID'];?>"><?php echo $vcate['Category_Name'];?></a><p><?php echo $vcate['Category_Name'];?></p></span>
-                <span class="r"><img src="<?php echo $vcate['Category_Img'];?>"></span>
+                <span class="r"><img src="<?php echo IMG_SERVER . $vcate['Category_Img'];?>"></span>
                 <div class="clear"></div>
             </li>
 <?php
