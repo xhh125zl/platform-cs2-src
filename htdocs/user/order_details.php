@@ -1,5 +1,6 @@
 <?php
 require_once "lib/order.php";
+require_once CMS_ROOT . '/include/api/ImplOrder.class.php';
 ?>
 <!doctype html>
 <html>
@@ -32,17 +33,17 @@ require_once "lib/order.php";
         }
     }
     $(function(){
-        $('input[name="button"]').click(function(){
+        $('input:button').click(function(){
             //快递单号
-            if (!check_null($('input[name="ShippingID"]').val()) {
+            if (!check_null($('input[name="ShippingID"]'))) {
                 return false;
             }
             //联系人
-            if (!check_null($('input[name="Name"]').val()) {
+            if (!check_null($('input[name="Name"]'))) {
                 return false;
             }
             //联系电话
-            if (!check_null($('input[name="Mobile"]').val()) {
+            if (!check_null($('input[name="Mobile"]'))) {
                 return false;
             }
             $('#order_send_form').submit();
@@ -60,36 +61,19 @@ if($_POST){
         "Order_SendTime"=>time(),
         "Order_Status"=>3
     );
-    if($_POST["Express"]){
+    /*if($_POST["Express"]){
         $ShippingN = array(
             "Express"=>$_POST["Express"],
             "Price"=>empty($Shipping["Price"]) ? 0 : $Shipping["Price"]
         );
         $Data["Order_Shipping"] = json_encode($ShippingN,JSON_UNESCAPED_UNICODE);
-    }
-    if (strlen($rsOrder['Sales_By']) > 2) {
-      $sendOrderResArr = ImplOrder::actionOrdersend(['Order_ID' => $OrderID, 'orderData' => $Data]);
+    }*/
+    $res = ImplOrder::actionOrdersend401(['Order_ID' => $orderDetail['Order_ID'], 'orderData' => $Data]);
      
+    if(isset($res['errorCode']) && $res['errorCode'] == 0){      
+        echo '<script>layer.open({content: "发货成功"});window.location.reload;</script>';
     }else{
-      $sendOrderResArr['errorCode'] = 0;
-    }
-    $Flag = false;
-    if ($sendOrderResArr['errorCode'] == 0) {
-      $Flag=$DB->Set("user_order",$Data,"where Order_ID=".$OrderID);
-    }
-    if($Flag){      
-        $data = [
-            'Order_ID' => $OrderID,
-            'orderData' => $Data
-        ];
-        $rsb2c = ImplOrder::actionOrdersend($data);
-        if($rsb2c['errorCode']==0){
-            echo '<script language="javascript">alert("发货成功");window.location="orders.php";</script>';
-        }else{
-            echo '<script language="javascript">alert("发货失败");history.back();</script>';
-        }
-    }else{
-        echo '<script language="javascript">alert("发货失败");history.back();</script>';
+        echo '<script>layer.open({content: "发货成功", btn: "确定"});history.back();</script>';
     }
 }
 ?>
@@ -174,11 +158,16 @@ if($_POST){
 
                         </strong>
                     </span>
+                </li>
+                <?php if ($orderDetail['Order_Status'] > 2) { ?>
+                <li>
+                    <span class="left">快递单号：</span>
                     <span class="left"><?php echo $orderDetail["Order_ShippingID"] ?></span>
                 </li>
+                <?php } ?>
                 <!-- 自营商品发货 -->
                 <?php if($orderDetail['Order_Status'] == 2 && $orderDetail["Order_IsVirtual"]<>1 && ($orderDetail['Sales_By'] == '0' || $orderDetail['Users_ID'] == $UsersID)){ ?>
-                <form method="post" action="?" id="order_send_form">
+                <form method="post" action="" id="order_send_form">
                     <li>
                         <span class="left">快递单号：</span>
                         <span class="left"><input name="ShippingID" value="<?php echo $orderDetail["Order_ShippingID"] ?>"/></span>
@@ -192,7 +181,9 @@ if($_POST){
                         <span class="left"><input name="Mobile" value="<?php echo $orderDetail["Address_Mobile"] ?>" size="15"/></span>
                     </li>
                     <li>
-                        <textarea style="width:97%; height:60px;" placeholder="请输入订单备注"><?=$orderDetail['Order_Remark']?></textarea>
+                        <textarea name="Remark" style="width:97%; height:60px;" placeholder="请输入订单备注"><?=$orderDetail['Order_Remark']?></textarea>
+                    </li>
+                    <li>
                         <input type="button" value="确认发货" style="margin-left:70%; border:0; width:100px; height: 30px; background-color: green; border-radius: 15px; color: #fff;">
                     </li>
                 </form>
