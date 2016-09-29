@@ -3,6 +3,7 @@ define('USER_PATH', dirname(__FILE__) . '/');
 
 include USER_PATH . '../Framework/Conn.php';
 require_once CMS_ROOT . '/include/helper/tools.php';
+require_once CMS_ROOT . '/include/api/users.class.php';
 
 $Users_ID = 'pl2hu3uczz';
 
@@ -152,6 +153,30 @@ if ($inajax == 1) {
 			exit;
 		}
   
+//远程注册新用户
+$data = [
+	'usersData' => [
+		'Users_ID' => RandChar(10),
+		'Users_Account' => $Account,
+		'Users_Password' => md5($password),
+		'Users_Phone' => $mobile,
+		'Users_CreateTime' => time(),
+		'Users_Status' => 1,
+		'Users_ExpireDate' => time() + 86400 * 365 * 5,
+		'Users_Right' => '{"web":["web"],"kanjia":["kanjia"],"zhuli":["zhuli"],"zhongchou":["zhongchou"],"games":["games"],"weicuxiao":["sctrach","fruit","turntable","battle"],"hongbao":["hongbao"],"votes":["votes"]}',
+	]
+];
+$ret = users::addUsers($data);
+if ($ret['errorCode'] != 0) {
+	$result = [
+		'status' => 1,
+		'msg' => '注册成功',
+		'url' => 'login.php'
+	];
+	echo json_encode($Data,JSON_UNESCAPED_UNICODE);
+	exit;	
+}
+
 		$data = [
 			'Users_ID' => $Users_ID,
 			'Biz_Account' => $Account,
