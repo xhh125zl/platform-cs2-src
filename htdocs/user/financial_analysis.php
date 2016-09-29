@@ -2,11 +2,6 @@
 require_once "/config.inc.php";
 require_once(CMS_ROOT . '/include/api/count.class.php');
 
-//检查用户是否登录
-if(empty($BizAccount)){
-    header("location:/biz/login.php");
-}
-
 $postdata['Biz_Account'] = $BizAccount;
 $resArr = count::countIncome($postdata);
 if (isset($resArr['errorCode']) && $resArr['errorCode'] == 0) {
