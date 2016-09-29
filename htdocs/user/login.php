@@ -107,6 +107,19 @@ if (isset($_GET['do']) && $_GET['do'] == 'logout') {
 <script type="text/javascript">
 $(function(){
     $(".login_sub").click(function(){
+        var account = $("#Account").val();
+        var password = $("#Password").val();
+
+        if (account == '' || password == '') {
+            layer.open({
+                content: "用户名和登录密码不能为空", 
+                time:2, 
+                end:function(){
+                   
+                }
+            })   
+        }
+
         $(this).attr('disabled', true).val('登录中');
         $.post('?do=login&inajax=1', $("#form1").serialize(), function(json) {
             if (json.status == '0') {
