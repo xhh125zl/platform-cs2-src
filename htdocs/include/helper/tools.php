@@ -574,3 +574,18 @@ function is_mobile($mobile) {
 
 	return false;
 }
+
+/**
+ * 生成随机数字
+ * @param int $length 
+ * @return string
+ */
+function RandChar($length = 10){
+	$chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
+	$temchars = '';
+	for($i=0;$i<$length;$i++)
+	{
+		$temchars .= $chars[ mt_rand(0, strlen($chars) - 1) ];
+	}
+	return $temchars;
+}
