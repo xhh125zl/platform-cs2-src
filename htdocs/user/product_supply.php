@@ -9,16 +9,14 @@ if(empty($BizAccount)){
     header("location:/biz/login.php");
 }
 //检查用户是否已经交过费用
-$users = b2cshopconfig::getConfig(array('Users_Account' => $BizAccount));
+$users = b2cshopconfig::getConfig(['Users_Account' => $BizAccount]);
 if ($users['errorCode'] == 0) {
     $bizData = $users['configData'];
-    if ($bizData['expiresTime'] != 0 && $bizData['expiresTime'] < time()) {
-        if ($bizData['need_charg'] == 1) {
-            echo '<script language="javascript">alert("此项功能已到期,必须先交费才可以使用");history.back();</script>';
-            exit();
-        }
+    if ($bizData['seller_verify'] == 0) {
+        echo '<script language="javascript">alert("您尚未通过商家认证,不能当供货商,请进行商家认证后再进行此项操作!");history.back();</script>';
+        exit;
     }
-} else {
+}else{
     echo '<script language="javascript">alert("服务器网络异常,数据通信失败");history.back();</script>';
     exit;
 }
@@ -100,15 +98,15 @@ if ($users['errorCode'] == 0) {
                 <th><span class="notNull">*</span>现价（￥）：</th>
                 <td><input type="number" name="PriceX" class="user_input" value="" placeholder="请输入商品现价"></td>
             </tr>
-            <tr>
+            <tr style="display:none;">
                 <th>是否推荐&nbsp;&nbsp;&nbsp;<br/>到批发商城：</th>
-                <td><input class="toggle-switch" type="checkbox" name="is_Tj"></td>
+                <td><input class="toggle-switch" type="checkbox" name="is_Tj" checked=""></td>
             </tr>
-            <tr class="is_Tj" style="display:none;">
+            <tr class="is_Tj">
                 <th><span class="notNull">*</span>供货价(￥)：</th>
                 <td><input type="number" name="PriceS" class="user_input" value="" placeholder="请输入商品供货价"></td>
             </tr>
-            <tr class="is_Tj" style="display:none;">
+            <tr class="is_Tj">
                 <th><span class="notNull">*</span>所属分类：</th>
                 <td id="test1"><span id="b2c_category" firstCate="" secondCate=""></span><span class="right">选择分类&nbsp;<i class="fa  fa-angle-right fa-x" aria-hidden="true" style="font-size:20px;"></i></span></td>
             </tr>

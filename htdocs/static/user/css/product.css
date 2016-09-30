@@ -31,7 +31,7 @@ input[type=button], input[type=submit], input[type=file], button { cursor: point
 .product ul li div a span.main{ width:58%;}
 .product ul li div a span.main p{ line-height:25px; max-height:50px; overflow:hidden; color:#333;}
 .product ul li div a span span{ color:#999; line-height:22px; font-weight:normal; font-size:12px}
-.product ul li div ul li{ width:25%; float:left; text-align:center; padding-top:5px}
+.product ul li div ul li{ width:33%; float:left; text-align:center; padding-top:5px}
 .product ul li div ul li a{ color:#999;}
 .kb{ margin-top:50px;}
 .bottom_x{ position:fixed; z-index:1000; overflow:hidden; width:100%; bottom:0px; left:0; border-top:1px #eee solid; background:#fff;}
@@ -368,7 +368,7 @@ td{
 .name_pro input{ width:100%; border:none; line-height:40px; text-indent:1em; color:#666;}
 .name_pro div.img_add{width:100%; height:46px; margin-left:15px; text-align:center;}
 .name_pro div.img_add a{ font-size:35px; color:#999;}
-.name_pro p{ color:#999; margin-left:1em; line-height:35px}
+.name_pro .note{ clear:both; color:#999; margin-left:1em; line-height:35px}
 .table_x td select{text-indent:0.5em;width:100%;height:30px;border:1px #ddd solid;}
 .but_lab input{ height:15px; margin:10px 0; width:30px}
 .but_lab ul li{ text-align:left}
@@ -406,8 +406,11 @@ td{
 
 /*注册*/
 
-.reg_x{line-height: 45px;margin-top:10px;font-size: 14px;width: 100%;background: url(../images/zh.png) no-repeat;background-position: 5px 10px;background-size: 20px 20px;text-indent: 30px;color: #333;border-bottom: 1px #ddd solid;border-top:none;border-left:none;border-right:none;outline:none }
-.reg_x1{line-height: 45px;margin-top:10px;font-size: 14px;width: 100%;background: url(../images/mm.png) no-repeat;background-position: 5px 10px;background-size: 20px 20px;text-indent: 30px;color: #333;border-bottom: 1px #ddd solid;border-top:none;border-left:none;border-right:none;outline:none }
+.reg_x,.reg_mobile_icon{line-height: 45px;margin-top:10px;font-size: 14px;width: 100%;background: url(../images/zh.png) no-repeat;background-position: 5px 10px;background-size: 20px 20px;text-indent: 30px;color: #333;border-bottom: 1px #ddd solid;border-top:none;border-left:none;border-right:none;outline:none }
+.reg_mobile_icon{background-image:url(../images/pho.png)}
+
+.reg_x1,.reg_captcha{line-height: 45px;margin-top:10px;font-size: 14px;width: 100%;background: url(../images/mm.png) no-repeat;background-position: 5px 10px;background-size: 20px 20px;text-indent: 30px;color: #333;border-bottom: 1px #ddd solid;border-top:none;border-left:none;border-right:none;outline:none }
+.reg_captcha_icon{background-image:url(../images/ys.png)}
 .reg_x2{line-height: 45px;margin-top:10px;font-size: 14px;width: 100%;color: #333;border-bottom: 1px #ddd solid;border-top:none;border-right:none;outline:none;border-left:1px #ddd solid;text-align:center;background:none;color:#666}
 .reg_t{text-align: center; margin-top:20px}
 .reg_t textarea{ color:#666; font-weight:normal; line-height:35px;padding:5px; width:95%; outline:none; background:none}

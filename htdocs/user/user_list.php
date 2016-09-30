@@ -17,7 +17,7 @@
 <body>
 <div class="w">
     <div class="back_x">
-        <a class="l"><i class="fa  fa-angle-left fa-2x" aria-hidden="true"></i></a>我的会员
+        <a href="javascript:history.back();" class="l"><i class="fa  fa-angle-left fa-2x" aria-hidden="true"></i></a>我的会员
     </div>
     <div class="user_ls">
         <ul>

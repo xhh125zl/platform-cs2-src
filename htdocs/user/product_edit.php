@@ -37,9 +37,32 @@ $resArr = product::getProductArr($postdata);
 if ($resArr['errorCode'] != 0 || empty($resArr['data']['Products_ID'])) {
     echo '<script>alert("商品不存在，或获取数据失败");history.back();</script>';
 }
-$productData = $resArr['data'];     //产品参数
+$productData = $resArr['data'];     //获取的产品参数
+if (isset($productData['Products_FromId']) && $productData['Products_FromId'] > 0) {
+    echo '<script>alert("分销商品商品不能编辑");history.back();</script>';
+}
 
-//图片
+function cutstr_html($string,$length=0,$ellipsis='…'){
+    $string=strip_tags($string);
+    $string=preg_replace('/\n/is','',$string);
+    $string=preg_replace('/\r/is',' ',$string);
+    $string=preg_replace('/\t/is',"\r",$string);  //tab
+    $string=preg_replace('/ |　/is','',$string);
+    $string=preg_replace('/&nbsp;/is','',$string);
+    preg_match_all("/[\x01-\x7f]|[\xc2-\xdf][\x80-\xbf]|\xe0[\xa0-\xbf][\x80-\xbf]|[\xe1-\xef][\x80-\xbf][\x80-\xbf]|\xf0[\x90-\xbf][\x80-\xbf][\x80-\xbf]|[\xf1-\xf7][\x80-\xbf][\x80-\xbf][\x80-\xbf]/",$string,$string);
+    if(is_array($string)&&!empty($string[0])){
+        //var_dump($string[0]);die;
+        if(is_numeric($length)&&$length){
+            $string=implode('',array_slice($string[0],0,$length)).$ellipsis;
+        }else{
+            $string=implode('',$string[0]);
+        }
+    }else{
+        $string='';
+    }
+    return $string;
+}
+//封面图片
 $image_path_arr = json_decode($productData['Products_JSON'], true)['ImgPath'];
 $images_path = array();
 $image_path = '';
@@ -63,6 +86,14 @@ foreach ($image_path_arr as $k => $v) {
 $image_path = rtrim($image_path, ',');
 //$image_path = implode(',', $image_path_arr);
 
+//商品详情处理  内容及图片
+$des_con = htmlspecialchars_decode($productData['Products_Description'], ENT_QUOTES);
+//$description = htmlspecialchars(strip_tags($des_con,'<p><a>'));
+$description = cutstr_html($des_con);
+preg_match_all('/<img (.*?)+src=[\'"](.*?)[\'"]/i', $des_con, $img_arr);
+$des_img_path = implode(',', $img_arr[2]);
+//print_r($description);die;
+
 //推荐到批发商城时的分类
 if ($postdata['is_Tj'] == 1 && $productData['is_Tj'] == 1) {
     $b2cCate = $productData['b2cCategory'];
@@ -84,7 +115,6 @@ if ($postdata['is_Tj'] == 1 && $productData['is_Tj'] == 1) {
 $cate = explode(',', $productData['Products_Category']);
 $firstCateId = $cate[2];
 $secondCateId = $cate[3];
-
 foreach ($productData['Category401'] as $k => $v) {
 	if ($v['Category_ID'] == $firstCateId) {
         $firstCateName = $v['Category_Name'];
@@ -110,18 +140,20 @@ $cateName = $firstCateName.'，'.$secondCateName;
 <script type="text/javascript" src="../static/user/js/jquery-1.8.3.min.js"></script>
 <script type="text/javascript" src="../static/user/js/layer.js"></script>
 <script  type="text/javascript"  src="../static/user/js/jquery.uploadView.js"></script>
+<script  type="text/javascript"  src="../static/user/js/jquery.uploadView1.js"></script>
 <script  type="text/javascript"  src="../static/user/js/product.js"></script>
 <style type="text/css">
     .btn-upload {width: 43px;height: 43px;position: relative; float: left; border:1px #999 dashed; margin-left: 10px; }
     .btn-upload a {display: block;width: 43px;line-height: 43px;text-align: center;color: #4c4c4c;background: #fff;}
     .btn-upload input {width: 43px;height: 43px;position: absolute;left: 0px;top: 0px;z-index: -1;filter: alpha(opacity=0);-moz-opacity: 0;opacity: 0;cursor: pointer;}
     .deleted{cursor: pointer;width: 45px;display: block;height: 20px;line-height: 20px;text-align: center;position: relative;background: #000;color: #fff;font-size: 12px;filter: alpha(opacity=50);-moz-opacity: 0.5;-khtml-opacity: 0.5;opacity: 0.5;margin-top: -20px;}
+    .deleted1{cursor: pointer;width: 45px;display: block;height: 20px;line-height: 20px;text-align: center;position: relative;background: #000;color: #fff;font-size: 12px;filter: alpha(opacity=50);-moz-opacity: 0.5;-khtml-opacity: 0.5;opacity: 0.5;margin-top: -20px;}
     .notNull { color: red; }
 </style>
 <body>
 <div class="w">
     <div class="back_x">
-        <a class="l" href="javascript:history.back();">&nbsp;取消</a><h3>编辑产品</h3>
+        <a class="l" href="javascript:self.location=document.referrer;">&nbsp;取消</a><h3>编辑产品</h3>
     </div>
     <input type="hidden" name="Products_ID" value="<?php echo $postdata['Products_ID']; ?>">
     <div class="name_pro">
@@ -146,10 +178,31 @@ $cateName = $firstCateName.'，'.$secondCateName;
                 <input type="hidden" name="image_path" value="<?php if (!empty($image_path)) {echo $image_path;} ?>"/>
             </div>
         </div>
-        <p>商品封面（最少一张，最多三张）</p>
+        <div class="note">商品封面（最少一张，最多三张）</div>
     </div>
     <div class="name_pro">
-        <textarea name="BriefDescription" style="margin-left: 2%; width: 95%;height: 100px;line-height: 25px;border: none;" placeholder="请输入商品描述信息"><?php echo $productData['Products_BriefDescription']; ?></textarea>
+        <!-- <textarea name="BriefDescription" style="margin-left: 2%; width: 95%;height: 100px;line-height: 25px;border: none;" placeholder="请输入商品描述信息"><?php echo $productData['Products_BriefDescription']; ?></textarea> -->
+        <textarea name="Description" style="margin-left: 2%; width: 95%;height: 100px;border: none;" placeholder="请输入商品详细介绍"><?php echo $description; ?></textarea>
+        <div class="img_add">
+            <div class="js_uploadBox1">
+                <div class="js_showBox1">
+                    <?php if (!empty($img_arr[2])) { ?>
+                    <?php foreach ($img_arr[2] as $k => $v) { ?>
+                        <div style="width: 45px;float:left;margin:0 2px">
+                            <img title="点击删除图片" src="<?php echo IMG_SERVER.$v; ?>" style="display: block; width: 43px; height: 43px;">
+                            <span class="deleted">删除</span>
+                        </div>
+                    <?php }} ?>
+                </div>
+                <div class="btn-upload">
+                    <a href="javascript:void(0);" id="add_img1">+</a>
+                    <input class="js_upFile1" type="file" name="cover">
+                </div>
+                <!--image_files显示base64编码过的字符串,image_path存放所有的图片路径-->
+                <input type="hidden" id="image_files1" value="">
+                <input type="hidden" name="image_path1" value="<?php if (!empty($image_path)) {echo $des_img_path;} ?>"/>
+            </div>
+        </div>
         <!--<div class="img_add">
             <!--这里写配图的一些代码--
         </div>

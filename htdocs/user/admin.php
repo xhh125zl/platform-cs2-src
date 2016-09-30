@@ -33,11 +33,15 @@ $actionArr = [
 	'setting_backgoods',
 	'user_list',
 	'user_detail',
-	'product_add'
+	'product_add',
+	'product_supply',
+	'product_edit',
+	'data_statistics',
+	'financial_analysis'
 ];
 
 if (! in_array($act, $actionArr)) {
-	$act = 'product';
+	$act = 'products';
 }
 
 

@@ -3,6 +3,7 @@
  * 接口基类
  * base.class.php
  */
+include_once $_SERVER['DOCUMENT_ROOT'] . './include/api/const.php';
 
 class base
 {
