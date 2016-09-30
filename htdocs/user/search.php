@@ -161,6 +161,12 @@ if (count($products) > 0) {
         $img = json_decode($row['Products_JSON'], true);
         $row['thumb'] = $img['ImgPath'][0];
         unset($row['Products_JSON']);
+        //判断是否为已上架
+        if (in_array($row['Products_FromId'], $resArr)) {
+            $row['is_sj'] = true;
+        } else {
+            $row['is_sj'] = false;
+        }
         $infolist[] = $row;
     }
 }
@@ -270,12 +276,11 @@ if (isset($_POST['ajax']) && $_POST['ajax'] == 1) {
                     <span class="l">{{product.Products_DistPersonCount}}人在售<br>
                     库存{{product.Products_Count}}</span>
                     <span class="r" id="pro{{product.Products_FromId}}">
-                        <?
-                        if (in_array($product['Products_FromId'], $resArr)) {
-                            ?>
+                        {{if product.is_sj == true)}}
                             <div class="up_yy">已上架</div>
-                        <?} else { ?><input type="button" value="一键上架" class="up_xx" data-FromID="{{product.Products_FromId}}">
-                        <?}?>
+                        {{else}}
+                            <input type="button" value="一键上架" class="up_xx" data-FromID="{{product.Products_FromId}}">
+                        {{/if}}
                     </span>
                     <div class="clear"></div>
                 </span></a>

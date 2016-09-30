@@ -70,5 +70,19 @@ class ImplOrder extends base
         $result = self::request($url, 'post', $data);
         return $result;
     }
+
+    /**
+     * @method actionOrdersend401
+     * @deprecated 发货
+     * @param array $data [description]
+     * @return json [<description>]
+     */
+    static public function actionOrdersend401($data)
+    {
+        $url = '/order/ordersend401.html';
+        $result = self::request($url, 'post', $data);
+    
+        return $result;
+    }
     
 }
