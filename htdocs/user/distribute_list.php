@@ -1,3 +1,22 @@
+<?php
+if (!defined('USER_PATH')) exit();
+require_once CMS_ROOT . "/user/config.inc.php";
+require_once CMS_ROOT . '/include/api/distribute.class.php';
+require_once CMS_ROOT . '/include/helper/page.class.php';
+
+//分页初始化
+$p = isset($_GET['p']) ? (int)$_GET['p'] : 1;
+if ($p < 1) $p = 1;
+//每页显示个数
+$pageSize = 2;
+$level = 1;  //分销商等级  1、2、3级
+
+$transfer = ['Biz_Account' => $BizAccount, 'pageSize' => $pageSize, 'level' => $level];
+$result = distribute::getDistribute($p, $transfer);
+
+//print_r($result);die;
+?>
+
 <!doctype html>
 <html>
 <head>
