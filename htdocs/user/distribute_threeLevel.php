@@ -87,7 +87,7 @@ if (isset($_POST['ajax']) && $_POST['ajax'] == 1) {
                                 if (isset($distributes) && count($distributes) > 0) {
                                     foreach ($distributes as $k => $v) {
                             ?>
-                                <li><a href="?act=distribute_detail&distributeid=<?php echo $v['Account_ID']; ?>&level=<?php echo $v.['level']; ?>">
+                                <li><a href="?act=distribute_detail&distributeid=<?php echo $v['Account_ID']; ?>&level=<?php echo $v['level']; ?>">
                                     <span class="l"><img src="<?php echo $v['Shop_Logo']; ?>"></span>
                                     <span class="infor_x l" style="text-align:left"><?php echo $v['Shop_Name']  ; ?><p>手机号：<?php echo $v['Account_Mobile']; ?></p></span>
                                     <span class="r"><i class="fa  fa-angle-right fa-2x" aria-hidden="true"></i></span>
