@@ -334,43 +334,42 @@ if (count($infolist) > 0)        	 {
 <!-- 点击加载更多 -->
 <script id="product-row" type="text/html">
 {{each data as product i}}
-		<li>
-            	<div style="border-bottom:1px #eee solid; overflow:hidden;min-height:110px;">
-                	<a><span class="imgs l"><img src="{{product.thumb}}" width="90" height="90"></span>
-                    <span class="main l">
-                        <p>{{product.Products_Name}}【{{product.Products_ID}}】</p>
-                        <span class="l" style="font-size:16px; line-height:25px; color:#333">￥{{product.Products_PriceX}}</span>
-                        <span class="r" style="line-height:25px;">佣金<sss style="color:#ff5000; font-size:16px;">￥{{product.Products_PriceY - product.Products_PriceX}}<sss/></span>
-                        <div class="clear"></div>
-                        <span class="l">已售{{product.Products_Sales}}</span>
-                        <span class="r">库存:{{product.Products_Count}}</span>
-                        
-                    </span></a>
-                </div>
-            	<div class="clear"></div>
-                <div class="row">
-                	<ul>
-                    	<li><a class="preview">
-                            <i class="fa  fa-eye fa-x" aria-hidden="true" style="font-size:16px;"></i>
-                            <p>预览</p>
-                        </a></li>
-                        <li>
-                        {{if product.Products_FromId == 0}}
-                                <a class="edit" href="?act=product_edit&product_id=<?php echo $product['Products_ID'];?>">
-                                <i class="fa  fa-pencil fa-x" aria-hidden="true" style="font-size:16px;"></i>
-                                <p>编辑</p></a>
-                        {{/if}}
-                        </li>
-                        <li><a class="delete" data-product-id="{{product.Products_ID}}">
-                            <i class="fa  fa-trash-o fa-x" aria-hidden="true" style="font-size:16px;"></i>
-                            <p>下架</p>
-                        </a></li>
-                        <li></li>
-                    </ul>                    
-                </div>
+	<li>
+    	<div style="border-bottom:1px #eee solid; overflow:hidden;min-height:110px;">
+        	<a><span class="imgs l"><img src="{{product.thumb}}" width="90" height="90"></span>
+            <span class="main l">
+                <p>{{product.Products_Name}}【{{product.Products_ID}}】</p>
+                <span class="l" style="font-size:16px; line-height:25px; color:#333">￥{{product.Products_PriceX}}</span>
+                <span class="r" style="line-height:25px;">佣金<sss style="color:#ff5000; font-size:16px;">￥{{product.Products_PriceY - product.Products_PriceX}}<sss/></span>
                 <div class="clear"></div>
-            </li>   
- {{/each}}
+                <span class="l">已售{{product.Products_Sales}}</span>
+                <span class="r">库存:{{product.Products_Count}}</span>
+            </span></a>
+        </div>
+    	<div class="clear"></div>
+        <div class="row">
+        	<ul>
+            	<li><a class="preview">
+                    <i class="fa  fa-eye fa-x" aria-hidden="true" style="font-size:16px;"></i>
+                    <p>预览</p>
+                </a></li>
+                <li>
+                {{if product.Products_FromId == 0}}
+                    <a class="edit" href="?act=product_edit&product_id={{product.Products_ID}}">
+                    <i class="fa  fa-pencil fa-x" aria-hidden="true" style="font-size:16px;"></i>
+                    <p>编辑</p></a>
+                {{/if}}
+                </li>
+                <li><a class="delete" data-product-id="{{product.Products_ID}}">
+                    <i class="fa  fa-trash-o fa-x" aria-hidden="true" style="font-size:16px;"></i>
+                    <p>下架</p>
+                </a></li>
+                <li></li>
+            </ul>                    
+        </div>
+        <div class="clear"></div>
+    </li>
+{{/each}}
 </script>
 <style>
 #pagemore{clear:both;text-align:center;  color:#666; padding-top: 5px; padding-bottom:5px;}
