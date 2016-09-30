@@ -21,4 +21,17 @@ class users extends base
 
     	return $result;
     }
+
+	/**
+	 * 添加biz_apply表记录
+	 * @param array $data  ['Users_ID' => $Users_ID, Biz_ID => $Biz_ID]
+	 * return json
+	 */
+	static public function addBizApply($data)
+    {
+    	$url = '/users/addbizapply.html';
+    	$result = self::request($url, 'post', $data);
+
+    	return $result;
+    }
 }
