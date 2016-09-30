@@ -120,25 +120,25 @@ if ($inajax == 1) {
 
 		//验证码
 		$captcha = isset($_POST['captcha']) ? $_POST['captcha'] : '';
-		// if (!isset($_SESSION[$smsMobileKey]) || empty($_SESSION[$smsMobileKey]) || empty($captcha)) {
-		// 	$Data = array(
-		// 		"status" => 0,
-		// 		"msg" => "手机验证码错误"
-		// 	);
-		// 	echo json_encode($Data,JSON_UNESCAPED_UNICODE);
-		// 	exit;
+		if (!isset($_SESSION[$smsMobileKey]) || empty($_SESSION[$smsMobileKey]) || empty($captcha)) {
+			$Data = array(
+				"status" => 0,
+				"msg" => "手机验证码错误"
+			);
+			echo json_encode($Data,JSON_UNESCAPED_UNICODE);
+			exit;
 		
-		// } else {
-		// 	$cacheData = json_decode($_SESSION[$smsMobileKey], true);
-		// 	if ( ($cacheData['code'] != $captcha) || ($cacheData['time'] < time()) ) {
-		// 		$Data = array(
-		// 			"status" => 0,
-		// 			"msg" => "手机验证码错误"
-		// 		);
-		// 		echo json_encode($Data,JSON_UNESCAPED_UNICODE);
-		// 		exit;
-		// 	}
-		// }		
+		} else {
+			$cacheData = json_decode($_SESSION[$smsMobileKey], true);
+			if ( ($cacheData['code'] != $captcha) || ($cacheData['time'] < time()) ) {
+				$Data = array(
+					"status" => 0,
+					"msg" => "手机验证码错误"
+				);
+				echo json_encode($Data,JSON_UNESCAPED_UNICODE);
+				exit;
+			}
+		}		
 
 
 		$rsBiz=$DB->GetRs("biz","*","where Biz_Phone='" . $mobile . "'");
