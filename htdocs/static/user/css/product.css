@@ -345,6 +345,11 @@ td{
 }
 .table td a{ color:#ff5500}
 
+.slideTxtBox .distribute_x{ height:35px; line-height:35px; position:relative; }
+.slideTxtBox .distribute_x ul{ float:left;  position:absolute;height:35px;   width:100%;  }
+.slideTxtBox .distribute_x ul li{ float:left;cursor:pointer; width:33.3%; margin:0}
+.slideTxtBox .distribute_x ul li.on{ height:35px; color:#ff5500; border-bottom:2px #ff5500 solid  }
+
 /*会员管理*/
 
 .table_x{

@@ -6,7 +6,7 @@ require_once(CMS_ROOT . '/include/api/b2cshopconfig.class.php');
 
 //检查用户是否登录
 if(empty($BizAccount)){
-    header("location:/biz/login.php");
+    header("location:/user/login.php");
 }
 //检查用户是否已经交过费用
 $users = b2cshopconfig::getConfig(array('Users_Account' => $BizAccount));

@@ -16,7 +16,12 @@ $actionArr = [
 	'main',
 	'my_cate',
 	'order_details',
-	'order_list',
+	//'order_list',
+	'order_confirm',
+	'order_unpaid',
+	'order_paid',
+	'order_delivered',
+	'order_completed',
 	'store',
 	'learn',
 	'learn_list',
@@ -37,7 +42,8 @@ $actionArr = [
 	'product_supply',
 	'product_edit',
 	'data_statistics',
-	'financial_analysis'
+	'financial_analysis',
+	'distribute_list'
 ];
 
 if (! in_array($act, $actionArr)) {
