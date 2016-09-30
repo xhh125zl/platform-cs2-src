@@ -43,7 +43,11 @@ $actionArr = [
 	'product_edit',
 	'data_statistics',
 	'financial_analysis',
-	'distribute_list'
+	//'distribute_list',
+	'distribute_oneLevel',
+	'distribute_twoLevel',
+	'distribute_threeLevel',
+	'distribute_detail'
 ];
 
 if (! in_array($act, $actionArr)) {
