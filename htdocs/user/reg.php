@@ -190,8 +190,8 @@ if ($ret['errorCode'] != 0) {
 		if ($flag) {
 			$result = [
 				'status' => 1,
-				'msg' => '注册成功,请登录!',
-				'url' => 'login.php'
+				'msg' => '注册成功!',
+				'url' => 'admin.php?act=store'
 			];
 		} else {
 			$result = [
@@ -201,14 +201,14 @@ if ($ret['errorCode'] != 0) {
 		}
 
 		//查找绑定的会员ID
-		// $rsUser=$DB->GetRs("user", "*", "WHERE User_ID=" . intval($rsBiz['UserID']));
+		$Biz_ID = $DB->insert_id();
+		$rsBiz = $DB->GetRs("biz", "*", "WHERE Biz_ID=" . $Biz_ID);
 				
-		// if ($rsUser) {
-		// 	$UsersID = $rsBiz['Users_ID'];
-		// 	$_SESSION[$UsersID."User_ID"]=$rsUser["User_ID"];
-		// 	$_SESSION[$UsersID."User_Name"]=$rsUser["User_Name"];
-		// 	$_SESSION[$UsersID."User_Mobile"]=$rsUser["User_Mobile"];
-		// }
+		if ($rsBiz) {
+                $_SESSION["BIZ_ID"]=$rsBiz["Biz_ID"];
+                $_SESSION['Biz_Account'] = $rsBiz['Biz_Account'];
+                $_SESSION["Users_ID"]=$rsBiz["Users_ID"];
+		}
 
         echo json_encode($result);
 

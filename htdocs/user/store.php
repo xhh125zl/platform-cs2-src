@@ -25,6 +25,10 @@ $data = [
     'Biz_Account' => $BizAccount,
 ];
 $result = shopconfig::getConfig($data);
+if ($result['errorCode'] != 0) {
+    die($result['msg']);
+}
+
 $config = $result['data'];
 
 
