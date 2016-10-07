@@ -25,6 +25,10 @@ $data = [
     'Biz_Account' => $BizAccount,
 ];
 $result = shopconfig::getConfig($data);
+if ($result['errorCode'] != 0) {
+    die($result['msg']);
+}
+
 $config = $result['data'];
 
 
@@ -44,9 +48,17 @@ $config = $result['data'];
 <body>
 <div class="w">
     <div class="head_bg">
+<!-- message -->
+        <div class="right">
+            <span class="commenting">
+            	<a href="javascript:;"><i class="fa  fa-commenting-o fa-x" aria-hidden="true"></i></a>
+            	<p><a>1</a></p>
+            </span>
+        </div>
+<!--//message -->
         <span class="head_pho l"><a><img src="<?php echo IMG_SERVER . $config['ShopLogo'];?>"></a></span>
         <span class="head_name l"><a><?php echo $config['ShopName'];?></a></span>
-        <span class="head_pho r"><a><i class="fa  fa-eye fa-x" aria-hidden="true"></i></a></span>
+        <span class="head_pho l"><a><i class="fa  fa-eye fa-x" aria-hidden="true"></i></a></span>
     </div>
     <div  class="clear"></div>
     <div class="income_x">
