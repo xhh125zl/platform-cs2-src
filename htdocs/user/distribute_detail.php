@@ -100,8 +100,9 @@ if (isset($res['errorCode']) && $res['errorCode'] == 0) {
                 data: 'action=disable&Account_ID='+<?php echo $distribute_info['Account_ID']; ?>,
                 success: function(data){
                     if (data.errorCode == 0) {
+                        window.location.reload(true);
                         layer.open({
-                            content: '禁用成功'
+                            content: '禁用成功',
                         });
                     } else {
                         layer.open({
@@ -109,7 +110,6 @@ if (isset($res['errorCode']) && $res['errorCode'] == 0) {
                             btn: '确定'
                         });
                     }
-                    window.location.reload();
                 },
                 dataType: 'json'
             });
@@ -121,8 +121,9 @@ if (isset($res['errorCode']) && $res['errorCode'] == 0) {
                 data: 'action=enable&Account_ID='+<?php echo $distribute_info['Account_ID']; ?>,
                 success: function(data){
                     if (data.errorCode == 0) {
+                        window.location.reload(true);
                         layer.open({
-                            content: '启用成功'
+                            content: '启用成功',
                         });
                     } else {
                         layer.open({
@@ -130,7 +131,6 @@ if (isset($res['errorCode']) && $res['errorCode'] == 0) {
                             btn: '确定'
                         });
                     }
-                    window.location.reload();
                 },
                 dataType: 'json'
             });
