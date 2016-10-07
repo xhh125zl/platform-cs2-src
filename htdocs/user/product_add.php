@@ -93,11 +93,11 @@ if ($users['errorCode'] == 0) {
     <div class="list_table">
         <table width="96%" class="table_x">
             <tr>
-                <th><span class="notNull">*</span>原价（￥）：</th>
+                <th><span class="notNull">*</span>原价(￥)：</th>
                 <td><input type="number" name="PriceY" class="user_input" value="" placeholder="请输入商品原价"></td>
             </tr>
             <tr>
-                <th><span class="notNull">*</span>现价（￥）：</th>
+                <th><span class="notNull">*</span>现价(￥)：</th>
                 <td><input type="number" name="PriceX" class="user_input" value="" placeholder="请输入商品现价"></td>
             </tr>
             <tr>
@@ -125,7 +125,7 @@ if ($users['errorCode'] == 0) {
                 <td><input type="number" name="Products_Weight" class="user_input" value="" placeholder="产品重量,单位为kg" /> </td>
             </tr>
             <tr>
-                <th><span class="notNull">*</span>库存（件）：</th>
+                <th><span class="notNull">*</span>库存(件)：</th>
                 <td><input type="number" name="count" class="user_input" value="" placeholder="请输入商品库存"></td>
             </tr>
             <tr>

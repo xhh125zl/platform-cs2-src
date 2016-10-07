@@ -9,7 +9,9 @@ $p = isset($_GET['p']) ? (int)$_GET['p'] : 1;
 if ($p < 1) $p = 1;
 //每页显示个数
 $pageSize = 10;
-$level = 1;  //分销商等级  1、2、3级
+
+$level = isset($_GET['level']) ? $_GET['level'] : 1;
+//$level = 1;  //分销商等级  1、2、3级
 
 $transfer = ['Biz_Account' => $BizAccount, 'pageSize' => $pageSize, 'level' => $level];
 $result = distribute::getDistribute($transfer, $p);
@@ -73,9 +75,9 @@ if (isset($_POST['ajax']) && $_POST['ajax'] == 1) {
     <div class="slideTxtBox">
 			<div class="hd distribute_x">
 				<ul>
-                    <a href="?act=distribute_oneLevel"><li class="<?php if(isset($_GET['act']) && $_GET['act'] == 'distribute_oneLevel') { echo 'on'; } ?>">一级分销商</li></a>
-                    <a href="?act=distribute_twoLevel"><li class="<?php if(isset($_GET['act']) && $_GET['act'] == 'distribute_twoLevel') { echo 'on'; } ?>">二级分销商</li></a>
-                    <a href="?act=distribute_threeLevel"><li class="<?php if(isset($_GET['act']) && $_GET['act'] == 'distribute_threeLevel') { echo 'on'; } ?>">三级分销商</li></a>
+                    <a href="?act=distribute_listn&level=1"><li class="<?php if(isset($level) && $level == 1) { echo 'on'; } ?>">一级分销商</li></a>
+                    <a href="?act=distribute_listn&level=2"><li class="<?php if(isset($level) && $level == 2) { echo 'on'; } ?>">二级分销商</li></a>
+                    <a href="?act=distribute_listn&level=3"><li class="<?php if(isset($level) && $level == 3) { echo 'on'; } ?>">三级分销商</li></a>
                 </ul>
 			</div>
 			<div class="bd">
@@ -137,7 +139,7 @@ if (isset($_POST['ajax']) && $_POST['ajax'] == 1) {
         $("#pagemore a").click(function(){
             var totalPage = <?php echo $totalPage;?>;
             var pageno = $(this).attr('data-next-pageno');
-            var url = 'admin.php?act=distribute_oneLevel&p=' + pageno;
+            var url = 'admin.php?act=distribute_listn&level=' + <?php echo $level; ?> + '&p=' + pageno;
 
             var nextPageno = parseInt(pageno);
             if (nextPageno > totalPage) {

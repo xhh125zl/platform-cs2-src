@@ -44,6 +44,7 @@ $actionArr = [
 	'data_statistics',
 	'financial_analysis',
 	//'distribute_list',
+	'distribute_listn',
 	'distribute_oneLevel',
 	'distribute_twoLevel',
 	'distribute_threeLevel',

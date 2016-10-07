@@ -8,7 +8,7 @@ require_once CMS_ROOT . '/include/helper/page.class.php';
 $p = isset($_GET['p']) ? (int)$_GET['p'] : 1;
 if ($p < 1) $p = 1;
 //每页显示个数
-$pageSize = 2;
+$pageSize = 10;
 $level = 3;  //分销商等级  1、2、3级
 
 $transfer = ['Biz_Account' => $BizAccount, 'pageSize' => $pageSize, 'level' => $level];
@@ -84,8 +84,8 @@ if (isset($_POST['ajax']) && $_POST['ajax'] == 1) {
                     	<div class="user_ls">
                             <ul style="margin:0"  class="distributeList">
                             <?php
-                                if (isset($distributes) && count($distributes) > 0) {
-                                    foreach ($distributes as $k => $v) {
+                                if (isset($infolist) && count($infolist) > 0) {
+                                    foreach ($infolist as $k => $v) {
                             ?>
                                 <li><a href="?act=distribute_detail&distributeid=<?php echo $v['Account_ID']; ?>&level=<?php echo $v['level']; ?>">
                                     <span class="l"><img src="<?php echo $v['Shop_Logo']; ?>"></span>
