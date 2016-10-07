@@ -99,7 +99,7 @@ $config = $result['data'];
     <div class="plate_x">
         <ul class="list_x">
             <li>
-                <a href='?act=order_confirm'><img src="../static/user/images/ico_07.png" width="25" height="25"><p>订单管理</p></a>
+                <a href='?act=order_list'><img src="../static/user/images/ico_07.png" width="25" height="25"><p>订单管理</p></a>
             </li>
             <li>
                 <a href='?act=user_list'><img src="../static/user/images/ico_02.png" width="25" height="25"><p>我的会员</p></a>
@@ -108,7 +108,7 @@ $config = $result['data'];
                 <a href='?act=setting'><img src="../static/user/images/ico_04.png" width="25" height="25"><p>店铺配置</p></a>
             </li>
             <li>
-                <a href='?act=distribute_listn'><img src="../static/user/images/ico_01.png" width="25" height="25"><p>分销管理</p></a>
+                <a href='?act=distribute_list'><img src="../static/user/images/ico_01.png" width="25" height="25"><p>分销管理</p></a>
             </li>
             <li>
                 <a href='?act=data_statistics'><img src="../static/user/images/ico_06.png" width="25" height="25"><p>数据统计</p></a>
