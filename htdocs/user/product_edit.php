@@ -164,7 +164,7 @@ $cateName = $firstCateName.'，'.$secondCateName;
                 	<?php if (!empty($images_path)) { ?>
                 	<?php foreach ($images_path as $k => $v) { ?>
                 		<div style="width: 45px;float:left;margin:0 2px">
-                			<img title="点击删除图片" src="<?php echo $v; ?>" style="display: block; width: 43px; height: 43px;">
+                			<img src="<?php echo $v; ?>" style="display: block; width: 43px; height: 43px;">
                 			<span class="deleted">删除</span>
                 		</div>
                 	<?php }} ?>
@@ -182,14 +182,14 @@ $cateName = $firstCateName.'，'.$secondCateName;
     </div>
     <div class="name_pro">
         <!-- <textarea name="BriefDescription" style="margin-left: 2%; width: 95%;height: 100px;line-height: 25px;border: none;" placeholder="请输入商品描述信息"><?php echo $productData['Products_BriefDescription']; ?></textarea> -->
-        <textarea name="Description" style="margin-left: 2%; width: 95%;height: 100px;border: none;" placeholder="请输入商品详细介绍"><?php echo $description; ?></textarea>
+        <textarea name="Description" style="margin-left: 2%; width: 95%;height: 100px;line-height: 20px;border: none;" placeholder="请输入商品详细介绍"><?php echo $description; ?></textarea>
         <div class="img_add">
             <div class="js_uploadBox1">
                 <div class="js_showBox1">
                     <?php if (!empty($img_arr[2])) { ?>
                     <?php foreach ($img_arr[2] as $k => $v) { ?>
                         <div style="width: 45px;float:left;margin:0 2px">
-                            <img title="点击删除图片" src="<?php echo IMG_SERVER.$v; ?>" style="display: block; width: 43px; height: 43px;">
+                            <img src="<?php echo IMG_SERVER.$v; ?>" style="display: block; width: 43px; height: 43px;">
                             <span class="deleted">删除</span>
                         </div>
                     <?php }} ?>
@@ -220,7 +220,7 @@ $cateName = $firstCateName.'，'.$secondCateName;
             </tr>
             <input type="hidden" name="isSolding" value="<?php echo $productData['isSolding']; ?>" >
             <tr>
-                <th>是否推荐&nbsp;&nbsp;&nbsp;<br/>到批发商城：</th>
+                <th>是否推荐　<br/>到批发商城：</th>
                 <td><input class="toggle-switch" type="checkbox" name="is_Tj" <?php if ($productData['is_Tj'] == 1) {echo 'checked="checked"';} else {echo '';} ?>></td>
             </tr>
             <tr class="is_Tj" style="<?php if ($productData['is_Tj'] == 1) {echo 'display:table-row';} else {echo 'display:none;';} ?>">
@@ -249,7 +249,7 @@ $cateName = $firstCateName.'，'.$secondCateName;
             </tr>
             <tr>
                 <th><span class="notNull">*</span>选择运费：</th>
-                <td><input type="radio" value="1" name="freeshipping" <?php if ($productData['Products_IsShippingFree'] == 1) {echo 'checked="checked"';} else {echo '';} ?> />&nbsp;&nbsp;免运费 &nbsp;&nbsp;<input type="radio" value="0" name="freeshipping" <?php if ($productData['Products_IsShippingFree'] == 0) {echo 'checked="checked"';} else {echo '';} ?> />&nbsp;&nbsp;运费模板 </td>
+                <td><input type="radio" value="1" name="freeshipping" <?php if ($productData['Products_IsShippingFree'] == 1) {echo 'checked="checked"';} else {echo '';} ?> />&nbsp;免运费 &nbsp;&nbsp;<input type="radio" value="0" name="freeshipping" <?php if ($productData['Products_IsShippingFree'] == 0) {echo 'checked="checked"';} else {echo '';} ?> />&nbsp;运费模板 </td>
             </tr>
             <tr style="display: none;">
                 <th>产品类型：</th>

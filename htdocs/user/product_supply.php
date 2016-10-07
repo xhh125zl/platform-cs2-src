@@ -70,7 +70,7 @@ if ($users['errorCode'] == 0) {
     </div>
     <div class="name_pro">
         <!-- <textarea name="BriefDescription" style="margin-left: 2%; width: 95%;height: 100px;line-height: 25px;border: none;" placeholder="请输入商品简介"></textarea> -->
-        <textarea name="Description" style="margin-left: 2%; width: 95%;height: 100px;line-height: 25px;border: none;" placeholder="请输入商品详细介绍"></textarea>
+        <textarea name="Description" style="margin-left: 2%; width: 95%;height: 100px;line-height: 20px;border: none;" placeholder="请输入商品详细介绍"></textarea>
         <div class="img_add">
             <div class="js_uploadBox1">
                 <div class="js_showBox1"></div>
@@ -99,7 +99,7 @@ if ($users['errorCode'] == 0) {
                 <td><input type="number" name="PriceX" class="user_input" value="" placeholder="请输入商品现价"></td>
             </tr>
             <tr style="display:none;">
-                <th>是否推荐&nbsp;&nbsp;&nbsp;<br/>到批发商城：</th>
+                <th>是否推荐　<br/>到批发商城：</th>
                 <td><input class="toggle-switch" type="checkbox" name="is_Tj" checked=""></td>
             </tr>
             <tr class="is_Tj">
@@ -128,7 +128,7 @@ if ($users['errorCode'] == 0) {
             </tr>
             <tr>
                 <th><span class="notNull">*</span>选择运费：</th>
-                <td><input type="radio" value="1" name="freeshipping" checked="checked" />&nbsp;&nbsp;免运费 &nbsp;&nbsp;<input type="radio" value="0" name="freeshipping"/>&nbsp;&nbsp;运费模板 </td>
+                <td><input type="radio" value="1" name="freeshipping" checked="checked" />&nbsp;免运费 &nbsp;&nbsp;<input type="radio" value="0" name="freeshipping"/>&nbsp;运费模板 </td>
             </tr>
             <tr style="display: none;">
                 <th>产品类型：</th>

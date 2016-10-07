@@ -39,13 +39,7 @@ if (isset($res['errorCode']) && $res['errorCode'] == 0) {
     	<table width="96%" class="table"> 
             <tr> 
                 <th>推荐人</th> 
-                <td>
-                <?php if ($distribute_info['invite_id'] == 0) {
-                    echo '来自总店';
-                } else {
-                    echo '信息缺失';
-                } ?>
-                </td> 
+                <td><?php echo $distribute_info['invite_Nickname']; ?></td> 
             </tr>
             <tr> 
                 <th>店名</th> 
@@ -53,7 +47,7 @@ if (isset($res['errorCode']) && $res['errorCode'] == 0) {
             </tr>
             <tr> 
                 <th>微信名</th> 
-                <td>信息缺失</td> 
+                <td><?php echo $distribute_info['User_Nickname']; ?></td> 
             </tr>
             <tr> 
                 <th>佣金余额</th> 
@@ -73,7 +67,7 @@ if (isset($res['errorCode']) && $res['errorCode'] == 0) {
             </tr>
             <tr> 
                 <th>分销商等级</th> 
-                <td>普通分销商</td>
+                <td><?php echo $distribute_info['dis_levelName']; ?></td>
             </tr>
             <!-- <tr> 
                 <th>爵位</th> 
@@ -87,7 +81,7 @@ if (isset($res['errorCode']) && $res['errorCode'] == 0) {
                 <th>操作</th> 
                 <td>
                 <?php if ($distribute_info['status'] == 1) { ?>
-                    <a id="disable">禁用</a><!--  | <a href="#">下属</a> -->
+                    <a id="disable">禁用</a><!--  | <a href="">下属</a> -->
                 <?php } else { ?>
                     <a id="enable">启用</a>
                 <?php } ?>
