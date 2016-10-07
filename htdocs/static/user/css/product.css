@@ -45,15 +45,15 @@ input[type=button], input[type=submit], input[type=file], button { cursor: point
 .commenting p{ background: red;border-radius: 50%; display: block; height: 15px; top:7px; right:12px;position: absolute;width: 15px; font-size:9px;text-align: center;line-height: 15px; color: #ffffff;font-style: normal;}
 .commenting p a{color:#fff;}
 .head_bg{ background:#1fb4f8;overflow: hidden;color: #fff;}
-.head_pho{padding: 30px 10px; padding-top:15px}
-.head_name{ padding-top:15px;} 
-.head_name a{ color:#fff; line-height:45px;}
-.head_bg{ background:#1fb4f8;overflow: hidden;color: #fff;}
-.head_pho{padding: 30px 10px;}
-.head_name{ padding-top:30px} 
+.head_pho{padding: 30px 10px; padding-top:25px}
+.head_name{ padding-top:25px;} 
 .head_name a{ color:#fff; line-height:45px;}
 .head_pho a img{ display: inline-block; width:45px; height:45px;border-radius: 50%;}
 .head_pho a i{ color:#fff; padding:15px 10px; font-size:18px;filter:alpha(opacity=50);-moz-opacity:0.7;opacity:0.7;}
+.head_bg{ background:#1fb4f8;overflow: hidden;color: #fff;}
+
+
+
 .income_x{background: #00a0e9;
     position: relative;
     padding: 10px 0;}
