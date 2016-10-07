@@ -48,6 +48,13 @@ $config = $result['data'];
 <body>
 <div class="w">
     <div class="head_bg">
+        <div class="right">
+            <span class="commenting">
+            	<a href="javascript:;"><i class="fa  fa-commenting-o fa-x" aria-hidden="true"></i></a>
+            	<p><a>1</a></p>
+            </span>
+        </div>
+
         <span class="head_pho l"><a><img src="<?php echo IMG_SERVER . $config['ShopLogo'];?>"></a></span>
         <span class="head_name l"><a><?php echo $config['ShopName'];?></a></span>
         <span class="head_pho r"><a><i class="fa  fa-eye fa-x" aria-hidden="true"></i></a></span>

@@ -40,6 +40,14 @@ input[type=button], input[type=submit], input[type=file], button { cursor: point
 .foot_nav ul li{ width:33.3%; float:left; line-height:50px; text-align:center;}
 
 /*店铺管理*/
+.commenting{padding: 10px 20px; position: relative; display: inline-block; padding-bottom:0;font-size:16px;}
+.commenting a{ color:#fff; }
+.commenting p{ background: red;border-radius: 50%; display: block; height: 15px; top:7px; right:12px;position: absolute;width: 15px; font-size:9px;text-align: center;line-height: 15px; color: #ffffff;font-style: normal;}
+.commenting p a{color:#fff;}
+.head_bg{ background:#1fb4f8;overflow: hidden;color: #fff;}
+.head_pho{padding: 30px 10px; padding-top:15px}
+.head_name{ padding-top:15px;} 
+.head_name a{ color:#fff; line-height:45px;}
 .head_bg{ background:#1fb4f8;overflow: hidden;color: #fff;}
 .head_pho{padding: 30px 10px;}
 .head_name{ padding-top:30px} 
