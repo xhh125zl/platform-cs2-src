@@ -51,7 +51,7 @@ $config = $result['data'];
 <!-- message -->
         <div class="right">
             <span class="commenting">
-            	<a href="javascript:;"><i class="fa  fa-commenting-o fa-x" aria-hidden="true"></i></a>
+            	<a href="?act=msg_list"><i class="fa  fa-commenting-o fa-x" aria-hidden="true"></i></a>
             	<p><a>1</a></p>
             </span>
         </div>

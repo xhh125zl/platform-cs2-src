@@ -39,7 +39,10 @@ $actionArr = [
 	'data_statistics',
 	'financial_analysis',
 	'distribute_list',
-	'distribute_detail'
+	'distribute_detail',
+	'msg_list',
+	'msg_setting',
+	'msg_detail'
 ];
 
 if (! in_array($act, $actionArr)) {
