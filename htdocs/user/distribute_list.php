@@ -8,13 +8,49 @@ require_once CMS_ROOT . '/include/helper/page.class.php';
 $p = isset($_GET['p']) ? (int)$_GET['p'] : 1;
 if ($p < 1) $p = 1;
 //每页显示个数
-$pageSize = 2;
-$level = 1;  //分销商等级  1、2、3级
+$pageSize = 10;
+
+$level = isset($_GET['level']) ? $_GET['level'] : 1;    //分销商等级  1、2、3级 
 
 $transfer = ['Biz_Account' => $BizAccount, 'pageSize' => $pageSize, 'level' => $level];
-$result = distribute::getDistribute($p, $transfer);
+$result = distribute::getDistribute($transfer, $p);
 
-//print_r($result);die;
+if (isset($result['errorCode']) && $result['errorCode'] != 0) {
+    $total = 0;
+    $totalPage = 1;
+    $distributes = [];
+} else {
+    $total = $result['totalCount'];
+    $totalPage = ceil($result['totalCount'] / $pageSize);
+    $distributes = $result['data'];
+}
+
+//分页
+$page = new page();
+$page->set($pageSize, $total, $p);
+
+$infolist = [];
+if (count($distributes) > 0) {
+    foreach ($distributes as $row) {
+        $row['level'] = $level;
+        $infolist[] = $row;
+    }
+}
+
+$return = [
+    'page' => [
+        'pagesize' => count($infolist),
+        'hasNextPage' => (count($infolist) >= $pageSize) ? 'true' : 'false',
+        'total' => $total,
+    ],
+    'data' => $infolist,
+];
+
+if (isset($_POST['ajax']) && $_POST['ajax'] == 1) {
+    echo json_encode($return);
+    exit();
+}
+
 ?>
 
 <!doctype html>
@@ -28,6 +64,7 @@ $result = distribute::getDistribute($p, $transfer);
 <link href="../static/user/css/product.css" type="text/css" rel="stylesheet">
 <link href="../static/user/css/font-awesome.min.css" type="text/css" rel="stylesheet">
 <script type="text/javascript" src="../static/user/js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="../static/js/template.js"></script>
 <script type="text/javascript" src="../static/user/js/jquery.SuperSlide.2.1.1.js"></script>
 <body>
 <div class="w">
@@ -36,144 +73,90 @@ $result = distribute::getDistribute($p, $transfer);
     </div>
     <div class="slideTxtBox">
 			<div class="hd distribute_x">
-				<ul><li>一级分销商</li><li>二级分销商</li><li>三级分销商</li></ul>
+				<ul>
+                    <a href="?act=distribute_list&level=1"><li class="<?php if(isset($level) && $level == 1) { echo 'on'; } ?>">一级分销商</li></a>
+                    <a href="?act=distribute_list&level=2"><li class="<?php if(isset($level) && $level == 2) { echo 'on'; } ?>">二级分销商</li></a>
+                    <a href="?act=distribute_list&level=3"><li class="<?php if(isset($level) && $level == 3) { echo 'on'; } ?>">三级分销商</li></a>
+                </ul>
 			</div>
 			<div class="bd">
 				<ul>
 					<li>
                     	<div class="user_ls">
-                            <ul style="margin:0">
-                                <li><a>
-                                    <span class="l"><img src="images/2p-5_03.png"></span>
-                                    <span class="infor_x l" style="text-align:left">你是我的小苹果<p>手机号：12345678901</p></span>
+                            <ul style="margin:0"  class="distributeList">
+                            <?php
+                                if (isset($infolist) && count($infolist) > 0) {
+                                    foreach ($infolist as $k => $v) {
+                            ?>
+                                <li><a href="?act=distribute_detail&distributeid=<?php echo $v['Account_ID']; ?>&level=<?php echo $v['level']; ?>">
+                                    <span class="l"><img src="<?php echo $v['Shop_Logo']; ?>"></span>
+                                    <span class="infor_x l" style="text-align:left"><?php echo $v['Shop_Name']  ; ?><p>手机号：<?php echo $v['Account_Mobile']; ?></p></span>
                                     <span class="r"><i class="fa  fa-angle-right fa-2x" aria-hidden="true"></i></span>
                                     <div class="clear"></div>
                                 </a></li>
-                                <li><a>
-                                    <span class="l"><img src="images/2p-5_03.png"></span>
-                                    <span class="infor_x l" style="text-align:left">你是我的小苹果<p>手机号：12345678901</p></span>
-                                    <span class="r"><i class="fa  fa-angle-right fa-2x" aria-hidden="true"></i></span>
-                                    <div class="clear"></div>
-                                </a></li>
-                                <li><a>
-                                    <span class="l"><img src="images/2p-5_03.png"></span>
-                                    <span class="infor_x l" style="text-align:left">你是我的小苹果<p>手机号：12345678901</p></span>
-                                    <span class="r"><i class="fa  fa-angle-right fa-2x" aria-hidden="true"></i></span>
-                                    <div class="clear"></div>
-                                </a></li>
-                                <li><a>
-                                    <span class="l"><img src="images/2p-5_03.png"></span>
-                                    <span class="infor_x l" style="text-align:left">你是我的小苹果<p>手机号：12345678901</p></span>
-                                    <span class="r"><i class="fa  fa-angle-right fa-2x" aria-hidden="true"></i></span>
-                                    <div class="clear"></div>
-                                </a></li>
-                                <li><a>
-                                    <span class="l"><img src="images/2p-5_03.png"></span>
-                                    <span class="infor_x l" style="text-align:left">你是我的小苹果<p>手机号：12345678901</p></span>
-                                    <span class="r"><i class="fa  fa-angle-right fa-2x" aria-hidden="true"></i></span>
-                                    <div class="clear"></div>
-                                </a></li>
-                                <li><a>
-                                    <span class="l"><img src="images/2p-5_03.png"></span>
-                                    <span class="infor_x l" style="text-align:left">你是我的小苹果<p>手机号：12345678901</p></span>
-                                    <span class="r"><i class="fa  fa-angle-right fa-2x" aria-hidden="true"></i></span>
-                                    <div class="clear"></div>
-                                </a></li>
-                            </ul>
-                        </div>
-                    </li>
-				</ul>
-                <ul>
-					<li>
-                    	<div class="user_ls">
-                            <ul style="margin:0">
-                                <li><a>
-                                    <span class="l"><img src="images/2p-5_03.png"></span>
-                                    <span class="infor_x l" style="text-align:left">你是我的小苹果<p>手机号：12345678901</p></span>
-                                    <span class="r"><i class="fa  fa-angle-right fa-2x" aria-hidden="true"></i></span>
-                                    <div class="clear"></div>
-                                </a></li>
-                                <li><a>
-                                    <span class="l"><img src="images/2p-5_03.png"></span>
-                                    <span class="infor_x l" style="text-align:left">你是我的小苹果<p>手机号：12345678901</p></span>
-                                    <span class="r"><i class="fa  fa-angle-right fa-2x" aria-hidden="true"></i></span>
-                                    <div class="clear"></div>
-                                </a></li>
-                                <li><a>
-                                    <span class="l"><img src="images/2p-5_03.png"></span>
-                                    <span class="infor_x l" style="text-align:left">你是我的小苹果<p>手机号：12345678901</p></span>
-                                    <span class="r"><i class="fa  fa-angle-right fa-2x" aria-hidden="true"></i></span>
-                                    <div class="clear"></div>
-                                </a></li>
-                                <li><a>
-                                    <span class="l"><img src="images/2p-5_03.png"></span>
-                                    <span class="infor_x l" style="text-align:left">你是我的小苹果<p>手机号：12345678901</p></span>
-                                    <span class="r"><i class="fa  fa-angle-right fa-2x" aria-hidden="true"></i></span>
-                                    <div class="clear"></div>
-                                </a></li>
-                                <li><a>
-                                    <span class="l"><img src="images/2p-5_03.png"></span>
-                                    <span class="infor_x l" style="text-align:left">你是我的小苹果<p>手机号：12345678901</p></span>
-                                    <span class="r"><i class="fa  fa-angle-right fa-2x" aria-hidden="true"></i></span>
-                                    <div class="clear"></div>
-                                </a></li>
-                                <li><a>
-                                    <span class="l"><img src="images/2p-5_03.png"></span>
-                                    <span class="infor_x l" style="text-align:left">你是我的小苹果<p>手机号：12345678901</p></span>
-                                    <span class="r"><i class="fa  fa-angle-right fa-2x" aria-hidden="true"></i></span>
-                                    <div class="clear"></div>
-                                </a></li>
-                            </ul>
-                        </div>
-                    </li>
-				</ul>
-                <ul>
-					<li>
-                    	<div class="user_ls">
-                            <ul style="margin:0">
-                                <li><a>
-                                    <span class="l"><img src="images/2p-5_03.png"></span>
-                                    <span class="infor_x l" style="text-align:left">你是我的小苹果<p>手机号：12345678901</p></span>
-                                    <span class="r"><i class="fa  fa-angle-right fa-2x" aria-hidden="true"></i></span>
-                                    <div class="clear"></div>
-                                </a></li>
-                                <li><a>
-                                    <span class="l"><img src="images/2p-5_03.png"></span>
-                                    <span class="infor_x l" style="text-align:left">你是我的小苹果<p>手机号：12345678901</p></span>
-                                    <span class="r"><i class="fa  fa-angle-right fa-2x" aria-hidden="true"></i></span>
-                                    <div class="clear"></div>
-                                </a></li>
-                                <li><a>
-                                    <span class="l"><img src="images/2p-5_03.png"></span>
-                                    <span class="infor_x l" style="text-align:left">你是我的小苹果<p>手机号：12345678901</p></span>
-                                    <span class="r"><i class="fa  fa-angle-right fa-2x" aria-hidden="true"></i></span>
-                                    <div class="clear"></div>
-                                </a></li>
-                                <li><a>
-                                    <span class="l"><img src="images/2p-5_03.png"></span>
-                                    <span class="infor_x l" style="text-align:left">你是我的小苹果<p>手机号：12345678901</p></span>
-                                    <span class="r"><i class="fa  fa-angle-right fa-2x" aria-hidden="true"></i></span>
-                                    <div class="clear"></div>
-                                </a></li>
-                                <li><a>
-                                    <span class="l"><img src="images/2p-5_03.png"></span>
-                                    <span class="infor_x l" style="text-align:left">你是我的小苹果<p>手机号：12345678901</p></span>
-                                    <span class="r"><i class="fa  fa-angle-right fa-2x" aria-hidden="true"></i></span>
-                                    <div class="clear"></div>
-                                </a></li>
-                                <li><a>
-                                    <span class="l"><img src="images/2p-5_03.png"></span>
-                                    <span class="infor_x l" style="text-align:left">你是我的小苹果<p>手机号：12345678901</p></span>
-                                    <span class="r"><i class="fa  fa-angle-right fa-2x" aria-hidden="true"></i></span>
-                                    <div class="clear"></div>
-                                </a></li>
+                            <?php }} ?>
                             </ul>
                         </div>
                     </li>
 				</ul>
 			</div>
 		</div>
-        <script type="text/javascript">jQuery(".slideTxtBox").slide();</script>
+        <script type="text/javascript">
+            //jQuery(".slideTxtBox").slide();
+        </script>
+</div>
+<div class="clear"></div>
+<!-- 点击加载更多 -->
+<script id="order-row" type="text/html">
+{{each data as v i}}
+    <li><a href="?act=distribute_detail&distributeid={{v.Account_ID}}&level={{v.level}}">
+        <span class="l"><img src="{{v.Shop_Logo}}"></span>
+        <span class="infor_x l" style="text-align:left">{{v.Shop_Name}}<p>手机号：{{v.Account_Mobile}}</p></span>
+        <span class="r"><i class="fa  fa-angle-right fa-2x" aria-hidden="true"></i></span>
+        <div class="clear"></div>
+    </a></li>
+{{/each}}
+</script>
+<style>
+#pagemore{clear:both;text-align:center;  color:#666; padding-top: 5px; padding-bottom:5px;}
+#pagemore a{ height:30px; line-height:30px; text-align:center;display:block; background-color:#ddd; border-radius: 2px;}
+</style>
+<div id="pagemore">
+<?php
+    if ($return['page']['hasNextPage'] == 'true') {
+        echo '<a href="javascript:;" data-next-pageno="2">点击加载更多...</a>';    
+    } else {
+        echo '已经没有了...';
+    }
+?>
 </div>
 </body>
 </html>
+<script type="text/javascript">
+    $(function(){
+        //加载更多
+        $("#pagemore a").click(function(){
+            var totalPage = <?php echo $totalPage;?>;
+            var pageno = $(this).attr('data-next-pageno');
+            var url = 'admin.php?act=distribute_list&level=' + <?php echo $level; ?> + '&p=' + pageno;
+
+            var nextPageno = parseInt(pageno);
+            if (nextPageno > totalPage) {
+                $("#pagemore").html('已经没有了...');
+                return true;
+            }
+
+            $.post(url, {ajax: 1}, function(json){
+                if (parseInt(json.page.pagesize) > 0) {
+                    var html = template('order-row', json);
+                    $("ul.distributeList").append(html);
+                }
+                if (json.page.hasNextPage == 'true') {
+                    $("#pagemore a").attr('data-next-pageno', nextPageno + 1);
+                } else {
+                    $("#pagemore").html('已经没有了...');
+                }
+            },'json')
+        });
+    });
+</script>
