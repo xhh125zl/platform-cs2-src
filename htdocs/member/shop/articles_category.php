@@ -19,6 +19,23 @@ if(isset($_GET["action"])){
 		}
 	}
 }
+
+$DB->get("shop_articles_category","*","where Users_ID='".$_SESSION["Users_ID"]."' order by Category_Index asc");
+$arr = $DB->toArray();
+$list = [];
+foreach($arr as $k=>$v){
+    if($v['Category_ParentID']==0){
+        $list[$k]['base'] = $v;
+    }
+}
+
+foreach ($list as $k => $v){
+    foreach($arr as $key => $val){
+        if($v['base']['Category_ID']==$val['Category_ParentID']){
+            $list[$k]['child'][] = $val;
+        }
+    }
+}
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -56,22 +73,40 @@ if(isset($_GET["action"])){
             <td width="60" align="center"><strong>操作</strong></td>
           </tr>
           <?php
-		    $i=0;
-			$DB->get("shop_articles_category","*","where Users_ID='".$_SESSION["Users_ID"]."' order by Category_Index asc");
-			while($rsCategory=$DB->fetch_assoc()){
-				$i++;
-		  ?>
-          <tr onMouseOver="this.bgColor='#D8EDF4';" onMouseOut="this.bgColor='';">
-            <td><?php echo $i; ?></td>
-            <td><?php echo $rsCategory["Category_Name"]; ?></td>
+		    if(!empty($list)){
+            $html = "";
+            $t = "";
+            $i = 1;
+            foreach ($list as $k => $v){
+         ?>
+         <tr onMouseOver="this.bgColor='#D8EDF4';" onMouseOut="this.bgColor='';">
+            <td><?php echo $i++; ?></td>
+            <td><?php echo $v['base']["Category_Name"]; ?></td>
             <td align="center">
-			<?php if($rsCategory["Category_Type"] == '单页'){?>
-			<!--<a href="<?php echo 'http://'.$_SERVER['HTTP_HOST']?>/pc.php/shop/article/content/id/<?php //echo $rsCategory["Category_ID"]; ?>/UsersID/<?php //echo $_SESSION['Users_ID']?>" title="浏览" target="_blank"><img src="/static/member/images/ico/view.gif" align="absmiddle" /></a>-->
+			<?php if($v['base']["Category_Type"] == '单页'){?>
+                <a href="<?php echo 'http://'.$_SERVER['HTTP_HOST']?>/pc.php/shop/article/content/id/<?php echo $v['base']["Category_ID"]; ?>/UsersID/<?php echo $_SESSION['Users_ID']?>" title="浏览" target="_blank"><img src="/static/member/images/ico/view.gif" align="absmiddle" /></a>
 			<?php }?>
-			<a href="articles_category_edit.php?CategoryID=<?php echo $rsCategory["Category_ID"]; ?>" title="修改"><img src="/static/member/images/ico/mod.gif" align="absmiddle" /></a> <a href="?action=del&CategoryID=<?php echo $rsCategory["Category_ID"]; ?>" title="删除" onClick="if(!confirm('删除后不可恢复，继续吗？')){return false};"><img src="/static/member/images/ico/del.gif" align="absmiddle" /></a></td>
+			<a href="articles_category_edit.php?CategoryID=<?php echo $v['base']["Category_ID"]; ?>" title="修改"><img src="/static/member/images/ico/mod.gif" align="absmiddle" /></a> <a href="?action=del&CategoryID=<?php echo $v['base']["Category_ID"]; ?>" title="删除" onClick="if(!confirm('删除后不可恢复，继续吗？')){return false};"><img src="/static/member/images/ico/del.gif" align="absmiddle" /></a></td>
           </tr>
-          <?php
-}?>
+         <?php
+                if(!empty($v['child'])){
+                    foreach ($v['child'] as $key => $val){
+         ?>
+         <tr onMouseOver="this.bgColor='#D8EDF4';" onMouseOut="this.bgColor='';">
+            <td><?php echo $i++; ?></td>
+            <td>——<?php echo $val["Category_Name"]; ?></td>
+            <td align="center">
+			<?php if($val["Category_Type"] == '单页'){?>
+                <a href="<?php echo 'http://'.$_SERVER['HTTP_HOST']?>/pc.php/shop/article/content/id/<?php echo $val["Category_ID"]; ?>/UsersID/<?php echo $_SESSION['Users_ID']?>" title="浏览" target="_blank"><img src="/static/member/images/ico/view.gif" align="absmiddle" /></a>
+			<?php }?>
+			<a href="articles_category_edit.php?CategoryID=<?php echo $val["Category_ID"]; ?>" title="修改"><img src="/static/member/images/ico/mod.gif" align="absmiddle" /></a> <a href="?action=del&CategoryID=<?php echo $val["Category_ID"]; ?>" title="删除" onClick="if(!confirm('删除后不可恢复，继续吗？')){return false};"><img src="/static/member/images/ico/del.gif" align="absmiddle" /></a></td>
+          </tr>
+         <?php               
+                    }
+                }
+            }
+        }
+		  ?>
         </table>
         <div class="clear"></div>
       </div>

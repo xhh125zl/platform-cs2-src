@@ -123,12 +123,67 @@ if (count($isDistributeArr) > 0) {
 if (isset($_GET['isDistribute']) && $_GET['isDistribute'] == 1) {
     $condition['isDistribute'] = trim($_GET['isDistribute']);
 }
-$data = ['Users_Account' => $BizAccount];
-$result = product::search($condition, $data);
 
-$total = $result['totalCount'];
+//分页初始化
+$p = isset($_GET['p']) ? (int)$_GET['p'] : 1;
+if ($p < 1) $p = 1;
+//每页显示个数
+$pageSize = 2;
 
-$infolist = $result['productData'];
+$data = ['pageSize' => $pageSize,'Users_Account' => $BizAccount];
+$result = product::search($p ,$condition, $data);
+
+if (isset($result['errorCode']) && $result['errorCode'] != 0) {
+    $total = 0;
+    $totalPage = 1;
+    $products = [];
+} else {
+    $total = $result['totalCount'];
+    $totalPage = ceil($result['totalCount'] / $pageSize);
+    $products = $result['productData'];
+}
+
+//分页
+$page = new page();
+$page->setvar([
+        'sortby' => $sortby,
+        'sortMethod' => $sortMethod,
+        'search' => 1,
+        //'state' => $state,
+    ]
+);
+$page->set($pageSize, $total, $p);
+
+
+$infolist = [];
+if (count($products) > 0) {
+    foreach ($products as $row) {
+        $img = json_decode($row['Products_JSON'], true);
+        $row['thumb'] = $img['ImgPath'][0];
+        unset($row['Products_JSON']);
+        //判断是否为已上架
+        if (in_array($row['Products_FromId'], $resArr)) {
+            $row['is_sj'] = '1';
+        } else {
+            $row['is_sj'] = '0';
+        }
+        $infolist[] = $row;
+    }
+}
+
+$return = [
+    'page' => [
+        'pagesize' => count($infolist),
+        'hasNextPage' => (count($infolist) >= $pageSize) ? 'true' : 'false',
+        'total' => $total,
+    ],
+    'data' => $infolist,
+];
+
+if (isset($_POST['ajax']) && $_POST['ajax'] == 1) {
+    echo json_encode($return);
+    exit();
+}
 
 ?>
 <!doctype html>
@@ -144,6 +199,7 @@ $infolist = $result['productData'];
 <link href="../static/user/css/font-awesome.min.css" type="text/css" rel="stylesheet">
 <script type="text/javascript" src="../static/user/js/jquery-1.8.3.min.js"></script>
 <script type="text/javascript" src="../static/js/plugin/layer_mobile/layer.js"></script>
+<script type="text/javascript" src="../static/js/template.js"></script>
 <body>
 <div class="w">
     <div class="bj_x">
@@ -169,42 +225,78 @@ $infolist = $result['productData'];
         <input type="hidden" name="sortby" id="sortby" value="<?php echo isset($_GET['sortby']) ? $_GET['sortby'] : '' ?>">
         <input type="hidden" name="sortMethod" id="sortMethod" value="<?php echo isset($_GET['sortMethod']) ? $_GET['sortMethod'] : '' ?>">
         <input type="hidden" name="keyword" id="keyword" value="<?php echo isset($_GET['keyword']) ? $_GET['keyword'] : '' ?>">
-        <ul>
+        <ul class="productList">
             <?php
             if (count($infolist) > 0) {
                 foreach ($infolist as $product) {
-                    $img = json_decode($product['Products_JSON'], true);
-                    $product['thumb'] = $img['ImgPath'][0];
                     ?>
                     <li style="margin-top: 5px;height:100px;padding:8px 0;">
                         <div style="overflow:hidden;">
                             <a><span class="imgs l"><img src="<?php echo $product['thumb'];?>" width="90" height="90"></span>
                     <span class="main l">
-                        <p><?php echo $product['Products_Name'];?></p>
+                        <p style="max-height: 30px;"><?php echo $product['Products_Name'];?></p>
                         <span class="l" style="font-size:16px; line-height:25px; color:#333">￥<?=$product['Products_PriceX']?></span>
                         <span class="r" style="line-height:25px;">三级收益<span style="color:#ff5000; font-size:16px;">￥<?php echo $product['commission'];?></span></span>
                         <div class="clear"></div>
                         <span class="l"><?php echo $product['Products_DistPersonCount'];?>人在售<br>
                         库存<?php echo $product['Products_Count'];?></span>
                         <span class="r" id="pro<?=$product['Products_FromId']?>">
-                            <?
-                            if (in_array($product['Products_FromId'], $resArr)) {
-                                ?>
+                            <?php if ($product['is_sj']) { ?>
                                 <div class="up_yy">已上架</div>
-                            <?} else { ?><input type="button" value="一键上架" class="up_xx" data-FromID="<?=$product['Products_FromId']?>">
-                            <?}?>
+                            <?php } else { ?><input type="button" value="一键上架" class="up_xx" data-FromID="<?=$product['Products_FromId']?>">
+                            <?php } ?>
                         </span>
                         <div class="clear"></div>
                     </span></a>
                         </div>
                         <div class="clear"></div>
                     </li>
-                    <?php
-                }
-            }?>
-
+            <?php }
+            } ?>
         </ul>
     </div>
+</div>
+
+<div class="clear"></div>
+<!-- 点击加载更多 -->
+<script id="product-row" type="text/html">
+{{each data as product i}}
+        <li style="margin-top: 5px;height:100px;padding:8px 0;">
+            <div style="overflow:hidden;">
+                <a><span class="imgs l"><img src="{{product.thumb}}" width="90" height="90"></span>
+                <span class="main l">
+                    <p style="max-height: 30px;">{{product.Products_Name}}</p>
+                    <span class="l" style="font-size:16px; line-height:25px; color:#333">￥{{product.Products_PriceX}}</span>
+                    <span class="r" style="line-height:25px;">三级收益<span style="color:#ff5000; font-size:16px;">￥{{product.commission}}</span></span>
+                    <div class="clear"></div>
+                    <span class="l">{{product.Products_DistPersonCount}}人在售<br>
+                    库存{{product.Products_Count}}</span>
+                    <span class="r" id="pro{{product.Products_FromId}}">
+                        {{if (product.is_sj == 1)}}
+                            <div class="up_yy">已上架</div>
+                        {{else}}
+                            <input type="button" value="一键上架" class="up_xx" data-FromID="{{product.Products_FromId}}">
+                        {{/if}}
+                    </span>
+                    <div class="clear"></div>
+                </span></a>
+            </div>
+            <div class="clear"></div>
+        </li>
+ {{/each}}
+</script>
+<style>
+#pagemore{clear:both;text-align:center;  color:#666; padding-top: 5px; padding-bottom:5px;}
+#pagemore a{ height:30px; line-height:30px; text-align:center;display:block; background-color:#ddd; border-radius: 2px;}
+</style>
+<div id="pagemore">
+<?php
+if ($return['page']['hasNextPage'] == 'true') {
+    echo '<a href="javascript:;" data-next-pageno="2">点击加载更多...</a>';    
+} else {
+    echo '已经没有了...';
+}
+?>
 </div>
 
 </body>
@@ -230,6 +322,35 @@ $infolist = $result['productData'];
         location.href = url;
     });
     $(function(){
+        //加载更多
+        $("#pagemore a").click(function(){
+            var totalPage = <?php echo $totalPage;?>;
+            var fid = <?php echo $fid;?>;
+            var sid = <?php echo $sid;?>;
+            var sortby = '<?php echo $sortby?>';
+            var sortMethod = '<?php echo $sortMethod?>';
+            var pageno = $(this).attr('data-next-pageno');
+            var url = 'admin.php?act=search&fid='+fid+'&sid='+sid+'&sortby=' + sortby + "&sortMethod=" + sortMethod + '&p=' + pageno;
+
+            var nextPageno = parseInt(pageno);
+            if (nextPageno > totalPage) {
+                $("#pagemore").html('已经没有了...');
+                return true;
+            }
+
+            $.post(url, {ajax: 1}, function(json){
+                if (parseInt(json.page.pagesize) > 0) {
+                    var html = template('product-row', json);
+                    $("ul.productList").append(html);
+                }
+                if (json.page.hasNextPage == 'true') {
+                    $("#pagemore a").attr('data-next-pageno', nextPageno + 1);
+                } else {
+                    $("#pagemore").html('已经没有了...');
+                }
+            },'json')
+        });
+
         //点击一键分销按钮进行的操作
         $(".up_xx").click(function(){
             var me = $(this);
@@ -237,7 +358,7 @@ $infolist = $result['productData'];
                 type:1,
                 content:"<div class=\"select_containers\">请选择一级分类:<select name=\"firstCate\" class=\"select\" id=\"firstCate\"><option value=\"0\">请选择顶级分类</option></select><br/>请选择二级分类:</div>",
                 title:[
-                    '<span style="float:left">请选择要添加到的分类</span><span style="float: right"><a href="javascript:void(0);">新增分类</a></span>',
+                    '<span style="float:left">请选择要添加到的分类</span><span style="float: right"><a href="/user/admin.php?act=my_cate">分类管理</a></span>',
                     'background-color:#f0f0f0;font-weight:bold;'
                 ],
                 style: 'width:100%;position:fixed;bottom:0;left:0;border-radius:8px;',

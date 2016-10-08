@@ -557,6 +557,50 @@ function get_cloud_code($CartList = array()) {
 	return $codes;
 }
 
+
 /**
- * 
+ * 检查是否为手机号合法
+ * @param string $mobile 手机号
+ * @return boolean
+ * @author sxf
  */
+function is_mobile($mobile) {
+	if (empty($mobile)) return false;
+
+	$search ='/^(1(([3578][0-9])|(47)|[8][0126789]))\d{8}$/';
+	if (preg_match($search, $mobile)) {
+		return true;
+	}
+
+	return false;
+}
+
+/**
+ * 生成随机数字
+ * @param int $length 
+ * @return string
+ */
+function RandChar($length = 10){
+	$chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
+	$temchars = '';
+	for($i = 0; $i < $length; $i++) {
+		$temchars .= $chars[mt_rand(0, strlen($chars) - 1)];
+	}
+	return $temchars;
+}
+
+/**
+ * 检查用户名是否合法
+ * @param string $username
+ * @return boolean
+ */
+function check_username($username) {
+		$guestexp = '\xA1\xA1|\xAC\xA3|^Guest|^\xD3\xCE\xBF\xCD|\xB9\x43\xAB\xC8';
+		$len = strlen($username);
+
+		if ($len > 15 || $len < 3 || preg_match("/\s+|^c:\\con\\con|[%,\*\"\s\<\>\&]|$guestexp/is", $username)) {
+			return FALSE;
+		} else {
+			return TRUE;
+		}
+	}

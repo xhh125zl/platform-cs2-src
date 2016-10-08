@@ -37,13 +37,13 @@ class product extends base
 
     /**
      * 删除产品
-     * @param  array $productId [description]
+     * @param  array $data ['Products_ID' => $Products_ID, 'BizAccount' => $BizAccount]
      * @return array            [description]
      */
-    static public function delete($productId)
+    static public function delete($data)
     {
-    	$url = '/product/del.html';
-    	$result = self::request($url, 'post', $productId);
+        $url = '/product/delgoodsfrom401.html';
+        $result = self::request($url, 'post', $data);
 
     	return $result;	
     }
@@ -68,12 +68,12 @@ class product extends base
      * @param  string [<description>]
      * @return array            [description]
      */
-    static public function search($condition, $data = [])
+    static public function search($pageno = 1, $condition, $data = [])
     {
-        $url = '/product/list.html';
+        $url = '/product/list.html?page=' . intval($pageno);
 
         if (is_array($condition) && count($condition) > 0) {
-            $url .= "?" . http_build_query($condition);
+            $url .= "&" . http_build_query($condition);
         }
 
         $result = self::request($url, 'post', $data);
@@ -137,6 +137,20 @@ class product extends base
        return $result;
     }
 
+    /**
+     * b2c编辑商品时     推荐--->不推荐  （推荐的商品没有未完成的订单）
+     * 删除b2c平台的推荐产品
+     * @param  array $productId [description]
+     * @return array            [description]
+     */
+    static public function b2cProductDelete($productId)
+    {
+        $url = '/product/del.html';
+        $result = self::request($url, 'post', $productId);
+
+        return $result; 
+    }
+
 
 
 
@@ -156,11 +170,62 @@ class product extends base
 
     /**
      * B2C添加代销产品到401数据库
+     * @param array $data 二维数组
+     * @return json
      */
-
     static public function addTo401($data)
     {
         $url = "/product/adddistributegoods.html";
+        $result = self::request($url, 'post', $data);
+        return $result;
+    }
+
+    /**
+     * 获取商家所有的商品
+     * @param int $pageno 页码
+     * @param array $data
+     */
+    static public function getProducts($pageno = 1, $data)
+    {
+        $url = '/product/getgoods.html?page=' . intval($pageno);
+
+        $result = self::request($url, 'post', $data);
+
+        return $result;
+    }
+
+    /**
+     * B2C添加产品到401数据库
+     * @param array $data 二维数组
+     * @return json
+     */
+    static public function addProductTo401($data)
+    {
+        $url = "/product/addgoodsto401.html";
+        $result = self::request($url, 'post', $data);
+        return $result;
+    }
+
+    /**
+     * B2C编辑产品从401数据库获取数据
+     * @param array $data 二维数组
+     * @return json
+     */
+    static public function getProductArr($data)
+    {
+        $url = "/product/detail401.html";
+        $result = self::request($url, 'post', $data);
+        return $result;
+    }
+
+    /**
+     * B2C编辑产品到401数据库
+     * @param array $data 二维数组
+     * @return json
+     */
+    static public function editProductTo401($data)
+    {
+        $url = "/product/mod401.html";
         $result = self::request($url, 'post', $data);
         return $result;
     }

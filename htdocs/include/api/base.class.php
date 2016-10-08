@@ -3,11 +3,12 @@
  * 接口基类
  * base.class.php
  */
+include_once $_SERVER['DOCUMENT_ROOT'] . './include/api/const.php';
 
 class base
 {
-	static protected $apiUrl = 'http://if.wzw.com/api/';
-	static protected $apiVersion = 'v1';
+	static public $apiUrl = APIURL;
+	static public $apiVersion = APIVER;
 	
 	public function __construct()
 	{
@@ -21,4 +22,8 @@ class base
  		return $result;
 	}
 
+	static public function getApiUrl()
+	{
+		return self::$apiUrl . self::$apiVersion;
+	}
 }

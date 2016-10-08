@@ -13,6 +13,7 @@ if($_POST){
 		"Category_Name"=>trim($_POST["Name"]),
 		"Users_ID"=>$_SESSION["Users_ID"],
 		"Category_Type"=>$_POST["Type"],
+		"Category_ParentID" => intval($_POST["Category_ID"]),
 		"Category_Content"=>!empty($_POST['Content']) ? $_POST['Content'] : '',
 		'mob_show'=>$_POST['mob_show']
 	);
@@ -23,6 +24,14 @@ if($_POST){
 		echo '<script language="javascript">alert("保存失败");history.back();</script>';
 	}
 	exit;
+}
+
+$shop_category = [];
+$DB->get("shop_articles_category","*","where Users_ID='".$_SESSION["Users_ID"]."'  order by Category_Index asc");
+while($r=$DB->fetch_assoc()){
+    if($r["Category_ParentID"]==0){
+      $shop_category[$r["Category_ID"]] = $r;
+    }
 }
 ?>
 <!DOCTYPE HTML>
@@ -84,11 +93,29 @@ if($_POST){
                 </span>
                 <div class="clear"></div>
             </div>
+            
             <div class="opt_item">
               <label>分类名称：</label>
               <span class="input">
               <input type="text" name="Name" value="" class="form_input" size="15" maxlength="30" notnull />
               <font class="fc_red">*</font></span>
+              <div class="clear"></div>
+            </div>
+            <div class="opt_item">
+              <label>上级栏目：</label>
+              <span class="input">
+              <select name="Category_ID">
+                   <option value="0">一级栏目</option>
+                   <?php
+                   foreach($shop_category as $value){
+                       if(!empty($value["Category_Name"])){
+                          echo '<option value="'.$value["Category_ID"].'">'.$value["Category_Name"].'</option>';
+                       }
+                  }
+                  ?>
+              </select>
+              <font class="fc_red">*</font>
+			  </span>
               <div class="clear"></div>
             </div>
 			<div class="opt_item">
@@ -102,6 +129,9 @@ if($_POST){
 			  </span>
               <div class="clear"></div>
             </div>
+            
+            
+            
 			<div class="opt_item" id="content">
                 <label>详细内容</label>
                 <span class="input">

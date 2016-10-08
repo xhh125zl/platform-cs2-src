@@ -9,7 +9,7 @@ include './config.inc.php';
 $act = isset($_GET['act']) ? $_GET['act'] : 'products';
 
 $actionArr = [
-	'products', 
+	'products',
 	'product',
 	'category',
 	'search',
@@ -17,15 +17,38 @@ $actionArr = [
 	'my_cate',
 	'order_details',
 	'order_list',
-	'store'
+	'store',
+	'learn',
+	'learn_list',
+	'learn_detail',
+	'web',
+	'setting',
+	'setting_avatar',
+	'setting_shopname',
+	'setting_wechat',
+	'setting_receive',
+	'setting_share',
+	'setting_qrcode',
+	'setting_announce',
+	'setting_backgoods',
+	'user_list',
+	'user_detail',
+	'product_add',
+	'product_supply',
+	'product_edit',
+	'data_statistics',
+	'financial_analysis',
+	'distribute_list',
+	'distribute_detail'
 ];
 
 if (! in_array($act, $actionArr)) {
-	$act = 'product';
+	$act = 'products';
 }
 
 
 $file = $act . '.php';
 
 include_once $file;
+
 
