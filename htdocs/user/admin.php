@@ -9,7 +9,7 @@ include './config.inc.php';
 $act = isset($_GET['act']) ? $_GET['act'] : 'products';
 
 $actionArr = [
-	'products', 
+	'products',
 	'product',
 	'category',
 	'search',
@@ -37,7 +37,9 @@ $actionArr = [
 	'product_supply',
 	'product_edit',
 	'data_statistics',
-	'financial_analysis'
+	'financial_analysis',
+	'distribute_list',
+	'distribute_detail'
 ];
 
 if (! in_array($act, $actionArr)) {

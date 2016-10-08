@@ -41,16 +41,16 @@ if ($inajax == 1) {
                 $_SESSION["Users_ID"]=$rsBiz["Users_ID"];
 
                 //查找绑定的会员ID
-                if ($rsBiz['UserID']) {
-                    $rsUser=$DB->GetRs("user", "*", "WHERE User_ID=" . intval($rsBiz['UserID']));
+                // if ($rsBiz['UserID']) {
+                //     $rsUser=$DB->GetRs("user", "*", "WHERE User_ID=" . intval($rsBiz['UserID']));
                             
-                    if ($rsUser) {
-                        $UsersID = $rsBiz['Users_ID'];
-                        $_SESSION[$UsersID."User_ID"]=$rsUser["User_ID"];
-                        $_SESSION[$UsersID."User_Name"]=$rsUser["User_Name"];
-                        $_SESSION[$UsersID."User_Mobile"]=$rsUser["User_Mobile"];
-                    }
-                }
+                //     if ($rsUser) {
+                //         $UsersID = $rsBiz['Users_ID'];
+                //         $_SESSION[$UsersID."User_ID"]=$rsUser["User_ID"];
+                //         $_SESSION[$UsersID."User_Name"]=$rsUser["User_Name"];
+                //         $_SESSION[$UsersID."User_Mobile"]=$rsUser["User_Mobile"];
+                //     }
+                // }
                 
                 $result =  [
                     'status' => 1,

@@ -40,12 +40,20 @@ input[type=button], input[type=submit], input[type=file], button { cursor: point
 .foot_nav ul li{ width:33.3%; float:left; line-height:50px; text-align:center;}
 
 /*店铺管理*/
+.commenting{padding: 10px 20px; position: relative; display: inline-block; padding-bottom:0;font-size:16px;}
+.commenting a{ color:#fff; }
+.commenting p{ background: red;border-radius: 50%; display: block; height: 15px; top:7px; right:12px;position: absolute;width: 15px; font-size:9px;text-align: center;line-height: 15px; color: #ffffff;font-style: normal;}
+.commenting p a{color:#fff;}
 .head_bg{ background:#1fb4f8;overflow: hidden;color: #fff;}
-.head_pho{padding: 30px 10px;}
-.head_name{ padding-top:30px} 
+.head_pho{padding: 30px 10px; padding-top:25px}
+.head_name{ padding-top:25px;} 
 .head_name a{ color:#fff; line-height:45px;}
 .head_pho a img{ display: inline-block; width:45px; height:45px;border-radius: 50%;}
 .head_pho a i{ color:#fff; padding:15px 10px; font-size:18px;filter:alpha(opacity=50);-moz-opacity:0.7;opacity:0.7;}
+.head_bg{ background:#1fb4f8;overflow: hidden;color: #fff;}
+
+
+
 .income_x{background: #00a0e9;
     position: relative;
     padding: 10px 0;}
@@ -345,6 +353,11 @@ td{
 }
 .table td a{ color:#ff5500}
 
+.slideTxtBox .distribute_x{ height:35px; line-height:35px; position:relative; }
+.slideTxtBox .distribute_x ul{ float:left;  position:absolute;height:35px;   width:100%;  }
+.slideTxtBox .distribute_x ul li{ float:left;cursor:pointer; width:33.3%; margin:0}
+.slideTxtBox .distribute_x ul li.on{ height:35px; color:#ff5500; border-bottom:2px #ff5500 solid  }
+
 /*会员管理*/
 
 .table_x{
@@ -361,6 +374,14 @@ td{
     width:70%
 }
 .table_x td a{ color:#ff5500}
+.user_input{ border:1px #ddd solid; height:30px; line-height:30px; width:100%; text-indent:0.5em; color:#666; outline:none}
+.table_x tr td select{ color:#999; outline:none; margin-bottom:5px}
+.table_x tr td select option{outline:none;}
+.back_xx{background:#ff5000; color:#fff; border:none; line-height:25px; width:70px; margin-top:10px; outline:none}
+.next_yy{ color:#fff; border:none; line-height:25px; width:70px; margin-top:10px;background-color: #999;text-align: center;outline:none}
+.img_tab{ width:96%; text-indent:0.5em; color:#666; line-height:30px; overflow:hidden}
+.img_tab th { text-align:left;}
+.img_tab th input{ outline:none; border-bottom:1px #ddd dashed; width:100%; padding-bottom:10px}
 .user_input{ border:1px #ddd solid; height:30px; line-height:30px; width:100%; text-indent:0.5em;}
 
 /*发布产品*/

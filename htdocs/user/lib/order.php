@@ -6,26 +6,20 @@ require_once CMS_ROOT . '/include/api/ImplOrder.class.php';
 require_once CMS_ROOT . '/include/helper/page.class.php';
 
 //获取订单
-function getOrders($Biz_Account, $page = 1, $orderID = ''){
+function getOrders($Biz_Account, $page = 1, $orderID = '', $order_status){
     $transfer = ['Biz_Account' => $Biz_Account, 'pageSize' => 2, 'Order_ID' => $orderID];
     $res = ImplOrder::getOrders($transfer, $page);
     return $res;
 }
 
 //获取订单详情
-
 function getOrderDetail($Biz_Account,$orderID){
     $transfer = ['Biz_Account' => $Biz_Account, 'pageSize' => 1, 'Order_ID' => $orderID];
     $res = ImplOrder::getOrders($transfer);
     return $res;
 }
 
-if ($_GET['act'] == 'order_list') {
-    $res = getOrders($_SESSION['Biz_Account'], isset($_GET['page']) ? $_GET['page'] : 1, isset($_POST['Order_ID']) ? (int)$_POST['Order_ID'] : '')['data'];
-    foreach ($res as $k => $v) {
-        $resArr[$v['Order_Status']][] = $v;
-    }
-} elseif ($_GET['act'] == 'order_details') {
+if (isset($_GET['act']) && $_GET['act'] == 'order_details') {
     if (isset($_GET['orderid'])) {
         $Order_ID = $_GET['orderid'];
         $res = getOrderDetail($_SESSION['Biz_Account'],$_GET['orderid']);

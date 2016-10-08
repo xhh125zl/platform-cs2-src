@@ -1,5 +1,6 @@
-<?
+<?php
 require_once "lib/order.php";
+require_once CMS_ROOT . '/include/api/ImplOrder.class.php';
 ?>
 <!doctype html>
 <html>
@@ -12,7 +13,70 @@ require_once "lib/order.php";
 <link href="../static/user/css/product.css" type="text/css" rel="stylesheet">
 <link href="../static/user/css/font-awesome.min.css" type="text/css" rel="stylesheet">
 <script type="text/javascript" src="../static/user/js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="../static/user/js/layer.js"></script>
 <script type="text/javascript" src="../static/user/js/jquery.SuperSlide.2.1.1.js"></script>
+<script type="text/javascript">
+    //检测输入框是否为空
+    function check_null(input) {
+        var self_attr = input.attr('style');
+        var add_attr = ";border:1px solid red;";
+        if($.trim(input.val()) == '') {
+            input.attr('style', self_attr+add_attr);
+            input.focus();
+            return false;
+        } else {
+            if(self_attr) {
+                self_attr = self_attr.replace(add_attr, '');
+            }
+            input.attr('style', self_attr);
+            return true;
+        }
+    }
+    $(function(){
+        $('input:button').click(function(){
+            //快递单号
+            if (!check_null($('input[name="ShippingID"]'))) {
+                return false;
+            }
+            //联系人
+            if (!check_null($('input[name="Name"]'))) {
+                return false;
+            }
+            //联系电话
+            if (!check_null($('input[name="Mobile"]'))) {
+                return false;
+            }
+            $('#order_send_form').submit();
+        });  
+
+    });
+</script>
+<?php
+if($_POST){
+    $Data=array(
+        "Address_Name"=>$_POST['Name'],
+        "Address_Mobile"=>$_POST["Mobile"],
+        "Order_ShippingID"=>$_POST["ShippingID"],
+        "Order_Remark"=>$_POST["Remark"],
+        "Order_SendTime"=>time(),
+        "Order_Status"=>3
+    );
+    /*if($_POST["Express"]){
+        $ShippingN = array(
+            "Express"=>$_POST["Express"],
+            "Price"=>empty($Shipping["Price"]) ? 0 : $Shipping["Price"]
+        );
+        $Data["Order_Shipping"] = json_encode($ShippingN,JSON_UNESCAPED_UNICODE);
+    }*/
+    $res = ImplOrder::actionOrdersend401(['Order_ID' => $orderDetail['Order_ID'], 'orderData' => $Data]);
+     
+    if(isset($res['errorCode']) && $res['errorCode'] == 0){      
+        echo '<script>layer.open({content: "发货成功"});window.location.reload;</script>';
+    }else{
+        echo '<script>layer.open({content: "发货成功", btn: "确定"});history.back();</script>';
+    }
+}
+?>
 <body>
 <div class="w">
     <div class="slideTxtBox">
@@ -95,6 +159,35 @@ require_once "lib/order.php";
                         </strong>
                     </span>
                 </li>
+                <?php if ($orderDetail['Order_Status'] > 2) { ?>
+                <li>
+                    <span class="left">快递单号：</span>
+                    <span class="left"><?php echo $orderDetail["Order_ShippingID"] ?></span>
+                </li>
+                <?php } ?>
+                <!-- 自营商品发货 -->
+                <?php if($orderDetail['Order_Status'] == 2 && $orderDetail["Order_IsVirtual"]<>1 && ($orderDetail['Sales_By'] == '0' || $orderDetail['Users_ID'] == $UsersID)){ ?>
+                <form method="post" action="" id="order_send_form">
+                    <li>
+                        <span class="left">快递单号：</span>
+                        <span class="left"><input name="ShippingID" value="<?php echo $orderDetail["Order_ShippingID"] ?>"/></span>
+                    </li>
+                    <li>
+                        <span class="left">收&nbsp;&nbsp;货&nbsp;人：</span>
+                        <span class="left"><input name="Name" value="<?php echo $orderDetail["Address_Name"] ?>" size="10"/></span>
+                    </li>
+                    <li>
+                        <span class="left">手机号码：</span>
+                        <span class="left"><input name="Mobile" value="<?php echo $orderDetail["Address_Mobile"] ?>" size="15"/></span>
+                    </li>
+                    <li>
+                        <textarea name="Remark" style="width:97%; height:60px;" placeholder="请输入订单备注"><?=$orderDetail['Order_Remark']?></textarea>
+                    </li>
+                    <li>
+                        <input type="button" value="确认发货" style="margin-left:70%; border:0; width:100px; height: 30px; background-color: green; border-radius: 15px; color: #fff;">
+                    </li>
+                </form>
+                <?php } ?>
                 <?
                 foreach (json_decode($orderDetail['Order_CartList'], true) as $key => $val) {
                     foreach ($val as $goodskey => $goodsval) {
