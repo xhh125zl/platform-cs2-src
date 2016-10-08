@@ -19,37 +19,7 @@ function getOrderDetail($Biz_Account,$orderID){
     return $res;
 }
 
-if (isset($_GET['act']) && $_GET['act'] == 'order_confirm') {     //获取待处理订单
-    $res = getOrders($BizAccount, isset($_GET['page']) ? $_GET['page'] : 1, isset($_POST['Order_ID']) ? (int)$_POST['Order_ID'] : '', 0)['data'];
-    foreach ($res as $k => $v) {
-        $resArr[$v['Order_Status']][] = $v;
-    }
-
-} elseif (isset($_GET['act']) && $_GET['act'] == 'order_unpaid') {     //获取未付款订单
-    $res = getOrders($BizAccount, isset($_GET['page']) ? $_GET['page'] : 1, isset($_POST['Order_ID']) ? (int)$_POST['Order_ID'] : '', 1)['data'];
-    foreach ($res as $k => $v) {
-        $resArr[$v['Order_Status']][] = $v;
-    }
-
-} elseif (isset($_GET['act']) && $_GET['act'] == 'order_paid') {     //获取已付款订单
-    $res = getOrders($BizAccount, isset($_GET['page']) ? $_GET['page'] : 1, isset($_POST['Order_ID']) ? (int)$_POST['Order_ID'] : '', 2)['data'];
-    foreach ($res as $k => $v) {
-        $resArr[$v['Order_Status']][] = $v;
-    }
-
-} elseif (isset($_GET['act']) && $_GET['act'] == 'order_delivered') {     //获取已发货订单
-    $res = getOrders($BizAccount, isset($_GET['page']) ? $_GET['page'] : 1, isset($_POST['Order_ID']) ? (int)$_POST['Order_ID'] : '', 3)['data'];
-    foreach ($res as $k => $v) {
-        $resArr[$v['Order_Status']][] = $v;
-    }
-
-} elseif (isset($_GET['act']) && $_GET['act'] == 'order_completed') {     //获取已完成订单
-    $res = getOrders($BizAccount, isset($_GET['page']) ? $_GET['page'] : 1, isset($_POST['Order_ID']) ? (int)$_POST['Order_ID'] : '', 4)['data'];
-    foreach ($res as $k => $v) {
-        $resArr[$v['Order_Status']][] = $v;
-    }
-
-} elseif (isset($_GET['act']) && $_GET['act'] == 'order_details') {
+if (isset($_GET['act']) && $_GET['act'] == 'order_details') {
     if (isset($_GET['orderid'])) {
         $Order_ID = $_GET['orderid'];
         $res = getOrderDetail($_SESSION['Biz_Account'],$_GET['orderid']);

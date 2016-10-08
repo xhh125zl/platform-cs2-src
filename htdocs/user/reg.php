@@ -188,6 +188,18 @@ if ($ret['errorCode'] != 0) {
 
 		$flag = $DB->Add('biz', $data);
 		if ($flag) {
+
+			$Biz_ID = $DB->insert_id();
+
+			$data = [
+				'Users_ID' => $Users_ID,
+				'Biz_ID' => $Biz_ID,
+			];
+			$ret = users::addBizApply($data);
+			if ($ret['errorCode'] != 0) {
+				die('error');
+			}
+
 			$result = [
 				'status' => 1,
 				'msg' => '注册成功!',
@@ -245,11 +257,11 @@ if ($ret['errorCode'] != 0) {
         <span class="l" style="width:60%;"><input type="text" name="captcha" id="captcha" value="" maxlength="4" class="reg_x1 reg_captcha_icon" placeholder="请输入验证码"></span>
         <span class="l" style="width:40%;"><input type="button" id="btn_send" state="0" class="reg_x2" value="获取验证码" maxlength="16"></span>
 		<div class="clear"></div>
-        <div class="reg_t">
+        <div class="reg_t" style="display:none">
         	<textarea name="copyright" rows="3">我阅读并签署协议协议</textarea>
         </div>
          <label class="checkbox">
-             <input type="checkbox" checked="" name="agree">
+             <input type="checkbox"  name="agree">
               我阅读并签署协议
          </label>
 		 <input type="hidden" id="do" name="do" value="reg">
@@ -293,6 +305,14 @@ $(function(){
 			}
 		}, 'json')
 
+	})
+
+	$("input[type='checkbox']").click(function(){
+		if (! $("input[type='checkbox']").is(':checked')) {
+			$(".reg_t").hide();
+		} else {
+			$(".reg_t").show();
+		}
 	})
 
 	//注册新用户
@@ -375,7 +395,7 @@ $(function(){
 			});
 			
 			return false;		
-		}		
+		}
 
 		$(this).attr('disabled', true);
 		$.post('?inajax=1', $('#user_form').serialize(), function(data){
