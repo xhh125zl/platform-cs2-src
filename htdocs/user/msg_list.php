@@ -4,7 +4,8 @@ require_once CMS_ROOT . "/user/config.inc.php";
 require_once CMS_ROOT . '/include/helper/page.class.php';
 
 //echo $BizAccount.'###'.$UsersID.'###'.$BizID;die;
-$msg_status = isset($_GET['status']) ? $_GET['status'] : 'system_msg';
+$msg_type = isset($_GET['type']) ? $_GET['type'] : 'order_msg';
+
 
 ?>
 <!doctype html>
@@ -29,10 +30,10 @@ $msg_status = isset($_GET['status']) ? $_GET['status'] : 'system_msg';
     <div class="slideTxtBox">
         <div class="hd msg_x">
             <ul>
-                <a href="?act=msg_list&status=system_msg"><li class="<?php if(isset($msg_status) && $msg_status == 'system_msg') { echo 'on'; } ?>">系统</li></a>
-                <a href="?act=msg_list&status=order_msg"><li class="<?php if(isset($msg_status) && $msg_status == 'order_msg') { echo 'on'; } ?>">订单</li></a>
-                <a href="?act=msg_list&status=distribute_msg"><li class="<?php if(isset($msg_status) && $msg_status == 'distribute_msg') { echo 'on'; } ?>">分销</li></a>
-                <a href="?act=msg_list&status=withdraw_msg"><li class="<?php if(isset($msg_status) && $msg_status == 'withdraw_msg') { echo 'on'; } ?>">提现</li></a>
+                <a href="?act=msg_list&type=system_msg"><li class="<?php if(isset($msg_type) && $msg_type == 'system_msg') { echo 'on'; } ?>">系统</li></a>
+                <a href="?act=msg_list&type=order_msg"><li class="<?php if(isset($msg_type) && $msg_type == 'order_msg') { echo 'on'; } ?>">订单</li></a>
+                <a href="?act=msg_list&type=distribute_msg"><li class="<?php if(isset($msg_type) && $msg_type == 'distribute_msg') { echo 'on'; } ?>">分销</li></a>
+                <a href="?act=msg_list&type=withdraw_msg"><li class="<?php if(isset($msg_type) && $msg_type == 'withdraw_msg') { echo 'on'; } ?>">提现</li></a>
             </ul>
         </div>
         <div class="learn_list">
@@ -45,7 +46,7 @@ $msg_status = isset($_GET['status']) ? $_GET['status'] : 'system_msg';
                     foreach($msg_list as $k => $v){         
                 ?>
                 <li>
-                    <a href='?act=msg_detail&id=<?=$v['msg_ID'] ?>'><?=$v['msg_Title'] ?><p><?=$v['msg_CreateTime'] ?></p></a>
+                    <a href='?act=msg_detail&id=<?=$v['Msg_ID'] ?>'><?=$v['msg_title'] ?><p><?=$v['create_time'] ?></p></a>
                 </li>
                 <?php
                     }
@@ -55,57 +56,5 @@ $msg_status = isset($_GET['status']) ? $_GET['status'] : 'system_msg';
         </div>
     </div>
 </div>
-<div class="clear"></div>
-<!-- 点击加载更多 -->
-<script id="msg-row" type="text/html">
-{{each data as v i}}
-    <li>
-        <a href='?act=msg_detail&id={{v.msg_ID}}'>{{v.msg_Title}}<p>{{v.msg_CreateTime}}</p></a>
-    </li>
-{{/each}}
-</script>
-<style>
-#pagemore{clear:both;text-align:center;  color:#666; padding-top: 5px; padding-bottom:5px;}
-#pagemore a{ height:30px; line-height:30px; text-align:center;display:block; background-color:#ddd; border-radius: 2px;}
-</style>
-<div id="pagemore">
-<?php
-    if (isset($msg_list) && count($msg_list) > 0) {
-        if ($return['page']['hasNextPage'] == 'true') {
-            echo '<a href="javascript:;" data-next-pageno="2">点击加载更多...</a>';    
-        } else {
-            echo '已经没有了...';
-        }
-    }
-?>
-</div>
 </body>
 </html>
-<script type="text/javascript">
-    $(function(){
-        //加载更多
-        $("#pagemore a").click(function(){
-            var totalPage = <?php echo $totalPage;?>;
-            var pageno = $(this).attr('data-next-pageno');
-            var url = 'admin.php?act=msg_list&status=' + <?php echo $msg_status; ?> + '&p=' + pageno;
-
-            var nextPageno = parseInt(pageno);
-            if (nextPageno > totalPage) {
-                $("#pagemore").html('已经没有了...');
-                return true;
-            }
-
-            $.post(url, {ajax: 1}, function(json){
-                if (parseInt(json.page.pagesize) > 0) {
-                    var html = template('msg-row', json);
-                    $("ul.msgList").append(html);
-                }
-                if (json.page.hasNextPage == 'true') {
-                    $("#pagemore a").attr('data-next-pageno', nextPageno + 1);
-                } else {
-                    $("#pagemore").html('已经没有了...');
-                }
-            },'json')
-        });
-    });
-</script>
