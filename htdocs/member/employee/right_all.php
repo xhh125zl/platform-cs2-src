@@ -59,8 +59,14 @@ $rmenu['biz']=array(
 	'biz' => '商家管理',
 	'index' => '商家列表',
 	'group' => '商家分组',
-	'apply' => '入驻申请列表',
-	'apply_config' => '入驻设置'
+	'apply_config' => '入驻描述设置',
+	'reg_config' => '注册页面设置',
+    'apply_other' => '年费设置',
+	'apply' => '入驻资质审核列表',
+    'authpay' => '入驻支付列表',
+    'chargepay' => '续费支付列表',
+    'bond_back' => '保证金退款',
+    'article_man' => '文章管理'
 );
 
 $rmenu["order"] = array(

@@ -2,44 +2,78 @@
 if(empty($_SESSION["Users_Account"])){
 	header("location:/member/login.php");
 }
-
+ 
+ 
 if(isset($_GET["action"])){
 	if($_GET["action"]=="del"){
-		$Flag=$DB->Del("biz_apply","Users_ID='".$_SESSION["Users_ID"]."' and ItemID=".$_GET["itemid"]);
-		if($Flag)
+		//$Flag=$DB->Del("biz_apply","Users_ID='".$_SESSION["Users_ID"]."' and id=".$_GET["itemid"]);
+                mysql_query("BEGIN");
+                $Flag=$DB->Set("biz_apply",array("is_del"=>0,"status"=>-1),"where Users_ID='".$_SESSION["Users_ID"]."' and id=".$_GET["itemid"]);
+                $BizInfo = $DB->GetRS('biz_apply','*','WHERE id = '.$_GET['itemid']); 
+                $Flag_a = $DB->Set("biz",array("is_auth"=>-1),"where Users_ID='".$_SESSION["Users_ID"]."' and Biz_ID=".$BizInfo["Biz_ID"]);
+		if($Flag && $Flag_a)
 		{
+                    mysql_query('commit');
 			echo '<script language="javascript">alert("删除成功");window.location="'.$_SERVER['HTTP_REFERER'].'";</script>';
 		}else
 		{
+                    mysql_query("ROLLBACK");
 			echo '<script language="javascript">alert("删除失败");history.back();</script>';
 		}
 		exit;
 	}
 	
 	if($_GET["action"]=="read"){
-		$Flag=$DB->Set("biz_apply",array("IsRead"=>1),"where Users_ID='".$_SESSION["Users_ID"]."' and ItemID=".$_GET["itemid"]);
-		if($Flag)
+                mysql_query("BEGIN");
+		$Flag = $DB->Set("biz_apply",array("status"=>2),"where Users_ID='".$_SESSION["Users_ID"]."' and id=".$_GET["itemid"]);
+                $BizInfo = $DB->GetRS('biz_apply','*','WHERE id = '.$_GET['itemid']); 
+                $Flag_a = $DB->Set("biz",array("is_auth"=>2),"where Users_ID='".$_SESSION["Users_ID"]."' and Biz_ID=".$BizInfo["Biz_ID"]);
+		if($Flag && $Flag_a)
 		{
-			echo '<script language="javascript">alert("处理成功");window.location="'.$_SERVER['HTTP_REFERER'].'";</script>';
+                    mysql_query('commit');
+                    echo '<script language="javascript">alert("审核成功");window.location="'.$_SERVER['HTTP_REFERER'].'";</script>';
 		}else
 		{
-			echo '<script language="javascript">alert("处理失败");history.back();</script>';
+                   mysql_query("ROLLBACK");
+			echo '<script language="javascript">alert("审核失败");history.back();</script>';
+		}
+		exit;
+	}
+        if($_GET["action"]=="back"){
+                mysql_query("BEGIN");
+		$Flag=$DB->Set("biz_apply",array("status"=>-1),"where Users_ID='".$_SESSION["Users_ID"]."' and id=".$_GET["itemid"]);
+                $BizInfo = $DB->GetRS('biz_apply','*','WHERE id = '.$_GET['itemid']); 
+		$Flag_a = $DB->Set("biz",array("is_auth"=>-1),"where Users_ID='".$_SESSION["Users_ID"]."' and Biz_ID=".$BizInfo["Biz_ID"]);
+		if($Flag && $Flag_a)
+		{   
+                     mysql_query('commit');
+			echo '<script language="javascript">alert("驳回成功");window.location="'.$_SERVER['HTTP_REFERER'].'";</script>';
+		}else
+		{
+                    mysql_query("ROLLBACK");
+			echo '<script language="javascript">alert("驳回失败");history.back();</script>';
 		}
 		exit;
 	}
 }
 $condition = "where Users_ID='".$_SESSION["Users_ID"]."'";
 if(isset($_GET['search'])){
-	if($_GET['Keyword']){
-		$condition .= " and ".$_GET['Fields']." like '%".$_GET['Keyword']."%'";
-	}
-	if($_GET['Status']!=""){
-		$condition .= " and IsRead=".intval($_GET['Status']);
+	if($_GET['Biz_Account']){
+            $BizInfo = $DB->getRs('biz','Biz_ID','where Biz_Account = "'.$_GET['Biz_Account'].'"');
+            if (!empty($BizInfo)) {
+              $condition .= " and biz_id = ".$BizInfo['Biz_ID'];  
+            } else {
+                $condition .= " and biz_id = 'a'";  
+            }	
+	} 
+	if($_GET['status']!=""){
+           
+		$condition .= " and status=".$_GET['status'];
 	}
 }
 
 
-$salesman_array = array();
+/*$salesman_array = array();
 $is_salesman_array = array();
 $DB->Get("distribute_account","Real_Name,Invitation_Code,Is_Salesman","where Users_ID='".$_SESSION["Users_ID"]."' and Is_Salesman=1 and Invitation_Code <> ''");
 while($row = $DB->fetch_assoc()){
@@ -47,17 +81,22 @@ while($row = $DB->fetch_assoc()){
         $salesman_array[$row['Invitation_Code']] = $row['Real_Name'];
 	$is_salesman_array[$row['Invitation_Code']] = $row['Is_Salesman'];
     }
-}
+}*/
 
-$shop_cate = array();
+/*$shop_cate = array();
 $DB->get("shop_category","Category_ID,Category_Name","where Users_ID='".$_SESSION["Users_ID"]."'");
 while ($r = $DB->fetch_assoc()) {
     $shop_cate[$r['Category_ID']] = $r['Category_Name']; 
+}*/
+$biz_array = array();
+$DB->get("biz","Biz_ID,Biz_Account","where Users_ID='".$_SESSION["Users_ID"]."'");
+while ($r = $DB->fetch_assoc()) {
+    $biz_array[$r['Biz_ID']] = $r['Biz_Account']; 
 }
+ 
+$condition .= " and is_del =1  order by CreateTime desc";
 
-$condition .= " order by CreateTime desc";
-
-$_Status = array('<font style="color:#ff0000">未处理</font>','<font style="color:blue">已处理</font>');
+$_Status = array(1=>'<font style="color:#ff0000">未审核</font>',2=>'<font style="color:blue">审核通过</font>',-1=>'<font style="color:blue">已驳回</font>');
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -85,25 +124,23 @@ $_Status = array('<font style="color:#ff0000">未处理</font>','<font style="co
       <ul>
         <li><a href="index.php">商家列表</a></li>
         <li><a href="group.php">商家分组</a></li>
-		<li class="cur"><a href="apply.php">入驻申请列表</a></li>
+		<li class="cur"><a href="apply.php">资质审核列表</a></li>
+                <li class=""><a href="authpay.php">入驻支付列表</a></li>
+                <li class=""><a href="chargepay.php">续费支付列表</a></li>
 		<li><a href="apply_config.php">入驻设置</a></li>
       </ul>
     </div>
 	
     <div id="bizs" class="r_con_wrap">
       <form class="search" method="get" action="?">
-        <select name="Fields">
-          <option value="Name">企业名称</option>
-          <option value="Contact">联系人</option>
-          <option value="Mobile">联系电话</option>
-		  <option value="Email">电子邮箱</option>
-        </select>
-        <input type="text" name="Keyword" value="" class="form_input" size="15" />       
+          商家账号：
+        <input type="text" name="Biz_Account" value="" placeholder='请输入商家账号' class="form_input" size="15" />       
         状态：
-        <select name="Status">
+        <select name="status">
           <option value="">全部</option>
-          <option value="0">未处理</option>
-          <option value="1">已处理</option>
+          <option value="1">未审核</option>
+          <option value="2">审核通过</option>
+          <option value="-1">已驳回</option>
         </select>
         <input type="hidden" name="search" value="1" />
         <input type="submit" class="search_btn" value="搜索" />
@@ -113,16 +150,10 @@ $_Status = array('<font style="color:#ff0000">未处理</font>','<font style="co
           <tr>
 
             <td width="6%" nowrap="nowrap">ID</td>
-            <td width="8%" nowrap="nowrap">邀请码</td>
-            <td width="8%" nowrap="nowrap">推荐人</td>
-            <td width="14%" nowrap="nowrap">企业名称</td>
-            <td width="18%" nowrap="nowrap">行业类别</td>
-            <td width="11%" nowrap="nowrap">联系人</td>
-            <td width="11%" nowrap="nowrap">联系电话</td>
-			<td width="11%" nowrap="nowrap">电子邮箱</td>
+            <td width="8%" nowrap="nowrap">商家账号</td>
+            <td width="8%" nowrap="nowrap">认证类型</td>
             <td width="13%" nowrap="nowrap">申请时间</td>
             <td width="8%" nowrap="nowrap">状态</td>
-
             <td width="10%" nowrap="nowrap" class="last">操作</td>
           </tr>
         </thead>
@@ -138,28 +169,23 @@ $_Status = array('<font style="color:#ff0000">未处理</font>','<font style="co
 		?>
               
           <tr>
-            <td nowrap="nowrap"><?php echo $rsBiz["ItemID"] ?></td>
-            <td><?php echo $rsBiz["Invitation_Code"] ?></td>
-            <td><?php if(!empty($rsBiz["Invitation_Code"])){
-                    if(empty($is_salesman_array[$rsBiz["Invitation_Code"]])){
-                         echo '业务员被删除';
-                    }else{
-                        if($is_salesman_array[$rsBiz["Invitation_Code"]]!= 1){
-                            echo '业务员被删除';
-                        }else{
-                            echo strlen($salesman_array[$rsBiz["Invitation_Code"]])>0?$salesman_array[$rsBiz["Invitation_Code"]]:'无昵称';
-                        }
-                    }
-                }?></td>
-            <td><?php echo $rsBiz["Biz_Name"] ?></td>
-            <td><?php echo !empty($shop_cate[$rsBiz["Category_ID"]])?$shop_cate[$rsBiz["Category_ID"]]:''; ?></td>
-
-            <td nowrap="nowrap"><?php echo $rsBiz['Contact']; ?></td>
-            <td nowrap="nowrap"><?php echo $rsBiz["Mobile"];?></td>
-			<td nowrap="nowrap"><?php echo $rsBiz["Email"];?></td>
+            <td nowrap="nowrap"><?php echo $rsBiz["id"];?></td>
+            
+            <td><?php echo !empty($biz_array[$rsBiz["Biz_ID"]])?$biz_array[$rsBiz["Biz_ID"]]:'商家不存在或已删除'; ?></td>
+           
+            <td><?php if($rsBiz['authtype']==1){echo '企业认证';}elseif($rsBiz['authtype']==2){echo'个人认证';}?></td>   
             <td nowrap="nowrap"><?php echo date("Y-m-d H:i:s",$rsBiz["CreateTime"]) ?></td>
-            <td nowrap="nowrap"><?php echo $_Status[$rsBiz["IsRead"]]; ?></td>
-            <td class="last" nowrap="nowrap"><?php if($rsBiz["IsRead"] < 1){?><a href="?action=read&itemid=<?php echo $rsBiz["ItemID"] ?>">[处理]</a><?php } ?><a href="?action=del&itemid=<?php echo $rsBiz["ItemID"] ?>" onClick="if(!confirm('删除后不可恢复，继续吗？')){return false};">[删除]</a></td>
+            <td nowrap="nowrap"><?php echo $_Status[$rsBiz["status"]]; ?></td>
+            <td class="last" nowrap="nowrap">
+                <a href="./apply_detail.php?itemid=<?php echo $rsBiz["id"] ?>">[查看]</a>
+                <?php if($rsBiz["status"] < 2){?>
+                <a href="?action=read&itemid=<?php echo $rsBiz["id"] ?>">[通过]</a>
+                <?php } ?>
+                 <?php if($rsBiz["status"] == 1){?>
+                <a href="?action=back&itemid=<?php echo $rsBiz["id"] ?>">[驳回]</a>
+                <?php } ?>
+                <a href="?action=del&itemid=<?php echo $rsBiz["id"] ?>" onClick="if(!confirm('删除后不可恢复，继续吗？')){return false};">[删除]</a>
+            </td>
 
           </tr>
           <?php }?>
@@ -167,7 +193,7 @@ $_Status = array('<font style="color:#ff0000">未处理</font>','<font style="co
       </table>
       <div class="blank20"></div>
       <?php $DB->showPage(); ?>
-      <div style="background:#F7F7F7; border:1px #dddddd solid; height:40px; line-height:40px; font-size:12px; margin:10px 0px; padding-left:15px; color:#ff0000">提示：商家入驻地址 <a href="/api/<?php echo $_SESSION["Users_ID"];?>/biz_apply/" target="_blank">http://<?php echo $_SERVER['HTTP_HOST'];?>/api/<?php echo $_SESSION["Users_ID"];?>/biz_apply/</a></div>
+      <div style="background:#F7F7F7; border:1px #dddddd solid; height:40px; line-height:40px; font-size:12px; margin:10px 0px; padding-left:15px; color:#ff0000">提示：商家入驻地址 <a href="/biz/reg.php?usersid=<?php echo $_SESSION["Users_ID"];?>" target="_blank">http://<?php echo $_SERVER['HTTP_HOST'];?>/biz/reg.php?usersid=<?php echo $_SESSION["Users_ID"];?></a></div>
     </div>
   </div>
 </div>
