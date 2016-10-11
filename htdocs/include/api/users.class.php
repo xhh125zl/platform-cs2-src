@@ -34,4 +34,18 @@ class users extends base
 
     	return $result;
     }
+
+
+	/**
+	 * B2C忘记密码
+	 * @param array $data  ['Biz_Account' => $Biz_Account, Biz_PassWord => $Biz_PassWord]
+	 * return json
+	 */
+	static public function changePass($data)
+	{
+		$url = '/users/changeuserspasswd.html';
+		$result = self::request($url, 'post', $data);
+
+		return $result;
+	}
 }
