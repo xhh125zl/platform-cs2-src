@@ -7,7 +7,7 @@ require_once CMS_ROOT . '/include/helper/page.class.php';
 
 //获取订单
 function getOrders($Biz_Account, $page = 1, $orderID = '', $order_status){
-    $transfer = ['Biz_Account' => $Biz_Account, 'pageSize' => 2, 'Order_ID' => $orderID];
+    $transfer = ['Biz_Account' => $Biz_Account, 'pageSize' => 2, 'Order_ID' => $orderID, 'Order_Status' => $order_status];
     $res = ImplOrder::getOrders($transfer, $page);
     return $res;
 }
