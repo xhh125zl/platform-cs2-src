@@ -105,7 +105,7 @@ if ($sortMethod == 'asc') {
 $p = isset($_GET['p']) ? (int)$_GET['p'] : 1;
 if ($p < 1) $p = 1;
 
-$pageSize = 2;
+$pageSize = 4;
 $map = [];
 
 
