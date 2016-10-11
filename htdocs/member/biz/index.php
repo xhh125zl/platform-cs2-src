@@ -80,7 +80,7 @@ while($row = $DB->fetch_assoc()){
       <ul>
         <li class="cur"><a href="index.php">商家列表</a></li>
         <li><a href="group.php">商家分组</a></li>
-        <li><a href="apply.php">入驻申请列表</a></li>
+        <li><a href="apply.php">资质审核列表</a></li>
         <li><a href="apply_config.php">入驻设置</a></li>
       </ul>
     </div>
@@ -131,9 +131,10 @@ while($row = $DB->fetch_assoc()){
             <td width="10%" nowrap="nowrap">所属分组</td>
             <td width="7%" nowrap="nowrap">联系人</td>
             <td width="8%" nowrap="nowrap">联系电话</td>
-
+			<td width="12%" nowrap="nowrap">保证金</td>
             <td width="8%" nowrap="nowrap">添加时间</td>
             <td width="8%" nowrap="nowrap">发布自营产品功能过期时间</td>
+			<td width="10%" nowrap="nowrap">类型</td>
             <td width="6%" nowrap="nowrap">状态</td>
             <td width="8%" nowrap="nowrap" class="last">操作</td>
           </tr>
@@ -164,9 +165,11 @@ while($row = $DB->fetch_assoc()){
             <td><?php echo empty($groups[$rsBiz["Group_ID"]]["Group_Name"]) ? "" : $groups[$rsBiz["Group_ID"]]["Group_Name"]; ?></td>
             <td nowrap="nowrap"><?php echo $rsBiz['Biz_Contact']; ?></td>
             <td nowrap="nowrap"><?php echo $rsBiz["Biz_Phone"] ? $rsBiz["Biz_Phone"] : "暂无";?></td>
+			<td nowrap="nowrap"><?php echo $rsBiz["bond_free"] ?></td>
             <td nowrap="nowrap"><?php echo date("Y-m-d",$rsBiz["Biz_CreateTime"]) ?></td>
             <td nowrap="nowrap"><?=$rsBiz['Users_ExpiresTime'] == 0 ? '<span style="color:green;font-weight: bold;">无限期</span>' : ($rsBiz['Users_ExpiresTime'] > time() ? '<span style="font-weight: bold;color:#f00;">'.ceil(($rsBiz['Users_ExpiresTime'] - time()) / (3600 *24)).'天后</span>' : '<span style="color:#ccc;font-weight: bold">已到期</span>')?></td>
-            <td nowrap="nowrap"><?php echo $_Status[$rsBiz["Biz_Status"]]; ?></td>
+            <td nowrap="nowrap"><?php echo ($rsBiz["addtype"] == 1)?'后台添加':'注册'; ?></td>
+			<td nowrap="nowrap"><?php echo $_Status[$rsBiz["Biz_Status"]]; ?></td>
             <td class="last" nowrap="nowrap"><a href="edit.php?BizID=<?php echo $rsBiz["Biz_ID"] ?>"><img src="/static/member/images/ico/mod.gif" align="absmiddle" alt="修改" /></a> <a href="?action=del&BizID=<?php echo $rsBiz["Biz_ID"] ?>" onClick="if(!confirm('删除后不可恢复，继续吗？')){return false};"><img src="/static/member/images/ico/del.gif" align="absmiddle" alt="删除" /></a></td>
           </tr>
           <?php }?>

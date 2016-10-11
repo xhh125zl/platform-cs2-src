@@ -17,11 +17,17 @@ if($_POST){
 	$_POST['JieSuan'] = str_replace("'","&quot;",$_POST['JieSuan']);
 	$_POST['JieSuan'] = str_replace('>','&gt;',$_POST['JieSuan']);
 	$_POST['JieSuan'] = str_replace('<','&lt;',$_POST['JieSuan']);
+        
+        $_POST['bond_desc'] = str_replace('"','&quot;',$_POST['bond_desc']);
+	$_POST['bond_desc'] = str_replace("'","&quot;",$_POST['bond_desc']);
+	$_POST['bond_desc'] = str_replace('>','&gt;',$_POST['bond_desc']);
+	$_POST['bond_desc'] = str_replace('<','&lt;',$_POST['bond_desc']);
 	
 	$Data = array(
 		"BaoZhengJin"=>$_POST['BaoZhengJin'],
 		"NianFei"=>$_POST['NianFei'],
-		"JieSuan"=>$_POST['JieSuan']
+		"JieSuan"=>$_POST['JieSuan'],
+                "bond_desc"=>$_POST['bond_desc']
 	);
 		
 	$Flag=$DB->Set("biz_config",$Data,"where Users_ID='".$_SESSION["Users_ID"]."'");
@@ -89,6 +95,15 @@ KindEditor.ready(function(K) {
 		allowFileManager : true,
 	
 	});
+
+        K.create('textarea[name="bond_desc"]', {
+		themeType : 'simple',
+		filterMode : false,
+		uploadJson : '/member/upload_json.php?TableField=web_column&UsersID=<?php echo $_SESSION['Users_ID'];?>',
+		fileManagerJson : '/member/file_manager_json.php',
+		allowFileManager : true,
+	
+	});
 })
 </script>
 </head>
@@ -106,10 +121,9 @@ KindEditor.ready(function(K) {
     <script language="javascript">$(document).ready(biz_obj.group_edit);</script>
     <div class="r_nav">
       <ul>
-        <li><a href="index.php">商家列表</a></li>
-        <li><a href="group.php">商家分组</a></li>
-		<li><a href="apply.php">入驻申请列表</a></li>
-		<li class="cur"><a href="apply_config.php">入驻设置</a></li>
+	<li class="cur"><a href="apply_config.php">入驻描述设置</a></li>
+	<li class=""><a href="reg_config.php">注册页面设置</a></li>
+        <li class=""><a href="apply_other.php">年费设置</a></li>
       </ul>
     </div>
     <div id="products" class="r_con_wrap">
@@ -118,7 +132,7 @@ KindEditor.ready(function(K) {
       <form class="r_con_form" id="group_edit" method="post" action="?">
         
         <div class="rows">
-          <label>保证金</label>
+          <label>签署协议</label>
           <span class="input">
           <textarea class="ckeditor" name="BaoZhengJin" style="width:700px; height:300px;"><?php echo $item["BaoZhengJin"] ?></textarea>
           </span>
@@ -126,7 +140,7 @@ KindEditor.ready(function(K) {
         </div>
 		
 		<div class="rows">
-          <label>平台使用年费</label>
+          <label>商家入驻付款页面描述</label>
           <span class="input">
           <textarea class="ckeditor" name="NianFei" style="width:700px; height:300px;"><?php echo $item["NianFei"] ?></textarea>
           </span>
@@ -134,13 +148,19 @@ KindEditor.ready(function(K) {
         </div>
 		
 		<div class="rows">
-          <label>产品供货价结算</label>
+          <label>支付年费页面描述</label>
           <span class="input">
           <textarea class="ckeditor" name="JieSuan" style="width:700px; height:300px;"><?php echo $item["JieSuan"] ?></textarea>
           </span>
           <div class="clear"></div>
         </div>
-        
+        <div class="rows">
+          <label>追加保证金页面描述</label>
+          <span class="input">
+          <textarea class="ckeditor" name="bond_desc" style="width:700px; height:300px;"><?php !empty($item["bond_desc"])?$item["bond_desc"]:''; ?></textarea>
+          </span>
+          <div class="clear"></div>
+        </div>
         <div class="rows">
           <label></label>
           <span class="input">
