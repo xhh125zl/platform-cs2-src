@@ -43,4 +43,36 @@ class shopconfig extends base
         return $url;
 
     }
+	
+	/**
+     * 获取商家认证记录(数据在401)
+     * @param
+     * @return string
+     */
+	static public function getBizapply($data=[])
+    {
+        $url = '/bizapply/getbizapply.html';
+
+        $result = self::request($url, 'post', $data);
+
+        return $result;
+    }
+ 
+	/**
+     * 获取商家认证记录(数据在401)
+     * @param
+     * @return string
+     */
+	static public function updateBizapply($data=[])
+    {
+        $url = '/bizapply/updatebizapply.html';
+
+        $result = self::request($url, 'post', $data);
+
+        return $result;
+    }
+	
+
+	
+	
 }
