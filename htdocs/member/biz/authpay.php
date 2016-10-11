@@ -19,12 +19,7 @@ if(isset($_GET['search'])){
 	}
 }
 
-$biz_array = array();
-$DB->get("biz","Biz_ID,Biz_Account","where Users_ID='".$_SESSION["Users_ID"]."'");
-while ($r = $DB->fetch_assoc()) {
-    $biz_array[$r['Biz_ID']] = $r['Biz_Account']; 
-}
- 
+
 $condition .= " and type =1  order by addtime desc";
 
 $_Status = array(0=>'<font style="color:#ff0000">未付款</font>',1=>'<font style="color:blue">已付款</font>');
@@ -106,7 +101,7 @@ $_Status = array(0=>'<font style="color:#ff0000">未付款</font>',1=>'<font sty
           <tr>
             <td nowrap="nowrap"><?php echo $rsBiz["id"];?></td>
             
-            <td><?php echo !empty($biz_array[$rsBiz["biz_id"]])?$biz_array[$rsBiz["biz_id"]]:'商家不存在或已删除'; ?></td>
+            <td><?php echo !empty($rsBiz["Biz_Account"])?$rsBiz["Biz_Account"]:'商家不存在或已删除'; ?></td>
            
             <td><?php if($rsBiz['type']==1){echo '入驻订单';}elseif($rsBiz['type']==2){echo'年费订单';}elseif($rsBiz['type']==3){echo'保证金订单';}?></td>   
             <td nowrap="nowrap"><?php echo $rsBiz["bond_free"]?></td>

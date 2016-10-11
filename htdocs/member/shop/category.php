@@ -65,6 +65,7 @@ if(isset($_GET["action"])){
             <td width="50" align="center"><strong>排序</strong></td>
             <td width="100" align="center"><strong>显示方式</strong></td>
             <td align="center"><strong>类别名称</strong></td>
+            <td align="center"><strong>保证金</strong></td>
             <td width="60" align="center"><strong>操作</strong></td>
           </tr>
           <?php
@@ -82,6 +83,7 @@ foreach($ParentMenu as $key=>$value){
             <td>&nbsp;&nbsp;<?php echo $key; ?></td>
             <td align="center"><?php echo $ListType[$value["Category_ListTypeID"]]; ?></td>
             <td><?php echo $value["Category_Name"]; ?></td>
+            <td></td>
             <td align="center"><a href="category_edit.php?CategoryID=<?php echo $value["Category_ID"]; ?>" title="修改"><img src="/static/member/images/ico/mod.gif" align="absmiddle" /></a> <a href="category.php?action=del&CategoryID=<?php echo $value["Category_ID"]; ?>" title="删除" onClick="if(!confirm('删除后不可恢复，继续吗？')){return false};"><img src="/static/member/images/ico/del.gif" align="absmiddle" /></a></td>
           </tr>
           <?php
@@ -92,6 +94,7 @@ foreach($ParentMenu as $key=>$value){
             <td>&nbsp;&nbsp;<?php echo $key.'.'.$i; ?></td>
             <td align="center"><?php echo $ListType[$rsCategory["Category_ListTypeID"]]; ?></td>
             <td>└─<?php echo $rsCategory["Category_Name"]; ?></td>
+            <td><?php echo $rsCategory["Category_Bond"]; ?></td>
             <td align="center"><a href="category_edit.php?CategoryID=<?php echo $rsCategory["Category_ID"]; ?>" title="修改"><img src="/static/member/images/ico/mod.gif" align="absmiddle" /></a> <a href="category.php?action=del&CategoryID=<?php echo $rsCategory["Category_ID"]; ?>" title="删除" onClick="if(!confirm('删除后不可恢复，继续吗？')){return false};"><img src="/static/member/images/ico/del.gif" align="absmiddle" /></a></td>
           </tr>
           <?php $i++;

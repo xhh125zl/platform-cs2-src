@@ -4,7 +4,7 @@ if(empty($_SESSION["Users_Account"])){
 }
 require_once($_SERVER["DOCUMENT_ROOT"].'/include/helper/tools.php'); 
 require_once(CMS_ROOT . '/include/api/shopconfig.class.php'); 
-    
+require_once(CMS_ROOT . '/include/api/const.php');
     if(isset($_GET["action"])){
         if($_GET["action"]=="read"){
                 
@@ -137,13 +137,13 @@ require_once(CMS_ROOT . '/include/api/shopconfig.class.php');
         </div>
          
         <div class="group ">
-            <span class="l">法人身份证扫描件：</span><span><?php if(!empty($authinfo['compay_shenfenimg'])){?><a href='<?=$authinfo['compay_shenfenimg']?>' target="_blank"><img src="<?php echo $authinfo['compay_shenfenimg']?>"></a><?php } ?></span>
+            <span class="l">法人身份证扫描件：</span><span><?php if(!empty($authinfo['compay_shenfenimg'])){?><a href='<?=IMG_SERVER.$authinfo['compay_shenfenimg']?>' target="_blank"><img src="<?php echo IMG_SERVER.$authinfo['compay_shenfenimg']?>"></a><?php } ?></span>
         </div>
         <div class="group ">
-        	<span class="l">营业执照影印件：</span><span><?php if(!empty($authinfo['compay_licenseimg'])){?><a href='<?=$authinfo['compay_licenseimg']?>' target="_blank"><img src="<?php echo $authinfo['compay_licenseimg']?>"></a><?php } ?></span>
+        	<span class="l">营业执照影印件：</span><span><?php if(!empty($authinfo['compay_licenseimg'])){?><a href='<?=IMG_SERVER.$authinfo['compay_licenseimg']?>' target="_blank"><img src="<?php echo IMG_SERVER.$authinfo['compay_licenseimg']?>"></a><?php } ?></span>
         </div>
         <div class="group ">
-        	<span class="l">税务登记证扫描件：</span><span><?php if(!empty($authinfo['compay_shuiwuimg'])){?><a href='<?=$authinfo['compay_shuiwuimg']?>' target="_blank"><img src="<?php echo $authinfo['compay_shuiwuimg']?>"></a><?php } ?></span>
+        	<span class="l">税务登记证扫描件：</span><span><?php if(!empty($authinfo['compay_shuiwuimg'])){?><a href='<?=IMG_SERVER.$authinfo['compay_shuiwuimg']?>' target="_blank"><img src="<?php echo IMG_SERVER.$authinfo['compay_shuiwuimg']?>"></a><?php } ?></span>
         </div>
 <?php }else{?>        
         <div class="group ">
@@ -155,7 +155,7 @@ require_once(CMS_ROOT . '/include/api/shopconfig.class.php');
          
         <div class="group ">
             <span class="l">身份证扫描件：</span><span>
-                <?php if(!empty($authinfo['per_shenfenimg'])){?><a href='<?=$authinfo['per_shenfenimg']?>' target="_blank"><img src="<?php echo !empty($authinfo['per_shenfenimg'])?$authinfo['per_shenfenimg']:''?>"></a><?php } ?></span>
+                <?php if(!empty($authinfo['per_shenfenimg'])){?><a href='<?=IMG_SERVER.$authinfo['per_shenfenimg']?>' target="_blank"><img src="<?php echo !empty($authinfo['per_shenfenimg'])?IMG_SERVER.$authinfo['per_shenfenimg']:''?>"></a><?php } ?></span>
         </div>
 <?php } ?>        
     </div>
