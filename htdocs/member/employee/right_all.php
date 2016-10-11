@@ -59,8 +59,14 @@ $rmenu['biz']=array(
 	'biz' => '商家管理',
 	'index' => '商家列表',
 	'group' => '商家分组',
-	'apply' => '入驻申请列表',
-	'apply_config' => '入驻设置'
+	'apply_config' => '入驻描述设置',
+	'reg_config' => '注册页面设置',
+    'apply_other' => '年费设置',
+	'apply' => '入驻资质审核列表',
+    'authpay' => '入驻支付列表',
+    'chargepay' => '续费支付列表',
+    'bond_back' => '保证金退款',
+    'article_man' => '文章管理'
 );
 
 $rmenu["order"] = array(
@@ -238,6 +244,25 @@ $rmenusub["biz_group"] = array(
 	'group_add' => '添加商家分组',
 	'group_edit' => '修改商家分组'
 );
+//文章管理
+$rmenusub["biz_article_man"] = array(
+	'article_add' => '添加文章',
+	'article_edit' => '修改文章',
+        'articlecate_man' => '分类管理',
+        'articles_category_add' => '分类增加',
+        'articles_category_edit' => '分类修改'
+);
+$rmenusub["biz_apply_config"] = array(
+	'apply_other' => '年费设置',
+	 
+);
+$rmenusub["biz_bond_back"] = array(
+	'back_detail' => '保证金退款查看',	 
+);
+$rmenusub["biz_apply"] = array(
+	'apply_detail' => '资质查看',	 
+);
+
 //文章管理
 $rmenusub["art_articles"] = array(
 	'article_add' => '添加文章',

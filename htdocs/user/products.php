@@ -105,7 +105,7 @@ if ($sortMethod == 'asc') {
 $p = isset($_GET['p']) ? (int)$_GET['p'] : 1;
 if ($p < 1) $p = 1;
 
-$pageSize = 2;
+$pageSize = 4;
 $map = [];
 
 
@@ -378,7 +378,7 @@ if (count($infolist) > 0)        	 {
 <div id="pagemore">
 <?php
 if ($return['page']['hasNextPage'] == 'true') {
-    echo '<a href="javascript:;" data-next-pageno="2">点击加载更多...</a>';    
+    echo '<a href="javascript:;" data-next-pageno="2">正在加载中...</a>';    
 } else {
     echo '已经没有了...';
 }
@@ -387,12 +387,21 @@ if ($return['page']['hasNextPage'] == 'true') {
 <script type="text/javascript">
 $(function(){
 	//加载更多
+    var last_pageno = 1;
 	$("#pagemore a").click(function(){
         var totalPage = <?php echo $totalPage;?>;
         var state = "<?php echo $state;?>"
 		var sortby = '<?php echo $sortby?>';
 		var sortMethod = '<?php echo $sortMethod?>';
 		var pageno = $(this).attr('data-next-pageno');
+
+        //防止一页多次加载
+        if (pageno == last_pageno) {
+            return false;
+        } else {
+            last_pageno = pageno;
+        }
+        
 		var url = 'admin.php?act=products&state=' + state + '&sortby=' + sortby + "&sortMethod=" + sortMethod + '&p=' + pageno;
 
         var nextPageno = parseInt(pageno);
@@ -413,6 +422,25 @@ $(function(){
 			}
 		},'json')
 	})
+	
+
+    //瀑布流加载翻页
+	$(window).bind('scroll',function () {
+		// 当滚动到最底部以上100像素时， 加载新内容
+		if ($(document).height() - $(this).scrollTop() - $(this).height() < 100) {
+			//已无数据可加载
+			if ($("#pagemore").html() == '已经没有了...') {
+				return false;
+			} else {
+                console.log('click');
+                //模拟点击
+                $("#pagemore a").trigger('click');
+            }
+
+
+
+		}
+	});    
 
     var url = '?act=products&ajax=1';
 	//下架
@@ -508,6 +536,7 @@ $(function(){
 
 
 })	
+
 </script>
 <!--//点击加载更多 -->    
     <div class="clear"></div>
