@@ -3,6 +3,7 @@ define('USER_PATH', dirname(__FILE__) . '/');
 
 include USER_PATH . '../Framework/Conn.php';
 require_once CMS_ROOT . '/include/helper/tools.php';
+require_once CMS_ROOT . '/include/api/users.class.php';
 
 $inajax = isset($_GET['inajax']) ? (int)$_GET['inajax'] : 0;
 
@@ -108,13 +109,27 @@ if ($inajax == 1) {
         $data = [
             "Biz_PassWord" => md5($password),
         ];
-        $DB->Set("biz", $data, "WHERE Biz_Phone='" . $mobile . "'");
+        $bizAccount = $DB->GetRs('biz', 'Biz_Account', "where Biz_Phone = '". $mobile ."'")['Biz_Account'];
+        $transData = ['Biz_Account' => $bizAccount, 'Biz_PassWord' => md5($password)];
+        $resArr = users::changePass($transData);
+        if ($resArr['errorCode'] == 0) {
+            $flag = $DB->Set("biz", $data, "WHERE Biz_Phone='" . $mobile . "'");
+        } else {
+            $flag = false;
+        }
 
-        $Data=array(
-            "status" => 1,
-            "msg" => "修改密码成功，请使用新密码登录！",
-            "url" => '/user/login.php',
-        );
+        if ($flag) {
+            $Data=array(
+                "status" => 1,
+                "msg" => "修改密码成功，请使用新密码登录！",
+                "url" => '/user/login.php',
+            );
+        } else {
+            $Data=array(
+                "status" => 0,
+                "msg" => "修改密码失败,请重试！",
+            );
+        }
 
         
         echo json_encode($Data,JSON_UNESCAPED_UNICODE);
