@@ -47,7 +47,10 @@ $actionArr = [
 	'distribute_oneLevel',
 	'distribute_twoLevel',
 	'distribute_threeLevel',
-	'distribute_detail'
+	'distribute_detail',
+	'basic_1',
+	'basic_2',
+	'basic_3',
 ];
 
 if (! in_array($act, $actionArr)) {
