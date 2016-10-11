@@ -2,36 +2,39 @@
 if(empty($_SESSION["Users_Account"])){
 	header("location:/member/login.php");
 }
-
+require_once($_SERVER["DOCUMENT_ROOT"].'/include/helper/tools.php'); 
+require_once(CMS_ROOT . '/include/api/shopconfig.class.php'); 
     
     if(isset($_GET["action"])){
         if($_GET["action"]=="read"){
                 
                 mysql_query("BEGIN");
-		$Flag = $DB->Set("biz_apply",array("status"=>2),"where Users_ID='".$_SESSION["Users_ID"]."' and id=".$_GET["apply_id"]);
-                
-                $BizInfo = $DB->GetRS('biz_apply','*','WHERE id = '.$_GET["apply_id"]); 
-                
-                $Flag_a = $DB->Set("biz",array("is_auth"=>2),"where Users_ID='".$_SESSION["Users_ID"]."' and Biz_ID=".$BizInfo["Biz_ID"]);
+		
+		$Biz_Account = $_GET["Biz_Account"];	
+		$Flag = shopconfig::updateBizapply(['Biz_Account'=>$Biz_Account,'bizApplyData'=>array('status'=>2)]);		
+          
+        $Flag_a = $DB->Set("biz",array("is_auth"=>2),"where Biz_Account='".$Biz_Account."'");
 		if($Flag && $Flag_a)
 		{
                     mysql_query('commit');
-                   // echo '<script language="javascript">alert("审核成功");window.location="'.$_SERVER['HTTP_REFERER'].'";</script>';
+                 
                     $data = array('status'=>1,'info'=>'审核成功');
 		}else
 		{
                    mysql_query("ROLLBACK");
-			//echo '<script language="javascript">alert("审核失败");history.back();</script>';
+		
                    $data = array('status'=>0,'info'=>'审核失败');
 		}
                 echo json_encode($data,JSON_UNESCAPED_UNICODE);
-                //echo json_encode($data);
+              
 		exit;
 	}
     } else {
-        $id = $_GET['itemid'];
-        $BizInfo = $DB->GetRS('biz_apply','*','WHERE id = '.$id); 
-        
+        $Biz_Account = $_GET['itemid'];
+		
+		$BizRes = shopconfig::getBizapply(['Biz_Account'=>$Biz_Account]);
+		$BizInfo = $BizRes['data'][0];
+
         $baseinfo = json_decode($BizInfo['baseinfo'],true);
         $authinfo = json_decode($BizInfo['authinfo'],true);
         $accountinfo = json_decode($BizInfo['accountinfo'],true);
@@ -188,7 +191,7 @@ if(empty($_SESSION["Users_Account"])){
     </div>
     <div style="margin-bottom:30px;">
         <?php if ($BizInfo['status'] !=2 ){ ?>
-        <button id="btn" item="<?php echo $BizInfo["id"] ?>" class="btn_xx">通过 </button>
+        <button id="btn" item="<?php echo $BizInfo["Biz_Account"] ?>" class="btn_xx">通过 </button>
         <?php } ?>
         <!--<button class="btn_x1">驳回 </button>-->
         <a style="cursor:hand;" href="apply.php"><button class="btn_x1" href="javascript:void(0)">返回</button></a>
@@ -201,7 +204,7 @@ if(empty($_SESSION["Users_Account"])){
     <script>
     $("#btn").click(function(){
         var apply_id = $("#btn").attr('item');
-        $.get('?',{apply_id:apply_id,action:'read'},function(data){
+        $.get('?',{Biz_Account:apply_id,action:'read'},function(data){
             alert(data.info);
             if (data.status == 1) {
                 window.location = 'apply.php';

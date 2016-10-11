@@ -245,6 +245,25 @@ $rmenusub["biz_group"] = array(
 	'group_edit' => '修改商家分组'
 );
 //文章管理
+$rmenusub["biz_article_man"] = array(
+	'article_add' => '添加文章',
+	'article_edit' => '修改文章',
+        'articlecate_man' => '分类管理',
+        'articles_category_add' => '分类增加',
+        'articles_category_edit' => '分类修改'
+);
+$rmenusub["biz_apply_config"] = array(
+	'apply_other' => '年费设置',
+	 
+);
+$rmenusub["biz_bond_back"] = array(
+	'back_detail' => '保证金退款查看',	 
+);
+$rmenusub["biz_apply"] = array(
+	'apply_detail' => '资质查看',	 
+);
+
+//文章管理
 $rmenusub["art_articles"] = array(
 	'article_add' => '添加文章',
 	'article_edit' => '修改文章'

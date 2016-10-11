@@ -2,18 +2,19 @@
 if(empty($_SESSION["Users_Account"])){
 	header("location:/member/login.php");
 }
- 
- 
+require_once($_SERVER["DOCUMENT_ROOT"].'/include/helper/tools.php'); 
+require_once(CMS_ROOT . '/include/api/shopconfig.class.php'); 
 if(isset($_GET["action"])){
 	if($_GET["action"]=="del"){
-		//$Flag=$DB->Del("biz_apply","Users_ID='".$_SESSION["Users_ID"]."' and id=".$_GET["itemid"]);
+ 
                 mysql_query("BEGIN");
-                $Flag=$DB->Set("biz_apply",array("is_del"=>0,"status"=>-1),"where Users_ID='".$_SESSION["Users_ID"]."' and id=".$_GET["itemid"]);
-                $BizInfo = $DB->GetRS('biz_apply','*','WHERE id = '.$_GET['itemid']); 
-                $Flag_a = $DB->Set("biz",array("is_auth"=>-1),"where Users_ID='".$_SESSION["Users_ID"]."' and Biz_ID=".$BizInfo["Biz_ID"]);
+				$Biz_Account = $_GET["Biz_Account"];	
+				$Flag = shopconfig::updateBizapply(['Biz_Account'=>$Biz_Account,'bizApplyData'=>array("is_del"=>0,'status'=>-1)]);		
+				$Flag_a = $DB->Set("biz",array("is_auth"=>-1),"where Biz_Account='".$Biz_Account."'");
+                 
 		if($Flag && $Flag_a)
 		{
-                    mysql_query('commit');
+            mysql_query('commit');
 			echo '<script language="javascript">alert("删除成功");window.location="'.$_SERVER['HTTP_REFERER'].'";</script>';
 		}else
 		{
@@ -24,10 +25,11 @@ if(isset($_GET["action"])){
 	}
 	
 	if($_GET["action"]=="read"){
-                mysql_query("BEGIN");
-		$Flag = $DB->Set("biz_apply",array("status"=>2),"where Users_ID='".$_SESSION["Users_ID"]."' and id=".$_GET["itemid"]);
-                $BizInfo = $DB->GetRS('biz_apply','*','WHERE id = '.$_GET['itemid']); 
-                $Flag_a = $DB->Set("biz",array("is_auth"=>2),"where Users_ID='".$_SESSION["Users_ID"]."' and Biz_ID=".$BizInfo["Biz_ID"]);
+        mysql_query("BEGIN");
+		
+		$Biz_Account = $_GET["Biz_Account"];	
+		$Flag = shopconfig::updateBizapply(['Biz_Account'=>$Biz_Account,'bizApplyData'=>array('status'=>2)]);		
+		$Flag_a = $DB->Set("biz",array("is_auth"=>2),"where Biz_Account='".$Biz_Account."'");		
 		if($Flag && $Flag_a)
 		{
                     mysql_query('commit');
@@ -39,11 +41,12 @@ if(isset($_GET["action"])){
 		}
 		exit;
 	}
-        if($_GET["action"]=="back"){
-                mysql_query("BEGIN");
-		$Flag=$DB->Set("biz_apply",array("status"=>-1),"where Users_ID='".$_SESSION["Users_ID"]."' and id=".$_GET["itemid"]);
-                $BizInfo = $DB->GetRS('biz_apply','*','WHERE id = '.$_GET['itemid']); 
-		$Flag_a = $DB->Set("biz",array("is_auth"=>-1),"where Users_ID='".$_SESSION["Users_ID"]."' and Biz_ID=".$BizInfo["Biz_ID"]);
+    if($_GET["action"]=="back"){
+        mysql_query("BEGIN");
+		
+		$Biz_Account = $_GET["Biz_Account"];	
+		$Flag = shopconfig::updateBizapply(['Biz_Account'=>$Biz_Account,'bizApplyData'=>array('status'=>-1)]);		
+		$Flag_a = $DB->Set("biz",array("is_auth"=>-1),"where Biz_Account='".$Biz_Account."'");		
 		if($Flag && $Flag_a)
 		{   
                      mysql_query('commit');
@@ -73,21 +76,7 @@ if(isset($_GET['search'])){
 }
 
 
-/*$salesman_array = array();
-$is_salesman_array = array();
-$DB->Get("distribute_account","Real_Name,Invitation_Code,Is_Salesman","where Users_ID='".$_SESSION["Users_ID"]."' and Is_Salesman=1 and Invitation_Code <> ''");
-while($row = $DB->fetch_assoc()){
-    if (!empty($row['Invitation_Code'])){
-        $salesman_array[$row['Invitation_Code']] = $row['Real_Name'];
-	$is_salesman_array[$row['Invitation_Code']] = $row['Is_Salesman'];
-    }
-}*/
 
-/*$shop_cate = array();
-$DB->get("shop_category","Category_ID,Category_Name","where Users_ID='".$_SESSION["Users_ID"]."'");
-while ($r = $DB->fetch_assoc()) {
-    $shop_cate[$r['Category_ID']] = $r['Category_Name']; 
-}*/
 $biz_array = array();
 $DB->get("biz","Biz_ID,Biz_Account","where Users_ID='".$_SESSION["Users_ID"]."'");
 while ($r = $DB->fetch_assoc()) {
@@ -159,12 +148,10 @@ $_Status = array(1=>'<font style="color:#ff0000">未审核</font>',2=>'<font sty
         </thead>
         <tbody>
         <?php 
-		  $lists = array();
-		  $DB->getPage("biz_apply","*",$condition,10);
+	 
+		$apply_res = shopconfig::getBizapply(['pageSize'=>10]);
+		$lists = !empty($apply_res['data'])?$apply_res['data']:array();	
 		  
-		  while($r=$DB->fetch_assoc()){
-			  $lists[] = $r;
-		  }
 		  foreach($lists as $k=>$rsBiz){
 		?>
               
@@ -177,14 +164,14 @@ $_Status = array(1=>'<font style="color:#ff0000">未审核</font>',2=>'<font sty
             <td nowrap="nowrap"><?php echo date("Y-m-d H:i:s",$rsBiz["CreateTime"]) ?></td>
             <td nowrap="nowrap"><?php echo $_Status[$rsBiz["status"]]; ?></td>
             <td class="last" nowrap="nowrap">
-                <a href="./apply_detail.php?itemid=<?php echo $rsBiz["id"] ?>">[查看]</a>
+                <a href="./apply_detail.php?itemid=<?php echo $rsBiz["Biz_Account"] ?>">[查看]</a>
                 <?php if($rsBiz["status"] < 2){?>
-                <a href="?action=read&itemid=<?php echo $rsBiz["id"] ?>">[通过]</a>
+                <a href="?action=read&Biz_Account=<?php echo $rsBiz["Biz_Account"] ?>">[通过]</a>
                 <?php } ?>
                  <?php if($rsBiz["status"] == 1){?>
-                <a href="?action=back&itemid=<?php echo $rsBiz["id"] ?>">[驳回]</a>
+                <a href="?action=back&Biz_Account=<?php echo $rsBiz["Biz_Account"] ?>">[驳回]</a>
                 <?php } ?>
-                <a href="?action=del&itemid=<?php echo $rsBiz["id"] ?>" onClick="if(!confirm('删除后不可恢复，继续吗？')){return false};">[删除]</a>
+                <a href="?action=del&Biz_Account=<?php echo $rsBiz["Biz_Account"] ?>" onClick="if(!confirm('删除后不可恢复，继续吗？')){return false};">[删除]</a>
             </td>
 
           </tr>
