@@ -180,6 +180,7 @@ if ($ret['errorCode'] != 0) {
 		$data = [
 			'Users_ID' => $Users_ID,
 			'Biz_Account' => $Account,
+			'Biz_Name' => $Account,
 			'Biz_PassWord' => md5($password),
 			'Biz_Phone' => $mobile,
 			'Biz_CreateTime' => $time,
@@ -247,7 +248,7 @@ if ($ret['errorCode'] != 0) {
 	<p class="login_title">注册</p>
     <div class="login_box">
 	<form id="user_form" name="user_form">
-	<input type="tel" name="Account" id="Account" value="" maxlength="11" class="reg_x" placeholder="请输入登录名">
+	<input type="tel" name="Account" id="Account" value="" maxlength="11" class="reg_x" placeholder="请输入用户名">
 
     	<input type="password" name="Password" id="Password" value="" maxlength="11" class="reg_x1" placeholder="登录密码" maxlength="16">
         <input type="password" name="ConfirmPassword" id="ConfirmPassword" value="" maxlength="16" class="reg_x1" placeholder="确认登录密码">
@@ -321,7 +322,7 @@ $(function(){
 		var Account=$('#user_form input[name=Account]').val();
 		if(Account=='' || Account.length<3){
 			layer.open({
-				content:'请填写登录名,至少三个字符！',
+				content:'请填写用户名,至少三个字符！',
 				time:2,
 				end:function(){
 					$('input[name=Account]').focus();
