@@ -61,7 +61,7 @@ $config = $result['data'];
         	<a><?php echo $config['ShopName'];?></a>
             <p><span><i>V</i></span><span style=" background:#0292d4; padding:0px 5px; border-top-right-radius:3px;border-bottom-right-radius:3px;">已认证</span></p>
         </span>
-        <span class="head_pho l" style=" padding-left:30px"><a><i class="fa  fa-eye fa-x" aria-hidden="true"></i></a><br>预览</span>       
+        <span class="head_pho l" style=" padding-left:30px"><a id="previewShop" style="color:#fff"><i class="fa  fa-eye fa-x" aria-hidden="true"></i><br>预览</a></span>       
     </div>
 
     <div  class="clear"></div>
@@ -192,8 +192,8 @@ $(function(){
 
     //店铺预览
     $("#previewShop").click(function(){
-        var shopurl = '<?php echo SHOP_URL . '/api/' . $UsersID . '/shop/' ?>';
-        location.href = shopurl;
+        //var shopurl = '<?php echo SHOP_URL . '/api/' . $UsersID . '/shop/' ?>';
+        //location.href = shopurl;
 
     })
 
