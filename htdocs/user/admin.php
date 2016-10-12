@@ -45,7 +45,10 @@ $actionArr = [
 	'msg_distribute',
 	'msg_withdraw',
 	'msg_setting',
-	'msg_detail'
+	'msg_detail',
+	'basic_1',
+	'basic_2',
+	'basic_3',
 ];
 
 if (! in_array($act, $actionArr)) {

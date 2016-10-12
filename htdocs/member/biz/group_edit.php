@@ -53,7 +53,7 @@ if($_POST){
         <div class="rows">
           <label>分组名称</label>
           <span class="input">
-          <input type="text" name="Name" value="<?php echo $Group_Name;?>" class="form_input" size="35" maxlength="50" notnull />
+          <input type="text" name="Name" value="<?php echo $Group_Name;?>" <?php if($is_default == 1){ echo 'Readonly';}?> style="<?php if($is_default == 1){ echo 'border:1px';}?>" class="form_input" size="35" maxlength="50" notnull />
           <font class="fc_red">*</font></span>
           <div class="clear"></div>
         </div>
@@ -61,7 +61,7 @@ if($_POST){
         <div class="rows">
           <label>分组排序</label>
           <span class="input">
-          <input type="text" name="Index" value="<?php echo $Group_Index;?>" class="form_input" size="10" />
+          <input type="text" name="Index" value="<?php echo $Group_Index;?>" class="form_input" size="10" notnull />
           <font class="fc_red">*</font></span>
           <div class="clear"></div>
         </div>
@@ -77,7 +77,7 @@ if($_POST){
         <div class="rows">
           <label></label>
           <span class="input">
-          <input type="submit" class="btn_green" name="submit_button" value="提交保存" /></span>
+          <input type="button" class="btn_green" name="submit_button" value="提交保存" /></span>
           <div class="clear"></div>
         </div>
       </form>
@@ -86,3 +86,18 @@ if($_POST){
 </div>
 </body>
 </html>
+<script type="text/javascript">
+	$(".btn_green").click(function(){
+		if(global_obj.check_form($('*[notnull]'))){return false;};		
+
+		var re = /^(\+|-)?\d+$/;			
+		var Index = $("input[name='Index']").val();			
+		if(!re.test(Index) || Index < 0){
+			alert('排序必须是整数！');
+			return false;
+		}			
+		$('#group_edit').submit();
+		
+	});
+		
+</script>

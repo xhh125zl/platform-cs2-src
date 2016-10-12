@@ -21,13 +21,14 @@ if ($inajax == 1) {
             echo json_encode($result);
             exit();
         }
-
-        if (is_mobile($account)) {
-            $rsBiz=$DB->GetRs("biz","*","where Biz_Phone='" . $_POST["Account"] . "' and Biz_PassWord='" . md5($_POST["Password"]) . "'");
-        } else {
-            $rsBiz=$DB->GetRs("biz","*","where Biz_Account='" . $_POST["Account"] . "' and Biz_PassWord='" . md5($_POST["Password"]) . "'");
+        $condition = "";
+        if(preg_match("/^1[34578]{1}\d{9}$/",$account)){  
+            $condition = "Biz_Phone = '" . addslashes($_POST["Account"]) . "'";
+        }else{  
+            $condition = "Biz_Account= '" . addslashes($_POST["Account"]) . "'";
         }
-        
+
+        $rsBiz=$DB->GetRs("biz","*","where " .  $condition . " and Biz_PassWord='" . md5($_POST["Password"]) . "'");
         if ($rsBiz) {
             if ($rsBiz["Biz_Status"] == 1) {
                 $result =  [
@@ -107,19 +108,6 @@ if (isset($_GET['do']) && $_GET['do'] == 'logout') {
 <script type="text/javascript">
 $(function(){
     $(".login_sub").click(function(){
-        var account = $("#Account").val();
-        var password = $("#Password").val();
-
-        if (account == '' || password == '') {
-            layer.open({
-                content: "用户名和登录密码不能为空", 
-                time:2, 
-                end:function(){
-                   
-                }
-            })   
-        }
-
         $(this).attr('disabled', true).val('登录中');
         $.post('?do=login&inajax=1', $("#form1").serialize(), function(json) {
             if (json.status == '0') {

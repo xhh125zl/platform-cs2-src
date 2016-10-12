@@ -30,10 +30,18 @@ if ($_POST) {
             exit();
         }
     }
-    
+    if (isset($_POST['bond_free'])) {
+		if (!is_numeric($_POST['bond_free'])) {
+			echo '<script language="javascript">alert("保证金必须是数字");history.back();</script>';
+            exit();
+		}
+		
+	}
     $_POST['Introduce'] = htmlspecialchars($_POST['Introduce'], ENT_QUOTES);
     $Data = array(
         "Biz_Name" => $_POST['Name'],
+		"bond_free"=>empty($_POST['bond_free'])?'0':trim($_POST['bond_free']),
+		"expiredate"=>empty($_POST['expiredate'])?'0':strtotime($_POST['expiredate']),
         "Biz_Address" => $_POST['Address'],
         "Biz_Homepage" => $_POST['Homepage'],
         "Biz_Introduce" => $_POST['Introduce'],
@@ -48,23 +56,12 @@ if ($_POST) {
         "PaymenteRate" => empty($_POST["PaymenteRate"]) ? 100 : $_POST["PaymenteRate"],
         "Biz_Logo" => $_POST['LogoPath'],
         "Invitation_Code" => isset($_POST['Invitation_Code']) ? trim($_POST['Invitation_Code']) : ''
-    );
+    )
+    ;
     
     if ($password) {
         $Data["Biz_PassWord"] = md5($password);
     }
-	if (isset($_POST['expiresTime']) &&strlen($_POST['expiresTime']) > 0) {
-		if ($rsBiz['Users_ExpiresTime'] > 0) {
-			if ($rsBiz['Users_ExpiresTime'] > time()) {
-				$expiresTime = intval($_POST['expiresTime'])*3600*24 + $rsBiz['Users_ExpiresTime'];
-			}else{
-				$expiresTime = intval($_POST['expiresTime'])*3600*24 + time();
-			}
-		}else{
-			$expiresTime = intval($_POST['expiresTime'])*3600*24 + time();
-		}
-		$Data['Users_ExpiresTime'] = $expiresTime;
-	}
     $Flag = $DB->Set("biz", $Data, "where Biz_ID=" . $BizID);
     if ($Flag) {
         if ($_POST["FinanceType"] == 0) {
@@ -103,9 +100,6 @@ if ($_POST) {
     while ($r = $DB->Fetch_assoc()) {
         $groups[$r["Group_ID"]] = $r;
     }
-
-	$shopConfig = $DB->GetRs('shop_config', '*', "where Users_ID='" . $_SESSION["Users_ID"] . "'");
-	$need_charge = $shopConfig['Users_PayCharge'] > 0 ? 1 : 0;
 }
 ?>
 <!DOCTYPE HTML>
@@ -124,6 +118,7 @@ if ($_POST) {
 	src="/third_party/kindeditor/kindeditor-min.js"></script>
 <script type='text/javascript'
 	src="/third_party/kindeditor/lang/zh_CN.js"></script>
+	<script type='text/javascript' src='/static/js/plugin/My97DatePicker/WdatePicker.js'></script>
 <script>
 KindEditor.ready(function(K) {
 	K.create('textarea[name="Introduce"]', {
@@ -219,6 +214,20 @@ KindEditor.ready(function(K) {
           </select> <font class="fc_red">*</font></span>
 						<div class="clear"></div>
 					</div>
+					<div class="rows">
+          <label>到期时间</label>
+         <span class="input">
+          <input type="text" name="expiredate" value="<?php echo date('Y-m-d',$rsBiz["expiredate"])?>" class="form_input" onfocus="WdatePicker({minDate:''})" size="35" maxlength="50" notnull />
+          <font class="fc_red">*</font></span>
+          <div class="clear"></div>
+        </div>
+		<div class="rows">
+          <label>保证金</label>
+         <span class="input">
+          <input type="text" name="bond_free" value="<?php echo $rsBiz["bond_free"];?>" class="form_input" size="35" maxlength="50" notnull />
+          <font class="fc_red">*</font></span>
+          <div class="clear"></div>
+        </div>
 					<div class="rows">
 						<label>商家名称</label> <span class="input"> <input type="text"
 							name="Name" value="<?php echo $rsBiz["Biz_Name"];?>"
@@ -341,24 +350,6 @@ KindEditor.ready(function(K) {
 						</span>
 						<div class="clear"></div>
 					</div>
-
-					<div class="rows">
-						<label>修改到期时间</label>
-						<?
-							if ($need_charge == 1) {
-								?>
-								<span class="input"><input type="text"
-														   style="width: 150px;height:30px;line-height: 30px;margin-top: 3px;border-radius: 3px;margin-left: 10px;"
-														   name="expiresTime" placeholder="修改到期时间"/>*请输入要修改的时间,单位为天,加1天则输入1,减一天则输入-1,当前用户到期时间为<?= $rsBiz['Users_ExpiresTime'] == 0 ? '<span style="color:green;font-weight: bold;">无限期</span>' : ($rsBiz['Users_ExpiresTime'] > time() ? '<span style="font-weight: bold;color:#f00;">' . ceil(($rsBiz['Users_ExpiresTime'] - time()) / (3600 * 24)) . '天后</span>' : '<span style="color:#ccc;font-weight: bold">已到期</span>') ?></span>
-								<?
-							}else{
-						?>
-							<span class="input" style="color:#f00;">您尚未对商家收费，如需开通收费功能请在商城设置-基本设置右上方修改收费金额</span>
-						<?}?>
-						<div class="clear"></div>
-					</div>
-
-
 					<div class="rows">
 						<label></label> <span class="input"> <input type="submit"
 							class="btn_green" name="submit_button" value="提交保存" /></span>

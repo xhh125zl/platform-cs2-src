@@ -167,14 +167,14 @@ $(document).ready(shop_obj.pay_shipping_config_init);
                     </dl>
                   </li>
                   <li>
-                    <h1>商派天工<span>
+                    <h1>易极付<span>
                       <input type="checkbox" value="1" id="check_4" name="PaymentTeegonEnabled"<?php echo empty($rsConfig["PaymentTeegonEnabled"])?"":" checked"; ?>  onclick="show_pay_ment(4);"/>
                       启用 <a href="https://charging.teegon.com/domain/2aa40378/charging/api" target="_blank">申请</a></span></h1>
                     <dl id="pay_4" style="display:<?php echo $rsConfig["PaymentTeegonEnabled"] ? 'block' : 'none';?>">
-                      <dd>Client ID：
+                      <dd>商户Id：
                         <input type="text" name="PaymentTeegonClientID" value="<?php echo $rsConfig["PaymentTeegonClientID"]; ?>" maxlength="40" />
                       </dd>
-                      <dd>Client Secret：
+                      <dd>安全密钥：
                         <input type="text" name="PaymentTeegonClientSecret" value="<?php echo $rsConfig["PaymentTeegonClientSecret"]; ?>" maxlength="40" />
                       </dd>
                     </dl>
