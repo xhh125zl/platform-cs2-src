@@ -1,0 +1,1 @@
+﻿alter table biz_group add is_default TinyInt(1) DEFAULT 0 COMMENT '是否默认分组' after Group_IsStore;
