@@ -40,9 +40,8 @@ if ($inajax == 1) {
                 'ShopLogo' =>$result['msg']
             ]
         ];
-
-        $result = shopconfig::updatecolumn($data);
-        echo json_encode($result);
+        $resultShop = shopconfig::updatecolumn($data);
+        echo json_encode($resultShop);
         exit;
     }
     

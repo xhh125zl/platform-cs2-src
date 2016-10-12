@@ -600,11 +600,11 @@ function insertRow(){
             <dt><input type="checkbox" rel="1" name="Category[<?php echo $items["Category_ID"];?>][]" value="<?php echo $items["Category_ID"];?>"<?php echo in_array($items["Category_ID"],$Categorys) ? ' checked' : '';?>/> <qq544731308><?php echo $items["Category_Name"];?></qq544731308></dt>
             <dd>
             <?php
-			if(!empty($items["child"])){
-                foreach($items["child"] as $second=>$item){
-                    echo '<span><input type="checkbox" rel="0" name="Category['.$items["Category_ID"].'][]" value="'.$item["Category_ID"].'"'.(in_array($item["Category_ID"],$Categorys) ? ' checked' : '').' /> <qq544731308son>'.$item["Category_Name"].'</qq544731308son></span>';
-                }
-			}
+            if(!empty($items["child"])){
+                      foreach($items["child"] as $second=>$item){
+                          echo '<span><input type="checkbox" rel="0" name="Category['.$items["Category_ID"].'][]" value="'.$item["Category_ID"].'"'.(in_array($item["Category_ID"],$Categorys) ? ' checked' : '').' /> <qq544731308son>'.$item["Category_Name"].'</qq544731308son></span>';
+                      }
+            }
             ?>
             </dd>
             <?php }?>
