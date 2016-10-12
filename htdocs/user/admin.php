@@ -40,7 +40,6 @@ $actionArr = [
 	'financial_analysis',
 	'distribute_list',
 	'distribute_detail',
-	//'msg_list',
 	'msg_system',
 	'msg_order',
 	'msg_distribute',
