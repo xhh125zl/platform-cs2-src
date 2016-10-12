@@ -40,18 +40,19 @@ input[type=button], input[type=submit], input[type=file], button { cursor: point
 .foot_nav ul li{ width:33.3%; float:left; line-height:50px; text-align:center;}
 
 /*店铺管理*/
-.commenting{padding: 10px 20px; position: relative; display: inline-block; padding-bottom:0;font-size:16px;}
+.commenting{padding: 10px 20px; position: relative; display: inline-block; padding-bottom:0;font-size:22px;}
 .commenting a{ color:#fff; }
-.commenting p{ background: red;border-radius: 50%; display: block; height: 15px; top:7px; right:12px;position: absolute;width: 15px; font-size:9px;text-align: center;line-height: 15px; color: #ffffff;font-style: normal;}
+.commenting p{ background: red;border-radius: 50%; display: block; height: 16px; top:8px; right:12px;position: absolute;width: 16px; font-size:14px;text-align: center;line-height: 16px; color: #ffffff;font-style: normal;}
 .commenting p a{color:#fff;}
 .head_bg{ background:#1fb4f8;overflow: hidden;color: #fff;}
-.head_pho{padding: 30px 10px; padding-top:25px}
-.head_name{ padding-top:25px;} 
-.head_name a{ color:#fff; line-height:45px;}
+.head_pho{padding: 30px 10px; padding-top:15px; text-align:center; font-size:12px}
+.head_name{ padding-top:15px;} 
+.head_name a{ color:#fff; line-height:30px; font-size:15px;}
+.head_name p{ font-size:10px; border-radius:4px; line-height:16px;}
+.head_name p i{ background:#e9cc09; border-radius:5px;padding:0 5px 0 2px; font-size:13px;}
+.head_name p span{}
 .head_pho a img{ display: inline-block; width:45px; height:45px;border-radius: 50%;}
-.head_pho a i{ color:#fff; padding:15px 10px; font-size:18px;filter:alpha(opacity=50);-moz-opacity:0.7;opacity:0.7;}
-.head_bg{ background:#1fb4f8;overflow: hidden;color: #fff;}
-
+.head_pho a i{ color:#fff; padding:5px 0 0 0; font-size:22px;/*filter:alpha(opacity=50);-moz-opacity:0.7;opacity:0.7;*/}
 
 
 .income_x{background: #00a0e9;

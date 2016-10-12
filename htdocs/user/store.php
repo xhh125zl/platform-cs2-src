@@ -47,19 +47,23 @@ $config = $result['data'];
 <script type="text/javascript" src="../static/js/plugin/layer_mobile/layer.js"></script>
 <body>
 <div class="w">
-    <div class="head_bg">
-<!-- message -->
-        <div class="right">
+	<div class="head_bg">
+        <!-- message -->
+    	<div class="right">
             <span class="commenting">
-            	<a href="javascript:;"><i class="fa  fa-commenting-o fa-x" aria-hidden="true"></i></a>
+            	<a href="#"><i class="fa  fa-commenting-o fa-x" aria-hidden="true"></i></a>
             	<p><a>1</a></p>
             </span>
-        </div>
-<!--//message -->
+        </div><!--//message -->
+        <div class="clear"></div>
         <span class="head_pho l"><a><img src="<?php echo IMG_SERVER . $config['ShopLogo'];?>"></a></span>
-        <span class="head_name l"><a><?php echo $config['ShopName'];?></a></span>
-        <span class="head_pho l"><a><i class="fa  fa-eye fa-x" aria-hidden="true"></i></a></span>
+        <span class="head_name l">
+        	<a><?php echo $config['ShopName'];?></a>
+            <p><span><i>V</i></span><span style=" background:#0292d4; padding:0px 5px; border-top-right-radius:3px;border-bottom-right-radius:3px;">已认证</span></p>
+        </span>
+        <span class="head_pho l" style=" padding-left:30px"><a><i class="fa  fa-eye fa-x" aria-hidden="true"></i></a><br>预览</span>       
     </div>
+
     <div  class="clear"></div>
     <div class="income_x">
         <ul class="income_t">
@@ -185,6 +189,13 @@ $(function(){
             alert('用户统计数据获取失败，请刷新此页面重试');
         }
     }, 'json')
+
+    //店铺预览
+    $("#previewShop").click(function(){
+        var shopurl = '<?php echo SHOP_URL . '/api/' . $UsersID . '/shop/' ?>';
+        location.href = shopurl;
+
+    })
 
 })
 <?php
