@@ -33,6 +33,10 @@ require_once(CMS_ROOT . '/include/api/const.php');
         $Biz_Account = $_GET['itemid'];
 		
 		$BizRes = shopconfig::getBizapply(['Biz_Account'=>$Biz_Account]);
+		if($BizRes['errorCode'] != 0){
+			echo '<script language="javascript">alert("未找到该商家");history.back();</script>';
+			exit;
+		}
 		$BizInfo = $BizRes['data'][0];
 
         $baseinfo = json_decode($BizInfo['baseinfo'],true);

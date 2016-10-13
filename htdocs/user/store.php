@@ -5,7 +5,7 @@ require_once CMS_ROOT . '/include/api/product.class.php';
 require_once CMS_ROOT . '/include/api/count.class.php';
 require_once CMS_ROOT . '/include/api/shopconfig.class.php';
 require_once CMS_ROOT . '/include/api/message.class.php';
-
+require_once CMS_ROOT . '/include/api/users.class.php';
 $inajax = isset($_GET['inajax']) ? (int)$_GET['inajax'] : 0;
 if ($inajax == 1) {
     $do = isset($_GET['do']) ? $_GET['do'] : '';
@@ -68,6 +68,10 @@ if ($result['errorCode'] == 0) {
 //计算总未读条数
 $total_unread_nums = $unread_system_nums + $unread_order_nums + $unread_distribute_nums + $unread_withdraw_nums;
 
+//商家审核记录
+$bizRow = $DB->GetRs("Biz", 'is_auth', "WHERE Biz_Account='" . $BizAccount . "'");
+$auth_status = get_auth_statusText($bizRow['is_auth']);
+
 ?><!doctype html>
 <html>
 <head>
@@ -83,19 +87,23 @@ $total_unread_nums = $unread_system_nums + $unread_order_nums + $unread_distribu
 <script type="text/javascript" src="../static/js/plugin/layer_mobile/layer.js"></script>
 <body>
 <div class="w">
-    <div class="head_bg">
-<!-- message -->
-        <div class="right">
+	<div class="head_bg">
+        <!-- message -->
+    	<div class="right">
             <span class="commenting">
             	<a href="?act=msg_system"><i class="fa  fa-commenting-o fa-x" aria-hidden="true"></i></a>
             	<p><a><?php echo $total_unread_nums; ?></a></p>
             </span>
-        </div>
-<!--//message -->
+        </div><!--//message -->
+        <div class="clear"></div>
         <span class="head_pho l"><a><img src="<?php echo IMG_SERVER . $config['ShopLogo'];?>"></a></span>
-        <span class="head_name l"><a><?php echo $config['ShopName'];?></a></span>
-        <span class="head_pho l"><a><i class="fa  fa-eye fa-x" aria-hidden="true"></i></a></span>
+        <span class="head_name l">
+        	<a><?php echo $config['ShopName'];?></a>
+            <p><span><i>V</i></span><span style=" background:#0292d4; padding:0px 5px; border-top-right-radius:3px;border-bottom-right-radius:3px;"><?php echo $auth_status;?></span></p>
+        </span>
+        <span class="head_pho l" style=" padding-left:30px"><a id="previewShop" style="color:#fff"><i class="fa  fa-eye fa-x" aria-hidden="true"></i><br>预览</a></span>       
     </div>
+
     <div  class="clear"></div>
     <div class="income_x">
         <ul class="income_t">
@@ -221,6 +229,18 @@ $(function(){
             alert('用户统计数据获取失败，请刷新此页面重试');
         }
     }, 'json')
+
+    //店铺预览
+
+    <?php
+$UsersID = Users::findUsersIDByAccount($BizAccount);
+$ShopUrl = SHOP_URL . 'api/' . $UsersID . '/shop/';
+    ?>
+    
+    $("#previewShop").click(function(){
+        var shopurl = '<?php echo $ShopUrl ?>';
+        location.href = shopurl;
+    })
 
 })
 <?php

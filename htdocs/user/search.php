@@ -352,7 +352,7 @@ if ($return['page']['hasNextPage'] == 'true') {
         });
 
         //点击一键分销按钮进行的操作
-        $(".up_xx").click(function(){
+        $(".up_xx").live('click',function(){
             var me = $(this);
             layer.open({
                 type:1,
