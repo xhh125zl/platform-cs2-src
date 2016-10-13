@@ -40,13 +40,27 @@ class users extends base
 	 * @param string $cccount
 	 * @return string
 	 */
-	static public function findUsersIDByAccount($account) {
+	static public function findUsersIDByAccount($account)
+	{
 	    $url = '/users/findusersidbyaccount.html';
 		$data['Biz_Account'] = $account;
     	$result = self::request($url, 'post', $data);
 
 		return ($result['errorCode'] == '') ? $result['data'] : '';
 
+	}
+
+	/**
+	 * B2C忘记密码
+	 * @param array $data  ['Biz_Account' => $Biz_Account, Biz_PassWord => $Biz_PassWord]
+	 * return json
+	 */
+	static public function changePass($data)
+	{
+		$url = '/users/changeuserspasswd.html';
+		$result = self::request($url, 'post', $data);
+
+		return $result;
 	}
 
 }

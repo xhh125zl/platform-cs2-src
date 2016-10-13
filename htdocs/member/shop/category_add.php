@@ -12,6 +12,9 @@ if($_POST)
 		"Category_ListTypeID"=>$_POST["ListTypeID"],
 		"Users_ID"=>$_SESSION["Users_ID"],
 		"Category_Img"=>$_POST['ImgPath'],
+        "Category_Bond"=>!empty($_POST["Category_Bond"])?$_POST["Category_Bond"]:'0',
+		//"Category_CommissionRate"=>!empty($_POST["Category_CommissionRate"])?$_POST["Category_CommissionRate"]:'0',
+		//"Category_ProfitRate"=>!empty($_POST["Category_ProfitRate"])?$_POST["Category_ProfitRate"]:'0'
 	);
 	$Flag=$DB->Add("shop_category",$Data);
 	if($Flag)
@@ -79,10 +82,33 @@ $(document).ready(function(){
 							<font class="fc_red">*</font></span>
 							<div class="clear"></div>
 						</div>
+                        <div id="cate2" style='display: none'>    
+							<!--<div class="opt_item">
+								<label>提成比例：</label>
+								<span class="input">
+								<input type="text" name="Category_CommissionRate" value="" class="form_input" size="15" maxlength="30" notnull />%
+								<font class="fc_red"></font>网站提成比例</span>
+								<div class="clear"></div>
+							</div>-->
+							<div class="opt_item">
+								<label>保证金：</label>
+								<span class="input">
+								<input type="text" name="Category_Bond" value="" class="form_input" size="15" maxlength="30" notnull />元
+								<font class="fc_red"></font></span>
+								<div class="clear"></div>
+							</div>
+							<!--<div class="opt_item">
+								<label>发放比例：</label>
+								<span class="input">
+								<input type="text" name="Category_ProfitRate" value="" class="form_input" size="15" maxlength="30" notnull />%
+								<font class="fc_red"></font>佣金发放比例</span>
+								<div class="clear"></div>
+							</div>-->
+                        </div>    
 						<div class="opt_item">
 							<label>隶属关系：</label>
 							<span class="input">
-							<select name='ParentID'>
+                                                            <select name='ParentID' id="changeCate" onChange="changeCates()">
 								<option value='0'>─根节点─</option>
 								<?php $DB->get("shop_category","*","where Users_ID='".$_SESSION["Users_ID"]."' and Category_ParentID=0 order by Category_Index asc");
 				while($rsPCategory=$DB->fetch_assoc()){
@@ -139,5 +165,17 @@ $(document).ready(function(){
 		</div>
 	</div>
 </div>
+    <script>
+    function changeCates () {
+       var changeCate =  $("#changeCate").val();
+       if (changeCate == 0) {
+           $("#cate2").css('display','none');
+       } else {
+           
+           $("#cate2").css('display','block');
+       }
+        
+    }
+    </script>
 </body>
 </html>
