@@ -3,6 +3,7 @@ if(empty($_SESSION["Users_Account"])){
 	header("location:/member/login.php");
 }
 if($_POST){
+
 	$_POST["Account"] = trim($_POST["Account"]);
 	if(empty($_POST["Account"])){
 		echo '<script language="javascript">alert("商家登录账号不能为空！");history.back();</script>';
@@ -39,9 +40,18 @@ if($_POST){
 			exit();
 		}
 	}
+	if (isset($_POST['bond_free'])) {
+		if (!is_numeric($_POST['bond_free'])) {
+			echo '<script language="javascript">alert("保证金必须是数字");history.back();</script>';
+            exit();
+		}
+		
+	}
 	$_POST['Introduce'] = htmlspecialchars($_POST['Introduce'], ENT_QUOTES);
 	$Data=array(
 		"Biz_Account"=>$_POST['Account'],
+		"bond_free"=>empty($_POST['bond_free'])?'0':trim($_POST['bond_free']),
+		"expiredate"=>empty($_POST['expiredate'])?'0':strtotime($_POST['expiredate']),
 		"Biz_PassWord"=>md5($_POST['PassWord']),
 		"Biz_Name"=>$_POST['Name'],
 		"Group_ID"=>$_POST['GroupID'],
@@ -57,11 +67,15 @@ if($_POST){
 		"Skin_ID"=>1,
 		"Finance_Type"=>$_POST["FinanceType"],
 		"Finance_Rate"=>empty($_POST["FinanceRate"]) ? 0 : $_POST["FinanceRate"],
-
-                "PaymenteRate"=>empty($_POST["PaymenteRate"]) ? 100 : $_POST["PaymenteRate"],
+        "PaymenteRate"=>empty($_POST["PaymenteRate"]) ? 100 : $_POST["PaymenteRate"],
 		"Users_ID"=>$_SESSION["Users_ID"],
 		"Biz_Logo"=>$_POST['LogoPath'],
-                "Invitation_Code"=>isset($_POST['Invitation_Code'])?trim($_POST['Invitation_Code']):''
+		"is_agree"=>1,
+		"is_auth"=>2,
+		"is_pay"=>1,
+		"is_biz"=>1,
+		"addtype"=>1,
+        "Invitation_Code"=>isset($_POST['Invitation_Code'])?trim($_POST['Invitation_Code']):''
 
 	);
 	$Flag=$DB->Add("biz",$Data);
@@ -85,8 +99,14 @@ if($_POST){
 }else{
 	//商家分组
 	$groups = array();
-	$DB->Get("biz_group","*","where Users_ID='".$_SESSION["Users_ID"]."' order by Group_index asc, Group_ID asc");
-	while($r=$DB->Fetch_assoc()){
+	$res = $DB->Get("biz_group","*","where Users_ID='".$_SESSION["Users_ID"]."' order by Group_index asc, Group_ID asc");
+	$result = $DB->toArray($res);
+	if(empty($result)){
+	     echo '<script language="javascript">alert("商家分组没有添加，请添加商家分组！");location.href="group_add.php";</script>';
+	     exit;
+
+	}
+	foreach ($result as $r){
 		$groups[$r["Group_ID"]] = $r;
 	}
 }
@@ -99,10 +119,13 @@ if($_POST){
 <link href='/static/css/global.css' rel='stylesheet' type='text/css' />
 <link href='/static/member/css/main.css' rel='stylesheet' type='text/css' />
 <script type='text/javascript' src='/static/js/jquery-1.7.2.min.js'></script>
+<script type='text/javascript' src='/static/js/jquery.validate.min.js'></script>
+<script type='text/javascript' src='/static/js/jquery.validate.zh_cn.js'></script>
 <script type='text/javascript' src='/static/member/js/global.js'></script>
 <link rel="stylesheet" href="/third_party/kindeditor/themes/default/default.css" />
 <script type='text/javascript' src="/third_party/kindeditor/kindeditor-min.js"></script>
 <script type='text/javascript' src="/third_party/kindeditor/lang/zh_CN.js"></script>
+<script type='text/javascript' src='/static/js/plugin/My97DatePicker/WdatePicker.js'></script>
 <script>
 KindEditor.ready(function(K) {
 	K.create('textarea[name="Introduce"]', {
@@ -133,7 +156,7 @@ KindEditor.ready(function(K) {
 			});
 		});
 	});
-})
+});
 </script>
 </head>
 
@@ -147,7 +170,7 @@ KindEditor.ready(function(K) {
       <ul>
         <li class="cur"><a href="index.php">商家列表</a></li>
         <li><a href="group.php">商家分组</a></li>
-		<li><a href="apply.php">入驻申请列表</a></li>
+		<li><a href="apply.php">资质审核列表</a></li>
 		<li><a href="apply_config.php">入驻设置</a></li>
       </ul>
     </div>
@@ -155,7 +178,6 @@ KindEditor.ready(function(K) {
       <script type='text/javascript' src='/static/member/js/biz.js'></script>
       <link href='/static/js/plugin/operamasks/operamasks-ui.css' rel='stylesheet' type='text/css' />
       <script type='text/javascript' src='/static/js/plugin/operamasks/operamasks-ui.min.js'></script>
-      <script language="javascript">$(document).ready(biz_obj.group_edit);</script>
       <form class="r_con_form" method="post" action="?" id="group_edit">
         <div class="rows">
 
@@ -197,6 +219,21 @@ KindEditor.ready(function(K) {
           <option value="<?php echo $GroupID;?>"><?php echo $v["Group_Name"];?></option>
           <?php }?>
           </select>
+          <font class="fc_red">*</font></span>
+          <div class="clear"></div>
+        </div>
+		 
+		<div class="rows">
+          <label>到期时间</label>
+         <span class="input">
+          <input type="text" name="expiredate" value="<?php echo date('Y-m-d',time())?>" class="form_input" onfocus="WdatePicker({minDate:''})" size="35" maxlength="50" notnull />
+          <font class="fc_red">*</font></span>
+          <div class="clear"></div>
+        </div>
+		<div class="rows">
+          <label>保证金</label>
+         <span class="input">
+          <input type="text" name="bond_free" value="" class="form_input" size="35" maxlength="50" notnull />
           <font class="fc_red">*</font></span>
           <div class="clear"></div>
         </div>
@@ -286,6 +323,7 @@ KindEditor.ready(function(K) {
           <label>网站提成</label>
           <span class="input">
           <input type="text" name="FinanceRate" value="" class="form_input" size="10" /> %
+          <font class="fc_red">*</font>
           </span>
           <div class="clear"></div>
         </div>
@@ -295,6 +333,7 @@ KindEditor.ready(function(K) {
           <span class="input">
           <input type="text" name="PaymenteRate" value="" class="form_input" size="10" /> %
            <span class="tips">注：商家财务结算时,按照结算比例款项一部分转向商家指定的卡号,剩下的转入商家绑定的前台会员的余额中。</span>
+           <font class="fc_red">*</font>
           </span>
           <div class="clear"></div>
         </div>

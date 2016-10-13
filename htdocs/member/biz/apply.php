@@ -76,12 +76,6 @@ if(isset($_GET['search'])){
 }
 
 
-
-$biz_array = array();
-$DB->get("biz","Biz_ID,Biz_Account","where Users_ID='".$_SESSION["Users_ID"]."'");
-while ($r = $DB->fetch_assoc()) {
-    $biz_array[$r['Biz_ID']] = $r['Biz_Account']; 
-}
  
 $condition .= " and is_del =1  order by CreateTime desc";
 
@@ -149,7 +143,7 @@ $_Status = array(1=>'<font style="color:#ff0000">未审核</font>',2=>'<font sty
         <tbody>
         <?php 
 	 
-		$apply_res = shopconfig::getBizapply(['pageSize'=>10]);
+		$apply_res = shopconfig::getBizapply(['pageSize'=>20]);
 		$lists = !empty($apply_res['data'])?$apply_res['data']:array();	
 		  
 		  foreach($lists as $k=>$rsBiz){
@@ -158,8 +152,8 @@ $_Status = array(1=>'<font style="color:#ff0000">未审核</font>',2=>'<font sty
           <tr>
             <td nowrap="nowrap"><?php echo $rsBiz["id"];?></td>
             
-            <td><?php echo !empty($biz_array[$rsBiz["Biz_ID"]])?$biz_array[$rsBiz["Biz_ID"]]:'商家不存在或已删除'; ?></td>
-           
+ 
+            <td><?php echo !empty($rsBiz["Biz_Account"])?$rsBiz["Biz_Account"]:'商家不存在或已删除'; ?></td>
             <td><?php if($rsBiz['authtype']==1){echo '企业认证';}elseif($rsBiz['authtype']==2){echo'个人认证';}?></td>   
             <td nowrap="nowrap"><?php echo date("Y-m-d H:i:s",$rsBiz["CreateTime"]) ?></td>
             <td nowrap="nowrap"><?php echo $_Status[$rsBiz["status"]]; ?></td>
@@ -180,8 +174,7 @@ $_Status = array(1=>'<font style="color:#ff0000">未审核</font>',2=>'<font sty
       </table>
       <div class="blank20"></div>
       <?php $DB->showPage(); ?>
-      <div style="background:#F7F7F7; border:1px #dddddd solid; height:40px; line-height:40px; font-size:12px; margin:10px 0px; padding-left:15px; color:#ff0000">提示：商家入驻地址 <a href="/biz/reg.php?usersid=<?php echo $_SESSION["Users_ID"];?>" target="_blank">http://<?php echo $_SERVER['HTTP_HOST'];?>/biz/reg.php?usersid=<?php echo $_SESSION["Users_ID"];?></a></div>
-    </div>
+     </div>
   </div>
 </div>
 </body>

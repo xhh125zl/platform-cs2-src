@@ -51,7 +51,7 @@ $condition .= " order by ".$OrderBy;
       <ul>
         <li><a href="index.php">商家列表</a></li>
         <li class="cur"><a href="group.php">商家分组</a></li>
-		<li><a href="apply.php">入驻申请列表</a></li>
+		<li><a href="apply.php">资质审核列表</a></li>
 		<li><a href="apply_config.php">入驻设置</a></li>
       </ul>
     </div>
@@ -86,9 +86,9 @@ $condition .= " order by ".$OrderBy;
               
           <tr>
             <td nowrap="nowrap"><?php echo $rsGroup["Group_Index"] ?></td>
-            <td><?php echo $rsGroup["Group_Name"] ?></td>
+            <td><?php echo $rsGroup["Group_Name"] ?><?php if($rsGroup['is_default']==1){ echo '&nbsp;&nbsp;(入驻商家默认';echo $rsGroup["Group_IsStore"] ? '开通' : '不开通';echo '店铺)';}?></td>
             <td><?php echo $rsGroup["Group_IsStore"] ? '<font style="color:blue">已开通</font>' : '<font style="color:red">不开通</font>';?></td>
-            <td class="last" nowrap="nowrap"><a href="group_edit.php?GroupID=<?php echo $rsGroup["Group_ID"] ?>"><img src="/static/member/images/ico/mod.gif" align="absmiddle" alt="修改" /></a> <a href="?action=del&GroupID=<?php echo $rsGroup["Group_ID"] ?>" onClick="if(!confirm('删除后不可恢复，继续吗？')){return false};"><img src="/static/member/images/ico/del.gif" align="absmiddle" alt="删除" /></a></td>
+            <td class="last" nowrap="nowrap"><a href="group_edit.php?GroupID=<?php echo $rsGroup["Group_ID"] ?>"><img src="/static/member/images/ico/mod.gif" align="absmiddle" alt="修改" /></a> <?php if($rsGroup['is_default'] == 0){?><a href="?action=del&GroupID=<?php echo $rsGroup["Group_ID"] ?>" onClick="if(!confirm('删除后不可恢复，继续吗？')){return false};"><img src="/static/member/images/ico/del.gif" align="absmiddle" alt="删除" /></a><?php } ?></td>
           </tr>
           <?php }?>
         </tbody>

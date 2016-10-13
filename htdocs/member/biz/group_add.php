@@ -29,7 +29,6 @@ if($_POST){
 <script type='text/javascript' src='/static/js/jquery-1.7.2.min.js'></script>
 <script type='text/javascript' src='/static/member/js/global.js'></script>
 </head>
-
 <body>
 <!--[if lte IE 9]><script type='text/javascript' src='/static/js/plugin/jquery/jquery.watermark-1.3.js'></script>
 <![endif]-->
@@ -45,8 +44,8 @@ if($_POST){
       </ul>
     </div>
     <div id="bizs" class="r_con_wrap">
-      <script type='text/javascript' src='/static/member/js/biz.js'></script>
-      <script language="javascript">$(document).ready(biz_obj.group_edit);</script>
+      <!--<script type='text/javascript' src='/static/member/js/biz.js'></script>
+      <script language="javascript">$(document).ready(biz_obj.group_edit);</script>-->
       <form class="r_con_form" method="post" action="?" id="group_edit">
         <div class="rows">
           <label>分组名称</label>
@@ -59,7 +58,7 @@ if($_POST){
         <div class="rows">
           <label>分组排序</label>
           <span class="input">
-          <input type="text" name="Index" value="0" class="form_input" size="10" />
+          <input type="text" name="Index" value="0" class="form_input" size="10" notnull />
           <font class="fc_red">*</font></span>
           <div class="clear"></div>
         </div>
@@ -75,7 +74,7 @@ if($_POST){
         <div class="rows">
           <label></label>
           <span class="input">
-          <input type="submit" class="btn_green" name="submit_button" value="提交保存" /></span>
+          <input type="button" class="btn_green" name="submit_button" value="提交保存" /></span>
           <div class="clear"></div>
         </div>
       </form>
@@ -84,3 +83,18 @@ if($_POST){
 </div>
 </body>
 </html>
+<script type="text/javascript">
+		$(".btn_green").click(function(){
+			if(global_obj.check_form($('*[notnull]'))){return false;};		
+	
+			var re = /^(\+|-)?\d+$/;			
+			var Index = $("input[name='Index']").val();			
+			if(!re.test(Index) || Index < 0){
+				alert('排序必须是整数！');
+				return false;
+			}			
+			$('#group_edit').submit();
+			
+		});
+		
+</script>
