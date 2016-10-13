@@ -4,6 +4,7 @@ if (!defined('USER_PATH')) exit();
 require_once CMS_ROOT . '/include/api/product.class.php';
 require_once CMS_ROOT . '/include/api/count.class.php';
 require_once CMS_ROOT . '/include/api/shopconfig.class.php';
+require_once CMS_ROOT . '/include/api/users.class.php';
 
 $inajax = isset($_GET['inajax']) ? (int)$_GET['inajax'] : 0;
 if ($inajax == 1) {
@@ -191,10 +192,15 @@ $(function(){
     }, 'json')
 
     //店铺预览
-    $("#previewShop").click(function(){
-        //var shopurl = '<?php echo SHOP_URL . '/api/' . $UsersID . '/shop/' ?>';
-        //location.href = shopurl;
 
+    <?php
+$UsersID = Users::findUsersIDByAccount($BizAccount);
+$ShopUrl = SHOP_URL . 'api/' . $UsersID . '/shop/';
+    ?>
+    
+    $("#previewShop").click(function(){
+        var shopurl = '<?php echo $ShopUrl ?>';
+        location.href = shopurl;
     })
 
 })

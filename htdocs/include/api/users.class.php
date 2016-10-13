@@ -1,4 +1,4 @@
-<?php
+	<?php
 /**
  * 产品类（add/edit/delete)
  * product.class.php
@@ -34,4 +34,19 @@ class users extends base
 
     	return $result;
     }
+
+	/**
+	 * 根据商家账号从401获取商家对应的UsersID
+	 * @param string $cccount
+	 * @return string
+	 */
+	static public function findUsersIDByAccount($account) {
+	    $url = '/users/findusersidbyaccount.html';
+		$data['Biz_Account'] = $account;
+    	$result = self::request($url, 'post', $data);
+
+		return ($result['errorCode'] == '') ? $result['data'] : '';
+
+	}
+
 }
