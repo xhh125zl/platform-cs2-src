@@ -27,7 +27,7 @@ if($_POST){
 		"BaoZhengJin"=>$_POST['BaoZhengJin'],
 		"NianFei"=>$_POST['NianFei'],
 		"JieSuan"=>$_POST['JieSuan'],
-                "bond_desc"=>$_POST['bond_desc']
+        "bond_desc"=>$_POST['bond_desc']
 	);
 		
 	$Flag=$DB->Set("biz_config",$Data,"where Users_ID='".$_SESSION["Users_ID"]."'");
@@ -157,7 +157,7 @@ KindEditor.ready(function(K) {
         <div class="rows">
           <label>追加保证金页面描述</label>
           <span class="input">
-          <textarea class="ckeditor" name="bond_desc" style="width:700px; height:300px;"><?php !empty($item["bond_desc"])?$item["bond_desc"]:''; ?></textarea>
+          <textarea class="ckeditor" name="bond_desc" style="width:700px; height:300px;"><?php echo !empty($item["bond_desc"])?$item["bond_desc"]:''; ?></textarea>
           </span>
           <div class="clear"></div>
         </div>

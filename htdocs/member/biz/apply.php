@@ -143,7 +143,7 @@ $_Status = array(1=>'<font style="color:#ff0000">未审核</font>',2=>'<font sty
         <tbody>
         <?php 
 	 
-		$apply_res = shopconfig::getBizapply(['pageSize'=>20]);
+		$apply_res = shopconfig::getBizapply(['pageSize'=>20,'is_del'=>1]);
 		$lists = !empty($apply_res['data'])?$apply_res['data']:array();	
 		  
 		  foreach($lists as $k=>$rsBiz){
