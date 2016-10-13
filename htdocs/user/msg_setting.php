@@ -16,14 +16,17 @@ function set_msg_config ($Data) {
 if ($_POST) {
     $do = isset($_GET['do']) ? $_GET['do'] : '';
     $status = isset($_POST['status']) ? (int)$_POST['status'] : 0;
-    if ($do == 'delivery_order') {
-        $Data = ['delivery_order_msg' => $status, 'setting_lastTime' => time()];
+    if ($do == 'confirm_order') {
+        $Data = ['confirm_order_msg' => $status, 'setting_lastTime' => time()];
         $result = set_msg_config($Data);
-    } else if ($do == 'return_order') {
-        $Data = ['return_order_msg' => $status, 'setting_lastTime' => time()];
+    } else if ($do == 'delivery_order') {
+        $Data = ['delivery_order_msg' => $status, 'setting_lastTime' => time()];
         $result = set_msg_config($Data);
     } else if ($do == 'refund_order') {
         $Data = ['refund_order_msg' => $status, 'setting_lastTime' => time()];
+        $result = set_msg_config($Data);
+    } else if ($do == 'return_order') {
+        $Data = ['return_order_msg' => $status, 'setting_lastTime' => time()];
         $result = set_msg_config($Data);
     } else if ($do == 'order_distribute') {
         $Data = ['order_distribute_msg' => $status, 'setting_lastTime' => time()];
@@ -64,13 +67,16 @@ if (empty($msg_config)) {
         <ul>
             <li>订单设置</li>
             <li>
-                <span class="l">发货订单信息是否显示</span><span class="r"><input id="delivery_order" class="toggle-switch" type="checkbox" <?php if ($msg_config['delivery_order_msg']) {echo 'checked=""';} ?>></span>
+                <span class="l">待确认订单信息是否显示</span><span class="r"><input id="confirm_order" class="toggle-switch" type="checkbox" <?php if ($msg_config['confirm_order_msg']) {echo 'checked=""';} ?>></span>
             </li>
             <li>
-                <span class="l">退货订单信息是否显示</span><span class="r"><input id="return_order" class="toggle-switch" type="checkbox" <?php if ($msg_config['return_order_msg']) {echo 'checked=""';} ?>></span>
+                <span class="l">待发货订单信息是否显示</span><span class="r"><input id="delivery_order" class="toggle-switch" type="checkbox" <?php if ($msg_config['delivery_order_msg']) {echo 'checked=""';} ?>></span>
             </li>
             <li>
-                <span class="l">退款订单信息是否显示</span><span class="r"><input id="refund_order" class="toggle-switch" type="checkbox" <?php if ($msg_config['refund_order_msg']) {echo 'checked=""';} ?>></span>
+                <span class="l">待退款订单信息是否显示</span><span class="r"><input id="refund_order" class="toggle-switch" type="checkbox" <?php if ($msg_config['refund_order_msg']) {echo 'checked=""';} ?>></span>
+            </li>
+            <li>
+                <span class="l">待退货订单信息是否显示</span><span class="r"><input id="return_order" class="toggle-switch" type="checkbox" <?php if ($msg_config['return_order_msg']) {echo 'checked=""';} ?>></span>
             </li>
             <li>分销设置</li>
             <li>

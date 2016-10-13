@@ -8,11 +8,11 @@ require_once CMS_ROOT . '/include/helper/page.class.php';
 $p = isset($_GET['p']) ? (int)$_GET['p'] : 1;
 if ($p < 1) $p = 1;
 //每页显示个数
-$pageSize = 2;
+$pageSize = 10;
 
-$transfer = ['Biz_Account' => $BizAccount, 'pageSize' => $pageSize];
-$result = message::getMsgOrder($transfer, $p);
-
+$transData = ['Biz_Account' => $BizAccount, 'pageSize' => $pageSize];
+$result = message::getMsgOrder($transData, $p);
+//print_r($result);die;
 if (isset($result['errorCode']) && $result['errorCode'] != 0) {
     $total = 0;
     $totalPage = 1;
@@ -20,7 +20,7 @@ if (isset($result['errorCode']) && $result['errorCode'] != 0) {
 } else {
     $total = $result['totalCount'];
     $totalPage = ceil($result['totalCount'] / $pageSize);
-    $msgOrder = $result['data'];
+    $msgOrder = $result['data']['myOrder'];
 }
 
 //分页
@@ -47,6 +47,18 @@ $return = [
 if (isset($_POST['ajax']) && $_POST['ajax'] == 1) {
     echo json_encode($return);
     exit();
+}
+
+if ($_POST) {
+    $msgid = $_POST['msgid'];
+    $transData = ['msg_status' => 1, 'modify_time' => time()];
+    $postData = ['id' => $msgid, 'transData' => $transData];
+    $result = message::updateMsgOrder($postData);
+    if ($result['errorCode'] == 0) {
+        echo json_encode(['errorCode' => 0, 'msg' => '信息状态更新成功']);die;
+    } else {
+        echo json_encode(['errorCode' => 1, 'msg' => '信息状态更新失败']);die;
+    }
 }
 
 ?>
@@ -78,16 +90,16 @@ if (isset($_POST['ajax']) && $_POST['ajax'] == 1) {
                 <a href="?act=msg_withdraw"><li class="<?php if(isset($_GET['act']) && $_GET['act'] == 'msg_withdraw') { echo 'on'; } ?>">提现</li></a>
             </ul>
         </div>
-        <div class="learn_list">
+        <div class="msg_list">
             <ul class="msgList">
                 <?php
                 if(!empty($msglist)){  
                     foreach($msglist as $k => $v){         
                 ?>
                 <li>
-                    <a href='?act=order_detail&orderid=<?php echo $v['Order_ID']; ?>' class="msgs">
+                    <a href='javascript:;' class="msgs" orderid="<?php echo $v['Order_ID']; ?>" msgid="<?php echo $v['id']; ?>">
                         <p><span><?php if ($v['msg_status'] == 0) {echo '【新消息】';} ?></span><?php echo $v['msg_title']; ?></p>
-                        <p><?php echo $v['create_time']; ?></p>
+                        <p style="margin-left:5px;"><?php echo $v['create_time']; ?></p>
                     </a>
                 </li>
                 <?php
@@ -103,9 +115,9 @@ if (isset($_POST['ajax']) && $_POST['ajax'] == 1) {
 <script id="msg-row" type="text/html">
 {{each data as v i}}
     <li>
-        <a href='?act=order_detail&orderid={{v.Order_ID}}' class="msgs">
+        <a href='javascript:;' class="msgs" orderid="{{v.Order_ID}}" msgid="{{v.id}}">
             <p><span>{{if v.msg_status == 0 }}【新消息】{{/if}}</span>{{v.msg_title}}</p>
-            <p>{{v.create_time}}</p>
+            <p style="margin-left:5px;">{{v.create_time}}</p>
         </a>
     </li>
 {{/each}}
@@ -152,6 +164,27 @@ if (isset($_POST['ajax']) && $_POST['ajax'] == 1) {
                     $("#pagemore").html('已经没有了...');
                 }
             },'json')
+        });
+        $('.msgList').on('click','.msgs',function(){
+            var me = $(this);
+            var url = "?act=order_details&orderid="+me.attr('orderid');
+            $.ajax({
+                type: 'POST',
+                url: '?act=msg_order',
+                data: 'msgid='+me.attr('msgid'),
+                success: function(data){
+                    if (data.errorCode == 0) {
+                        me.find('span').html('');
+                        window.location.href = url;
+                    } else {
+                        layer.open({
+                            content: '读取状态修改失败',
+                            btn: '确认'
+                        });
+                    }
+                },
+                dataType: 'json'
+            });
         });
     });
 </script>

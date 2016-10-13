@@ -4,6 +4,7 @@ if (!defined('USER_PATH')) exit();
 require_once CMS_ROOT . '/include/api/product.class.php';
 require_once CMS_ROOT . '/include/api/count.class.php';
 require_once CMS_ROOT . '/include/api/shopconfig.class.php';
+require_once CMS_ROOT . '/include/api/message.class.php';
 
 $inajax = isset($_GET['inajax']) ? (int)$_GET['inajax'] : 0;
 if ($inajax == 1) {
@@ -31,6 +32,41 @@ if ($result['errorCode'] != 0) {
 
 $config = $result['data'];
 
+//获取消息页未读条数
+//系统消息未读条数
+$DB->Get("announce","announce.*,announce_record.Record_ID","left join `announce_record` on announce.Announce_ID = announce_record.Announce_ID where announce.Announce_Status = 1 order by announce_record.Record_ID,announce.Announce_CreateTime desc");
+$unread_system_nums = 0;
+while ($r=$DB->fetch_assoc()) {
+    if (!(isset($r['Record_ID']) && $r['Record_ID'] > 0)) {
+        $unread_system_nums++;
+    }
+}
+//订单消息未读条数
+$transfer = ['Biz_Account' => $BizAccount];
+$result = message::getMsgOrder($transfer);
+if ($result['errorCode'] == 0) {
+    $unread_order_nums = $result['data']['unReadCount'];
+} else {
+    $unread_order_nums = 0;
+}
+//分销消息未读条数
+$transfer = ['Biz_Account' => $BizAccount];
+$result = message::getMsgDistribute($transfer);
+if ($result['errorCode'] == 0) {
+    $unread_distribute_nums = $result['data']['unReadCount'];
+} else {
+    $unread_distribute_nums = 0;
+}
+//提现消息未读条数
+$transfer = ['Biz_Account' => $BizAccount];
+$result = message::getMsgWithdraw($transfer);
+if ($result['errorCode'] == 0) {
+    $unread_withdraw_nums = $result['data']['unReadCount'];
+} else {
+    $unread_withdraw_nums = 0;
+}
+//计算总未读条数
+$total_unread_nums = $unread_system_nums + $unread_order_nums + $unread_distribute_nums + $unread_withdraw_nums;
 
 ?><!doctype html>
 <html>
@@ -52,7 +88,7 @@ $config = $result['data'];
         <div class="right">
             <span class="commenting">
             	<a href="?act=msg_system"><i class="fa  fa-commenting-o fa-x" aria-hidden="true"></i></a>
-            	<p><a>1</a></p>
+            	<p><a><?php echo $total_unread_nums; ?></a></p>
             </span>
         </div>
 <!--//message -->
