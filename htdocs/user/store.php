@@ -33,6 +33,10 @@ if ($result['errorCode'] != 0) {
 $config = $result['data'];
 
 
+//商家审核记录
+$bizRow = $DB->GetRs("Biz", 'is_auth', "WHERE Biz_Account='" . $BizAccount . "'");
+$auth_status = get_auth_statusText($bizRow['is_auth']);
+
 ?><!doctype html>
 <html>
 <head>
@@ -60,7 +64,7 @@ $config = $result['data'];
         <span class="head_pho l"><a><img src="<?php echo IMG_SERVER . $config['ShopLogo'];?>"></a></span>
         <span class="head_name l">
         	<a><?php echo $config['ShopName'];?></a>
-            <p><span><i>V</i></span><span style=" background:#0292d4; padding:0px 5px; border-top-right-radius:3px;border-bottom-right-radius:3px;">已认证</span></p>
+            <p><span><i>V</i></span><span style=" background:#0292d4; padding:0px 5px; border-top-right-radius:3px;border-bottom-right-radius:3px;"><?php echo $auth_status;?></span></p>
         </span>
         <span class="head_pho l" style=" padding-left:30px"><a id="previewShop" style="color:#fff"><i class="fa  fa-eye fa-x" aria-hidden="true"></i><br>预览</a></span>       
     </div>
