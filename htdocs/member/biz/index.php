@@ -2,7 +2,7 @@
 if(empty($_SESSION["Users_Account"])){
 	header("location:/member/login.php");
 }
-
+require_once(CMS_ROOT . '/include/api/const.php');
 if(isset($_GET["action"])){
 	if($_GET["action"]=="del"){
 		$Flag=$DB->Del("biz","Users_ID='".$_SESSION["Users_ID"]."' and Biz_ID=".$_GET["BizID"]);
@@ -177,7 +177,7 @@ while($row = $DB->fetch_assoc()){
       </table>
       <div class="blank20"></div>
       <?php $DB->showPage(); ?>
-      <div style="background:#F7F7F7; border:1px #dddddd solid; height:40px; line-height:40px; font-size:12px; margin:10px 0px; padding-left:15px; color:#ff0000">提示：商家登陆地址 <a href="/biz/login.php" target="_blank">http://<?php echo $_SERVER['HTTP_HOST'];?>/biz/login.php</a></div>
+      <div style="background:#F7F7F7; border:1px #dddddd solid; height:40px; line-height:40px; font-size:12px; margin:10px 0px; padding-left:15px; color:#ff0000">提示：商家登陆地址 <a href="<?=SHOP_URL?>member/login.php" target="_blank"><?php echo SHOP_URL;?>member/login.php</a></div>
     </div>
   </div>
 </div>

@@ -66,8 +66,13 @@ $rmenu['biz']=array(
     'authpay' => '入驻支付列表',
     'chargepay' => '续费支付列表',
     'bond_back' => '保证金退款',
-    'article_man' => '文章管理'
+    'article_man' => '文章管理',
+	'send_push' => '推送消息',
+	'msg_push' => '推送消息管理'
 );
+$rmenusub['biz_send_push'] = [
+	'send' => '推送处理'
+];
 
 $rmenu["order"] = array(
 	'order' => '订单管理',
