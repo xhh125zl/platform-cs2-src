@@ -217,7 +217,7 @@ KindEditor.ready(function(K) {
 					<div class="rows">
           <label>到期时间</label>
          <span class="input">
-          <input type="text" name="expiredate" value="<?php echo !empty($rsBiz["expiredate"])?date('Y-m-d',$rsBiz["expiredate"]):''?>" class="form_input" onfocus="WdatePicker({minDate:''})" size="35" maxlength="50" notnull />
+          <input type="text" name="expiredate" value="<?php echo !empty($rsBiz["Users_ExpiresTime"])?date('Y-m-d',$rsBiz["Users_ExpiresTime"]):''?>" class="form_input" onfocus="WdatePicker({minDate:''})" size="35" maxlength="50" notnull />
           <font class="fc_red">*</font></span>
           <div class="clear"></div>
         </div>
