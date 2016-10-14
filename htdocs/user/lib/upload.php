@@ -75,7 +75,7 @@ if ($_POST['act'] == 'uploadFile') {
     $input_productData['Shipping_Free_Company'] = 0;	//免运费  0为全部 ，n为指定快递
     //$input_productData['Products_Index'] = 1/9999;	//产品排序
     //$input_productData['Products_Type'] = 0/n;		//产品类型
-    //$input_productData['Products_SoldOut'] = 0/1;		//其他属性  下架
+    $input_productData['Products_SoldOut'] = 0;			//其他属性  不能为空  1: 下架
     //$input_productData['Products_IsPaysBalance'] = 0/1;		//特殊属性  余额支付
     //$input_productData['Products_IsShow'] = 0/1;		//特殊属性  是否显示
     //$input_productData['Products_IsVirtual'] = 1;		//订单流程		0,0  1,0  1,1 
@@ -83,7 +83,7 @@ if ($_POST['act'] == 'uploadFile') {
     //$input_productData['Products_Description'] = htmlspecialchars($input_productData['Products_Description'], ENT_QUOTES);	//详细介绍
     //$input_productData['Products_Parameter'] = '[{"name":"","value":""}]';		//产品参数
     $input_productData['Users_ID'] = $UsersID;
-    $input_productData['Products_status'] = 1;
+    $input_productData['Products_Status'] = 1;
 
     //数据验证	原价、现价、产品利润、赠送积分、产品重量、库存
     if (!check_number($input_productData['Products_PriceY']) || !check_number($input_productData['Products_PriceX']) || !check_number($input_productData['Products_Profit']) || !check_number($input_productData['Products_Integration'], 1) || !check_number($input_productData['Products_Weight']) || !check_number($input_productData['Products_Count'], 1)) {
