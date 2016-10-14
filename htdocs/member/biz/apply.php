@@ -174,6 +174,7 @@ $_Status = array(1=>'<font style="color:#ff0000">未审核</font>',2=>'<font sty
       </table>
       <div class="blank20"></div>
       <?php $DB->showPage(); ?>
+	  <div style="background:#F7F7F7; border:1px #dddddd solid; height:40px; line-height:40px; font-size:12px; margin:10px 0px; padding-left:15px; color:#ff0000">提示：商家入驻地址 <a href="<?=SHOP_URL?>reg.php" target="_blank"><?=SHOP_URL?>reg.php</a></div> 
      </div>
   </div>
 </div>
