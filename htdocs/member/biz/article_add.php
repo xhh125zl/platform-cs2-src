@@ -63,7 +63,8 @@ if($_POST){
 </script>
 <!--[if lte IE 9]><script type='text/javascript' src='/static/js/plugin/jquery/jquery.watermark-1.3.js'></script>
 <![endif]-->
-
+</head>
+<body>
 <div id="iframe_page">
   <div class="iframe_content">
 	<div class="r_nav">
