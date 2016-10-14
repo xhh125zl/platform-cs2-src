@@ -92,11 +92,10 @@ if ($_POST) {
             ];
         $res = $DB->Add("announce_record", $data);
         if ($res) {
-            echo json_encode(['errorCode' => 0, 'msg' => '读取记录写入成功']);
+            echo json_encode(['errorCode' => 0, 'msg' => '读取记录写入成功']);die;
         } else {
-            echo json_encode(['errorCode' => 1, 'msg' => '读取记录写入失败']);
+            echo json_encode(['errorCode' => 1, 'msg' => '读取记录写入失败']);die;
         }
-        die;
     }   
 }
 ?>
@@ -229,7 +228,7 @@ if ($_POST) {
               ,success: function(){
                 $.ajax({
                     type: 'POST',
-                    url: 'admin.php?act=msg_system',
+                    url: '?act=msg_system',
                     data: 'Announce_ID='+me.attr('value')+'&read_status='+me.attr('status'),
                     success: function(data){
                         if (data.errorCode == 0) {

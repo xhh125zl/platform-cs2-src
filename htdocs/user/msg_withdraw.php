@@ -11,7 +11,7 @@ if ($p < 1) $p = 1;
 $pageSize = 10;
 
 $transData = ['Biz_Account' => $BizAccount, 'pageSize' => $pageSize];
-$result = message::getMsgOrder($transData, $p);
+$result = message::getMsgWithdraw($transData, $p);
 
 if (isset($result['errorCode']) && $result['errorCode'] != 0) {
     $total = 0;
@@ -20,7 +20,7 @@ if (isset($result['errorCode']) && $result['errorCode'] != 0) {
 } else {
     $total = $result['totalCount'];
     $totalPage = ceil($result['totalCount'] / $pageSize);
-    $msgOrder = $result['data']['myOrder'];
+    $msgOrder = $result['data']['myWithdraw'];
 }
 
 //分页
@@ -57,7 +57,7 @@ if ($_POST) {
     } else if ($msg_status == 0) {
         $transData = ['msg_status' => 1, 'modify_time' => time()];
         $postData = ['id' => $msg_id, 'transData' => $transData];
-        $result = message::updateMsgOrder($postData);
+        $result = message::updateMsgWithdraw($postData);
         if ($result['errorCode'] == 0) {
             echo json_encode(['errorCode' => 0, 'msg' => '信息状态更新成功']);die;
         } else {
@@ -75,7 +75,7 @@ if ($_POST) {
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0">
     <meta name="app-mobile-web-app-capable" content="yes">
-    <title>订单消息</title>
+    <title>提现消息</title>
 </head>
 <link href="../static/user/css/product.css" type="text/css" rel="stylesheet">
 <link href="../static/user/css/font-awesome.min.css" type="text/css" rel="stylesheet">
@@ -100,14 +100,22 @@ if ($_POST) {
         <div class="msg_list">
             <ul class="msgList">
                 <?php
-                if(!empty($msglist)){
-                    foreach($msglist as $k => $v){
+                if(!empty($msglist)){  
+                    foreach($msglist as $k => $v){         
                 ?>
                 <li>
-                    <a href='javascript:;' class="msgs" msg_id="<?php echo $v['id']; ?>" msg_status="<?php echo $v['msg_status']; ?>" orderid="<?php echo $v['Order_ID']; ?>">
+                    <a href='javascript:;' class="msgs" msg_id="<?php echo $v['id']; ?>" msg_status="<?php echo $v['msg_status']; ?>">
                         <p><span><?php if ($v['msg_status'] == 0) {echo '【新消息】';} ?></span><?php echo $v['msg_title']; ?></p>
                         <p style="margin-left:5px;"><?php echo $v['create_time']; ?></p>
                     </a>
+                    <div class="msg_content" style="display:none;">
+                        <div class="back_x">
+                            <a class="l" href='javascript:layer.closeAll();'><i class="fa  fa-angle-left fa-2x" aria-hidden="true"></i></a>提现消息
+                        </div>
+                        <h3><?php echo $v['msg_title']; ?></h3>
+                        <h5 style="text-align:center;"><?php echo $v['create_time']; ?></h5>
+                        <div style="width: 90%; margin: 10px auto 0; line-height: 20px; "><?php echo $v['msg_des']; ?></div>
+                    </div>
                 </li>
                 <?php
                     }
@@ -122,10 +130,18 @@ if ($_POST) {
 <script id="msg-row" type="text/html">
 {{each data as v i}}
     <li>
-        <a href='javascript:;' class="msgs" msg_id="{{v.id}}" msg_status="{{v.msg_status}}" orderid="{{v.Order_ID}}">
+        <a href='javascript:;' class="msgs" msg_id="{{v.id}}" msg_status="{{v.msg_status}}">
             <p><span>{{if v.msg_status == 0 }}【新消息】{{/if}}</span>{{v.msg_title}}</p>
             <p style="margin-left:5px;">{{v.create_time}}</p>
         </a>
+        <div class="msg_content" style="display:none;">
+            <div class="back_x">
+                <a class="l" href='javascript:layer.closeAll();'><i class="fa  fa-angle-left fa-2x" aria-hidden="true"></i></a>提现消息
+            </div>
+            <h3>{{v.msg_title}}</h3>
+            <h5 style="text-align:center;">{{v.create_time}}</h5>
+            <div style="width: 90%; margin: 10px auto 0; line-height: 20px; ">{{v.msg_des}}</div>
+        </div>
     </li>
 {{/each}}
 </script>
@@ -152,7 +168,7 @@ if ($_POST) {
         $("#pagemore a").click(function(){
             var totalPage = <?php echo $totalPage;?>;
             var pageno = $(this).attr('data-next-pageno');
-            var url = 'admin.php?act=msg_order&p=' + pageno;
+            var url = 'admin.php?act=msg_withdraw&p=' + pageno;
 
             var nextPageno = parseInt(pageno);
             if (nextPageno > totalPage) {
@@ -175,30 +191,25 @@ if ($_POST) {
         $('.msgList').on('click','.msgs',function(){
             var me = $(this);
             var msg_status = me.attr('msg_status');
-            var url = "?act=order_details&orderid="+me.attr('orderid');
-            if (msg_status == 1) {
-                //信息状态为已读，不需更新操作
-                me.find('span').html('');
-                window.location.href = url;
-            } else {
+            layer.open({
+              type: 1
+              ,content: me.next('.msg_content').html()
+              ,anim: 'up'
+              ,style: 'position:fixed; left:0; top:0; width:100%; height:100%; overflow:scroll; border: none; -webkit-animation-duration: .5s; animation-duration: .5s;'
+              ,success: function(){
                 $.ajax({
                     type: 'POST',
-                    url: '?act=msg_order',
-                    data: 'msg_id='+me.attr('msg_id')+'&msg_status='+msg_status,
+                    url: '?act=msg_withdraw',
+                    data: 'msgid='+me.attr('msgid')+'&msg_status='+msg_status,
                     success: function(data){
                         if (data.errorCode == 0) {
                             me.find('span').html('');
-                            window.location.href = url;
-                        } else {
-                            layer.open({
-                                content: '读取状态修改失败',
-                                btn: '确认'
-                            });
                         }
                     },
                     dataType: 'json'
                 });
-            }  
+              }
+            });
         });
     });
 </script>

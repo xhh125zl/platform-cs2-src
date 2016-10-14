@@ -1,6 +1,7 @@
 <?php
 if (!defined('USER_PATH')) exit();
 require_once CMS_ROOT . "/user/config.inc.php";
+require_once CMS_ROOT . '/include/api/message.class.php';
 
 function set_msg_config ($Data) {
     global $DB;
@@ -16,24 +17,152 @@ function set_msg_config ($Data) {
 if ($_POST) {
     $do = isset($_GET['do']) ? $_GET['do'] : '';
     $status = isset($_POST['status']) ? (int)$_POST['status'] : 0;
-    if ($do == 'confirm_order') {
+    //获取全部的信息
+    $transData = ['Biz_Account' => $BizAccount];
+    if ($do == 'order_distribute_msg' || $do == 'join_distribute_msg') {
+        //获取分销信息
+        $res = message::getMsgDistribute($transData);
+        if ($res['errorCode'] == 0) {
+            $msg_distribute = $res['data']['myDistribute'];
+        } else {
+            echo json_encode(['errorCode' => 1, 'msg' => '获取分销信息失败']);die;
+        }
+    } else {
+        //获取订单信息
+        $res = message::getMsgOrder($transData);
+        if ($res['errorCode'] == 0) {
+            $msg_order = $res['data']['myOrder'];
+        } else {
+            echo json_encode(['errorCode' => 1, 'msg' => '获取订单信息失败']);die;
+        }
+    }
+
+    if ($do == 'confirm_order') {       //待确认订单信息设置
         $Data = ['confirm_order_msg' => $status, 'setting_lastTime' => time()];
         $result = set_msg_config($Data);
-    } else if ($do == 'delivery_order') {
+        //设置不查看时将原来的信息改为已读状态
+        if (!empty($msg_order) && $result['errorCode'] == 0 && $status == 0) {
+            $tag = 0;
+            foreach ($msg_order as $k => $v) {
+                if ($v['Order_Status'] == 0 && $v['msg_status'] == 0) {
+                    $postData = ['id' => $v['id'], 'transData' => ['msg_status' => 1, 'modify_time' => time()]];
+                    $status_res = message::updateMsgOrder($postData);
+                    if ($status_res['errorCode'] != 0) {
+                        $tag += 1;
+                    }
+                }
+            }
+            if ($tag == 0) {
+                $result = ['errorCode' => 0, 'msg' => '待确认订单信息读取状态修改成功'];
+            } else {
+                $result = ['errorCode' => 1, 'msg' => '待确认订单信息读取状态修改失败'];
+            }
+        }
+    } else if ($do == 'delivery_order') {       //待发货订单信息设置
         $Data = ['delivery_order_msg' => $status, 'setting_lastTime' => time()];
         $result = set_msg_config($Data);
-    } else if ($do == 'refund_order') {
+        //设置不查看时将原来的信息改为已读状态
+        if (!empty($msg_order) && $result['errorCode'] == 0 && $status == 0) {
+            $tag = 0;
+            foreach ($msg_order as $k => $v) {
+                if ($v['Order_Status'] == 2 && $v['msg_status'] == 0) {
+                    $postData = ['id' => $v['id'], 'transData' => ['msg_status' => 1, 'modify_time' => time()]];
+                    $status_res = message::updateMsgOrder($postData);
+                    if ($status_res['errorCode'] != 0) {
+                        $tag += 1;
+                    }
+                }
+            }
+            if ($tag == 0) {
+                $result = ['errorCode' => 0, 'msg' => '待发货订单信息读取状态修改成功'];
+            } else {
+                $result = ['errorCode' => 1, 'msg' => '待发货订单信息读取状态修改失败'];
+            }
+        }
+    } else if ($do == 'refund_order') {       //待退款订单信息设置
         $Data = ['refund_order_msg' => $status, 'setting_lastTime' => time()];
         $result = set_msg_config($Data);
-    } else if ($do == 'return_order') {
+        //设置不查看时将原来的信息改为已读状态
+        if (!empty($msg_order) && $result['errorCode'] == 0 && $status == 0) {
+            $tag = 0;
+            foreach ($msg_order as $k => $v) {
+                if ($v['Order_Status'] == 5 && $v['msg_status'] == 0) {
+                    $postData = ['id' => $v['id'], 'transData' => ['msg_status' => 1, 'modify_time' => time()]];
+                    $status_res = message::updateMsgOrder($postData);
+                    if ($status_res['errorCode'] != 0) {
+                        $tag += 1;
+                    }
+                }
+            }
+            if ($tag == 0) {
+                $result = ['errorCode' => 0, 'msg' => '待退款订单信息读取状态修改成功'];
+            } else {
+                $result = ['errorCode' => 1, 'msg' => '待退款订单信息读取状态修改失败'];
+            }
+        }
+    } else if ($do == 'return_order') {       //待退货订单信息设置
         $Data = ['return_order_msg' => $status, 'setting_lastTime' => time()];
         $result = set_msg_config($Data);
-    } else if ($do == 'order_distribute') {
+        //设置不查看时将原来的信息改为已读状态
+        if (!empty($msg_order) && $result['errorCode'] == 0 && $status == 0) {
+            $tag = 0;
+            foreach ($msg_order as $k => $v) {
+                if ($v['Order_Status'] == 6 && $v['msg_status'] == 0) {
+                    $postData = ['id' => $v['id'], 'transData' => ['msg_status' => 1, 'modify_time' => time()]];
+                    $status_res = message::updateMsgOrder($postData);
+                    if ($status_res['errorCode'] != 0) {
+                        $tag += 1;
+                    }
+                }
+            }
+            if ($tag == 0) {
+                $result = ['errorCode' => 0, 'msg' => '待退货订单信息读取状态修改成功'];
+            } else {
+                $result = ['errorCode' => 1, 'msg' => '待退货订单信息读取状态修改失败'];
+            }
+        }
+    } else if ($do == 'order_distribute') {       //成为分销商订单信息设置
         $Data = ['order_distribute_msg' => $status, 'setting_lastTime' => time()];
         $result = set_msg_config($Data);
-    } else if ($do == 'join_distribute') {
+        //设置不查看时将原来的信息改为已读状态
+        if (!empty($msg_distribute) && $result['errorCode'] == 0 && $status == 0) {
+            $tag = 0;
+            foreach ($msg_distribute as $k => $v) {
+                if ($v['Account_ID'] == 0 && $v['msg_status'] == 0) {
+                    $postData = ['id' => $v['id'], 'transData' => ['msg_status' => 1, 'modify_time' => time()]];
+                    $status_res = message::updateMsgDistribute($postData);
+                    if ($status_res['errorCode'] != 0) {
+                        $tag += 1;
+                    }
+                }
+            }
+            if ($tag == 0) {
+                $result = ['errorCode' => 0, 'msg' => '下单成为分销商信息读取状态修改成功'];
+            } else {
+                $result = ['errorCode' => 1, 'msg' => '下单成为分销商信息读取状态修改失败'];
+            }
+        }
+    } else if ($do == 'join_distribute') {       //会员加入分销商信息设置
         $Data = ['join_distribute_msg' => $status, 'setting_lastTime' => time()];
         $result = set_msg_config($Data);
+        //设置不查看时将原来的信息改为已读状态
+        if (!empty($msg_distribute) && $result['errorCode'] == 0 && $status == 0) {
+            $tag = 0;
+            foreach ($msg_distribute as $k => $v) {
+                if ($v['Account_ID'] > 0 && $v['msg_status'] == 0) {
+                    $postData = ['id' => $v['id'], 'transData' => ['msg_status' => 1, 'modify_time' => time()]];
+                    $status_res = message::updateMsgDistribute($postData);
+                    if ($status_res['errorCode'] != 0) {
+                        $tag += 1;
+                    }
+                }
+            }
+            if ($tag == 0) {
+                $result = ['errorCode' => 0, 'msg' => '成为分销商信息读取状态修改成功'];
+            } else {
+                $result = ['errorCode' => 1, 'msg' => '成为分销商信息读取状态修改失败'];
+            }
+        }
     }
     echo json_encode($result);
     die;
@@ -103,7 +232,7 @@ $(function() {
                 window.location.reload();
                 layer.open({
                     content: data.msg,
-                    time: 1
+                    time: 1,
                 });
             }
         }, 'json');

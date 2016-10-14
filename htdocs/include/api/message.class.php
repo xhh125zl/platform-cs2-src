@@ -41,7 +41,7 @@ class message extends base
 
     /**
      * @param 'id' = $msgid,'transData' = ['msg_status' => '1']
-     * @return 返回记录订单信息
+     * @return 返回更新订单记录信息状态
      */
     static public function updateMsgOrder($data)
     {
@@ -52,7 +52,7 @@ class message extends base
 
     /**
      * @param 'id' = $msgid,'transData' = ['msg_status' => '1']
-     * @return 返回记录订单信息
+     * @return 返回更新分销记录信息状态
      */
     static public function updateMsgDistribute($data)
     {
@@ -63,7 +63,7 @@ class message extends base
 
     /**
      * @param 'id' = $msgid,'transData' = ['msg_status' => '1']
-     * @return 返回记录订单信息
+     * @return 返回更新提现记录信息状态
      */
     static public function updateMsgWithdraw($data)
     {

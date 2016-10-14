@@ -8,11 +8,11 @@ require_once CMS_ROOT . '/include/helper/page.class.php';
 $p = isset($_GET['p']) ? (int)$_GET['p'] : 1;
 if ($p < 1) $p = 1;
 //每页显示个数
-$pageSize = 2;
+$pageSize = 10;
 
 $transData = ['Biz_Account' => $BizAccount, 'pageSize' => $pageSize];
 $result = message::getMsgDistribute($transData, $p);
-//print_r($result);die;
+
 if (isset($result['errorCode']) && $result['errorCode'] != 0) {
     $total = 0;
     $totalPage = 1;
@@ -20,7 +20,7 @@ if (isset($result['errorCode']) && $result['errorCode'] != 0) {
 } else {
     $total = $result['totalCount'];
     $totalPage = ceil($result['totalCount'] / $pageSize);
-    $msgOrder = $result['data']['myOrder'];
+    $msgOrder = $result['data']['myDistribute'];
 }
 
 //分页
@@ -50,14 +50,21 @@ if (isset($_POST['ajax']) && $_POST['ajax'] == 1) {
 }
 
 if ($_POST) {
-    $msgid = $_POST['msgid'];
-    $transData = ['msg_status' => 1, 'modify_time' => time()];
-    $postData = ['id' => $msgid, 'transData' => $transData];
-    $result = message::updateMsgDistribute($postData);
-    if ($result['errorCode'] == 0) {
-        echo json_encode(['errorCode' => 0, 'msg' => '信息状态更新成功']);die;
+    $msg_id = $_POST['msg_id'];
+    $msg_status = $_POST['msg_status'];
+    if ($msg_status == 1) {
+        echo json_encode(['errorCode' => 0, 'msg' => '信息状态已为已读，不需更新']);die;
+    } else if ($msg_status == 0) {
+        $transData = ['msg_status' => 1, 'modify_time' => time()];
+        $postData = ['id' => $msg_id, 'transData' => $transData];
+        $result = message::updateMsgDistribute($postData);
+        if ($result['errorCode'] == 0) {
+            echo json_encode(['errorCode' => 0, 'msg' => '信息状态更新成功']);die;
+        } else {
+            echo json_encode(['errorCode' => 1, 'msg' => '信息状态更新失败']);die;
+        }
     } else {
-        echo json_encode(['errorCode' => 1, 'msg' => '信息状态更新失败']);die;
+        echo json_encode(['errorCode' => 1, 'msg' => '信息状态获取失败']);die;
     }
 }
 
@@ -97,7 +104,7 @@ if ($_POST) {
                     foreach($msglist as $k => $v){         
                 ?>
                 <li>
-                    <a href='javascript:;' class="msgs" orderid="<?php echo $v['Order_ID']; ?>" msgid="<?php echo $v['id']; ?>">
+                    <a href='javascript:;' class="msgs" msg_id="<?php echo $v['id']; ?>" msg_status="<?php echo $v['msg_status']; ?>" distributeid="<?php echo $v['Account_ID']; ?>" level="<?php echo $v['distribute_level']; ?>">
                         <p><span><?php if ($v['msg_status'] == 0) {echo '【新消息】';} ?></span><?php echo $v['msg_title']; ?></p>
                         <p style="margin-left:5px;"><?php echo $v['create_time']; ?></p>
                     </a>
@@ -115,7 +122,7 @@ if ($_POST) {
 <script id="msg-row" type="text/html">
 {{each data as v i}}
     <li>
-        <a href='javascript:;' class="msgs" orderid="{{v.Order_ID}}" msgid="{{v.id}}">
+        <a href='javascript:;' class="msgs" msg_id="{{v.id}}" msg_status="{{v.msg_status}}" distributeid="{{v.Account_ID}}" level="{{v.distribute_level}}">
             <p><span>{{if v.msg_status == 0 }}【新消息】{{/if}}</span>{{v.msg_title}}</p>
             <p style="margin-left:5px;">{{v.create_time}}</p>
         </a>
@@ -145,7 +152,7 @@ if ($_POST) {
         $("#pagemore a").click(function(){
             var totalPage = <?php echo $totalPage;?>;
             var pageno = $(this).attr('data-next-pageno');
-            var url = 'admin.php?act=msg_order&p=' + pageno;
+            var url = 'admin.php?act=msg_distribute&p=' + pageno;
 
             var nextPageno = parseInt(pageno);
             if (nextPageno > totalPage) {
@@ -167,24 +174,40 @@ if ($_POST) {
         });
         $('.msgList').on('click','.msgs',function(){
             var me = $(this);
-            var url = "?act=order_details&orderid="+me.attr('orderid');
-            $.ajax({
-                type: 'POST',
-                url: '?act=msg_order',
-                data: 'msgid='+me.attr('msgid'),
-                success: function(data){
-                    if (data.errorCode == 0) {
-                        me.find('span').html('');
-                        window.location.href = url;
-                    } else {
-                        layer.open({
-                            content: '读取状态修改失败',
-                            btn: '确认'
-                        });
-                    }
-                },
-                dataType: 'json'
-            });
+            var msg_status = me.attr('msg_status');
+            var distributeid = me.attr('distributeid');
+            var url = "?act=distribute_detail&distributeid="+distributeid+"&level="+me.sttr('level');
+            if (msg_status == 1) {
+                //信息状态为已读，不需更新操作
+                if (distributeid != 0) {
+                    me.find('span').html('');
+                    window.location.href = url;
+                } else {
+                    //分销订单显示？？？
+                }
+            } else {
+                $.ajax({
+                    type: 'POST',
+                    url: '?act=msg_distribute',
+                    data: 'msg_id='+me.attr('msg_id')+'&msg_status='+msg_status,
+                    success: function(data){
+                        if (data.errorCode == 0) {
+                            me.find('span').html('');
+                            if (distributeid != 0) {
+                                window.location.href = url;
+                            } else {
+                                //分销订单显示？？？
+                            }
+                        } else {
+                            layer.open({
+                                content: '读取状态修改失败',
+                                btn: '确认'
+                            });
+                        }
+                    },
+                    dataType: 'json'
+                });
+            }
         });
     });
 </script>

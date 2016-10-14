@@ -46,7 +46,6 @@ $actionArr = [
 	'msg_distribute',
 	'msg_withdraw',
 	'msg_setting',
-	'msg_detail',
 	'basic_1',
 	'basic_2',
 	'basic_3',

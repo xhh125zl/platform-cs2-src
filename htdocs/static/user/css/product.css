@@ -463,6 +463,6 @@ input.btnsubmit{ width:96%; margin:10px auto; background:#ff5500; color:#fff; te
 .slideTxtBox .msg_x ul li{ float:left;cursor:pointer; width:25%; margin:0}
 .slideTxtBox .msg_x ul li.on{ height:35px; color:#ff5500; border-bottom:2px #ff5500 solid  }
 .msg_list{}
-.msg_list ul{ margin-top:5px; text-align: left;}
-.msg_list ul li{ background:#fff; overflow:hidden; margin-bottom:5px; padding:5px; line-height:25px; height:50px;}
+.msg_list ul{ margin-top:5px;}
+.msg_list ul li{ background:#fff; overflow:hidden; margin-bottom:5px; padding:5px; line-height:25px; height:50px; text-align: left;}
 .msg_list ul li a p{ color:#666;}
