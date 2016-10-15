@@ -168,10 +168,18 @@ if ($_POST) {
     die;
 }
 
-$msg_config = $DB->GetRS("biz_msg_config", "*", "WHERE Biz_ID=".$BizID);
+//读取信息配置
+$msg_config = $DB->GetRs("biz_msg_config", "*", "WHERE Biz_ID=".$BizID);
 
 if (empty($msg_config)) {
-    echo '<script>alert("获取设置参数失败");history.back();</script>';
+    //没有配置信息时，自动生成配置数据，默认信息全部显示
+    $res = $DB->Add('biz_msg_config',['Biz_ID' => $BizID]);
+    if ($res) {
+        $config_id = $DB->insert_id();
+        $msg_config = $DB->GetRs("biz_msg_config", "*", "WHERE id=".$config_id);
+    } else {
+        echo '<script>alert("没有信息配置，生成配置数据失败。");history.back();</script>';
+    }
 }
 
 ?>

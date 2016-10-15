@@ -7,20 +7,21 @@ require_once CMS_ROOT . '/include/helper/page.class.php';
 $p = isset($_GET['p']) ? (int)$_GET['p'] : 1;
 if ($p < 1) $p = 1;
 //每页显示个数
-$pageSize = 2;
+$pageSize = 10;
 
+//获取商家注册时间，以确认显示信息
+$biz_info = $DB->GetRs('biz', 'Biz_CreateTime', 'where `Biz_ID` = '.$BizID);
+//获取信息的类型
 $DB->Get("announce_category","*");
 while ($r=$DB->fetch_assoc()) {
     $announce_category[$r['Category_ID']] = $r['Category_Name'];
 }
-/*$DB->Get("announce_record","*","where Biz_ID='".$BizID."'");
-while ($r=$DB->fetch_assoc()) {
-    $announce_readStatus[$r['Announce_ID']] = 1;
-}*/
-$DB->Get('announce', "*", "where Announce_Status = 1");
+//获取信息总条数
+$DB->Get('announce', "*", "where Announce_Status = 1 and Announce_CreateTime > ".$biz_info['Biz_CreateTime']);
 $totalCount = $DB->num_rows();
+
 $start = ($p-1)*$pageSize;
-$DB->Get("announce","announce.*,announce_record.Record_ID","left join `announce_record` on announce.Announce_ID = announce_record.Announce_ID where announce.Announce_Status = 1 order by announce_record.Record_ID,announce.Announce_CreateTime desc limit ".$start.",".$pageSize);
+$DB->Get("announce","announce.*,announce_record.Record_ID","left join `announce_record` on announce.Announce_ID = announce_record.Announce_ID where announce.Announce_Status = 1 and Announce_CreateTime > ".$biz_info['Biz_CreateTime']." order by announce_record.Record_ID,announce.Announce_CreateTime desc limit ".$start.",".$pageSize);
 $key = 0;
 while ($r=$DB->fetch_assoc()) {
     $announce[$key] = $r;
@@ -32,20 +33,11 @@ while ($r=$DB->fetch_assoc()) {
     $announce[$key]['read_status'] = (isset($r['Record_ID']) && $r['Record_ID'] > 0) ? 1 : 0;     //读取状态 1：已读取
     $key++;
 }
+
 if (isset($announce) && count($announce) > 0) {
     $total = $totalCount;
     $totalPage = ceil($totalCount / $pageSize);
-    //数据排序  新消息
-    $left_arr = array();
-    $right_arr = array();
-    foreach ($announce as $k => $v) {
-        if ($v['read_status'] == 0) {     //未读
-            $left_arr[$k] = $announce[$k];
-        } else if ($v['read_status'] == 1) {
-            $right_arr[$k] = $announce[$k];
-        }
-    }
-    $announce_list = array_merge($left_arr, $right_arr);
+    $announce_list = $announce;
 } else {
     $total = 0;
     $totalPage = 1;
@@ -135,7 +127,7 @@ if ($_POST) {
                 ?>
                 <li>
                     <a href='javascript:;' class="msgs" value="<?php echo $v['Announce_ID']; ?>" status="<?php echo $v['read_status']; ?>">
-                        <p><span><?php if ($v['read_status'] == 0) {echo '【新消息】';} ?></span><?php echo $v['Announce_Title']; ?></p>
+                        <p><span style="color:red;"><?php if ($v['read_status'] == 0) {echo '● ';} ?></span><?php if (!empty($v['Category_Name'])) {echo '【'.$v['Category_Name'].'】'; } ?><?php echo $v['Announce_Title']; ?></p>
                         <p><?php echo $v['Announce_CreateTime']; ?></p>
                     </a>
                     <div class="msg_content" style="display:none;">
@@ -161,7 +153,7 @@ if ($_POST) {
 {{each data as v i}}
     <li>
         <a href='javascript:;' class="msgs" value="{{v.Announce_ID}}" status="{{v.read_status}}">
-            <p><span>{{if v.read_status == 0}} 【新消息】{{/if}}</span>{{v.Announce_Title}}</p>
+            <p><span style="color:red;">{{if v.read_status == 0}}● {{/if}}</span>{{if v.Category_Name != ''}}【{{v.Category_Name}}】{{/if}}{{v.Announce_Title}}</p>
             <p>{{v.Announce_CreateTime}}</p>
         </a>
         <div class="msg_content" style="display:none;">

@@ -105,7 +105,7 @@ if ($_POST) {
                 ?>
                 <li>
                     <a href='javascript:;' class="msgs" msg_id="<?php echo $v['id']; ?>" msg_status="<?php echo $v['msg_status']; ?>" orderid="<?php echo $v['Order_ID']; ?>">
-                        <p><span><?php if ($v['msg_status'] == 0) {echo '【新消息】';} ?></span><?php echo $v['msg_title']; ?></p>
+                        <p><span style="color:red;"><?php if ($v['msg_status'] == 0) {echo '● ';} ?></span><?php echo $v['msg_title']; ?></p>
                         <p style="margin-left:5px;"><?php echo $v['create_time']; ?></p>
                     </a>
                 </li>
@@ -123,7 +123,7 @@ if ($_POST) {
 {{each data as v i}}
     <li>
         <a href='javascript:;' class="msgs" msg_id="{{v.id}}" msg_status="{{v.msg_status}}" orderid="{{v.Order_ID}}">
-            <p><span>{{if v.msg_status == 0 }}【新消息】{{/if}}</span>{{v.msg_title}}</p>
+            <p><span style="color:red;">{{if v.msg_status == 0 }}● {{/if}}</span>{{v.msg_title}}</p>
             <p style="margin-left:5px;">{{v.create_time}}</p>
         </a>
     </li>
