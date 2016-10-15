@@ -6,20 +6,13 @@ if(empty($_SESSION["Users_Account"])){
 $condition = "where Users_ID='".$_SESSION["Users_ID"]."'";
 if(isset($_GET['search'])){
 	if($_GET['Biz_Account']){
-            $BizInfo = $DB->getRs('biz','Biz_ID','where Biz_Account = "'.$_GET['Biz_Account'].'"');
-            if (!empty($BizInfo)) {
-              $condition .= " and biz_id = ".$BizInfo['Biz_ID'];  
-            } else {
-                $condition .= " and biz_id = 'a'";  
-            }	
+			$condition .= " and Biz_Account = '".$_GET['Biz_Account']."'"; 			
 	} 
 	if($_GET['status']!=""){
            
 		$condition .= " and status=".$_GET['status'];
 	}
 }
-
-
 $condition .= " and type =1  order by addtime desc";
 
 $_Status = array(0=>'<font style="color:#ff0000">未付款</font>',1=>'<font style="color:blue">已付款</font>');
@@ -105,8 +98,8 @@ $_Status = array(0=>'<font style="color:#ff0000">未付款</font>',1=>'<font sty
            
             <td><?php if($rsBiz['type']==1){echo '入驻订单';}elseif($rsBiz['type']==2){echo'年费订单';}elseif($rsBiz['type']==3){echo'保证金订单';}?></td>   
             <td nowrap="nowrap"><?php echo $rsBiz["bond_free"]?></td>
-            <td nowrap="nowrap"><?php echo $rsBiz["years"].'年'; ?></td>
-            <td nowrap="nowrap"><?php echo $rsBiz["year_free"]; ?></td>
+            <td nowrap="nowrap"><?php echo !empty($rsBiz["years"])?$rsBiz["years"].'年':'';?></td>
+            <td nowrap="nowrap"><?php echo ($rsBiz["year_free"] != '0.00')?$rsBiz["year_free"]:'';?></td>
             <td nowrap="nowrap"><?php echo $rsBiz["total_money"]; ?></td>
             <td nowrap="nowrap"><?php echo $_Status[$rsBiz["status"]]; ?></td>
 			<td nowrap="nowrap"><?php echo $rsBiz["order_paymentmethod"]; ?></td>
