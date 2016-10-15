@@ -100,7 +100,17 @@ if (isset($_POST['ajax']) && $_POST['ajax'] == 1) {
                         <li>
                             <div class="line_x">
                                 <span class="l">订单号：<a href="?act=order_details&orderid=<?=$v['Order_ID']?>"><?=$v['Order_ID']?></a></span>
-                                <span class="state r">已付款</span>
+                                <span class="state r">
+                                    <?php
+                                        switch ($v['Order_Status']) {
+                                            case 0: echo '待确认';break;
+                                            case 1: echo '未付款';break;
+                                            case 2: echo '已付款';break;
+                                            case 3: echo '已发货';break;
+                                            case 4: echo '已完成';break;
+                                        }
+                                    ?>
+                                </span>
                             </div>
                             <div class="clear"></div>
                             <?php
@@ -140,7 +150,14 @@ if (isset($_POST['ajax']) && $_POST['ajax'] == 1) {
     <li>
         <div class="line_x">
             <span class="l">订单号：<a href="?act=order_details&orderid={{v.Order_ID}}">{{v.Order_ID}}</a></span>
-            <span class="state r">已付款</span>
+            <span class="state r">
+                {{if v.Order_Status == 0}} 待确认
+                {{else if v.Order_Status == 1}} 未付款
+                {{else if v.Order_Status == 2}} 已付款
+                {{else if v.Order_Status == 3}} 已发货
+                {{else if v.Order_Status == 4}} 已完成
+                {{/if}}
+            </span>
         </div>
         <div class="clear"></div>
         {{each v.OrderCartList as val key}}

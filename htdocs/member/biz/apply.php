@@ -142,10 +142,10 @@ $_Status = array(1=>'<font style="color:#ff0000">未审核</font>',2=>'<font sty
         </thead>
         <tbody>
         <?php 
-	 
-		$apply_res = shopconfig::getBizapply(['pageSize'=>20]);
+		$p = !empty($_GET['p'])?$_GET['p']:'1';
+		$apply_res = shopconfig::getBizapplyP(['pageSize'=>2,'is_del'=>1],$p);
 		$lists = !empty($apply_res['data'])?$apply_res['data']:array();	
-		  
+	if (!empty($lists)) {  
 		  foreach($lists as $k=>$rsBiz){
 		?>
               
@@ -173,7 +173,34 @@ $_Status = array(1=>'<font style="color:#ff0000">未审核</font>',2=>'<font sty
         </tbody>
       </table>
       <div class="blank20"></div>
-      <?php $DB->showPage(); ?>
+<div class="page">
+<a class="nopre">首页</a>
+<a class="nopre">上页</a>
+ 
+
+
+
+      <?php 
+		if (!empty($apply_res['totalCount'])) {
+			$pages = $apply_res['totalCount'];
+			if ($apply_res['totalCount']%2 == 0) {
+				$pages = $pages/2;
+			} else {
+			 
+				$pages = intval($apply_res['totalCount']/2)+1;
+			}//print_r($pages);die;
+		for ($i=1;$i<=$pages;$i++) {
+			echo "<a href='apply.php?p=".$i."'>".$i."</a>";
+			 
+		}		
+		 
+		}?>
+<a class="next" href="?page=2">下页</a>		
+<a class="next" href="?page=2">尾页</a>		
+</div>		
+<?php	}
+ ?>
+	  <div style="background:#F7F7F7; border:1px #dddddd solid; height:40px; line-height:40px; font-size:12px; margin:10px 0px; padding-left:15px; color:#ff0000">提示：商家入驻地址 <a href="<?=SHOP_URL?>reg.php" target="_blank"><?=SHOP_URL?>reg.php</a></div> 
      </div>
   </div>
 </div>

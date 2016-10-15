@@ -48,6 +48,30 @@ if ($users['errorCode'] == 0) {
     .deleted1{cursor: pointer;width: 45px;display: block;height: 20px;line-height: 20px;text-align: center;position: relative;background: #000;color: #fff;font-size: 12px;filter: alpha(opacity=50);-moz-opacity: 0.5;-khtml-opacity: 0.5;opacity: 0.5;margin-top: -20px;}
     .notNull { color: red; }
 </style>
+<script type="text/javascript">
+    $(function(){
+        mui.init({
+            keyEventBind: {
+                backbutton: true  //打开back按键监听
+            }
+        });
+        var first=null;
+        mui.back=function(){
+            if(!first){
+                first=new Date().getTime();
+                mui.toast('再按一次退出系统!');
+
+                setTimeout(function(){
+                    first=null;
+                },2000);
+            }else{
+                if(new Date().getTime()-first<2000){
+                    plus.runtime.quit();
+                }
+            }
+        };
+    });
+</script>
 <body>
 <div class="w">
     <div class="back_x">

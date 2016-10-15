@@ -120,7 +120,7 @@ KindEditor.ready(function(K) {
 		<div class="rows">
           <label>年费设置</label>
           <span class="input">
-                <a href="javascript:void(0);" id="add_man" class="red">添加</a>
+                <a href="javascript:void(0);" id="add_man" class="red">添加</a><span class="tips">&nbsp;&nbsp;&nbsp;&nbsp;（当商城设置商家发布自营产品需要收费时,此设置才会有效）</span>
                 <ul id="man_panel">
                 <?php if(count($year_list['name'])>0):?>
                     <?php foreach($year_list['name'] as $key=>$year):?>
