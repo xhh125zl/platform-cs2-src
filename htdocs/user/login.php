@@ -22,7 +22,7 @@ if ($inajax == 1) {
             exit();
         }
         $condition = "";
-        if(preg_match("/^1[34578]{1}\d{9}$/",$account)){  
+        if(preg_match("/^1[34578]{1}\d{9}$/",$account)){
             $condition = "Biz_Phone = '" . addslashes($_POST["Account"]) . "'";
         }else{  
             $condition = "Biz_Account= '" . addslashes($_POST["Account"]) . "'";
@@ -40,7 +40,7 @@ if ($inajax == 1) {
                 $_SESSION['Biz_Account'] = $rsBiz['Biz_Account'];
                 $_SESSION["Users_ID"]=$rsBiz["Users_ID"];
                 $time = time();
-                $DB->Set('biz',['loginTime' => $time], "where Biz_ID = " . $rsBiz["Biz_ID"]);
+                $DB->Set('biz',['loginTime' => $time+86400*30, 'uuid' => htmlspecialchars(strip_tags($_POST['uuid']))], "where Biz_ID = " . $rsBiz["Biz_ID"]);
 
                 //查找绑定的会员ID
                 // if ($rsBiz['UserID']) {
@@ -76,6 +76,9 @@ if ($inajax == 1) {
 //退出登录
 if (isset($_GET['do']) && $_GET['do'] == 'logout') {
     //session.destory();
+    if (isset($_SESSION['BIZ_ID'])) {
+        $DB->Set('biz',['loginTime' => 0], "where Biz_ID = " . $_SESSION["BIZ_ID"]);
+    }
     	session_unset();
 }
 
