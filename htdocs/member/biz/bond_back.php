@@ -97,14 +97,6 @@ $condition = "where Users_ID='".$_SESSION["Users_ID"]."'";
  
 $condition .= " order by addtime desc";
  
- 
-$DB->get("biz","Biz_ID,Users_ID,Biz_Account,Biz_Name","where Users_ID='".$_SESSION["Users_ID"]."'");
-while ($r = $DB->fetch_assoc()) {
-    $bizList[$r['Biz_ID']] = $r; 
-}
-
-// echo "<pre>";print_r($bizList);
-
 $_Status = array(1=>'<font style="color:#ff0000">申请中</font>',2=>'<font style="color:blue">审核通过</font>',3=>'<font style="color:blue">已退款</font>',-1=>'<font style="color:blue">已驳回</font>');
 ?>
 <!DOCTYPE HTML>
@@ -170,8 +162,8 @@ $_Status = array(1=>'<font style="color:#ff0000">申请中</font>',2=>'<font sty
               
           <tr>
             <td nowrap="nowrap"><?php echo $rsBiz["id"] ?></td>
-            <td><?php echo !empty($bizList[$rsBiz["biz_id"]]['Biz_Account'])?$bizList[$rsBiz["biz_id"]]['Biz_Account']:'商家不存在' ?></td>
-            <td><?php echo !empty($bizList[$rsBiz["biz_id"]]['Biz_Name'])?$bizList[$rsBiz["biz_id"]]['Biz_Name']:''  ?></td>
+            <td><?php echo !empty($rsBiz['Biz_Account'])?$rsBiz['Biz_Account']:'商家不存在' ?></td>
+            <td><?php echo !empty($rsBiz['Biz_Name'])?$rsBiz['Biz_Name']:''  ?></td>
 			 <td><?php echo $rsBiz["alipay_username"] ?></td>
 			  <td><?php echo $rsBiz["alipay_account"] ?></td>
             <td><?php echo $rsBiz["back_money"] ?></td>
