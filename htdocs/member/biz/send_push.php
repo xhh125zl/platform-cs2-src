@@ -38,11 +38,13 @@ if(empty($_SESSION["Users_Account"]))
 
     </script>
 </head>
-<body>
+<body style="font-family:'微软雅黑'">
 <form id="all" method="post" onsubmit="return sendPushall()">
-    <p><label>消息内容:</label></p>
-    <p><textarea rows="3" name="n_content" id="n_content" cols="105" class="n_content" placeholder="请填写要推送的消息,长度不得超过255个字符"></textarea><p>
-    <p><input type="submit" class="send_btn" value="Send" onclick=""/></p>
+    <div style=" width:94%;margin:20px auto;overflow:hidden;">
+        <p style=" font-size:18px; color:#333; line-height:30px;"><label>消息内容：</label></p>
+        <p><textarea rows="3" name="n_content" id="n_content" cols="105" class="n_content" placeholder="请填写要推送的消息,长度不得超过255个字符" style=" font-size:14px; color:#666; line-height:25px; height:200px; padding:5px; outline:none"></textarea><p>
+        <p><input type="submit" class="send_btn" value="开始推送" onclick="" style=" padding: 5px 15px;text-align:center; color:#666"/></p>
+    </div>
 </form>
 <div class="info"></div>
 </body>

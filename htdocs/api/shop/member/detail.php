@@ -5,7 +5,7 @@ require_once($_SERVER["DOCUMENT_ROOT"].'/include/helper/distribute.php');
 
 $OrderID=$_GET['OrderID'];
 
-$rsOrder=$DB->GetRs("user_order","*","where Users_ID='".$UsersID."' and User_ID='".$_SESSION[$UsersID."User_ID"]."' and Order_ID='".$OrderID."'");
+$rsOrder=$DB->GetRs("user_order","*","where (Users_ID='".$UsersID."' or Sales_By = '". $UsersID ."') and User_ID='".$_SESSION[$UsersID."User_ID"]."' and Order_ID='".$OrderID."'");
 $Status=$rsOrder["Order_Status"];
 $Order_Status=array("待确认","待付款","已付款","已发货","已完成");
 
