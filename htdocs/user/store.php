@@ -203,7 +203,7 @@ $ShopUrl = SHOP_URL . 'api/' . $UsersID . '/shop/';
     ?>
     
     $("#previewShop").click(function(){
-        var shopurl = '<?php echo $ShopUrl ?>';
+        var shopurl = '<?php echo $ShopUrl ?>?preview=1';
         location.href = shopurl;
     })
 
