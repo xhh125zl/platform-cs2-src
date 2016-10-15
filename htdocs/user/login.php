@@ -3,7 +3,7 @@ define('USER_PATH', dirname(__FILE__) . '/');
 
 include USER_PATH . '../Framework/Conn.php';
 require_once CMS_ROOT . '/include/helper/tools.php';
-
+$uuid = isset($_GET['uuid']) ? $_GET['uuid'] : 0;
 $inajax = isset($_GET['inajax']) ? (int)$_GET['inajax'] : 0;
 
 if ($inajax == 1) {
@@ -39,6 +39,8 @@ if ($inajax == 1) {
                 $_SESSION["BIZ_ID"]=$rsBiz["Biz_ID"];
                 $_SESSION['Biz_Account'] = $rsBiz['Biz_Account'];
                 $_SESSION["Users_ID"]=$rsBiz["Users_ID"];
+                $time = time();
+                $DB->Set('biz',['loginTime' => $time], "where Biz_ID = " . $rsBiz["Biz_ID"]);
 
                 //查找绑定的会员ID
                 // if ($rsBiz['UserID']) {
@@ -54,7 +56,7 @@ if ($inajax == 1) {
                 
                 $result =  [
                     'status' => 1,
-                    'url' => "/user/admin.php?act=store"
+                    'url' => "/user/admin.php?act=store&time={$time}&bizID=".$rsBiz["Biz_ID"]
                 ];
             }
         } else {
@@ -97,6 +99,11 @@ if (isset($_GET['do']) && $_GET['do'] == 'logout') {
     <form id="form1" name="form1" method="post">
     	<input type="text" name="Account" id="Account" value="" maxlength="11" class="login_x" placeholder="登录名/手机号" notnull="">
         <input type="password" name="Password" id="Password" value="" maxlength="16" class="login_x1" placeholder="登录密码" notnull="">
+        <?
+            if ($uuid) { ?>
+                <input type="hidden" name="uuid" value="<?=$uuid?>"/>
+          <?  }
+        ?>
         <input name="提交" type="button" class="login_sub" value="立即登录">
             <div class="login_t">
                <span class="l"><a href="forget.php">忘记密码？</a></span>
