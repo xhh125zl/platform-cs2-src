@@ -1,6 +1,55 @@
 <?php
-require_once "lib/order.php";
+if (!defined('USER_PATH')) exit();
+require_once CMS_ROOT . "/user/config.inc.php";
 require_once CMS_ROOT . '/include/api/ImplOrder.class.php';
+
+//获取订单
+function getOrders($Biz_Account, $page = 1, $orderID = '', $order_status){
+    $transfer = ['Biz_Account' => $Biz_Account, 'pageSize' => 2, 'Order_ID' => $orderID, 'Order_Status' => $order_status];
+    $res = ImplOrder::getOrders($transfer, $page);
+    return $res;
+}
+
+//获取订单详情
+function getOrderDetail($Biz_Account,$orderID){
+    $transfer = ['Biz_Account' => $Biz_Account, 'pageSize' => 1, 'Order_ID' => $orderID];
+    $res = ImplOrder::getOrders($transfer);
+    return $res;
+}
+
+if (isset($_GET['orderid'])) {
+    $Order_ID = $_GET['orderid'];
+    $res = getOrderDetail($_SESSION['Biz_Account'],$_GET['orderid']);
+    if ($res['errorCode'] == 0) {
+        $orderDetail = $res['data'][0];
+        //收货地址
+        $area_json = read_file($_SERVER["DOCUMENT_ROOT"].'/data/area.js');
+        $area_array = json_decode($area_json,TRUE);
+        $province_list = $area_array[0];
+        $Province = '';
+        if(!empty($orderDetail['Address_Province'])){
+            $Province = $province_list[$orderDetail['Address_Province']].',';
+        }
+        $City = '';
+        if(!empty($orderDetail['Address_City'])){
+            $City = $area_array['0,'.$orderDetail['Address_Province']][$orderDetail['Address_City']].',';
+        }
+
+        $Area = '';
+        if(!empty($orderDetail['Address_Area'])){
+            $Area = $area_array['0,'.$orderDetail['Address_Province'].','.$orderDetail['Address_City']][$orderDetail['Address_Area']];
+        }
+
+
+        $Shipping=json_decode(htmlspecialchars_decode($orderDetail["Order_Shipping"]),true);
+    } else {
+        echo '<script>alert("没有此订单的消息");history.back();</script>';exit;
+    }
+} else {
+    echo '<script>alert("获取订单号失败");history.back();</script>';
+    exit;
+}
+
 ?>
 <!doctype html>
 <html>
@@ -80,8 +129,8 @@ if($_POST){
 <body>
 <div class="w">
     <div class="slideTxtBox">
-        <div class="hd">
-            <ul><li>待处理</li><li>未付款</li><li>退款单</li><li>已完成</li><li>已关闭</li></ul>
+        <div class="back_x">
+            <a class="l" href='javascript:history.back();'><i class="fa  fa-angle-left fa-2x" aria-hidden="true"></i></a>订单详情
         </div>
         <div class="bd order_x">
             <ul>
@@ -100,7 +149,7 @@ if($_POST){
                         switch ($orderDetail['Order_Status'])
                         {
                             case 0:
-                                echo "待处理";
+                                echo "待确认";
                                 break;
                             case 1:
                                 echo "未付款";
@@ -166,19 +215,21 @@ if($_POST){
                 </li>
                 <?php } ?>
                 <!-- 自营商品发货 -->
-                <?php if($orderDetail['Order_Status'] == 2 && $orderDetail["Order_IsVirtual"]<>1 && ($orderDetail['Sales_By'] == '0' || $orderDetail['Users_ID'] == $UsersID)){ ?>
+                <?php
+                    if($orderDetail['Order_Status'] == 2 && $orderDetail["Order_IsVirtual"]<>1 && ($orderDetail['Sales_By'] == '0' || $orderDetail['Users_ID'] == $UsersID)){
+                ?>
                 <form method="post" action="" id="order_send_form">
                     <li>
                         <span class="left">快递单号：</span>
-                        <span class="left"><input name="ShippingID" value="<?php echo $orderDetail["Order_ShippingID"] ?>"/></span>
+                        <span class="left"><input type="number" name="ShippingID" value="<?php echo $orderDetail["Order_ShippingID"] ?>"/></span>
                     </li>
                     <li>
                         <span class="left">收&nbsp;&nbsp;货&nbsp;人：</span>
-                        <span class="left"><input name="Name" value="<?php echo $orderDetail["Address_Name"] ?>" size="10"/></span>
+                        <span class="left"><input type="text" name="Name" value="<?php echo $orderDetail["Address_Name"] ?>" size="10"/></span>
                     </li>
                     <li>
                         <span class="left">手机号码：</span>
-                        <span class="left"><input name="Mobile" value="<?php echo $orderDetail["Address_Mobile"] ?>" size="15"/></span>
+                        <span class="left"><input type="tel" name="Mobile" value="<?php echo $orderDetail["Address_Mobile"] ?>" size="15"/></span>
                     </li>
                     <li>
                         <textarea name="Remark" style="width:97%; height:60px;" placeholder="请输入订单备注"><?=$orderDetail['Order_Remark']?></textarea>
