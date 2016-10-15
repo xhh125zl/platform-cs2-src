@@ -40,7 +40,18 @@ if ($inajax == 1) {
                 $_SESSION['Biz_Account'] = $rsBiz['Biz_Account'];
                 $_SESSION["Users_ID"]=$rsBiz["Users_ID"];
                 $time = time();
-                $DB->Set('biz',['loginTime' => $time+86400*30, 'uuid' => htmlspecialchars(strip_tags($_POST['uuid']))], "where Biz_ID = " . $rsBiz["Biz_ID"]);
+                if (isset($_POST['uuid'])) {
+                    $DB->Set('biz',['loginTime' => $time+86400*30, 'uuid' => htmlspecialchars(strip_tags($_POST['uuid']))], "where Biz_ID = " . $rsBiz["Biz_ID"]);
+                    $result =  [
+                        'status' => 1,
+                        'url' => "/user/admin.php?act=store&time={$time}&bizID=".$rsBiz["Biz_ID"]
+                    ];
+                } else {
+                    $result =  [
+                        'status' => 1,
+                        'url' => "/user/admin.php?act=store"
+                    ];
+                }
 
                 //查找绑定的会员ID
                 // if ($rsBiz['UserID']) {
@@ -54,10 +65,7 @@ if ($inajax == 1) {
                 //     }
                 // }
                 
-                $result =  [
-                    'status' => 1,
-                    'url' => "/user/admin.php?act=store&time={$time}&bizID=".$rsBiz["Biz_ID"]
-                ];
+
             }
         } else {
             $result =  [
