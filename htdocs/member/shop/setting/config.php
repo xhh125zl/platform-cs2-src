@@ -380,8 +380,10 @@ KindEditor.ready(function(K) {
 								value="<?php echo $rsConfig["ShopName"] ?>" maxlength="30"
 								notnull /></td>
 							<td width="50%" valign="top">
-								<span class="fc_red">*</span> <strong>商家发布自营产品收费金额,<span style="color:#f00;">点击下方金额即可编辑</span>(如不收费,请填写0)</strong><br />
-								<span id="Users_PayCharge"><p style="padding-left:30px;">&yen;<?php echo $rsConfig["Users_PayCharge"] ?>元</p></span>
+								<span class="fc_red">*</span> <strong>商家发布自营产品收费金额<span style="color:#f00;"></span>(如不收费,请选择关)</strong><br />
+								<!--<span id="Users_PayCharge"><p style="padding-left:30px;">&yen;<?php echo $rsConfig["Users_PayCharge"] ?>元</p></span>-->
+								<span id="Users_PayCharge"><input type="radio" name="Users_PayCharge" value="20" <?php echo !empty($rsConfig["Users_PayCharge"])?"checked":""; ?> >开
+								<input type="radio" name="Users_PayCharge" value="0" <?php echo empty($rsConfig["Users_PayCharge"])?"checked":""; ?> >关</span>
 							</td>
 						</tr>
 						<tr>

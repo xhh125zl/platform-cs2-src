@@ -68,7 +68,7 @@ if(isset($_GET["action"])){
 		}
 		$Flag1 = $DB->Set("biz_bond_back",array("status"=>3),"where Users_ID='".$_SESSION["Users_ID"]."' and id=".$_GET["itemid"]);
 		mysql_query('BEGIN');
-		$bizInfo = $DB->GetRs('biz','bond_free',"where Users_ID='".$_SESSION["Users_ID"]."' and Biz_ID=".$_GET["bizid"]);
+		$bizInfo = $DB->GetRs('biz','*',"where Users_ID='".$_SESSION["Users_ID"]."' and Biz_Account=".$_GET["bizid"]);
 		if (empty($bizInfo)) {
 			echo '<script language="javascript">alert("该商家没有保证金,不能退款");history.back();</script>';
 			exit;
@@ -79,7 +79,7 @@ if(isset($_GET["action"])){
 			exit;
 		}
 		$bond_free = $bizInfo['bond_free'] - $backInfo['back_money'];
-		$Flag2 = $DB->Set("biz",array("bond_free"=>$bond_free),"where Users_ID='".$_SESSION["Users_ID"]."' and Biz_ID=".$_GET["bizid"]);
+		$Flag2 = $DB->Set("biz",array("bond_free"=>$bond_free),"where Users_ID='".$_SESSION["Users_ID"]."' and Biz_Account=".$_GET["bizid"]);
 		
 		if($Flag1 && $Flag2)
 		{
@@ -125,7 +125,7 @@ $_Status = array(1=>'<font style="color:#ff0000">申请中</font>',2=>'<font sty
     <div class="r_nav">
       <ul>
         <li><a href="index.php">商家列表</a></li>
-        <li><a href="group.php">商家分组</a></li>
+        
         <li class=""><a href="apply.php">资质审核列表</a></li>
 	<li><a href="apply_config.php">入驻设置</a></li>
         <li class="cur"><a href="bond_back.php">保证金退款</a></li>
@@ -181,7 +181,7 @@ $_Status = array(1=>'<font style="color:#ff0000">申请中</font>',2=>'<font sty
                 <a href="?action=back&itemid=<?php echo $rsBiz["id"] ?>">[驳回]</a>
                 <?php } ?>
                 <?php if($rsBiz["status"] == 2){?>
-                <a href="?action=begin_pay&itemid=<?php echo $rsBiz["id"]?>&bizid=<?php echo $rsBiz['biz_id']?>">[退款]</a>
+                <a href="?action=begin_pay&itemid=<?php echo $rsBiz["id"]?>&bizid=<?php echo $rsBiz['Biz_Account']?>">[退款]</a>
                 <?php } ?>
                 <!--<a href="?action=del&itemid=<?php echo $rsBiz["id"] ?>" onClick="if(!confirm('删除后不可恢复，继续吗？')){return false};">[删除]</a>-->
             </td>

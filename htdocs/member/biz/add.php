@@ -54,7 +54,7 @@ if($_POST){
 		"expiredate"=>empty($_POST['expiredate'])?'0':strtotime($_POST['expiredate']),
 		"Biz_PassWord"=>md5($_POST['PassWord']),
 		"Biz_Name"=>$_POST['Name'],
-		"Group_ID"=>$_POST['GroupID'],
+		//"Group_ID"=>$_POST['GroupID'],
 		"Biz_Address"=>$_POST['Address'],
 		"Biz_Homepage"=>$_POST['Homepage'],
 		"Biz_Introduce"=>$_POST['Introduce'],
@@ -169,7 +169,7 @@ KindEditor.ready(function(K) {
     <div class="r_nav">
       <ul>
         <li class="cur"><a href="index.php">商家列表</a></li>
-        <li><a href="group.php">商家分组</a></li>
+       
 		<li><a href="apply.php">资质审核列表</a></li>
 		<li><a href="apply_config.php">入驻设置</a></li>
       </ul>
@@ -211,17 +211,7 @@ KindEditor.ready(function(K) {
           <div class="clear"></div>
         </div>
         
-        <div class="rows">
-          <label>所属分组</label>
-          <span class="input">
-          <select name="GroupID" notnull>
-          <?php foreach($groups as $GroupID=>$v){?>
-          <option value="<?php echo $GroupID;?>"><?php echo $v["Group_Name"];?></option>
-          <?php }?>
-          </select>
-          <font class="fc_red">*</font></span>
-          <div class="clear"></div>
-        </div>
+         
 		 
 		<div class="rows">
           <label>到期时间</label>
