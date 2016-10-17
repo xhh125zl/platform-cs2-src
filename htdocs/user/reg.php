@@ -166,6 +166,7 @@ if ($ret['errorCode'] != 0) {
 
 		$flag = $DB->Add('biz', $data);
 		$shopConfig = $DB->GetRs('shop_config', 'Users_PayCharge', "where Users_ID = 'pl2hu3uczz'");
+		$flagUpdate = true;
 		if ($shopConfig && $shopConfig['Users_PayCharge'] > 0) {
 			$updateData = ['Users_ExpiresTime' => $time + 86400 * 7];
 			$flagUpdate = $DB->Set('biz', $updateData, "where Biz_Account = '". $Account ."'");
