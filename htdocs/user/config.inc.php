@@ -31,7 +31,7 @@ if (isset($_SESSION['BIZ_ID'])) {
 				$DB->Set('biz',['loginTime' => 0], "where Biz_ID = " . $_SESSION["BIZ_ID"]);
 				session_unset();
 			}
-			header("Location:/user/login.php?uuid=". $_GET['uuid']);
+			header("Location:/user/login.php?uuid=". htmlspecialchars(strip_tags($_GET['uuid'])));
 		}
 	} else {
 		if (isset($_SESSION["BIZ_ID"])) {
@@ -39,7 +39,7 @@ if (isset($_SESSION['BIZ_ID'])) {
 			session_unset();
 		}
 		if (isset($_GET['uuid'])) {
-			header("Location:/user/login.php?uuid=". $_GET['uuid']);
+			header("Location:/user/login.php?uuid=". htmlspecialchars(strip_tags($_GET['uuid'])));
 		} else {
 			header('Location:/user/login.php');
 		}
