@@ -66,6 +66,7 @@ if (isset($_GET['orderid'])) {
         .input_write{ width: 200px; height: 25px; line-height: 25px; text-indent: 10px; border: 1px solid #d9d9d9;}
     </style>
 </head>
+<body>
 <?php
 if ($_POST) {
     $action = isset($_POST['action']) ? $_POST['action'] : '';
@@ -96,7 +97,6 @@ if ($_POST) {
     }
 }
 ?>
-<body>
 <div class="w">
     <div class="slideTxtBox">
         <div class="back_x">
@@ -176,7 +176,7 @@ if ($_POST) {
                 </li>
                 <?php } ?>
 
-                <?php if (in_array($orderDetail['Order_Status'], array(1, 3, 4, 5)) || !($orderDetail['Order_Status'] == 2 && $orderDetail["Order_IsVirtual"]<>1 && $orderDetail['Sales_By'] == 0)) { ?>
+                <?php if (in_array($orderDetail['Order_Status'], array(1, 3, 4, 5)) || ($orderDetail['Order_Status'] == 2 && strlen($orderDetail['Sales_By']) > 1)) { ?>
                 <li>
                     <span class="left">收&nbsp;&nbsp;货&nbsp;人：</span>
                     <span class="left"><?php echo $orderDetail["Address_Name"] ?></span>
