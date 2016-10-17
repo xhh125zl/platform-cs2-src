@@ -79,7 +79,6 @@ while($row = $DB->fetch_assoc()){
     <div class="r_nav">
       <ul>
         <li class="cur"><a href="index.php">商家列表</a></li>
-        <li><a href="group.php">商家分组</a></li>
         <li><a href="apply.php">资质审核列表</a></li>
         <li><a href="apply_config.php">入驻设置</a></li>
       </ul>
@@ -128,7 +127,7 @@ while($row = $DB->fetch_assoc()){
              <td width="5%" nowrap="nowrap">邀请码</td>
             <td width="7%" nowrap="nowrap">业务员</td>
             <td width="15%" nowrap="nowrap">商家名称</td>
-            <td width="10%" nowrap="nowrap">所属分组</td>
+           
             <td width="7%" nowrap="nowrap">联系人</td>
             <td width="8%" nowrap="nowrap">联系电话</td>
 			<td width="12%" nowrap="nowrap">保证金</td>
@@ -162,7 +161,7 @@ while($row = $DB->fetch_assoc()){
 							} 
 			}?></td>
             <td><?php echo $rsBiz["Biz_Name"] ?></td>
-            <td><?php echo empty($groups[$rsBiz["Group_ID"]]["Group_Name"]) ? "" : $groups[$rsBiz["Group_ID"]]["Group_Name"]; ?></td>
+           
             <td nowrap="nowrap"><?php echo $rsBiz['Biz_Contact']; ?></td>
             <td nowrap="nowrap"><?php echo $rsBiz["Biz_Phone"] ? $rsBiz["Biz_Phone"] : "暂无";?></td>
 			<td nowrap="nowrap"><?php echo $rsBiz["bond_free"] ?></td>

@@ -106,7 +106,7 @@ $_Status = array(1=>'<font style="color:#ff0000">未审核</font>',2=>'<font sty
     <div class="r_nav">
       <ul>
         <li><a href="index.php">商家列表</a></li>
-        <li><a href="group.php">商家分组</a></li>
+       
 		<li class="cur"><a href="apply.php">资质审核列表</a></li>
                 <li class=""><a href="authpay.php">入驻支付列表</a></li>
                 <li class=""><a href="chargepay.php">续费支付列表</a></li>
