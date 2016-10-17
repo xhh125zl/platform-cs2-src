@@ -162,11 +162,15 @@ if ($ret['errorCode'] != 0) {
 			'Biz_PassWord' => md5($password),
 			'Biz_Phone' => $mobile,
 			'Biz_CreateTime' => $time,
-			'Users_ExpiresTime' => $time + 86400 * 7
 		];
 
 		$flag = $DB->Add('biz', $data);
-		if ($flag) {
+		$shopConfig = $DB->GetRs('shop_config', 'Users_PayCharge', "where Users_ID = 'pl2hu3uczz'");
+		if ($shopConfig && $shopConfig['Users_PayCharge'] > 0) {
+			$updateData = ['Users_ExpiresTime' => $time + 86400 * 7];
+			$flagUpdate = $DB->Set('biz', $updateData, "where Biz_Account = '". $Account ."'");
+		}
+		if ($flag && $flagUpdate) {
 
 			$Biz_ID = $DB->insert_id();
 
