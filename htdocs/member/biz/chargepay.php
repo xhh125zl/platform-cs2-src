@@ -6,12 +6,8 @@ if(empty($_SESSION["Users_Account"])){
 $condition = "where Users_ID='".$_SESSION["Users_ID"]."'";
 if(isset($_GET['search'])){
 	if($_GET['Biz_Account']){
-            $BizInfo = $DB->getRs('biz','Biz_ID','where Biz_Account = "'.$_GET['Biz_Account'].'"');
-            if (!empty($BizInfo)) {
-              $condition .= " and biz_id = ".$BizInfo['Biz_ID'];  
-            } else {
-                $condition .= " and biz_id = 'a'";  
-            }	
+           
+		$condition .= " and Biz_Account = '".$_GET['Biz_Account']."'"; 				
 	} 
 	if($_GET['status']!=""){
            

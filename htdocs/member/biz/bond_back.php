@@ -68,7 +68,7 @@ if(isset($_GET["action"])){
 		}
 		$Flag1 = $DB->Set("biz_bond_back",array("status"=>3),"where Users_ID='".$_SESSION["Users_ID"]."' and id=".$_GET["itemid"]);
 		mysql_query('BEGIN');
-		$bizInfo = $DB->GetRs('biz','bond_free',"where Users_ID='".$_SESSION["Users_ID"]."' and Biz_ID=".$_GET["bizid"]);
+		$bizInfo = $DB->GetRs('biz','*',"where Users_ID='".$_SESSION["Users_ID"]."' and Biz_Account=".$_GET["bizid"]);
 		if (empty($bizInfo)) {
 			echo '<script language="javascript">alert("该商家没有保证金,不能退款");history.back();</script>';
 			exit;
@@ -79,7 +79,7 @@ if(isset($_GET["action"])){
 			exit;
 		}
 		$bond_free = $bizInfo['bond_free'] - $backInfo['back_money'];
-		$Flag2 = $DB->Set("biz",array("bond_free"=>$bond_free),"where Users_ID='".$_SESSION["Users_ID"]."' and Biz_ID=".$_GET["bizid"]);
+		$Flag2 = $DB->Set("biz",array("bond_free"=>$bond_free),"where Users_ID='".$_SESSION["Users_ID"]."' and Biz_Account=".$_GET["bizid"]);
 		
 		if($Flag1 && $Flag2)
 		{
@@ -97,14 +97,6 @@ $condition = "where Users_ID='".$_SESSION["Users_ID"]."'";
  
 $condition .= " order by addtime desc";
  
- 
-$DB->get("biz","Biz_ID,Users_ID,Biz_Account,Biz_Name","where Users_ID='".$_SESSION["Users_ID"]."'");
-while ($r = $DB->fetch_assoc()) {
-    $bizList[$r['Biz_ID']] = $r; 
-}
-
-// echo "<pre>";print_r($bizList);
-
 $_Status = array(1=>'<font style="color:#ff0000">申请中</font>',2=>'<font style="color:blue">审核通过</font>',3=>'<font style="color:blue">已退款</font>',-1=>'<font style="color:blue">已驳回</font>');
 ?>
 <!DOCTYPE HTML>
@@ -170,8 +162,8 @@ $_Status = array(1=>'<font style="color:#ff0000">申请中</font>',2=>'<font sty
               
           <tr>
             <td nowrap="nowrap"><?php echo $rsBiz["id"] ?></td>
-            <td><?php echo !empty($bizList[$rsBiz["biz_id"]]['Biz_Account'])?$bizList[$rsBiz["biz_id"]]['Biz_Account']:'商家不存在' ?></td>
-            <td><?php echo !empty($bizList[$rsBiz["biz_id"]]['Biz_Name'])?$bizList[$rsBiz["biz_id"]]['Biz_Name']:''  ?></td>
+            <td><?php echo !empty($rsBiz['Biz_Account'])?$rsBiz['Biz_Account']:'商家不存在' ?></td>
+            <td><?php echo !empty($rsBiz['Biz_Name'])?$rsBiz['Biz_Name']:''  ?></td>
 			 <td><?php echo $rsBiz["alipay_username"] ?></td>
 			  <td><?php echo $rsBiz["alipay_account"] ?></td>
             <td><?php echo $rsBiz["back_money"] ?></td>
@@ -189,7 +181,7 @@ $_Status = array(1=>'<font style="color:#ff0000">申请中</font>',2=>'<font sty
                 <a href="?action=back&itemid=<?php echo $rsBiz["id"] ?>">[驳回]</a>
                 <?php } ?>
                 <?php if($rsBiz["status"] == 2){?>
-                <a href="?action=begin_pay&itemid=<?php echo $rsBiz["id"]?>&bizid=<?php echo $rsBiz['biz_id']?>">[退款]</a>
+                <a href="?action=begin_pay&itemid=<?php echo $rsBiz["id"]?>&bizid=<?php echo $rsBiz['Biz_Account']?>">[退款]</a>
                 <?php } ?>
                 <!--<a href="?action=del&itemid=<?php echo $rsBiz["id"] ?>" onClick="if(!confirm('删除后不可恢复，继续吗？')){return false};">[删除]</a>-->
             </td>
