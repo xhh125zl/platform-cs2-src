@@ -284,9 +284,9 @@ if (count($infolist) > 0)        	 {
             	<div style=" border-bottom:1px #eee solid; overflow:hidden;min-height:110px;">
                 	<a><span class="imgs l"><img src="<?php echo $product['thumb'];?>" width="90" height="90"></span>
                     <span class="main l">
-                        <p><?php echo $product['Products_Name'];?> <?php echo $product['Products_ID'];?></p>
+                        <p><?php echo $product['Products_Name'];?></p>
                         <span class="l" style="font-size:16px; line-height:25px; color:#333">￥<?php echo $product['Products_PriceX'];?></span>
-                        <!--<span class="r" style="line-height:25px;">佣金<sss style="color:#ff5000; font-size:16px;">￥<?php /*echo ($product['Products_PriceY'] - $product['Products_PriceX'])*/?><sss/></span>-->
+                        <!--<span class="r" style="line-height:25px;">佣金<sss style="color:#ff5000; font-size:16px;">￥<?php /*echo ($product['Products_PriceY'] - $product['Products_PriceX'])*/?></sss></span>-->
                         <div class="clear"></div>
                         <span class="l">已售<?php echo $product['Products_Sales'];?></span>
                         <span class="r">库存:<?php echo $product['Products_Count'];?></span>
@@ -338,9 +338,9 @@ if (count($infolist) > 0)        	 {
     	<div style="border-bottom:1px #eee solid; overflow:hidden;min-height:110px;">
         	<a><span class="imgs l"><img src="{{product.thumb}}" width="90" height="90"></span>
             <span class="main l">
-                <p>{{product.Products_Name}}【{{product.Products_ID}}】</p>
+                <p>{{product.Products_Name}}</p>
                 <span class="l" style="font-size:16px; line-height:25px; color:#333">￥{{product.Products_PriceX}}</span>
-                <span class="r" style="line-height:25px;">佣金<sss style="color:#ff5000; font-size:16px;">￥{{product.Products_PriceY - product.Products_PriceX}}<sss/></span>
+                <!--<span class="r" style="line-height:25px;">佣金<sss style="color:#ff5000; font-size:16px;">￥{{product.Products_PriceY - product.Products_PriceX}}</sss></span>-->
                 <div class="clear"></div>
                 <span class="l">已售{{product.Products_Sales}}</span>
                 <span class="r">库存:{{product.Products_Count}}</span>

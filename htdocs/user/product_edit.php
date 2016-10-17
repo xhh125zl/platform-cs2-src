@@ -23,6 +23,7 @@ if ($users['errorCode'] == 0) {
 }
 
 //获取商品数据
+$product_id = 0;
 if (isset($_GET['product_id'])) {
 	$product_id = $_GET['product_id'];
 } else {
@@ -95,6 +96,10 @@ $des_img_path = implode(',', $img_arr[2]);
 //print_r($description);die;
 
 //推荐到批发商城时的分类
+$b2c_firstCateName = '';
+$b2c_secondCateName = '';
+$firstCateName = '';
+$secondCateName = '';
 if ($postdata['is_Tj'] == 1 && $productData['is_Tj'] == 1) {
     $b2cCate = $productData['b2cCategory'];
     $b2cCateId = explode(',', $b2cCate['B2CProducts_Category']);
