@@ -6,7 +6,6 @@ if(empty($_SESSION["Users_Account"]))
 	header("location:/member/login.php");
 }
 
-$_GET = daddslashes($_GET,1);
 $Keywords=empty($_REQUEST["Keywords"])?"":trim($_REQUEST["Keywords"]);
 $condition = "where Users_ID='".$_SESSION["Users_ID"]."' ";
 if($Keywords){

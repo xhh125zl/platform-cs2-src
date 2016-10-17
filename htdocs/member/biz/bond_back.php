@@ -125,7 +125,7 @@ $_Status = array(1=>'<font style="color:#ff0000">申请中</font>',2=>'<font sty
     <div class="r_nav">
       <ul>
         <li><a href="index.php">商家列表</a></li>
-        <li><a href="group.php">商家分组</a></li>
+        
         <li class=""><a href="apply.php">资质审核列表</a></li>
 	<li><a href="apply_config.php">入驻设置</a></li>
         <li class="cur"><a href="bond_back.php">保证金退款</a></li>

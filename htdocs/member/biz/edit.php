@@ -52,7 +52,7 @@ if ($_POST) {
         "Biz_Status" => $_POST['Status'],
         "Finance_Type" => $_POST["FinanceType"],
         "Finance_Rate" => empty($_POST["FinanceRate"]) ? 0 : $_POST["FinanceRate"],
-        "Group_ID" => $_POST["GroupID"],
+        //"Group_ID" => $_POST["GroupID"],
         "PaymenteRate" => empty($_POST["PaymenteRate"]) ? 100 : $_POST["PaymenteRate"],
         "Biz_Logo" => $_POST['LogoPath'],
         "Invitation_Code" => isset($_POST['Invitation_Code']) ? trim($_POST['Invitation_Code']) : ''
@@ -164,7 +164,7 @@ KindEditor.ready(function(K) {
 			<div class="r_nav">
 				<ul>
 					<li class="cur"><a href="index.php">商家列表</a></li>
-					<li><a href="group.php">商家分组</a></li>
+					
 					<li><a href="apply.php">入驻申请列表</a></li>
 					<li><a href="apply_config.php">入驻设置</a></li>
 				</ul>
@@ -204,16 +204,7 @@ KindEditor.ready(function(K) {
 							maxlength="50" /> <font class="fc_red">*</font></span>
 						<div class="clear"></div>
 					</div>
-					<div class="rows">
-						<label>所属分组</label> <span class="input"> <select name="GroupID"
-							notnull>
-          <?php foreach($groups as $GroupID=>$v){?>
-          <option value="<?php echo $GroupID;?>"
-									<?php echo $rsBiz["Group_ID"] == $GroupID ? ' selected' : ''?>><?php echo $v["Group_Name"];?></option>
-          <?php }?>
-          </select> <font class="fc_red">*</font></span>
-						<div class="clear"></div>
-					</div>
+					
 					<div class="rows">
           <label>到期时间</label>
          <span class="input">
