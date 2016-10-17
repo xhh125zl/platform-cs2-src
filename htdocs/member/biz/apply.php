@@ -143,7 +143,7 @@ $_Status = array(1=>'<font style="color:#ff0000">未审核</font>',2=>'<font sty
         <tbody>
         <?php 
 		$p = !empty($_GET['p'])?$_GET['p']:'1';
-		$apply_res = shopconfig::getBizapplyP(['pageSize'=>10,'is_del'=>1],$p);
+		$apply_res = shopconfig::getBizapplyP(['pageSize'=>2,'is_del'=>1],$p);
 		$lists = !empty($apply_res['data'])?$apply_res['data']:array();	
 	if (!empty($lists)) {  
 		  foreach($lists as $k=>$rsBiz){
@@ -201,10 +201,10 @@ $_Status = array(1=>'<font style="color:#ff0000">未审核</font>',2=>'<font sty
 				<?php 
 					if (!empty($apply_res['totalCount'])) {
 						$pages = $apply_res['totalCount'];
-						if ($apply_res['totalCount']%10 == 0) {
-							$pages = $pages/10;
+						if ($apply_res['totalCount']%2 == 0) {
+							$pages = $pages/2;
 						} else {
-							$pages = intval($apply_res['totalCount']/10)+1;
+							$pages = intval($apply_res['totalCount']/2)+1;
 						} 
 						$p = !empty($_GET['p'])?$_GET['p']:1;
 						if($pages > 1) {
@@ -214,11 +214,23 @@ $_Status = array(1=>'<font style="color:#ff0000">未审核</font>',2=>'<font sty
 						<a class="nopre" href="?p=1">首页</a><a class="nopre" href="?p=<?=$prev?>">上页</a>
 						<?php for ($i=1;$i<=$pages;$i++) {
 							$cur = ($p == $i)?'cur':'';
-							echo "<a class='".$cur."' href='apply.php?p=".$i."'>".$i."</a>&nbsp;"; 
+							if ($p == $i) { 
+							  echo "<a class='".$cur."' href='apply.php?p=".$i."'>".$i."</a>&nbsp;"; 
+							}
+							$half = intval($pages/2);
+							if($p<$half){
+								if(($p< $i && $i<($p+5))){ 
+									echo "<a class='".$cur."' href='apply.php?p=".$i."'>".$i."</a>&nbsp;"; 
+								} 
+							}else{
+								if($i>($pages-5) && $p!=$i){
+									echo "<a class='".$cur."' href='apply.php?p=".$i."'>".$i."</a>&nbsp;"; 
+								}	
+							}
 						}
-					?>	
+						?>	
 						<a class="next" href="?p=<?=$next?>">下页</a><a class="next" href="?p=<?=$pages?>">尾页</a>	
-					<?php } } ?>
+				<?php } } ?>
 		</div>		
 	<?php	} ?>
 	  <div style="background:#F7F7F7; border:1px #dddddd solid; height:40px; line-height:40px; font-size:12px; margin:10px 0px; padding-left:15px; color:#ff0000">提示：商家入驻地址 <a href="<?=SHOP_URL?>reg.php" target="_blank"><?=SHOP_URL?>reg.php</a></div> 
