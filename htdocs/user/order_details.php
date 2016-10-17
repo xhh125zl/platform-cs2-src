@@ -58,71 +58,41 @@ if (isset($_GET['orderid'])) {
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0">
     <meta name="app-mobile-web-app-capable" content="yes">
     <title>订单详情</title>
+    <link href="../static/user/css/product.css" type="text/css" rel="stylesheet">
+    <link href="../static/user/css/font-awesome.min.css" type="text/css" rel="stylesheet">
+    <script type="text/javascript" src="../static/user/js/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="../static/user/js/layer.js"></script>
+    <style type="text/css">
+        .input_write{ width: 200px; height: 25px; line-height: 25px; text-indent: 10px; border: 1px solid #d9d9d9;}
+    </style>
 </head>
-<link href="../static/user/css/product.css" type="text/css" rel="stylesheet">
-<link href="../static/user/css/font-awesome.min.css" type="text/css" rel="stylesheet">
-<script type="text/javascript" src="../static/user/js/jquery-1.8.3.min.js"></script>
-<script type="text/javascript" src="../static/user/js/layer.js"></script>
-<script type="text/javascript" src="../static/user/js/jquery.SuperSlide.2.1.1.js"></script>
-<script type="text/javascript">
-    //检测输入框是否为空
-    function check_null(input) {
-        var self_attr = input.attr('style');
-        var add_attr = ";border:1px solid red;";
-        if($.trim(input.val()) == '') {
-            input.attr('style', self_attr+add_attr);
-            input.focus();
-            return false;
-        } else {
-            if(self_attr) {
-                self_attr = self_attr.replace(add_attr, '');
-            }
-            input.attr('style', self_attr);
-            return true;
-        }
-    }
-    $(function(){
-        $('input:button').click(function(){
-            //快递单号
-            if (!check_null($('input[name="ShippingID"]'))) {
-                return false;
-            }
-            //联系人
-            if (!check_null($('input[name="Name"]'))) {
-                return false;
-            }
-            //联系电话
-            if (!check_null($('input[name="Mobile"]'))) {
-                return false;
-            }
-            $('#order_send_form').submit();
-        });  
-
-    });
-</script>
 <?php
-if($_POST){
-    $Data=array(
-        "Address_Name"=>$_POST['Name'],
-        "Address_Mobile"=>$_POST["Mobile"],
-        "Order_ShippingID"=>$_POST["ShippingID"],
-        "Order_Remark"=>$_POST["Remark"],
-        "Order_SendTime"=>time(),
-        "Order_Status"=>3
-    );
-    /*if($_POST["Express"]){
-        $ShippingN = array(
-            "Express"=>$_POST["Express"],
-            "Price"=>empty($Shipping["Price"]) ? 0 : $Shipping["Price"]
+if ($_POST) {
+    $action = isset($_POST['action']) ? $_POST['action'] : '';
+    if ($action == 'order_confirm') {
+        $Data = array(
+            "Address_Name" => $_POST['Name'],
+            "Address_Mobile" => $_POST["Mobile"],
+            "Order_Remark" => htmlspecialchars($_POST["Remark"]),
+            "Order_SendTime" => time(),
+            "Order_Status" => 1
         );
-        $Data["Order_Shipping"] = json_encode($ShippingN,JSON_UNESCAPED_UNICODE);
-    }*/
+    } else if ($action == 'order_send') {
+        $Data = array(
+            "Address_Name" => $_POST['Name'],
+            "Address_Mobile" => $_POST["Mobile"],
+            "Order_ShippingID" => $_POST["ShippingID"],
+            "Order_Remark" => htmlspecialchars($_POST["Remark"]),
+            "Order_SendTime" => time(),
+            "Order_Status" => 3
+        );
+    }
     $res = ImplOrder::actionOrdersend401(['Order_ID' => $orderDetail['Order_ID'], 'orderData' => $Data]);
-     
-    if(isset($res['errorCode']) && $res['errorCode'] == 0){      
-        echo '<script>layer.open({content: "发货成功"});window.location.reload;</script>';
-    }else{
-        echo '<script>layer.open({content: "发货成功", btn: "确定"});history.back();</script>';
+
+    if (isset($res['errorCode']) && $res['errorCode'] == 0){      
+        echo '<script>layer.open({content: "操作成功"});window.location.reload;</script>';
+    } else {
+        echo '<script>layer.open({content: "操作失败，请重试！", btn: "确定"});history.back();</script>';
     }
 }
 ?>
@@ -143,11 +113,13 @@ if($_POST){
                     <span class="left"><?=date('Y-m-d H:i:s', $orderDetail['Order_CreateTime'])?></span>
                 </li>
                 <li>
+                    <span class="left">订单总价：</span>
+                    <span class="left" style="color:red"><?='￥'.$orderDetail['Order_TotalPrice']?></span>
+                </li>
+                <li>
                     <span class="left">订单状态：</span>
                     <span class="left" style="color:red">
-                        <?
-                        switch ($orderDetail['Order_Status'])
-                        {
+                    <?php switch ($orderDetail['Order_Status']) {
                             case 0:
                                 echo "待确认";
                                 break;
@@ -163,29 +135,18 @@ if($_POST){
                             case 4:
                                 echo "已完成";
                                 break;
+                            case 5:
+                                echo "申请退款中";
+                                break;
                             default:
                                 echo "状态获取失败";
-                        }
-                        ?>
+                    } ?>
                     </span>
-                </li>
-                <li>
-                    <span class="left">订单总价：</span>
-                    <span class="left" style="color:red"><?=$orderDetail['Order_TotalPrice']?></span>
-                </li>
-                <li>
-                    <span class="left">订单备注：</span>
-                    <span class="left"><?=$orderDetail['Order_Remark']?></span>
-                </li>
-                <li>
-                    <span class="left">收货地址：</span>
-                    <span class="left"><?php echo $Province.$City.$Area.'【'.$orderDetail["Address_Name"].'，'.$orderDetail["Address_Mobile"].'】' ?></span>
                 </li>
                 <li>
                     <span class="left">配送方式：</span>
                     <span class="left">
-                        <?php
-
+                    <?php
                         if(empty($Shipping)){
                             echo "暂无信息";
                         }else{
@@ -196,7 +157,8 @@ if($_POST){
                             }
                         }
                         //echo empty($Shipping)?"":$Shipping["Express"]
-                        ?><strong style="color:#FF0000;">
+                    ?>
+                        <strong style="color:#FF0000;">
                             <?php if(empty($Shipping["Price"])){ $fee = 0;?>
                                 免运费
                             <?php }else{
@@ -204,7 +166,6 @@ if($_POST){
                                 ?>
                                 ￥<?php echo $Shipping["Price"];?>
                             <?php }?>
-
                         </strong>
                     </span>
                 </li>
@@ -214,35 +175,85 @@ if($_POST){
                     <span class="left"><?php echo $orderDetail["Order_ShippingID"] ?></span>
                 </li>
                 <?php } ?>
-                <!-- 自营商品发货 -->
-                <?php
-                    if($orderDetail['Order_Status'] == 2 && $orderDetail["Order_IsVirtual"]<>1 && ($orderDetail['Sales_By'] == '0' || $orderDetail['Users_ID'] == $UsersID)){
-                ?>
-                <form method="post" action="" id="order_send_form">
-                    <li>
-                        <span class="left">快递单号：</span>
-                        <span class="left"><input type="number" name="ShippingID" value="<?php echo $orderDetail["Order_ShippingID"] ?>"/></span>
-                    </li>
+
+                <?php if (in_array($orderDetail['Order_Status'], array(1, 3, 4, 5)) || !($orderDetail['Order_Status'] == 2 && $orderDetail["Order_IsVirtual"]<>1 && $orderDetail['Sales_By'] == 0)) { ?>
+                <li>
+                    <span class="left">收&nbsp;&nbsp;货&nbsp;人：</span>
+                    <span class="left"><?php echo $orderDetail["Address_Name"] ?></span>
+                </li>
+                <li>
+                    <span class="left">手机号码：</span>
+                    <span class="left"><?php echo $orderDetail["Address_Mobile"] ?></span>
+                </li>
+                <li>
+                    <span class="left">收货地址：</span>
+                    <span class="left"><?php echo $Province.$City.$Area.'【'.$orderDetail["Address_Name"].'，'.$orderDetail["Address_Mobile"].'】' ?></span>
+                </li>
+                <li>
+                    <textarea name="Remark" disabled="disabled" style="width:97%; height:60px; border:1px solid #d9d9d9;" placeholder="请输入订单备注"><?php echo htmlspecialchars_decode($orderDetail['Order_Remark']); ?></textarea>
+                </li>
+                <?php } ?>
+
+                <!-- 确认订单 -->
+                <?php if ($orderDetail['Order_Status'] == 0) { ?>
+                <form method="post" action="" id="order_confirm_form">
+                    <input type="hidden" name="action" value="order_confirm" />
                     <li>
                         <span class="left">收&nbsp;&nbsp;货&nbsp;人：</span>
-                        <span class="left"><input type="text" name="Name" value="<?php echo $orderDetail["Address_Name"] ?>" size="10"/></span>
+                        <span class="left"><input type="text" class="input_write" name="Name" value="<?php echo $orderDetail["Address_Name"] ?>" size="10"/></span>
                     </li>
                     <li>
                         <span class="left">手机号码：</span>
-                        <span class="left"><input type="tel" name="Mobile" value="<?php echo $orderDetail["Address_Mobile"] ?>" size="15"/></span>
+                        <span class="left"><input type="tel" class="input_write" name="Mobile" value="<?php echo $orderDetail["Address_Mobile"] ?>" size="15"/></span>
                     </li>
                     <li>
-                        <textarea name="Remark" style="width:97%; height:60px;" placeholder="请输入订单备注"><?=$orderDetail['Order_Remark']?></textarea>
+                        <span class="left">收货地址：</span>
+                        <span class="left"><?php echo $Province.$City.$Area.'【'.$orderDetail["Address_Name"].'，'.$orderDetail["Address_Mobile"].'】' ?></span>
+                    </li>
+                    <li>
+                        <textarea name="Remark" style="width:97%; height:60px; border:1px solid #d9d9d9;" placeholder="请输入订单备注"><?php echo htmlspecialchars_decode($orderDetail['Order_Remark']); ?></textarea>
+                    </li>
+                    <li>
+                        <input type="button" value="确认订单" style="margin-left:70%; border:0; width:100px; height: 30px; background-color: green; border-radius: 15px; color: #fff;">
+                    </li>
+                </form>
+                <?php } ?>
+
+                <!-- 自营商品(非虚拟)发货 -->
+                <?php if ($orderDetail['Order_Status'] == 2 && $orderDetail["Order_IsVirtual"]<>1 && $orderDetail['Sales_By'] == 0) { ?>
+                <form method="post" action="" id="order_send_form">
+                    <input type="hidden" name="action" value="order_send" />
+                    <li>
+                        <span class="left">快递单号：</span>
+                        <span class="left"><input type="number" class="input_write" name="ShippingID" value="<?php echo $orderDetail["Order_ShippingID"] ?>"/></span>
+                    </li>
+                    <li>
+                        <span class="left">收&nbsp;&nbsp;货&nbsp;人：</span>
+                        <span class="left"><input type="text" class="input_write" name="Name" value="<?php echo $orderDetail["Address_Name"] ?>" size="10"/></span>
+                    </li>
+                    <li>
+                        <span class="left">手机号码：</span>
+                        <span class="left"><input type="tel" class="input_write" name="Mobile" value="<?php echo $orderDetail["Address_Mobile"] ?>" size="15"/></span>
+                    </li>
+
+                    <li>
+                        <span class="left">收货地址：</span>
+                        <span class="left"><?php echo $Province.$City.$Area.'【'.$orderDetail["Address_Name"].'，'.$orderDetail["Address_Mobile"].'】' ?></span>
+                    </li>
+
+                    <li>
+                        <textarea name="Remark" style="width:97%; height:60px; border:1px solid #d9d9d9;" placeholder="请输入订单备注"><?php echo htmlspecialchars_decode($orderDetail['Order_Remark']); ?></textarea>
                     </li>
                     <li>
                         <input type="button" value="确认发货" style="margin-left:70%; border:0; width:100px; height: 30px; background-color: green; border-radius: 15px; color: #fff;">
                     </li>
                 </form>
                 <?php } ?>
-                <?
-                foreach (json_decode($orderDetail['Order_CartList'], true) as $key => $val) {
-                    foreach ($val as $goodskey => $goodsval) {
-                ?>
+
+                <?php $order_cartList = json_decode($orderDetail['Order_CartList'], true);
+                if (!empty($order_cartList)) {
+                    foreach ($order_cartList as $key => $val) {
+                        foreach ($val as $goodskey => $goodsval) { ?>
                 <li>
                     <div class="pro_xt" style="padding:0">
                         <div class="img_xt"><a href="#"><img src="<?=$goodsval['ImgPath']?>" height="90" width="90"></a></div>
@@ -254,46 +265,61 @@ if($_POST){
                         <div class="clear"></div>
                     </div>
                 </li>
-                <?}}?>
+                <?php }}} ?>
                 <li>
-                    <span class="right">订单总价：<a style="color:red">￥<?=$orderDetail['Order_TotalPrice'] - $fee?><?if ($fee > 0) {?>+￥<?=$fee?>(运费)=￥<?=$orderDetail['Order_TotalPrice']?><?}?></a></span>
+                    <span class="right">订单总价：<a style="color:red;">￥<?=$orderDetail['Order_TotalPrice'] - $fee?><?if ($fee > 0) {?>+￥<?=$fee?>(运费)=￥<?=$orderDetail['Order_TotalPrice']?><?}?></a></span>
                 </li>
             </ul>
-            <ul>
-                <li></li>
-            </ul>
-            <ul>
-                <li></li>
-            </ul>
-            <ul>
-                <li></li>
-            </ul>
-            <ul>
-                <li></li>
-            </ul>
-        </div>
-        <div class="clear"></div>
-        <div class="kb"></div>
-        <div class="bottom">
-            <div class="footer">
-                <ul style="margin-top: 5px;">
-                    <li><a href="#">
-                            <i class="fa  fa-home fa-2x" aria-hidden="true"></i><br> 首页
-                        </a></li>
-                    <li><a href="#">
-                            <i class="fa fa-gift fa-2x" aria-hidden="true"></i><br>开店
-                        </a></li>
-                    <li><a href="#">
-                            <i class="fa  fa-shopping-cart fa-2x" aria-hidden="true"></i><br> 购物
-                        </a></li>
-                    <li><a href="#">
-                            <i class="fa  fa-user fa-2x" aria-hidden="true"></i><br> 我的
-                        </a></li>
-                </ul>
-            </div>
         </div>
     </div>
-    <script type="text/javascript">jQuery(".slideTxtBox").slide();</script>
 </div>
 </body>
 </html>
+<script type="text/javascript">
+    //检测输入框是否为空
+    function check_null(input) {
+        var self_attr = input.attr('style');
+        var add_attr = ";border:1px solid red;";
+        if($.trim(input.val()) == '') {
+            input.attr('style', self_attr+add_attr);
+            input.focus();
+            return false;
+        } else {
+            if(self_attr) {
+                self_attr = self_attr.replace(add_attr, '');
+            }
+            input.attr('style', self_attr);
+            return true;
+        }
+    }
+    $(function(){
+        //确认订单
+        $('#order_confirm_form input:button').click(function(){
+            //联系人
+            if (!check_null($('input[name="Name"]'))) {
+                return false;
+            }
+            //联系电话
+            if (!check_null($('input[name="Mobile"]'))) {
+                return false;
+            }
+            $('#order_confirm_form').submit();
+        });  
+        //确认发货
+        $('#order_send_form input:button').click(function(){
+            //快递单号
+            if (!check_null($('input[name="ShippingID"]'))) {
+                return false;
+            }
+            //联系人
+            if (!check_null($('input[name="Name"]'))) {
+                return false;
+            }
+            //联系电话
+            if (!check_null($('input[name="Mobile"]'))) {
+                return false;
+            }
+            $('#order_send_form').submit();
+        });
+    });
+</script>
