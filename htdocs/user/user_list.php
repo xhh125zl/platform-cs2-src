@@ -21,7 +21,8 @@
     </div>
     <div class="user_ls">
         <ul>
-            <?
+            <?php
+if (count($userList['data']) > 0) {            
                 foreach ($userList['data'] as $k => $v) {
             ?>
             <li>
@@ -32,7 +33,10 @@
                     <div class="clear"></div>
                 </a>
             </li>
-            <?}?>
+            <?php
+                    }
+}
+            ?>
         </ul>
     </div>
 </div>
