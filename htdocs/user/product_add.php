@@ -1,8 +1,6 @@
 <?php
 require_once "/config.inc.php";
-//require_once(CMS_ROOT . '/include/api/product.class.php');
 require_once(CMS_ROOT . '/include/api/b2cshopconfig.class.php');
-//require_once(CMS_ROOT . '/include/api/product_category.class.php');
 
 //检查用户是否登录
 if(empty($BizAccount)){
@@ -17,6 +15,11 @@ if ($users['errorCode'] == 0) {
             echo '<script language="javascript">alert("此项功能已到期,必须先交费才可以使用");history.back();</script>';
             exit();
         }
+    }
+    $rsBiz = b2cshopconfig::getVerifyconfig(['Biz_Account' => $BizAccount]);
+    if (empty($rsBiz['bizData'])) {
+        echo '<script language="javascript">alert("商家不存在");history.back();</script>';
+        exit;
     }
 } else {
     echo '<script language="javascript">alert("服务器网络异常,数据通信失败");history.back();</script>';
@@ -34,7 +37,6 @@ if ($users['errorCode'] == 0) {
 </head>
 <link href="../static/user/css/product.css" type="text/css" rel="stylesheet">
 <link href="../static/user/css/font-awesome.min.css" type="text/css" rel="stylesheet">
-<!-- <link href="../static/user/css/layer.css" type="text/css" rel="stylesheet"> -->
 <script type="text/javascript" src="../static/user/js/jquery-1.8.3.min.js"></script>
 <script type="text/javascript" src="../static/user/js/layer.js"></script>
 <script  type="text/javascript"  src="../static/user/js/jquery.uploadView.js"></script>
@@ -79,7 +81,7 @@ if ($users['errorCode'] == 0) {
     </div>
     <input type="hidden" name="Products_Id" value="">
     <div class="name_pro">
-        <input type="text" name="Products_Name" value="" placeholder="请输入商品名称">
+        <input type="text" name="Products_Name" value="" placeholder="请输入商品名称" maxlength="80">
         <div class="img_add">
             <div class="js_uploadBox">
                 <div class="js_showBox"></div>
@@ -200,7 +202,8 @@ if ($users['errorCode'] == 0) {
     </div>
 </div>
 <?php
-if ($bizData['seller_verify'] == 0) {
+//判断商家是有将商品推荐到平台的权利
+if ($rsBiz['bizData']['is_agree'] !=1 || $rsBiz['bizData']['is_auth'] !=2 || $rsBiz['bizData']['is_biz'] !=1) {
 ?>
 <script language="javascript">
 $(function(){
