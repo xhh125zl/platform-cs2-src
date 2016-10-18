@@ -17,11 +17,12 @@
 <body>
 <div class="w">
     <div class="back_x">
-        <a href="javascript:history.back();" class="l"><i class="fa  fa-angle-left fa-2x" aria-hidden="true"></i></a>我的会员
+        <a href="/user/admin.php?act=store" class="l"><i class="fa  fa-angle-left fa-2x" aria-hidden="true"></i></a>我的会员
     </div>
     <div class="user_ls">
         <ul>
-            <?
+            <?php
+if (count($userList['data']) > 0) {            
                 foreach ($userList['data'] as $k => $v) {
             ?>
             <li>
@@ -32,7 +33,10 @@
                     <div class="clear"></div>
                 </a>
             </li>
-            <?}?>
+            <?php
+                    }
+}
+            ?>
         </ul>
     </div>
 </div>

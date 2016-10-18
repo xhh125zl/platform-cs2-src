@@ -240,7 +240,7 @@ if ($ret['errorCode'] != 0) {
         <input type="password" name="ConfirmPassword" id="ConfirmPassword" value="" maxlength="16" class="reg_x1" placeholder="确认登录密码">
         <div class="clear"></div>		
         <div class="reg_t" style="display:none">
-        	<textarea name="copyright" rows="3">我阅读并签署协议协议</textarea>
+        	<textarea name="copyright" rows="3" readonly>我阅读并签署协议协议</textarea>
         </div>
          <label class="checkbox">
              <input type="checkbox"  name="agree">
