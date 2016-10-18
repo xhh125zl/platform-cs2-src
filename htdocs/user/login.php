@@ -140,7 +140,12 @@ $(function(){
                 location.href = json.url;
             }
         },'json')
-    })
+    });
+    $(document).keydown(function(e){
+        if (e.keyCode == 13) {
+            $(".login_sub").click();
+        }
+    });
 
 })
 </script>

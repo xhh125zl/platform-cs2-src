@@ -452,7 +452,7 @@ $(function(){
         layer.open({type: 2});
         $.ajax({
             type:"POST",
-            url:"lib/upload.php",
+            url:"lib/products.php",
             data:{"act":"addEditProduct", "productData":productData},
             dataType:"json",
             success:function(data) {

@@ -1,24 +1,10 @@
 <?php
 require_once "/config.inc.php";
-//require_once(CMS_ROOT . '/include/api/product.class.php');
 require_once(CMS_ROOT . '/include/api/b2cshopconfig.class.php');
-//require_once(CMS_ROOT . '/include/api/product_category.class.php');
 
 //检查用户是否登录
 if(empty($BizAccount)){
     header("location:/biz/login.php");
-}
-//检查用户是否已经交过费用
-$users = b2cshopconfig::getConfig(['Users_Account' => $BizAccount]);
-if ($users['errorCode'] == 0) {
-    $bizData = $users['configData'];
-    if ($bizData['seller_verify'] == 0) {
-        echo '<script language="javascript">alert("您尚未通过商家认证,不能当供货商,请进行商家认证后再进行此项操作!");history.back();</script>';
-        exit;
-    }
-}else{
-    echo '<script language="javascript">alert("服务器网络异常,数据通信失败");history.back();</script>';
-    exit;
 }
 
 ?>
@@ -32,7 +18,6 @@ if ($users['errorCode'] == 0) {
 </head>
 <link href="../static/user/css/product.css" type="text/css" rel="stylesheet">
 <link href="../static/user/css/font-awesome.min.css" type="text/css" rel="stylesheet">
-<!-- <link href="../static/user/css/layer.css" type="text/css" rel="stylesheet"> -->
 <script type="text/javascript" src="../static/user/js/jquery-1.8.3.min.js"></script>
 <script type="text/javascript" src="../static/user/js/layer.js"></script>
 <script  type="text/javascript"  src="../static/user/js/jquery.uploadView.js"></script>
@@ -47,6 +32,29 @@ if ($users['errorCode'] == 0) {
     .notNull { color: red; }
 </style>
 <body>
+<?php
+//检查用户是否已经交过费用
+$users = b2cshopconfig::getConfig(['Users_Account' => $BizAccount]);
+if ($users['errorCode'] == 0) {
+    $rsBiz = b2cshopconfig::getVerifyconfig(['Biz_Account' => $_SESSION['Users_Account']]);
+    if (empty($rsBiz['bizData'])) {
+        echo '<script language="javascript">alert("商家不存在");history.back();</script>';
+        exit;
+    }
+    $bizData = $rsBiz['bizData'];
+    if ($bizData['is_agree'] !=1 || $bizData['is_auth'] !=2) {
+        echo '<script language="javascript">layer.open({ content: "您尚未通过商家认证,不能当供货商,请进行商家认证后再进行此项操作!", btn: "确认", success: function(){history.back();} });</script>';
+        exit;
+    }
+    if ($bizData['is_biz'] !=1) {
+        echo '<script language="javascript">layer.open({ content: "您尚未通过商家认证,不能当供货商,请进行商家认证后再进行此项操作!", btn: "确认", success: function(){history.back();} });</script>';
+        exit;
+    }
+}else{
+    echo '<script language="javascript">alert("服务器网络异常,数据通信失败");history.back();</script>';
+    exit;
+}
+?>
 <div class="w">
     <div class="back_x">
         <a class="l" href="?act=store">&nbsp;取消</a><h3>发布产品</h3>
@@ -173,30 +181,5 @@ if ($users['errorCode'] == 0) {
         </div>
     </div>
 </div>
-<?php
-if ($bizData['seller_verify'] == 0) {
-?>
-<script language="javascript">
-$(function(){
-    $('input[name="is_Tj"]').change(function(){
-        if ($('input[name="is_Tj"]:checked').val() == 'on') {
-            var me = $(this);
-            layer.open({
-                content: "对不起,您尚未进行商家认证,请认证后再进行此项操作",
-                btn: '我知道了',
-                yes: function(){
-                    me.prop("checked", false);
-                    $('.is_Tj').attr('style', 'display:none;');
-                    layer.closeAll();
-                    return false;
-                }
-            });
-        }
-    })
-})
-</script>
-<?php
-}
-?>
 </body>
 </html>

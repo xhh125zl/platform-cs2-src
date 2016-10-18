@@ -17,6 +17,11 @@ if ($users['errorCode'] == 0) {
             exit();
         }
     }
+    $rsBiz = b2cshopconfig::getVerifyconfig(['Biz_Account' => $BizAccount]);
+    if (empty($rsBiz['bizData'])) {
+        echo '<script language="javascript">alert("商家不存在");history.back();</script>';
+        exit;
+    }
 } else {
     echo '<script language="javascript">alert("服务器网络异常,数据通信失败");history.back();</script>';
     exit;
@@ -52,7 +57,6 @@ function cutstr_html($string,$length=0,$ellipsis='…'){
     $string=preg_replace('/&nbsp;/is','',$string);
     preg_match_all("/[\x01-\x7f]|[\xc2-\xdf][\x80-\xbf]|\xe0[\xa0-\xbf][\x80-\xbf]|[\xe1-\xef][\x80-\xbf][\x80-\xbf]|\xf0[\x90-\xbf][\x80-\xbf][\x80-\xbf]|[\xf1-\xf7][\x80-\xbf][\x80-\xbf][\x80-\xbf]/",$string,$string);
     if(is_array($string)&&!empty($string[0])){
-        //var_dump($string[0]);die;
         if(is_numeric($length)&&$length){
             $string=implode('',array_slice($string[0],0,$length)).$ellipsis;
         }else{
@@ -93,7 +97,6 @@ $des_con = htmlspecialchars_decode($productData['Products_Description'], ENT_QUO
 $description = cutstr_html($des_con);
 preg_match_all('/<img (.*?)+src=[\'"](.*?)[\'"]/i', $des_con, $img_arr);
 $des_img_path = implode(',', $img_arr[2]);
-//print_r($description);die;
 
 //推荐到批发商城时的分类
 $b2c_firstCateName = '';
@@ -118,8 +121,8 @@ if ($postdata['is_Tj'] == 1 && $productData['is_Tj'] == 1) {
 
 //401商品分类
 $cate = explode(',', $productData['Products_Category']);
-$firstCateId = $cate[2];
-$secondCateId = $cate[3];
+$firstCateId = $cate[1];
+$secondCateId = $cate[2];
 foreach ($productData['Category401'] as $k => $v) {
 	if ($v['Category_ID'] == $firstCateId) {
         $firstCateName = $v['Category_Name'];
@@ -162,7 +165,7 @@ $cateName = $firstCateName.'，'.$secondCateName;
     </div>
     <input type="hidden" name="Products_ID" value="<?php echo $postdata['Products_ID']; ?>">
     <div class="name_pro">
-        <input type="text" name="Products_Name" value="<?php echo $productData['Products_Name']; ?>" placeholder="请输入商品名称">
+        <input type="text" name="Products_Name" value="<?php echo $productData['Products_Name']; ?>" placeholder="请输入商品名称" maxlength="80">
         <div class="img_add">
             <div class="js_uploadBox">
                 <div class="js_showBox">
@@ -300,7 +303,7 @@ $cateName = $firstCateName.'，'.$secondCateName;
     </div>
 </div>
 <?php
-if ($bizData['seller_verify'] == 0) {
+if ($rsBiz['bizData']['is_agree'] !=1 || $rsBiz['bizData']['is_auth'] !=2 || $rsBiz['bizData']['is_biz'] !=1) {
 ?>
 <script language="javascript">
 $(function(){
