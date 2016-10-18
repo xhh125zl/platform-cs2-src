@@ -16,8 +16,46 @@ if ($inajax == 1) {
         $counter = count::countIncome($data);
 
         echo json_encode($counter);
+    } else if ($do == 'msgUnreadCount') {
+        //获取消息页未读条数
+        //系统消息未读条数
+        //获取商家注册时间，以确认显示信息
+        $biz_info = $DB->GetRs('biz', 'Biz_CreateTime', 'where `Biz_ID` = '.$BizID);
+        $DB->Get("announce","announce.*,announce_record.Record_ID","left join `announce_record` on announce.Announce_ID = announce_record.Announce_ID where announce.Announce_Status = 1 and Announce_CreateTime > ".$biz_info['Biz_CreateTime']." order by announce_record.Record_ID,announce.Announce_CreateTime desc");
+        $unread_system_nums = 0;
+        while ($r=$DB->fetch_assoc()) {
+            if (!(isset($r['Record_ID']) && $r['Record_ID'] > 0)) {
+                $unread_system_nums++;
+            }
+        }
+        //订单消息未读条数
+        $transfer = ['Biz_Account' => $BizAccount];
+        $result = message::getMsgOrder($transfer);
+        if ($result['errorCode'] == 0) {
+            $unread_order_nums = $result['data']['unReadCount'];
+        } else {
+            $unread_order_nums = 0;
+        }
+        //分销消息未读条数
+        $transfer = ['Biz_Account' => $BizAccount];
+        $result = message::getMsgDistribute($transfer);
+        if ($result['errorCode'] == 0) {
+            $unread_distribute_nums = $result['data']['unReadCount'];
+        } else {
+            $unread_distribute_nums = 0;
+        }
+        //提现消息未读条数
+        $transfer = ['Biz_Account' => $BizAccount];
+        $result = message::getMsgWithdraw($transfer);
+        if ($result['errorCode'] == 0) {
+            $unread_withdraw_nums = $result['data']['unReadCount'];
+        } else {
+            $unread_withdraw_nums = 0;
+        }
+        //计算总未读条数
+        $total_unread_nums = $unread_system_nums + $unread_order_nums + $unread_distribute_nums + $unread_withdraw_nums;
+        echo json_encode(array('errorCode' => 0, 'data' => $total_unread_nums));
     }
-
     exit();
 }
 
@@ -29,50 +67,14 @@ $result = shopconfig::getConfig($data);
 if ($result['errorCode'] != 0) {
     die($result['msg']);
 }
-
 $config = $result['data'];
-
-//获取消息页未读条数
-//系统消息未读条数
-$DB->Get("announce","announce.*,announce_record.Record_ID","left join `announce_record` on announce.Announce_ID = announce_record.Announce_ID where announce.Announce_Status = 1 order by announce_record.Record_ID,announce.Announce_CreateTime desc");
-$unread_system_nums = 0;
-while ($r=$DB->fetch_assoc()) {
-    if (!(isset($r['Record_ID']) && $r['Record_ID'] > 0)) {
-        $unread_system_nums++;
-    }
-}
-//订单消息未读条数
-$transfer = ['Biz_Account' => $BizAccount];
-$result = message::getMsgOrder($transfer);
-if ($result['errorCode'] == 0) {
-    $unread_order_nums = $result['data']['unReadCount'];
-} else {
-    $unread_order_nums = 0;
-}
-//分销消息未读条数
-$transfer = ['Biz_Account' => $BizAccount];
-$result = message::getMsgDistribute($transfer);
-if ($result['errorCode'] == 0) {
-    $unread_distribute_nums = $result['data']['unReadCount'];
-} else {
-    $unread_distribute_nums = 0;
-}
-//提现消息未读条数
-$transfer = ['Biz_Account' => $BizAccount];
-$result = message::getMsgWithdraw($transfer);
-if ($result['errorCode'] == 0) {
-    $unread_withdraw_nums = $result['data']['unReadCount'];
-} else {
-    $unread_withdraw_nums = 0;
-}
-//计算总未读条数
-$total_unread_nums = $unread_system_nums + $unread_order_nums + $unread_distribute_nums + $unread_withdraw_nums;
 
 //商家审核记录
 $bizRow = $DB->GetRs("Biz", 'is_auth', "WHERE Biz_Account='" . $BizAccount . "'");
 $auth_status = get_auth_statusText($bizRow['is_auth']);
 
-?><!doctype html>
+?>
+<!doctype html>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -92,7 +94,7 @@ $auth_status = get_auth_statusText($bizRow['is_auth']);
     	<div class="right">
             <span class="commenting">
             	<a href="?act=msg_system"><i class="fa  fa-commenting-o fa-x" aria-hidden="true"></i></a>
-            	<p><a><?php echo $total_unread_nums; ?></a></p>
+            	<p><a id="total_unread_nums">0</a></p>
             </span>
         </div><!--//message -->
         <div class="clear"></div>
@@ -210,44 +212,48 @@ $ucenter = $homeUrl . 'member/';
     <!--//footer nav -->
 </div>
 <script type="text/javascript">
-$("#pro_x").click(function(){
-    layer.open({
-    content: '<div class="sto_bg"><ul><li><h3>产品库挑选</h3><p>没有产品，想开分销商城的用户，不能发布自己的产品，只能代销。</p><span class="r"><input type="button"value="立即进入" onclick="location.href=\'?act=search\'"></span><div class="clear"></div></li><li><h3>开通官方分销商城</h3><p>有产品，可绑定自己的微信公众号，独立运营，同时还可以把产品推荐到产品库，同其他代销。</p><span class="r"><input type="button"value="立即进入" onclick="location.href=\'?act=product_add\'"></span><div class="clear"></div></li><li><h3>供货商，只供货</h3><p>只向平台提供货源，不做自己的独立的店铺。</p><span class="r"><input type="button"value="立即进入" onclick="location.href=\'?act=product_supply\'"></span><div class="clear"></div></li></ul></div>'
-    });	
-})	
-
-$(function(){
-    $.get('?act=store&inajax=1&do=count', {}, function(json) {
-        if (json.errorCode == '0') {
-            var counter = json.count;
-             $("#totalIncome").html(counter.totalCount.Amount);
-             $("#monthIncome").html(counter.monthCount.Amount);
-             $("#dayIncome").html(counter.dayCount.Amount);
-             $('#orderCount').html(counter.monthCount.orderCount);
-             $('#allMoney').html(counter.monthAllMoney.Amount);
-        } else {
-            alert('用户统计数据获取失败，请刷新此页面重试');
-        }
-    }, 'json')
-
-    //店铺预览
-
-    <?php
-$UsersID = Users::findUsersIDByAccount($BizAccount);
-$ShopUrl = SHOP_URL . 'api/' . $UsersID . '/shop/';
-    ?>
+    $("#pro_x").click(function(){
+        layer.open({
+        content: '<div class="sto_bg"><ul><li><h3>产品库挑选</h3><p>没有产品，想开分销商城的用户，不能发布自己的产品，只能代销。</p><span class="r"><input type="button"value="立即进入" onclick="location.href=\'?act=search\'"></span><div class="clear"></div></li><li><h3>开通官方分销商城</h3><p>有产品，可绑定自己的微信公众号，独立运营，同时还可以把产品推荐到产品库，同其他代销。</p><span class="r"><input type="button"value="立即进入" onclick="location.href=\'?act=product_add\'"></span><div class="clear"></div></li><li><h3>供货商，只供货</h3><p>只向平台提供货源，不做自己的独立的店铺。</p><span class="r"><input type="button"value="立即进入" onclick="location.href=\'?act=product_supply\'"></span><div class="clear"></div></li></ul></div>'
+        });	
+    });
     
-    $("#previewShop").click(function(){
-        var shopurl = '<?php echo $ShopUrl ?>?preview=1';
-        location.href = shopurl;
-    })
+    $(function(){
+        $.get('?act=store&inajax=1&do=count', {}, function(json) {
+            if (json.errorCode == '0') {
+                var counter = json.count;
+                 $("#totalIncome").html(counter.totalCount.Amount);
+                 $("#monthIncome").html(counter.monthCount.Amount);
+                 $("#dayIncome").html(counter.dayCount.Amount);
+                 $('#orderCount').html(counter.monthCount.orderCount);
+                 $('#allMoney').html(counter.monthAllMoney.Amount);
+            } else {
+                alert('用户统计数据获取失败，请刷新此页面重试');
+            }
+        }, 'json');
+        //获取未读信息条数
+        $.get('?act=store&inajax=1&do=msgUnreadCount', {}, function(data) {
+            if (data.errorCode == 0) {
+                if (data.data > 99) {
+                    $('#total_unread_nums').html('···');
+                } else {
+                    $('#total_unread_nums').html(data.data);
+                }
+            } else {
+                layer.open({content:'用户统计数据获取失败，请刷新此页面重试'});
+            }
+        }, 'json');
 
-})
-<?php
-
-
-?>
-
+        //店铺预览
+        <?php
+            $UsersID = Users::findUsersIDByAccount($BizAccount);
+            $ShopUrl = SHOP_URL . 'api/' . $UsersID . '/shop/';
+        ?>
+        $("#previewShop").click(function(){
+            var shopurl = '<?php echo $ShopUrl ?>';
+            location.href = shopurl;
+        });
+    });
 </script>
 </body>
 </html>
