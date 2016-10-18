@@ -143,7 +143,7 @@ $_Status = array(1=>'<font style="color:#ff0000">未审核</font>',2=>'<font sty
         <tbody>
         <?php 
 		$p = !empty($_GET['p'])?$_GET['p']:'1';
-		$apply_res = shopconfig::getBizapplyP(['pageSize'=>2,'is_del'=>1],$p);
+		$apply_res = shopconfig::getBizapplyP(['pageSize'=>10,'is_del'=>1],$p);
 		$lists = !empty($apply_res['data'])?$apply_res['data']:array();	
 	if (!empty($lists)) {  
 		  foreach($lists as $k=>$rsBiz){
@@ -201,10 +201,10 @@ $_Status = array(1=>'<font style="color:#ff0000">未审核</font>',2=>'<font sty
 				<?php 
 					if (!empty($apply_res['totalCount'])) {
 						$pages = $apply_res['totalCount'];
-						if ($apply_res['totalCount']%2 == 0) {
-							$pages = $pages/2;
+						if ($apply_res['totalCount']%10 == 0) {
+							$pages = $pages/10;
 						} else {
-							$pages = intval($apply_res['totalCount']/2)+1;
+							$pages = intval($apply_res['totalCount']/10)+1;
 						} 
 						$p = !empty($_GET['p'])?$_GET['p']:1;
 						if($pages > 1) {
