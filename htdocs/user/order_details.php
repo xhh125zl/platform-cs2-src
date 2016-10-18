@@ -176,7 +176,7 @@ if ($_POST) {
                 </li>
                 <?php } ?>
 
-                <?php if (in_array($orderDetail['Order_Status'], array(1, 3, 4, 5)) || ($orderDetail['Order_Status'] == 2 && strlen($orderDetail['Sales_By']) > 1)) { ?>
+                <?php if (in_array($orderDetail['Order_Status'], array(1, 3, 4, 5)) || ($orderDetail['Order_Status'] == 2 && strlen($orderDetail['Sales_By']) > 1) || ($orderDetail['Order_Status'] == 2 && $orderDetail["Order_IsVirtual"] == 1)) { ?>
                 <li>
                     <span class="left">收&nbsp;&nbsp;货&nbsp;人：</span>
                     <span class="left"><?php echo $orderDetail["Address_Name"] ?></span>
