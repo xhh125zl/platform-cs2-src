@@ -108,7 +108,7 @@ if (isset($_GET['do']) && $_GET['do'] == 'logout') {
 	<p class="login_title">登录</p>
     <div class="login_box">
     <form id="form1" name="form1" method="post">
-    	<input type="text" name="Account" id="Account" value="" maxlength="11" class="login_x" placeholder="登录名/手机号" notnull="">
+    	<input type="text" name="Account" id="Account" value="" maxlength="11" class="login_x" placeholder="手机号" notnull="">
         <input type="password" name="Password" id="Password" value="" maxlength="16" class="login_x1" placeholder="登录密码" notnull="">
         <?
             if ($uuid) { ?>
