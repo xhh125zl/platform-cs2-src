@@ -39,7 +39,15 @@ foreach ($category as $cate) {
 ?>        
         	<li>
             	<span class="primary_pr l"><a href="?act=search&fid=<?php echo $cate['Category_ID'];?>&sid=<?php echo $vcate['Category_ID'];?>"><?php echo $vcate['Category_Name'];?></a><p><?php echo $vcate['Category_Name'];?></p></span>
-                <span class="r"><img src="<?php echo IMG_SERVER . $vcate['Category_Img'];?>"></span>
+                <span class="r">
+                    <?
+                        if ($vcate['Category_Img']) {
+                            ?>
+                                <img src="<?php echo B2C_URL . $vcate['Category_Img']; ?>">
+                            <?
+                        }
+                    ?>
+                </span>
                 <div class="clear"></div>
             </li>
 <?php
