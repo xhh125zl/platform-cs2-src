@@ -58,7 +58,7 @@ $rmenusub['act_active']=array(
 $rmenu['biz']=array(
 	'biz' => '商家管理',
 	'index' => '商家列表',
-	'group' => '商家分组',
+	//'group' => '商家分组',
 	'apply_config' => '入驻描述设置',
 	'reg_config' => '注册页面设置',
     'apply_other' => '年费设置',
@@ -66,6 +66,7 @@ $rmenu['biz']=array(
     'authpay' => '入驻支付列表',
     'chargepay' => '续费支付列表',
     'bond_back' => '保证金退款',
+    'announce' => '公告管理',
     'article_man' => '文章管理',
 	'send_push' => '推送消息',
 	'msg_push' => '推送消息管理'
@@ -266,6 +267,13 @@ $rmenusub["biz_bond_back"] = array(
 );
 $rmenusub["biz_apply"] = array(
 	'apply_detail' => '资质查看',	 
+);
+$rmenusub["biz_announce"] = array(	 
+	'announce_add' => '添加公告',	 
+	'announce_edit' => '编辑公告',
+	'announce_category' => '分类管理',
+	'announce_category_add' => '添加分类',
+	'announce_category_edit' => '编辑分类',
 );
 
 //文章管理
