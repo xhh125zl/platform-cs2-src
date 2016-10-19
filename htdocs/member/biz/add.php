@@ -15,10 +15,7 @@ if($_POST){
 			exit();
 		}
 	}
-	if(empty($_POST['GroupID'])){
-		echo '<script language="javascript">alert("请选择商家所属分组！");history.back();</script>';
-		exit();
-	}
+
 	if(empty($_POST["PassWord"])){
 		echo '<script language="javascript">alert("登录密码不能为空！");history.back();</script>';
 		exit();
@@ -51,7 +48,7 @@ if($_POST){
 	$Data=array(
 		"Biz_Account"=>$_POST['Account'],
 		"bond_free"=>empty($_POST['bond_free'])?'0':trim($_POST['bond_free']),
-		"expiredate"=>empty($_POST['expiredate'])?'0':strtotime($_POST['expiredate']),
+		"Users_ExpiresTime"=>empty($_POST['expiredate'])?'0':strtotime($_POST['expiredate']),
 		"Biz_PassWord"=>md5($_POST['PassWord']),
 		"Biz_Name"=>$_POST['Name'],
 		//"Group_ID"=>$_POST['GroupID'],
