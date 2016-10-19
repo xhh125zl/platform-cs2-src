@@ -220,7 +220,7 @@ if ($_POST) {
                 <?php } ?>
 
                 <!-- 自营商品(非虚拟)发货 -->
-                <?php if ($orderDetail['Order_Status'] == 2 && $orderDetail["Order_IsVirtual"]<>1 && $orderDetail['Sales_By'] == 0) { ?>
+                <?php if ($orderDetail['Order_Status'] == 2 && $orderDetail["Order_IsVirtual"]<>1 && $orderDetail['Sales_By'] == '0') { ?>
                 <form method="post" action="" id="order_send_form">
                     <input type="hidden" name="action" value="order_send" />
                     <li>
