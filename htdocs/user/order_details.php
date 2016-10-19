@@ -40,14 +40,12 @@ if (isset($_GET['orderid'])) {
             $Area = $area_array['0,'.$orderDetail['Address_Province'].','.$orderDetail['Address_City']][$orderDetail['Address_Area']];
         }
 
-
         $Shipping=json_decode(htmlspecialchars_decode($orderDetail["Order_Shipping"]),true);
     } else {
-        echo '<script>alert("没有此订单的消息");history.back();</script>';exit;
+        echo '<div style="margin-top:100px; font-size:35px; color:red; text-align:center;">此订单已取消，或已被删除...<br/><br/><a href="javascript:history.back();" id="back">自动返回中...</a></div><script>setTimeout("history.back();",1000)</script>';exit;
     }
 } else {
-    echo '<script>alert("获取订单号失败");history.back();</script>';
-    exit;
+    echo '<div style="margin-top:100px; font-size:35px; color:red; text-align:center;">获取订单号失败...<br/><br/><a href="javascript:history.back();" id="back">自动返回中...</a></div><script>setTimeout("history.back();",1000)</script>';exit;
 }
 
 ?>
@@ -220,7 +218,7 @@ if ($_POST) {
                 <?php } ?>
 
                 <!-- 自营商品(非虚拟)发货 -->
-                <?php if ($orderDetail['Order_Status'] == 2 && $orderDetail["Order_IsVirtual"]<>1 && $orderDetail['Sales_By'] == 0) { ?>
+                <?php if ($orderDetail['Order_Status'] == 2 && $orderDetail["Order_IsVirtual"]<>1 && $orderDetail['Sales_By'] == '0') { ?>
                 <form method="post" action="" id="order_send_form">
                     <input type="hidden" name="action" value="order_send" />
                     <li>
