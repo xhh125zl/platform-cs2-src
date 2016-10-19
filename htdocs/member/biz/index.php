@@ -85,7 +85,7 @@ while($row = $DB->fetch_assoc()){
     </div>
 	
     <div id="bizs" class="r_con_wrap">
-      <div class="control_btn"><a href="add.php" class="btn_green btn_w_120">添加商家</a></div>
+      <!--<div class="control_btn"><a href="add.php" class="btn_green btn_w_120">添加商家</a></div>-->
       <form class="search" method="get" action="?">
         <select name="Fields">
           <option value="Biz_Name" <?=isset($_GET['Fields']) && $_GET['Fields']=='Biz_Name'?'selected':'' ?>>名称</option>
