@@ -41,7 +41,7 @@ if ($_POST) {
     $Data = array(
         "Biz_Name" => $_POST['Name'],
 		"bond_free"=>empty($_POST['bond_free'])?'0':trim($_POST['bond_free']),
-		"expiredate"=>empty($_POST['expiredate'])?'0':strtotime($_POST['expiredate']),
+		"Users_ExpiresTime"=>empty($_POST['expiredate'])?'0':strtotime($_POST['expiredate']),
         "Biz_Address" => $_POST['Address'],
         "Biz_Homepage" => $_POST['Homepage'],
         "Biz_Introduce" => $_POST['Introduce'],
