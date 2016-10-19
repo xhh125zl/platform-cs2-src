@@ -1,7 +1,7 @@
 <?php
 class Jpush_send{
-    private $app_key = 'd50e6263a8dca9006527a9b3';        //待发送的应用程序(appKey)，只能填一个。
-        private $master_secret = 'd54cdd87991cc4870d5a9424';    //主密码
+    private $app_key = 'ab6f06f07fe81d6c19935bba';        //待发送的应用程序(appKey)，只能填一个。
+        private $master_secret = '2f600d43896e510cfef0e329';    //主密码
         private $url = "https://api.jpush.cn/v3/push";      //推送的地址
     
         //若实例化的时候传入相应的值则按新的相应值进行
