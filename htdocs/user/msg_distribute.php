@@ -176,7 +176,7 @@ if ($_POST) {
             var me = $(this);
             var msg_status = me.attr('msg_status');
             var distributeid = me.attr('distributeid');
-            var url = "?act=distribute_detail&distributeid="+distributeid+"&level="+me.sttr('level');
+            var url = "?act=distribute_detail&distributeid="+distributeid+"&level="+me.attr('level');
             if (msg_status == 1) {
                 //信息状态为已读，不需更新操作
                 if (distributeid != 0) {

@@ -21,7 +21,7 @@ $DB->Get('announce', "*", "where Announce_Status = 1 and Announce_CreateTime > "
 $totalCount = $DB->num_rows();
 
 $start = ($p-1)*$pageSize;
-$DB->Get("announce","announce.*,announce_record.Record_ID","left join `announce_record` on announce.Announce_ID = announce_record.Announce_ID where announce.Announce_Status = 1 and Announce_CreateTime > ".$biz_info['Biz_CreateTime']." order by announce_record.Record_ID,announce.Announce_CreateTime desc limit ".$start.",".$pageSize);
+$DB->Get("announce","announce.*,announce_record.Record_ID","left join `announce_record` on announce.Announce_ID = announce_record.Announce_ID and announce_record.Biz_ID = ".$BizID." where announce.Announce_Status = 1 and announce.Announce_CreateTime > ".$biz_info['Biz_CreateTime']." order by announce_record.Record_ID,announce.Announce_CreateTime desc limit ".$start.",".$pageSize);
 $key = 0;
 while ($r=$DB->fetch_assoc()) {
     $announce[$key] = $r;

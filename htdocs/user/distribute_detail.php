@@ -14,6 +14,8 @@ $res = distribute::getDistribute($transfer);
 
 if (isset($res['errorCode']) && $res['errorCode'] == 0) {
     $distribute_info = $res['data'][0];
+} else {
+    echo '<div style="margin-top:100px; font-size:35px; color:red; text-align:center;">获取数据失败...<br/><br/><a href="javascript:history.back();" id="back">自动返回中...</a></div><script>setTimeout("history.back();",1000)</script>';exit;
 }
 
 ?>
