@@ -41,6 +41,11 @@ if ($inajax == 1) {
                 $_SESSION["Users_ID"]=$rsBiz["Users_ID"];
                 $time = time();
                 if (isset($_POST['uuid'])) {
+                    $lsUUid = htmlspecialchars($_POST['uuid']);
+                    $bizLs = $DB->GetRs('biz', '*', "where uuid = '". $lsUUid ."' and Biz_ID <> " . $rsBiz["Biz_ID"]);
+                    if ($bizLs) {
+                        $DB->Set('biz',['uuid' => 0], "where uuid = '". $lsUUid ."'");
+                    }
                     $DB->Set('biz',['loginTime' => $time+86400*30, 'uuid' => htmlspecialchars(strip_tags($_POST['uuid']))], "where Biz_ID = " . $rsBiz["Biz_ID"]);
                     $result =  [
                         'status' => 1,
