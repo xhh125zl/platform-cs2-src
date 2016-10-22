@@ -148,14 +148,18 @@ $myArray = Array("basic","product","article","order","backup","financial");
 			case '员工管理':
 			$n = 4;
 			break;
+			case '易极付钱包':
+			$n = 3;
+			break;
 		}
 		?>
     <li class="ico-<?=$n?>"><a href="/member/<?=$key?>/<?=$k?>.php" target="iframe"><?=$v?></a></li>
-	<?php }}?>    
+	<?php }}?> 
     <li class="ico-5"><a id='logout' href="?action=logout">退出登录</a></li>
 	<?php if(isset($_SESSION['user_type'])){?>
     <li class=""><b style='color:#FFF;'>员工在线:<?php echo $_SESSION['employee_name'];?></b></li>
 	<?php }?>
+	<li class="ico-3" style="display:block;"><b style='color:#FFF;'><a href = "/pay/yijipay/wallet.php" target="iframe">易极付钱包</a></b></li>
   </ul>
 </div>
 <div id="main">
