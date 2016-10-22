@@ -89,7 +89,7 @@ if ($_POST) {
     $res = ImplOrder::actionOrdersend401(['Order_ID' => $orderDetail['Order_ID'], 'orderData' => $Data]);
 
     if (isset($res['errorCode']) && $res['errorCode'] == 0){
-        echo '<script>layer.open({content: "操作成功", time: 1, success: function(){window.location.href="";}});</script>';
+        echo '<script>window.location.href="";</script>';
     } else {
         echo '<script>layer.open({content: "操作失败，请重试！", btn: "确定", success: function(){window.location.href="";}});</script>';
     }
