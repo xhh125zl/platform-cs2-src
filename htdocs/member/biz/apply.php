@@ -59,7 +59,7 @@ if(isset($_GET["action"])){
 		exit;
 	}
 }
-$condition = "where Users_ID='".$_SESSION["Users_ID"]."'";
+/*$condition = "where Users_ID='".$_SESSION["Users_ID"]."'";
 if(isset($_GET['search'])){
 	if($_GET['Biz_Account']){
             $BizInfo = $DB->getRs('biz','Biz_ID','where Biz_Account = "'.$_GET['Biz_Account'].'"');
@@ -78,7 +78,7 @@ if(isset($_GET['search'])){
 
  
 $condition .= " and is_del =1  order by CreateTime desc";
-
+*/
 $_Status = array(1=>'<font style="color:#ff0000">未审核</font>',2=>'<font style="color:blue">审核通过</font>',-1=>'<font style="color:blue">已驳回</font>');
 ?>
 <!DOCTYPE HTML>
@@ -117,7 +117,7 @@ $_Status = array(1=>'<font style="color:#ff0000">未审核</font>',2=>'<font sty
     <div id="bizs" class="r_con_wrap">
       <form class="search" method="get" action="?">
           商家账号：
-        <input type="text" name="Biz_Account" value="" placeholder='请输入商家账号' class="form_input" size="15" />       
+        <input type="text" name="uname" value="" placeholder='请输入商家账号' class="form_input" size="15" />       
         状态：
         <select name="status">
           <option value="">全部</option>
@@ -143,7 +143,12 @@ $_Status = array(1=>'<font style="color:#ff0000">未审核</font>',2=>'<font sty
         <tbody>
         <?php 
 		$p = !empty($_GET['p'])?$_GET['p']:'1';
-		$apply_res = shopconfig::getBizapplyP(['pageSize'=>10,'is_del'=>1],$p);
+		if(isset($_GET['uname'])){
+			$apply_res = shopconfig::getBizapplyP(['Biz_Account'=>$_GET['uname'],'pageSize'=>10,'is_del'=>1],$p);
+		} else{
+			$apply_res = shopconfig::getBizapplyP(['pageSize'=>10,'is_del'=>1],$p);
+		}
+		
 		$lists = !empty($apply_res['data'])?$apply_res['data']:array();	
 	if (!empty($lists)) {  
 		  foreach($lists as $k=>$rsBiz){
