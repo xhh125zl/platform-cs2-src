@@ -449,7 +449,7 @@ $(function(){
             $('#test2').removeAttr('style');
         }
         //数据提交
-        layer.open({type: 2});
+        layer.open({type: 2, shadeClose: false});
         $.ajax({
             type:"POST",
             url:"lib/products.php",
