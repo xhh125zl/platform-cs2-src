@@ -93,8 +93,9 @@ $auth_status = get_auth_statusText($bizRow['is_auth']);
         <!-- message -->
     	<div class="right">
             <span class="commenting">
-            	<a href="?act=msg_system"><i class="fa  fa-commenting-o fa-x" aria-hidden="true"></i></a>
-            	<p><a id="total_unread_nums">0</a></p>
+            	<a href="?act=msg_system" class="msg"></a>
+                <i class="fa  fa-commenting-o fa-x" aria-hidden="true"></i>
+            	<p style="display:none;" id="total_unread_nums"><a>0</a></p>
             </span>
         </div><!--//message -->
         <div class="clear"></div>
@@ -235,9 +236,11 @@ $ucenter = $homeUrl . 'member/';
         $.get('?act=store&inajax=1&do=msgUnreadCount', {}, function(data) {
             if (data.errorCode == 0) {
                 if (data.data > 99) {
-                    $('#total_unread_nums').html('···');
-                } else {
-                    $('#total_unread_nums').html(data.data);
+                    $('#total_unread_nums').removeAttr('style');
+                    $('#total_unread_nums a').html('···');
+                } else if (data.data > 0) {
+                    $('#total_unread_nums').removeAttr('style');
+                    $('#total_unread_nums a').html(data.data);
                 }
             } else {
                 layer.open({content:'用户统计数据获取失败，请刷新此页面重试'});
