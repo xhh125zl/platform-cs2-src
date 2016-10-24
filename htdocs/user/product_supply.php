@@ -36,7 +36,7 @@ if(empty($BizAccount)){
 //检查用户是否已经交过费用
 $users = b2cshopconfig::getConfig(['Users_Account' => $BizAccount]);
 if ($users['errorCode'] == 0) {
-    $rsBiz = b2cshopconfig::getVerifyconfig(['Biz_Account' => $_SESSION['Users_Account']]);
+    $rsBiz = b2cshopconfig::getVerifyconfig(['Biz_Account' => $BizAccount]);
     if (empty($rsBiz['bizData'])) {
         echo '<script language="javascript">alert("商家不存在");history.back();</script>';
         exit;
