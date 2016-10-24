@@ -129,7 +129,7 @@ if (isset($_POST['ajax']) && $_POST['ajax'] == 1) {
                                 <?php }} ?>
                         </li>
                     <?php }} else { ?>
-                    <h3>暂无此状态订单</h3>
+                    <div style="height:80px; line-height:80px;">暂无订单!</div>
                 <?php } ?>
             </ul>
         </div>
