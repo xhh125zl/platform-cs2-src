@@ -83,7 +83,7 @@ $(function(){
                             $("input[name=image_path]").val($("input[name=image_path]").val() + ',' + data.msg);
                         }
                     } else {
-                        alert(data.msg);
+                        layer.open({content: data.msg, shadeClose: false, btn: '确定'});
                     }
                 }
             });
@@ -94,6 +94,7 @@ $(function(){
         var me = $(this);
         layer.open({
             content: '确定删除吗?',
+            shadeClose: false,
             btn: ['确定', '取消'],
             yes: function(){
                 layer.closeAll();
@@ -107,7 +108,7 @@ $(function(){
                             $("input[name=image_path]").val(data.msg);
                             me.parent().remove();
                         } else {
-                            alert(data.msg);
+                            layer.open({content: data.msg, shadeClose: false, btn: '确定'});
                         }
                     }
                 });
@@ -150,7 +151,7 @@ $(function(){
                             $("input[name=image_path1]").val($("input[name=image_path1]").val() + ',' + data.msg);
                         }
                     } else {
-                        alert(data.msg);
+                        layer.open({content: data.msg, shadeClose: false, btn: '确定'});
                     }
                 }
             });
@@ -161,6 +162,7 @@ $(function(){
         var me = $(this);
         layer.open({
             content: '确定删除吗?',
+            shadeClose: false,
             btn: ['确定', '取消'],
             yes: function(){
                 layer.closeAll();
@@ -174,7 +176,7 @@ $(function(){
                             $("input[name=image_path1]").val(data.msg);
                             me.parent().remove();
                         } else {
-                            alert(data.msg);
+                            layer.open({content: data.msg, shadeClose: false, btn: '确定'});
                         }
                     }
                 });
@@ -468,6 +470,7 @@ $(function(){
                 } else {
                     layer.open({
                        content:data.msg,
+                       shadeClose: false,
                        btn: '确定'
                     });
                 }

@@ -1,6 +1,8 @@
 <?php
 require_once "../config.inc.php";
 require_once(CMS_ROOT . '/include/api/product.class.php');
+require_once(CMS_ROOT . '/include/api/b2cshopconfig.class.php');
+
 function productsAdd($data){
     global $DB;
     $postdata = $DB->GetRs('shop_products', '*', "where Products_FromId = " . (int)$data['Products_FromID']);
@@ -92,6 +94,11 @@ if (isset($_POST['act']) && $_POST['act'] == 'addEditProduct') {
     }
     //推荐后  检测供货价
     if ($input_productData['is_Tj'] == 1) {
+        $rsBiz = b2cshopconfig::getVerifyconfig(['Biz_Account' => $BizAccount]);
+        if ($rsBiz['bizData']['is_agree'] !=1 || $rsBiz['bizData']['is_auth'] !=2 || $rsBiz['bizData']['is_biz'] !=1) {
+            echo json_encode(array('errorCode' => 1, 'msg' => '您未达到将商品推荐到商城平台的资格。'));die;
+        }
+
         if (!check_number($input_productData['Products_PriceS'])) {
             echo json_encode(array('errorCode' => 1, 'msg' => '填写的数据格式不正确'));die;
         }

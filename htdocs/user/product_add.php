@@ -32,7 +32,7 @@ if(empty($BizAccount)){
     .notNull { color: red; }
 </style>
 <script type="text/javascript">
-    $(function(){
+    /*$(function(){
         mui.init({
             keyEventBind: {
                 backbutton: true  //打开back按键监听
@@ -53,7 +53,7 @@ if(empty($BizAccount)){
                 }
             }
         };
-    });
+    });*/
 </script>
 <body>
 <?php
@@ -212,12 +212,13 @@ $(function(){
     $('input[name="is_Tj"]').change(function(){
         if ($('input[name="is_Tj"]:checked').val() == 'on') {
             var me = $(this);
+            me.prop("checked", false);
+            $('.is_Tj').attr('style', 'display:none;');
             layer.open({
-                content: "对不起,您尚未进行商家认证,请认证后再进行此项操作",
+                content: "对不起,您尚未进行商家认证<br>请认证后再进行此项操作",
+                shadeClose: false,
                 btn: '我知道了',
                 yes: function(){
-                    me.prop("checked", false);
-                    $('.is_Tj').attr('style', 'display:none;');
                     layer.closeAll();
                     return false;
                 }
