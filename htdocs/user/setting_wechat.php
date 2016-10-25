@@ -66,7 +66,7 @@ $(function(){
         $.post("?act=setting_wechat&inajax=1&do=wechat", {Users_WechatAccount:Users_WechatAccount}, function(json){
             if(json.errorCode == '0') {
                 layer.open({content:json.msg, time:2, end:function() {
-                    history.back();
+                    location.href="admin.php?act=setting";
                 }});
             }
         },'json')

@@ -7,32 +7,59 @@ require_once(CMS_ROOT . '/include/api/b2cshopconfig.class.php');
 if(empty($BizAccount)){
     header("location:/user/login.php");
 }
+
+?>
+<!doctype html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0">
+    <meta name="app-mobile-web-app-capable" content="yes">
+    <title>编辑产品</title>
+</head>
+<link href="../static/user/css/product.css" type="text/css" rel="stylesheet">
+<link href="../static/user/css/font-awesome.min.css" type="text/css" rel="stylesheet">
+<script type="text/javascript" src="../static/user/js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="../static/user/js/layer.js"></script>
+<script  type="text/javascript"  src="../static/user/js/jquery.uploadView.js"></script>
+<script  type="text/javascript"  src="../static/user/js/jquery.uploadView1.js"></script>
+<script  type="text/javascript"  src="../static/user/js/product.js"></script>
+<style type="text/css">
+    .btn-upload {width: 43px;height: 43px;position: relative; float: left; border:1px #999 dashed; margin-left: 10px; }
+    .btn-upload a {display: block;width: 43px;line-height: 43px;text-align: center;color: #4c4c4c;background: #fff;}
+    .btn-upload input {width: 43px;height: 43px;position: absolute;left: 0px;top: 0px;z-index: -1;filter: alpha(opacity=0);-moz-opacity: 0;opacity: 0;cursor: pointer;}
+    .deleted{cursor: pointer;width: 45px;display: block;height: 20px;line-height: 20px;text-align: center;position: relative;background: #000;color: #fff;font-size: 12px;filter: alpha(opacity=50);-moz-opacity: 0.5;-khtml-opacity: 0.5;opacity: 0.5;margin-top: -20px;}
+    .deleted1{cursor: pointer;width: 45px;display: block;height: 20px;line-height: 20px;text-align: center;position: relative;background: #000;color: #fff;font-size: 12px;filter: alpha(opacity=50);-moz-opacity: 0.5;-khtml-opacity: 0.5;opacity: 0.5;margin-top: -20px;}
+    .notNull { color: red; }
+</style>
+<body>
+<?php
 //检查用户是否已经交过费用
 $users = b2cshopconfig::getConfig(array('Users_Account' => $BizAccount));
 if ($users['errorCode'] == 0) {
     $bizData = $users['configData'];
     if ($bizData['expiresTime'] != 0 && $bizData['expiresTime'] < time()) {
         if ($bizData['need_charg'] == 1) {
-            echo '<script language="javascript">alert("此项功能已到期,必须先交费才可以使用");history.back();</script>';
+            echo '<script>layer.open({content: "此项功能已到期,必须先交费才可以使用", shadeClose: false, btn: "确定", yes: function(){history.back();}});</script>';
             exit();
         }
     }
     $rsBiz = b2cshopconfig::getVerifyconfig(['Biz_Account' => $BizAccount]);
     if (empty($rsBiz['bizData'])) {
-        echo '<script language="javascript">alert("商家不存在");history.back();</script>';
+        echo '<script>layer.open({content: "商家不存在", shadeClose: false, btn: "确定", yes: function(){history.back();}});</script>';
         exit;
     }
 } else {
-    echo '<script language="javascript">alert("服务器网络异常,数据通信失败");history.back();</script>';
+    echo '<script>layer.open({content: "服务器网络异常,数据通信失败", shadeClose: false, btn: "确定", yes: function(){history.back();}});</script>';
     exit;
 }
 
 //获取商品数据
 $product_id = 0;
 if (isset($_GET['product_id'])) {
-	$product_id = $_GET['product_id'];
+    $product_id = $_GET['product_id'];
 } else {
-	echo '<script>alert("商品id获取失败");history.back();</script>';
+    echo '<script>layer.open({content: "商品id获取失败", shadeClose: false, btn: "确定", yes: function(){history.back();}});</script>';
 }
 
 $postdata['Biz_Account'] = $BizAccount;
@@ -41,11 +68,11 @@ $postdata['is_Tj'] = 1;
 $resArr = product::getProductArr($postdata);
 //检测是否有数据
 if ($resArr['errorCode'] != 0 || empty($resArr['data']['Products_ID'])) {
-    echo '<script>alert("商品不存在，或获取数据失败");history.back();</script>';
+    echo '<script>layer.open({content: "商品不存在，或获取数据失败", shadeClose: false, btn: "确定", yes: function(){history.back();}});</script>';
 }
 $productData = $resArr['data'];     //获取的产品参数
 if (isset($productData['Products_FromId']) && $productData['Products_FromId'] > 0) {
-    echo '<script>alert("分销商品商品不能编辑");history.back();</script>';
+    echo '<script>layer.open({content: "分销商品不能编辑", shadeClose: false, btn: "确定", yes: function(){history.back();}});</script>';
 }
 
 function cutstr_html($string,$length=0,$ellipsis='…'){
@@ -72,20 +99,20 @@ $image_path_arr = json_decode($productData['Products_JSON'], true)['ImgPath'];
 $images_path = array();
 $image_path = '';
 foreach ($image_path_arr as $k => $v) {
-	if ( strpos($v, IMG_SERVER) !== false ) {
-		if (substr(IMG_SERVER, -1) == '/') {
-			$image_path .=  '/'.str_replace(IMG_SERVER, '', $v).',';
-		} else {
-			$image_path .=  str_replace(IMG_SERVER, '', $v).',';
-		}
-		$images_path[] = $v;
+    if ( strpos($v, IMG_SERVER) !== false ) {
+        if (substr(IMG_SERVER, -1) == '/') {
+            $image_path .=  '/'.str_replace(IMG_SERVER, '', $v).',';
+        } else {
+            $image_path .=  str_replace(IMG_SERVER, '', $v).',';
+        }
+        $images_path[] = $v;
     } else {
-    	$image_path .= $v.',';
-    	if (substr(IMG_SERVER, -1) == '/') {
-    		$images_path[] = IMG_SERVER.ltrim($v, '/');
-    	} else {
-    		$images_path[] = IMG_SERVER.$v;
-    	}
+        $image_path .= $v.',';
+        if (substr(IMG_SERVER, -1) == '/') {
+            $images_path[] = IMG_SERVER.ltrim($v, '/');
+        } else {
+            $images_path[] = IMG_SERVER.$v;
+        }
     }
 }
 $image_path = rtrim($image_path, ',');
@@ -124,7 +151,7 @@ $cate = explode(',', $productData['Products_Category']);
 $firstCateId = $cate[1];
 $secondCateId = $cate[2];
 foreach ($productData['Category401'] as $k => $v) {
-	if ($v['Category_ID'] == $firstCateId) {
+    if ($v['Category_ID'] == $firstCateId) {
         $firstCateName = $v['Category_Name'];
     }
     if ($v['Category_ID'] == $secondCateId) {
@@ -134,31 +161,6 @@ foreach ($productData['Category401'] as $k => $v) {
 $cateName = $firstCateName.'，'.$secondCateName;
 
 ?>
-<!doctype html>
-<html>
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0">
-    <meta name="app-mobile-web-app-capable" content="yes">
-    <title>编辑产品</title>
-</head>
-<link href="../static/user/css/product.css" type="text/css" rel="stylesheet">
-<link href="../static/user/css/font-awesome.min.css" type="text/css" rel="stylesheet">
-<!-- <link href="../static/user/css/layer.css" type="text/css" rel="stylesheet"> -->
-<script type="text/javascript" src="../static/user/js/jquery-1.8.3.min.js"></script>
-<script type="text/javascript" src="../static/user/js/layer.js"></script>
-<script  type="text/javascript"  src="../static/user/js/jquery.uploadView.js"></script>
-<script  type="text/javascript"  src="../static/user/js/jquery.uploadView1.js"></script>
-<script  type="text/javascript"  src="../static/user/js/product.js"></script>
-<style type="text/css">
-    .btn-upload {width: 43px;height: 43px;position: relative; float: left; border:1px #999 dashed; margin-left: 10px; }
-    .btn-upload a {display: block;width: 43px;line-height: 43px;text-align: center;color: #4c4c4c;background: #fff;}
-    .btn-upload input {width: 43px;height: 43px;position: absolute;left: 0px;top: 0px;z-index: -1;filter: alpha(opacity=0);-moz-opacity: 0;opacity: 0;cursor: pointer;}
-    .deleted{cursor: pointer;width: 45px;display: block;height: 20px;line-height: 20px;text-align: center;position: relative;background: #000;color: #fff;font-size: 12px;filter: alpha(opacity=50);-moz-opacity: 0.5;-khtml-opacity: 0.5;opacity: 0.5;margin-top: -20px;}
-    .deleted1{cursor: pointer;width: 45px;display: block;height: 20px;line-height: 20px;text-align: center;position: relative;background: #000;color: #fff;font-size: 12px;filter: alpha(opacity=50);-moz-opacity: 0.5;-khtml-opacity: 0.5;opacity: 0.5;margin-top: -20px;}
-    .notNull { color: red; }
-</style>
-<body>
 <div class="w">
     <div class="back_x">
         <a class="l" href="javascript:self.location=document.referrer;">&nbsp;取消</a><h3>编辑产品</h3>

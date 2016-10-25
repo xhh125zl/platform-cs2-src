@@ -6,25 +6,6 @@ require_once(CMS_ROOT . '/include/api/b2cshopconfig.class.php');
 if(empty($BizAccount)){
     header("location:/user/login.php");
 }
-//检查用户是否已经交过费用
-$users = b2cshopconfig::getConfig(array('Users_Account' => $BizAccount));
-if ($users['errorCode'] == 0) {
-    $bizData = $users['configData'];
-    if ($bizData['expiresTime'] != 0 && $bizData['expiresTime'] < time()) {
-        if ($bizData['need_charg'] == 1) {
-            echo '<script language="javascript">alert("此项功能已到期,必须先交费才可以使用");history.back();</script>';
-            exit();
-        }
-    }
-    $rsBiz = b2cshopconfig::getVerifyconfig(['Biz_Account' => $BizAccount]);
-    if (empty($rsBiz['bizData'])) {
-        echo '<script language="javascript">alert("商家不存在");history.back();</script>';
-        exit;
-    }
-} else {
-    echo '<script language="javascript">alert("服务器网络异常,数据通信失败");history.back();</script>';
-    exit;
-}
 
 ?>
 <!doctype html>
@@ -75,6 +56,27 @@ if ($users['errorCode'] == 0) {
     });
 </script>
 <body>
+<?php
+//检查用户是否已经交过费用
+$users = b2cshopconfig::getConfig(array('Users_Account' => $BizAccount));
+if ($users['errorCode'] == 0) {
+    $bizData = $users['configData'];
+    if ($bizData['expiresTime'] != 0 && $bizData['expiresTime'] < time()) {
+        if ($bizData['need_charg'] == 1) {
+            echo '<script>layer.open({content: "此项功能已到期,必须先交费才可以使用", shadeClose: false, btn: "确定", yes: function(){history.back();}});</script>';
+            exit();
+        }
+    }
+    $rsBiz = b2cshopconfig::getVerifyconfig(['Biz_Account' => $BizAccount]);
+    if (empty($rsBiz['bizData'])) {
+        echo '<script>layer.open({content: "商家不存在", shadeClose: false, btn: "确定", yes: function(){history.back();}});</script>';
+        exit;
+    }
+} else {
+    echo '<script>layer.open({content: "服务器网络异常,数据通信失败", shadeClose: false, btn: "确定", yes: function(){history.back();}});</script>';
+    exit;
+}
+?>
 <div class="w">
     <div class="back_x">
         <a class="l" href="?act=store">&nbsp;取消</a><h3>发布产品</h3>
