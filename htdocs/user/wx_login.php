@@ -47,11 +47,21 @@ if ($wxAccessCode != 0 && $uuid != 0) {
         }
         $DB->Set('biz',['loginTime' => $time+86400*30, 'uuid' => $uuid], "where Biz_ID = " . $bizData["Biz_ID"]);
         header("Location:/user/admin.php?act=store&time={$time}&bizID=".$bizData['Biz_ID']);
+        exit();
+    } else {
+        $accessToken = $resArr['access_token'];
+        $userinfoUrl = "https://api.weixin.qq.com/sns/userinfo?access_token=$accessToken&openid=$openid&lang=zh_CN";
+        $userinfoArr = curlWxInterFace($userinfoUrl);
+        $headurl = $userinfoArr['headimgurl'];
+        header("Location:http://cs2.3jke.com/user/bind.php?openid={$openid}&headurl={$headurl}");
+        exit();
     }
 } else {
     if ($uuid != 0) {
         header("Location:http://cs2.3jke.com/user/login.php?uuid=" . $uuid);
+        exit();
     } else {
         header("Location:http://cs2.3jke.com/user/login.php");
+        exit();
     }
 }
