@@ -3,6 +3,7 @@ if (!defined('USER_PATH')) exit();
 require_once CMS_ROOT . "/user/config.inc.php";
 require_once CMS_ROOT . '/include/api/ImplOrder.class.php';
 require_once CMS_ROOT . '/include/helper/page.class.php';
+require_once CMS_ROOT . '/include/helper/tools.php';
 
 //分页初始化
 $p = isset($_GET['p']) ? (int)$_GET['p'] : 1;
