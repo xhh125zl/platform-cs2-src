@@ -12,8 +12,8 @@ if ($inajax == 1) {
         $Province = isset($_POST['Province']) ? (int)$_POST['Province'] : 0;
         $City = isset($_POST['City']) ? (int)$_POST['City'] : 0;
         $Area = isset($_POST['Area']) ? (int)$_POST['Area'] : 0;
-        $RecieveAddress = trim($_POST['RecieveAddress']);
-        $RecieveName = trim($_POST['RecieveName']);
+        $RecieveAddress = cleanJsCss($_POST['RecieveAddress']);
+        $RecieveName = cleanJsCss($_POST['RecieveName']);
         $RecieveMobile = trim($_POST['RecieveMobile']);
         
         $data = [
@@ -93,9 +93,9 @@ $(document).ready(function(){
 
           <div class="clear"></div>
 
-    	<input type="text" name="RecieveAddress" id="RecieveAddress" placeholder="收货地址" maxlength="30" value="<?php echo $config['RecieveAddress'];?>">
-        <input type="text" name="RecieveName" placeholder="联系人"  maxlength="30" value="<?php echo $config['RecieveName'];?>">
-        <input type="text" name="RecieveMobile" placeholder="手机号" maxlength="11" value="<?php echo $config['RecieveMobile'];?>">
+    	<input type="text" name="RecieveAddress" id="RecieveAddress" placeholder="收货地址" maxlength="30" value="<?php echo input_output($config['RecieveAddress']); ?>">
+        <input type="text" name="RecieveName" placeholder="联系人"  maxlength="30" value="<?php echo input_output($config['RecieveName']); ?>">
+        <input type="tel" name="RecieveMobile" placeholder="手机号" maxlength="11" value="<?php echo $config['RecieveMobile'];?>">
     </div>
         <div class="sub_setting">
     	<input type="button" class="btnsubmit" value="保存">
@@ -111,9 +111,9 @@ $(function(){
                      location.href="admin.php?act=setting";
                 }});
             }
-        },'json')
-    })
-})
+        },'json');
+    });
+});
 </script>
 
 </body>

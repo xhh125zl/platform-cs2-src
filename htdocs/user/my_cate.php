@@ -1,4 +1,4 @@
-<?
+<?php
 require_once CMS_ROOT . '/include/api/product_category.class.php';
 require_once CMS_ROOT . '/include/helper/tools.php';
 if (isset($_GET['firstCateID']) && $_GET['firstCateID'] > 0) {

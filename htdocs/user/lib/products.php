@@ -61,6 +61,8 @@ if (isset($_POST['act']) && $_POST['act'] == 'addEditProduct') {
     //数据处理
     $input_productData = $_POST['productData'];
 
+    $input_productData['Products_Name'] = cleanJsCss($input_productData['Products_Name']);  //商品名称
+
     //封面图片路径处理
     $imsge_path['ImgPath'] = explode(',' ,$input_productData['Products_JSON']);
     $input_productData['Products_JSON'] = json_encode($imsge_path,JSON_UNESCAPED_UNICODE);
@@ -70,6 +72,7 @@ if (isset($_POST['act']) && $_POST['act'] == 'addEditProduct') {
     foreach ($des_img as $k => $v) {
         $img_show .= '<br/><img src="'.$v.'"/>';
     }
+    $input_productData['Products_Description'] = cleanJsCss($input_productData['Products_Description']);    //商品详情描述
     $input_productData['Products_Description'] = preg_replace('/\n|\r/', "<br/>", $input_productData['Products_Description']);
     $input_productData['Products_Description'] = htmlspecialchars($input_productData['Products_Description'].$img_show, ENT_QUOTES);
     //分类处理
@@ -83,7 +86,6 @@ if (isset($_POST['act']) && $_POST['act'] == 'addEditProduct') {
     //$input_productData['Products_IsShow'] = 0/1;      //特殊属性  是否显示
     //$input_productData['Products_IsVirtual'] = 1;     //订单流程      0,0  1,0  1,1 
     //$input_productData['Products_IsRecieve'] = 1;
-    //$input_productData['Products_Description'] = htmlspecialchars($input_productData['Products_Description'], ENT_QUOTES);    //详细介绍
     //$input_productData['Products_Parameter'] = '[{"name":"","value":""}]';        //产品参数
     $input_productData['Users_ID'] = $UsersID;
     $input_productData['Products_Status'] = 1;

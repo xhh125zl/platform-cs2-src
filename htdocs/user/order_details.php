@@ -70,18 +70,18 @@ if ($_POST) {
     $action = isset($_POST['action']) ? $_POST['action'] : '';
     if ($action == 'order_confirm') {
         $Data = array(
-            "Address_Name" => $_POST['Name'],
+            "Address_Name" => cleanJsCss($_POST['Name']),
             "Address_Mobile" => $_POST["Mobile"],
-            "Order_Remark" => htmlspecialchars($_POST["Remark"]),
+            "Order_Remark" => cleanJsCss($_POST["Remark"]),
             "Order_SendTime" => time(),
             "Order_Status" => 1
         );
     } else if ($action == 'order_send') {
         $Data = array(
-            "Address_Name" => $_POST['Name'],
+            "Address_Name" => cleanJsCss($_POST['Name']),
             "Address_Mobile" => $_POST["Mobile"],
             "Order_ShippingID" => $_POST["ShippingID"],
-            "Order_Remark" => htmlspecialchars($_POST["Remark"]),
+            "Order_Remark" => cleanJsCss($_POST["Remark"]),
             "Order_SendTime" => time(),
             "Order_Status" => 3
         );
@@ -104,15 +104,15 @@ if ($_POST) {
             <ul>
                 <li>
                     <span class="left">订单编号：</span>
-                    <span class="left"><?=$orderDetail['Order_ID']?></span>
+                    <span class="left"><?php echo $orderDetail['Order_ID']; ?></span>
                 </li>
                 <li>
                     <span class="left">订单时间：</span>
-                    <span class="left"><?=date('Y-m-d H:i:s', $orderDetail['Order_CreateTime'])?></span>
+                    <span class="left"><?php echo date('Y-m-d H:i:s', $orderDetail['Order_CreateTime']); ?></span>
                 </li>
                 <li>
                     <span class="left">订单总价：</span>
-                    <span class="left" style="color:red"><?='￥'.$orderDetail['Order_TotalPrice']?></span>
+                    <span class="left" style="color:red"><?php echo '￥'.$orderDetail['Order_TotalPrice']; ?></span>
                 </li>
                 <li>
                     <span class="left">订单状态：</span>
@@ -162,30 +162,30 @@ if ($_POST) {
                             <?php }else{
                                 $fee = $Shipping["Price"];
                                 ?>
-                                ￥<?php echo $Shipping["Price"];?>
-                            <?php }?>
+                                ￥<?php echo $Shipping["Price"]; ?>
+                            <?php } ?>
                         </strong>
                     </span>
                 </li>
                 <?php if ($orderDetail['Order_Status'] > 2) { ?>
                 <li>
                     <span class="left">快递单号：</span>
-                    <span class="left"><?php echo $orderDetail["Order_ShippingID"] ?></span>
+                    <span class="left"><?php echo $orderDetail["Order_ShippingID"]; ?></span>
                 </li>
                 <?php } ?>
 
                 <?php if (in_array($orderDetail['Order_Status'], array(1, 3, 4, 5)) || ($orderDetail['Order_Status'] == 2 && strlen($orderDetail['Sales_By']) > 1) || ($orderDetail['Order_Status'] == 2 && $orderDetail["Order_IsVirtual"] == 1)) { ?>
                 <li>
                     <span class="left">收&nbsp;&nbsp;货&nbsp;人：</span>
-                    <span class="left"><?php echo $orderDetail["Address_Name"] ?></span>
+                    <span class="left"><?php echo $orderDetail["Address_Name"]; ?></span>
                 </li>
                 <li>
                     <span class="left">手机号码：</span>
-                    <span class="left"><?php echo $orderDetail["Address_Mobile"] ?></span>
+                    <span class="left"><?php echo $orderDetail["Address_Mobile"]; ?></span>
                 </li>
                 <li>
                     <span class="left">收货地址：</span>
-                    <span class="left"><?php echo $Province.$City.$Area.'【'.$orderDetail["Address_Name"].'，'.$orderDetail["Address_Mobile"].'】' ?></span>
+                    <span class="left"><?php echo $Province.$City.$Area.'【'.$orderDetail["Address_Name"].'，'.$orderDetail["Address_Mobile"].'】'; ?></span>
                 </li>
                 <li>
                     <textarea name="Remark" disabled="disabled" style="width:97%; height:60px; border:1px solid #d9d9d9;" placeholder="请输入订单备注"><?php echo htmlspecialchars_decode($orderDetail['Order_Remark']); ?></textarea>
@@ -198,18 +198,18 @@ if ($_POST) {
                     <input type="hidden" name="action" value="order_confirm" />
                     <li>
                         <span class="left">收&nbsp;&nbsp;货&nbsp;人：</span>
-                        <span class="left"><input type="text" class="input_write" name="Name" value="<?php echo $orderDetail["Address_Name"] ?>" size="10"/></span>
+                        <span class="left"><input type="text" class="input_write" name="Name" maxlength="30" value="<?php echo input_output($orderDetail["Address_Name"]); ?>" size="10"/></span>
                     </li>
                     <li>
                         <span class="left">手机号码：</span>
-                        <span class="left"><input type="tel" class="input_write" name="Mobile" value="<?php echo $orderDetail["Address_Mobile"] ?>" size="15"/></span>
+                        <span class="left"><input type="tel" class="input_write" name="Mobile" maxlength="11" value="<?php echo $orderDetail["Address_Mobile"]; ?>" size="15"/></span>
                     </li>
                     <li>
                         <span class="left">收货地址：</span>
-                        <span class="left"><?php echo $Province.$City.$Area.'【'.$orderDetail["Address_Name"].'，'.$orderDetail["Address_Mobile"].'】' ?></span>
+                        <span class="left"><?php echo $Province.$City.$Area.'【'.$orderDetail["Address_Name"].'，'.$orderDetail["Address_Mobile"].'】'; ?></span>
                     </li>
                     <li>
-                        <textarea name="Remark" style="width:97%; height:60px; border:1px solid #d9d9d9;" placeholder="请输入订单备注"><?php echo htmlspecialchars_decode($orderDetail['Order_Remark']); ?></textarea>
+                        <textarea name="Remark" maxlength="250" style="width:97%; height:60px; border:1px solid #d9d9d9;" placeholder="请输入订单备注"><?php echo htmlspecialchars_decode($orderDetail['Order_Remark']); ?></textarea>
                     </li>
                     <li>
                         <input type="button" value="确认订单" style="margin-left:70%; border:0; width:100px; height: 30px; background-color: green; border-radius: 15px; color: #fff;">
@@ -223,15 +223,15 @@ if ($_POST) {
                     <input type="hidden" name="action" value="order_send" />
                     <li>
                         <span class="left">快递单号：</span>
-                        <span class="left"><input type="number" class="input_write" name="ShippingID" value="<?php echo $orderDetail["Order_ShippingID"] ?>"/></span>
+                        <span class="left"><input type="number" maxlength="50" class="input_write" name="ShippingID" value="<?php echo $orderDetail["Order_ShippingID"]; ?>"/></span>
                     </li>
                     <li>
                         <span class="left">收&nbsp;&nbsp;货&nbsp;人：</span>
-                        <span class="left"><input type="text" class="input_write" name="Name" value="<?php echo $orderDetail["Address_Name"] ?>" size="10"/></span>
+                        <span class="left"><input type="text" maxlength="30" class="input_write" name="Name" value="<?php echo input_output($orderDetail["Address_Name"]); ?>" size="10"/></span>
                     </li>
                     <li>
                         <span class="left">手机号码：</span>
-                        <span class="left"><input type="tel" class="input_write" name="Mobile" value="<?php echo $orderDetail["Address_Mobile"] ?>" size="15"/></span>
+                        <span class="left"><input type="tel" maxlength="11" class="input_write" name="Mobile" value="<?php echo $orderDetail["Address_Mobile"]; ?>" size="15"/></span>
                     </li>
 
                     <li>
@@ -240,7 +240,7 @@ if ($_POST) {
                     </li>
 
                     <li>
-                        <textarea name="Remark" style="width:97%; height:60px; border:1px solid #d9d9d9;" placeholder="请输入订单备注"><?php echo htmlspecialchars_decode($orderDetail['Order_Remark']); ?></textarea>
+                        <textarea name="Remark" maxlength="250" style="width:97%; height:60px; border:1px solid #d9d9d9;" placeholder="请输入订单备注"><?php echo htmlspecialchars_decode($orderDetail['Order_Remark']); ?></textarea>
                     </li>
                     <li>
                         <input type="button" value="确认发货" style="margin-left:70%; border:0; width:100px; height: 30px; background-color: green; border-radius: 15px; color: #fff;">

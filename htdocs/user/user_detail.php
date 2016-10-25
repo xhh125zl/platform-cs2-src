@@ -35,7 +35,7 @@ $From_arr = ['微信','注册','PC', 'QQ'];
             </tr>
             <tr>
                 <th>姓名：</th>
-                <td><input type="text" class="user_input" name="User_Name" value="<?=$rsUser['User_Name']?>"></td>
+                <td><input type="text" class="user_input" name="User_Name" value="<?=input_output($rsUser['User_Name'])?>"></td>
             </tr>
             <tr>
                 <th>总消费额：</th>
