@@ -63,4 +63,16 @@ class users extends base
 		return $result;
 	}
 
+
+	/*
+	 * 通过app的微信登录查询401对应的openid是否存在商家记录
+	 */
+	static public function getBizByOpenid($data)
+	{
+		$url = '/biz/getbizbyopenid.html';
+		$result = self::request($url, 'post', $data);
+
+		return $result;
+	}
+
 }

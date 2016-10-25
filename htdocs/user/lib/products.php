@@ -45,14 +45,17 @@ function check_number($value, $type = 0) {
     }
 }
 
-if ($_GET['action'] == 'addProducts') {     //分销其他商家的商品
+if (isset($_GET['action']) && $_GET['action'] == 'addProducts') {     //分销其他商家的商品
     $flag = productsAdd($_GET);
     if ($flag) {
         echo json_encode(['errorCode' => 0, 'msg' => '上架成功'], JSON_UNESCAPED_UNICODE);
     } else {
         echo json_encode(['errorCode' => 101, 'msg' => '上架失败']);
     }
-} else if ($_POST['act'] == 'addEditProduct') {     //商家添加编辑自营产品
+}
+
+//商家添加编辑自营产品
+if (isset($_POST['act']) && $_POST['act'] == 'addEditProduct') {
     //数据处理
     $input_productData = $_POST['productData'];
 

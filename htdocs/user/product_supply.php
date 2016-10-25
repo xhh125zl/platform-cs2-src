@@ -36,22 +36,22 @@ if(empty($BizAccount)){
 //检查用户是否已经交过费用
 $users = b2cshopconfig::getConfig(['Users_Account' => $BizAccount]);
 if ($users['errorCode'] == 0) {
-    $rsBiz = b2cshopconfig::getVerifyconfig(['Biz_Account' => $_SESSION['Users_Account']]);
+    $rsBiz = b2cshopconfig::getVerifyconfig(['Biz_Account' => $BizAccount]);
     if (empty($rsBiz['bizData'])) {
-        echo '<script language="javascript">alert("商家不存在");history.back();</script>';
+        echo '<script>layer.open({content: "商家不存在", shadeClose: false, btn: "确定", yes: function(){history.back();});</script>';
         exit;
     }
     $bizData = $rsBiz['bizData'];
     if ($bizData['is_agree'] !=1 || $bizData['is_auth'] !=2) {
-        echo '<script language="javascript">layer.open({ content: "您尚未通过商家认证,不能当供货商,请进行商家认证后再进行此项操作!", btn: "确认", success: function(){history.back();} });</script>';
+        echo '<script>layer.open({ content: "您尚未通过商家认证,不能当供货商,请进行商家认证后再进行此项操作!", shadeClose: false, btn: "确认", yes: function(){history.back();} });</script>';
         exit;
     }
     if ($bizData['is_biz'] !=1) {
-        echo '<script language="javascript">layer.open({ content: "您尚未通过商家认证,不能当供货商,请进行商家认证后再进行此项操作!", btn: "确认", success: function(){history.back();} });</script>';
+        echo '<script>layer.open({ content: "您尚未通过商家认证,不能当供货商,请进行商家认证后再进行此项操作!", shadeClose: false, btn: "确认", yes: function(){history.back();} });</script>';
         exit;
     }
 }else{
-    echo '<script language="javascript">alert("服务器网络异常,数据通信失败");history.back();</script>';
+    echo '<script>layer.open({content: "服务器网络异常,数据通信失败", shadeClose: false, btn: "确定", yes: function(){history.back();}});</script>';
     exit;
 }
 ?>
