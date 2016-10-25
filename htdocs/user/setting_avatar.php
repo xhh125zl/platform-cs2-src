@@ -2,6 +2,7 @@
 if (!defined('USER_PATH')) exit();
 
 require_once CMS_ROOT . '/include/api/shopconfig.class.php';
+require_once CMS_ROOT . '/include/helper/tools.php';
 
 $inajax = isset($_GET['inajax']) ? (int)$_GET['inajax'] : 0;
 
@@ -77,7 +78,7 @@ $config = $result['data'];
     <div class="blank10"></div>
 	<div class="pic_add">
     	<div class="ccc js_uploadBox">
-        	<img src="<?=$config['ShopLogo']?IMG_SERVER.$config['ShopLogo']:'' ?>" class="showimg">
+        	<img src="<?=$config['ShopLogo'] ? IMG_SERVER . getImageUrl($config['ShopLogo'], 0) : '' ?>" class="showimg">
             <span>修改图片</span>
             <input type="file" class="js_upFile" style="position:absolute; top:180px; left:0; height:34px; filter:alpha(opacity:0);opacity: 0;width:100%; cursor:pointer;" name="upthumb" />
             <input type="hidden" id="image_files" name="image_files" value="">

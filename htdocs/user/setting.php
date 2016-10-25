@@ -2,6 +2,7 @@
 if (!defined('USER_PATH')) exit();
 
 require_once CMS_ROOT . '/include/api/shopconfig.class.php';
+require_once CMS_ROOT . '/include/helper/tools.php';
 
 $inajax = isset($_GET['inajax']) ? (int)$_GET['inajax'] : 0;
 if ($inajax == 1) {
@@ -56,7 +57,7 @@ img{border:none;vertical-align: middle;}
     <div class="shop_list">
     	<ul>
         	<li>
-            	<a href='?act=setting_avatar'><span class="l">店铺头像<span><img style="border-radius:17px" src='<?php echo IMG_SERVER . $config['ShopLogo'];?>' width=35 height=35 /></span></span><span class="r"><i class="fa  fa-angle-right fa-2x" aria-hidden="true"></i></span></a>
+            	<a href='?act=setting_avatar'><span class="l">店铺头像<span><img style="border-radius:17px" src='<?php echo IMG_SERVER . getImageUrl($config['ShopLogo'], 1);?>' width=35 height=35 /></span></span><span class="r"><i class="fa  fa-angle-right fa-2x" aria-hidden="true"></i></span></a>
             </li>
             <li>
             	<a href="?act=setting_shopname"><span class="l">店铺名称<span><?php echo $config['ShopName'];?></span></span><span class="r"><i class="fa  fa-angle-right fa-2x" aria-hidden="true"></i></span></a>
