@@ -5,7 +5,7 @@
  */
 
 function curlInterFace($url, $method = 'post', $postdata = array()){
-	$data = createTokenString($postdata);
+	$data = arrayToString($postdata);
 	$timestamp = time();
 	$key = '458f_$#@$*!fdjisdJDFHUk4%%653154%^@#(FSD#$@0-T';
 	$sign = strtoupper(md5(base64_encode($data . $key . $timestamp)));
@@ -29,7 +29,6 @@ function curlInterFace($url, $method = 'post', $postdata = array()){
  * 签名规则:根据传递过来的数组组装成一维数组，去掉sign，去掉空值，进行字典序排列，然后进行http_build_query组装成字符串,然后连接上$key依次进行base64_encode,md5和strtoupper处理
  */
 function createTokenString($arr) {
-	static $tmp = [] ;
 	if (!is_array($arr)) {
 		return false;
 	}
@@ -49,6 +48,29 @@ function createTokenString($arr) {
 }
 
 
+
+/*
+ * 多位数组组装一维数组
+ */
+function arrayToString($arr)
+{
+	if (is_array($arr)) {
+		foreach ($arr as $k => $v) {
+			if (is_array($v)) {
+				arrayToString($v);
+			} else {
+				if (strlen($v) < 1) {
+					unset($arr[$k]);
+				}
+			}
+		}
+		return implode(',', array_map('arrayToString', $arr));
+	}
+	return $arr;
+}
+
+
+
 /*
  * 根据不同场景时读取不同的图片路径
  * @params $srcUrl 原图片路径 $scenarias 场景ID,1为宽度200,2为宽度190,3为高度350,图片为等比缩放
@@ -61,6 +83,40 @@ function getImageUrl($srcUrl,$scenarias = 1)
 	$filename = basename($srcUrl);
 	return $srcPath . "/n{$scenarias}/" . $filename;
 }
+
+
+
+
+
+
+function http_request($url, $method = 'post', $params = array()){
+	$options = array(
+			CURLOPT_HEADER => 0,
+			CURLOPT_URL => $url,
+			CURLOPT_FRESH_CONNECT => 1,
+			CURLOPT_RETURNTRANSFER => 1,
+			CURLOPT_FORBID_REUSE => 1,
+			CURLOPT_TIMEOUT => 10,
+			CURLOPT_SSL_VERIFYPEER =>FALSE,
+			CURLOPT_SSL_VERIFYHOST =>FALSE
+	);
+	$param_string = http_build_query($params);
+	if($method == 'post'){
+		$options += array(CURLOPT_POST => 1, CURLOPT_POSTFIELDS => $param_string);
+	}else{
+		if($param_string)
+			$options[CURLOPT_URL] .= '?'.$param_string;
+	}
+	$ch = curl_init();
+	curl_setopt_array($ch, $options);
+	if( ! $result = curl_exec($ch))
+	{
+		$this->on_error(curl_error($ch));
+	}
+	curl_close($ch);
+	return $result;
+}
+
 
 /**
  *去除字符串中的emoji表情
