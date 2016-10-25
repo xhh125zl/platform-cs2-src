@@ -42,12 +42,8 @@ if ($users['errorCode'] == 0) {
         exit;
     }
     $bizData = $rsBiz['bizData'];
-    if ($bizData['is_agree'] !=1 || $bizData['is_auth'] !=2) {
-        echo '<script>layer.open({ content: "您尚未通过商家认证,不能当供货商,请进行商家认证后再进行此项操作!", shadeClose: false, btn: "确认", yes: function(){history.back();} });</script>';
-        exit;
-    }
-    if ($bizData['is_biz'] !=1) {
-        echo '<script>layer.open({ content: "您尚未通过商家认证,不能当供货商,请进行商家认证后再进行此项操作!", shadeClose: false, btn: "确认", yes: function(){history.back();} });</script>';
+    if ($bizData['is_agree'] !=1 || $bizData['is_auth'] !=2 || $bizData['is_biz'] !=1) {
+        echo '<script>layer.open({ content: "您尚未通过商家认证,不能当供货商<br>请进行商家认证后再进行此项操作!", shadeClose: false, btn: "确认", yes: function(){history.back();} });</script>';
         exit;
     }
 }else{

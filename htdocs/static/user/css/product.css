@@ -92,7 +92,7 @@ input[type=button], input[type=submit], input[type=file], button { cursor: point
     padding: 10px 0;
 	overflow:hidden}
 .product_x ul{}
-.product_x ul li{width: 49.5%;
+.product_x ul li{width: 33%;  /*width: 49.5%;*/
     text-align: center;
     float: left;
     font-size: 14px;
@@ -270,8 +270,8 @@ input[type=button], input[type=submit], input[type=file], button { cursor: point
 .cate_list ul li{ background:#fff; overflow:hidden; margin:5px 0; padding:10px; line-height:20px; color:#333; text-align:left}
 .cate_list ul li span p{ color:#666; height:20px; overflow:hidden}
 .cate_list ul li span h1{ color:#333; height:20px; overflow:hidden; line-height:20px; font-size:14px}
-.cate_list ul li span.title_x{ width:70%; height:40px;}
-.cate_list ul li span.edit_x{line-height: 38px; color: #999; font-size: 20px; font-weight:normal}
+.cate_list ul li span.title_x{ width:70%; height:20px; line-height:20px;}
+.cate_list ul li span.edit_x{line-height: 20px; color: #999; font-size: 20px; font-weight:normal}
 .cate_list ul li span i{padding-right: 10px;}
 .foot_nav1{ color:#666; }
 .foot_nav1 ul{}

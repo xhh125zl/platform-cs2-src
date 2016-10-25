@@ -9,7 +9,7 @@ if ($inajax == 1) {
     $do = isset($_GET['do']) ? $_GET['do'] : '';
 
     if ($do == 'shopname') {
-        $shopname = isset($_POST['shopname']) ? $_POST['shopname'] : 0;
+        $shopname = isset($_POST['shopname']) ? cleanJsCss($_POST['shopname']) : '';
 
         $data = [
             'Biz_Account' => $BizAccount,
@@ -53,7 +53,7 @@ $config = $result['data'];
     	<a href="javascript:history.back()" class="l"><i class="fa  fa-angle-left fa-2x" aria-hidden="true"></i></a>店铺名称
     </div>
     <div class="box_setting">
-    	<input type="text" id="shopname" maxlength="30" value="<?php echo $config['ShopName'];?>">
+    	<input type="text" id="shopname" maxlength="30" value="<?php echo input_output($config['ShopName']); ?>">
     </div>
     <div class="sub_setting">
     	<input type="button" class="btnsubmit" value="保存">
@@ -62,16 +62,21 @@ $config = $result['data'];
 <script type="text/javascript">
 $(function(){
     $(".btnsubmit").click(function(){
-        var shopname = $("#shopname").val();
-        $.post("?act=setting_shopname&inajax=1&do=shopname", {shopname:shopname}, function(json){
-            if(json.errorCode == '0') {
-                layer.open({content:json.msg, time:2, end:function() {
-                     location.href="admin.php?act=setting";
-                }});
-            }
-        },'json')
-    })
-})
+        var shopname = $.trim($("#shopname").val());
+        if (shopname == '') {
+            $('#shopname').attr('style','border: 1px solid red;');
+        } else {
+            $('#shopname').removeAttr('style');
+            $.post("?act=setting_shopname&inajax=1&do=shopname", {shopname:shopname}, function(json){
+                if(json.errorCode == '0') {
+                    layer.open({content:json.msg, time:2, end:function() {
+                         location.href="admin.php?act=setting";
+                    }});
+                }
+            },'json');
+        }
+    });
+});
 </script>
 
 </body>

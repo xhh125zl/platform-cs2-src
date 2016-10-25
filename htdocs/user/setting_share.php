@@ -10,7 +10,7 @@ if ($inajax == 1) {
     $do = isset($_GET['do']) ? $_GET['do'] : '';
 
     if ($do == 'wechat') {
-        $Users_WechatAccount = isset($_POST['Users_WechatAccount']) ? $_POST['Users_WechatAccount'] : 0;
+        $Users_WechatAccount = isset($_POST['Users_WechatAccount']) ? cleanJsCss($_POST['Users_WechatAccount']) : '';
 
         $data = [
             'Biz_Account' => $BizAccount,
@@ -50,10 +50,13 @@ if ($inajax == 1) {
     
     echo json_encode($result);exit;
 }else if (isset($_POST['do']) && $_POST['do'] == 'save') {
+
+    $ShareIntro = isset($_POST['ShareIntro']) ? cleanJsCss($_POST['ShareIntro']) : '';
+
     $data = [
             'Biz_Account' => $BizAccount,
             'configData' => [
-                'ShareIntro' => addslashes($_POST['ShareIntro'])
+                'ShareIntro' => $ShareIntro
             ]
         ];
         
@@ -109,7 +112,7 @@ $config = $result['data'];
             <input type="hidden" id="Users_WechatAccount" name="Users_WechatAccount" value="">
         </div>
 		<div class="shop_share">
-        	<textarea name="ShareIntro" rows="3"><?=$config['ShareIntro']?$config['ShareIntro']:'请输入店铺分享语' ?></textarea>
+        	<textarea name="ShareIntro" rows="3" maxlength="250"><?=$config['ShareIntro']?$config['ShareIntro']:'请输入店铺分享语' ?></textarea>
         </div>
         <div class="sub_setting">
             <input  type="button" name="save" class="" value="保存">
@@ -128,20 +131,47 @@ $(function(){
                      location.href="admin.php?act=setting";
                 }});
             }
-        },'json')
+        },'json');
     });
     $("input[name='save']").click(function(){
         $.ajax({
             type:"POST",
-                url:$("#settingShare").attr("action"),
-                data:$("#settingShare").serialize(),
+            url:$("#settingShare").attr("action"),
+            data:$("#settingShare").serialize(),
+            dataType:"json",
+            success:function(data){
+                if (data.errorCode == 0) {
+                     layer.open({
+                        content: data.msg
+                        ,btn: '我知道了'
+                    });
+                } else {
+                    layer.open({
+                        content: data.msg
+                        ,btn: '我知道了'
+                    });
+                }
+            }
+        });
+    });
+
+    $(".js_upFile").uploadView({
+        uploadBox: '.js_uploadBox',//设置上传框容器
+        showBox : '.js_showBox',//设置显示预览图片的容器
+        width : 220, //预览图片的宽度，单位px
+        height : 120, //预览图片的高度，单位px
+        allowType: ["gif", "jpeg", "jpg", "bmp", "png"], //允许上传图片的类型
+        maxSize :10, //允许上传图片的最大尺寸，单位M
+        success:function(e){
+            $(".showimg").attr("src",$("#image_files").val());
+            $.ajax({
+                type:"POST",
+                url:"?act=setting_share",
+                data:{"do":"uploadFile", "data":$("#image_files").val()},
                 dataType:"json",
                 success:function(data){
                     if (data.errorCode == 0) {
-                         layer.open({
-                            content: data.msg
-                            ,btn: '我知道了'
-                        });
+                         $("input[name=ShareLogo]").val(data.msg);
                     } else {
                         layer.open({
                             content: data.msg
@@ -149,37 +179,10 @@ $(function(){
                         });
                     }
                 }
-        });
+            });
+        }
     });
-
-    $(".js_upFile").uploadView({
-            uploadBox: '.js_uploadBox',//设置上传框容器
-            showBox : '.js_showBox',//设置显示预览图片的容器
-            width : 220, //预览图片的宽度，单位px
-            height : 120, //预览图片的高度，单位px
-            allowType: ["gif", "jpeg", "jpg", "bmp", "png"], //允许上传图片的类型
-            maxSize :10, //允许上传图片的最大尺寸，单位M
-            success:function(e){
-                $(".showimg").attr("src",$("#image_files").val());
-                $.ajax({
-                    type:"POST",
-                    url:"?act=setting_share",
-                    data:{"do":"uploadFile", "data":$("#image_files").val()},
-                    dataType:"json",
-                    success:function(data){
-                        if (data.errorCode == 0) {
-                             $("input[name=ShareLogo]").val(data.msg);
-                        } else {
-                            layer.open({
-                                content: data.msg
-                                ,btn: '我知道了'
-                            });
-                        }
-                    }
-                });
-            }
-        });
-})
+});
 </script>
 
 </body>

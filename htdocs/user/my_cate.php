@@ -1,4 +1,4 @@
-<?
+<?php
 require_once CMS_ROOT . '/include/api/product_category.class.php';
 require_once CMS_ROOT . '/include/helper/tools.php';
 if (isset($_GET['firstCateID']) && $_GET['firstCateID'] > 0) {
@@ -39,24 +39,7 @@ if (isset($_GET['do']) && $_GET['do'] == 'edit') {
 <body>
 <div class="w">
     <div style="text-align:center; line-height:30px; background:#fff; padding:5px 0">
-        <span class="l"><a href="<?=strpos($_SERVER['REQUEST_URI'],'firstCateID') ? substr($_SERVER['REQUEST_URI'],0,strrpos($_SERVER['REQUEST_URI'],'&')) : 'javascript:history.back();' ?>"><img src="../static/user/images/gdx.png" width="30" height="30" style=""></a></span>商品管理
-    </div>
-    <div class="clear"></div>
-    <div class="header">
-        <ul>
-            <li><a href="?act=products">
-                    <img src="../static/user/images/pro_1.png" width="40" height="40">
-                    <p>出售中</p>
-                </a></li>
-            <li><a href="?act=products&state=1">
-                    <img src="../static/user/images/pro_2.png" width="40" height="40">
-                    <p>已下架</p>
-                </a></li>
-            <li><a href="?act=my_cate">
-                    <img src="../static/user/images/pro_3.png" width="40" height="40">
-                    <p>我的分类</p>
-                </a></li>
-        </ul>
+        <span class="l"><a href="<?=strpos($_SERVER['REQUEST_URI'],'firstCateID') ? substr($_SERVER['REQUEST_URI'],0,strrpos($_SERVER['REQUEST_URI'],'&')) : 'javascript:history.back();' ?>"><img src="../static/user/images/gdx.png" width="30" height="30" style=""></a></span>分类管理
     </div>
     <div class="clear"></div>
     <div class="cate_list">

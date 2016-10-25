@@ -9,7 +9,7 @@ if ($inajax == 1) {
     $do = isset($_GET['do']) ? $_GET['do'] : '';
 
     if ($do == 'wechat') {
-        $Users_WechatAccount = isset($_POST['Users_WechatAccount']) ? $_POST['Users_WechatAccount'] : 0;
+        $Users_WechatAccount = isset($_POST['Users_WechatAccount']) ? cleanJsCss($_POST['Users_WechatAccount']) : '';
 
         $data = [
             'Biz_Account' => $BizAccount,
@@ -53,7 +53,7 @@ $config = $result['data'];
     	<a href="javascript:history.back()" class="l"><i class="fa  fa-angle-left fa-2x" aria-hidden="true"></i></a>微信号
     </div>
     <div class="box_setting">
-    	<input type="text" id="Users_WechatAccount" maxlength="30" value="<?php echo $config['Users_WechatAccount'];?>">
+    	<input type="text" id="Users_WechatAccount" maxlength="30" value="<?php echo input_output($config['Users_WechatAccount']); ?>">
     </div>
     <div class="sub_setting">
     	<input type="button" class="btnsubmit" value="保存">
@@ -62,16 +62,21 @@ $config = $result['data'];
 <script type="text/javascript">
 $(function(){
     $(".btnsubmit").click(function(){
-        var Users_WechatAccount = $("#Users_WechatAccount").val();
-        $.post("?act=setting_wechat&inajax=1&do=wechat", {Users_WechatAccount:Users_WechatAccount}, function(json){
-            if(json.errorCode == '0') {
-                layer.open({content:json.msg, time:2, end:function() {
-                    location.href="admin.php?act=setting";
-                }});
-            }
-        },'json')
-    })
-})
+        var Users_WechatAccount = $.trim($("#Users_WechatAccount").val());
+        if (Users_WechatAccount == '') {
+            $('#Users_WechatAccount').attr('style', 'border: 1px solid red;');
+        } else {
+            $('#Users_WechatAccount').removeAttr('style');
+            $.post("?act=setting_wechat&inajax=1&do=wechat", {Users_WechatAccount:Users_WechatAccount}, function(json){
+                if(json.errorCode == '0') {
+                    layer.open({content:json.msg, time:2, end:function() {
+                        location.href="admin.php?act=setting";
+                    }});
+                }
+            },'json');
+        }
+    });
+});
 </script>
 
 </body>
