@@ -66,7 +66,7 @@ $(function(){
         $.post("?act=setting_announce&inajax=1&do=save", {content:content}, function(json){
             if(json.errorCode == '0') {
                 layer.open({content:json.msg, time:2, end:function() {
-                    history.back();
+                     location.href="admin.php?act=setting";
                 }});
             }
         },'json')

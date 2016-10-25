@@ -94,7 +94,7 @@ $config = $result['data'];
 <body>
 <div class="w">
 	<div class="back_x">
-    	<a href="javascript:history.back()" class="l"><i class="fa  fa-angle-left fa-2x" aria-hidden="true"></i></a>店铺分享
+    	<a href="?act=setting" class="l"><i class="fa  fa-angle-left fa-2x" aria-hidden="true"></i></a>店铺分享
     </div>
     <div class="blank10"></div>
 	<div class="pic_add">
@@ -125,7 +125,7 @@ $(function(){
         $.post("?act=setting_wechat&inajax=1&do=wechat", {Users_WechatAccount:Users_WechatAccount}, function(json){
             if(json.errorCode == '0') {
                 layer.open({content:json.msg, time:2, end:function() {
-                    history.back();
+                     location.href="admin.php?act=setting";
                 }});
             }
         },'json')

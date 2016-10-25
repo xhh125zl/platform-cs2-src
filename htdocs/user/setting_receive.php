@@ -73,7 +73,7 @@ $(function(){
         $.post("?act=setting_receive&inajax=1&do=day", {day:day}, function(json){
             if(json.errorCode == '0') {
                 layer.open({content:json.msg, time:2, end:function() {
-                    history.back();
+                     location.href="admin.php?act=setting";
                 }});
             }
         },'json')
