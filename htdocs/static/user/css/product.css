@@ -41,7 +41,7 @@ input[type=button], input[type=submit], input[type=file], button { cursor: point
 
 /*店铺管理*/
 .commenting{padding: 10px 20px; position: relative; display: inline-block; padding-bottom:0;font-size:22px;}
-.commenting .msg{ position:absolute; top:0;right:0; width:55px; height:40px; }
+.commenting .msg{ position:absolute; top:0;right:0; width:55px; height:40px; z-index:3; }
 .commenting i{color: #fff; position:absolute; top:13px; right:23px;}
 .commenting p{ background: red;border-radius: 50%; display: block; height: 16px; top:8px; right:12px;position: absolute;min-width:16px; font-size:14px;text-align: center;line-height: 16px; color: #ffffff;font-style: normal;}
 .commenting p a{color:#fff; padding:0 2px;}
