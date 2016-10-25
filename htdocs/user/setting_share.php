@@ -112,7 +112,7 @@ $config = $result['data'];
             <input type="hidden" id="Users_WechatAccount" name="Users_WechatAccount" value="">
         </div>
 		<div class="shop_share">
-        	<textarea name="ShareIntro" rows="3" maxlength="250"><?=$config['ShareIntro']?$config['ShareIntro']:'请输入店铺分享语' ?></textarea>
+        	<textarea name="ShareIntro" rows="3" maxlength="250" placeholder="请输入店铺分享语"><?php echo $config['ShareIntro'] ? $config['ShareIntro'] : ''; ?></textarea>
         </div>
         <div class="sub_setting">
             <input  type="button" name="save" class="" value="保存">

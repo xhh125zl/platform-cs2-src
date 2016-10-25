@@ -53,7 +53,7 @@ $config = $result['data'];
     </div>
 	<div class="shop_share">
     	<img src="http://img0.bdstatic.com/img/image/shouye/xinshouye/toux.png">
-        <h3><textarea name="content" id="content" maxlength="250"><?php echo $config['ShopAnnounce'];?></textarea></h3>
+        <h3><textarea name="content" id="content" maxlength="250"  placeholder="请输入店铺公告"><?php echo $config['ShopAnnounce'];?></textarea></h3>
     </div> 
         <div class="sub_setting">
     	<input type="button" class="btnsubmit" value="保存">
