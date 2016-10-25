@@ -6,6 +6,7 @@ require_once CMS_ROOT . '/include/api/count.class.php';
 require_once CMS_ROOT . '/include/api/shopconfig.class.php';
 require_once CMS_ROOT . '/include/api/message.class.php';
 require_once CMS_ROOT . '/include/api/users.class.php';
+require_once CMS_ROOT . '/include/helper/tools.php';
 $inajax = isset($_GET['inajax']) ? (int)$_GET['inajax'] : 0;
 if ($inajax == 1) {
     $do = isset($_GET['do']) ? $_GET['do'] : '';
@@ -99,7 +100,7 @@ $auth_status = get_auth_statusText($bizRow['is_auth']);
             </span>
         </div><!--//message -->
         <div class="clear"></div>
-        <span class="head_pho l"><a><img src="<?php echo IMG_SERVER . $config['ShopLogo'];?>"></a></span>
+        <span class="head_pho l"><a><img src="<?php echo IMG_SERVER . getImageUrl($config['ShopLogo'], 2);?>"></a></span>
         <span class="head_name l">
         	<a><?php echo $config['ShopName'];?></a>
             <p><span><i>V</i></span><span style=" background:#0292d4; padding:0px 5px; border-top-right-radius:3px;border-bottom-right-radius:3px;"><?php echo $auth_status;?></span></p>

@@ -44,10 +44,23 @@ function createTokenString($arr) {
 			}
 		}
 	}
-	sort($tmp);
+	//sort($tmp);
 	return http_build_query($tmp);
 }
 
+
+/*
+ * 根据不同场景时读取不同的图片路径
+ * @params $srcUrl 原图片路径 $scenarias 场景ID,1为宽度200,2为宽度190,3为高度350,图片为等比缩放
+ * @return 新路径
+ */
+
+function getImageUrl($srcUrl,$scenarias = 1)
+{
+	$srcPath = dirname($srcUrl);
+	$filename = basename($srcUrl);
+	return $srcPath . "/n{$scenarias}/" . $filename;
+}
 
 /**
  *去除字符串中的emoji表情
