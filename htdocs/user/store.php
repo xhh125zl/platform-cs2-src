@@ -153,6 +153,9 @@ $auth_status = get_auth_statusText($bizRow['is_auth']);
             <li>
                 <a href='?act=products'><i class="fa  fa-check-square fa-x" aria-hidden="true"></i>&nbsp;产品管理</a>
             </li>
+            <li>
+                <a href='?act=my_cate'><i class="fa  fa-check-square fa-x" aria-hidden="true"></i>&nbsp;分类管理</a>
+            </li>
         </ul>
     </div>
     <div class="clear"></div>

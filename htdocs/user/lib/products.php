@@ -1,6 +1,8 @@
 <?php
 require_once "../config.inc.php";
 require_once(CMS_ROOT . '/include/api/product.class.php');
+require_once(CMS_ROOT . '/include/api/b2cshopconfig.class.php');
+
 function productsAdd($data){
     global $DB;
     $postdata = $DB->GetRs('shop_products', '*', "where Products_FromId = " . (int)$data['Products_FromID']);
@@ -59,6 +61,8 @@ if (isset($_POST['act']) && $_POST['act'] == 'addEditProduct') {
     //数据处理
     $input_productData = $_POST['productData'];
 
+    $input_productData['Products_Name'] = cleanJsCss($input_productData['Products_Name']);  //商品名称
+
     //封面图片路径处理
     $imsge_path['ImgPath'] = explode(',' ,$input_productData['Products_JSON']);
     $input_productData['Products_JSON'] = json_encode($imsge_path,JSON_UNESCAPED_UNICODE);
@@ -68,6 +72,7 @@ if (isset($_POST['act']) && $_POST['act'] == 'addEditProduct') {
     foreach ($des_img as $k => $v) {
         $img_show .= '<br/><img src="'.$v.'"/>';
     }
+    $input_productData['Products_Description'] = cleanJsCss($input_productData['Products_Description']);    //商品详情描述
     $input_productData['Products_Description'] = preg_replace('/\n|\r/', "<br/>", $input_productData['Products_Description']);
     $input_productData['Products_Description'] = htmlspecialchars($input_productData['Products_Description'].$img_show, ENT_QUOTES);
     //分类处理
@@ -81,7 +86,6 @@ if (isset($_POST['act']) && $_POST['act'] == 'addEditProduct') {
     //$input_productData['Products_IsShow'] = 0/1;      //特殊属性  是否显示
     //$input_productData['Products_IsVirtual'] = 1;     //订单流程      0,0  1,0  1,1 
     //$input_productData['Products_IsRecieve'] = 1;
-    //$input_productData['Products_Description'] = htmlspecialchars($input_productData['Products_Description'], ENT_QUOTES);    //详细介绍
     //$input_productData['Products_Parameter'] = '[{"name":"","value":""}]';        //产品参数
     $input_productData['Users_ID'] = $UsersID;
     $input_productData['Products_Status'] = 1;
@@ -92,6 +96,11 @@ if (isset($_POST['act']) && $_POST['act'] == 'addEditProduct') {
     }
     //推荐后  检测供货价
     if ($input_productData['is_Tj'] == 1) {
+        $rsBiz = b2cshopconfig::getVerifyconfig(['Biz_Account' => $BizAccount]);
+        if ($rsBiz['bizData']['is_agree'] !=1 || $rsBiz['bizData']['is_auth'] !=2 || $rsBiz['bizData']['is_biz'] !=1) {
+            echo json_encode(array('errorCode' => 1, 'msg' => '您未达到将商品推荐到商城平台的资格。'));die;
+        }
+
         if (!check_number($input_productData['Products_PriceS'])) {
             echo json_encode(array('errorCode' => 1, 'msg' => '填写的数据格式不正确'));die;
         }

@@ -31,6 +31,30 @@ if(empty($BizAccount)){
     .deleted1{cursor: pointer;width: 45px;display: block;height: 20px;line-height: 20px;text-align: center;position: relative;background: #000;color: #fff;font-size: 12px;filter: alpha(opacity=50);-moz-opacity: 0.5;-khtml-opacity: 0.5;opacity: 0.5;margin-top: -20px;}
     .notNull { color: red; }
 </style>
+<script type="text/javascript">
+    /*$(function(){
+        mui.init({
+            keyEventBind: {
+                backbutton: true  //打开back按键监听
+            }
+        });
+        var first=null;
+        mui.back=function(){
+            if(!first){
+                first=new Date().getTime();
+                mui.toast('再按一次退出系统!');
+
+                setTimeout(function(){
+                    first=null;
+                },2000);
+            }else{
+                if(new Date().getTime()-first<2000){
+                    plus.runtime.quit();
+                }
+            }
+        };
+    });*/
+</script>
 <body>
 <?php
 //检查用户是否已经交过费用
@@ -188,12 +212,13 @@ $(function(){
     $('input[name="is_Tj"]').change(function(){
         if ($('input[name="is_Tj"]:checked').val() == 'on') {
             var me = $(this);
+            me.prop("checked", false);
+            $('.is_Tj').attr('style', 'display:none;');
             layer.open({
-                content: "对不起,您尚未进行商家认证,请认证后再进行此项操作",
+                content: "对不起,您尚未进行商家认证<br>请认证后再进行此项操作",
+                shadeClose: false,
                 btn: '我知道了',
                 yes: function(){
-                    me.prop("checked", false);
-                    $('.is_Tj').attr('style', 'display:none;');
                     layer.closeAll();
                     return false;
                 }

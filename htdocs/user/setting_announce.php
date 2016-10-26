@@ -9,7 +9,7 @@ if ($inajax == 1) {
     $do = isset($_GET['do']) ? $_GET['do'] : '';
 
     if ($do == 'save') {
-        $content = isset($_POST['content']) ? $_POST['content'] : 0;
+        $content = isset($_POST['content']) ? cleanJsCss($_POST['content']) : '';
 
         $data = [
             'Biz_Account' => $BizAccount,
@@ -53,7 +53,7 @@ $config = $result['data'];
     </div>
 	<div class="shop_share">
     	<img src="http://img0.bdstatic.com/img/image/shouye/xinshouye/toux.png">
-        <h3><textarea name="content" id="content"><?php echo $config['ShopAnnounce'];?></textarea></h3>
+        <h3><textarea name="content" id="content" maxlength="250"><?php echo $config['ShopAnnounce'];?></textarea></h3>
     </div> 
         <div class="sub_setting">
     	<input type="button" class="btnsubmit" value="保存">
@@ -69,9 +69,9 @@ $(function(){
                      location.href="admin.php?act=setting";
                 }});
             }
-        },'json')
-    })
-})
+        },'json');
+    });
+});
 </script>
 
 </body>

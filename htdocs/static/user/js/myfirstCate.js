@@ -8,7 +8,7 @@ $(function(){
                 '新建一级分类',
                 'background-color: #ff5500; color:#fff;line-height:40px;height:40px'
             ],
-            content: '<div class="new_cate"><input type="text" name="Category_Name" id="Category_Name" /><div class="but_x"><span class="left"><button class="button_x">取消</button></span><span class="left"><button class="button_x1">确定</button></span></div></div>'
+            content: '<div class="new_cate"><input type="text" maxlength="30" name="Category_Name" id="Category_Name" /><div class="but_x"><span class="left"><button class="button_x">取消</button></span><span class="left"><button class="button_x1">确定</button></span></div></div>'
         });
 
         //取消按钮
@@ -17,7 +17,7 @@ $(function(){
         });
         //确定按钮
         $(".button_x1").on('click', function() {
-            var catename = $("#Category_Name").val();
+            var catename = $.trim($("#Category_Name").val());
             if (catename.length == 0) {
                 layer.open({
                     content:"分类名称不能为空!",
@@ -108,7 +108,7 @@ $(function(){
         });
         //确定按钮
         $(".edit_button_x1").on('click', function() {
-            var catename = $("#Category_Name").val();
+            var catename = $.trim($("#Category_Name").val());
             if (catename.length == 0) {
                 layer.open({
                     content:"分类名称不能为空!",

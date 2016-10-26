@@ -53,7 +53,7 @@ $config = $result['data'];
     	<a href="javascript:history.back()" class="l"><i class="fa  fa-angle-left fa-2x" aria-hidden="true"></i></a>自动收货时间(天)
     </div>
     <div class="box_setting">
-    	<input type="text" id="day" maxlength="30" value="<?php echo $config['Confirm_Time'] / 86400;?>">
+    	<input type="number" id="day" maxlength="2" value="<?php echo $config['Confirm_Time'] / 86400;?>">
     </div>
     <div class="sub_setting">
     	<input type="button" class="btnsubmit" value="保存">
@@ -62,23 +62,26 @@ $config = $result['data'];
 <script type="text/javascript">
 $(function(){
     $(".btnsubmit").click(function(){
-        var day = $("#day").val();
-       var reg = new RegExp("^[0-9]*$");  
- 
-    if(!reg.test(day)){  
-        layer.open({content:'只允许正数数字', time:2});
-        return false; 
-    } 
-
-        $.post("?act=setting_receive&inajax=1&do=day", {day:day}, function(json){
-            if(json.errorCode == '0') {
-                layer.open({content:json.msg, time:2, end:function() {
-                     location.href="admin.php?act=setting";
-                }});
-            }
-        },'json')
-    })
-})
+        var day = $.trim($("#day").val());
+        var reg = new RegExp("^[0-9]*$");  
+        if (day == '') {
+            $('#day').attr('style', 'border: 1px solid red;');
+        } else if (!reg.test(day)) {
+            $('#day').removeAttr('style');
+            layer.open({content:'只允许正数数字', time:2});
+            return false; 
+        } else {
+            $('#day').removeAttr('style');
+            $.post("?act=setting_receive&inajax=1&do=day", {day:day}, function(json){
+                if(json.errorCode == '0') {
+                    layer.open({content:json.msg, time:2, end:function() {
+                         location.href="admin.php?act=setting";
+                    }});
+                }
+            },'json');
+        }
+    });
+});
 </script>
 
 </body>

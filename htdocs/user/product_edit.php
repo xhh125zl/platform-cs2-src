@@ -167,7 +167,7 @@ $cateName = $firstCateName.'，'.$secondCateName;
     </div>
     <input type="hidden" name="Products_ID" value="<?php echo $postdata['Products_ID']; ?>">
     <div class="name_pro">
-        <input type="text" name="Products_Name" value="<?php echo $productData['Products_Name']; ?>" placeholder="请输入商品名称" maxlength="80">
+        <input type="text" name="Products_Name" value="<?php echo input_output($productData['Products_Name']); ?>" placeholder="请输入商品名称" maxlength="30">
         <div class="img_add">
             <div class="js_uploadBox">
                 <div class="js_showBox">
@@ -192,7 +192,7 @@ $cateName = $firstCateName.'，'.$secondCateName;
     </div>
     <div class="name_pro">
         <!-- <textarea name="BriefDescription" style="margin-left: 2%; width: 95%;height: 100px;line-height: 25px;border: none;" placeholder="请输入商品描述信息"><?php echo $productData['Products_BriefDescription']; ?></textarea> -->
-        <textarea name="Description" style="margin-left: 2%; width: 95%;height: 100px;line-height: 20px;border: none;" placeholder="请输入商品详细介绍"><?php echo $description; ?></textarea>
+        <textarea name="Description" maxlength="250" style="margin-left: 2%; width: 95%;height: 100px;line-height: 20px;border: none;" placeholder="请输入商品详细介绍"><?php echo $description; ?></textarea>
         <div class="img_add">
             <div class="js_uploadBox1">
                 <div class="js_showBox1">
@@ -222,11 +222,11 @@ $cateName = $firstCateName.'，'.$secondCateName;
         <table width="96%" class="table_x">
             <tr>
                 <th><span class="notNull">*</span>原价(￥)：</th>
-                <td><input type="number" name="PriceY" class="user_input" value="<?php echo $productData['Products_PriceY']; ?>" placeholder="请输入商品原价"></td>
+                <td><input type="number" name="PriceY" maxlength="10" class="user_input" value="<?php echo $productData['Products_PriceY']; ?>" placeholder="请输入商品原价"></td>
             </tr>
             <tr>
                 <th><span class="notNull">*</span>现价(￥)：</th>
-                <td><input type="number" name="PriceX" class="user_input" value="<?php echo $productData['Products_PriceX']; ?>" placeholder="请输入商品现价"></td>
+                <td><input type="number" name="PriceX" maxlength="10" class="user_input" value="<?php echo $productData['Products_PriceX']; ?>" placeholder="请输入商品现价"></td>
             </tr>
             <input type="hidden" name="isSolding" value="<?php echo $productData['isSolding']; ?>" >
             <tr>
@@ -235,7 +235,7 @@ $cateName = $firstCateName.'，'.$secondCateName;
             </tr>
             <tr class="is_Tj" style="<?php if ($productData['is_Tj'] == 1) {echo 'display:table-row';} else {echo 'display:none;';} ?>">
                 <th><span class="notNull">*</span>供货价(￥)：</th>
-                <td><input type="number" name="PriceS" class="user_input" value="<?php if ($productData['is_Tj'] == 1) {echo $productData['Products_PriceS'];} ?>" placeholder="请输入商品供货价"></td>
+                <td><input type="number" name="PriceS" maxlength="10" class="user_input" value="<?php if ($productData['is_Tj'] == 1) {echo $productData['Products_PriceS'];} ?>" placeholder="请输入商品供货价"></td>
             </tr>
             <tr class="is_Tj" style="<?php if ($productData['is_Tj'] == 1) {echo 'display:table-row';} else {echo 'display:none;';} ?>">
                 <th><span class="notNull">*</span>所属分类：</th>
@@ -243,19 +243,19 @@ $cateName = $firstCateName.'，'.$secondCateName;
             </tr>
             <tr>
                 <th><span class="notNull">*</span>产品利润：</th>
-                <td><input type="number" name="Products_Profit" class="user_input" value="<?php echo $productData['Products_Profit']; ?>" placeholder="佣金将按照产品利润发放" /></td>
+                <td><input type="number" name="Products_Profit" maxlength="4" class="user_input" value="<?php echo $productData['Products_Profit']; ?>" placeholder="百分比，佣金将按照产品利润发放" /></td>
             </tr>
             <tr>
                 <th><span class="notNull">*</span>购买送积分：</th>
-                <td><input type="number" name="Products_Integration" class="user_input" value="<?php echo $productData['Products_Integration']; ?>" placeholder="请输入送积分数" /></td>
+                <td><input type="number" name="Products_Integration" maxlength="6" class="user_input" value="<?php echo $productData['Products_Integration']; ?>" placeholder="请输入送积分数" /></td>
             </tr>
             <tr>
                 <th><span class="notNull">*</span>产品重量：</th>
-                <td><input type="number" name="Products_Weight" class="user_input" value="<?php echo $productData['Products_Weight']; ?>" placeholder="产品重量,单位为kg" /> </td>
+                <td><input type="number" name="Products_Weight" maxlength="6" class="user_input" value="<?php echo $productData['Products_Weight']; ?>" placeholder="产品重量,单位为kg" /> </td>
             </tr>
             <tr>
                 <th><span class="notNull">*</span>库存(件)：</th>
-                <td><input type="number" name="count" class="user_input" value="<?php echo $productData['Products_Count']; ?>" placeholder="请输入商品库存"></td>
+                <td><input type="number" name="count" maxlength="6" class="user_input" value="<?php echo $productData['Products_Count']; ?>" placeholder="请输入商品库存"></td>
             </tr>
             <tr>
                 <th><span class="notNull">*</span>选择运费：</th>
@@ -312,12 +312,13 @@ $(function(){
     $('input[name="is_Tj"]').change(function(){
         if ($('input[name="is_Tj"]:checked').val() == 'on') {
             var me = $(this);
+            me.prop("checked", false);
+            $('.is_Tj').attr('style', 'display:none;');
             layer.open({
-                content: "对不起,您尚未进行商家认证,请认证后再进行此项操作",
+                content: "对不起,您尚未进行商家认证<br>请认证后再进行此项操作",
+                shadeClose: false,
                 btn: '我知道了',
                 yes: function(){
-                    me.prop("checked", false);
-                    $('.is_Tj').attr('style', 'display:none;');
                     layer.closeAll();
                     return false;
                 }

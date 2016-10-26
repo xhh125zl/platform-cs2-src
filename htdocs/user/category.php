@@ -25,7 +25,24 @@ $category = product_category::get_all_category();
 	<div class="back_x">
     	<a class="l" href="javascript:history.back();"><i class="fa  fa-angle-left fa-2x" aria-hidden="true"></i></a>产品分类
     </div>
-
+    <div class="clear"></div>
+    <div class="header">
+        <ul>
+            <li><a href="?act=products">
+                    <img src="../static/user/images/pro_1.png" width="40" height="40">
+                    <p>出售中</p>
+                </a></li>
+            <li><a href="?act=products&state=1">
+                    <img src="../static/user/images/pro_2.png" width="40" height="40">
+                    <p>已下架</p>
+                </a></li>
+            <li><a href="?act=my_cate">
+                    <img src="../static/user/images/pro_3.png" width="40" height="40">
+                    <p>分类管理</p>
+                </a></li>
+        </ul>
+    </div>
+    <div class="clear"></div>
 <?php
 foreach ($category as $cate) {
     if (!isset($cate['child'])) continue;   
