@@ -53,7 +53,7 @@ if ($wxAccessCode != 0 && $uuid != 0) {
         $userinfoUrl = "https://api.weixin.qq.com/sns/userinfo?access_token=$accessToken&openid=$openid&lang=zh_CN";
         $userinfoArr = curlWxInterFace($userinfoUrl);
         $headurl = $userinfoArr['headimgurl'];
-        header("Location:http://cs2.3jke.com/user/bind.php?openid={$openid}&headurl={$headurl}");
+        header("Location:http://cs2.3jke.com/user/bind.php?openid={$openid}&headurl={$headurl}&uuid={$uuid}");
         exit();
     }
 } else {
