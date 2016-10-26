@@ -100,7 +100,7 @@ $auth_status = get_auth_statusText($bizRow['is_auth']);
             </span>
         </div><!--//message -->
         <div class="clear"></div>
-        <span class="head_pho l"><a><img src="<?php echo IMG_SERVER . getImageUrl($config['ShopLogo'], 2);?>"></a></span>
+        <span class="head_pho l"><a href="?act=setting"><img src="<?php echo IMG_SERVER . getImageUrl($config['ShopLogo'], 2);?>"></a></span>
         <span class="head_name l">
         	<a><?php echo $config['ShopName'];?></a>
             <p><span><i>V</i></span><span style=" background:#0292d4; padding:0px 5px; border-top-right-radius:3px;border-bottom-right-radius:3px;"><?php echo $auth_status;?></span></p>
