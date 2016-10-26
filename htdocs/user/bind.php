@@ -7,6 +7,7 @@ require_once($_SERVER['DOCUMENT_ROOT'] . '/include/api/b2cshopconfig.class.php')
         $headurl = isset($_POST['headurl']) ? htmlspecialchars($_POST['headurl']) : '';
         $mobile = isset($_POST['Mobile']) ? htmlspecialchars(trim($_POST['Mobile'])) : '';
         $passwd = isset($_POST['passwd']) ? htmlspecialchars(trim($_POST['passwd'])) : '';
+        $uuid = isset($_POST['uuid']) ? htmlspecialchars(trim($_POST['uuid'])) : '';
         $smsMobileKey = isset($_POST['Mobile']) ? 'reg' . htmlspecialchars($_POST['Mobile']) : '';
         if ($_GET['do'] == 'bind') {
             if (!isset($_POST['openid'])) {
@@ -74,14 +75,20 @@ require_once($_SERVER['DOCUMENT_ROOT'] . '/include/api/b2cshopconfig.class.php')
             if ($isRegFlag) {
                 $passwdVerify = $DB->GetRs('biz', '*', "where Biz_PassWord = '". md5($passwd) ."' and (Biz_Phone = $mobile or Biz_Account = $mobile)");
                 if ($passwdVerify) {
+                    $time = time();
                     //如果数据库已经存在输入的手机号,则把对应的openid更新到对应的记录里.方便以后实现微信登录
-                    $updateTransData = ['Biz_Account' => $mobile, 'headurl' => $headurl, 'openid' => $openid];
+                    $updateTransData = ['Biz_Account' => $mobile, 'headurl' => $headurl, 'openid' => $openid, 'uuid' => $uuid, 'time' => $time];
                     $resArr = b2cshopconfig::updateWxLogin($updateTransData);
 
                     if ($resArr['errorCode'] == 0) {
+
+                        $_SESSION["BIZ_ID"]=$passwdVerify["Biz_ID"];
+                        $_SESSION['Biz_Account'] = $passwdVerify['Biz_Account'];
+                        $_SESSION["Users_ID"]=$passwdVerify["Users_ID"];
                         $data = [
                             'status' => 1,
                             'msg' => '绑定成功',
+                            'url' => 'admin.php?act=store&time=' . $time . '&bizID=' . $_SESSION["BIZ_ID"],
                         ];
                     } else {
                         $data = [
@@ -100,6 +107,7 @@ require_once($_SERVER['DOCUMENT_ROOT'] . '/include/api/b2cshopconfig.class.php')
             }
 
             //==============================手机号不存在,开始进行注册操作============================================
+            $time = time();
             $Users_ID=RandChar(10);
             $usersData = array(
                 'Biz_Account' => $mobile,
@@ -109,6 +117,8 @@ require_once($_SERVER['DOCUMENT_ROOT'] . '/include/api/b2cshopconfig.class.php')
                 'Biz_CreateTime' => time(),
                 'User_HeadImg' => $headurl,
                 'User_OpenID' => $openid,
+                'uuid' => $uuid,
+                'loginTime' => $time,
                 'Users_Right'=>'{"web":["web"],"kanjia":["kanjia"],"zhuli":["zhuli"],"zhongchou":["zhongchou"],"games":["games"],"weicuxiao":["sctrach","fruit","turntable","battle"],"hongbao":["hongbao"],"votes":["votes"]}'
                 //'Group_ID'=> $Group_ID
             );
@@ -127,7 +137,7 @@ require_once($_SERVER['DOCUMENT_ROOT'] . '/include/api/b2cshopconfig.class.php')
                     $result = [
                         'status' => 1,
                         'msg' => '绑定成功!',
-                        'url' => 'admin.php?act=store'
+                        'url' => 'admin.php?act=store&time=' . $time . '&bizID=' . $row['Biz_ID']
                     ];
                 } else {
                     $result = [
@@ -192,8 +202,12 @@ require_once($_SERVER['DOCUMENT_ROOT'] . '/include/api/b2cshopconfig.class.php')
         if (!isset($_GET['headurl'])) {
             exit('缺少参数');
         }
+        if (!isset($_GET['uuid'])) {
+            exit('缺少参数');
+        }
         $openid = (isset($_GET['openid']) && strlen($_GET['openid']) > 5) ? htmlspecialchars($_GET['openid']) : 0;
         $headurl = (isset($_GET['headurl']) && strlen($_GET['headurl']) > 5) ? htmlspecialchars($_GET['headurl']) : 0;
+        $uuid = (isset($_GET['uuid']) && strlen($_GET['uuid']) > 5) ? htmlspecialchars($_GET['uuid']) : 0;
     }
 ?>
 <!doctype html>
@@ -253,6 +267,9 @@ ul, li, dt, dd, ol, dl{list-style-type:none;}
                     layer.open({
                         content:data.msg,
                         time:2,
+                        end:function(){
+                            window.location = data.url;
+                        }
                     })
                 }
             })
@@ -300,6 +317,7 @@ ul, li, dt, dd, ol, dl{list-style-type:none;}
         <input type="password" name="repasswd" value="" maxlength="16" class="login_x2" placeholder="确认密码">
         <input type="hidden" name="openid" value="<?=$openid?>" />
         <input type="hidden" name="headurl" value="<?=$headurl?>" />
+        <input type="hidden" name="uuid" value="<?=$uuid?>" />
         <input name="提交" id="submit" class="login_sub" value="立即绑定">
     </div>
 </div>
