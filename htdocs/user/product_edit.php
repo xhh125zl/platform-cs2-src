@@ -294,6 +294,14 @@ $cateName = $firstCateName.'，'.$secondCateName;
                 <th>是否新品：</th>
                 <td><input class="toggle-switch" type="checkbox" name="IsNew" <?php if ($productData['Products_IsNew'] == 1) {echo 'checked="checked"';} else {echo '';} ?> ></td>
             </tr>
+            <tr>
+                <th>余额支付：</th>
+                <td><input class="toggle-switch" type="checkbox" name="IsPaysBalance" <?php if ($productData['Products_IsPaysBalance'] == 1) {echo 'checked="checked"';} else {echo '';} ?> ></td>
+            </tr>
+            <tr>
+                <th>是否显示：</th>
+                <td><input class="toggle-switch" type="checkbox" name="IsShow" <?php if ($productData['Products_IsShow'] == 1) {echo 'checked="checked"';} else {echo '';} ?> ></td>
+            </tr>
         </table>
     </div>
     <div class="clear"></div>

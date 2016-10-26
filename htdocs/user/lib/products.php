@@ -50,7 +50,7 @@ function check_number($value, $type = 0) {
 if (isset($_GET['action']) && $_GET['action'] == 'addProducts') {     //分销其他商家的商品
     $flag = productsAdd($_GET);
     if ($flag) {
-        echo json_encode(['errorCode' => 0, 'msg' => '上架成功'], JSON_UNESCAPED_UNICODE);
+        echo json_encode(['errorCode' => 0, 'msg' => '上架成功']);
     } else {
         echo json_encode(['errorCode' => 101, 'msg' => '上架失败']);
     }
@@ -65,12 +65,14 @@ if (isset($_POST['act']) && $_POST['act'] == 'addEditProduct') {
 
     //封面图片路径处理
     $imsge_path['ImgPath'] = explode(',' ,$input_productData['Products_JSON']);
-    $input_productData['Products_JSON'] = json_encode($imsge_path,JSON_UNESCAPED_UNICODE);
+    $input_productData['Products_JSON'] = json_encode($imsge_path,JSON_UNESCAPED_SLASHES);
     //商品详情处理  图片，内容
-    $des_img = explode(',' ,$input_productData['Products_JSON1']);
     $img_show = '';
-    foreach ($des_img as $k => $v) {
-        $img_show .= '<br/><img src="'.$v.'"/>';
+    if ($input_productData['Products_JSON1'] != '') {
+        $des_img = explode(',' ,$input_productData['Products_JSON1']);
+        foreach ($des_img as $k => $v) {
+            $img_show .= '<br/><img src="'.$v.'"/>';
+        }
     }
     $input_productData['Products_Description'] = cleanJsCss($input_productData['Products_Description']);    //商品详情描述
     $input_productData['Products_Description'] = preg_replace('/\n|\r/', "<br/>", $input_productData['Products_Description']);
@@ -82,8 +84,6 @@ if (isset($_POST['act']) && $_POST['act'] == 'addEditProduct') {
     //$input_productData['Products_Index'] = 1/9999;    //产品排序
     //$input_productData['Products_Type'] = 0/n;        //产品类型
     $input_productData['Products_SoldOut'] = 0;         //其他属性  不能为空  1: 下架
-    //$input_productData['Products_IsPaysBalance'] = 0/1;       //特殊属性  余额支付
-    //$input_productData['Products_IsShow'] = 0/1;      //特殊属性  是否显示
     //$input_productData['Products_IsVirtual'] = 1;     //订单流程      0,0  1,0  1,1 
     //$input_productData['Products_IsRecieve'] = 1;
     //$input_productData['Products_Parameter'] = '[{"name":"","value":""}]';        //产品参数
@@ -103,6 +103,11 @@ if (isset($_POST['act']) && $_POST['act'] == 'addEditProduct') {
 
         if (!check_number($input_productData['Products_PriceS'])) {
             echo json_encode(array('errorCode' => 1, 'msg' => '填写的数据格式不正确'));die;
+        }
+        $PriceX = (float)$input_productData['Products_PriceX'];   //现价
+        $PriceS = (float)$input_productData['Products_PriceS'];   //供货价
+        if (($PriceX < $PriceS) || ($PriceX*0.7 > $PriceS)) {    //供货价为现价的 70% ~ 100%
+            echo json_encode(array('errorCode' => 1, 'msg' => '供货价为现价的70% ~ 100%'));die;
         }
     } else {
         unset($input_productData['B2CProducts_Category']);

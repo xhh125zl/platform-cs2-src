@@ -193,6 +193,14 @@ if ($users['errorCode'] == 0) {
                 <th>是否新品：</th>
                 <td><input class="toggle-switch" type="checkbox" name="IsNew" checked=""></td>
             </tr>
+            <tr>
+                <th>余额支付：</th>
+                <td><input class="toggle-switch" type="checkbox" name="IsPaysBalance" checked=""></td>
+            </tr>
+            <tr>
+                <th>是否显示：</th>
+                <td><input class="toggle-switch" type="checkbox" name="IsShow" checked=""></td>
+            </tr>
         </table>
     </div>
     <div class="clear"></div>

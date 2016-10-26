@@ -385,7 +385,9 @@ $(function(){
             'secondCate' : $('#category').attr('secondCate'),      //商品所属分类  二级
             'Products_IsHot' : $('input[name="IsHot"]:checked').val() == 'on' ? 1 : 0,    //是否置顶
             'Products_IsRecommend' : $('input[name="IsRecommend"]:checked').val() == 'on' ? 1 : 0,    //是否推荐
-            'Products_IsNew' : $('input[name="IsNew"]:checked').val() == 'on' ? 1 : 0    //是否为新品
+            'Products_IsNew' : $('input[name="IsNew"]:checked').val() == 'on' ? 1 : 0,    //是否为新品
+            'Products_IsPaysBalance' : $('input[name="IsPaysBalance"]:checked').val() == 'on' ? 1 : 0,    //是否余额支付  特殊属性
+            'Products_IsShow' : $('input[name="IsShow"]:checked').val() == 'on' ? 1 : 0    //是否显示    特殊属性
         };
         //商品名称非空判断
         if (!check_null($('input[name="Products_Name"]'))) {
@@ -415,6 +417,15 @@ $(function(){
         if (productData.is_Tj == 1) {
             if (!check_null($('input[name="PriceS"]')) || !check_number($('input[name="PriceS"]'))) {
                 return false;
+            }
+            var PriceX = parseFloat(productData.Products_PriceX);   //现价
+            var PriceS = parseFloat(productData.Products_PriceS);   //供货价
+            if ((PriceX < PriceS) || (PriceX*0.7 > PriceS)) {    //供货价为现价的 70% ~ 100%
+                $('input[name="PriceS"]').attr('style', 'border: 1px solid red;');
+                layer.open({content: '供货价为现价的70% ~ 100%', shadeClose: false, btn: '确认'});
+                return false;
+            } else {
+                $('input[name="PriceS"]').removeAttr('style');
             }
             //判断是否选择b2c平台分类
             if (productData.B2CProducts_Category == '') {
