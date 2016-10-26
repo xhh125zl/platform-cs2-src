@@ -3,7 +3,7 @@ define('USER_PATH', dirname(__FILE__) . '/');
 
 include USER_PATH . '../Framework/Conn.php';
 require_once CMS_ROOT . '/include/helper/tools.php';
-require_once CMS_ROOT . '/include/api/users.php';
+require_once CMS_ROOT . '/include/api/users.class.php';
 
 $wxAppID = 'wxd89171f2322edc10';
 $wxAppSecret = 'a147ceb42cf7aeef53f1139377759dcd';
@@ -53,7 +53,7 @@ if ($wxAccessCode != 0 && $uuid != 0) {
         $userinfoUrl = "https://api.weixin.qq.com/sns/userinfo?access_token=$accessToken&openid=$openid&lang=zh_CN";
         $userinfoArr = curlWxInterFace($userinfoUrl);
         $headurl = $userinfoArr['headimgurl'];
-        header("Location:http://cs2.3jke.com/user/bind.php?openid={$openid}&headurl={$headurl}");
+        header("Location:http://cs2.3jke.com/user/bind.php?openid={$openid}&headurl={$headurl}&uuid={$uuid}");
         exit();
     }
 } else {
