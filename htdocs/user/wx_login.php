@@ -3,7 +3,7 @@ define('USER_PATH', dirname(__FILE__) . '/');
 
 include USER_PATH . '../Framework/Conn.php';
 require_once CMS_ROOT . '/include/helper/tools.php';
-require_once CMS_ROOT . '/include/api/users.php';
+require_once CMS_ROOT . '/include/api/users.class.php';
 
 $wxAppID = 'wxd89171f2322edc10';
 $wxAppSecret = 'a147ceb42cf7aeef53f1139377759dcd';
