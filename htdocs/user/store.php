@@ -150,7 +150,7 @@ $auth_status = get_auth_statusText($bizRow['is_auth']);
             <li style="border-right:1px #eee solid;">
                 <a id="pro_x"><i class="fa  fa-plus-square fa-x" aria-hidden="true"></i>&nbsp;产品发布</a>
             </li>
-            <li>
+            <li style="border-right:1px #eee solid;">
                 <a href='?act=products'><i class="fa  fa-check-square fa-x" aria-hidden="true"></i>&nbsp;产品管理</a>
             </li>
             <li>

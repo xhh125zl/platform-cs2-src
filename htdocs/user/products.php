@@ -2,65 +2,85 @@
 if (!defined('USER_PATH')) exit();
 
 require_once CMS_ROOT . '/include/api/product.class.php';
+require_once CMS_ROOT . '/include/api/ImplOrder.class.php';
 require_once CMS_ROOT . '/include/helper/page.class.php';
 
 if (isset($_GET['ajax']) && $_GET['ajax'] == 1) {
     $do = isset($_POST['do']) ? $_POST['do'] : '';
     $pid = isset($_POST['pid']) ? (int)$_POST['pid'] : 0;
 
-    if ($do == 'shop' && $pid > 0) {
-        $state =  isset($_POST['state']) ? $_POST['state'] : 'shopdown';
-        $state = $state == 'shopdown' ? 0 : 1;
+    if ($do == 'shop' && $pid > 0) {    //商品上下架
+        $state =  isset($_POST['state']) ? $_POST['state'] : '';    //获取商品以前的状态
+        $is_Tj =  isset($_POST['is_Tj']) ? $_POST['is_Tj'] : 1;    //获取商品以前的状态
 
-        $map = [
-            'Users_ID' => $UsersID,
-            'User_ID' => $UserID,
-            'Products_FromID' => $pid,
-        ];
+        $res = product::getProductArr(['Biz_Account' => $BizAccount, 'Products_ID' => $pid, 'is_Tj' => $is_Tj]);
 
-        $affectedRows = ShopDistProduct::Multiwhere($map)->update(['state' => $state]);
-
-        $return = [
-            'affectRows' => $affectedRows,
-        ];
+        if (isset($res['errorCode']) && $res['errorCode'] == 0) {
+            if ($state == 0) {      //下架
+                $res['data']['Products_SoldOut'] = 1;
+            } else if ($state == 1) {   //上架
+                $res['data']['Products_SoldOut'] = 0;
+            } else {
+                echo json_encode(['errorCode' => 1, 'msg' => '非法操作']);
+                die;
+            }
+            $result = product::editProductTo401(['productdata' => $res['data']]);
+            if (isset($result['errorCode']) && $result['errorCode'] == 0) {
+                echo json_encode(['errorCode' => 0, 'msg' => '操作成功']);
+                die;
+            } else {
+                echo json_encode(['errorCode' => 1, 'msg' => '操作失败']);
+                die;
+            }
+        } else {
+            echo json_encode(['errorCode' => 1, 'msg' => '获取商品详情错误']);
+            die;
+        }
         
     } else if ($do == 'delete' && $pid > 0) {
+        //判断是否有未完成订单
+        $result = ImplOrder::getOrders(['Biz_Account' => $BizAccount, 'Order_Status' => '<> 4']);
+        $orderlist = [];
+        if (isset($res['errorCode']) && $res['errorCode'] == 0) {
+            $orderlist = $res['data'];
+        } else {
+            echo json_encode(['errorCode' => 1, 'msg' => '获取订单列表失败']);
+            die;
+        }
+        if (count($orderList) > 0) {
+            foreach ($orderList as $k => $v) {
+                foreach (json_decode($v['Order_CartList'], true) as $key => $val) {
+                    $proArr[] = $key;
+                    $proArr[] = $val[0]['Products_FromId'];
+                }
+            }
+            $proArr = array_unique($proArr);
+            if (in_array((int)$_GET['ProductsID'], $proArr)) {
+                echo json_encode(['errorCode' => 1, 'msg' => '当前有客户订单中包含此商品,并且订单状态不是已完成,不允许删除!']);
+                die;
+            }
+        }
+        //没有未完成订单，做删除处理
+        $res = product::delete(['Biz_Account' => $BizAccount, 'Products_ID' => $pid]);
 
-        $data = [
-            'Biz_Account' => $BizAccount,
-            'Products_ID' => $pid,
-        ];
-
-        $return = product::delete($data);
+        if (isset($res['errorCode']) && $res['errorCode'] == 0) {
+            echo json_encode(['errorCode' => 0, 'msg' => '删除成功']);
+            die;
+        } else {
+            echo json_encode(['errorCode' => 1, 'msg' => '删除失败']);
+            die;
+        }
 
     } else if ($do =='top' && $pid > 0) {
-        $state =  isset($_POST['state']) ? (int)$_POST['state'] : '0';
-        $state = $state == '0' ? 1 : 0;
 
-        $map = [
-            'Users_ID' => $UsersID,
-            'User_ID' => $UserID,
-            'Products_FromID' => $pid,
-        ];
-
-        $affectedRows = ShopDistProduct::Multiwhere($map)->update(['istop' => $state]);
-
-        $return = [
-            'affectRows' => $affectedRows,
-        ];
     } else {
-        $return = [
-            'status' => 0,
-            'msg' => '非法操作',
-        ];
+        echo json_encode(['errorCode' => 1, 'msg' => '非法操作']);
+        die;
     }
-
-    echo json_encode($return);
-    exit();
 }
 
 
-$state = isset($_GET['state']) ? (int)$_GET['state'] : 0;
+$state = isset($_GET['state']) ? (int)$_GET['state'] : 0;   //查看商品是否为上下架    0：上架  1：下架  暂时没用
 $state = $state != 1 ? 0 : 1;
 
 $sortby = $sortMethod = '';
@@ -71,7 +91,7 @@ $priceSortby = false;
 $commissionSortby = false;
 
 //销售
-if (isset($_GET['sortby']) && $_GET['sortby'] == 'sale') {
+/*if (isset($_GET['sortby']) && $_GET['sortby'] == 'sale') {
 	$sortby = 'sale';
     $sortbyField = 'Products_Sales';
 	$saleSortby = true;
@@ -100,14 +120,13 @@ if ($sortMethod == 'asc') {
     $sortMethodIcon = 'desc';
 } else {
     $sortMethodIcon = 'asc';
-}
+}*/
 
 $p = isset($_GET['p']) ? (int)$_GET['p'] : 1;
 if ($p < 1) $p = 1;
 
-$pageSize = 4;
+$pageSize = 10;     //每页显示
 $map = [];
-
 
 $data = [
     'pageSize' => $pageSize,
@@ -121,29 +140,36 @@ if ($result['errorCode'] == 1) {
     $totalPage = 1;
     $products = [];
 } else {
-    $products = $result['productData'];
     $total = $result['totalCount'];
     $totalPage = ceil($result['totalCount'] / $pageSize);
+    $products = $result['productData'];
 }
 
 //分页
 $page = new page();
-$page->setvar([
+/*$page->setvar([
         'sortby' => $sortby,
         'sortMethod' => $sortMethod,
         'search' => 1,
         //'state' => $state,
     ]
-);
+);*/
 $page->set($pageSize, $total, $p);
-
 
 $infolist = [];
 if (count($products) > 0) {
-    foreach ($products as $row) {
+    foreach ($products as $k => $row) {
+        /*if ($state == 0 && $row['Products_SoldOut'] == 1) {     //显示上架商品  默认显示
+            unset($products[$k]);
+            continue;
+        } else if ($state == 1 && $row['Products_SoldOut'] == 0) {     //显示下架商品
+            unset($products[$k]);
+            continue;
+        }*/
         $img = json_decode($row['Products_JSON'], true);
         $row['thumb'] = $img['ImgPath'][0];
         unset($row['Products_JSON']);
+        $row['shop_url'] = SHOP_URL.'api/'.$row['Users_ID'].'/shop/products/'.$row['Products_ID'].'/';
         $infolist[] = $row;
     }
 }
@@ -178,7 +204,7 @@ if (isset($_POST['ajax']) && $_POST['ajax'] == 1) {
 <script type='text/javascript' src='../static/js/plugin/layer_mobile/layer.js'></script>
 <style>
 .row{line-height:20px;}
-a.preview p, a.delete p, a.edit p{display:inline}
+a.preview p, a.delete p, a.edit p, a.shop p, a.top p{display:inline;}
 </style>
 <body>
 <div class="w">
@@ -242,10 +268,10 @@ a.preview p, a.delete p, a.edit p{display:inline}
    
 -->
  <div class="clear"></div>    
-<input type="hidden" name="sortby" id="sortby" value='normal'>
-<input type="hidden" name="sortMethod" id="sortMethod" value='desc'>
+<!-- <input type="hidden" name="sortby" id="sortby" value='normal'>
+<input type="hidden" name="sortMethod" id="sortMethod" value='desc'> -->
 <script type="text/javascript">
-$(function(){
+/*$(function(){
 	var currentID = '#<?php echo $sortby;?>';
     var sortMethod = 'fa fa-x <?php if ($sortMethod == 'asc') echo 'fa-caret-down'; else echo 'fa-caret-up';?>';
 	$(currentID).addClass('pro_asc');
@@ -267,39 +293,40 @@ $(function(){
 		url = '?act=products&state=' + state + '&sortby=' + sortby + "&sortMethod=" + sortMethod;
 		location.href = url;
 	}
-})
+})*/
 
 </script>
 <!--// -->
 <!-- product list -->
 <div class="product">
-    	<ul class="productList">
-	<?php
-if (count($infolist) > 0)        	 {
-	foreach ($infolist as $key => $product) {
-
-?>
+    <ul class="productList">
+    	<?php
+        if (count($infolist) > 0)        	 {
+        	foreach ($infolist as $key => $product) {
+        ?>
         <!-- li -->
 		<li>
-            	<div style=" border-bottom:1px #eee solid; overflow:hidden;min-height:110px;">
-                	<a><span class="imgs l"><img src="<?php echo $product['thumb'];?>" width="90" height="90"></span>
-                    <span class="main l">
-                        <p><?php echo $product['Products_Name'];?></p>
-                        <span class="l" style="font-size:16px; line-height:25px; color:#333">￥<?php echo $product['Products_PriceX'];?></span>
-                        <!--<span class="r" style="line-height:25px;">佣金<sss style="color:#ff5000; font-size:16px;">￥<?php /*echo ($product['Products_PriceY'] - $product['Products_PriceX'])*/?></sss></span>-->
-                        <div class="clear"></div>
-                        <span class="l">已售<?php echo $product['Products_Sales'];?></span>
-                        <span class="r">库存:<?php echo $product['Products_Count'];?></span>
-                        
-                    </span></a>
-                </div>
-            	<div class="clear"></div>
-                <div class="row">
-                	<ul>
-                    	<li><a class="preview">
-                            <i class="fa  fa-eye fa-x" aria-hidden="true" style="font-size:16px;"></i>
-                            <p>预览</p>
-                        </a></li>
+        	<div style=" border-bottom:1px #eee solid; overflow:hidden;min-height:110px;">
+            	<a><span class="imgs l"><img src="<?php echo $product['thumb'];?>" width="90" height="90"></span>
+                <span class="main l">
+                    <p><?php echo $product['Products_Name'];?></p>
+                    <span class="l" style="font-size:16px; line-height:25px; color:#333">￥<?php echo $product['Products_PriceX'];?></span>
+                    <!--<span class="r" style="line-height:25px;">佣金<sss style="color:#ff5000; font-size:16px;">￥<?php /*echo ($product['Products_PriceY'] - $product['Products_PriceX'])*/?></sss></span>-->
+                    <div class="clear"></div>
+                    <span class="l">已售<?php echo $product['Products_Sales'];?></span>
+                    <span class="r">库存:<?php echo $product['Products_Count'];?></span>
+                    
+                </span></a>
+            </div>
+        	<div class="clear"></div>
+            <div class="row">
+            	<ul>
+                	<li><a class="preview" href="<?php echo $product['shop_url']; ?>">
+                        <i class="fa  fa-eye fa-x" aria-hidden="true" style="font-size:16px;"></i>
+                        <p>预览</p>
+                    </a></li>
+                    <?php if ($product['Products_SoldOut'] == 0) { ?>
+
                         <li>
                         <?php if ($product['Products_FromId'] == '0') { ?>
                                 <a class="edit" href="?act=product_edit&product_id=<?php echo $product['Products_ID'];?>">
@@ -307,29 +334,39 @@ if (count($infolist) > 0)        	 {
                                 <p>编辑</p></a>
                         <?php } ?>
                         </li>
-                        <li><a class="delete" data-product-id="<?php echo $product['Products_ID'];?>">
-                            <i class="fa  fa-trash-o fa-x" aria-hidden="true" style="font-size:16px;"></i>
+                        <li><a class="shop" href="javascript:;" data-product-id="<?php echo $product['Products_ID'];?>" is-Tj="<?php echo $product['is_Tj'];?>" data-state="0">
+                            <i class="fa  fa-arrow-down fa-x" aria-hidden="true" style="font-size:16px;"></i>
                             <p>下架</p>
                         </a></li>
 
-                        <li>
-                       
-                        </li>
+                    <?php } else if ($product['Products_SoldOut'] == 1) { ?>
 
-                    </ul>                      
-                </div>
-                <div class="clear"></div>
-            </li>            
-            <!--//li -->
-<?php
-	}
-}
-?>            
-                     
-        </ul>
-    </div>
+                        <li><a class="delete" href="javascript:;" data-product-id="<?php echo $product['Products_ID'];?>">
+                            <i class="fa  fa-trash-o fa-x" aria-hidden="true" style="font-size:16px;"></i>
+                            <p>删除</p>
+                        </a></li>
+                        <li><a class="shop" href="javascript:;" data-product-id="<?php echo $product['Products_ID'];?>" is-Tj="<?php echo $product['is_Tj'];?>" data-state="1">
+                            <i class="fa  fa-arrow-up fa-x" aria-hidden="true" style="font-size:16px;"></i>
+                            <p>上架</p>
+                        </a></li>
+
+                    <?php } ?>
+
+                    <li></li>
+
+                </ul>                      
+            </div>
+            <div class="clear"></div>
+        </li>            
+        <!--//li -->
+        <?php
+        	}
+        }
+        ?>
+    </ul>
+</div>
 <!--//product list -->    
-    <div class="clear"></div>
+<div class="clear"></div>
 
 <!-- 点击加载更多 -->
 <script id="product-row" type="text/html">
@@ -349,10 +386,11 @@ if (count($infolist) > 0)        	 {
     	<div class="clear"></div>
         <div class="row">
         	<ul>
-            	<li><a class="preview">
+            	<li><a class="preview" href="{{product.shop_url}}">
                     <i class="fa  fa-eye fa-x" aria-hidden="true" style="font-size:16px;"></i>
                     <p>预览</p>
                 </a></li>
+                {{if product.Products_SoldOut == 0}}
                 <li>
                 {{if product.Products_FromId == 0}}
                     <a class="edit" href="?act=product_edit&product_id={{product.Products_ID}}">
@@ -360,10 +398,20 @@ if (count($infolist) > 0)        	 {
                     <p>编辑</p></a>
                 {{/if}}
                 </li>
-                <li><a class="delete" data-product-id="{{product.Products_ID}}">
-                    <i class="fa  fa-trash-o fa-x" aria-hidden="true" style="font-size:16px;"></i>
+                <li><a class="shop" href="javascript:;" data-product-id="{{product.Products_ID}}" is-Tj="{{product.is_Tj}}" data-state="0">
+                    <i class="fa  fa-arrow-down fa-x" aria-hidden="true" style="font-size:16px;"></i>
                     <p>下架</p>
                 </a></li>
+                {{else if product.Products_SoldOut ==1}}
+                <li><a class="delete" href="javascript:;" data-product-id="{{product.Products_ID}}">
+                    <i class="fa  fa-trash-o fa-x" aria-hidden="true" style="font-size:16px;"></i>
+                    <p>删除</p>
+                </a></li>
+                <li><a class="shop" href="javascript:;" data-product-id="{{product.Products_ID}}" is-Tj="{{product.is_Tj}}" data-state="1">
+                    <i class="fa  fa-arrow-up fa-x" aria-hidden="true" style="font-size:16px;"></i>
+                    <p>上架</p>
+                </a></li>
+                {{/if}}
                 <li></li>
             </ul>                    
         </div>
@@ -391,8 +439,8 @@ $(function(){
 	$("#pagemore a").click(function(){
         var totalPage = <?php echo $totalPage;?>;
         var state = "<?php echo $state;?>"
-		var sortby = '<?php echo $sortby?>';
-		var sortMethod = '<?php echo $sortMethod?>';
+		//var sortby = '<?php echo $sortby?>';
+		//var sortMethod = '<?php echo $sortMethod?>';
 		var pageno = $(this).attr('data-next-pageno');
 
         //防止一页多次加载
@@ -402,7 +450,8 @@ $(function(){
             last_pageno = pageno;
         }
         
-		var url = 'admin.php?act=products&state=' + state + '&sortby=' + sortby + "&sortMethod=" + sortMethod + '&p=' + pageno;
+        //var url = 'admin.php?act=products&state=' + state + '&sortby=' + sortby + "&sortMethod=" + sortMethod + '&p=' + pageno;
+		var url = 'admin.php?act=products&state=' + state + '&p=' + pageno;
 
         var nextPageno = parseInt(pageno);
         if (nextPageno > totalPage) {
@@ -436,39 +485,94 @@ $(function(){
                 //模拟点击
                 $("#pagemore a").trigger('click');
             }
-
-
-
 		}
 	});    
 
     var url = '?act=products&ajax=1';
-	//下架
+	//下架 上架
 	$(".productList").on('click', '.shop', function(){
         var pid = $(this).attr("data-product-id");
+        var is_Tj = $(this).attr("is-Tj");
         var state = $(this).attr("data-state");
         var p = $(this);
         
-        $.post(url,{do:'shop', state:state, pid:pid}, function(json){
-            if (state == 'shopdown') {
-                p.removeClass('shopdown').addClass('shopup');
-                p.attr('data-state', 'shopup');
-                p.find('p').html('上架');
-                layer.open({
-                    content:'下架成功',
-                    time: 1
-                });
+        $.ajax({
+            type: 'post',
+            url: url,
+            data: 'do=shop&state='+state+'&is_Tj='+is_Tj+'&pid='+pid,
+            success: function(json){
+                if (json.errorCode == 0) {
+                    if (state == 0) {
+                        p.find('i').removeClass('fa-arrow-down').addClass('fa-arrow-up');
+                        p.attr('data-state', '1');
+                        p.find('p').html('上架');
+                        layer.open({
+                            content:'下架成功',
+                            time: 1
+                        });
+                    } else {
+                        p.find('i').removeClass('fa-arrow-up').addClass('fa-arrow-down');
+                        p.attr('data-state', '0');
+                        p.find('p').html('下架');
+                        layer.open({
+                            content:'上架成功',
+                            time: 1
+                        });  
+                    }
+                } else {
+                    if (state == 0) {
+                        layer.open({
+                            content: json.msg,
+                            shadeClose: false,
+                            btn: '确定'
+                        });
+                    } else if (state == 1) {
+                        layer.open({
+                            content: json.msg,
+                            shadeClose: false,
+                            btn: '确定'
+                        });
+                    }
+                }
+            },
+            dataType: 'json'
+        });
+        /*$.post(url,{do:'shop', state:state, is_Tj:is_Tj, pid:pid}, function(json){
+            if (json.errorCode == 0) {
+                if (state == 0) {
+                    p.removeClass('fa-arrow-down').addClass('fa-arrow-up');
+                    p.attr('data-state', '1');
+                    p.find('p').html('上架');
+                    layer.open({
+                        content:'下架成功',
+                        time: 1
+                    });
+                } else {
+                    p.removeClass('fa-arrow-up').addClass('fa-arrow-down');
+                    p.attr('data-state', '0');
+                    p.find('p').html('下架');
+                    layer.open({
+                        content:'上架成功',
+                        time: 1
+                    });  
+                }
             } else {
-                p.removeClass('shopup').addClass('shopdown');
-                p.attr('data-state', 'shopdown');
-                p.find('p').html('下架');
-                layer.open({
-                    content:'上架成功',
-                    time: 1
-                });  
+                if (state == 0) {
+                    layer.open({
+                        content: json.msg,
+                        shadeClose: false,
+                        btn: '确定'
+                    });
+                } else if (state == 1) {
+                    layer.open({
+                        content: json.msg,
+                        shadeClose: false,
+                        btn: '确定'
+                    });
+                }
             }
-        },'json')
-	})
+        },'json');*/
+	});
 
 	//删除
 	$(".productList").on('click', '.delete', function(){
@@ -476,22 +580,23 @@ $(function(){
         var tr = $(this).parent().parent().parent().parent();
         $.post(url,{do:'delete', pid:pid}, function(json){
 
-              if (json.errorCode != '0')  {
-                  layer.open({
-                      content: json.msg,
-                      time: 1
-                  });
-              } else {
-                  layer.open({
-                      content: '删除成功',
-                      time: 1,
-                      end: function() {
-                          tr.remove();
-                      }
-                  });     
-              }
-        },'json')
-	})
+            if (json.errorCode == '0')  {
+                layer.open({
+                    content: '删除成功',
+                    time: 1,
+                    end: function() {
+                      tr.remove();
+                    }
+                });
+            } else {
+                layer.open({
+                    content: json.msg,
+                    shadeClose: false,
+                    btn: '确定'
+                });
+            }
+        },'json');
+	});
 
 	//置顶
 	$(".productList").on('click', '.top', function(){

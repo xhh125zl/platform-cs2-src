@@ -2,6 +2,7 @@
 require_once "../config.inc.php";
 require_once(CMS_ROOT . '/include/api/product.class.php');
 require_once(CMS_ROOT . '/include/api/b2cshopconfig.class.php');
+require_once(CMS_ROOT . '/include/api/ImplOrder.class.php');
 
 function productsAdd($data){
     global $DB;
@@ -153,6 +154,29 @@ if (isset($_POST['act']) && $_POST['act'] == 'addEditProduct') {
             //判断推荐的可能，并操作
             if ($is_Tj == 0 && $old_is_Tj == 1 && $new_productData['isSolding'] == 0) {
                 //取消推荐
+                //判断是否有未完成订单
+                $res = ImplOrder::getOrders(['Biz_Account' => $BizAccount, 'Order_Status' => '<> 4']);
+                $orderlist = [];
+                if (isset($res['errorCode']) && $res['errorCode'] == 0) {
+                    $orderlist = $res['data'];
+                } else {
+                    echo json_encode(['errorCode' => 1, 'msg' => '获取订单列表失败']);
+                    die;
+                }
+                if (count($orderList) > 0) {
+                    foreach ($orderList as $k => $v) {
+                        foreach (json_decode($v['Order_CartList'], true) as $key => $val) {
+                            $proArr[] = $key;
+                            $proArr[] = $val[0]['Products_FromId'];
+                        }
+                    }
+                    $proArr = array_unique($proArr);
+                    if (in_array((int)$_GET['ProductsID'], $proArr)) {
+                        echo json_encode(['errorCode' => 1, 'msg' => '当前有客户订单中包含此商品,并且订单状态不是已完成,不允许取消推荐!']);
+                        die;
+                    }
+                }
+                //没有未完成的订单，取消推荐
                 unset($new_productData['isSolding']);
                 $product_id = ['Products_ID' => $new_productData['Products_ID']];
                 $b2c_resArr = product::b2cProductDelete($product_id);
@@ -174,17 +198,21 @@ if (isset($_POST['act']) && $_POST['act'] == 'addEditProduct') {
             if (isset($b2c_resArr)) {
                 if ($b2c_resArr['errorCode'] == 0) {
                     echo json_encode(['errorCode' => 0, 'msg' => '编辑成功', 'url' => 'http://'.$_SERVER['HTTP_HOST'].'/user/admin.php?act=products'], JSON_UNESCAPED_UNICODE);
+                    die;
                 } else {
                     //推荐编辑不成功，做数据还原处理
                     $postdata['productdata'] = $old_productData;
                     $rock_resArr = product::editProductTo401($postdata);
                     echo json_encode(['errorCode' => 1, 'msg' => 'b2c编辑失败']);
+                    die;
                 }
             } else {
                 echo json_encode(['errorCode' => 0, 'msg' => '编辑成功', 'url' => 'http://'.$_SERVER['HTTP_HOST'].'/user/admin.php?act=products'], JSON_UNESCAPED_UNICODE);
+                die;
             }
         } else {
             echo json_encode(['errorCode' => 1, 'msg' => '401编辑失败']);
+            die;
         }
 
     }
