@@ -268,7 +268,9 @@ ul, li, dt, dd, ol, dl{list-style-type:none;}
                         content:data.msg,
                         time:2,
                         end:function(){
-                            window.location = data.url;
+                            if (data.status == 1) {
+                                window.location = data.url;
+                            }
                         }
                     })
                 }
