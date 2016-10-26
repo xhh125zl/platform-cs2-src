@@ -194,7 +194,7 @@ $(function(){
         } else {
             if (isSolding == 1) {
                 $('input[name="is_Tj"]').prop('checked', true);
-                layer.open({content: '此推荐商品有未完成订单，不允许撤销推荐'});
+                layer.open({content: '此推荐商品有未完成订单，不允许撤销推荐', time: 1});
                 return;
             }
             $('.is_Tj').attr('style', 'display:none;');

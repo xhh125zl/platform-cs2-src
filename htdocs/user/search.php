@@ -368,39 +368,33 @@ if ($return['page']['hasNextPage'] == 'true') {
                     if ($("#secondCate").length > 0) {
                         var firstCate = $("#firstCate").val();
                         var secondCate = $("#secondCate").val();
-                        layer.open({
-                            type:2,
-                            time:1,
-                            shadeClose:false,
-                            end:function(){
-                                $.ajax({
-                                    url:"/user/lib/products.php?d=" + new Date().getTime(),
-                                    type:"get",
-                                    timeout:6000,
-                                    data:{"action":"addProducts", "Products_FromID":me.attr("data-FromID"), "firstCate":firstCate, "secondCate":secondCate},
-                                    dataType:"json",
-                                    success:function(data) {
-                                        if (data.errorCode == 0) {
-                                            layer.open({
-                                                type:0,
-                                                content:data.msg,
-                                                time:2,
-                                                end:function(){
-                                                    $("#pro" + me.attr("data-FromID")).html("<div class=\"up_yy\">已上架</div>");
-                                                }
-                                            });
-                                        } else {
-                                            layer.open({
-                                                type:0,
-                                                content:data.msg,
-                                                time:2
-                                            });
+                        layer.open({type:2, shadeClose:false});
+                        $.ajax({
+                            url:"/user/lib/products.php?d=" + new Date().getTime(),
+                            type:"get",
+                            timeout:6000,
+                            data:{"action":"addProducts", "Products_FromID":me.attr("data-FromID"), "firstCate":firstCate, "secondCate":secondCate},
+                            dataType:"json",
+                            success:function(data) {
+                                layer.closeAll();
+                                if (data.errorCode == 0) {
+                                    layer.open({
+                                        type:0,
+                                        content:data.msg,
+                                        time:1,
+                                        end:function(){
+                                            $("#pro" + me.attr("data-FromID")).html("<div class=\"up_yy\">已上架</div>");
                                         }
-                                    }
-                                })
+                                    });
+                                } else {
+                                    layer.open({
+                                        type:0,
+                                        content:data.msg,
+                                        time:2
+                                    });
+                                }
                             }
                         });
-                        layer.close(index);
                     }else{
                         layer.open({
                             type:0,

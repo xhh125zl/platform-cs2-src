@@ -5,6 +5,7 @@ require_once(CMS_ROOT . '/include/api/b2cshopconfig.class.php');
 //检查用户是否登录
 if(empty($BizAccount)){
     header("location:/biz/login.php");
+    exit;
 }
 
 ?>

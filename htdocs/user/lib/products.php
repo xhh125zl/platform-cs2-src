@@ -156,9 +156,9 @@ if (isset($_POST['act']) && $_POST['act'] == 'addEditProduct') {
                 //取消推荐
                 //判断是否有未完成订单
                 $res = ImplOrder::getOrders(['Biz_Account' => $BizAccount, 'Order_Status' => '<> 4']);
-                $orderlist = [];
+                $orderList = [];
                 if (isset($res['errorCode']) && $res['errorCode'] == 0) {
-                    $orderlist = $res['data'];
+                    $orderList = $res['data'];
                 } else {
                     echo json_encode(['errorCode' => 1, 'msg' => '获取订单列表失败']);
                     die;
@@ -171,7 +171,7 @@ if (isset($_POST['act']) && $_POST['act'] == 'addEditProduct') {
                         }
                     }
                     $proArr = array_unique($proArr);
-                    if (in_array((int)$_GET['ProductsID'], $proArr)) {
+                    if (in_array((int)$new_productData['Products_ID'], $proArr)) {
                         echo json_encode(['errorCode' => 1, 'msg' => '当前有客户订单中包含此商品,并且订单状态不是已完成,不允许取消推荐!']);
                         die;
                     }
