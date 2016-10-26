@@ -262,7 +262,7 @@ ul, li, dt, dd, ol, dl{list-style-type:none;}
                 type:"POST",
                 url:"?do=bind",
                 dataType:"JSON",
-                data:{Mobile:$("input[name=Mobile]").val(), code:$("input[name=yzm]").val(), passwd:$("input[name=passwd]").val(), repasswd:$("input[name=repasswd]").val(),openid:$("input[name=openid]").val(),headurl:$("input[name=headurl]").val()},
+                data:{Mobile:$("input[name=Mobile]").val(), code:$("input[name=yzm]").val(), passwd:$("input[name=passwd]").val(), repasswd:$("input[name=repasswd]").val(),openid:$("input[name=openid]").val(),headurl:$("input[name=headurl]").val(), uuid:$("input[name=uuid]").val()},
                 success:function(data){
                     layer.open({
                         content:data.msg,
