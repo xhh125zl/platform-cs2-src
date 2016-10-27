@@ -32,6 +32,10 @@ $uuid = (isset($_GET['uuid']) && strlen($_GET['uuid']) > 5) ? htmlspecialchars($
 if ($wxAccessCode != 0 && $uuid != 0) {
     $url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=$wxAppID&secret=$wxAppSecret&code=$wxAccessCode&grant_type=authorization_code";
     $resArr = curlWxInterFace($url);
+    if (!isset($resArr['openid'])) {
+        header("Location:http://cs2.3jke.com/user/login.php?uuid=" . $uuid);
+        exit();
+    }
     $openid = $resArr['openid'];
     $transData = ['openid' => $openid];
     $bizFlag = users::getBizByOpenid($transData);
