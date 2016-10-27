@@ -109,15 +109,15 @@ if ($_GET['action'] == 'fB2cCate') {
     $bizVerifyData = $rsBiz['bizData'];
 
     $b2cCate = get_b2c_Cate();
-    $b2c_first_cate = array();
+    $b2c_first_cate = '';
     foreach ($b2cCate as $k => $v) {
         //未达到分类保证金，和分类下无子分类的不显示
         if ($bizVerifyData['bond_free'] >= $v['Category_Bond'] && count($v['child']) > 0) {
-            $b2c_first_cate[]= $v;
+            $b2c_first_cate .= '<option value="' . $v['Category_ID'].'">' . $v['Category_Name'] . '</option>';
         }
         unset($v['child']);
     }
-    echo json_encode($b2c_first_cate, JSON_UNESCAPED_UNICODE);
+    echo json_encode($b2c_first_cate, JSON_UNESCAPED_SLASHES);
 }
 //获取b2c平台二级分类
 if ($_GET['action'] == 'sB2cCate' && isset($_GET['fB2cCateID'])) {
@@ -126,12 +126,12 @@ if ($_GET['action'] == 'sB2cCate' && isset($_GET['fB2cCateID'])) {
     $bizVerifyData = $rsBiz['bizData'];
 
     $b2cCate = get_b2c_Cate()[$_GET['fB2cCateID']];
-    $b2c_second_cate = array();
+    $b2c_second_cate = '';
     foreach ($b2cCate['child'] as $k => $v) {
         //未达到分类保证金的不显示
         if ($bizVerifyData['bond_free'] >= $v['Category_Bond']) {
-            $b2c_second_cate[]= $v;
+            $b2c_second_cate .= '<option value="' . $v['Category_ID'].'">' . $v['Category_Name'] . '</option>';
         }
     }
-    echo json_encode($b2c_second_cate, JSON_UNESCAPED_UNICODE);
+    echo json_encode($b2c_second_cate, JSON_UNESCAPED_SLASHES);
 }

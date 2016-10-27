@@ -227,6 +227,18 @@ $(function(){
             style: 'width:100%;position:fixed;bottom:0;left:0;border-radius:8px;',
             btn:['确定','重选'],
             shadeClose:false,
+            success: function(){
+                //分类联动菜单第一级
+                $.ajax({
+                    type:"get",
+                    url:"/user/lib/category.php",
+                    data:{"action":"fB2cCate"},
+                    dataType:'json',
+                    success:function(data){
+                        $("#b2c_firstCate").append(data);
+                    }
+                });
+            },
             yes:function(index){
                 if ($("#b2c_secondCate").length > 0) {
                     var b2c_firstCate = $("#b2c_firstCate").val();
@@ -250,19 +262,6 @@ $(function(){
                 }
             }
         });
-        //分类联动菜单第一级
-        $.ajax({
-            type:"get",
-            url:"/user/lib/category.php",
-            data:{"action":"fB2cCate"},
-            dataType:'json',
-            success:function(data){
-                $.each(data,function(i,n){
-                    var option="<option value='"+ n.Category_ID+"'>"+ n.Category_Name+"</option>";
-                    $("#b2c_firstCate").append(option);
-                })
-            }
-        });
     });
 
     //分类联动菜单第二级
@@ -276,10 +275,7 @@ $(function(){
                     $(".select_containers").append(sel);
                 }
                 $("#b2c_secondCate").empty();
-                $.each(data, function(i, n){
-                    var option="<option value='"+ n.Category_ID+"'>"+n.Category_Name+"</option>";
-                    $("#b2c_secondCate").append(option);
-                });
+                $("#b2c_secondCate").append(data);
             }else{
                 if($("#b2c_secondCate").length>0){
                     $("#b2c_secondCate").remove();
@@ -301,6 +297,21 @@ $(function(){
             style: 'width:100%;position:fixed;bottom:0;left:0;border-radius:8px;',
             btn:['确定','重选'],
             shadeClose:false,
+            success: function(){
+                //分类联动菜单第一级
+                $.ajax({
+                    type:"get",
+                    url:"/user/lib/category.php",
+                    data:{"action":"fCate"},
+                    dataType:'json',
+                    success:function(data){
+                        $.each(data,function(i,n){
+                            var option="<option value='"+ n.Category_ID+"'>"+ n.Category_Name+"</option>";
+                            $("#firstCate").append(option);
+                        })
+                    }
+                });
+            },
             yes:function(index){
                 if ($("#secondCate").length > 0) {
                     var firstCate = $("#firstCate").val();
@@ -322,19 +333,6 @@ $(function(){
                         }
                     });
                 }
-            }
-        });
-        //分类联动菜单第一级
-        $.ajax({
-            type:"get",
-            url:"/user/lib/category.php",
-            data:{"action":"fCate"},
-            dataType:'json',
-            success:function(data){
-                $.each(data,function(i,n){
-                    var option="<option value='"+ n.Category_ID+"'>"+ n.Category_Name+"</option>";
-                    $("#firstCate").append(option);
-                })
             }
         });
     });

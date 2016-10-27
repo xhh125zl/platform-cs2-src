@@ -387,6 +387,18 @@ if ($return['page']['hasNextPage'] == 'true') {
                 style: 'width:100%;position:fixed;bottom:0;left:0;border-radius:8px;',
                 btn:['上架分销','返回重选'],
                 shadeClose:false,
+                success: function(){
+                    //分类联动菜单第一级
+                    $.ajax({
+                        type:"get",
+                        url:"/user/lib/category.php",
+                        data:{"action":"fB2cCate"},
+                        dataType:'json',
+                        success:function(data){
+                            $("#firstCate").append(data);
+                        }
+                    });
+                },
                 yes:function(index){
                     if ($("#secondCate").length > 0) {
                         var firstCate = $("#firstCate").val();
@@ -420,28 +432,10 @@ if ($return['page']['hasNextPage'] == 'true') {
                         });
                     }else{
                         layer.open({
-                            type:0,
-                            title:"提示信息",
-                            content:"商品应放在二级分类下,如您对应的上级分类还没有二级分类,请点击添加分类按钮进行分类添加操作!",
-                            btn:['添加分类','取消'],
-                            yes:function(){
-                                location.reload();
-                            }
+                            content: '没有完成分类选择，请完成',
+                            btn: '确定'
                         });
                     }
-                }
-            });
-            //分类联动菜单第一级
-            $.ajax({
-                type:"get",
-                url:"/user/lib/category.php",
-                data:{"action":"fB2cCate"},
-                dataType:'json',
-                success:function(data){
-                    $.each(data,function(i,n){
-                        var option="<option value='"+ n.Category_ID+"'>"+ n.Category_Name+"</option>";
-                        $("#firstCate").append(option);
-                    })
                 }
             });
         });
@@ -457,10 +451,7 @@ if ($return['page']['hasNextPage'] == 'true') {
                         $(".select_containers").append(sel);
                     }
                     $("#secondCate").empty();
-                    $.each(data, function(i, n){
-                        var option="<option value='"+ n.Category_ID+"'>"+n.Category_Name+"</option>";
-                        $("#secondCate").append(option);
-                    });
+                    $("#secondCate").append(data);
                 }else{
                     if($("#secondCate").length>0){
                         $("#secondCate").remove();
