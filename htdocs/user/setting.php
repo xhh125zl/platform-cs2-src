@@ -47,6 +47,18 @@ $config = $result['data'];
 <script type="text/javascript" src="../static/js/jquery-1.7.2.min.js"></script>
 <style>
 img{border:none;vertical-align: middle;}
+.tcd_x {
+    position: fixed;
+    width: 100%;
+    bottom: 0px;
+    left: 0;
+    overflow: hidden;
+    z-index: 100;
+    background-color: red;
+    text-align: center;
+    line-height: 40px;
+    color: #fff;
+}
 </style>
 <body>
 <div class="w">
@@ -98,6 +110,13 @@ img{border:none;vertical-align: middle;}
 
         </ul>
     </div>
+
+<!-- logout -->
+<div>
+	<a class="tcd_x" href="login.php?do=logout">退出登录</a>
+</div>
+<!-- //logout -->
+
 </div>
 <script type="text/javascript">
 $(function() {

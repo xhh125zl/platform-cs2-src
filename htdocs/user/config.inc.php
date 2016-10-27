@@ -16,7 +16,7 @@ if (isset($_SESSION['BIZ_ID'])) {
 } else {
 	//die('请先登录');
 	if (isset($_GET['uuid']) && isset($_GET['time']) && $_GET['bizID']) {
-		$rsBiz = $DB->GetRs('biz', '*', "where uuid = '". htmlspecialchars(strip_tags($_GET['uuid'])) ."' and Biz_ID = " . (int)$_GET['bizID'] . " and loginTime > " . (int)$_GET['time']);
+		$rsBiz = $DB->GetRs('biz', '*', "where uuid = '". htmlspecialchars(strip_tags($_GET['uuid'])) ."' and Biz_ID = " . (int)$_GET['bizID'] . " and loginTime = " . ((int)$_GET['time'] + 86400 * 30) . " and loginTime > " . time());
 		if ($rsBiz) {
 			$_SESSION["BIZ_ID"] = $rsBiz["Biz_ID"];
 			$UsersID = $rsBiz["Biz_ID"];

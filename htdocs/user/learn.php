@@ -1,7 +1,8 @@
 <?php
 require_once "config.inc.php";
 
-$id = isset($_GET['id']) && $_GET['id']:0;
+$id = isset($_GET['id']) ? $_GET['id'] : 0;
+
 if($id){
     $result = $DB->Get("shop_articles_category", "Category_ID,Users_ID,Category_ParentID,Category_Name,Category_Index", "WHERE Users_ID='{$UsersID}' AND Category_ParentID = ".$id);
     $rsArticleList = $DB->toArray($result);
