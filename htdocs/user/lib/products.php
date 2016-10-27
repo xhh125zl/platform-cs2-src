@@ -9,6 +9,10 @@ function productsAdd($data){
     $postdata = $DB->GetRs('shop_products', '*', "where Products_FromId = " . (int)$data['Products_FromID']);
     //注销掉Users_ID,需要根据Users_Account到401去查找对应的Users_ID
     unset($postdata['Users_ID'], $postdata['Products_ID']);
+    //图片路径处理
+    $postdata['Products_JSON'] = stripcslashes($postdata['Products_JSON']);
+    $postdata['Products_JSON'] = str_replace(SHOP_URL, '/', $postdata['Products_JSON']);
+    
     $postdata['Users_Account'] = $_SESSION['Biz_Account'];
     $postdata['Products_Category'] = ','.(int)$data['firstCate']. ',' . $data['secondCate'] . ',';
     $transfer = ['productData' => $postdata];

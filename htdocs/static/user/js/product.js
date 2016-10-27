@@ -219,7 +219,7 @@ $(function(){
         var me = $(this);
         layer.open({
             type:1,
-            content:"<div class=\"select_containers\">请选择一级分类:<select name=\"b2c_firstCate\" class=\"select\" id=\"b2c_firstCate\"><option value=\"0\">请选择顶级分类</option></select><br/>请选择二级分类:</div>",
+            content: $('#cate_b2c').html(),
             title:[
                 '<span style="float:left">请选择要添加到的分类</span>',
                 'background-color:#f0f0f0;font-weight:bold;'
@@ -228,57 +228,29 @@ $(function(){
             btn:['确定','重选'],
             shadeClose:false,
             success: function(){
-                //分类联动菜单第一级
-                $.ajax({
-                    type:"get",
-                    url:"/user/lib/category.php",
-                    data:{"action":"fB2cCate"},
-                    dataType:'json',
-                    success:function(data){
-                        $("#b2c_firstCate").append(data);
-                    }
+                //分类联动菜单第二级
+                $(document).on('change', '#b2c_firstCate', function(){
+                    $(this).nextAll('#b2c_secondCate').html('');
+                    var first_cate_id = $(this).val();
+                    var second_cate = $(this).nextAll('.first_cate_'+first_cate_id).html();
+                    $(this).nextAll('#b2c_secondCate').html(second_cate);
                 });
             },
             yes:function(index){
-                if ($("#b2c_secondCate").length > 0) {
-                    var b2c_firstCate = $("#b2c_firstCate").val();
-                    var b2c_secondCate = $("#b2c_secondCate").val();
-                    var b2c_firstCate_name = $("#b2c_firstCate").find('option:selected').text();
-                    var b2c_secondCate_name = $("#b2c_secondCate").find('option:selected').text();
+                var b2c_firstCate = $('.layui-m-layercont #b2c_firstCate').val();
+                var b2c_secondCate = $('.layui-m-layercont #b2c_secondCate').val();
+                if (b2c_firstCate > 0 && b2c_secondCate > 0) {
+                    layer.closeAll();
+                    var b2c_firstCate_name = $('.layui-m-layercont #b2c_firstCate').find('option[value="'+b2c_firstCate+'"]').text();
+                    var b2c_secondCate_name = $('.layui-m-layercont #b2c_secondCate').find('option[value="'+b2c_secondCate+'"]').text();
                     $('#b2c_category').attr('firstCate', b2c_firstCate);
                     $('#b2c_category').attr('secondCate', b2c_secondCate);
                     $('#b2c_category').html(b2c_firstCate_name+'，'+b2c_secondCate_name);
-                    layer.close(index);
                 }else{
                     layer.open({
-                        type:0,
-                        title:"提示信息",
-                        content:"商品应放在二级分类下,如您对应的上级分类还没有二级分类,请点击添加分类按钮进行分类添加操作!",
-                        btn:['添加分类','取消'],
-                        yes:function(){
-                            location.reload();
-                        }
+                        content: '没有完成分类选择，请完成',
+                        btn: '确定'
                     });
-                }
-            }
-        });
-    });
-
-    //分类联动菜单第二级
-    $("#b2c_firstCate").live('change',function(){
-        $('.select_containers #b2c_secondCate').remove();
-        var me = $(this);
-        $.getJSON("/user/lib/category.php",{"action":"sB2cCate","fB2cCateID":me.val()},function(data){
-            if(data){
-                if($("#b2c_secondCate").length<=0){
-                    var sel="<select name=\"b2c_secondCate\" class=\"select\" id=\"b2c_secondCate\"></select>"
-                    $(".select_containers").append(sel);
-                }
-                $("#b2c_secondCate").empty();
-                $("#b2c_secondCate").append(data);
-            }else{
-                if($("#b2c_secondCate").length>0){
-                    $("#b2c_secondCate").remove();
                 }
             }
         });
@@ -338,7 +310,7 @@ $(function(){
     });
 
     //分类联动菜单第二级
-    $("#firstCate").live('change',function(){
+    $("#firstCate").delegate('change',function(){
         $('.select_containers #secondCate').remove();
         var me = $(this);
         $.getJSON("/user/lib/category.php",{"action":"sCate","fcateID":me.val()},function(data){
