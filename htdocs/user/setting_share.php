@@ -1,31 +1,10 @@
 <?php
 if (!defined('USER_PATH')) exit();
-require_once "config.inc.php";
+
 require_once CMS_ROOT . '/include/api/shopconfig.class.php';
 require_once CMS_ROOT . '/include/helper/tools.php';
 
-$inajax = isset($_GET['inajax']) ? (int)$_GET['inajax'] : 0;
-
-if ($inajax == 1) {
-    $do = isset($_GET['do']) ? $_GET['do'] : '';
-
-    if ($do == 'wechat') {
-        $Users_WechatAccount = isset($_POST['Users_WechatAccount']) ? cleanJsCss($_POST['Users_WechatAccount']) : '';
-
-        $data = [
-            'Biz_Account' => $BizAccount,
-            'usersData' => [
-                'Users_WechatAccount' => $Users_WechatAccount,
-            ],
-        ];
-        
-        $result = shopconfig::updatecolumn($data);
-
-        echo json_encode($result);
-    }
-
-    exit();
-}else if (isset($_POST['do']) && $_POST['do'] == 'uploadFile') {
+if (isset($_POST['do']) && $_POST['do'] == 'uploadFile') {
     $imagepath = trim($_POST['data']);
     $url = IMG_SERVER."user/lib/upload.php";
 	$result = curlInterFace($url,"post",[
@@ -44,11 +23,17 @@ if ($inajax == 1) {
         ];
 
         $result = shopconfig::updatecolumn($data);
-        echo json_encode($result);
-        exit;
+        if (isset($result['errorCode']) && $result['errorCode'] == 0) {
+            $res = ['errorCode' => 0, 'msg' => '更新成功'];
+        } else {
+            $res = ['errorCode' => 1, 'msg' => '更新失败'];
+        }
+    } else {
+        $res = ['errorCode' => 1, 'msg' => '图片保存失败'];
     }
-    
-    echo json_encode($result);exit;
+    echo json_encode($res);
+    exit;
+
 }else if (isset($_POST['do']) && $_POST['do'] == 'save') {
 
     $ShareIntro = isset($_POST['ShareIntro']) ? cleanJsCss($_POST['ShareIntro']) : '';
@@ -61,17 +46,17 @@ if ($inajax == 1) {
         ];
         
     $result = shopconfig::updatecolumn($data);
-    echo json_encode($result);
+    if (isset($result['errorCode']) && $result['errorCode'] == 0) {
+        $res = ['errorCode' => 0, 'msg' => '更新成功'];
+    } else {
+        $res = ['errorCode' => 1, 'msg' => '更新失败'];
+    }
+    echo json_encode($res);
     exit;
 }
 
-
 //获取配置信息
-$data = [
-    'Biz_Account' => $BizAccount,
-];
-
-$result = shopconfig::getConfig($data);
+$result = shopconfig::getConfig(['Biz_Account' => $BizAccount]);
 $config = $result['data'];
 
 ?>
@@ -123,16 +108,6 @@ $config = $result['data'];
 </div>
 <script type="text/javascript">
 $(function(){
-    $(".btnsubmit").click(function(){
-        var Users_WechatAccount = $("#Users_WechatAccount").val();
-        $.post("?act=setting_wechat&inajax=1&do=wechat", {Users_WechatAccount:Users_WechatAccount}, function(json){
-            if(json.errorCode == '0') {
-                layer.open({content:json.msg, time:2, end:function() {
-                     location.href="admin.php?act=setting";
-                }});
-            }
-        },'json');
-    });
     $("input[name='save']").click(function(){
         $.ajax({
             type:"POST",
@@ -141,15 +116,9 @@ $(function(){
             dataType:"json",
             success:function(data){
                 if (data.errorCode == 0) {
-                     layer.open({
-                        content: data.msg
-                        ,btn: '我知道了'
-                    });
+                    location.href="admin.php?act=setting";
                 } else {
-                    layer.open({
-                        content: data.msg
-                        ,btn: '我知道了'
-                    });
+                    layer.open({content: data.msg, shadeClose: false, btn: '确定'});
                 }
             }
         });

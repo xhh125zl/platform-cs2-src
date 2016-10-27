@@ -19,18 +19,18 @@ if ($inajax == 1) {
         ];
         
         $result = shopconfig::updatecolumn($data);
-
-        echo json_encode($result);
+        if (isset($result['errorCode']) && $result['errorCode'] == 0) {
+            $res = ['errorCode' => 0, 'msg' => '更新成功'];
+        } else {
+            $res = ['errorCode' => 1, 'msg' => '更新失败'];
+        }
+        echo json_encode($res);
     }
-
-    exit();
+    exit;
 }
 
 //获取配置信息
-$data = [
-    'Biz_Account' => $BizAccount,
-];
-$result = shopconfig::getConfig($data);
+$result = shopconfig::getConfig(['Biz_Account' => $BizAccount]);
 $config = $result['data'];
 
 ?>
@@ -73,10 +73,10 @@ $(function(){
         } else {
             $('#day').removeAttr('style');
             $.post("?act=setting_receive&inajax=1&do=day", {day:day}, function(json){
-                if(json.errorCode == '0') {
-                    layer.open({content:json.msg, time:2, end:function() {
-                         location.href="admin.php?act=setting";
-                    }});
+                if (json.errorCode == 0) {
+                    location.href="admin.php?act=setting";
+                } else {
+                    layer.open({content: json.msg, shadeClose: false, btn: '确定'});
                 }
             },'json');
         }
