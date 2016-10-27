@@ -77,7 +77,7 @@ require_once($_SERVER['DOCUMENT_ROOT'] . '/include/api/b2cshopconfig.class.php')
                 if ($passwdVerify) {
                     $time = time();
                     //如果数据库已经存在输入的手机号,则把对应的openid更新到对应的记录里.方便以后实现微信登录
-                    $updateTransData = ['Biz_Account' => $mobile, 'headurl' => $headurl, 'openid' => $openid, 'uuid' => $uuid, 'time' => $time];
+                    $updateTransData = ['Biz_Account' => $mobile, 'headurl' => $headurl, 'openid' => $openid, 'uuid' => $uuid, 'time' => $time+86400*30];
                     $resArr = b2cshopconfig::updateWxLogin($updateTransData);
 
                     if ($resArr['errorCode'] == 0) {
@@ -118,7 +118,7 @@ require_once($_SERVER['DOCUMENT_ROOT'] . '/include/api/b2cshopconfig.class.php')
                 'User_HeadImg' => $headurl,
                 'User_OpenID' => $openid,
                 'uuid' => $uuid,
-                'loginTime' => $time,
+                'loginTime' => $time+86400*30,
                 'Users_Right'=>'{"web":["web"],"kanjia":["kanjia"],"zhuli":["zhuli"],"zhongchou":["zhongchou"],"games":["games"],"weicuxiao":["sctrach","fruit","turntable","battle"],"hongbao":["hongbao"],"votes":["votes"]}'
                 //'Group_ID'=> $Group_ID
             );
