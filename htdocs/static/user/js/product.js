@@ -267,6 +267,7 @@ $(function(){
 
     //分类联动菜单第二级
     $("#b2c_firstCate").live('change',function(){
+        $('.select_containers #b2c_secondCate').remove();
         var me = $(this);
         $.getJSON("/user/lib/category.php",{"action":"sB2cCate","fB2cCateID":me.val()},function(data){
             if(data){
@@ -340,6 +341,7 @@ $(function(){
 
     //分类联动菜单第二级
     $("#firstCate").live('change',function(){
+        $('.select_containers #secondCate').remove();
         var me = $(this);
         $.getJSON("/user/lib/category.php",{"action":"sCate","fcateID":me.val()},function(data){
             if(data){

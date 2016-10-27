@@ -1,6 +1,7 @@
 <?php
 require_once "../config.inc.php";
 require_once CMS_ROOT . '/include/api/product_category.class.php';
+require_once CMS_ROOT . '/include/api/b2cshopconfig.class.php';
 require_once CMS_ROOT . '/include/helper/tools.php';
 
 //获取分类
@@ -103,21 +104,34 @@ function get_b2c_Cate()
 
 //获取b2c平台一级分类
 if ($_GET['action'] == 'fB2cCate') {
+    $rsBiz = b2cshopconfig::getVerifyconfig(['Biz_Account' => $BizAccount]);
+    //获取商家分类保证金
+    $bizVerifyData = $rsBiz['bizData'];
+
     $b2cCate = get_b2c_Cate();
-    //print_r($b2cCate);die;
     $b2c_first_cate = array();
     foreach ($b2cCate as $k => $v) {
+        //未达到分类保证金，和分类下无子分类的不显示
+        if ($bizVerifyData['bond_free'] >= $v['Category_Bond'] && count($v['child']) > 0) {
+            $b2c_first_cate[]= $v;
+        }
         unset($v['child']);
-        $b2c_first_cate[]= $v;
     }
     echo json_encode($b2c_first_cate, JSON_UNESCAPED_UNICODE);
 }
 //获取b2c平台二级分类
 if ($_GET['action'] == 'sB2cCate' && isset($_GET['fB2cCateID'])) {
+    $rsBiz = b2cshopconfig::getVerifyconfig(['Biz_Account' => $BizAccount]);
+    //获取商家分类保证金
+    $bizVerifyData = $rsBiz['bizData'];
+
     $b2cCate = get_b2c_Cate()[$_GET['fB2cCateID']];
     $b2c_second_cate = array();
     foreach ($b2cCate['child'] as $k => $v) {
-        $b2c_second_cate[]= $v;
+        //未达到分类保证金的不显示
+        if ($bizVerifyData['bond_free'] >= $v['Category_Bond']) {
+            $b2c_second_cate[]= $v;
+        }
     }
     echo json_encode($b2c_second_cate, JSON_UNESCAPED_UNICODE);
 }

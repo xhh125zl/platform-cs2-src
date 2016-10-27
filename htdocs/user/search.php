@@ -2,6 +2,7 @@
 if (!defined('USER_PATH')) exit();
 
 require_once CMS_ROOT . '/include/api/product.class.php';
+require_once CMS_ROOT . '/include/api/b2cshopconfig.class.php';
 require_once CMS_ROOT . '/include/helper/page.class.php';
 $fid = $sid = 0;
 
@@ -201,6 +202,28 @@ if (isset($_POST['ajax']) && $_POST['ajax'] == 1) {
 <script type="text/javascript" src="../static/js/plugin/layer_mobile/layer.js"></script>
 <script type="text/javascript" src="../static/js/template.js"></script>
 <body>
+<?php
+//检查用户是否已经交过费用
+$users = b2cshopconfig::getConfig(array('Users_Account' => $BizAccount));
+if ($users['errorCode'] == 0) {
+    $bizData = $users['configData'];
+    if ($bizData['expiresTime'] != 0 && $bizData['expiresTime'] < time()) {
+        if ($bizData['need_charg'] == 1) {
+            echo '<script>layer.open({content: "此项功能已到期,必须先交费才可以使用", shadeClose: false, btn: "确定", yes: function(){history.back();}});</script>';
+            exit();
+        }
+    }
+    $rsBiz = b2cshopconfig::getVerifyconfig(['Biz_Account' => $BizAccount]);
+    if (empty($rsBiz['bizData'])) {
+        echo '<script>layer.open({content: "商家不存在", shadeClose: false, btn: "确定", yes: function(){history.back();}});</script>';
+        exit;
+    }
+} else {
+    echo '<script>layer.open({content: "服务器网络异常,数据通信失败", shadeClose: false, btn: "确定", yes: function(){history.back();}});</script>';
+    exit;
+}
+
+?>
 <div class="w">
     <div class="bj_x">
         <div class="box">
@@ -412,7 +435,7 @@ if ($return['page']['hasNextPage'] == 'true') {
             $.ajax({
                 type:"get",
                 url:"/user/lib/category.php",
-                data:{"action":"fCate"},
+                data:{"action":"fB2cCate"},
                 dataType:'json',
                 success:function(data){
                     $.each(data,function(i,n){
@@ -425,8 +448,9 @@ if ($return['page']['hasNextPage'] == 'true') {
 
         //分类联动菜单第二级
         $("#firstCate").live('change',function(){
+            $('.select_containers #secondCate').remove();
             var me = $(this);
-            $.getJSON("/user/lib/category.php",{"action":"sCate","fcateID":me.val()},function(data){
+            $.getJSON("/user/lib/category.php",{"action":"sB2cCate","fB2cCateID":me.val()},function(data){
                 if(data){
                     if($("#secondCate").length<=0){
                         var sel="<select name=\"secondCate\" class=\"select\" id=\"secondCate\"></select>"
