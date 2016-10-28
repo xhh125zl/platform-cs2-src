@@ -128,7 +128,7 @@ if (isset($_GET['isDistribute']) && $_GET['isDistribute'] == 1) {
 $p = isset($_GET['p']) ? (int)$_GET['p'] : 1;
 if ($p < 1) $p = 1;
 //每页显示个数
-$pageSize = 2;
+$pageSize = 5;
 
 $data = ['pageSize' => $pageSize,'Users_Account' => $BizAccount];
 $result = product::search($p ,$condition, $data);
@@ -292,7 +292,7 @@ if (isset($_POST['ajax']) && $_POST['ajax'] == 1) {
 <div id="pagemore">
 <?php
 if ($return['page']['hasNextPage'] == 'true') {
-    echo '<a href="javascript:;" data-next-pageno="2">点击加载更多...</a>';    
+    echo '<a href="javascript:;" data-next-pageno="2">正在加载中...</a>';    
 } else {
     echo '已经没有了...';
 }
@@ -323,6 +323,7 @@ if ($return['page']['hasNextPage'] == 'true') {
     });
     $(function(){
         //加载更多
+        var last_pageno = 1;        
         $("#pagemore a").click(function(){
             var totalPage = <?php echo $totalPage;?>;
             var fid = <?php echo $fid;?>;
@@ -331,6 +332,13 @@ if ($return['page']['hasNextPage'] == 'true') {
             var sortMethod = '<?php echo $sortMethod?>';
             var pageno = $(this).attr('data-next-pageno');
             var url = 'admin.php?act=search&fid='+fid+'&sid='+sid+'&sortby=' + sortby + "&sortMethod=" + sortMethod + '&p=' + pageno;
+
+            //防止一页多次加载
+            if (pageno == last_pageno) {
+                return false;
+            } else {
+                last_pageno = pageno;
+            }
 
             var nextPageno = parseInt(pageno);
             if (nextPageno > totalPage) {
@@ -350,6 +358,20 @@ if ($return['page']['hasNextPage'] == 'true') {
                 }
             },'json')
         });
+
+        //瀑布流加载翻页
+        $(window).bind('scroll',function () {
+            // 当滚动到最底部以上100像素时， 加载新内容
+            if ($(document).height() - $(this).scrollTop() - $(this).height() < 100) {
+                //已无数据可加载
+                if ($("#pagemore").html() == '已经没有了...') {
+                    return false;
+                } else {
+                    //模拟点击
+                    $("#pagemore a").trigger('click');
+                }
+            }
+        });          
 
         //点击一键分销按钮进行的操作
         $(".up_xx").live('click',function(){
