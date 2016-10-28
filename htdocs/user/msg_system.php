@@ -1,6 +1,7 @@
 <?php
 if (!defined('USER_PATH')) exit();
 require_once CMS_ROOT . "/user/config.inc.php";
+require_once CMS_ROOT . '/include/api/message.class.php';
 require_once CMS_ROOT . '/include/helper/page.class.php';
 
 //分页初始化
@@ -71,6 +72,41 @@ if (isset($_POST['ajax']) && $_POST['ajax'] == 1) {
     exit();
 }
 
+//系统消息未读条数
+//获取商家注册时间，以确认显示信息
+$biz_info = $DB->GetRs('biz', 'Biz_CreateTime', 'where `Biz_ID` = '.$BizID);
+$DB->Get("announce","announce.*,announce_record.Record_ID","left join `announce_record` on announce.Announce_ID = announce_record.Announce_ID and announce_record.Biz_ID = ".$BizID." where announce.Announce_Status = 1 and Announce_CreateTime > ".$biz_info['Biz_CreateTime']." order by announce_record.Record_ID,announce.Announce_CreateTime desc");
+$unread_system_nums = 0;
+while ($r=$DB->fetch_assoc()) {
+    if (!(isset($r['Record_ID']) && $r['Record_ID'] > 0)) {
+        $unread_system_nums++;
+    }
+}
+//订单消息未读条数
+$transfer = ['Biz_Account' => $BizAccount];
+$result = message::getMsgOrder($transfer);
+if ($result['errorCode'] == 0) {
+    $unread_order_nums = $result['data']['unReadCount'];
+} else {
+    $unread_order_nums = 0;
+}
+//分销消息未读条数
+$transfer = ['Biz_Account' => $BizAccount];
+$result = message::getMsgDistribute($transfer);
+if ($result['errorCode'] == 0) {
+    $unread_distribute_nums = $result['data']['unReadCount'];
+} else {
+    $unread_distribute_nums = 0;
+}
+//提现消息未读条数
+$transfer = ['Biz_Account' => $BizAccount];
+$result = message::getMsgWithdraw($transfer);
+if ($result['errorCode'] == 0) {
+    $unread_withdraw_nums = $result['data']['unReadCount'];
+} else {
+    $unread_withdraw_nums = 0;
+}
+
 //记录商家读取信息
 if ($_POST) {
     $Announce_ID = $_POST['Announce_ID'];
@@ -90,6 +126,7 @@ if ($_POST) {
         }
     }   
 }
+
 ?>
 <!doctype html>
 <html>
@@ -113,10 +150,10 @@ if ($_POST) {
     <div class="slideTxtBox">
         <div class="hd msg_x">
             <ul>
-                <a href="?act=msg_system"><li class="<?php if(isset($_GET['act']) && $_GET['act'] == 'msg_system') { echo 'on'; } ?>">系统</li></a>
-                <a href="?act=msg_order"><li class="<?php if(isset($_GET['act']) && $_GET['act'] == 'msg_order') { echo 'on'; } ?>">订单</li></a>
-                <a href="?act=msg_distribute"><li class="<?php if(isset($_GET['act']) && $_GET['act'] == 'msg_distribute') { echo 'on'; } ?>">分销</li></a>
-                <a href="?act=msg_withdraw"><li class="<?php if(isset($_GET['act']) && $_GET['act'] == 'msg_withdraw') { echo 'on'; } ?>">提现</li></a>
+                <a href="?act=msg_system"><li class="<?php if(isset($_GET['act']) && $_GET['act'] == 'msg_system') { echo 'on'; } ?>"><span style="color:red;"><?php if ($unread_system_nums > 0) {echo '● ';} ?></span>系统</li></a>
+                <a href="?act=msg_order"><li class="<?php if(isset($_GET['act']) && $_GET['act'] == 'msg_order') { echo 'on'; } ?>"><span style="color:red;"><?php if ($unread_order_nums > 0) {echo '● ';} ?></span>订单</li></a>
+                <a href="?act=msg_distribute"><li class="<?php if(isset($_GET['act']) && $_GET['act'] == 'msg_distribute') { echo 'on'; } ?>"><span style="color:red;"><?php if ($unread_distribute_nums > 0) {echo '● ';} ?></span>分销</li></a>
+                <a href="?act=msg_withdraw"><li class="<?php if(isset($_GET['act']) && $_GET['act'] == 'msg_withdraw') { echo 'on'; } ?>"><span style="color:red;"><?php if ($unread_withdraw_nums > 0) {echo '● ';} ?></span>提现</li></a>
             </ul>
         </div>
         <div class="msg_list">
@@ -212,23 +249,30 @@ if ($_POST) {
         });
         $('.msgList').on('click','.msgs',function(){
             var me = $(this);
+            var status = me.attr('status');
             layer.open({
-              type: 1
-              ,content: me.next('.msg_content').html()
-              ,anim: 'up'
-              ,style: 'position:fixed; left:0; top:0; width:100%; height:100%; overflow:scroll; border: none; -webkit-animation-duration: .5s; animation-duration: .5s;'
-              ,success: function(){
-                $.ajax({
-                    type: 'POST',
-                    url: '?act=msg_system',
-                    data: 'Announce_ID='+me.attr('value')+'&read_status='+me.attr('status'),
-                    success: function(data){
-                        if (data.errorCode == 0) {
-                            me.find('span').html('');
-                        }
-                    },
-                    dataType: 'json'
-                });
+                type: 1
+                ,content: me.next('.msg_content').html()
+                ,anim: 'up'
+                ,style: 'position:fixed; left:0; top:0; width:100%; height:100%; overflow:scroll; border: none; -webkit-animation-duration: .5s; animation-duration: .5s;'
+                ,success: function(){
+                    if (status == 1) {
+                        //消息已读，不用改变状态
+                    } else {
+                        $.ajax({
+                            type: 'POST',
+                            url: '?act=msg_system',
+                            data: 'Announce_ID='+me.attr('value')+'&read_status='+status,
+                            success: function(data){
+                                if (data.errorCode == 0) {
+                                    me.find('span').html('');
+                                } else {
+                                    layer.open({content: data.msg, time: 1});
+                                }
+                            },
+                            dataType: 'json'
+                        });
+                    }
               }
             });
         });

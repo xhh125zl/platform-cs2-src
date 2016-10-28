@@ -29,21 +29,20 @@ if ($inajax == 1) {
         ];
         
         $result = shopconfig::updatecolumn($data);
-
-        echo json_encode($result);
+        if (isset($result['errorCode']) && $result['errorCode'] == 0) {
+            $res = ['errorCode' => 0, 'msg' => '更新成功'];
+        } else {
+            $res = ['errorCode' => 1, 'msg' => '更新失败'];
+        }
+        echo json_encode($res);
     }
-
-    exit();
+    exit;
 }
 
 //获取配置信息
-$data = [
-    'Biz_Account' => $BizAccount,
-];
-$result = shopconfig::getConfig($data);
+$result = shopconfig::getConfig(['Biz_Account' => $BizAccount]);
 $config = $result['data'];
 
-//print_r($config);
 ?>
 <!doctype html>
 <html>
@@ -82,18 +81,15 @@ $(document).ready(function(){
     <div class="box_adr">
 
 			<select name="Province"  id="loc_province">
-				<option>选择省份</option>
 			</select>
 			<select name="City" id="loc_city">
-				<option>选择城市</option>
 			</select>
 			<select name="Area"  id="loc_town">
-				<option>选择区县</option>
 			</select>
 
           <div class="clear"></div>
 
-    	<input type="text" name="RecieveAddress" id="RecieveAddress" placeholder="收货地址" maxlength="30" value="<?php echo input_output($config['RecieveAddress']); ?>">
+    	<input type="text" name="RecieveAddress" id="RecieveAddress" placeholder="详细收货地址" maxlength="30" value="<?php echo input_output($config['RecieveAddress']); ?>">
         <input type="text" name="RecieveName" placeholder="联系人"  maxlength="30" value="<?php echo input_output($config['RecieveName']); ?>">
         <input type="tel" name="RecieveMobile" placeholder="手机号" maxlength="11" value="<?php echo $config['RecieveMobile'];?>">
     </div>
@@ -103,13 +99,64 @@ $(document).ready(function(){
     </form>
 </div>
 <script type="text/javascript">
+//检测输入框是否为空
+function check_null(input) {
+    var add_attr = "border:1px solid red;";
+    if($.trim(input.val()) == '') {
+        input.attr('style', add_attr);
+        input.focus();
+        return false;
+    } else {
+        input.removeAttr('style');
+        return true;
+    }
+}
+function isMobile(mobile) {
+    if(!/^(13[0-9]|17[0-9]|15[0-9]|18[0-9])\d{8}$/i.test(mobile)) {
+        return false;
+    }
+    return true;
+}
 $(function(){
     $(".btnsubmit").click(function(){
+        if ($('#loc_province option:selected').val() == '') {
+            $('#loc_province').prev('#s2id_loc_province').find('a').attr('style', 'border: 1px solid red;');
+            return false;
+        } else {
+            $('#loc_province').prev('#s2id_loc_province').find('a').removeAttr('style');
+        }
+        if ($('#loc_city option:selected').val() == '') {
+            $('#loc_city').prev('#s2id_loc_city').find('a').attr('style', 'border: 1px solid red;');
+            return false;
+        } else {
+            $('#loc_city').prev('#s2id_loc_city').find('a').removeAttr('style');
+        }
+        if ($('#loc_town option:selected').val() == '') {
+            $('#loc_town').prev('#s2id_loc_town').find('a').attr('style', 'border: 1px solid red;');
+            return false;
+        } else {
+            $('#loc_town').prev('#s2id_loc_town').find('a').removeAttr('style');
+        }
+        if (!check_null($('input[name="RecieveAddress"]'))) {
+            return false;
+        }
+        if (!check_null($('input[name="RecieveName"]'))) {
+            return false;
+        }
+        if (!check_null($('input[name="RecieveMobile"]'))) {
+            return false;
+        }
+        if (!isMobile($('input[name="RecieveMobile"]').val())) {
+            $('input[name="RecieveMobile"]').attr('style', 'border: 1px solid red;');
+            return false;
+        } else {
+            $('input[name="RecieveMobile"]').removeAttr('style');
+        }
         $.post("?act=setting_backgoods&inajax=1&do=save", $("#form1").serialize(), function(json){
-            if(json.errorCode == '0') {
-                layer.open({content:json.msg, time:2, end:function() {
-                     location.href="admin.php?act=setting";
-                }});
+            if (json.errorCode == 0) {
+                location.href="admin.php?act=setting";
+            } else {
+                layer.open({content: json.msg, shadeClose: false, btn: '确定'});
             }
         },'json');
     });

@@ -1,10 +1,12 @@
 <?php
 require_once "/config.inc.php";
-require_once(CMS_ROOT . '/include/api/b2cshopconfig.class.php');
+require_once CMS_ROOT . '/include/api/b2cshopconfig.class.php';
+require_once CMS_ROOT . '/include/api/product_category.class.php';
 
 //检查用户是否登录
 if(empty($BizAccount)){
     header("location:/user/login.php");
+    exit;
 }
 
 ?>
@@ -19,6 +21,7 @@ if(empty($BizAccount)){
 <link href="../static/user/css/product.css" type="text/css" rel="stylesheet">
 <link href="../static/user/css/font-awesome.min.css" type="text/css" rel="stylesheet">
 <script type="text/javascript" src="../static/user/js/jquery-1.8.3.min.js"></script>
+<!-- <script type="text/javascript" src="../static/js/jquery-1.11.1.min.js"></script> -->
 <script type="text/javascript" src="../static/user/js/layer.js"></script>
 <script  type="text/javascript"  src="../static/user/js/jquery.uploadView.js"></script>
 <script  type="text/javascript"  src="../static/user/js/jquery.uploadView1.js"></script>
@@ -76,6 +79,40 @@ if ($users['errorCode'] == 0) {
     echo '<script>layer.open({content: "服务器网络异常,数据通信失败", shadeClose: false, btn: "确定", yes: function(){history.back();}});</script>';
     exit;
 }
+
+//获取商家分类保证金
+$bizVerifyData = $rsBiz['bizData'];
+
+//获取平台分类
+$b2cCategory = product_category::get_all_category();
+
+//获取商家自己的分类
+$res = product_category::getDev401firstCate($BizAccount);
+$Category = [];
+$tag = 0;
+/*if (isset($res['errorCode']) && $res['errorCode'] == 0) {
+    foreach ($res['cateData'] as $k => $v) {
+        $result = product_category::getDev401SecondCate(['Biz_Account' => $BizAccount, 'firstCateID' => $v['Category_ID']]);
+        if ($result['errorCode'] == 0) {
+            if (count($result['cateData']) > 0) {
+                $res['cateData'][$k]['child'] = $result['cateData'];
+            }
+        } else {
+            $tag++;
+        }
+    }
+    if ($tag != 0) {
+        echo '<script>layer.open({content: "分类获取失败1", shadeClose: false, btn: "确定", yes: function(){history.back();}});</script>';
+        exit;
+    } else {
+        $Category = $res['cateData'];
+    }
+} else {
+    echo '<script>layer.open({content: "分类获取失败", shadeClose: false, btn: "确定", yes: function(){history.back();}});</script>';
+    exit;
+}*/
+//print_r($Category);die;
+
 ?>
 <div class="w">
     <div class="back_x">
@@ -193,7 +230,55 @@ if ($users['errorCode'] == 0) {
                 <th>是否新品：</th>
                 <td><input class="toggle-switch" type="checkbox" name="IsNew" checked=""></td>
             </tr>
+            <tr>
+                <th>余额支付：</th>
+                <td><input class="toggle-switch" type="checkbox" name="IsPaysBalance" checked=""></td>
+            </tr>
+            <tr>
+                <th>是否显示：</th>
+                <td><input class="toggle-switch" type="checkbox" name="IsShow" checked=""></td>
+            </tr>
         </table>
+
+        <!-- 隐藏的平台分类列表 -->
+        <div id="cate_b2c" style="display:none;">
+            <div class="select_containers">
+                请选择一级分类：
+                <select name="b2c_firstCate" id="b2c_firstCate" style="color:15px; width:150px; height:30px; border:1px solid #ccc;">
+                    <option value="0">请选择一级分类</option>
+                    <?php
+                        if (!empty($b2cCategory)) {
+                            foreach ($b2cCategory as $k => $v) {
+                                //未达到分类保证金，和分类下无子分类的不显示
+                                if ($bizVerifyData['bond_free'] >= $v['Category_Bond'] && count($v['child']) > 0) {
+                                    echo '<option value="' . $v['Category_ID'].'">' . $v['Category_Name'] . '</option>';
+                                }
+                            }
+                        }
+                    ?>
+                </select><br/>
+                请选择二级分类：
+                <select name="b2c_secondCate" id="b2c_secondCate" style="color:15px; width:150px; height:30px; border:1px solid #ccc;">
+                    <option value="0">请选择二级分类</option>
+                </select>
+                <?php
+                    if (!empty($b2cCategory)) {
+                        foreach ($b2cCategory as $k => $v) {
+                            //未达到分类保证金，和分类下无子分类的不显示
+                            if ($bizVerifyData['bond_free'] >= $v['Category_Bond'] && count($v['child']) > 0) {
+                                echo '<div class="first_cate_'.$v['Category_ID'].'" style="display:none;">';
+                                foreach ($v['child'] as $kk => $vv) {
+                                    if ($bizVerifyData['bond_free'] >= $vv['Category_Bond']) {
+                                        echo '<option value="' . $vv['Category_ID'].'">' . $vv['Category_Name'] . '</option>';
+                                    }
+                                }
+                                echo '</div>';
+                            }
+                        }
+                    }
+                ?>
+            </div>
+        </div>
     </div>
     <div class="clear"></div>
     <div class="kb"></div>

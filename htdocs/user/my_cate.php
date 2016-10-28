@@ -40,6 +40,7 @@ if (isset($_GET['do']) && $_GET['do'] == 'edit') {
 <div class="w">
     <div style="text-align:center; line-height:30px; background:#fff; padding:5px 0">
         <span class="l"><a href="<?=strpos($_SERVER['REQUEST_URI'],'firstCateID') ? substr($_SERVER['REQUEST_URI'],0,strrpos($_SERVER['REQUEST_URI'],'&')) : 'javascript:history.back();' ?>"><img src="../static/user/images/gdx.png" width="30" height="30" style=""></a></span>分类管理
+        <!-- <a class="r" id="addCate"><i class="fa fa-plus-square fa-2x" aria-hidden="true" style="color:#ff5500"></i></a> -->
     </div>
     <div class="clear"></div>
     <div class="cate_list">
@@ -51,8 +52,8 @@ if (isset($_GET['do']) && $_GET['do'] == 'edit') {
             <li>
                 <span class="left title_x"><h1><a href="<?=strpos($_SERVER['REQUEST_URI'], 'firstCateID') ? 'javascript:void(0);' :$_SERVER['REQUEST_URI'].'&firstCateID='.$v['Category_ID']?>" title="点击显示子分类"><?=$v['Category_Name']?></a></h1></span>
                 <span class="right edit_x" style="<?=$editFlag ? '' : 'display: none;'?>">
+                    <i class="fa fa-pencil fa-x" aria-hidden="true" cateName="<?=$v['Category_Name']?>" cateID="<?=$v['Category_ID']?>"></i>
                 	<i class="fa fa-trash-o fa-x" aria-hidden="true" del_id="<?=$v['Category_ID']?>"></i>
-                    <i class="fa fa-check-square-o fa-x" aria-hidden="true" cateName="<?=$v['Category_Name']?>" cateID="<?=$v['Category_ID']?>"></i>
                 </span>
                 <div class="clear"></div>
             </li>

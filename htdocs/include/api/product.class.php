@@ -49,7 +49,7 @@ class product extends base
     }
 
     /**
-     * 获取产品详情信息
+     * 获取产品分类详情信息
      * @param  int $product_id [description]
      * @return array             [description]
      */

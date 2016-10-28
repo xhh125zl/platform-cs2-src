@@ -2,12 +2,17 @@
 require_once "../config.inc.php";
 require_once(CMS_ROOT . '/include/api/product.class.php');
 require_once(CMS_ROOT . '/include/api/b2cshopconfig.class.php');
+require_once(CMS_ROOT . '/include/api/ImplOrder.class.php');
 
 function productsAdd($data){
     global $DB;
     $postdata = $DB->GetRs('shop_products', '*', "where Products_FromId = " . (int)$data['Products_FromID']);
     //注销掉Users_ID,需要根据Users_Account到401去查找对应的Users_ID
     unset($postdata['Users_ID'], $postdata['Products_ID']);
+    //图片路径处理
+    $postdata['Products_JSON'] = stripcslashes($postdata['Products_JSON']);
+    $postdata['Products_JSON'] = str_replace(SHOP_URL, '/', $postdata['Products_JSON']);
+    
     $postdata['Users_Account'] = $_SESSION['Biz_Account'];
     $postdata['Products_Category'] = ','.(int)$data['firstCate']. ',' . $data['secondCate'] . ',';
     $transfer = ['productData' => $postdata];
@@ -50,7 +55,7 @@ function check_number($value, $type = 0) {
 if (isset($_GET['action']) && $_GET['action'] == 'addProducts') {     //分销其他商家的商品
     $flag = productsAdd($_GET);
     if ($flag) {
-        echo json_encode(['errorCode' => 0, 'msg' => '上架成功'], JSON_UNESCAPED_UNICODE);
+        echo json_encode(['errorCode' => 0, 'msg' => '上架成功']);
     } else {
         echo json_encode(['errorCode' => 101, 'msg' => '上架失败']);
     }
@@ -65,12 +70,14 @@ if (isset($_POST['act']) && $_POST['act'] == 'addEditProduct') {
 
     //封面图片路径处理
     $imsge_path['ImgPath'] = explode(',' ,$input_productData['Products_JSON']);
-    $input_productData['Products_JSON'] = json_encode($imsge_path,JSON_UNESCAPED_UNICODE);
+    $input_productData['Products_JSON'] = json_encode($imsge_path,JSON_UNESCAPED_SLASHES);
     //商品详情处理  图片，内容
-    $des_img = explode(',' ,$input_productData['Products_JSON1']);
     $img_show = '';
-    foreach ($des_img as $k => $v) {
-        $img_show .= '<br/><img src="'.$v.'"/>';
+    if ($input_productData['Products_JSON1'] != '') {
+        $des_img = explode(',' ,$input_productData['Products_JSON1']);
+        foreach ($des_img as $k => $v) {
+            $img_show .= '<br/><img src="'.$v.'"/>';
+        }
     }
     $input_productData['Products_Description'] = cleanJsCss($input_productData['Products_Description']);    //商品详情描述
     $input_productData['Products_Description'] = preg_replace('/\n|\r/', "<br/>", $input_productData['Products_Description']);
@@ -82,8 +89,6 @@ if (isset($_POST['act']) && $_POST['act'] == 'addEditProduct') {
     //$input_productData['Products_Index'] = 1/9999;    //产品排序
     //$input_productData['Products_Type'] = 0/n;        //产品类型
     $input_productData['Products_SoldOut'] = 0;         //其他属性  不能为空  1: 下架
-    //$input_productData['Products_IsPaysBalance'] = 0/1;       //特殊属性  余额支付
-    //$input_productData['Products_IsShow'] = 0/1;      //特殊属性  是否显示
     //$input_productData['Products_IsVirtual'] = 1;     //订单流程      0,0  1,0  1,1 
     //$input_productData['Products_IsRecieve'] = 1;
     //$input_productData['Products_Parameter'] = '[{"name":"","value":""}]';        //产品参数
@@ -103,6 +108,11 @@ if (isset($_POST['act']) && $_POST['act'] == 'addEditProduct') {
 
         if (!check_number($input_productData['Products_PriceS'])) {
             echo json_encode(array('errorCode' => 1, 'msg' => '填写的数据格式不正确'));die;
+        }
+        $PriceX = (float)$input_productData['Products_PriceX'];   //现价
+        $PriceS = (float)$input_productData['Products_PriceS'];   //供货价
+        if (($PriceX < $PriceS) || ($PriceX*0.7 > $PriceS)) {    //供货价为现价的 70% ~ 100%
+            echo json_encode(array('errorCode' => 1, 'msg' => '供货价为现价的70% ~ 100%'));die;
         }
     } else {
         unset($input_productData['B2CProducts_Category']);
@@ -148,6 +158,29 @@ if (isset($_POST['act']) && $_POST['act'] == 'addEditProduct') {
             //判断推荐的可能，并操作
             if ($is_Tj == 0 && $old_is_Tj == 1 && $new_productData['isSolding'] == 0) {
                 //取消推荐
+                //判断是否有未完成订单
+                $res = ImplOrder::getOrders(['Biz_Account' => $BizAccount, 'Order_Status' => '<> 4']);
+                $orderList = [];
+                if (isset($res['errorCode']) && $res['errorCode'] == 0) {
+                    $orderList = $res['data'];
+                } else {
+                    echo json_encode(['errorCode' => 1, 'msg' => '获取订单列表失败']);
+                    die;
+                }
+                if (count($orderList) > 0) {
+                    foreach ($orderList as $k => $v) {
+                        foreach (json_decode($v['Order_CartList'], true) as $key => $val) {
+                            $proArr[] = $key;
+                            $proArr[] = $val[0]['Products_FromId'];
+                        }
+                    }
+                    $proArr = array_unique($proArr);
+                    if (in_array((int)$new_productData['Products_ID'], $proArr)) {
+                        echo json_encode(['errorCode' => 1, 'msg' => '当前有客户订单中包含此商品,并且订单状态不是已完成,不允许取消推荐!']);
+                        die;
+                    }
+                }
+                //没有未完成的订单，取消推荐
                 unset($new_productData['isSolding']);
                 $product_id = ['Products_ID' => $new_productData['Products_ID']];
                 $b2c_resArr = product::b2cProductDelete($product_id);
@@ -169,17 +202,21 @@ if (isset($_POST['act']) && $_POST['act'] == 'addEditProduct') {
             if (isset($b2c_resArr)) {
                 if ($b2c_resArr['errorCode'] == 0) {
                     echo json_encode(['errorCode' => 0, 'msg' => '编辑成功', 'url' => 'http://'.$_SERVER['HTTP_HOST'].'/user/admin.php?act=products'], JSON_UNESCAPED_UNICODE);
+                    die;
                 } else {
                     //推荐编辑不成功，做数据还原处理
                     $postdata['productdata'] = $old_productData;
                     $rock_resArr = product::editProductTo401($postdata);
                     echo json_encode(['errorCode' => 1, 'msg' => 'b2c编辑失败']);
+                    die;
                 }
             } else {
                 echo json_encode(['errorCode' => 0, 'msg' => '编辑成功', 'url' => 'http://'.$_SERVER['HTTP_HOST'].'/user/admin.php?act=products'], JSON_UNESCAPED_UNICODE);
+                die;
             }
         } else {
             echo json_encode(['errorCode' => 1, 'msg' => '401编辑失败']);
+            die;
         }
 
     }

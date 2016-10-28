@@ -2,10 +2,13 @@
 require_once "/config.inc.php";
 require_once(CMS_ROOT . '/include/api/product.class.php');
 require_once(CMS_ROOT . '/include/api/b2cshopconfig.class.php');
+require_once CMS_ROOT . '/include/api/product_category.class.php';
+require_once(CMS_ROOT . '/include/api/ImplOrder.class.php');
 
 //检查用户是否登录
 if(empty($BizAccount)){
     header("location:/user/login.php");
+    exit;
 }
 
 ?>
@@ -41,7 +44,7 @@ if ($users['errorCode'] == 0) {
     if ($bizData['expiresTime'] != 0 && $bizData['expiresTime'] < time()) {
         if ($bizData['need_charg'] == 1) {
             echo '<script>layer.open({content: "此项功能已到期,必须先交费才可以使用", shadeClose: false, btn: "确定", yes: function(){history.back();}});</script>';
-            exit();
+            exit;
         }
     }
     $rsBiz = b2cshopconfig::getVerifyconfig(['Biz_Account' => $BizAccount]);
@@ -54,12 +57,19 @@ if ($users['errorCode'] == 0) {
     exit;
 }
 
+//获取商家分类保证金
+$bizVerifyData = $rsBiz['bizData'];
+
+//获取平台分类
+$b2cCategory = product_category::get_all_category();
+
 //获取商品数据
 $product_id = 0;
 if (isset($_GET['product_id'])) {
     $product_id = $_GET['product_id'];
 } else {
     echo '<script>layer.open({content: "商品id获取失败", shadeClose: false, btn: "确定", yes: function(){history.back();}});</script>';
+    exit;
 }
 
 $postdata['Biz_Account'] = $BizAccount;
@@ -69,10 +79,12 @@ $resArr = product::getProductArr($postdata);
 //检测是否有数据
 if ($resArr['errorCode'] != 0 || empty($resArr['data']['Products_ID'])) {
     echo '<script>layer.open({content: "商品不存在，或获取数据失败", shadeClose: false, btn: "确定", yes: function(){history.back();}});</script>';
+    exit;
 }
 $productData = $resArr['data'];     //获取的产品参数
 if (isset($productData['Products_FromId']) && $productData['Products_FromId'] > 0) {
     echo '<script>layer.open({content: "分销商品不能编辑", shadeClose: false, btn: "确定", yes: function(){history.back();}});</script>';
+    exit;
 }
 
 function cutstr_html($string,$length=0,$ellipsis='…'){
@@ -159,6 +171,30 @@ foreach ($productData['Category401'] as $k => $v) {
     }
 }
 $cateName = $firstCateName.'，'.$secondCateName;
+
+//判断是否有未完成订单
+$res = ImplOrder::getOrders(['Biz_Account' => $BizAccount, 'Order_Status' => '<> 4']);
+$orderList = [];
+if (isset($res['errorCode']) && $res['errorCode'] == 0) {
+    $orderList = $res['data'];
+} else {
+    echo '<script>layer.open({content: "订单信息获取失败", shadeClose: false, btn: "确定", yes: function(){history.back();}});</script>';
+    die;
+}
+if (count($orderList) > 0) {
+    foreach ($orderList as $k => $v) {
+        foreach (json_decode($v['Order_CartList'], true) as $key => $val) {
+            $proArr[] = $key;
+            $proArr[] = $val[0]['Products_FromId'];
+        }
+    }
+    $proArr = array_unique($proArr);
+    if (in_array((int)$product_id, $proArr)) {
+        $productData['isSolding'] = 1;  //有未完成的订单，不能取消推荐
+    } else {
+        $productData['isSolding'] = 0;
+    }
+}
 
 ?>
 <div class="w">
@@ -294,7 +330,55 @@ $cateName = $firstCateName.'，'.$secondCateName;
                 <th>是否新品：</th>
                 <td><input class="toggle-switch" type="checkbox" name="IsNew" <?php if ($productData['Products_IsNew'] == 1) {echo 'checked="checked"';} else {echo '';} ?> ></td>
             </tr>
+            <tr>
+                <th>余额支付：</th>
+                <td><input class="toggle-switch" type="checkbox" name="IsPaysBalance" <?php if ($productData['Products_IsPaysBalance'] == 1) {echo 'checked="checked"';} else {echo '';} ?> ></td>
+            </tr>
+            <tr>
+                <th>是否显示：</th>
+                <td><input class="toggle-switch" type="checkbox" name="IsShow" <?php if ($productData['Products_IsShow'] == 1) {echo 'checked="checked"';} else {echo '';} ?> ></td>
+            </tr>
         </table>
+
+        <!-- 隐藏的平台分类列表 -->
+        <div id="cate_b2c" style="display:none;">
+            <div class="select_containers">
+                请选择一级分类：
+                <select name="b2c_firstCate" id="b2c_firstCate" style="color:15px; width:150px; height:30px; border:1px solid #ccc;">
+                    <option value="0">请选择一级分类</option>
+                    <?php
+                        if (!empty($b2cCategory)) {
+                            foreach ($b2cCategory as $k => $v) {
+                                //未达到分类保证金，和分类下无子分类的不显示
+                                if ($bizVerifyData['bond_free'] >= $v['Category_Bond'] && count($v['child']) > 0) {
+                                    echo '<option value="' . $v['Category_ID'].'">' . $v['Category_Name'] . '</option>';
+                                }
+                            }
+                        }
+                    ?>
+                </select><br/>
+                请选择二级分类：
+                <select name="b2c_secondCate" id="b2c_secondCate" style="color:15px; width:150px; height:30px; border:1px solid #ccc;">
+                    <option value="0">请选择二级分类</option>
+                </select>
+                <?php
+                    if (!empty($b2cCategory)) {
+                        foreach ($b2cCategory as $k => $v) {
+                            //未达到分类保证金，和分类下无子分类的不显示
+                            if ($bizVerifyData['bond_free'] >= $v['Category_Bond'] && count($v['child']) > 0) {
+                                echo '<div class="first_cate_'.$v['Category_ID'].'" style="display:none;">';
+                                foreach ($v['child'] as $kk => $vv) {
+                                    if ($bizVerifyData['bond_free'] >= $vv['Category_Bond']) {
+                                        echo '<option value="' . $vv['Category_ID'].'">' . $vv['Category_Name'] . '</option>';
+                                    }
+                                }
+                                echo '</div>';
+                            }
+                        }
+                    }
+                ?>
+            </div>
+        </div>
     </div>
     <div class="clear"></div>
     <div class="kb"></div>

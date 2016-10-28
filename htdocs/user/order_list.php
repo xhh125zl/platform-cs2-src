@@ -9,7 +9,7 @@ require_once CMS_ROOT . '/include/helper/tools.php';
 $p = isset($_GET['p']) ? (int)$_GET['p'] : 1;
 if ($p < 1) $p = 1;
 //每页显示个数
-$pageSize = 2;
+$pageSize = 10;
 
 $Order_Status = isset($_GET['status']) ? $_GET['status'] : 0;  //订单状态
 
