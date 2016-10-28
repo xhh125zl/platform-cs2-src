@@ -225,12 +225,23 @@ if ($users['errorCode'] == 0) {
     exit;
 }
 
-$rsBiz = b2cshopconfig::getVerifyconfig(['Biz_Account' => $BizAccount]);
-//获取商家分类保证金
-$bizVerifyData = $rsBiz['bizData'];
-
-//获取平台分类
-$b2cCategory = product_category::get_all_category();
+//获取商家自己的分类
+$res = product_category::getDev401firstCate($BizAccount);
+$Category = [];
+if (isset($res['errorCode']) && $res['errorCode'] == 0) {
+    foreach ($res['cateData'] as $k => $v) {
+        $result = product_category::getDev401SecondCate(['Biz_Account' => $BizAccount, 'firstCateID' => $v['Category_ID']]);
+        if (isset($result['errorCode']) && $result['errorCode'] == 0 && isset($result['cateData']) && count($result['cateData']) > 0) {
+            $res['cateData'][$k]['child'] = $result['cateData'];
+        } else {
+            unset($res['cateData'][$k]);
+        }
+    }
+    $Category = $res['cateData'];
+} else {
+    echo '<script>layer.open({content: "分类获取失败", shadeClose: false, btn: "确定", yes: function(){history.back();}});</script>';
+    exit;
+}
 
 ?>
 <div class="w">
@@ -288,37 +299,32 @@ $b2cCategory = product_category::get_all_category();
         </ul>
     </div>
 
-    <!-- 隐藏的平台分类列表 -->
-    <div id="cate_b2c" style="display:none;">
+    <!-- 隐藏的401分类列表 -->
+    <div id="cate" style="display:none;">
         <div class="select_containers">
             请选择一级分类：
-            <select name="b2c_firstCate" id="b2c_firstCate" style="font-size:15px; width:150px; height:30px; border:1px solid #ccc;">
+            <select name="firstCate" id="firstCate" style="font-size:15px; width:150px; height:30px; border:1px solid #ccc;">
                 <option value="0">请选择一级分类</option>
                 <?php
-                    if (!empty($b2cCategory)) {
-                        foreach ($b2cCategory as $k => $v) {
-                            //未达到分类保证金，和分类下无子分类的不显示
-                            if ($bizVerifyData['bond_free'] >= $v['Category_Bond'] && isset($v['child']) && count($v['child']) > 0) {
-                                echo '<option value="' . $v['Category_ID'].'">' . $v['Category_Name'] . '</option>';
-                            }
+                    if (!empty($Category)) {
+                        foreach ($Category as $k => $v) {
+                            echo '<option value="' . $v['Category_ID'].'">' . $v['Category_Name'] . '</option>';
                         }
                     }
                 ?>
             </select><br/>
             请选择二级分类：
-            <select name="b2c_secondCate" id="b2c_secondCate" style="font-size:15px; width:150px; height:30px; border:1px solid #ccc;">
+            <select name="secondCate" id="secondCate" style="font-size:15px; width:150px; height:30px; border:1px solid #ccc;">
                 <option value="0">请选择二级分类</option>
             </select>
             <?php
-                if (!empty($b2cCategory)) {
-                    foreach ($b2cCategory as $k => $v) {
-                        //未达到分类保证金，和分类下无子分类的不显示
-                        if ($bizVerifyData['bond_free'] >= $v['Category_Bond'] && isset($v['child']) && count($v['child']) > 0) {
+                if (!empty($Category)) {
+                    foreach ($Category as $k => $v) {
+                        //无子分类的不显示
+                        if (isset($v['child']) && count($v['child']) > 0) {
                             echo '<div class="first_cate_'.$v['Category_ID'].'" style="display:none;">';
                             foreach ($v['child'] as $kk => $vv) {
-                                if ($bizVerifyData['bond_free'] >= $vv['Category_Bond']) {
-                                    echo '<option value="' . $vv['Category_ID'].'">' . $vv['Category_Name'] . '</option>';
-                                }
+                                echo '<option value="' . $vv['Category_ID'].'">' . $vv['Category_Name'] . '</option>';
                             }
                             echo '</div>';
                         }
@@ -327,6 +333,7 @@ $b2cCategory = product_category::get_all_category();
             ?>
         </div>
     </div>
+
 </div>
 
 <div class="clear"></div>
@@ -450,7 +457,7 @@ if ($return['page']['hasNextPage'] == 'true') {
             var me = $(this);
             layer.open({
                 type:1,
-                content: $('#cate_b2c').html(),
+                content: $('#cate').html(),
                 title:[
                     '<span style="float:left">请选择要添加到的分类</span>',
                     'background-color:#f0f0f0;font-weight:bold;'
@@ -459,23 +466,23 @@ if ($return['page']['hasNextPage'] == 'true') {
                 btn: ['上架分销','返回重选'],
                 success: function(){
                     //分类联动菜单第二级
-                    $(document).on('change', '#b2c_firstCate', function(){
-                        $(this).nextAll('#b2c_secondCate').html('');
+                    $(document).on('change', '#firstCate', function(){
+                        $(this).nextAll('#secondCate').html('');
                         var first_cate_id = $(this).val();
                         var second_cate = $(this).nextAll('.first_cate_'+first_cate_id).html();
-                        $(this).nextAll('#b2c_secondCate').html(second_cate);
+                        $(this).nextAll('#secondCate').html(second_cate);
                     });
                 },
                 yes:function(index){
-                    var b2c_firstCate = $('.layui-m-layercont #b2c_firstCate').val();
-                    var b2c_secondCate = $('.layui-m-layercont #b2c_secondCate').val();
-                    if (b2c_firstCate > 0 && b2c_secondCate > 0) {
+                    var firstCate = $('.layui-m-layercont #firstCate').val();
+                    var secondCate = $('.layui-m-layercont #secondCate').val();
+                    if (firstCate > 0 && secondCate > 0) {
                         layer.open({type:2, shadeClose:false});
                         $.ajax({
                             url:"/user/lib/products.php",
                             type:"get",
                             timeout:6000,
-                            data:{"action":"addProducts", "Products_FromID":me.attr("data-FromID"), "firstCate":b2c_firstCate, "secondCate":b2c_secondCate},
+                            data:{"action":"addProducts", "Products_FromID":me.attr("data-FromID"), "firstCate":firstCate, "secondCate":secondCate},
                             dataType:"json",
                             success:function(data) {
                                 layer.closeAll();

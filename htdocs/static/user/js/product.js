@@ -214,6 +214,7 @@ $(function(){
             btn:['确认'],
         })
     });
+
     //点击推荐到批发商城选择分类进行的操作
     $("#test1").click(function(){
         var me = $(this);
@@ -260,7 +261,7 @@ $(function(){
         var me = $(this);
         layer.open({
             type:1,
-            content:"<div class=\"select_containers\">请选择一级分类:<select name=\"firstCate\" class=\"select\" id=\"firstCate\"><option value=\"0\">请选择顶级分类</option></select><br/>请选择二级分类:</div>",
+            content: $('#cate').html(),
             title:[
                 '<span style="float:left">请选择要添加到的分类</span><span style="float: right"><a href="/user/admin.php?act=my_cate">分类管理</a></span>',
                 'background-color:#f0f0f0;font-weight:bold;'
@@ -268,61 +269,28 @@ $(function(){
             style: 'width:100%;position:fixed;bottom:0;left:0;border-radius:8px;',
             btn:['确定','重选'],
             success: function(){
-                //分类联动菜单第一级
-                $.ajax({
-                    type:"get",
-                    url:"/user/lib/category.php",
-                    data:{"action":"fCate"},
-                    dataType:'json',
-                    success:function(data){
-                        $.each(data,function(i,n){
-                            var option="<option value='"+ n.Category_ID+"'>"+ n.Category_Name+"</option>";
-                            $("#firstCate").append(option);
-                        })
-                    }
-                });
                 //分类联动菜单第二级
                 $(document).on('change', '#firstCate', function(){
-                    $('.select_containers #secondCate').remove();
-                    var me = $(this);
-                    $.getJSON("/user/lib/category.php",{"action":"sCate","fcateID":me.val()},function(data){
-                        if(data){
-                            if($(".select_containers #secondCate").length<=0){
-                                var sel="<select name=\"secondCate\" class=\"select\" id=\"secondCate\"></select>"
-                                $(".select_containers").append(sel);
-                            }
-                            $(".select_containers #secondCate").empty();
-                            $.each(data, function(i, n){
-                                var option="<option value='"+ n.Category_ID+"'>"+n.Category_Name+"</option>";
-                                $(".select_containers #secondCate").append(option);
-                            });
-                        }else{
-                            if($(".select_containers #secondCate").length>0){
-                                $(".select_containers #secondCate").remove();
-                            }
-                        }
-                    });
+                    $(this).nextAll('#secondCate').html('');
+                    var first_cate_id = $(this).val();
+                    var second_cate = $(this).nextAll('.first_cate_'+first_cate_id).html();
+                    $(this).nextAll('#secondCate').html(second_cate);
                 });
             },
             yes:function(index){
-                if ($("#secondCate").length > 0) {
-                    var firstCate = $("#firstCate").val();
-                    var secondCate = $("#secondCate").val();
-                    var firstCate_name = $("#firstCate").find('option:selected').text();
-                    var secondCate_name = $("#secondCate").find('option:selected').text();
+                var firstCate = $('.layui-m-layercont #firstCate').val();
+                var secondCate = $('.layui-m-layercont #secondCate').val();
+                var firstCate_name = $('.layui-m-layercont #firstCate option:selected').text();
+                var secondCate_name = $('.layui-m-layercont #secondCate option:selected').text();
+                if (firstCate > 0 && secondCate > 0) {
+                    layer.closeAll();
                     $('#category').attr('firstCate', firstCate);
                     $('#category').attr('secondCate', secondCate);
                     $('#category').html(firstCate_name+'，'+secondCate_name);
-                    layer.close(index);
                 }else{
                     layer.open({
-                        type:0,
-                        title:"提示信息",
-                        content:"商品应放在二级分类下,如您对应的上级分类还没有二级分类,请点击添加分类按钮进行分类添加操作!",
-                        btn:['添加分类','取消'],
-                        yes:function(){
-                            location.reload();
-                        }
+                        content: '没有完成分类选择，请完成',
+                        btn: '确定'
                     });
                 }
             }

@@ -469,5 +469,5 @@ input.btnsubmit{ width:96%; margin:10px auto; background:#ff5500; color:#fff; te
 .msg_list ul li a p{ color:#666;}
 
 /*未读消息标记*/
-.slideTxtBox .msg_x .msg_mark {font-size: 12px; color: red;}
-.slideTxtBox .msg_list .msg_mark {font-size: 12px; color: red;}
+.slideTxtBox .msg_x .msg_mark {font-size: 10px; color: red;}
+.slideTxtBox .msg_list .msg_mark {font-size: 10px; color: red;}
