@@ -27,7 +27,7 @@ if (isset($_GET['ajax']) && $_GET['ajax'] == 1) {
             //图片路径处理
             $res['data']['Products_JSON'] = stripcslashes($res['data']['Products_JSON']);
             $res['data']['Products_JSON'] = str_replace(SHOP_URL, '/', $res['data']['Products_JSON']);
-            
+
             unset($res['data']['isSolding']);
             unset($res['data']['Category401']);
             $result = product::editProductTo401(['productdata' => $res['data']]);
@@ -55,9 +55,6 @@ if (isset($_GET['ajax']) && $_GET['ajax'] == 1) {
         $orderList = [];
         if (isset($res['errorCode']) && $res['errorCode'] == 0) {
             $orderList = $res['data'];
-        } else {
-            echo json_encode(['errorCode' => 1, 'msg' => '获取订单列表失败']);
-            die;
         }
         if (count($orderList) > 0) {
             foreach ($orderList as $k => $v) {
@@ -74,8 +71,9 @@ if (isset($_GET['ajax']) && $_GET['ajax'] == 1) {
         }
         //没有未完成订单，做删除处理
         $res = product::delete(['Biz_Account' => $BizAccount, 'Products_ID' => $pid]);
+        $b2c_res = product::b2cProductDelete(['Products_ID' => $pid]);
 
-        if (isset($res['errorCode']) && $res['errorCode'] == 0) {
+        if (isset($res['errorCode']) && $res['errorCode'] == 0 && isset($b2c_res['errorCode']) && $b2c_res['errorCode'] == 0) {
             echo json_encode(['errorCode' => 0, 'msg' => '删除成功']);
             die;
         } else {
