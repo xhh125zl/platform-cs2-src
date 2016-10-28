@@ -205,7 +205,7 @@ if (isset($_POST['ajax']) && $_POST['ajax'] == 1) {
 <meta name="app-mobile-web-app-capable" content="yes"> 
 <title>商品管理</title>
 </head>
-<link href="../static/user/css/product.css" type="text/css" rel="stylesheet">
+<link href="../static/user/css/product.css?t=<?php echo time(); ?>" type="text/css" rel="stylesheet">
 <link href="../static/user/css/font-awesome.min.css" type="text/css" rel="stylesheet">
 <script type="text/javascript" src="../static/js/jquery-1.7.2.min.js"></script>
 <script type="text/javascript" src="../static/js/template.js"></script>
