@@ -150,10 +150,10 @@ if ($_POST) {
     <div class="slideTxtBox">
         <div class="hd msg_x">
             <ul>
-                <a href="?act=msg_system"><li class="<?php if(isset($_GET['act']) && $_GET['act'] == 'msg_system') { echo 'on'; } ?>"><span style="color:red;"><?php if ($unread_system_nums > 0) {echo '● ';} ?></span>系统</li></a>
-                <a href="?act=msg_order"><li class="<?php if(isset($_GET['act']) && $_GET['act'] == 'msg_order') { echo 'on'; } ?>"><span style="color:red;"><?php if ($unread_order_nums > 0) {echo '● ';} ?></span>订单</li></a>
-                <a href="?act=msg_distribute"><li class="<?php if(isset($_GET['act']) && $_GET['act'] == 'msg_distribute') { echo 'on'; } ?>"><span style="color:red;"><?php if ($unread_distribute_nums > 0) {echo '● ';} ?></span>分销</li></a>
-                <a href="?act=msg_withdraw"><li class="<?php if(isset($_GET['act']) && $_GET['act'] == 'msg_withdraw') { echo 'on'; } ?>"><span style="color:red;"><?php if ($unread_withdraw_nums > 0) {echo '● ';} ?></span>提现</li></a>
+                <a href="?act=msg_system"><li class="<?php if(isset($_GET['act']) && $_GET['act'] == 'msg_system') { echo 'on'; } ?>"><span class="msg_mark"><?php if ($unread_system_nums > 0) {echo '● ';} ?></span>系统</li></a>
+                <a href="?act=msg_order"><li class="<?php if(isset($_GET['act']) && $_GET['act'] == 'msg_order') { echo 'on'; } ?>"><span class="msg_mark"><?php if ($unread_order_nums > 0) {echo '● ';} ?></span>订单</li></a>
+                <a href="?act=msg_distribute"><li class="<?php if(isset($_GET['act']) && $_GET['act'] == 'msg_distribute') { echo 'on'; } ?>"><span class="msg_mark"><?php if ($unread_distribute_nums > 0) {echo '● ';} ?></span>分销</li></a>
+                <a href="?act=msg_withdraw"><li class="<?php if(isset($_GET['act']) && $_GET['act'] == 'msg_withdraw') { echo 'on'; } ?>"><span class="msg_mark"><?php if ($unread_withdraw_nums > 0) {echo '● ';} ?></span>提现</li></a>
             </ul>
         </div>
         <div class="msg_list">
@@ -164,7 +164,7 @@ if ($_POST) {
                 ?>
                 <li>
                     <a href='javascript:;' class="msgs" value="<?php echo $v['Announce_ID']; ?>" status="<?php echo $v['read_status']; ?>">
-                        <p><span style="color:red;"><?php if ($v['read_status'] == 0) {echo '● ';} ?></span><?php if (!empty($v['Category_Name'])) {echo '【'.$v['Category_Name'].'】'; } ?><?php echo $v['Announce_Title']; ?></p>
+                        <p><span class="msg_mark"><?php if ($v['read_status'] == 0) {echo '● ';} ?></span><?php if (!empty($v['Category_Name'])) {echo '【'.$v['Category_Name'].'】'; } ?><?php echo $v['Announce_Title']; ?></p>
                         <p><?php echo $v['Announce_CreateTime']; ?></p>
                     </a>
                     <div class="msg_content" style="display:none;">
@@ -190,7 +190,7 @@ if ($_POST) {
 {{each data as v i}}
     <li>
         <a href='javascript:;' class="msgs" value="{{v.Announce_ID}}" status="{{v.read_status}}">
-            <p><span style="color:red;">{{if v.read_status == 0}}● {{/if}}</span>{{if v.Category_Name != ''}}【{{v.Category_Name}}】{{/if}}{{v.Announce_Title}}</p>
+            <p><span class="msg_mark">{{if v.read_status == 0}}● {{/if}}</span>{{if v.Category_Name != ''}}【{{v.Category_Name}}】{{/if}}{{v.Announce_Title}}</p>
             <p>{{v.Announce_CreateTime}}</p>
         </a>
         <div class="msg_content" style="display:none;">

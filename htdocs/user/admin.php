@@ -1,5 +1,5 @@
 <?php
-include './config.inc.php';
+include 'config.inc.php';
 include USER_PATH . './lib/global.func.php';
 
 //检查是否已登录
