@@ -112,7 +112,7 @@ if ($_POST) {
     <meta name="app-mobile-web-app-capable" content="yes">
     <title>提现消息</title>
 </head>
-<link href="../static/user/css/product.css" type="text/css" rel="stylesheet">
+<link href="../static/user/css/product.css?t=<?php echo time(); ?>" type="text/css" rel="stylesheet">
 <link href="../static/user/css/font-awesome.min.css" type="text/css" rel="stylesheet">
 <script type="text/javascript" src="../static/user/js/jquery-1.8.3.min.js"></script>
 <script type="text/javascript" src="../static/user/js/layer.js"></script>

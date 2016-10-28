@@ -20,13 +20,13 @@ if(empty($BizAccount)){
     <meta name="app-mobile-web-app-capable" content="yes">
     <title>编辑产品</title>
 </head>
-<link href="../static/user/css/product.css" type="text/css" rel="stylesheet">
+<link href="../static/user/css/product.css?t=<?php echo time(); ?>" type="text/css" rel="stylesheet">
 <link href="../static/user/css/font-awesome.min.css" type="text/css" rel="stylesheet">
 <script type="text/javascript" src="../static/user/js/jquery-1.8.3.min.js"></script>
 <script type="text/javascript" src="../static/user/js/layer.js"></script>
 <script  type="text/javascript"  src="../static/user/js/jquery.uploadView.js"></script>
 <script  type="text/javascript"  src="../static/user/js/jquery.uploadView1.js"></script>
-<script  type="text/javascript"  src="../static/user/js/product.js"></script>
+<script  type="text/javascript"  src="../static/user/js/product.js?t=<?php echo time(); ?>"></script>
 <style type="text/css">
     .btn-upload {width: 43px;height: 43px;position: relative; float: left; border:1px #999 dashed; margin-left: 10px; }
     .btn-upload a {display: block;width: 43px;line-height: 43px;text-align: center;color: #4c4c4c;background: #fff;}
@@ -350,7 +350,7 @@ if (count($orderList) > 0) {
                         if (!empty($b2cCategory)) {
                             foreach ($b2cCategory as $k => $v) {
                                 //未达到分类保证金，和分类下无子分类的不显示
-                                if ($bizVerifyData['bond_free'] >= $v['Category_Bond'] && count($v['child']) > 0) {
+                                if ($bizVerifyData['bond_free'] >= $v['Category_Bond'] && isset($v['child']) && count($v['child']) > 0) {
                                     echo '<option value="' . $v['Category_ID'].'">' . $v['Category_Name'] . '</option>';
                                 }
                             }
@@ -365,7 +365,7 @@ if (count($orderList) > 0) {
                     if (!empty($b2cCategory)) {
                         foreach ($b2cCategory as $k => $v) {
                             //未达到分类保证金，和分类下无子分类的不显示
-                            if ($bizVerifyData['bond_free'] >= $v['Category_Bond'] && count($v['child']) > 0) {
+                            if ($bizVerifyData['bond_free'] >= $v['Category_Bond'] && isset($v['child']) && count($v['child']) > 0) {
                                 echo '<div class="first_cate_'.$v['Category_ID'].'" style="display:none;">';
                                 foreach ($v['child'] as $kk => $vv) {
                                     if ($bizVerifyData['bond_free'] >= $vv['Category_Bond']) {

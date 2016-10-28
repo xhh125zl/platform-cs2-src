@@ -298,7 +298,7 @@ $b2cCategory = product_category::get_all_category();
                     if (!empty($b2cCategory)) {
                         foreach ($b2cCategory as $k => $v) {
                             //未达到分类保证金，和分类下无子分类的不显示
-                            if ($bizVerifyData['bond_free'] >= $v['Category_Bond'] && count($v['child']) > 0) {
+                            if ($bizVerifyData['bond_free'] >= $v['Category_Bond'] && isset($v['child']) && count($v['child']) > 0) {
                                 echo '<option value="' . $v['Category_ID'].'">' . $v['Category_Name'] . '</option>';
                             }
                         }
@@ -313,7 +313,7 @@ $b2cCategory = product_category::get_all_category();
                 if (!empty($b2cCategory)) {
                     foreach ($b2cCategory as $k => $v) {
                         //未达到分类保证金，和分类下无子分类的不显示
-                        if ($bizVerifyData['bond_free'] >= $v['Category_Bond'] && count($v['child']) > 0) {
+                        if ($bizVerifyData['bond_free'] >= $v['Category_Bond'] && isset($v['child']) && count($v['child']) > 0) {
                             echo '<div class="first_cate_'.$v['Category_ID'].'" style="display:none;">';
                             foreach ($v['child'] as $kk => $vv) {
                                 if ($bizVerifyData['bond_free'] >= $vv['Category_Bond']) {
@@ -457,7 +457,6 @@ if ($return['page']['hasNextPage'] == 'true') {
                 ],
                 style: 'width:100%;position:fixed;bottom:0;left:0;border-radius:8px;',
                 btn: ['上架分销','返回重选'],
-                shadeClose:false,
                 success: function(){
                     //分类联动菜单第二级
                     $(document).on('change', '#b2c_firstCate', function(){
