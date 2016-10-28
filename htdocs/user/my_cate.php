@@ -3,7 +3,7 @@ require_once CMS_ROOT . '/include/api/product_category.class.php';
 require_once CMS_ROOT . '/include/helper/tools.php';
 
 $mark = false;  //标识是否为二级分类页面
-if (isset($_GET['firstCateID']) && $_GET['firstCateID'] > 0) {
+/*if (isset($_GET['firstCateID']) && $_GET['firstCateID'] > 0) {
     $mark = true;
     $data = [
         'Biz_Account' => $BizAccount,
@@ -18,13 +18,21 @@ if (isset($result['cateData'])) {
     $cateArr = $result['cateData'];
 } else {
     $cateArr = [];
+}*/
+
+//获取商家自己的分类
+$res = product_category::getDev401firstCate($BizAccount);
+$Category = [];
+if (isset($res['errorCode']) && $res['errorCode'] == 0) {
+    foreach ($res['cateData'] as $k => $v) {
+        $result = product_category::getDev401SecondCate(['Biz_Account' => $BizAccount, 'firstCateID' => $v['Category_ID']]);
+        if (isset($result['errorCode']) && $result['errorCode'] == 0 && isset($result['cateData']) && count($result['cateData']) > 0) {
+            $res['cateData'][$k]['child'] = $result['cateData'];
+        }
+    }
+    $Category = $res['cateData'];
 }
 
-//编辑分类
-$editFlag = false;
-if (isset($_GET['do']) && $_GET['do'] == 'edit') {
-    $editFlag = true;
-}
 ?>
 <!doctype html>
 <html>
@@ -48,42 +56,49 @@ if (isset($_GET['do']) && $_GET['do'] == 'edit') {
 <body>
 <div class="w">
     <div style="text-align:center; line-height:30px; background:#fff; padding:5px 0">
-        <span class="l"><a href="<?=strpos($_SERVER['REQUEST_URI'],'firstCateID') ? substr($_SERVER['REQUEST_URI'],0,strrpos($_SERVER['REQUEST_URI'],'&')) : 'javascript:history.back();' ?>"><img src="../static/user/images/gdx.png" width="30" height="30" style=""></a></span>分类管理
-        <!-- <a class="r" id="addCate"><i class="fa fa-plus-square fa-2x" aria-hidden="true" style="color:#ff5500"></i></a> -->
+        <span class="l"><a href="javascript:history.back();"><img src="../static/user/images/gdx.png" width="30" height="30" style=""></a></span>分类管理
+        <a class="r" id="addCate"><i class="fa fa-plus-square fa-2x" aria-hidden="true" style="color:#ff5500"></i></a>
     </div>
     <div class="clear"></div>
     <div class="cate_list">
-        <input type="hidden" name="firstCateID" value="<?=isset($_GET['firstCateID']) ? $_GET['firstCateID'] : 0?>"/>
         <ul>
-            <?
-                foreach($cateArr as $v) {
-            ?>
+            <?php if (!empty($Category)) { foreach($Category as $k => $v) { ?>
             <li>
-                <span class="left title_x"><h1><a href="<?php echo $mark ? 'javascript:void(0);' : $_SERVER['REQUEST_URI'].'&firstCateID='.$v['Category_ID']; ?>" title="点击显示子分类"><?=$v['Category_Name']?></a></h1></span>
-                <span class="right edit_x" style="display: none;">
+                <span class="left title_x firstCate" firstCateId="<?php echo $v['Category_ID']; ?>" value="0">
+                    <h1>
+                        <?php if (isset($v['child']) && count($v['child']) > 0) {echo '<i class="fa fa-plus-square fa-x" aria-hidden="true"></i>';} ?>
+                        <a href="javascript:;"><?php echo $v['Category_Name']; ?></a>
+                    </h1>
+                </span>
+                <span class="right edit_x">
+                    <i class="fa fa-plus-square fa-x" aria-hidden="true" del_id="<?=$v['Category_ID']?>"></i>
                     <i class="fa fa-pencil fa-x" aria-hidden="true" cateName="<?=$v['Category_Name']?>" cateID="<?=$v['Category_ID']?>"></i>
                 	<i class="fa fa-trash-o fa-x" aria-hidden="true" del_id="<?=$v['Category_ID']?>"></i>
                 </span>
                 <div class="clear"></div>
             </li>
-            <?}?>
+                <?php if (isset($v['child']) && !empty($v['child'])) { foreach ($v['child'] as $kk => $vv) { ?>
+                <li class="secondCate secondCate_<?php echo $v['Category_ID']; ?>" style="display:none;">
+                    <span class="left title_x">
+                        <h1 style="margin-left: 30px;"><a href="javascript:;"><?php echo $vv['Category_Name']; ?></a></h1>
+                    </span>
+                    <span class="right edit_x">
+                        <i class="fa fa-pencil fa-x" aria-hidden="true" cateName="<?php echo $vv['Category_Name']; ?>" cateID="<?php echo $vv['Category_ID']; ?>"></i>
+                        <i class="fa fa-trash-o fa-x" aria-hidden="true" del_id="<?php echo $v['Category_ID']; ?>"></i>
+                    </span>
+                    <div class="clear"></div>
+                </li>
+                <?php }} ?>
+            <?php }} ?>
         </ul>
     </div>
     <div class="clear"></div>
-    <div class="kb"></div>
-    <div class="bottom_x">
-        <div class="foot_nav1">
-            <ul>
-                <li id="addCate"><i class="fa fa-plus-square fa-x" aria-hidden="true" style="font-size:16px; color:#ff5500"></i>&nbsp;添加分类</li>
-                <li><i class="fa fa-check-square fa-x" aria-hidden="true" style="font-size:16px; color:#ff5500"></i>&nbsp;<a href="javascript:;" id="editCate" value="0">编辑分类</a></li>
-            </ul>
-        </div>
-    </div>
 </div>
 </body>
 </html>
 <script type="text/javascript">
     $(function(){
+        //编辑分类
         $('#editCate').click(function(){
             var value = $(this).attr('value');
             if (value == 0) {
@@ -94,6 +109,19 @@ if (isset($_GET['do']) && $_GET['do'] == 'edit') {
                 $('.edit_x').attr('style', 'display:none;');
                 $(this).attr('value', '0');
                 $(this).html('编辑分类');
+            }
+        });
+        //显示子分类
+        $(document).on('click', '.firstCate' ,function(){
+            var firstCateId = $(this).attr('firstCateId');
+            var secondCate_style = $(this).attr('value');
+            if (secondCate_style == 0) {
+                $('.secondCate').slideUp(300, function(){   //收起
+                    $(this).attr('value', '0');
+                });
+                $('.secondCate_'+firstCateId).slideDown(300, function(){    //展开
+                    $(this).attr('value', '1');
+                });
             }
         });
     });
