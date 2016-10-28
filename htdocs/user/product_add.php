@@ -20,8 +20,8 @@ if(empty($BizAccount)){
 </head>
 <link href="../static/user/css/product.css" type="text/css" rel="stylesheet">
 <link href="../static/user/css/font-awesome.min.css" type="text/css" rel="stylesheet">
-<!-- <script type="text/javascript" src="../static/user/js/jquery-1.8.3.min.js"></script> -->
-<script type="text/javascript" src="../static/js/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="../static/user/js/jquery-1.8.3.min.js"></script>
+<!-- <script type="text/javascript" src="../static/js/jquery-1.11.1.min.js"></script> -->
 <script type="text/javascript" src="../static/user/js/layer.js"></script>
 <script  type="text/javascript"  src="../static/user/js/jquery.uploadView.js"></script>
 <script  type="text/javascript"  src="../static/user/js/jquery.uploadView1.js"></script>
@@ -80,12 +80,38 @@ if ($users['errorCode'] == 0) {
     exit;
 }
 
-$rsBiz = b2cshopconfig::getVerifyconfig(['Biz_Account' => $BizAccount]);
 //获取商家分类保证金
 $bizVerifyData = $rsBiz['bizData'];
 
 //获取平台分类
 $b2cCategory = product_category::get_all_category();
+
+//获取商家自己的分类
+$res = product_category::getDev401firstCate($BizAccount);
+$Category = [];
+$tag = 0;
+/*if (isset($res['errorCode']) && $res['errorCode'] == 0) {
+    foreach ($res['cateData'] as $k => $v) {
+        $result = product_category::getDev401SecondCate(['Biz_Account' => $BizAccount, 'firstCateID' => $v['Category_ID']]);
+        if ($result['errorCode'] == 0) {
+            if (count($result['cateData']) > 0) {
+                $res['cateData'][$k]['child'] = $result['cateData'];
+            }
+        } else {
+            $tag++;
+        }
+    }
+    if ($tag != 0) {
+        echo '<script>layer.open({content: "分类获取失败1", shadeClose: false, btn: "确定", yes: function(){history.back();}});</script>';
+        exit;
+    } else {
+        $Category = $res['cateData'];
+    }
+} else {
+    echo '<script>layer.open({content: "分类获取失败", shadeClose: false, btn: "确定", yes: function(){history.back();}});</script>';
+    exit;
+}*/
+//print_r($Category);die;
 
 ?>
 <div class="w">

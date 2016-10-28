@@ -130,7 +130,7 @@ if (isset($_GET['isDistribute']) && $_GET['isDistribute'] == 1) {
 $p = isset($_GET['p']) ? (int)$_GET['p'] : 1;
 if ($p < 1) $p = 1;
 //每页显示个数
-$pageSize = 2;
+$pageSize = 10;
 
 $data = ['pageSize' => $pageSize,'Users_Account' => $BizAccount];
 $result = product::search($p ,$condition, $data);
