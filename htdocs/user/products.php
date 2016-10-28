@@ -133,7 +133,7 @@ if ($sortMethod == 'asc') {
 $p = isset($_GET['p']) ? (int)$_GET['p'] : 1;
 if ($p < 1) $p = 1;
 
-$pageSize = 10;     //每页显示
+$pageSize = 5;     //每页显示
 $map = [];
 
 $data = [
@@ -485,7 +485,6 @@ $(function(){
 			if ($("#pagemore").html() == '已经没有了...') {
 				return false;
 			} else {
-                console.log('click');
                 //模拟点击
                 $("#pagemore a").trigger('click');
             }
