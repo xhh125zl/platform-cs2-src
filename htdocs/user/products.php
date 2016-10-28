@@ -24,6 +24,10 @@ if (isset($_GET['ajax']) && $_GET['ajax'] == 1) {
                 echo json_encode(['errorCode' => 1, 'msg' => '非法操作']);
                 die;
             }
+            //图片路径处理
+            $res['data']['Products_JSON'] = stripcslashes($res['data']['Products_JSON']);
+            $res['data']['Products_JSON'] = str_replace(SHOP_URL, '/', $res['data']['Products_JSON']);
+            
             unset($res['data']['isSolding']);
             unset($res['data']['Category401']);
             $result = product::editProductTo401(['productdata' => $res['data']]);
