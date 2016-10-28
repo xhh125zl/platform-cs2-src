@@ -52,7 +52,7 @@ $actionArr = [
 ];
 
 if (! in_array($act, $actionArr)) {
-	$act = 'products';
+	$act = 'store';
 }
 
 

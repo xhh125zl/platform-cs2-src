@@ -1,6 +1,7 @@
 <?php
 if (!defined('USER_PATH')) exit();
 
+require_once CMS_ROOT . '/include/api/const.php';
 require_once CMS_ROOT . '/include/api/product_category.class.php';
 require_once CMS_ROOT . '/include/helper/page.class.php';
 
