@@ -90,6 +90,11 @@ require_once($_SERVER['DOCUMENT_ROOT'] . '/include/api/b2cshopconfig.class.php')
                             'msg' => '绑定成功',
                             'url' => 'admin.php?act=store&time=' . $time . '&bizID=' . $_SESSION["BIZ_ID"],
                         ];
+                    } elseif ($resArr['errorCode'] == 3) {
+                        $data = [
+                            'status' => 0,
+                            'msg' => $resArr['msg'],
+                        ];
                     } else {
                         $data = [
                             'status' => 0,
