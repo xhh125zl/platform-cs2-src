@@ -74,9 +74,9 @@ if (isset($_GET['do']) && $_GET['do'] == 'edit') {
 </body>
 <?
     if (strpos($_SERVER['REQUEST_URI'], 'firstCateID')) {?>
-        <script type="text/javascript" src="../static/user/js/mysecondCate.js"></script>
+        <script type="text/javascript" src="../static/user/js/mysecondCate.js?t=<?php echo time(); ?>"></script>
     <?} else {?>
-        <script type="text/javascript" src="../static/user/js/myfirstCate.js"></script>
+        <script type="text/javascript" src="../static/user/js/myfirstCate.js?t=<?php echo time(); ?>"></script>
     <?}
 ?>
 </html>

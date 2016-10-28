@@ -226,7 +226,6 @@ $(function(){
             ],
             style: 'width:100%;position:fixed;bottom:0;left:0;border-radius:8px;',
             btn:['确定','重选'],
-            shadeClose:false,
             success: function(){
                 //分类联动菜单第二级
                 $(document).on('change', '#b2c_firstCate', function(){
@@ -268,7 +267,6 @@ $(function(){
             ],
             style: 'width:100%;position:fixed;bottom:0;left:0;border-radius:8px;',
             btn:['确定','重选'],
-            shadeClose:false,
             success: function(){
                 //分类联动菜单第一级
                 $.ajax({
