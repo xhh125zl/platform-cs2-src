@@ -1,5 +1,5 @@
 <?php
-require_once "/config.inc.php";
+require_once "config.inc.php";
 require_once(CMS_ROOT . '/include/api/count.class.php');
 
 $postdata['Biz_Account'] = $BizAccount;

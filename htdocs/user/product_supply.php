@@ -1,5 +1,5 @@
 <?php
-require_once "/config.inc.php";
+require_once "config.inc.php";
 require_once(CMS_ROOT . '/include/api/b2cshopconfig.class.php');
 require_once CMS_ROOT . '/include/api/product_category.class.php';
 
@@ -190,7 +190,7 @@ $b2cCategory = product_category::get_all_category();
         <div id="cate_b2c" style="display:none;">
             <div class="select_containers">
                 请选择一级分类：
-                <select name="b2c_firstCate" id="b2c_firstCate" style="color:15px; width:150px; height:30px; border:1px solid #ccc;">
+                <select name="b2c_firstCate" id="b2c_firstCate" style="font-size:15px; width:150px; height:30px; border:1px solid #ccc;">
                     <option value="0">请选择一级分类</option>
                     <?php
                         if (!empty($b2cCategory)) {
@@ -204,7 +204,7 @@ $b2cCategory = product_category::get_all_category();
                     ?>
                 </select><br/>
                 请选择二级分类：
-                <select name="b2c_secondCate" id="b2c_secondCate" style="color:15px; width:150px; height:30px; border:1px solid #ccc;">
+                <select name="b2c_secondCate" id="b2c_secondCate" style="font-size:15px; width:150px; height:30px; border:1px solid #ccc;">
                     <option value="0">请选择二级分类</option>
                 </select>
                 <?php

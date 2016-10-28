@@ -91,7 +91,7 @@ $(function(){
 
 
     //编辑分类
-    $(".fa-check-square-o").click(function(){
+    $(".fa-pencil").click(function(){
         var me = $(this);
         var index = layer.open({
             title: [

@@ -1,5 +1,5 @@
 <?php
-require_once "/config.inc.php";
+require_once "config.inc.php";
 require_once(CMS_ROOT . '/include/api/count.class.php');
 
 //$BizInfo = $DB->GetRs('biz_apply', "*", "WHERE Users_ID='" . $UsersID . "' AND Biz_ID=" . $BizID);
