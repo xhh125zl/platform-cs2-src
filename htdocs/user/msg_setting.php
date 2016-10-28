@@ -164,6 +164,12 @@ if ($_POST) {
             }
         }
     }
+    
+    if ($result['errorCode'] == 0) {    //改变配置，删除缓存
+        $url = SHOP_URL.'api/update_cache.php?cacheType=msgconfig&bizAccount='.$BizAccount;
+        curlInterFace($url);
+    }
+    
     echo json_encode($result);
     die;
 }
@@ -179,6 +185,7 @@ if (empty($msg_config)) {
         $msg_config = $DB->GetRs("biz_msg_config", "*", "WHERE id=".$config_id);
     } else {
         echo '<script>alert("没有信息配置，生成配置数据失败。");history.back();</script>';
+        exit;
     }
 }
 

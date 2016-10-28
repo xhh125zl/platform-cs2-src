@@ -19,18 +19,18 @@ if ($inajax == 1) {
         ];
         
         $result = shopconfig::updatecolumn($data);
-
-        echo json_encode($result);
+        if (isset($result['errorCode']) && $result['errorCode'] == 0) {
+            $res = ['errorCode' => 0, 'msg' => '更新成功'];
+        } else {
+            $res = ['errorCode' => 1, 'msg' => '更新失败'];
+        }
+        echo json_encode($res);
     }
-
-    exit();
+    exit;
 }
 
 //获取配置信息
-$data = [
-    'Biz_Account' => $BizAccount,
-];
-$result = shopconfig::getConfig($data);
+$result = shopconfig::getConfig(['Biz_Account' => $BizAccount]);
 $config = $result['data'];
 
 ?>
@@ -53,7 +53,7 @@ $config = $result['data'];
     </div>
 	<div class="shop_share">
     	<img src="http://img0.bdstatic.com/img/image/shouye/xinshouye/toux.png">
-        <h3><textarea name="content" id="content" maxlength="250"><?php echo $config['ShopAnnounce'];?></textarea></h3>
+        <h3><textarea name="content" id="content" maxlength="250"  placeholder="请输入店铺公告"><?php echo $config['ShopAnnounce'];?></textarea></h3>
     </div> 
         <div class="sub_setting">
     	<input type="button" class="btnsubmit" value="保存">
@@ -64,10 +64,10 @@ $(function(){
     $(".btnsubmit").click(function(){
         var content = $("#content").val();
         $.post("?act=setting_announce&inajax=1&do=save", {content:content}, function(json){
-            if(json.errorCode == '0') {
-                layer.open({content:json.msg, time:2, end:function() {
-                     location.href="admin.php?act=setting";
-                }});
+            if (json.errorCode == 0) {
+                location.href="admin.php?act=setting";
+            } else {
+                layer.open({content: json.msg, shadeClose: false, btn: '确定'});
             }
         },'json');
     });

@@ -194,7 +194,7 @@ $(function(){
         } else {
             if (isSolding == 1) {
                 $('input[name="is_Tj"]').prop('checked', true);
-                layer.open({content: '此推荐商品有未完成订单，不允许撤销推荐'});
+                layer.open({content: '此推荐商品有未完成订单，不允许撤销推荐', time: 1});
                 return;
             }
             $('.is_Tj').attr('style', 'display:none;');
@@ -219,7 +219,7 @@ $(function(){
         var me = $(this);
         layer.open({
             type:1,
-            content:"<div class=\"select_containers\">请选择一级分类:<select name=\"b2c_firstCate\" class=\"select\" id=\"b2c_firstCate\"><option value=\"0\">请选择顶级分类</option></select><br/>请选择二级分类:</div>",
+            content: $('#cate_b2c').html(),
             title:[
                 '<span style="float:left">请选择要添加到的分类</span>',
                 'background-color:#f0f0f0;font-weight:bold;'
@@ -227,61 +227,30 @@ $(function(){
             style: 'width:100%;position:fixed;bottom:0;left:0;border-radius:8px;',
             btn:['确定','重选'],
             shadeClose:false,
+            success: function(){
+                //分类联动菜单第二级
+                $(document).on('change', '#b2c_firstCate', function(){
+                    $(this).nextAll('#b2c_secondCate').html('');
+                    var first_cate_id = $(this).val();
+                    var second_cate = $(this).nextAll('.first_cate_'+first_cate_id).html();
+                    $(this).nextAll('#b2c_secondCate').html(second_cate);
+                });
+            },
             yes:function(index){
-                if ($("#b2c_secondCate").length > 0) {
-                    var b2c_firstCate = $("#b2c_firstCate").val();
-                    var b2c_secondCate = $("#b2c_secondCate").val();
-                    var b2c_firstCate_name = $("#b2c_firstCate").find('option:selected').text();
-                    var b2c_secondCate_name = $("#b2c_secondCate").find('option:selected').text();
+                var b2c_firstCate = $('.layui-m-layercont #b2c_firstCate').val();
+                var b2c_secondCate = $('.layui-m-layercont #b2c_secondCate').val();
+                var b2c_firstCate_name = $('.layui-m-layercont #b2c_firstCate option:selected').text();
+                var b2c_secondCate_name = $('.layui-m-layercont #b2c_secondCate option:selected').text();
+                if (b2c_firstCate > 0 && b2c_secondCate > 0) {
+                    layer.closeAll();
                     $('#b2c_category').attr('firstCate', b2c_firstCate);
                     $('#b2c_category').attr('secondCate', b2c_secondCate);
                     $('#b2c_category').html(b2c_firstCate_name+'，'+b2c_secondCate_name);
-                    layer.close(index);
                 }else{
                     layer.open({
-                        type:0,
-                        title:"提示信息",
-                        content:"商品应放在二级分类下,如您对应的上级分类还没有二级分类,请点击添加分类按钮进行分类添加操作!",
-                        btn:['添加分类','取消'],
-                        yes:function(){
-                            location.reload();
-                        }
+                        content: '没有完成分类选择，请完成',
+                        btn: '确定'
                     });
-                }
-            }
-        });
-        //分类联动菜单第一级
-        $.ajax({
-            type:"get",
-            url:"/user/lib/category.php",
-            data:{"action":"fB2cCate"},
-            dataType:'json',
-            success:function(data){
-                $.each(data,function(i,n){
-                    var option="<option value='"+ n.Category_ID+"'>"+ n.Category_Name+"</option>";
-                    $("#b2c_firstCate").append(option);
-                })
-            }
-        });
-    });
-
-    //分类联动菜单第二级
-    $("#b2c_firstCate").live('change',function(){
-        var me = $(this);
-        $.getJSON("/user/lib/category.php",{"action":"sB2cCate","fB2cCateID":me.val()},function(data){
-            if(data){
-                if($("#b2c_secondCate").length<=0){
-                    var sel="<select name=\"b2c_secondCate\" class=\"select\" id=\"b2c_secondCate\"></select>"
-                    $(".select_containers").append(sel);
-                }
-                $("#b2c_secondCate").empty();
-                $.each(data, function(i, n){
-                    var option="<option value='"+ n.Category_ID+"'>"+n.Category_Name+"</option>";
-                    $("#b2c_secondCate").append(option);
-                });
-            }else{
-                if($("#b2c_secondCate").length>0){
-                    $("#b2c_secondCate").remove();
                 }
             }
         });
@@ -300,6 +269,43 @@ $(function(){
             style: 'width:100%;position:fixed;bottom:0;left:0;border-radius:8px;',
             btn:['确定','重选'],
             shadeClose:false,
+            success: function(){
+                //分类联动菜单第一级
+                $.ajax({
+                    type:"get",
+                    url:"/user/lib/category.php",
+                    data:{"action":"fCate"},
+                    dataType:'json',
+                    success:function(data){
+                        $.each(data,function(i,n){
+                            var option="<option value='"+ n.Category_ID+"'>"+ n.Category_Name+"</option>";
+                            $("#firstCate").append(option);
+                        })
+                    }
+                });
+                //分类联动菜单第二级
+                $(document).on('change', '#firstCate', function(){
+                    $('.select_containers #secondCate').remove();
+                    var me = $(this);
+                    $.getJSON("/user/lib/category.php",{"action":"sCate","fcateID":me.val()},function(data){
+                        if(data){
+                            if($(".select_containers #secondCate").length<=0){
+                                var sel="<select name=\"secondCate\" class=\"select\" id=\"secondCate\"></select>"
+                                $(".select_containers").append(sel);
+                            }
+                            $(".select_containers #secondCate").empty();
+                            $.each(data, function(i, n){
+                                var option="<option value='"+ n.Category_ID+"'>"+n.Category_Name+"</option>";
+                                $(".select_containers #secondCate").append(option);
+                            });
+                        }else{
+                            if($(".select_containers #secondCate").length>0){
+                                $(".select_containers #secondCate").remove();
+                            }
+                        }
+                    });
+                });
+            },
             yes:function(index){
                 if ($("#secondCate").length > 0) {
                     var firstCate = $("#firstCate").val();
@@ -320,41 +326,6 @@ $(function(){
                             location.reload();
                         }
                     });
-                }
-            }
-        });
-        //分类联动菜单第一级
-        $.ajax({
-            type:"get",
-            url:"/user/lib/category.php",
-            data:{"action":"fCate"},
-            dataType:'json',
-            success:function(data){
-                $.each(data,function(i,n){
-                    var option="<option value='"+ n.Category_ID+"'>"+ n.Category_Name+"</option>";
-                    $("#firstCate").append(option);
-                })
-            }
-        });
-    });
-
-    //分类联动菜单第二级
-    $("#firstCate").live('change',function(){
-        var me = $(this);
-        $.getJSON("/user/lib/category.php",{"action":"sCate","fcateID":me.val()},function(data){
-            if(data){
-                if($("#secondCate").length<=0){
-                    var sel="<select name=\"secondCate\" class=\"select\" id=\"secondCate\"></select>"
-                    $(".select_containers").append(sel);
-                }
-                $("#secondCate").empty();
-                $.each(data, function(i, n){
-                    var option="<option value='"+ n.Category_ID+"'>"+n.Category_Name+"</option>";
-                    $("#secondCate").append(option);
-                });
-            }else{
-                if($("#secondCate").length>0){
-                    $("#secondCate").remove();
                 }
             }
         });
@@ -385,7 +356,9 @@ $(function(){
             'secondCate' : $('#category').attr('secondCate'),      //商品所属分类  二级
             'Products_IsHot' : $('input[name="IsHot"]:checked').val() == 'on' ? 1 : 0,    //是否置顶
             'Products_IsRecommend' : $('input[name="IsRecommend"]:checked').val() == 'on' ? 1 : 0,    //是否推荐
-            'Products_IsNew' : $('input[name="IsNew"]:checked').val() == 'on' ? 1 : 0    //是否为新品
+            'Products_IsNew' : $('input[name="IsNew"]:checked').val() == 'on' ? 1 : 0,    //是否为新品
+            'Products_IsPaysBalance' : $('input[name="IsPaysBalance"]:checked').val() == 'on' ? 1 : 0,    //是否余额支付  特殊属性
+            'Products_IsShow' : $('input[name="IsShow"]:checked').val() == 'on' ? 1 : 0    //是否显示    特殊属性
         };
         //商品名称非空判断
         if (!check_null($('input[name="Products_Name"]'))) {
@@ -415,6 +388,15 @@ $(function(){
         if (productData.is_Tj == 1) {
             if (!check_null($('input[name="PriceS"]')) || !check_number($('input[name="PriceS"]'))) {
                 return false;
+            }
+            var PriceX = parseFloat(productData.Products_PriceX);   //现价
+            var PriceS = parseFloat(productData.Products_PriceS);   //供货价
+            if ((PriceX < PriceS) || (PriceX*0.7 > PriceS)) {    //供货价为现价的 70% ~ 100%
+                $('input[name="PriceS"]').attr('style', 'border: 1px solid red;');
+                layer.open({content: '供货价为现价的70% ~ 100%', shadeClose: false, btn: '确认'});
+                return false;
+            } else {
+                $('input[name="PriceS"]').removeAttr('style');
             }
             //判断是否选择b2c平台分类
             if (productData.B2CProducts_Category == '') {

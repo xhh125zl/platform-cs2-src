@@ -49,6 +49,41 @@ if (isset($_POST['ajax']) && $_POST['ajax'] == 1) {
     exit();
 }
 
+//系统消息未读条数
+//获取商家注册时间，以确认显示信息
+$biz_info = $DB->GetRs('biz', 'Biz_CreateTime', 'where `Biz_ID` = '.$BizID);
+$DB->Get("announce","announce.*,announce_record.Record_ID","left join `announce_record` on announce.Announce_ID = announce_record.Announce_ID and announce_record.Biz_ID = ".$BizID." where announce.Announce_Status = 1 and Announce_CreateTime > ".$biz_info['Biz_CreateTime']." order by announce_record.Record_ID,announce.Announce_CreateTime desc");
+$unread_system_nums = 0;
+while ($r=$DB->fetch_assoc()) {
+    if (!(isset($r['Record_ID']) && $r['Record_ID'] > 0)) {
+        $unread_system_nums++;
+    }
+}
+//订单消息未读条数
+$transfer = ['Biz_Account' => $BizAccount];
+$result = message::getMsgOrder($transfer);
+if ($result['errorCode'] == 0) {
+    $unread_order_nums = $result['data']['unReadCount'];
+} else {
+    $unread_order_nums = 0;
+}
+//分销消息未读条数
+$transfer = ['Biz_Account' => $BizAccount];
+$result = message::getMsgDistribute($transfer);
+if ($result['errorCode'] == 0) {
+    $unread_distribute_nums = $result['data']['unReadCount'];
+} else {
+    $unread_distribute_nums = 0;
+}
+//提现消息未读条数
+$transfer = ['Biz_Account' => $BizAccount];
+$result = message::getMsgWithdraw($transfer);
+if ($result['errorCode'] == 0) {
+    $unread_withdraw_nums = $result['data']['unReadCount'];
+} else {
+    $unread_withdraw_nums = 0;
+}
+
 if ($_POST) {
     $msg_id = $_POST['msg_id'];
     $msg_status = $_POST['msg_status'];
@@ -91,10 +126,10 @@ if ($_POST) {
     <div class="slideTxtBox">
         <div class="hd msg_x">
             <ul>
-                <a href="?act=msg_system"><li class="<?php if(isset($_GET['act']) && $_GET['act'] == 'msg_system') { echo 'on'; } ?>">系统</li></a>
-                <a href="?act=msg_order"><li class="<?php if(isset($_GET['act']) && $_GET['act'] == 'msg_order') { echo 'on'; } ?>">订单</li></a>
-                <a href="?act=msg_distribute"><li class="<?php if(isset($_GET['act']) && $_GET['act'] == 'msg_distribute') { echo 'on'; } ?>">分销</li></a>
-                <a href="?act=msg_withdraw"><li class="<?php if(isset($_GET['act']) && $_GET['act'] == 'msg_withdraw') { echo 'on'; } ?>">提现</li></a>
+                <a href="?act=msg_system"><li class="<?php if(isset($_GET['act']) && $_GET['act'] == 'msg_system') { echo 'on'; } ?>"><span style="color:red;"><?php if ($unread_system_nums > 0) {echo '● ';} ?></span>系统</li></a>
+                <a href="?act=msg_order"><li class="<?php if(isset($_GET['act']) && $_GET['act'] == 'msg_order') { echo 'on'; } ?>"><span style="color:red;"><?php if ($unread_order_nums > 0) {echo '● ';} ?></span>订单</li></a>
+                <a href="?act=msg_distribute"><li class="<?php if(isset($_GET['act']) && $_GET['act'] == 'msg_distribute') { echo 'on'; } ?>"><span style="color:red;"><?php if ($unread_distribute_nums > 0) {echo '● ';} ?></span>分销</li></a>
+                <a href="?act=msg_withdraw"><li class="<?php if(isset($_GET['act']) && $_GET['act'] == 'msg_withdraw') { echo 'on'; } ?>"><span style="color:red;"><?php if ($unread_withdraw_nums > 0) {echo '● ';} ?></span>提现</li></a>
             </ul>
         </div>
         <div class="msg_list">

@@ -2,6 +2,8 @@
 if (!defined('USER_PATH')) exit();
 
 require_once CMS_ROOT . '/include/api/product.class.php';
+require_once CMS_ROOT . '/include/api/b2cshopconfig.class.php';
+require_once CMS_ROOT . '/include/api/product_category.class.php';
 require_once CMS_ROOT . '/include/helper/page.class.php';
 $fid = $sid = 0;
 
@@ -197,10 +199,40 @@ if (isset($_POST['ajax']) && $_POST['ajax'] == 1) {
 <link href="../static/user/css/product.css" type="text/css" rel="stylesheet">
 <link href="../static/user/css/page_media.css" type="text/css" rel="stylesheet">
 <link href="../static/user/css/font-awesome.min.css" type="text/css" rel="stylesheet">
-<script type="text/javascript" src="../static/user/js/jquery-1.8.3.min.js"></script>
+<!-- <script type="text/javascript" src="../static/user/js/jquery-1.8.3.min.js"></script> -->
+<script type="text/javascript" src="../static/js/jquery-1.11.1.min.js"></script>
 <script type="text/javascript" src="../static/js/plugin/layer_mobile/layer.js"></script>
 <script type="text/javascript" src="../static/js/template.js"></script>
 <body>
+<?php
+//检查用户是否已经交过费用
+$users = b2cshopconfig::getConfig(array('Users_Account' => $BizAccount));
+if ($users['errorCode'] == 0) {
+    $bizData = $users['configData'];
+    if ($bizData['expiresTime'] != 0 && $bizData['expiresTime'] < time()) {
+        if ($bizData['need_charg'] == 1) {
+            echo '<script>layer.open({content: "此项功能已到期,必须先交费才可以使用", shadeClose: false, btn: "确定", yes: function(){history.back();}});</script>';
+            exit();
+        }
+    }
+    $rsBiz = b2cshopconfig::getVerifyconfig(['Biz_Account' => $BizAccount]);
+    if (empty($rsBiz['bizData'])) {
+        echo '<script>layer.open({content: "商家不存在", shadeClose: false, btn: "确定", yes: function(){history.back();}});</script>';
+        exit;
+    }
+} else {
+    echo '<script>layer.open({content: "服务器网络异常,数据通信失败", shadeClose: false, btn: "确定", yes: function(){history.back();}});</script>';
+    exit;
+}
+
+$rsBiz = b2cshopconfig::getVerifyconfig(['Biz_Account' => $BizAccount]);
+//获取商家分类保证金
+$bizVerifyData = $rsBiz['bizData'];
+
+//获取平台分类
+$b2cCategory = product_category::get_all_category();
+
+?>
 <div class="w">
     <div class="bj_x">
         <div class="box">
@@ -254,6 +286,46 @@ if (isset($_POST['ajax']) && $_POST['ajax'] == 1) {
             <?php }
             } ?>
         </ul>
+    </div>
+
+    <!-- 隐藏的平台分类列表 -->
+    <div id="cate_b2c" style="display:none;">
+        <div class="select_containers">
+            请选择一级分类：
+            <select name="b2c_firstCate" id="b2c_firstCate" style="color:15px; width:150px; height:30px; border:1px solid #ccc;">
+                <option value="0">请选择一级分类</option>
+                <?php
+                    if (!empty($b2cCategory)) {
+                        foreach ($b2cCategory as $k => $v) {
+                            //未达到分类保证金，和分类下无子分类的不显示
+                            if ($bizVerifyData['bond_free'] >= $v['Category_Bond'] && count($v['child']) > 0) {
+                                echo '<option value="' . $v['Category_ID'].'">' . $v['Category_Name'] . '</option>';
+                            }
+                        }
+                    }
+                ?>
+            </select><br/>
+            请选择二级分类：
+            <select name="b2c_secondCate" id="b2c_secondCate" style="color:15px; width:150px; height:30px; border:1px solid #ccc;">
+                <option value="0">请选择二级分类</option>
+            </select>
+            <?php
+                if (!empty($b2cCategory)) {
+                    foreach ($b2cCategory as $k => $v) {
+                        //未达到分类保证金，和分类下无子分类的不显示
+                        if ($bizVerifyData['bond_free'] >= $v['Category_Bond'] && count($v['child']) > 0) {
+                            echo '<div class="first_cate_'.$v['Category_ID'].'" style="display:none;">';
+                            foreach ($v['child'] as $kk => $vv) {
+                                if ($bizVerifyData['bond_free'] >= $vv['Category_Bond']) {
+                                    echo '<option value="' . $vv['Category_ID'].'">' . $vv['Category_Name'] . '</option>';
+                                }
+                            }
+                            echo '</div>';
+                        }
+                    }
+                }
+            ?>
+        </div>
     </div>
 </div>
 
@@ -374,100 +446,63 @@ if ($return['page']['hasNextPage'] == 'true') {
         });          
 
         //点击一键分销按钮进行的操作
-        $(".up_xx").live('click',function(){
+        $(".up_xx").on('click',function(){
             var me = $(this);
             layer.open({
                 type:1,
-                content:"<div class=\"select_containers\">请选择一级分类:<select name=\"firstCate\" class=\"select\" id=\"firstCate\"><option value=\"0\">请选择顶级分类</option></select><br/>请选择二级分类:</div>",
+                content: $('#cate_b2c').html(),
                 title:[
-                    '<span style="float:left">请选择要添加到的分类</span><span style="float: right"><a href="/user/admin.php?act=my_cate">分类管理</a></span>',
+                    '<span style="float:left">请选择要添加到的分类</span>',
                     'background-color:#f0f0f0;font-weight:bold;'
                 ],
                 style: 'width:100%;position:fixed;bottom:0;left:0;border-radius:8px;',
-                btn:['上架分销','返回重选'],
+                btn: ['上架分销','返回重选'],
                 shadeClose:false,
+                success: function(){
+                    //分类联动菜单第二级
+                    $(document).on('change', '#b2c_firstCate', function(){
+                        $(this).nextAll('#b2c_secondCate').html('');
+                        var first_cate_id = $(this).val();
+                        var second_cate = $(this).nextAll('.first_cate_'+first_cate_id).html();
+                        $(this).nextAll('#b2c_secondCate').html(second_cate);
+                    });
+                },
                 yes:function(index){
-                    if ($("#secondCate").length > 0) {
-                        var firstCate = $("#firstCate").val();
-                        var secondCate = $("#secondCate").val();
-                        layer.open({
-                            type:2,
-                            time:1,
-                            shadeClose:false,
-                            end:function(){
-                                $.ajax({
-                                    url:"/user/lib/products.php?d=" + new Date().getTime(),
-                                    type:"get",
-                                    timeout:6000,
-                                    data:{"action":"addProducts", "Products_FromID":me.attr("data-FromID"), "firstCate":firstCate, "secondCate":secondCate},
-                                    dataType:"json",
-                                    success:function(data) {
-                                        if (data.errorCode == 0) {
-                                            layer.open({
-                                                type:0,
-                                                content:data.msg,
-                                                time:2,
-                                                end:function(){
-                                                    $("#pro" + me.attr("data-FromID")).html("<div class=\"up_yy\">已上架</div>");
-                                                }
-                                            });
-                                        } else {
-                                            layer.open({
-                                                type:0,
-                                                content:data.msg,
-                                                time:2
-                                            });
+                    var b2c_firstCate = $('.layui-m-layercont #b2c_firstCate').val();
+                    var b2c_secondCate = $('.layui-m-layercont #b2c_secondCate').val();
+                    if (b2c_firstCate > 0 && b2c_secondCate > 0) {
+                        layer.open({type:2, shadeClose:false});
+                        $.ajax({
+                            url:"/user/lib/products.php",
+                            type:"get",
+                            timeout:6000,
+                            data:{"action":"addProducts", "Products_FromID":me.attr("data-FromID"), "firstCate":b2c_firstCate, "secondCate":b2c_secondCate},
+                            dataType:"json",
+                            success:function(data) {
+                                layer.closeAll();
+                                if (data.errorCode == 0) {
+                                    layer.open({
+                                        type:0,
+                                        content:data.msg,
+                                        time:1,
+                                        end:function(){
+                                            $("#pro" + me.attr("data-FromID")).html("<div class=\"up_yy\">已上架</div>");
                                         }
-                                    }
-                                })
+                                    });
+                                } else {
+                                    layer.open({
+                                        type:0,
+                                        content:data.msg,
+                                        time:2
+                                    });
+                                }
                             }
                         });
-                        layer.close(index);
                     }else{
                         layer.open({
-                            type:0,
-                            title:"提示信息",
-                            content:"商品应放在二级分类下,如您对应的上级分类还没有二级分类,请点击添加分类按钮进行分类添加操作!",
-                            btn:['添加分类','取消'],
-                            yes:function(){
-                                location.reload();
-                            }
+                            content: '没有完成分类选择，请完成',
+                            btn: '确定'
                         });
-                    }
-                }
-            });
-            //分类联动菜单第一级
-            $.ajax({
-                type:"get",
-                url:"/user/lib/category.php",
-                data:{"action":"fCate"},
-                dataType:'json',
-                success:function(data){
-                    $.each(data,function(i,n){
-                        var option="<option value='"+ n.Category_ID+"'>"+ n.Category_Name+"</option>";
-                        $("#firstCate").append(option);
-                    })
-                }
-            });
-        });
-
-        //分类联动菜单第二级
-        $("#firstCate").live('change',function(){
-            var me = $(this);
-            $.getJSON("/user/lib/category.php",{"action":"sCate","fcateID":me.val()},function(data){
-                if(data){
-                    if($("#secondCate").length<=0){
-                        var sel="<select name=\"secondCate\" class=\"select\" id=\"secondCate\"></select>"
-                        $(".select_containers").append(sel);
-                    }
-                    $("#secondCate").empty();
-                    $.each(data, function(i, n){
-                        var option="<option value='"+ n.Category_ID+"'>"+n.Category_Name+"</option>";
-                        $("#secondCate").append(option);
-                    });
-                }else{
-                    if($("#secondCate").length>0){
-                        $("#secondCate").remove();
                     }
                 }
             });
