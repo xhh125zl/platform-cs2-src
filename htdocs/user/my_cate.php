@@ -31,9 +31,9 @@ if (isset($res['errorCode']) && $res['errorCode'] == 0) {
     <script type="text/javascript" src="../static/user/js/layer.js"></script>
 <body>
 <div class="w">
-    <div style="text-align:center; line-height:30px; background:#fff; padding:5px 0">
-        <span class="l"><a href="javascript:history.back();"><img src="../static/user/images/gdx.png" width="30" height="30" style=""></a></span>分类管理
-        <a class="r addCate" title="新建一级分类" cateId="" style="color:#ff5500">添加分类&nbsp;&nbsp;&nbsp;</a>
+    <div class="back_x">
+        <a class="l" href='?act=store'><i class="fa  fa-angle-left fa-2x" aria-hidden="true"></i></a>分类管理
+        <a class="r addCate" title="新建一级分类" cateId="" style="color:#ff5500">添加分类</a>
     </div>
     <div class="clear"></div>
     <div class="cate_list">
@@ -42,7 +42,7 @@ if (isset($res['errorCode']) && $res['errorCode'] == 0) {
             <li>
                 <span class="left title_x firstCate" cateId="<?php echo $v['Category_ID']; ?>" value="">
                     <h1>
-                        <?php if (isset($v['child']) && count($v['child']) > 0) {echo '<i class="fa fa-plus-square fa-x" aria-hidden="true"></i>';} else {echo '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'; } ?>
+                        <?php if (isset($v['child']) && count($v['child']) > 0) {echo '<i class="fa fa-plus-square fa-x" aria-hidden="true"></i>';} else {echo '<span style="display:inline-block; width:22px;"></span>'; } ?>
                         <a href="javascript:;"><?php echo $v['Category_Name']; ?></a>
                     </h1>
                 </span>
@@ -56,7 +56,7 @@ if (isset($res['errorCode']) && $res['errorCode'] == 0) {
                 <?php if (isset($v['child']) && !empty($v['child'])) { foreach ($v['child'] as $kk => $vv) { ?>
                 <li class="secondCate secondCate_<?php echo $v['Category_ID']; ?>" style="display:none;">
                     <span class="left title_x">
-                        <h1 style="margin-left: 30px;"><a href="javascript:;"><?php echo $vv['Category_Name']; ?></a></h1>
+                        <h1 style="margin-left: 27px;"><a href="javascript:;"><?php echo $vv['Category_Name']; ?></a></h1>
                     </span>
                     <span class="right edit_x">
                         <i class="fa fa-pencil fa-x editCate" aria-hidden="true" title="编辑二级分类" cateName="<?php echo $vv['Category_Name']; ?>" cateId="<?php echo $vv['Category_ID']; ?>"></i>

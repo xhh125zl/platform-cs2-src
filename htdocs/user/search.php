@@ -199,8 +199,8 @@ if (isset($_POST['ajax']) && $_POST['ajax'] == 1) {
 <link href="../static/user/css/product.css" type="text/css" rel="stylesheet">
 <link href="../static/user/css/page_media.css" type="text/css" rel="stylesheet">
 <link href="../static/user/css/font-awesome.min.css" type="text/css" rel="stylesheet">
-<!-- <script type="text/javascript" src="../static/user/js/jquery-1.8.3.min.js"></script> -->
-<script type="text/javascript" src="../static/js/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="../static/user/js/jquery-1.8.3.min.js"></script>
+<!-- <script type="text/javascript" src="../static/js/jquery-1.11.1.min.js"></script> -->
 <script type="text/javascript" src="../static/js/plugin/layer_mobile/layer.js"></script>
 <script type="text/javascript" src="../static/js/template.js"></script>
 <body>
