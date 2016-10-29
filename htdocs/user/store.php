@@ -122,25 +122,37 @@ $auth_status = get_auth_statusText($bizRow['is_auth']);
     <div class="clear"></div>
     <div class="income_today">
     	<span class="l">
-        	<p class="in">今日开店收入（元）</p>
-            <p class="price_in" id="dayIncome">0</p>
+        	<p class="in">我的钱包（元）</p>
+            <p class="price_in">0</p>
         </span>
-        <span class="r"><a><i class="fa  fa-angle-right fa-2x" aria-hidden="true"></i></a></span>
+        <span class="r" style="margin-top:21px;"><a style="padding:4px 15px; color:#fff; background:#ff6600; border-radius:3px">提现</a></span>
     </div>
     <div class="clear"></div>
     <div class="daily_x">
         <ul>
             <li>
-                <p><strong>0</strong></p>
-                <p>今日访客</p>
+            	<p>今日会员</p>
+            	<p><strong>0</strong></p>
             </li>
             <li>
-                <p><strong id="orderCount">0</strong></p>
-                <p>本月订单</p>
+            	<p>今日分销商</p>
+            	<p><strong>0</strong></p>
             </li>
             <li>
-                <p><strong id="allMoney">0</strong></p>
-                <p>本月交易额</p>
+            	<p>今日代销人数</p>
+            	<p><strong>0</strong></p>
+            </li>
+            <li>
+            	<p>今日订单</p>
+            	<p><strong>0</strong></p>
+            </li>
+            <li>
+            	<p>今日交易额</p>
+            	<p><strong>0</strong></p>
+            </li>
+            <li>
+            	<p style="color:#ff5500">今日收入</p>
+            	<p><strong style="color:#ff5500" id="dayIncome">0</strong></p>
             </li>
         </ul>
     </div>
