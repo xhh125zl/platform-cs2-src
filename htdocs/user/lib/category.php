@@ -25,6 +25,14 @@ function getSecondCate($firstCateID){
     }
 }
 
+//获取分类
+if ($_GET['action'] == 'fCate') {
+    echo json_encode(getFirstCate(), JSON_UNESCAPED_UNICODE);
+}
+if($_GET['action'] == 'sCate' && isset($_GET['fcateID'])) {
+    echo json_encode(getSecondCate($_GET['fcateID']));
+}
+
 //添加分类
 function addCate($data)
 {
@@ -60,13 +68,7 @@ function updateCate($datapost){
     $res = product_category::editCateFrom401($transfer);
     return $res;
 }
-//获取分类
-if ($_GET['action'] == 'fCate') {
-    echo json_encode(getFirstCate(), JSON_UNESCAPED_UNICODE);
-}
-if($_GET['action'] == 'sCate' && isset($_GET['fcateID'])) {
-    echo json_encode(getSecondCate($_GET['fcateID']));
-}
+
 //添加分类
 if ($_GET['action'] == 'addCate') {
     $post = $_POST;

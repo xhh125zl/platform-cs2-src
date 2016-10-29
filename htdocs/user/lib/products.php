@@ -66,6 +66,7 @@ if (isset($_POST['act']) && $_POST['act'] == 'addEditProduct') {
     //数据处理
     $input_productData = $_POST['productData'];
 
+    $input_productData['Products_Index'] = 1; //产品排序 1-9999  数字越小排序越靠前，
     $input_productData['Products_Name'] = cleanJsCss($input_productData['Products_Name']);  //商品名称
 
     //封面图片路径处理
@@ -86,7 +87,6 @@ if (isset($_POST['act']) && $_POST['act'] == 'addEditProduct') {
     $input_productData['Products_Category'] = ','.(int)$input_productData['firstCate']. ',' . (int)$input_productData['secondCate'] . ',';
     //$input_productData['Products_BriefDescription'] = htmlspecialchars($input_productData['Products_BriefDescription'], ENT_QUOTES);  //产品简介
     $input_productData['Shipping_Free_Company'] = 0;    //免运费  0为全部 ，n为指定快递
-    //$input_productData['Products_Index'] = 1/9999;    //产品排序
     //$input_productData['Products_Type'] = 0/n;        //产品类型
     $input_productData['Products_SoldOut'] = 0;         //其他属性  不能为空  1: 下架
     //$input_productData['Products_IsVirtual'] = 1;     //订单流程      0,0  1,0  1,1 

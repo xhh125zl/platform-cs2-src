@@ -223,7 +223,8 @@ function cleanJsCss($html){
 //过滤HTML标签
 function cleanFilter($html){
     $html=trim($html);
-    $html=preg_replace("/<p[^>]*?>/is","",$html);
+    $html=strip_tags($html,"");
+    /*$html=preg_replace("/<p[^>]*?>/is","",$html);
     $html=preg_replace("/<div[^>]*?>/is","",$html);
     $html=preg_replace("/<ul[^>]*?>/is","",$html);
     $html=preg_replace("/<li[^>]*?>/is","",$html);
@@ -241,7 +242,7 @@ function cleanFilter($html){
     $html=preg_replace("/<td[^>]*?>/is","",$html);
     $html=preg_replace("/<ol[^>]*?>/is","",$html);
     $html=preg_replace("/<form[^>]*?>/is","",$html);
-    $html=preg_replace("/<input[^>]*?>/is","",$html);
+    $html=preg_replace("/<input[^>]*?>/is","",$html);*/
     return $html;
 }
 
