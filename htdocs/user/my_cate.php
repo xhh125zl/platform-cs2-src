@@ -233,10 +233,10 @@ if (isset($res['errorCode']) && $res['errorCode'] == 0) {
         });
 
         //监听回车键,用于添加分类
-        $('html').bind('keydown',function(e){
+        /*$('html').bind('keydown',function(e){
             if(e.keyCode==13){
                 $(".button_x1").click();
             }
-        });
+        });*/
     });
 </script>
