@@ -4,7 +4,7 @@
  * product.class.php
  */
 
-include_once $_SERVER['DOCUMENT_ROOT'] . './include/api/base.class.php';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/include/api/base.class.php';
 
 class users extends base
 {

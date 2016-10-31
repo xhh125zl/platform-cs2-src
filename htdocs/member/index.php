@@ -173,7 +173,7 @@ $myArray = Array("basic","product","article","order","backup","financial");
 	<dt group="<?=$key?>" class=""><?=$v?></dt>
 	<dd>
 	<?php }else{ ?>
-	<?php if($key == 'weixin' || $key == 'buy_record'){?>
+	<?php if($key == 'weixin' || $key == 'buy_record' || $key == 'appmanager'){?>
 	<?php if(!array_key_exists(substr($key,0,3).'_'.$k,$topmeurv)){ ?>
       	<div><a href="/member/wechat/<?=$k?>.php" target="iframe"><?=$v?></a></div>	
 	<?php }}else if(in_array($key,$myArray)){?>
