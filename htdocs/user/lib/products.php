@@ -111,8 +111,8 @@ if (isset($_POST['act']) && $_POST['act'] == 'addEditProduct') {
         }
         $PriceX = (float)$input_productData['Products_PriceX'];   //现价
         $PriceS = (float)$input_productData['Products_PriceS'];   //供货价
-        if (($PriceX < $PriceS) || ($PriceX*0.7 > $PriceS)) {    //供货价为现价的 70% ~ 100%
-            echo json_encode(array('errorCode' => 1, 'msg' => '供货价为现价的70% ~ 100%'));die;
+        if (($PriceX*0.8 < $PriceS) || ($PriceX*0.6 > $PriceS)) {    //供货价为现价的 60% ~ 80%
+            echo json_encode(array('errorCode' => 1, 'msg' => '供货价为现价的60% ~ 80%'));die;
         }
     } else {
         unset($input_productData['B2CProducts_Category']);
@@ -159,7 +159,7 @@ if (isset($_POST['act']) && $_POST['act'] == 'addEditProduct') {
             if ($is_Tj == 0 && $old_is_Tj == 1 && $new_productData['isSolding'] == 0) {
                 //取消推荐
                 //判断是否有未完成订单
-                $res = ImplOrder::getOrders(['Biz_Account' => $BizAccount, 'Order_Status' => '<> 4']);
+                $res = ImplOrder::getOrders(['Biz_Account' => $BizAccount, 'Order_Status' => 'not in (4,5)']);
                 $orderList = [];
                 if (isset($res['errorCode']) && $res['errorCode'] == 0) {
                     $orderList = $res['data'];
@@ -168,6 +168,7 @@ if (isset($_POST['act']) && $_POST['act'] == 'addEditProduct') {
                     die;
                 }
                 if (count($orderList) > 0) {
+                    $proArr = [];
                     foreach ($orderList as $k => $v) {
                         foreach (json_decode($v['Order_CartList'], true) as $key => $val) {
                             $proArr[] = $key;

@@ -49,14 +49,15 @@ if (isset($_GET['ajax']) && $_GET['ajax'] == 1) {
             die;
         }
         
-    } else if ($do == 'delete' && $pid > 0) {
+    } else if ($do == 'del' && $pid > 0) {
         //判断是否有未完成订单
-        $res = ImplOrder::getOrders(['Biz_Account' => $BizAccount, 'Order_Status' => '<> 4']);
+        $res = ImplOrder::getOrders(['Biz_Account' => $BizAccount, 'Order_Status' => 'not in (4,5)']);
         $orderList = [];
         if (isset($res['errorCode']) && $res['errorCode'] == 0) {
             $orderList = $res['data'];
         }
         if (count($orderList) > 0) {
+            $proArr = [];
             foreach ($orderList as $k => $v) {
                 foreach (json_decode($v['Order_CartList'], true) as $key => $val) {
                     $proArr[] = $key;
@@ -552,7 +553,7 @@ $(function(){
         var tr = $(this).parent().parent().parent().parent();
 
         layer.open({type: 2, shadeClose: false});
-        $.post(url,{do:'delete', pid:pid}, function(json){
+        $.post(url,{do:'del', pid:pid}, function(json){
             layer.closeAll();
             if (json.errorCode == '0')  {
                 layer.open({

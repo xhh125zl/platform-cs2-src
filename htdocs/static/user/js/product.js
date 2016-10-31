@@ -357,9 +357,9 @@ $(function(){
             }
             var PriceX = parseFloat(productData.Products_PriceX);   //现价
             var PriceS = parseFloat(productData.Products_PriceS);   //供货价
-            if ((PriceX < PriceS) || (PriceX*0.7 > PriceS)) {    //供货价为现价的 70% ~ 100%
+            if ((PriceX*0.8 < PriceS) || (PriceX*0.6 > PriceS)) {    //供货价为现价的 60% ~ 80%
                 $('input[name="PriceS"]').attr('style', 'border: 1px solid red;');
-                layer.open({content: '供货价为现价的70% ~ 100%', shadeClose: false, btn: '确认'});
+                layer.open({content: '供货价为现价的60% ~ 80%', shadeClose: false, btn: '确认'});
                 return false;
             } else {
                 $('input[name="PriceS"]').removeAttr('style');
