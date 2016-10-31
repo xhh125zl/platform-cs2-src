@@ -5,9 +5,6 @@ if(empty($_SESSION["Users_Account"]))
     exit;
 }
 
-
-
-$path = CMS_ROOT . '\\data';
 if (isset($_GET['act']) && $_GET['act'] == 'upload') {
     $filename = date('YmdHis', time());
     $extension = pathinfo($_FILES['appApk']['name'])['extension'];
@@ -15,7 +12,7 @@ if (isset($_GET['act']) && $_GET['act'] == 'upload') {
         echo json_encode(['errorCode' => 1, 'msg' => '只允许上传apk文件,请确认文件后缀名']);
         exit;
     } else {
-        $dirpath = $path . '\\app\\';
+        $dirpath = CMS_ROOT . '/data/app/';
         if (!file_exists($dirpath)) {
             mkdir($dirpath);
         }
