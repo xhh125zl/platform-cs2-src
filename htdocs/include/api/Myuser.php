@@ -1,5 +1,5 @@
 <?php
-include_once $_SERVER['DOCUMENT_ROOT'] . './include/api/base.class.php';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/include/api/base.class.php';
 
 class Myuser extends base
 {
