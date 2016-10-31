@@ -165,6 +165,11 @@ $rmenu['update'] = array(
 	'index' => '系统升级',
 );
 
+$rmenu["appmanager"] = [
+	'appupload' => 'APP更新',
+	'appmanage' => 'APP更新管理'
+];
+
 //不在右键菜单内的,系统首页
 $rmenusub["wei_account"] = array(
 	'ajax' => 'ajax文件'

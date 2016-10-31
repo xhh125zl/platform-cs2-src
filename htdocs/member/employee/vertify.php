@@ -64,8 +64,8 @@ foreach($file_all as $key=>$value){
 	foreach($all_rights as $key=>$value){
 		foreach($value as $k=>$v){
 		if(array_key_exists(substr($key,0,3).'_'.$k,$all_subright)){
-			foreach($all_subright[substr($key,0,3).'_'.$k] as $ks=>$kv){					
-					$new_all[$key][$ks] = $kv;					
+			foreach($all_subright[substr($key,0,3).'_'.$k] as $ks=>$kv){
+					$new_all[$key][$ks] = $kv;
 				}
 		}
 					$new_all[$key][$k] = $v;
@@ -73,7 +73,7 @@ foreach($file_all as $key=>$value){
 	}
 	//var_dump($my_users_right);
 	if(isset($_SESSION['user_type'])){
-	//员工权限	
+	//员工权限
 	$my_rightcopy = array();
 	$my_rightcopy = $my_rights;	
 	$em_right = array();
