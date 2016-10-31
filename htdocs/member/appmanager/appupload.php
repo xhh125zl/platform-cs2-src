@@ -2,11 +2,12 @@
 if(empty($_SESSION["Users_Account"]))
 {
     header("location:/member/login.php");
+    exit;
 }
 
 
 
-$path = dirname(__FILE__);
+$path = CMS_ROOT . '\\data';
 if (isset($_GET['act']) && $_GET['act'] == 'upload') {
     $filename = date('YmdHis', time());
     $extension = pathinfo($_FILES['appApk']['name'])['extension'];
