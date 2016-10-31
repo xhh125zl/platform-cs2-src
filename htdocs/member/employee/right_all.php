@@ -167,7 +167,8 @@ $rmenu['update'] = array(
 
 $rmenu["appmanager"] = [
 	'appupload' => 'APP更新',
-	'appmanage' => 'APP更新管理'
+	'appmanage' => 'APP更新管理',
+	'appedit' => 'APP编辑'
 ];
 //不在右键菜单内的,系统首页
 $rmenusub["wei_account"] = array(
