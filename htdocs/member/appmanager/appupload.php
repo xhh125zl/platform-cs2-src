@@ -40,6 +40,7 @@ if ($_POST) {
             'version_code' => isset($_POST['versionCode']) ? htmlspecialchars($_POST['versionCode']) : 0,
             'file_name' => isset($_POST['downloadName']) ? htmlspecialchars($_POST['downloadName']) : 0,
             'update_intro' => isset($_POST['updateIntro']) ? htmlspecialchars($_POST['updateIntro']) : 0,
+            'create_time' => time()
         ];
         if ($DB->Add('app_info', $data)) {
             echo json_encode(['errorCode' => 0, 'msg' => '提交成功']);
@@ -63,6 +64,7 @@ if ($_POST) {
         $(function(){
             $(".up_table").hide();
             $("#appApk").change(function(){
+                $("#loading").text('上传中...');
                 $.ajaxFileUpload({
                     url:'?act=upload', //你处理上传文件的服务端
                     secureuri:false,
@@ -102,7 +104,7 @@ if ($_POST) {
                         success:function(data){
                             if (data.errorCode == 0) {
                                 alert(data.msg);
-                                location.reload();
+                                location.href='appmanage.php';
                             } else {
                                 alert(data.msg);
                             }
@@ -142,7 +144,7 @@ if ($_POST) {
     <div class="line">
         <span>
             <label>上传文件：</label>
-            <a href="javascript:;" class="file" id="uploadInfo">选择文件
+            <a href="javascript:;" class="file" id="uploadInfo"><span id="loading">选择文件</span>
                 <input type="file" name="appApk" id="appApk">
             </a>
         </span>
