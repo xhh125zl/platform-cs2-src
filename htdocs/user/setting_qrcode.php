@@ -22,7 +22,7 @@ $qrcodeUrl = shopconfig::getQrcode($UsersID);
 <div class="w">
 	<!-- 店铺名称  -->
 	<div class="back_x">
-    	<a href="javascript:history.back()" class="l"><i class="fa  fa-angle-left fa-2x" aria-hidden="true"></i></a>店铺二维码
+    	<a href="<?=isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '/user/admin.php?act=store'?>" class="l"><i class="fa  fa-angle-left fa-2x" aria-hidden="true"></i></a>店铺二维码
     </div>
     <div class="box_setting">
     	<img src="<?php echo $qrcodeUrl;?>" border="0" width=300 height=300 />

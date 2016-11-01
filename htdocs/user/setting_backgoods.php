@@ -72,7 +72,7 @@ $(document).ready(function(){
 <body>
 <div class="w">
 	<div class="back_x">
-    	<a href="javascript:history.back()" class="l"><i class="fa  fa-angle-left fa-2x" aria-hidden="true"></i></a>退货地址
+    	<a href="<?=isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '/user/admin.php?act=store'?>" class="l"><i class="fa  fa-angle-left fa-2x" aria-hidden="true"></i></a>退货地址
     </div>
 
 <div class="blank20"></div>

@@ -16,7 +16,7 @@ $From_arr = ['微信','注册','PC', 'QQ'];
 <body>
 <div class="w">
     <div class="back_x">
-        <a class="l" href="javascript:history.back();"><i class="fa  fa-angle-left fa-2x" aria-hidden="true"></i></a>会员管理
+        <a class="l" href="<?=isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '/user/admin.php?act=store'?>"><i class="fa  fa-angle-left fa-2x" aria-hidden="true"></i></a>会员管理
     </div>
     <div class="clear"></div>
     <div class="list_table">
