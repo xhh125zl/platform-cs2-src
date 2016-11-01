@@ -98,7 +98,7 @@ if ($_POST) {
 <div class="w">
     <div class="slideTxtBox">
         <div class="back_x">
-            <a class="l" href='javascript:history.back();'><i class="fa  fa-angle-left fa-2x" aria-hidden="true"></i></a>订单详情
+            <a class="l" href='<?=isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '/user/admin.php?act=store'?>'><i class="fa  fa-angle-left fa-2x" aria-hidden="true"></i></a>订单详情
         </div>
         <div class="bd order_x">
             <ul>

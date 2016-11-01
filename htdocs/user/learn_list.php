@@ -27,7 +27,7 @@ if($cateid){
 <body>
 <div class="w">
 	<div class="back_x">
-    	<a class="l" href='javascript:history.back();'><i class="fa  fa-angle-left fa-2x" aria-hidden="true"></i></a>学习中心
+    	<a class="l" href='<?=isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '/user/admin.php?act=store'?>'><i class="fa  fa-angle-left fa-2x" aria-hidden="true"></i></a>学习中心
     </div>
     <div class="learn_list">
     	<ul>
