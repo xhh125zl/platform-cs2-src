@@ -144,7 +144,7 @@ $auth_status = get_auth_statusText($bizRow['is_auth']);
     <div class="income_today">
     	<span class="l">
         	<p class="in">我的钱包（元）</p>
-            <p class="price_in" id="cash">0</p>
+            <p class="price_in" id="cash">0.00</p>
         </span>
         <span class="r" style="margin-top:21px;"><a href="/pay/yijipay/wallet.php" style="padding:4px 15px; color:#fff; background:#ff6600; border-radius:3px">提现</a></span>
     </div>
