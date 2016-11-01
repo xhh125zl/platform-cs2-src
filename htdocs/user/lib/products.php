@@ -15,8 +15,10 @@ function productsAdd($data){
     
     $postdata['Users_Account'] = $_SESSION['Biz_Account'];
     $postdata['Products_Category'] = ','.(int)$data['firstCate']. ',' . $data['secondCate'] . ',';
-    $transfer = ['productData' => $postdata];
-    $resArr = product::addTo401($transfer);
+    $postdata['Products_IsShow'] = 1;   //特殊属性的是否显示
+    $postdata['click_count'] = 0;       //点击量
+
+    $resArr = product::addTo401(['productData' => $postdata]);
     if ($resArr['errorCode'] == 0) {
         $b2cdata = [
             'Products_FromId' => $data['Products_FromID'],
@@ -66,7 +68,6 @@ if (isset($_POST['act']) && $_POST['act'] == 'addEditProduct') {
     //数据处理
     $input_productData = $_POST['productData'];
 
-    $input_productData['Products_Index'] = 1; //产品排序 1-9999  数字越小排序越靠前，
     $input_productData['Products_Name'] = cleanJsCss($input_productData['Products_Name']);  //商品名称
 
     //封面图片路径处理
@@ -111,6 +112,7 @@ if (isset($_POST['act']) && $_POST['act'] == 'addEditProduct') {
 
     //判断是上架商品还是编辑商品
     if (empty($input_productData['Products_ID'])) {     //上架商品
+        $input_productData['Products_Index'] = 1; //产品排序 1-9999  数字越小排序越靠前，
         //$input_productData['Products_BriefDescription'] = htmlspecialchars($input_productData['Products_BriefDescription'], ENT_QUOTES);  //产品简介
         $input_productData['Shipping_Free_Company'] = 0;    //免运费  0为全部 ，n为指定快递
         //$input_productData['Products_Type'] = 0/n;        //产品类型
