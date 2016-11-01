@@ -7,7 +7,7 @@ require_once CMS_ROOT . '/include/api/shopconfig.class.php';
 require_once CMS_ROOT . '/include/api/message.class.php';
 require_once CMS_ROOT . '/include/api/users.class.php';
 require_once CMS_ROOT . '/include/api/distribute.class.php';
-require_once CMS_ROOT . '/include/helper/tools.php';
+
 $inajax = isset($_GET['inajax']) ? (int)$_GET['inajax'] : 0;
 if ($inajax == 1) {
     $do = isset($_GET['do']) ? $_GET['do'] : '';
@@ -146,7 +146,7 @@ $auth_status = get_auth_statusText($bizRow['is_auth']);
         	<p class="in">我的钱包（元）</p>
             <p class="price_in" id="cash">0</p>
         </span>
-        <span class="r" style="margin-top:21px;"><a style="padding:4px 15px; color:#fff; background:#ff6600; border-radius:3px">提现</a></span>
+        <span class="r" style="margin-top:21px;"><a href="<?php echo B2C_URL; ?>pay/yijipay/wallet.php" style="padding:4px 15px; color:#fff; background:#ff6600; border-radius:3px">提现</a></span>
     </div>
     <div class="clear"></div>
     <div class="daily_x">

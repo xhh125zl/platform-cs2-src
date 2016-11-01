@@ -1,8 +1,6 @@
 <?php
-define('USER_PATH', dirname(__FILE__) . '/');
+if (!defined('USER_PATH')) exit();
 
-include USER_PATH . '../Framework/Conn.php';
-require_once CMS_ROOT . '/include/helper/tools.php';
 require_once CMS_ROOT . '/include/api/users.class.php';
 
 $Users_ID = 'pl2hu3uczz';
@@ -48,7 +46,7 @@ if ($inajax == 1) {
 				'time' => time() + 120,	//120秒
 			]);
 
-		require_once($_SERVER["DOCUMENT_ROOT"].'/Framework/Ext/sms.func.php');
+		require_once(CMS_ROOT.'/Framework/Ext/sms.func.php');
 		$message = "手机验证码为：" . $code . "。120秒内有效，过期请重新获取。" ;
 		$success = send_sms($mobile, $message);
 		if ($success) {

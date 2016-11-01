@@ -148,7 +148,6 @@ if (isset($_POST['act']) && $_POST['act'] == 'addEditProduct') {
 
         //合并数据
         $new_productData = array_merge($old_productData,$input_productData);
-        //print_r($new_productData);die;
         $old_is_Tj = $old_productData['is_Tj'];
         $is_Tj = $new_productData['is_Tj'];
         

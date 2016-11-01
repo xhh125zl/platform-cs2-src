@@ -556,10 +556,10 @@ $(function(){
 	//删除
 	$(".productList").on('click', '.delete', function(){
         var pid = $(this).attr("product-id");
-        var formId = $(this).attr("formId");
+        var fromId = $(this).attr("fromId");
         var tr = $(this).parent().parent().parent().parent();
 
-        if (formId == 0) {
+        if (fromId == 0) {
             var title = '确定删除此商品吗？';
         } else {
             var title = '此商品为非自营商品<br>确定从自己商品库中删除吗？';
