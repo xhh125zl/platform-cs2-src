@@ -32,7 +32,7 @@ if (isset($resArr['errorCode']) && $resArr['errorCode'] == 0) {
             	<dl>
                 	<dt><span class="left">今日访客（人）</span><span class="right">0</span><div class="clear"></div></dt>
                     <dt><span class="left">今日订单（个）</span><span class="right"><?php if (isset($count['dayCount']['orderCount'])) { echo $count['dayCount']['orderCount']; } else { echo 0; } ?></span><div class="clear"></div></dt>
-                    <dt><span class="left">今日销售额（￥）</span><span class="right"><?php if (isset($count['dayCount']['Amount'])) { echo $count['dayCount']['Amount']; } else { echo 0; } ?></span><div class="clear"></div></dt>
+                    <dt><span class="left">今日销售额（￥）</span><span class="right"><?php if (isset($count['dayAllCount']['Amount'])) { echo $count['dayAllCount']['Amount']; } else { echo 0; } ?></span><div class="clear"></div></dt>
                 </dl>
             </li>
             <li>
