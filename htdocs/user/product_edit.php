@@ -167,13 +167,14 @@ foreach ($productData['Category401'] as $k => $v) {
 $cateName = $firstCateName.'，'.$secondCateName;
 
 //判断是否有未完成订单
-$res = ImplOrder::getOrders(['Biz_Account' => $BizAccount, 'Order_Status' => '<> 4']);
+$res = ImplOrder::getOrders(['Biz_Account' => $BizAccount, 'Order_Status' => 'not in (4,5)']);
 
 $orderList = [];
 if (isset($res['errorCode']) && $res['errorCode'] == 0) {
     $orderList = $res['data'];
 }
 if (count($orderList) > 0) {
+    $proArr = [];
     foreach ($orderList as $k => $v) {
         foreach (json_decode($v['Order_CartList'], true) as $key => $val) {
             $proArr[] = $key;
