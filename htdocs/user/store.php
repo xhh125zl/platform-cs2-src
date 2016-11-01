@@ -6,6 +6,7 @@ require_once CMS_ROOT . '/include/api/count.class.php';
 require_once CMS_ROOT . '/include/api/shopconfig.class.php';
 require_once CMS_ROOT . '/include/api/message.class.php';
 require_once CMS_ROOT . '/include/api/users.class.php';
+require_once CMS_ROOT . '/include/api/distribute.class.php';
 require_once CMS_ROOT . '/include/helper/tools.php';
 $inajax = isset($_GET['inajax']) ? (int)$_GET['inajax'] : 0;
 if ($inajax == 1) {
@@ -17,6 +18,20 @@ if ($inajax == 1) {
         $counter = count::countIncome($data);
 
         echo json_encode($counter);
+    } else if ($do == 'countPeople') {
+        $data = [
+            'Biz_Account' => $BizAccount,
+        ];
+        $countPeople = count::countPeople($data);
+
+        echo json_encode($countPeople);
+    } else if ($do == 'getcash') {
+        $data = [
+            'Biz_Account' => $BizAccount,
+        ];
+        $cash = distribute::getcash($data);
+
+        echo json_encode($cash);
     } else if ($do == 'msgUnreadCount') {
         //获取消息页未读条数
         //系统消息未读条数
@@ -123,7 +138,7 @@ $auth_status = get_auth_statusText($bizRow['is_auth']);
     <div class="income_today">
     	<span class="l">
         	<p class="in">我的钱包（元）</p>
-            <p class="price_in">0</p>
+            <p class="price_in" id="cash">0</p>
         </span>
         <span class="r" style="margin-top:21px;"><a style="padding:4px 15px; color:#fff; background:#ff6600; border-radius:3px">提现</a></span>
     </div>
@@ -132,23 +147,23 @@ $auth_status = get_auth_statusText($bizRow['is_auth']);
         <ul>
             <li>
             	<p>今日会员</p>
-            	<p><strong>0</strong></p>
+            	<p><strong id="userToday">0</strong></p>
             </li>
             <li>
             	<p>今日分销商</p>
-            	<p><strong>0</strong></p>
+            	<p><strong id="disToday">0</strong></p>
             </li>
             <li>
             	<p>今日代销人数</p>
-            	<p><strong>0</strong></p>
+            	<p><strong id="shareToday">0</strong></p>
             </li>
             <li>
             	<p>今日订单</p>
-            	<p><strong>0</strong></p>
+            	<p><strong id="dayOrderCount">0</strong></p>
             </li>
             <li>
             	<p>今日交易额</p>
-            	<p><strong>0</strong></p>
+            	<p><strong id="dayTradeVolume">0</strong></p>
             </li>
             <li>
             	<p style="color:#ff5500">今日收入</p>
@@ -239,11 +254,30 @@ $ucenter = $homeUrl . 'member/';
         $.get('?act=store&inajax=1&do=count', {}, function(json) {
             if (json.errorCode == '0') {
                 var counter = json.count;
-                 $("#totalIncome").html(counter.totalCount.Amount);
-                 $("#monthIncome").html(counter.monthCount.Amount);
-                 $("#dayIncome").html(counter.dayCount.Amount);
-                 $('#orderCount').html(counter.monthCount.orderCount);
-                 $('#allMoney').html(counter.monthAllMoney.Amount);
+                $("#totalIncome").html(counter.totalCount.Amount);
+                $("#monthIncome").html(counter.monthCount.Amount);
+                 
+                $('#dayOrderCount').html(counter.dayCount.orderCount);     //今日订单
+                $('#dayTradeVolume').html(counter.dayAllCount.Amount);     //今日交易额
+                $("#dayIncome").html(counter.dayCount.Amount);             //今日收入
+            } else {
+                alert('用户统计数据获取失败，请刷新此页面重试');
+            }
+        }, 'json');
+        //获取今日会员、今日分销商、今日代销人数
+        $.get('?act=store&inajax=1&do=countPeople', {}, function(json) {
+            if (json.errorCode == '0') {
+                $('#userToday').html(json.data.userToday);     //今日会员
+                $('#disToday').html(json.data.disToday);     //今日分销商
+                $("#shareToday").html(json.data.shareToday);             //今日代销人数
+            } else {
+                alert('用户统计数据获取失败，请刷新此页面重试');
+            }
+        }, 'json');
+        //获取提现余额
+        $.get('?act=store&inajax=1&do=getcash', {}, function(json) {
+            if (json.errorCode == '0') {
+                $('#cash').html(json.yijiBalance);     //今日会员
             } else {
                 alert('用户统计数据获取失败，请刷新此页面重试');
             }
