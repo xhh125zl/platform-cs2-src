@@ -122,11 +122,9 @@ foreach ($image_path_arr as $k => $v) {
     }
 }
 $image_path = rtrim($image_path, ',');
-//$image_path = implode(',', $image_path_arr);
 
 //商品详情处理  内容及图片
 $des_con = htmlspecialchars_decode($productData['Products_Description'], ENT_QUOTES);
-//$description = htmlspecialchars(strip_tags($des_con,'<p><a>'));
 $description = cutstr_html($des_con);
 preg_match_all('/<img (.*?)+src=[\'"](.*?)[\'"]/i', $des_con, $img_arr);
 $des_img_path = implode(',', $img_arr[2]);

@@ -49,6 +49,7 @@ $actionArr = [
 	'basic_1',
 	'basic_2',
 	'basic_3',
+	'reg',
 ];
 
 if (! in_array($act, $actionArr)) {
