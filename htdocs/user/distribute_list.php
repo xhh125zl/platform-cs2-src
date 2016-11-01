@@ -2,13 +2,14 @@
 if (!defined('USER_PATH')) exit();
 require_once CMS_ROOT . "/user/config.inc.php";
 require_once CMS_ROOT . '/include/api/distribute.class.php';
+require_once CMS_ROOT . '/include/api/user.class.php';
 require_once CMS_ROOT . '/include/helper/page.class.php';
 
 //分页初始化
 $p = isset($_GET['p']) ? (int)$_GET['p'] : 1;
 if ($p < 1) $p = 1;
 //每页显示个数
-$pageSize = 10;
+$pageSize = 1;
 
 $level = isset($_GET['level']) ? $_GET['level'] : 1;    //分销商等级  1、2、3级 
 
@@ -23,6 +24,19 @@ if (isset($result['errorCode']) && $result['errorCode'] != 0) {
     $total = $result['totalCount'];
     $totalPage = ceil($result['totalCount'] / $pageSize);
     $distributes = $result['data'];
+
+    //获取对应的会员信息
+    $res_user = user::getUser(['Biz_Account' => $BizAccount]);
+    $user_list = [];
+    if (isset($res_user['errorCode']) && $res_user['errorCode'] == 0 && count($res_user['data']) > 0) {
+        foreach ($res_user['data'] as $k => $v) {
+            $user_list[$v['User_ID']] = [
+                'User_No' => $v['User_No'],
+                'User_Mobile' => $v['User_Mobile'],
+                'User_Name' => $v['User_Name'],
+            ];
+        }
+    }
 }
 
 //分页
@@ -33,6 +47,15 @@ $infolist = [];
 if (count($distributes) > 0) {
     foreach ($distributes as $row) {
         $row['level'] = $level;
+        if ($row['Shop_Logo'] == '') {
+            $row['Shop_Logo'] = B2C_URL.'static/user/images/zh.png';
+        } else {
+            $row['Shop_Logo'] = IMG_SERVER.$row['Shop_Logo'];
+        }
+
+        $row['User_No'] = isset($user_list[$row['User_ID']]) ? $user_list[$row['User_ID']]['User_No'] : '';
+        $row['User_Mobile'] = isset($user_list[$row['User_ID']]) ? $user_list[$row['User_ID']]['User_Mobile'] : '';
+        $row['User_Name'] = isset($user_list[$row['User_ID']]) ? $user_list[$row['User_ID']]['User_Name'] : '';
         $infolist[] = $row;
     }
 }
@@ -90,7 +113,7 @@ if (isset($_POST['ajax']) && $_POST['ajax'] == 1) {
                             ?>
                                 <li><a href="?act=distribute_detail&distributeid=<?php echo $v['Account_ID']; ?>&level=<?php echo $v['level']; ?>">
                                     <span class="l"><img src="<?php echo $v['Shop_Logo']; ?>"></span>
-                                    <span class="infor_x l" style="text-align:left"><?php echo $v['Shop_Name']  ; ?><p>手机号：<?php echo $v['Account_Mobile']; ?></p></span>
+                                    <span class="infor_x l" style="text-align:left"><?php echo ($v['User_Name'] == '') ? '缺失' : $v['User_Name']; ?><p>手机号：<?php echo $v['User_Mobile']; ?></p></span>
                                     <span class="r"><i class="fa  fa-angle-right fa-2x" aria-hidden="true"></i></span>
                                     <div class="clear"></div>
                                 </a></li>
@@ -111,7 +134,7 @@ if (isset($_POST['ajax']) && $_POST['ajax'] == 1) {
 {{each data as v i}}
     <li><a href="?act=distribute_detail&distributeid={{v.Account_ID}}&level={{v.level}}">
         <span class="l"><img src="{{v.Shop_Logo}}"></span>
-        <span class="infor_x l" style="text-align:left">{{v.Shop_Name}}<p>手机号：{{v.Account_Mobile}}</p></span>
+        <span class="infor_x l" style="text-align:left">{{v.User_Name == '' ? '缺失' : v.User_Name}}<p>手机号：{{v.User_Mobile}}</p></span>
         <span class="r"><i class="fa  fa-angle-right fa-2x" aria-hidden="true"></i></span>
         <div class="clear"></div>
     </a></li>
