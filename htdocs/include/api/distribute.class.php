@@ -37,7 +37,7 @@ class distribute extends base
     }
 
     /**
-     * B2C获取401对应的Account_ID的状态(禁用和启用操作)
+     * 获取可提现余额
      * @param array $data   ['Biz_Account' => 'test01']
      * @return array
      */
