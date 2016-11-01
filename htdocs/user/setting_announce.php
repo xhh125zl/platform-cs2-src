@@ -49,7 +49,7 @@ $config = $result['data'];
 <body>
 <div class="w">
 	<div class="back_x">
-    	<a href="javascript:history.back()" class="l"><i class="fa  fa-angle-left fa-2x" aria-hidden="true"></i></a>店铺公告
+    	<a href="<?=isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '/user/admin.php?act=store'?>" class="l"><i class="fa  fa-angle-left fa-2x" aria-hidden="true"></i></a>店铺公告
     </div>
 	<div class="shop_share">
     	<img src="http://img0.bdstatic.com/img/image/shouye/xinshouye/toux.png">
