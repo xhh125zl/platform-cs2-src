@@ -450,7 +450,7 @@ if ($return['page']['hasNextPage'] == 'true') {
                     $("#pagemore a").trigger('click');
                 }
             }
-        });          
+        }); 
 
         //点击一键分销按钮进行的操作
         $(".productList").on('click', '.up_xx', function(){

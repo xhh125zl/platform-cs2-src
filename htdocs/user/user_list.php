@@ -1,4 +1,4 @@
-<?
+<?php
     require_once "lib/user.php";
 ?>
 
@@ -22,7 +22,7 @@
     <div class="user_ls">
         <ul>
             <?php
-if (count($userList['data']) > 0) {            
+            if (count($userList['data']) > 0) {            
                 foreach ($userList['data'] as $k => $v) {
             ?>
             <li>
@@ -34,8 +34,8 @@ if (count($userList['data']) > 0) {
                 </a>
             </li>
             <?php
-                    }
-}
+                }
+            }
             ?>
         </ul>
     </div>
