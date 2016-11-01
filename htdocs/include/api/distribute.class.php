@@ -36,5 +36,17 @@ class distribute extends base
         return $result;
     }
 
+    /**
+     * B2C获取401对应的Account_ID的状态(禁用和启用操作)
+     * @param array $data   ['Biz_Account' => 'test01']
+     * @return array
+     */
+    static public function getcash($data)
+    {
+        $url = '/distribute/getcash.html';
+        $result = self::request($url, 'post', $data);
+        return $result;
+    }
+
    
 }
