@@ -12,26 +12,38 @@ $inajax = isset($_GET['inajax']) ? (int)$_GET['inajax'] : 0;
 if ($inajax == 1) {
     $do = isset($_GET['do']) ? $_GET['do'] : '';
     if ($do == 'count') {
-        $data = [
-            'Biz_Account' => $BizAccount,
-        ];
-        $counter = count::countIncome($data);
+        $counter = count::countIncome(['Biz_Account' => $BizAccount]);
 
         echo json_encode($counter);
+
     } else if ($do == 'countPeople') {
-        $data = [
-            'Biz_Account' => $BizAccount,
-        ];
-        $countPeople = count::countPeople($data);
+        $countPeople = count::countPeople(['Biz_Account' => $BizAccount]);
 
         echo json_encode($countPeople);
-    } else if ($do == 'getcash') {
-        $data = [
-            'Biz_Account' => $BizAccount,
-        ];
-        $cash = distribute::getcash($data);
 
-        echo json_encode($cash);
+    } else if ($do == 'getcash') {
+        $cash = distribute::getcash(['Biz_Account' => $BizAccount]);
+
+        if (isset($cash['errorCode']) && $cash['errorCode'] == 0) {
+            $totalCash = 0;
+            if (isset($cash['yijiGateWayBalance'])) {
+                $totalCash += $cash['yijiBalance'] + $cash['yijiGateWayBalance']['availableBalance'];
+            } else {
+                $totalCash += $cash['yijiBalance'];
+            }
+            $data = [
+                'errorCode' => 0,
+                'msg' => '我的钱包金额获取成功',
+                'totalCash' => number_format($totalCash, 2)
+            ];
+        } else {
+            $data = [
+                'errorCode' => 1,
+                'msg' => '我的钱包金额获取失败'
+            ];
+        }
+        echo json_encode($data);
+
     } else if ($do == 'msgUnreadCount') {
         //获取消息页未读条数
         //系统消息未读条数
@@ -45,24 +57,21 @@ if ($inajax == 1) {
             }
         }
         //订单消息未读条数
-        $transfer = ['Biz_Account' => $BizAccount];
-        $result = message::getMsgOrder($transfer);
+        $result = message::getMsgOrder(['Biz_Account' => $BizAccount]);
         if ($result['errorCode'] == 0) {
             $unread_order_nums = $result['data']['unReadCount'];
         } else {
             $unread_order_nums = 0;
         }
         //分销消息未读条数
-        $transfer = ['Biz_Account' => $BizAccount];
-        $result = message::getMsgDistribute($transfer);
+        $result = message::getMsgDistribute(['Biz_Account' => $BizAccount]);
         if ($result['errorCode'] == 0) {
             $unread_distribute_nums = $result['data']['unReadCount'];
         } else {
             $unread_distribute_nums = 0;
         }
         //提现消息未读条数
-        $transfer = ['Biz_Account' => $BizAccount];
-        $result = message::getMsgWithdraw($transfer);
+        $result = message::getMsgWithdraw(['Biz_Account' => $BizAccount]);
         if ($result['errorCode'] == 0) {
             $unread_withdraw_nums = $result['data']['unReadCount'];
         } else {
@@ -76,10 +85,7 @@ if ($inajax == 1) {
 }
 
 //获取配置信息
-$data = [
-    'Biz_Account' => $BizAccount,
-];
-$result = shopconfig::getConfig($data);
+$result = shopconfig::getConfig(['Biz_Account' => $BizAccount]);
 if ($result['errorCode'] != 0) {
     die($result['msg']);
 }
@@ -261,7 +267,7 @@ $ucenter = $homeUrl . 'member/';
                 $('#dayTradeVolume').html(counter.dayAllCount.Amount);     //今日交易额
                 $("#dayIncome").html(counter.dayCount.Amount);             //今日收入
             } else {
-                alert('用户统计数据获取失败，请刷新此页面重试');
+                layer.open({content:'用户统计数据获取失败，请刷新此页面重试'});
             }
         }, 'json');
         //获取今日会员、今日分销商、今日代销人数
@@ -271,15 +277,15 @@ $ucenter = $homeUrl . 'member/';
                 $('#disToday').html(json.data.disToday);     //今日分销商
                 $("#shareToday").html(json.data.shareToday);             //今日代销人数
             } else {
-                alert('用户统计数据获取失败，请刷新此页面重试');
+                layer.open({content:'用户统计数据获取失败，请刷新此页面重试'});
             }
         }, 'json');
-        //获取提现余额
+        //获取可提现金额
         $.get('?act=store&inajax=1&do=getcash', {}, function(json) {
             if (json.errorCode == '0') {
-                $('#cash').html(json.yijiBalance);     //今日会员
+                $('#cash').html(json.totalCash);     //获取可提现金额
             } else {
-                alert('用户统计数据获取失败，请刷新此页面重试');
+                layer.open({content:'用户统计数据获取失败，请刷新此页面重试'});
             }
         }, 'json');
         //获取未读信息条数
