@@ -9,7 +9,7 @@ require_once CMS_ROOT . '/include/helper/page.class.php';
 $p = isset($_GET['p']) ? (int)$_GET['p'] : 1;
 if ($p < 1) $p = 1;
 //每页显示个数
-$pageSize = 10;
+$pageSize = 1;
 
 $level = isset($_GET['level']) ? $_GET['level'] : 1;    //分销商等级  1、2、3级 
 
