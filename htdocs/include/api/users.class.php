@@ -74,5 +74,11 @@ class users extends base
 
 		return $result;
 	}
-
+  
+  static public function getyijiid($data)
+  {
+      $url = '/users/getyijiid.html';
+      $result = self::request($url, 'post', $data);
+      return $result;
+  }
 }
