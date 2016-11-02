@@ -226,7 +226,7 @@ $(function(){
                 'background-color:#f0f0f0;font-weight:bold;'
             ],
             style: 'width:100%;position:fixed;bottom:0;left:0;border-radius:8px;',
-            btn:['确定','重选'],
+            btn:['确定','取消'],
             success: function(){
                 //分类联动菜单第二级
                 $(document).on('change', '#b2c_firstCate', function(){
@@ -267,7 +267,7 @@ $(function(){
                 'background-color:#f0f0f0;font-weight:bold;'
             ],
             style: 'width:100%;position:fixed;bottom:0;left:0;border-radius:8px;',
-            btn:['确定','重选'],
+            btn:['确定','取消'],
             success: function(){
                 //分类联动菜单第二级
                 $(document).on('change', '#firstCate', function(){

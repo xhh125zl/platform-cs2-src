@@ -1,6 +1,22 @@
-<?
-require_once "lib/user.php";
+<?php
+require_once "config.inc.php";
+require_once CMS_ROOT . '/include/api/Myuser.php';
+
+if (!isset($_GET['User_ID'])) {
+    exit('缺少必要的参数User_ID');
+}
+
+$transfer = ['Biz_Account' => $BizAccount, 'User_ID' => $_GET['User_ID']];
+$res = Myuser::getMyUsers($transfer);
+
+if (isset($res['errorCode']) && $res['errorCode'] == 0) {
+    $rsUser = $res['data'][0];
+} else {
+    exit('获取用户信息失败');
+}
+
 $From_arr = ['微信','注册','PC', 'QQ'];
+
 ?>
 <!doctype html>
 <html>
