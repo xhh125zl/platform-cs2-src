@@ -85,7 +85,7 @@ if (isset($_POST['ajax']) && $_POST['ajax'] == 1) {
             </li>
             <?php
                 }
-            } else { echo '<h3 style="text-align:center;">暂无会员</h3>'; }
+            } else { echo '<li style="text-align:center;color:#666;">暂无会员</li>'; }
             ?>
         </ul>
     </div>

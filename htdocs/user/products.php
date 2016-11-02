@@ -371,7 +371,7 @@ a.preview p, a.delete p, a.edit p, a.shop p, a.top p{display:inline;}
         <!--//li -->
         <?php
         	}
-        }
+        } else {echo '<li style="text-align:center;color:#666;">暂无商品</li>'; }
         ?>
     </ul>
 </div>
