@@ -1,6 +1,7 @@
 <?php
-require_once 'config.inc.php';
-
+require_once '../Framework/Conn.php';
+require_once CMS_ROOT . '/include/helper/tools.php';
+require_once CMS_ROOT . '/include/api/const.php';
 require_once CMS_ROOT . '/include/api/users.class.php';
 
 $Users_ID = 'pl2hu3uczz';
