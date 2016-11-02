@@ -3,6 +3,8 @@ if (!defined('USER_PATH')) exit();
 
 require_once "lib/message.php";
 
+$status = isset($_GET['status']) && in_array((int)$_GET['status'], [0,2,5,6]) ? (int)$_GET['status'] : 0;
+
 //分页初始化
 $p = isset($_GET['p']) ? (int)$_GET['p'] : 1;
 if ($p < 1) $p = 1;
@@ -28,16 +30,18 @@ $page->set($pageSize, $total, $p);
 
 $msglist = [];
 if (count($msgOrder) > 0) {
-    foreach ($msgOrder as $row) {
-        $row['create_time'] = date('Y-m-d H:i:s', $row['create_time']);
-        $msglist[] = $row;
+    foreach ($msgOrder as $k => $row) {
+        if ($row['Order_Status'] == $status) {
+            $row['create_time'] = date('Y-m-d H:i:s', $row['create_time']);
+            $msglist[] = $row;
+        } 
     }
 }
 
 $return = [
     'page' => [
-        'pagesize' => count($msglist),
-        'hasNextPage' => (count($msglist) >= $pageSize) ? 'true' : 'false',
+        'pagesize' => count($msgOrder),
+        'hasNextPage' => (count($msgOrder) >= $pageSize) ? 'true' : 'false',
         'total' => $total,
     ],
     'data' => $msglist,
@@ -75,6 +79,14 @@ if (isset($_POST['ajax']) && $_POST['ajax'] == 1) {
                 <a href="?act=msg_order"><li class="<?php if(isset($_GET['act']) && $_GET['act'] == 'msg_order') { echo 'on'; } ?>"><span class="msg_mark"><?php if ($unread_order_nums > 0) {echo '● ';} ?></span>订单</li></a>
                 <a href="?act=msg_distribute"><li class="<?php if(isset($_GET['act']) && $_GET['act'] == 'msg_distribute') { echo 'on'; } ?>"><span class="msg_mark"><?php if ($unread_distribute_nums > 0) {echo '● ';} ?></span>分销</li></a>
                 <a href="?act=msg_withdraw"><li class="<?php if(isset($_GET['act']) && $_GET['act'] == 'msg_withdraw') { echo 'on'; } ?>"><span class="msg_mark"><?php if ($unread_withdraw_nums > 0) {echo '● ';} ?></span>提现</li></a>
+            </ul>
+        </div>
+        <div class="hd msg_x">
+            <ul>
+                <a href="?act=msg_order&status=0"><li class="<?php if($status == 0) { echo 'on'; } ?>">待确认</li></a>
+                <a href="?act=msg_order&status=2"><li class="<?php if($status == 2) { echo 'on'; } ?>">待发货</li></a>
+                <a href="?act=msg_order&status=5"><li class="<?php if($status == 5) { echo 'on'; } ?>">待退款</li></a>
+                <a href="?act=msg_order&status=6"><li class="<?php if($status == 6) { echo 'on'; } ?>">待退货</li></a>
             </ul>
         </div>
         <div class="msg_list">
