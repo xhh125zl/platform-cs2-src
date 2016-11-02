@@ -11,7 +11,7 @@ $rsPay = $DB->GetRs("users_payconfig", "PaymentTeegonEnabled, PaymentTeegonClien
 if(!empty($rsPay)){
     require_once(CMS_ROOT.'/pay/yijipay/autoload.php');
     $param = [
-        'termnalType' => 'PC',
+        'termnalType' => 'MOBILE',
         'orderNo' => 'W'.date("YmdHis",time()).time()
     ];
     $param['userId'] = PARTNER_ID;

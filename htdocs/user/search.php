@@ -463,7 +463,7 @@ if ($return['page']['hasNextPage'] == 'true') {
                     'background-color:#f0f0f0;font-weight:bold;'
                 ],
                 style: 'width:100%;position:fixed;bottom:0;left:0;border-radius:8px;',
-                btn: ['上架分销','返回重选'],
+                btn: ['上架分销','取消'],
                 success: function(){
                     //分类联动菜单第二级
                     $(document).on('change', '#firstCate', function(){
@@ -506,7 +506,7 @@ if ($return['page']['hasNextPage'] == 'true') {
                         });
                     }else{
                         layer.open({
-                            content: '没有完成分类选择，请完成',
+                            content: '没有完成分类选择，请重试',
                             btn: '确定'
                         });
                     }
