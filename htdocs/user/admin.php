@@ -50,6 +50,7 @@ $actionArr = [
 	'basic_2',
 	'basic_3',
 	'reg',
+	'goreg',
 ];
 
 if (! in_array($act, $actionArr)) {

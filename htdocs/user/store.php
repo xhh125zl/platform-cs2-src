@@ -124,7 +124,17 @@ $auth_status = get_auth_statusText($bizRow['is_auth']);
         <span class="head_pho l"><a href="?act=setting"><img src="<?php echo IMG_SERVER . getImageUrl($config['ShopLogo'], 2);?>"></a></span>
         <span class="head_name l">
         	<a><?php echo $config['ShopName'];?></a>
-            <p><span><i>V</i></span><span style=" background:#0292d4; padding:0px 5px; border-top-right-radius:3px;border-bottom-right-radius:3px;"><?php echo $auth_status;?></span></p>
+<?php
+if ($auth_status == '未认证') {
+?>    
+            <a href="?act=goreg"><p><span><i>V</i></span><span style=" background:#0292d4; padding:0px 5px; border-top-right-radius:3px;border-bottom-right-radius:3px;"><?php echo $auth_status;?></span></p></a>
+<?php
+} else {
+?>
+            <p><span><i>V</i></span><span style=" background:#0292d4; padding:0px 5px; border-top-right-radius:3px;border-bottom-right-radius:3px;"><?php echo $auth_status;?></span></p>      
+<?php
+}
+?>      
         </span>
         <span class="head_pho l" style=" padding-left:30px"><a id="previewShop" style="color:#fff"><i class="fa  fa-eye fa-x" aria-hidden="true"></i><br>预览</a></span>       
     </div>
@@ -146,8 +156,38 @@ $auth_status = get_auth_statusText($bizRow['is_auth']);
         	<p class="in">我的钱包（元）</p>
             <p class="price_in" id="cash">0.00</p>
         </span>
-        <span class="r" style="margin-top:15px;"><a href="/pay/yijipay/wallet.php"><i class="fa  fa-angle-right fa-x" aria-hidden="true" style="color:#666; padding:0px"></i></a></span>
+        <span class="r" style="margin-top:15px;"><a id="yijipay" href="?act=goreg"><i class="fa  fa-angle-right fa-x" aria-hidden="true" style="color:#666; padding:0px"></i></a></span>
     </div>
+
+<?php
+$yijiPay = distribute::getcash(['Biz_Account' => $BizAccount]);
+
+//未开通易极付
+if (!isset($yijiPay['yijiGateWayBalance'])) {
+?>
+	<script>
+	$(function(){
+		$("#yijipay").click(function(event){
+
+			var url = $(this).attr('href');
+			layer.open({
+				content: '您还未开通提现账户',
+				shadeClose: false,
+				btn: ['立即开通', '以后再说'],
+				yes:function(){
+					location.href= url;	
+				},
+				no:function(){
+					layer.close();
+				}
+			});
+			event.preventDefault();
+		})
+	})
+	</script>
+<?php
+}
+?>
     <div class="clear"></div>
     <div class="daily_x">
         <ul>
