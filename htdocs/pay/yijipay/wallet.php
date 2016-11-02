@@ -27,4 +27,6 @@ if($result['errorCode']==0){
         $charge->wallet($param);
         exit;
     }
+} else {
+    echo '您还未开通支付账户，暂无法提现';
 }
