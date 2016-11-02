@@ -97,7 +97,7 @@ if (isset($_POST['ajax']) && $_POST['ajax'] == 1) {
                 <?php
                 if (isset($infolist) && count($infolist) > 0) {
                     foreach ($infolist as $k => $v){
-                        ?>
+                ?>
                         <li>
                             <div class="line_x">
                                 <span class="l">订单号：<a href="?act=order_details&orderid=<?=$v['Order_ID']?>"><?=$v['Order_ID']?></a></span>
@@ -117,7 +117,7 @@ if (isset($_POST['ajax']) && $_POST['ajax'] == 1) {
                             <?php
                             foreach ($v['OrderCartList'] as $key => $val) {
                                 foreach ($val as $goodskey => $goodsval) {
-                                    ?>
+                            ?>
                                     <div class="pro_xt">
                                         <div class="img_xt"><a href="#"><img src="<?=$goodsval['ImgPath']?>" height="90" width="90"></a></div>
                                         <dl class="info_xt">
@@ -127,22 +127,12 @@ if (isset($_POST['ajax']) && $_POST['ajax'] == 1) {
                                         </dl>
                                         <div class="clear"></div>
                                     </div>
-                                <?php }} ?>
+                            <?php }} ?>
                         </li>
-                    <?php }} else { ?>
-                    <div style="height:80px; line-height:80px;">暂无订单!</div>
-                <?php } ?>
+                <?php }} else { echo '<li style="text-align:center;color:#666;">暂无此类型订单</li>'; } ?>
             </ul>
         </div>
     </div>
-    <script type="text/javascript">
-        //jQuery(".slideTxtBox").slide();
-        $(function() {
-            $(".ss1_x").click(function() {
-                $("form").submit();
-            })
-        })
-    </script>
 </div>
 <div class="clear"></div>
 <!-- 点击加载更多 -->
@@ -196,11 +186,25 @@ if (isset($_POST['ajax']) && $_POST['ajax'] == 1) {
 </html>
 <script type="text/javascript">
     $(function(){
+        //搜索
+        $(".ss1_x").click(function() {
+            $("form").submit();
+        })
+
         //加载更多
+        var last_pageno = 1;
         $("#pagemore a").click(function(){
             var totalPage = <?php echo $totalPage;?>;
             var pageno = $(this).attr('data-next-pageno');
             var url = 'admin.php?act=order_list&status=' + <?php echo $Order_Status; ?> + '&p=' + pageno;
+
+
+            //防止一页多次加载
+            if (pageno == last_pageno) {
+                return false;
+            } else {
+                last_pageno = pageno;
+            }
 
             var nextPageno = parseInt(pageno);
             if (nextPageno > totalPage) {
@@ -220,5 +224,20 @@ if (isset($_POST['ajax']) && $_POST['ajax'] == 1) {
                 }
             },'json')
         });
+
+        //瀑布流加载翻页
+        $(window).bind('scroll',function () {
+            // 当滚动到最底部以上100像素时， 加载新内容
+            if ($(document).height() - $(this).scrollTop() - $(this).height() < 100) {
+                //已无数据可加载
+                if ($("#pagemore").html() == '已经没有了...') {
+                    return false;
+                } else {
+                    //模拟点击
+                    $("#pagemore a").trigger('click');
+                }
+            }
+        });
+
     });
 </script>
