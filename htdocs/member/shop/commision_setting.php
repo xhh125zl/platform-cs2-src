@@ -7,7 +7,7 @@ if(empty($_SESSION["Users_Account"]))
 if ($_POST) 
 {
   unset($_POST['submit_button']);
-  if (!is_numeric($_POST['platForm_Income_Reward']) || $_POST['platForm_Income_Reward'] >= 100 || $_POST['platForm_Income_Reward'] <= 0) 
+  if (!is_numeric($_POST['platForm_Income_Reward']) || $_POST['platForm_Income_Reward'] > 100 || $_POST['platForm_Income_Reward'] < 0) 
   {
     echo '<script language="javascript">alert("请设置合理的网站所得比例");history.back();</script>'; exit();
   }
