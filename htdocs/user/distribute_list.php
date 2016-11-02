@@ -117,7 +117,7 @@ if (isset($_POST['ajax']) && $_POST['ajax'] == 1) {
                     </a></li>
                     <?php
                         }
-                    } else {echo '<h3>暂无分销商</h3>';}
+                    } else {echo '<li style="text-align:center;color:#666;">暂无分销商</li>';}
                     ?>
                 </ul>
             </div>
