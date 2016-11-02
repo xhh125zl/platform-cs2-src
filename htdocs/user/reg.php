@@ -1,5 +1,5 @@
 <?php
-if (!defined('USER_PATH')) exit();
+require_once 'config.inc.php';
 
 require_once CMS_ROOT . '/include/api/users.class.php';
 
@@ -13,7 +13,6 @@ if ($inajax == 1) {
 	$Account = $mobile = isset($_POST['Mobile']) ? $_POST['Mobile'] : '';
 	$smsMobileKey = isset($_POST['Mobile']) ? 'reg' . $_POST['Mobile'] : '';
 	
-
 
 	//发送手机验证码
 	if (isset($_POST['do']) && ($_POST['do'] == 'send') && isset($_POST['Mobile']) && $_POST['Mobile']) {
@@ -33,7 +32,7 @@ if ($inajax == 1) {
 		if (!empty($row)) {
 			$Data = array(
 				"status" => 0,
-				"msg" => "手机号已被占用"
+				"msg" => "手机号已被占用,请更新一个"
 			);
 			echo json_encode($Data, JSON_UNESCAPED_UNICODE);
 			exit;
