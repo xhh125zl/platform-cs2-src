@@ -146,7 +146,7 @@ $auth_status = get_auth_statusText($bizRow['is_auth']);
         	<p class="in">我的钱包（元）</p>
             <p class="price_in" id="cash">0.00</p>
         </span>
-        <span class="r" style="margin-top:21px;"><a href="/pay/yijipay/wallet.php" style="padding:4px 15px; color:#fff; background:#ff6600; border-radius:3px">提现</a></span>
+        <span class="r" style="margin-top:15px;"><a href="/pay/yijipay/wallet.php"><i class="fa  fa-angle-right fa-x" aria-hidden="true" style="color:#666; padding:0px"></i></a></span>
     </div>
     <div class="clear"></div>
     <div class="daily_x">
@@ -187,7 +187,7 @@ $auth_status = get_auth_statusText($bizRow['is_auth']);
                 <a href='?act=products'><i class="fa  fa-check-square fa-x" aria-hidden="true"></i>&nbsp;产品管理</a>
             </li>
             <li>
-                <a href='?act=my_cate'><i class="fa  fa-check-square fa-x" aria-hidden="true"></i>&nbsp;分类管理</a>
+                <a href='?act=my_cate'><i class="fa  fa-bars fa-x" aria-hidden="true"></i>&nbsp;分类管理</a>
             </li>
         </ul>
     </div>
