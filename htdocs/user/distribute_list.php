@@ -1,6 +1,6 @@
 <?php
 if (!defined('USER_PATH')) exit();
-require_once CMS_ROOT . "/user/config.inc.php";
+require_once "config.inc.php";
 require_once CMS_ROOT . '/include/api/distribute.class.php';
 require_once CMS_ROOT . '/include/api/user.class.php';
 require_once CMS_ROOT . '/include/helper/page.class.php';
@@ -55,9 +55,8 @@ if (count($distributes) > 0) {
         }
 
         $row['User_No'] = isset($user_list[$row['User_ID']]) ? $user_list[$row['User_ID']]['User_No'] : '';
-        $row['User_Mobile'] = isset($user_list[$row['User_ID']]) ? $user_list[$row['User_ID']]['User_Mobile'] : '';
-        $row['User_Name'] = isset($user_list[$row['User_ID']]) ? $user_list[$row['User_ID']]['User_Name'] : '';
-        $row['User_NickName'] = isset($user_list[$row['User_ID']]) ? $user_list[$row['User_ID']]['User_NickName'] : '';
+        $row['User_Mobile'] = isset($user_list[$row['User_ID']]) && $user_list[$row['User_ID']]['User_Mobile'] != '' ? $user_list[$row['User_ID']]['User_Mobile'] : '暂无手机号';
+        $row['User_NickName'] = isset($user_list[$row['User_ID']]) && $user_list[$row['User_ID']]['User_NickName'] != '' ? $user_list[$row['User_ID']]['User_NickName'] : '暂无昵称';
         $infolist[] = $row;
     }
 }
@@ -73,11 +72,10 @@ $return = [
 
 if (isset($_POST['ajax']) && $_POST['ajax'] == 1) {
     echo json_encode($return);
-    exit();
+    exit;
 }
 
 ?>
-
 <!doctype html>
 <html>
 <head>
@@ -97,46 +95,42 @@ if (isset($_POST['ajax']) && $_POST['ajax'] == 1) {
     	<a href="?act=store" class="l"><i class="fa  fa-angle-left fa-2x" aria-hidden="true"></i></a>分销管理
     </div>
     <div class="slideTxtBox">
-			<div class="hd distribute_x">
-				<ul>
-                    <a href="?act=distribute_list&level=1"><li class="<?php if(isset($level) && $level == 1) { echo 'on'; } ?>">一级分销商</li></a>
-                    <a href="?act=distribute_list&level=2"><li class="<?php if(isset($level) && $level == 2) { echo 'on'; } ?>">二级分销商</li></a>
-                    <a href="?act=distribute_list&level=3"><li class="<?php if(isset($level) && $level == 3) { echo 'on'; } ?>">三级分销商</li></a>
-                </ul>
-			</div>
-			<div class="bd">
-				<ul>
-					<li>
-                    	<div class="user_ls">
-                            <ul style="margin:0"  class="distributeList">
-                            <?php
-                                if (isset($infolist) && count($infolist) > 0) {
-                                    foreach ($infolist as $k => $v) {
-                            ?>
-                                <li><a href="?act=distribute_detail&distributeid=<?php echo $v['Account_ID']; ?>&level=<?php echo $v['level']; ?>">
-                                    <span class="l"><img src="<?php echo $v['Shop_Logo']; ?>"></span>
-                                    <span class="infor_x l" style="text-align:left"><?php echo ($v['User_NickName'] == '') ? '暂无昵称' : $v['User_NickName']; ?><p>手机号：<?php echo $v['User_Mobile']; ?></p></span>
-                                    <span class="r"><i class="fa  fa-angle-right fa-2x" aria-hidden="true"></i></span>
-                                    <div class="clear"></div>
-                                </a></li>
-                            <?php }} ?>
-                            </ul>
-                        </div>
-                    </li>
-				</ul>
-			</div>
+		<div class="hd distribute_x">
+			<ul>
+                <a href="?act=distribute_list&level=1"><li class="<?php if(isset($level) && $level == 1) { echo 'on'; } ?>">一级分销商</li></a>
+                <a href="?act=distribute_list&level=2"><li class="<?php if(isset($level) && $level == 2) { echo 'on'; } ?>">二级分销商</li></a>
+                <a href="?act=distribute_list&level=3"><li class="<?php if(isset($level) && $level == 3) { echo 'on'; } ?>">三级分销商</li></a>
+            </ul>
 		</div>
-        <script type="text/javascript">
-            //jQuery(".slideTxtBox").slide();
-        </script>
+		<div class="bd">
+        	<div class="user_ls">
+                <ul class="distributeList">
+                    <?php
+                    if (isset($infolist) && count($infolist) > 0) {
+                        foreach ($infolist as $k => $v) {
+                    ?>
+                    <li><a href="?act=distribute_detail&distributeid=<?php echo $v['Account_ID']; ?>&level=<?php echo $v['level']; ?>">
+                        <span class="l"><img src="<?php echo $v['Shop_Logo']; ?>"></span>
+                        <span class="infor_x l" style="text-align:left"><?php echo $v['User_NickName']; ?><p>手机号：<?php echo $v['User_Mobile']; ?></p></span>
+                        <span class="r"><i class="fa  fa-angle-right fa-2x" aria-hidden="true"></i></span>
+                        <div class="clear"></div>
+                    </a></li>
+                    <?php
+                        }
+                    } else {echo '<h3>暂无分销商</h3>';}
+                    ?>
+                </ul>
+            </div>
+		</div>
+	</div>
 </div>
 <div class="clear"></div>
 <!-- 点击加载更多 -->
-<script id="order-row" type="text/html">
+<script id="distribute-row" type="text/html">
 {{each data as v i}}
     <li><a href="?act=distribute_detail&distributeid={{v.Account_ID}}&level={{v.level}}">
         <span class="l"><img src="{{v.Shop_Logo}}"></span>
-        <span class="infor_x l" style="text-align:left">{{v.User_Name == '' ? '暂无昵称' : v.User_Name}}<p>手机号：{{v.User_Mobile}}</p></span>
+        <span class="infor_x l" style="text-align:left">{{v.User_NickName}}<p>手机号：{{v.User_Mobile}}</p></span>
         <span class="r"><i class="fa  fa-angle-right fa-2x" aria-hidden="true"></i></span>
         <div class="clear"></div>
     </a></li>
@@ -148,10 +142,12 @@ if (isset($_POST['ajax']) && $_POST['ajax'] == 1) {
 </style>
 <div id="pagemore">
 <?php
-    if ($return['page']['hasNextPage'] == 'true') {
-        echo '<a href="javascript:;" data-next-pageno="2">点击加载更多...</a>';    
-    } else {
-        echo '已经没有了...';
+    if (isset($infolist) && count($infolist) > 0) {
+        if ($return['page']['hasNextPage'] == 'true') {
+            echo '<a href="javascript:;" data-next-pageno="2">点击加载更多...</a>';    
+        } else {
+            echo '已经没有了...';
+        }
     }
 ?>
 </div>
@@ -181,7 +177,7 @@ if (isset($_POST['ajax']) && $_POST['ajax'] == 1) {
 
             $.post(url, {ajax: 1}, function(json){
                 if (parseInt(json.page.pagesize) > 0) {
-                    var html = template('order-row', json);
+                    var html = template('distribute-row', json);
                     $("ul.distributeList").append(html);
                 }
                 if (json.page.hasNextPage == 'true') {
