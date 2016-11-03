@@ -15,8 +15,8 @@ if (isset($_SESSION['BIZ_ID'])) {
 	$BizAccount = $_SESSION['Biz_Account'];
 	if (isset($_GET['orderid'])) {
 		header("Location:/user/admin.php?act=order_details&orderid=" . htmlspecialchars($_GET['orderid']));
+		exit;
 	}
-	exit;
 } else {
 	//die('请先登录');
 	if (isset($_GET['uuid']) && isset($_GET['time']) && $_GET['bizID']) {
