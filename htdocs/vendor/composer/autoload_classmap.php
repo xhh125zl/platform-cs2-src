@@ -39,4 +39,5 @@ return array(
     'Zebra_Pagination' => $baseDir . '/include/compser_library/Zebra_Pagination.php',
     'Zizaco\\Entrust\\ClassCreatorCommand' => $vendorDir . '/zizaco/entrust/src/commands/ClassCreatorCommand.php',
     'Zizaco\\Entrust\\MigrationCommand' => $vendorDir . '/zizaco/entrust/src/commands/MigrationCommand.php',
+    'TransYijipayRecord' => $baseDir . '/include/models/TransYijipayRecord'
 );
