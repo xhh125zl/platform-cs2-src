@@ -35,6 +35,32 @@ class distribute extends base
         $result = self::request($url, 'post', $data);
         return $result;
     }
+    
+    /**
+     * B2C批量获取商家的yiji_balance接口
+     * @param array $data   userids(此参数对应一个一位数组,键值为User_ID,如[1,2,3,4,5])
+
+     * @return array
+     */
+    static public function getyijibalancebyuserid($data)
+    {
+        $url = '/distribute/getyijibalancebyuserid.html';
+        $result = self::request($url, 'post', $data);
+        return $result;
+    }
+    
+    /**
+     * B2C更新401对应的Account_ID的状态(禁用和启用操作)
+     * @param array $data   counters(此参数为一个一位数组,对应getyijibalancebyuserid接口返回的数组,请原样传回到这个接口)
+
+     * @return array
+     */
+    static public function updateyijibalance($data)
+    {
+        $url = '/distribute/updateyijibalance.html';
+        $result = self::request($url, 'post', $data);
+        return $result;
+    }
 
     /**
      * 获取可提现余额

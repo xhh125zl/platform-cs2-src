@@ -6,7 +6,7 @@ if(empty($_SESSION["Users_Account"])) {
 	header("location:/member/login.php");
   exit();
 }
-
+$UsersID = $_SESSION['Users_ID'];
 
 if ($_POST && isset($_POST['User_ID'])) {
   $userid_arr = $_POST['User_ID'];
@@ -15,10 +15,14 @@ if ($_POST && isset($_POST['User_ID'])) {
     echo '<script>alert("至少需要选择一个转账用户")</script>';
     exit();
   }
-
+  $rsPay = Users_PayConfig::where('Users_ID', $UsersID);
+  require_once (CMS_ROOT . '/pay/yijipay/autoload.php');
   //@todo 批量转账
-
-
+  $result = distribute::getyijibalancebyuserid(['userids' => $_POST['User_ID']]);
+  if($result['errorCode'] == 0){
+      $data = $result['data'];
+      
+  }
 }
 
 

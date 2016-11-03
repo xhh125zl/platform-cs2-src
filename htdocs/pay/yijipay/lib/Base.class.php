@@ -62,7 +62,7 @@ class BasePay {
         $postStr = $this->buildParm($param, $param['sign']);
         $options = [
             CURLOPT_URL => $requestURL,
-            CURLOPT_CONNECTTIMEOUT => 7,
+            CURLOPT_CONNECTTIMEOUT => 10,
             CURLOPT_RETURNTRANSFER => 1,
             CURLOPT_USERAGENT => "devo php",
             
