@@ -46,34 +46,34 @@ foreach($rmenu as $key=>$value){
 	}
 }
 $myrmenu = array();
-foreach($sysrmenu as $key=>$value){
-	if (array_key_exists($key,$Users_Right)){
-		foreach($value as $k=>$v){
-			if($key == 'weicuxiao'){
-				$cux = 0;
-				$cux = $k == 'weicuxiao'?1:0;
-				if($k != 'weicuxiao' && in_array($k,$Users_Right[$key])){			
-				$cux = 1;
-				}
-			}else{
-				$cux = 1;
-			}
-		if($cux == 1){
-					$myrmenu[$key][$k] = $v;					
-				}				
-			}
-		}
-	}
+// foreach($sysrmenu as $key=>$value){
+// 	if (array_key_exists($key,$Users_Right)){
+// 		foreach($value as $k=>$v){
+// 			if($key == 'weicuxiao'){
+// 				$cux = 0;
+// 				$cux = $k == 'weicuxiao'?1:0;
+// 				if($k != 'weicuxiao' && in_array($k,$Users_Right[$key])){			
+// 				$cux = 1;
+// 				}
+// 			}else{
+// 				$cux = 1;
+// 			}
+// 		if($cux == 1){
+// 					$myrmenu[$key][$k] = $v;					
+// 				}				
+// 			}
+// 		}
+// 	}
 /*edit in 20160326*/	
-$paixarry = Array("buy_record","weicuxiao");
-$newpaiarry = array();
-	foreach($paixarry as $val){
-		$newpaiarry[$val] = $rmenu[$val];
-		unset($rmenu[$val]);
-	}
-unset($newpaiarry["weicuxiao"]);
+// $paixarry = Array("buy_record","weicuxiao");
+// $newpaiarry = array();
+// 	foreach($paixarry as $val){
+// 		$newpaiarry[$val] = $rmenu[$val];
+// 		unset($rmenu[$val]);
+// 	}
+// unset($newpaiarry["weicuxiao"]);
 $my_right = array_merge($rmenu,$myrmenu);
-$my_right = array_merge($my_right,$newpaiarry);
+//$my_right = array_merge($my_right,$newpaiarry);
 
 if(isset($_SESSION['user_type'])){
 	$my_rightcopy = array();

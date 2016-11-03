@@ -3,19 +3,7 @@ if(empty($_SESSION["Users_Account"])){
 	header("location:/member/login.php");
 }
 require_once(CMS_ROOT . '/include/api/const.php');
-if(isset($_GET["action"])){
-	if($_GET["action"]=="del"){
-		$Flag=$DB->Del("biz","Users_ID='".$_SESSION["Users_ID"]."' and Biz_ID=".$_GET["BizID"]);
-		if($Flag)
-		{
-			echo '<script language="javascript">alert("删除成功");window.location="'.$_SERVER['HTTP_REFERER'].'";</script>';
-		}else
-		{
-			echo '<script language="javascript">alert("删除失败");history.back();</script>';
-		}
-		exit;
-	}
-}
+
 $condition = "where Users_ID='".$_SESSION["Users_ID"]."'";
 $OrderBy = "Biz_Status ASC,Biz_CreateTime DESC";
 if(isset($_GET['search'])){
@@ -169,7 +157,7 @@ while($row = $DB->fetch_assoc()){
             <td nowrap="nowrap"><?=$rsBiz['Users_ExpiresTime'] == 0 ? '<span style="color:green;font-weight: bold;">无限期</span>' : ($rsBiz['Users_ExpiresTime'] > time() ? '<span style="font-weight: bold;color:#f00;">'.ceil(($rsBiz['Users_ExpiresTime'] - time()) / (3600 *24)).'天后</span>' : '<span style="color:#ccc;font-weight: bold">已到期</span>')?></td>
             <td nowrap="nowrap"><?php echo ($rsBiz["addtype"] == 1)?'后台添加':'注册'; ?></td>
 			<td nowrap="nowrap"><?php echo $_Status[$rsBiz["Biz_Status"]]; ?></td>
-            <td class="last" nowrap="nowrap"><a href="edit.php?BizID=<?php echo $rsBiz["Biz_ID"] ?>"><img src="/static/member/images/ico/mod.gif" align="absmiddle" alt="修改" /></a> <a href="?action=del&BizID=<?php echo $rsBiz["Biz_ID"] ?>" onClick="if(!confirm('删除后不可恢复，继续吗？')){return false};"><img src="/static/member/images/ico/del.gif" align="absmiddle" alt="删除" /></a></td>
+            <td class="last" nowrap="nowrap"><a href="edit.php?BizID=<?php echo $rsBiz["Biz_ID"] ?>"><img src="/static/member/images/ico/mod.gif" align="absmiddle" alt="修改" /></a></td>
           </tr>
           <?php }?>
         </tbody>

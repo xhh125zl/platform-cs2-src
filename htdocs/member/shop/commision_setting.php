@@ -12,19 +12,6 @@ if ($_POST)
     echo '<script language="javascript">alert("请设置合理的网站所得比例");history.back();</script>'; exit();
   }
 
-
-  if (!is_numeric($_POST['noBi_Reward']) || !is_numeric($_POST['area_Proxy_Reward']) || !is_numeric($_POST['sha_Reward']) || !is_numeric($_POST['commission_Reward']) || !is_numeric($_POST['salesman_ratio']) || ($_POST['noBi_Reward']+$_POST['area_Proxy_Reward']+$_POST['commission_Reward']+$_POST['sha_Reward']+$_POST['salesman_ratio']) > 100 || ($_POST['noBi_Reward']+$_POST['area_Proxy_Reward']+$_POST['commission_Reward']+$_POST['sha_Reward']+$_POST['salesman_ratio']) < 0 ) 
-  {
-    echo '<script language="javascript">alert("请设置合理的佣金分配比例");history.back();</script>'; exit();
-  }
-    foreach ($_POST['salesman_level_ratio'] as $k => $v) {
-        if(!is_numeric($v)){
-            echo '<script language="javascript">alert("请设置合理的各级业务提成比例");history.back();</script>'; exit();
-        }
-    }
-    if ($_POST['salesman_ratio'] < 0 || array_sum($_POST['salesman_level_ratio']) > 100 || $_POST['salesman_level_ratio'][0] < 0 || $_POST['salesman_level_ratio'][1] < 0 || $_POST['salesman_level_ratio'][2] < 0) {
-        echo '<script language="javascript">alert("请设置合理的各级业务提成比例");history.back();</script>'; exit();
-    }
   
 $Data = array('Shop_Commision_Reward_Json' => json_encode($_POST, JSON_UNESCAPED_UNICODE));
 
@@ -103,7 +90,6 @@ $Data = array('Shop_Commision_Reward_Json' => json_encode($_POST, JSON_UNESCAPED
       <ul>
         <li class=""><a href="products.php">产品列表</a></li>
         <li class=""><a href="category.php">产品分类</a></li>
-        <li class=""><a href="commit.php">产品评论</a></li>
         <li class="cur"><a href="commision_setting.php">佣金设置</a></li>
       </ul>
     </div>
@@ -123,46 +109,7 @@ $Data = array('Shop_Commision_Reward_Json' => json_encode($_POST, JSON_UNESCAPED
           </span>
           <div class="clear"></div>
         </div> 
-        
-        <div class="rows">
-          <label>爵位奖励比例</label>		  
-          <span class="input price">
-          <span>%</span>
-          <input type="text" name="noBi_Reward" value="<?php echo !empty($Shop_Commision_Reward_Arr['noBi_Reward']) ? $Shop_Commision_Reward_Arr['noBi_Reward'] : 0; ?>" class="form_input" size="5" maxlength="10" notnull />
-          <span>(所占发放比例的百分比)</span>
-          </span>
-          <div class="clear"></div>
-        </div>
-
-        <div class="rows">
-          <label>区域代理比例</label>		  
-          <span class="input price">
-          <span>%</span>
-          <input type="text" name="area_Proxy_Reward" value="<?php echo !empty($Shop_Commision_Reward_Arr['area_Proxy_Reward']) ? $Shop_Commision_Reward_Arr['area_Proxy_Reward'] : 0; ?>" class="form_input" size="5" maxlength="10" notnull />
-          <span>(所占发放比例的百分比)</span>
-          </span>
-          <div class="clear"></div>
-        </div>
-
-        <div class="rows">
-          <label>股东佣金比例</label>     
-          <span class="input price">
-          <span>%</span>
-          <input type="text" name="sha_Reward" value="<?php echo !empty($Shop_Commision_Reward_Arr['sha_Reward']) ? $Shop_Commision_Reward_Arr['sha_Reward'] : 0; ?>" class="form_input" size="5" maxlength="10" notnull />
-          <span>(所占发放比例的百分比)</span>
-          </span>
-          <div class="clear"></div>
-        </div>
-
-        <div class="rows disnone">
-          <label>业务比例</label>  
-          <span class="input price">
-          <span>%</span>
-         <input type="text" name="salesman_ratio" value="<?php echo !empty($Shop_Commision_Reward_Arr['salesman_ratio']) ? $Shop_Commision_Reward_Arr['salesman_ratio'] : 0; ?>" class="form_input" size="5" maxlength="10" notnull />
-         <span>(业务提成所占发放比例的百分比)</span>
-          </span>
-          <div class="clear"></div>
-        </div> 
+          
         <div class="rows">
 
           <label>佣金比例</label>		  
@@ -202,11 +149,7 @@ $Data = array('Shop_Commision_Reward_Json' => json_encode($_POST, JSON_UNESCAPED
 						for($i=0;$i<$level;$i++){?>                        
 						<tr>
 							<td>
-              <?php if($dis_config['Dis_Self_Bonus']==1 && $i==$dis_config['Dis_Level']){?>
-              自销佣金
-              <?php }else{?>                            
-							<?php echo $arr[$i]?>级
-              <?php }?>&nbsp;&nbsp; %
+              &nbsp;&nbsp; %
 								<input onblur="Distribute(this);" id="dischange<?=$disinfo['Level_ID'].$i?>" name="Distribute[<?=$disinfo['Level_ID']?>][<?php echo $i;?>]" value="<?php echo !empty($Shop_Commision_Reward_Arr['Distribute'][$disinfo['Level_ID']][$i]) ? $Shop_Commision_Reward_Arr['Distribute'][$disinfo['Level_ID']][$i] : 0; ?>" class="form_input" size="5" maxlength="10" type="text">
 								(佣金比例的百分比)
 							</td>
@@ -218,38 +161,7 @@ $Data = array('Shop_Commision_Reward_Json' => json_encode($_POST, JSON_UNESCAPED
             </span>
             <div class="clear"></div>
         </div>
-        <div class="rows">
-
-          <label>各级业务提成比例</label>		  
-          <span class="input">
-              <table>
-                  <tr>
-                      <td>
-                       一级业务<span>%</span>
-            <input type="text" name="salesman_level_ratio[0]" onblur="Distribute(this);" value="<?php echo !empty($Shop_Commision_Reward_Arr['salesman_level_ratio'][0]) ? $Shop_Commision_Reward_Arr['salesman_level_ratio'][0] : 0; ?>" class="form_input" size="5" maxlength="10" notnull />
-            <span>(业务比例的百分比)</span>
-                      </td>
-                  </tr>
-                  <tr>
-                      <td>
-                       二级业务<span>%</span>
-            <input type="text" name="salesman_level_ratio[1]" onblur="Distribute(this);" value="<?php echo !empty($Shop_Commision_Reward_Arr['salesman_level_ratio'][1]) ? $Shop_Commision_Reward_Arr['salesman_level_ratio'][1] : 0; ?>" class="form_input" size="5" maxlength="10" notnull />
-            <span>(业务比例的百分比)</span>
-                      </td>
-                  </tr>
-                  <tr>
-                      <td>
-                       三级业务<span>%</span>
-            <input type="text" name="salesman_level_ratio[2]" onblur="Distribute(this);" value="<?php echo !empty($Shop_Commision_Reward_Arr['salesman_level_ratio'][2]) ? $Shop_Commision_Reward_Arr['salesman_level_ratio'][2] : 0; ?>" class="form_input" size="5" maxlength="10" notnull />
-            <span>(业务比例的百分比)</span>
-                      </td>
-                  </tr>
-              </table>
-         
-          </span>
-           
-          <div class="clear"></div>
-        </div>
+       
         <div class="rows">
 
           <label></label>
