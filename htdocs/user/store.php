@@ -156,7 +156,7 @@ if ($auth_status == '未认证') {
         	<p class="in">我的钱包（元）</p>
             <p class="price_in" id="cash">0.00</p>
         </span>
-        <span class="r" style="margin-top:15px;"><a id="yijipay" href="?act=goreg"><i class="fa  fa-angle-right fa-x" aria-hidden="true" style="color:#666; padding:0px"></i></a></span>
+        <span class="r" style="margin-top:15px;"><a id="yijipay" href="/pay/yijipay/wallet.php"><i class="fa  fa-angle-right fa-x" aria-hidden="true" style="color:#666; padding:0px"></i></a></span>
     </div>
 
 <?php
@@ -175,7 +175,7 @@ if (!isset($yijiPay['yijiGateWayBalance'])) {
 				shadeClose: false,
 				btn: ['立即开通', '以后再说'],
 				yes:function(){
-					location.href= url;	
+					location.href= '?act=goreg';	
 				},
 				no:function(){
 					layer.close();
