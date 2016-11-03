@@ -19,15 +19,15 @@ $rmenu["weixin"] = array(
 // 	'sysurl' => '系统URL查询'
 // );
 
-// $rmenu['basic'] = array(
-// 	'basic' => '商城设置',
-// 	'setting/config' => '基本设置',	
+ $rmenu['basic'] = array(
+ 	'basic' => '商城设置',
+ 	'setting/config' => '基本设置',	
 //    'setting/other_config' => '积分设置',		
 // 	'setting/skin' => '风格设置',
 // 	'setting/home' => '首页设置',
 // 	'setting/menu_config' => '菜单配置',
 // 	'setting/third_login' => '三方登录',
-// );
+ );
 
 $rmenu['product']=array(
 	'product' => '产品管理',
