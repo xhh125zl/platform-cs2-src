@@ -27,6 +27,9 @@ class mysql{
     private $rsAll=0;      // 总记录
     private $pageSize=10;  // 每页显示记录条数
 
+    //add by sxf
+    public $debug = false; //是否启用SQL调试模式
+
     /******************************************************************
     -- 函数名：__construct($host,$user,$pass,$data,$code,$conn)
     -- 作  用：构造函数
@@ -105,10 +108,25 @@ class mysql{
         if(empty($sql)) $this->show_error('SQL语句为空');
         $this->sql=preg_replace('/ {2,}/',' ',trim($sql));
         $this->result=mysql_query($this->sql,$this->conn);
+
+        //调试模式  add by sxf
+        if ($this->debug) {
+            $this->getLastSql();
+        }
+
         if(!$this->result) $this->show_error('SQL语句有误',true);
         return $this->result;
     }
 
+    /**
+     * 打印上次执行的SQL语句
+     * @author sxf
+     * @return string
+     */
+    public function getLastSql() {
+        echo '<fieldset><legend>上次执行的SQL语句</legend>' . $this->sql . '</fieldset>';
+    }
+    
     /******************************************************************
     -- 函数名：create_db($data)
     -- 作  用：创建添加新的数据库

@@ -50,7 +50,7 @@ $config = $result['data'];
 <div class="w">
 	<!-- 店铺名称  -->
 	<div class="back_x">
-    	<a href="javascript:history.back()" class="l"><i class="fa  fa-angle-left fa-2x" aria-hidden="true"></i></a>自动收货时间(天)
+    	<a href="<?=isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '/user/admin.php?act=store'?>" class="l"><i class="fa  fa-angle-left fa-2x" aria-hidden="true"></i></a>自动收货时间(天)
     </div>
     <div class="box_setting">
     	<input type="number" id="day" maxlength="2" value="<?php echo $config['Confirm_Time'] / 86400;?>">

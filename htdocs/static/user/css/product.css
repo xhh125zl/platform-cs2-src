@@ -86,8 +86,9 @@ input[type=button], input[type=submit], input[type=file], button { cursor: point
 }
 .income_today span a i{ padding-top:10px; font-size:30px; color:#999}
 .daily_x{ background:#fff; overflow:hidden; margin-bottom:5px;}
-.daily_x ul{ padding:15px 0; overflow:hidden}
-.daily_x ul li{ width:33.3%; float:left; text-align:center; color:#666; line-height:22px;}
+.daily_x ul{overflow:hidden}
+.daily_x ul li{ width:33%; float:left; text-align:center; color:#999; line-height:25px;border-right: 1px #eee solid;border-bottom: 1px #eee solid; padding:15px 0; }
+.daily_x ul li p strong{ color:#333}
 .product_x{background: #fff;
     padding: 10px 0;
 	overflow:hidden}

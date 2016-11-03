@@ -13,6 +13,10 @@ if (isset($_SESSION['BIZ_ID'])) {
 	$UsersID = $_SESSION['Users_ID'];
 	$BizID = $_SESSION["BIZ_ID"];
 	$BizAccount = $_SESSION['Biz_Account'];
+	if ($_GET['act'] == 'store' && isset($_GET['orderid'])) {
+		header("Location:/user/admin.php?act=order_details&orderid=" . htmlspecialchars($_GET['orderid']));
+		exit;
+	}
 } else {
 	//die('请先登录');
 	if (isset($_GET['uuid']) && isset($_GET['time']) && $_GET['bizID']) {
@@ -24,8 +28,12 @@ if (isset($_SESSION['BIZ_ID'])) {
 			$BizID = $rsBiz['Biz_Account'];
 			$BizAccount = $_SESSION["Users_ID"] = $rsBiz["Users_ID"];
 			$BizAccount = $rsBiz["Users_ID"];
-			header("Location:/user/admin.php?act=store");
-
+			if (isset($_GET['orderid'])) {
+				header("Location:/user/admin.php?act=order_details&orderid=" . htmlspecialchars($_GET['orderid']));
+			} else {
+				header("Location:/user/admin.php?act=store");
+			}
+			exit;
 		} else {
 			if (isset($_SESSION["BIZ_ID"])) {
 				$DB->Set('biz',['loginTime' => 0], "where Biz_ID = " . $_SESSION["BIZ_ID"]);

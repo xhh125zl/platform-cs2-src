@@ -1,6 +1,5 @@
 <?php
 	require_once($_SERVER["DOCUMENT_ROOT"].'/Framework/Conn.php');
-	//$_SESSION['user_type'] = 'employee';	
 	require_once('./employee/top.php');
 	require_once('./employee/right_all.php');	
 	require_once('./employee/sysright_all.php');	
@@ -12,10 +11,12 @@
 		if(empty($_GET["autodata"])){			
 		if(empty($_SESSION["Users_ID"])){
 			header("location:/member/login.php");
+			exit();
 		}else{
 			if(!empty($_SESSION['Users_Account']) && isset($_SESSION['user_type'])){
 				if(empty($_SESSION['employee_id'])){
 					header("location:/member/login.php");
+					exit();
 				}
 			}
 		}

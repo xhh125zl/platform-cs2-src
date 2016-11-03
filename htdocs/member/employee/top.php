@@ -5,6 +5,11 @@ $topmeu["wechat"] = array(
 	'guide' => '操作指南'
 );
 
+$topmeu["appmanager"] = [
+	'appupload' => 'APP更新',
+	'appmanage' => 'APP更新管理'
+];
+
 $topmeu["html"] = array(
 	'material' => '素材库'
 );
@@ -14,10 +19,12 @@ $topmeu["employee"] = array(
 );
 
 /*edit in 20160326*/
-//右边屏掉顶部出现菜单
-$topmeurv = array(	
+//左边屏掉顶部出现菜单
+$topmeurv = array(
 	'wei_profile' => '修改密码',
-	'wei_guide' => '操作指南'
+	'wei_guide' => '操作指南',
+	'app_appupload' => 'APP更新',
+	'app_appmanage' => 'APP更新管理'
 );
 
 $topmeurkey = array(

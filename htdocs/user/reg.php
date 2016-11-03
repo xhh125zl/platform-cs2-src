@@ -1,8 +1,7 @@
 <?php
-define('USER_PATH', dirname(__FILE__) . '/');
-
-include USER_PATH . '../Framework/Conn.php';
+require_once '../Framework/Conn.php';
 require_once CMS_ROOT . '/include/helper/tools.php';
+require_once CMS_ROOT . '/include/api/const.php';
 require_once CMS_ROOT . '/include/api/users.class.php';
 
 $Users_ID = 'pl2hu3uczz';
@@ -15,7 +14,6 @@ if ($inajax == 1) {
 	$Account = $mobile = isset($_POST['Mobile']) ? $_POST['Mobile'] : '';
 	$smsMobileKey = isset($_POST['Mobile']) ? 'reg' . $_POST['Mobile'] : '';
 	
-
 
 	//发送手机验证码
 	if (isset($_POST['do']) && ($_POST['do'] == 'send') && isset($_POST['Mobile']) && $_POST['Mobile']) {
@@ -35,7 +33,7 @@ if ($inajax == 1) {
 		if (!empty($row)) {
 			$Data = array(
 				"status" => 0,
-				"msg" => "手机号已被占用"
+				"msg" => "手机号已被占用,请更新一个"
 			);
 			echo json_encode($Data, JSON_UNESCAPED_UNICODE);
 			exit;
@@ -48,7 +46,7 @@ if ($inajax == 1) {
 				'time' => time() + 120,	//120秒
 			]);
 
-		require_once($_SERVER["DOCUMENT_ROOT"].'/Framework/Ext/sms.func.php');
+		require_once(CMS_ROOT.'/Framework/Ext/sms.func.php');
 		$message = "手机验证码为：" . $code . "。120秒内有效，过期请重新获取。" ;
 		$success = send_sms($mobile, $message);
 		if ($success) {

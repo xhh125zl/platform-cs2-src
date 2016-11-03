@@ -1,8 +1,7 @@
 <?php
 if (!defined('USER_PATH')) exit();
-require_once CMS_ROOT . "/user/config.inc.php";
-require_once CMS_ROOT . '/include/api/message.class.php';
-require_once CMS_ROOT . '/include/helper/page.class.php';
+
+require_once "lib/message.php";
 
 //分页初始化
 $p = isset($_GET['p']) ? (int)$_GET['p'] : 1;
@@ -49,60 +48,6 @@ if (isset($_POST['ajax']) && $_POST['ajax'] == 1) {
     exit();
 }
 
-//系统消息未读条数
-//获取商家注册时间，以确认显示信息
-$biz_info = $DB->GetRs('biz', 'Biz_CreateTime', 'where `Biz_ID` = '.$BizID);
-$DB->Get("announce","announce.*,announce_record.Record_ID","left join `announce_record` on announce.Announce_ID = announce_record.Announce_ID and announce_record.Biz_ID = ".$BizID." where announce.Announce_Status = 1 and Announce_CreateTime > ".$biz_info['Biz_CreateTime']." order by announce_record.Record_ID,announce.Announce_CreateTime desc");
-$unread_system_nums = 0;
-while ($r=$DB->fetch_assoc()) {
-    if (!(isset($r['Record_ID']) && $r['Record_ID'] > 0)) {
-        $unread_system_nums++;
-    }
-}
-//订单消息未读条数
-$transfer = ['Biz_Account' => $BizAccount];
-$result = message::getMsgOrder($transfer);
-if ($result['errorCode'] == 0) {
-    $unread_order_nums = $result['data']['unReadCount'];
-} else {
-    $unread_order_nums = 0;
-}
-//分销消息未读条数
-$transfer = ['Biz_Account' => $BizAccount];
-$result = message::getMsgDistribute($transfer);
-if ($result['errorCode'] == 0) {
-    $unread_distribute_nums = $result['data']['unReadCount'];
-} else {
-    $unread_distribute_nums = 0;
-}
-//提现消息未读条数
-$transfer = ['Biz_Account' => $BizAccount];
-$result = message::getMsgWithdraw($transfer);
-if ($result['errorCode'] == 0) {
-    $unread_withdraw_nums = $result['data']['unReadCount'];
-} else {
-    $unread_withdraw_nums = 0;
-}
-
-if ($_POST) {
-    $msg_id = $_POST['msg_id'];
-    $msg_status = $_POST['msg_status'];
-    if ($msg_status == 1) {
-        echo json_encode(['errorCode' => 0, 'msg' => '信息状态已为已读，不需更新']);die;
-    } else if ($msg_status == 0) {
-        $transData = ['msg_status' => 1, 'modify_time' => time()];
-        $postData = ['id' => $msg_id, 'transData' => $transData];
-        $result = message::updateMsgDistribute($postData);
-        if ($result['errorCode'] == 0) {
-            echo json_encode(['errorCode' => 0, 'msg' => '信息状态更新成功']);die;
-        } else {
-            echo json_encode(['errorCode' => 1, 'msg' => '信息状态更新失败']);die;
-        }
-    } else {
-        echo json_encode(['errorCode' => 1, 'msg' => '信息状态获取失败']);die;
-    }
-}
-
 ?>
 <!doctype html>
 <html>
@@ -146,7 +91,7 @@ if ($_POST) {
                 </li>
                 <?php
                     }
-                 } else { echo '<h3>暂无消息</h3>'; }
+                 } else { echo '<li style="text-align:center;color:#666;">暂无消息</li>'; }
                 ?>
             </ul>
         </div>
@@ -184,10 +129,18 @@ if ($_POST) {
 <script type="text/javascript">
     $(function(){
         //加载更多
+        var last_pageno = 1;
         $("#pagemore a").click(function(){
             var totalPage = <?php echo $totalPage;?>;
             var pageno = $(this).attr('data-next-pageno');
             var url = 'admin.php?act=msg_distribute&p=' + pageno;
+
+            //防止一页多次加载
+            if (pageno == last_pageno) {
+                return false;
+            } else {
+                last_pageno = pageno;
+            }
 
             var nextPageno = parseInt(pageno);
             if (nextPageno > totalPage) {
@@ -207,6 +160,21 @@ if ($_POST) {
                 }
             },'json')
         });
+
+        //瀑布流加载翻页
+        $(window).bind('scroll',function () {
+            // 当滚动到最底部以上100像素时， 加载新内容
+            if ($(document).height() - $(this).scrollTop() - $(this).height() < 100) {
+                //已无数据可加载
+                if ($("#pagemore").html() == '已经没有了...') {
+                    return false;
+                } else {
+                    //模拟点击
+                    $("#pagemore a").trigger('click');
+                }
+            }
+        });
+
         $('.msgList').on('click','.msgs',function(){
             var me = $(this);
             var msg_status = me.attr('msg_status');

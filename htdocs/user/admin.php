@@ -1,6 +1,6 @@
 <?php
 include 'config.inc.php';
-include USER_PATH . './lib/global.func.php';
+include USER_PATH . '/lib/global.func.php';
 
 //检查是否已登录
 // if ($UsersID == '') {
@@ -49,6 +49,8 @@ $actionArr = [
 	'basic_1',
 	'basic_2',
 	'basic_3',
+	'reg',
+	'goreg',
 ];
 
 if (! in_array($act, $actionArr)) {

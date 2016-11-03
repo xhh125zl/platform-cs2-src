@@ -199,8 +199,8 @@ if (isset($_POST['ajax']) && $_POST['ajax'] == 1) {
 <link href="../static/user/css/product.css" type="text/css" rel="stylesheet">
 <link href="../static/user/css/page_media.css" type="text/css" rel="stylesheet">
 <link href="../static/user/css/font-awesome.min.css" type="text/css" rel="stylesheet">
-<!-- <script type="text/javascript" src="../static/user/js/jquery-1.8.3.min.js"></script> -->
-<script type="text/javascript" src="../static/js/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="../static/user/js/jquery-1.8.3.min.js"></script>
+<!-- <script type="text/javascript" src="../static/js/jquery-1.11.1.min.js"></script> -->
 <script type="text/javascript" src="../static/js/plugin/layer_mobile/layer.js"></script>
 <script type="text/javascript" src="../static/js/template.js"></script>
 <body>
@@ -239,7 +239,7 @@ if (isset($res['errorCode']) && $res['errorCode'] == 0) {
     }
     $Category = $res['cateData'];
 } else {
-    echo '<script>layer.open({content: "分类获取失败", shadeClose: false, btn: "确定", yes: function(){history.back();}});</script>';
+    echo '<script>layer.open({content: "你还没有设置分类", shadeClose: false, btn: ["去添加","返回"], yes: function(){window.location.href="?act=my_cate";}, no: function(){history.back();}});</script>';
     exit;
 }
 
@@ -450,10 +450,10 @@ if ($return['page']['hasNextPage'] == 'true') {
                     $("#pagemore a").trigger('click');
                 }
             }
-        });          
+        }); 
 
         //点击一键分销按钮进行的操作
-        $(".up_xx").on('click',function(){
+        $(".productList").on('click', '.up_xx', function(){
             var me = $(this);
             layer.open({
                 type:1,
@@ -463,7 +463,7 @@ if ($return['page']['hasNextPage'] == 'true') {
                     'background-color:#f0f0f0;font-weight:bold;'
                 ],
                 style: 'width:100%;position:fixed;bottom:0;left:0;border-radius:8px;',
-                btn: ['上架分销','返回重选'],
+                btn: ['上架分销','取消'],
                 success: function(){
                     //分类联动菜单第二级
                     $(document).on('change', '#firstCate', function(){
@@ -506,7 +506,7 @@ if ($return['page']['hasNextPage'] == 'true') {
                         });
                     }else{
                         layer.open({
-                            content: '没有完成分类选择，请完成',
+                            content: '没有完成分类选择，请重试',
                             btn: '确定'
                         });
                     }

@@ -4,7 +4,7 @@
  * product.class.php
  */
 
-include_once $_SERVER['DOCUMENT_ROOT'] . './include/api/base.class.php';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/include/api/base.class.php';
 
 class distribute extends base
 {
@@ -58,6 +58,18 @@ class distribute extends base
     static public function updateyijibalance($data)
     {
         $url = '/distribute/updateyijibalance.html';
+        $result = self::request($url, 'post', $data);
+        return $result;
+    }
+
+    /**
+     * 获取可提现余额
+     * @param array $data   ['Biz_Account' => 'test01']
+     * @return array
+     */
+    static public function getcash($data)
+    {
+        $url = '/distribute/getcash.html';
         $result = self::request($url, 'post', $data);
         return $result;
     }

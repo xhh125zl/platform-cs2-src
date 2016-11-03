@@ -50,7 +50,7 @@ $config = $result['data'];
 <div class="w">
 	<!-- 店铺名称  -->
 	<div class="back_x">
-    	<a href="javascript:history.back()" class="l"><i class="fa  fa-angle-left fa-2x" aria-hidden="true"></i></a>微信号
+    	<a href="<?=isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '/user/admin.php?act=store'?>" class="l"><i class="fa  fa-angle-left fa-2x" aria-hidden="true"></i></a>微信号
     </div>
     <div class="box_setting">
     	<input type="text" id="Users_WechatAccount" maxlength="30" value="<?php echo input_output($config['Users_WechatAccount']); ?>">

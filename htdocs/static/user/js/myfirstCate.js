@@ -31,7 +31,7 @@ $(function(){
                     success:function(data) {
                         layer.open({
                             content:data.msg,
-                            time:2,
+                            time:1,
                             end:function(){
                                 location.reload();
                             }
@@ -56,23 +56,23 @@ $(function(){
         var tr = me.parent().parent('li');
         layer.open({
             type:0,
-            title:[
-                '是否删除?',
-                'text-align:left;'
-            ],
-            content:"确认删除次分类吗?",
+            content:"确认删除此分类吗?",
             btn:['确认', '取消'],
+            shadeClose: false,
             yes:function(){
+                layer.closeAll();
+                layer.open({type: 2, shadeClose: false});
                 $.ajax({
                     type:"POST",
                     url:"/user/lib/category.php?action=delCate",
                     data:{"Cate_ID":me.attr("del_id")},
                     dataType:"json",
                     success:function(data){
+                        layer.closeAll();
                         if (data.errorCode == 0) {
                             layer.open({
                                 content:data.msg,
-                                time:2,
+                                time:1,
                                 end:function(){
                                     tr.remove();
                                 }
@@ -80,7 +80,7 @@ $(function(){
                         }else{
                             layer.open({
                                 content:data.msg,
-                                time:2,
+                                time:1,
                             })
                         }
                     }
@@ -122,7 +122,7 @@ $(function(){
                     success:function(data) {
                         layer.open({
                             content:data.msg,
-                            time:2,
+                            time:1,
                             end:function(){
                                 location.reload();
                             }

@@ -19,7 +19,7 @@ if (isset($res['errorCode']) && $res['errorCode'] == 0) {
     }
     $Category = $res['cateData'];
 } else {
-    echo '<script>layer.open({content: "分类获取失败", shadeClose: false, btn: "确定", yes: function(){history.back();}});</script>';
+    echo '<script>layer.open({content: "你还没有设置分类", shadeClose: false, btn: ["去添加","返回"], yes: function(){window.location.href="?act=my_cate";}, no: function(){history.back();}});</script>';
     exit;
 }
 

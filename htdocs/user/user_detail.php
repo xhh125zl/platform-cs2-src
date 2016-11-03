@@ -1,6 +1,22 @@
-<?
-require_once "lib/user.php";
+<?php
+require_once "config.inc.php";
+require_once CMS_ROOT . '/include/api/Myuser.php';
+
+if (!isset($_GET['User_ID'])) {
+    exit('缺少必要的参数User_ID');
+}
+
+$transfer = ['Biz_Account' => $BizAccount, 'User_ID' => $_GET['User_ID']];
+$res = Myuser::getMyUsers($transfer);
+
+if (isset($res['errorCode']) && $res['errorCode'] == 0) {
+    $rsUser = $res['data'][0];
+} else {
+    exit('获取用户信息失败');
+}
+
 $From_arr = ['微信','注册','PC', 'QQ'];
+
 ?>
 <!doctype html>
 <html>
@@ -16,7 +32,7 @@ $From_arr = ['微信','注册','PC', 'QQ'];
 <body>
 <div class="w">
     <div class="back_x">
-        <a class="l" href="javascript:history.back();"><i class="fa  fa-angle-left fa-2x" aria-hidden="true"></i></a>会员管理
+        <a class="l" href="<?=isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '/user/admin.php?act=store'?>"><i class="fa  fa-angle-left fa-2x" aria-hidden="true"></i></a>会员管理
     </div>
     <div class="clear"></div>
     <div class="list_table">

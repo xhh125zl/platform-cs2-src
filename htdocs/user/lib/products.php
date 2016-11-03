@@ -15,8 +15,10 @@ function productsAdd($data){
     
     $postdata['Users_Account'] = $_SESSION['Biz_Account'];
     $postdata['Products_Category'] = ','.(int)$data['firstCate']. ',' . $data['secondCate'] . ',';
-    $transfer = ['productData' => $postdata];
-    $resArr = product::addTo401($transfer);
+    $postdata['Products_IsShow'] = 1;   //特殊属性的是否显示
+    $postdata['click_count'] = 0;       //点击量
+
+    $resArr = product::addTo401(['productData' => $postdata]);
     if ($resArr['errorCode'] == 0) {
         $b2cdata = [
             'Products_FromId' => $data['Products_FromID'],
@@ -84,16 +86,6 @@ if (isset($_POST['act']) && $_POST['act'] == 'addEditProduct') {
     $input_productData['Products_Description'] = htmlspecialchars($input_productData['Products_Description'].$img_show, ENT_QUOTES);
     //分类处理
     $input_productData['Products_Category'] = ','.(int)$input_productData['firstCate']. ',' . (int)$input_productData['secondCate'] . ',';
-    //$input_productData['Products_BriefDescription'] = htmlspecialchars($input_productData['Products_BriefDescription'], ENT_QUOTES);  //产品简介
-    $input_productData['Shipping_Free_Company'] = 0;    //免运费  0为全部 ，n为指定快递
-    //$input_productData['Products_Index'] = 1/9999;    //产品排序
-    //$input_productData['Products_Type'] = 0/n;        //产品类型
-    $input_productData['Products_SoldOut'] = 0;         //其他属性  不能为空  1: 下架
-    //$input_productData['Products_IsVirtual'] = 1;     //订单流程      0,0  1,0  1,1 
-    //$input_productData['Products_IsRecieve'] = 1;
-    //$input_productData['Products_Parameter'] = '[{"name":"","value":""}]';        //产品参数
-    $input_productData['Users_ID'] = $UsersID;
-    $input_productData['Products_Status'] = 1;
 
     //数据验证  原价、现价、产品利润、赠送积分、产品重量、库存
     if (!check_number($input_productData['Products_PriceY']) || !check_number($input_productData['Products_PriceX']) || !check_number($input_productData['Products_Profit']) || !check_number($input_productData['Products_Integration'], 1) || !check_number($input_productData['Products_Weight']) || !check_number($input_productData['Products_Count'], 1)) {
@@ -111,8 +103,8 @@ if (isset($_POST['act']) && $_POST['act'] == 'addEditProduct') {
         }
         $PriceX = (float)$input_productData['Products_PriceX'];   //现价
         $PriceS = (float)$input_productData['Products_PriceS'];   //供货价
-        if (($PriceX < $PriceS) || ($PriceX*0.7 > $PriceS)) {    //供货价为现价的 70% ~ 100%
-            echo json_encode(array('errorCode' => 1, 'msg' => '供货价为现价的70% ~ 100%'));die;
+        if (($PriceX*0.8 < $PriceS) || ($PriceX*0.6 > $PriceS)) {    //供货价为现价的 60% ~ 80%
+            echo json_encode(array('errorCode' => 1, 'msg' => '供货价为现价的60% ~ 80%'));die;
         }
     } else {
         unset($input_productData['B2CProducts_Category']);
@@ -120,6 +112,16 @@ if (isset($_POST['act']) && $_POST['act'] == 'addEditProduct') {
 
     //判断是上架商品还是编辑商品
     if (empty($input_productData['Products_ID'])) {     //上架商品
+        $input_productData['Products_Index'] = 1; //产品排序 1-9999  数字越小排序越靠前，
+        //$input_productData['Products_BriefDescription'] = htmlspecialchars($input_productData['Products_BriefDescription'], ENT_QUOTES);  //产品简介
+        $input_productData['Shipping_Free_Company'] = 0;    //免运费  0为全部 ，n为指定快递
+        //$input_productData['Products_Type'] = 0/n;        //产品类型
+        $input_productData['Products_SoldOut'] = 0;         //其他属性  不能为空  1: 下架
+        //$input_productData['Products_IsVirtual'] = 1;     //订单流程      0,0  1,0  1,1 
+        //$input_productData['Products_IsRecieve'] = 1;
+        //$input_productData['Products_Parameter'] = '[{"name":"","value":""}]';        //产品参数
+        $input_productData['Users_ID'] = $UsersID;
+        $input_productData['Products_Status'] = 1;
         $input_productData['Products_CreateTime'] = time();
 
         unset($input_productData['Products_ID']);
@@ -159,7 +161,7 @@ if (isset($_POST['act']) && $_POST['act'] == 'addEditProduct') {
             if ($is_Tj == 0 && $old_is_Tj == 1 && $new_productData['isSolding'] == 0) {
                 //取消推荐
                 //判断是否有未完成订单
-                $res = ImplOrder::getOrders(['Biz_Account' => $BizAccount, 'Order_Status' => '<> 4']);
+                $res = ImplOrder::getOrders(['Biz_Account' => $BizAccount, 'Order_Status' => 'not in (4,5)']);
                 $orderList = [];
                 if (isset($res['errorCode']) && $res['errorCode'] == 0) {
                     $orderList = $res['data'];
@@ -168,6 +170,7 @@ if (isset($_POST['act']) && $_POST['act'] == 'addEditProduct') {
                     die;
                 }
                 if (count($orderList) > 0) {
+                    $proArr = [];
                     foreach ($orderList as $k => $v) {
                         foreach (json_decode($v['Order_CartList'], true) as $key => $val) {
                             $proArr[] = $key;

@@ -6,17 +6,44 @@ require_once CMS_ROOT . '/include/api/count.class.php';
 require_once CMS_ROOT . '/include/api/shopconfig.class.php';
 require_once CMS_ROOT . '/include/api/message.class.php';
 require_once CMS_ROOT . '/include/api/users.class.php';
-require_once CMS_ROOT . '/include/helper/tools.php';
+require_once CMS_ROOT . '/include/api/distribute.class.php';
+
 $inajax = isset($_GET['inajax']) ? (int)$_GET['inajax'] : 0;
 if ($inajax == 1) {
     $do = isset($_GET['do']) ? $_GET['do'] : '';
     if ($do == 'count') {
-        $data = [
-            'Biz_Account' => $BizAccount,
-        ];
-        $counter = count::countIncome($data);
+        $counter = count::countIncome(['Biz_Account' => $BizAccount]);
 
         echo json_encode($counter);
+
+    } else if ($do == 'countPeople') {
+        $countPeople = count::countPeople(['Biz_Account' => $BizAccount]);
+
+        echo json_encode($countPeople);
+
+    } else if ($do == 'getcash') {
+        $cash = distribute::getcash(['Biz_Account' => $BizAccount]);
+
+        if (isset($cash['errorCode']) && $cash['errorCode'] == 0) {
+            $totalCash = 0;
+            if (isset($cash['yijiGateWayBalance'])) {
+                $totalCash += $cash['yijiBalance'] + $cash['yijiGateWayBalance']['availableBalance'];
+            } else {
+                $totalCash += $cash['yijiBalance'];
+            }
+            $data = [
+                'errorCode' => 0,
+                'msg' => '我的钱包金额获取成功',
+                'totalCash' => number_format($totalCash, 2)
+            ];
+        } else {
+            $data = [
+                'errorCode' => 1,
+                'msg' => '我的钱包金额获取失败'
+            ];
+        }
+        echo json_encode($data);
+
     } else if ($do == 'msgUnreadCount') {
         //获取消息页未读条数
         //系统消息未读条数
@@ -30,24 +57,21 @@ if ($inajax == 1) {
             }
         }
         //订单消息未读条数
-        $transfer = ['Biz_Account' => $BizAccount];
-        $result = message::getMsgOrder($transfer);
+        $result = message::getMsgOrder(['Biz_Account' => $BizAccount]);
         if ($result['errorCode'] == 0) {
             $unread_order_nums = $result['data']['unReadCount'];
         } else {
             $unread_order_nums = 0;
         }
         //分销消息未读条数
-        $transfer = ['Biz_Account' => $BizAccount];
-        $result = message::getMsgDistribute($transfer);
+        $result = message::getMsgDistribute(['Biz_Account' => $BizAccount]);
         if ($result['errorCode'] == 0) {
             $unread_distribute_nums = $result['data']['unReadCount'];
         } else {
             $unread_distribute_nums = 0;
         }
         //提现消息未读条数
-        $transfer = ['Biz_Account' => $BizAccount];
-        $result = message::getMsgWithdraw($transfer);
+        $result = message::getMsgWithdraw(['Biz_Account' => $BizAccount]);
         if ($result['errorCode'] == 0) {
             $unread_withdraw_nums = $result['data']['unReadCount'];
         } else {
@@ -61,10 +85,7 @@ if ($inajax == 1) {
 }
 
 //获取配置信息
-$data = [
-    'Biz_Account' => $BizAccount,
-];
-$result = shopconfig::getConfig($data);
+$result = shopconfig::getConfig(['Biz_Account' => $BizAccount]);
 if ($result['errorCode'] != 0) {
     die($result['msg']);
 }
@@ -103,7 +124,17 @@ $auth_status = get_auth_statusText($bizRow['is_auth']);
         <span class="head_pho l"><a href="?act=setting"><img src="<?php echo IMG_SERVER . getImageUrl($config['ShopLogo'], 2);?>"></a></span>
         <span class="head_name l">
         	<a><?php echo $config['ShopName'];?></a>
-            <p><span><i>V</i></span><span style=" background:#0292d4; padding:0px 5px; border-top-right-radius:3px;border-bottom-right-radius:3px;"><?php echo $auth_status;?></span></p>
+<?php
+if ($auth_status == '未认证') {
+?>    
+            <a href="?act=goreg"><p><span><i>V</i></span><span style=" background:#0292d4; padding:0px 5px; border-top-right-radius:3px;border-bottom-right-radius:3px;"><?php echo $auth_status;?></span></p></a>
+<?php
+} else {
+?>
+            <p><span><i>V</i></span><span style=" background:#0292d4; padding:0px 5px; border-top-right-radius:3px;border-bottom-right-radius:3px;"><?php echo $auth_status;?></span></p>      
+<?php
+}
+?>      
         </span>
         <span class="head_pho l" style=" padding-left:30px"><a id="previewShop" style="color:#fff"><i class="fa  fa-eye fa-x" aria-hidden="true"></i><br>预览</a></span>       
     </div>
@@ -122,25 +153,67 @@ $auth_status = get_auth_statusText($bizRow['is_auth']);
     <div class="clear"></div>
     <div class="income_today">
     	<span class="l">
-        	<p class="in">今日开店收入（元）</p>
-            <p class="price_in" id="dayIncome">0</p>
+        	<p class="in">我的钱包（元）</p>
+            <p class="price_in" id="cash">0.00</p>
         </span>
-        <span class="r"><a><i class="fa  fa-angle-right fa-2x" aria-hidden="true"></i></a></span>
+        <span class="r" style="margin-top:15px;"><a id="yijipay" href="/pay/yijipay/wallet.php"><i class="fa  fa-angle-right fa-x" aria-hidden="true" style="color:#666; padding:0px"></i></a></span>
     </div>
+
+<?php
+$yijiPay = distribute::getcash(['Biz_Account' => $BizAccount]);
+
+//未开通易极付
+if (!isset($yijiPay['yijiGateWayBalance'])) {
+?>
+	<script>
+	$(function(){
+		$("#yijipay").click(function(event){
+
+			var url = $(this).attr('href');
+			layer.open({
+				content: '您还未开通提现账户',
+				shadeClose: false,
+				btn: ['立即开通', '以后再说'],
+				yes:function(){
+					location.href= '?act=goreg';	
+				},
+				no:function(){
+					layer.close();
+				}
+			});
+			event.preventDefault();
+		})
+	})
+	</script>
+<?php
+}
+?>
     <div class="clear"></div>
     <div class="daily_x">
         <ul>
             <li>
-                <p><strong>0</strong></p>
-                <p>今日访客</p>
+            	<p>今日会员</p>
+            	<p><strong id="userToday">0</strong></p>
             </li>
             <li>
-                <p><strong id="orderCount">0</strong></p>
-                <p>本月订单</p>
+            	<p>今日分销商</p>
+            	<p><strong id="disToday">0</strong></p>
             </li>
             <li>
-                <p><strong id="allMoney">0</strong></p>
-                <p>本月交易额</p>
+            	<p>今日代销人数</p>
+            	<p><strong id="shareToday">0</strong></p>
+            </li>
+            <li>
+            	<p>今日订单</p>
+            	<p><strong id="dayOrderCount">0</strong></p>
+            </li>
+            <li>
+            	<p>今日交易额</p>
+            	<p><strong id="dayTradeVolume">0</strong></p>
+            </li>
+            <li>
+            	<p style="color:#ff5500">今日收入</p>
+            	<p><strong style="color:#ff5500" id="dayIncome">0</strong></p>
             </li>
         </ul>
     </div>
@@ -154,7 +227,7 @@ $auth_status = get_auth_statusText($bizRow['is_auth']);
                 <a href='?act=products'><i class="fa  fa-check-square fa-x" aria-hidden="true"></i>&nbsp;产品管理</a>
             </li>
             <li>
-                <a href='?act=my_cate'><i class="fa  fa-check-square fa-x" aria-hidden="true"></i>&nbsp;分类管理</a>
+                <a href='?act=my_cate'><i class="fa  fa-bars fa-x" aria-hidden="true"></i>&nbsp;分类管理</a>
             </li>
         </ul>
     </div>
@@ -227,13 +300,32 @@ $ucenter = $homeUrl . 'member/';
         $.get('?act=store&inajax=1&do=count', {}, function(json) {
             if (json.errorCode == '0') {
                 var counter = json.count;
-                 $("#totalIncome").html(counter.totalCount.Amount);
-                 $("#monthIncome").html(counter.monthCount.Amount);
-                 $("#dayIncome").html(counter.dayCount.Amount);
-                 $('#orderCount').html(counter.monthCount.orderCount);
-                 $('#allMoney').html(counter.monthAllMoney.Amount);
+                $("#totalIncome").html(counter.totalCount.Amount);
+                $("#monthIncome").html(counter.monthCount.Amount);
+                 
+                $('#dayOrderCount').html(counter.dayCount.orderCount);     //今日订单
+                $('#dayTradeVolume').html(counter.dayAllCount.Amount);     //今日交易额
+                $("#dayIncome").html(counter.dayCount.Amount);             //今日收入
             } else {
-                alert('用户统计数据获取失败，请刷新此页面重试');
+                layer.open({content:'用户统计数据获取失败，请刷新此页面重试'});
+            }
+        }, 'json');
+        //获取今日会员、今日分销商、今日代销人数
+        $.get('?act=store&inajax=1&do=countPeople', {}, function(json) {
+            if (json.errorCode == '0') {
+                $('#userToday').html(json.data.userToday);      //今日会员
+                $('#disToday').html(json.data.disToday);        //今日分销商
+                $("#shareToday").html(json.data.shareToday);    //今日代销人数
+            } else {
+                layer.open({content:'用户统计数据获取失败，请刷新此页面重试'});
+            }
+        }, 'json');
+        //获取可提现金额
+        $.get('?act=store&inajax=1&do=getcash', {}, function(json) {
+            if (json.errorCode == '0') {
+                $('#cash').html(json.totalCash);     //获取可提现金额
+            } else {
+                layer.open({content:'用户统计数据获取失败，请刷新此页面重试'});
             }
         }, 'json');
         //获取未读信息条数

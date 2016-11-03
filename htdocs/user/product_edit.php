@@ -122,11 +122,9 @@ foreach ($image_path_arr as $k => $v) {
     }
 }
 $image_path = rtrim($image_path, ',');
-//$image_path = implode(',', $image_path_arr);
 
 //商品详情处理  内容及图片
 $des_con = htmlspecialchars_decode($productData['Products_Description'], ENT_QUOTES);
-//$description = htmlspecialchars(strip_tags($des_con,'<p><a>'));
 $description = cutstr_html($des_con);
 preg_match_all('/<img (.*?)+src=[\'"](.*?)[\'"]/i', $des_con, $img_arr);
 $des_img_path = implode(',', $img_arr[2]);
@@ -167,13 +165,14 @@ foreach ($productData['Category401'] as $k => $v) {
 $cateName = $firstCateName.'，'.$secondCateName;
 
 //判断是否有未完成订单
-$res = ImplOrder::getOrders(['Biz_Account' => $BizAccount, 'Order_Status' => '<> 4']);
+$res = ImplOrder::getOrders(['Biz_Account' => $BizAccount, 'Order_Status' => 'not in (4,5)']);
 
 $orderList = [];
 if (isset($res['errorCode']) && $res['errorCode'] == 0) {
     $orderList = $res['data'];
 }
 if (count($orderList) > 0) {
+    $proArr = [];
     foreach ($orderList as $k => $v) {
         foreach (json_decode($v['Order_CartList'], true) as $key => $val) {
             $proArr[] = $key;
