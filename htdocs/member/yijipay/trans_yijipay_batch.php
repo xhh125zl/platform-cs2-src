@@ -134,7 +134,13 @@ if ($row["status"] == 0) {
 }
 ?>      
 </table>
+<?php
+if ($status == 0) {
+?>
 <div style="clear:both;margin-top:20px; text-align:center"><input  type="button" class="btn_green" onclick="Submit()" value="开始批量转账"></div>
+<?php
+}
+?>
 </form>
   </div>
 </body>
