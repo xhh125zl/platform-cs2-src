@@ -143,9 +143,10 @@ if (isset($_POST['ajax']) && $_POST['ajax'] == 1) {
         //加载更多
         var last_pageno = 1;
         $("#pagemore a").click(function(){
+            var status = <?php echo $status; ?>;
             var totalPage = <?php echo $totalPage;?>;
             var pageno = $(this).attr('data-next-pageno');
-            var url = 'admin.php?act=msg_order&p=' + pageno;
+            var url = 'admin.php?act=msg_order&status=' + status + '&p=' + pageno;
 
             //防止一页多次加载
             if (pageno == last_pageno) {
