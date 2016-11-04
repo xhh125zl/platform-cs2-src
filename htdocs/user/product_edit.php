@@ -101,25 +101,16 @@ function cutstr_html($string,$length=0,$ellipsis='…'){
     return $string;
 }
 //封面图片
+//图片路径处理
+$Products_JSON = stripcslashes($productData['Products_JSON']);
+$Products_JSON = str_replace(rtrim(IMG_SERVER, '/'), '', $Products_JSON);
+
 $image_path_arr = json_decode($productData['Products_JSON'], true)['ImgPath'];
 $images_path = array();
 $image_path = '';
 foreach ($image_path_arr as $k => $v) {
-    if ( strpos($v, IMG_SERVER) !== false ) {
-        if (substr(IMG_SERVER, -1) == '/') {
-            $image_path .=  '/'.str_replace(IMG_SERVER, '', $v).',';
-        } else {
-            $image_path .=  str_replace(IMG_SERVER, '', $v).',';
-        }
-        $images_path[] = $v;
-    } else {
-        $image_path .= $v.',';
-        if (substr(IMG_SERVER, -1) == '/') {
-            $images_path[] = IMG_SERVER.ltrim($v, '/');
-        } else {
-            $images_path[] = IMG_SERVER.$v;
-        }
-    }
+    $images_path[] = rtrim(IMG_SERVER, '/') . $v;
+    $image_path .= $v . ',';
 }
 $image_path = rtrim($image_path, ',');
 

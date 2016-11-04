@@ -27,7 +27,7 @@ if (isset($_GET['ajax']) && $_GET['ajax'] == 1) {
         }
         //图片路径处理
         $res['data']['Products_JSON'] = stripcslashes($res['data']['Products_JSON']);
-        $res['data']['Products_JSON'] = str_replace(SHOP_URL, '/', $res['data']['Products_JSON']);
+        $res['data']['Products_JSON'] = str_replace(rtrim(SHOP_URL, '/'), '', $res['data']['Products_JSON']);
 
         unset($res['data']['isSolding']);
         unset($res['data']['Category401']);
@@ -180,7 +180,7 @@ if (count($products) > 0) {
         $img = json_decode($row['Products_JSON'], true);
         $row['thumb'] = $img['ImgPath'][0];
         unset($row['Products_JSON']);
-        $row['shop_url'] = SHOP_URL.'api/'.$row['Users_ID'].'/shop/products/'.$row['Products_ID'].'/';
+        $row['shop_url'] = rtrim(SHOP_URL, '/') . '/api/'.$row['Users_ID'].'/shop/products/'.$row['Products_ID'].'/';
         $infolist[] = $row;
     }
 }
