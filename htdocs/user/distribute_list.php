@@ -49,9 +49,9 @@ if (count($distributes) > 0) {
     foreach ($distributes as $row) {
         $row['level'] = $level;
         if ($row['Shop_Logo'] == '') {
-            $row['Shop_Logo'] = B2C_URL.'static/user/images/zh.png';
+            $row['Shop_Logo'] = rtrim(B2C_URL, '/').'/static/user/images/zh.png';
         } else {
-            $row['Shop_Logo'] = IMG_SERVER.$row['Shop_Logo'];
+            $row['Shop_Logo'] = rtrim(IMG_SERVER, '/') . $row['Shop_Logo'];
         }
 
         $row['User_No'] = isset($user_list[$row['User_ID']]) ? $user_list[$row['User_ID']]['User_No'] : '';
