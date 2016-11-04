@@ -31,7 +31,7 @@ $UsersID = 'pl2hu3uczz';  //固定值
 $rsObjPay = Users_PayConfig::where('Users_ID', $UsersID)->first();
 $rsPay = $rsObjPay->toArray();
 require_once (CMS_ROOT . '/pay/yijipay/autoload.php');
-$verify = DigestUtil::verify($notifyData);
+$verify = DigestUtil::verify($post);
 if($verify){
 	if($post['success']==true && $post['resultCode']=='EXECUTE_SUCCESS'){
 	   $DB->Set("trans_yijipay_record",['status' => 1, 'transTime' =>time()], "WHERE orderNo = '" . $post['orderNo'] . "'");

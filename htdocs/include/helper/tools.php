@@ -1,5 +1,35 @@
 <?php
 
+//写入日志记录文件
+function logging($label, $data, $filename = '')
+{
+    if (defined("DEBUG") == true) {
+        $path = CMS_ROOT . "/data/" . ($filename ? $filename . '.log' : 'record.log');
+        $content = "************************************************************************\r\n";
+        $content .= "【{$label}】\r\n";
+        if (is_string($data)) {
+            $content .= "{$data}\r\n";
+        } else {
+            $content .= "\r\n" . print_r($data, 1) . "\r\n";
+        }
+        $content .= "数据响应时间：" . date("Y-m-d H:i:s", time()) . "\r\n\r\n";
+        
+        file_put_contents($path, $content, FILE_APPEND);
+    }
+}
+
+// 获取程序执行时间
+function trigger($label)
+{
+    if ($label == 'start') {
+        $_SESSION['starttime'] = microtime(true);
+    } else 
+        if ($label == 'end') {
+            $_SESSION['endtime'] = microtime(true);
+            $split = $_SESSION['endtime'] - $_SESSION['starttime'];
+            logging("程序运行时间", "程序执行了（  {$split} s）");
+        }
+}
 /**
  * 调用接口公共函数
  */

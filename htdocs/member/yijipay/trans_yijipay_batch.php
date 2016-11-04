@@ -152,6 +152,7 @@ function Submit()
         <thead>
           <tr>
             <th width="6%" nowrap="nowrap">序号</th>
+            <th width="6%" nowrap="nowrap">请求流水号</th>
             <th width="12%" nowrap="nowrap">登记时间</th>
             <th width="12%" nowrap="nowrap">商城</th>
             <th width="12%" nowrap="nowrap">会员ID</th>
@@ -182,6 +183,7 @@ if ($row["status"] == 0) {
 <?php
  }
  ?>    <?php echo $row['ID'];?></td>
+      <td><?php echo $row["OrderNo"] ?></td>
 			<td><?php echo date('Y-m-d H:i:s', $row["created_at"])  ?></td>
 			<td><?php echo $row["Users_ID"] ?></td>
             <td><?php echo $row["User_ID"] ?></td>
