@@ -159,7 +159,7 @@ function Submit()
             <th width="8%" nowrap="nowrap">申请时间</th>
             <th width="8%" nowrap="nowrap">确认转账时间</th>
             <th width="8%" nowrap="nowrap">同步状态</th>
-			<th width="8%" nowrap="nowrap">转帐状态</th>
+           <th width="8%" nowrap="nowrap">转帐状态</th>
           </tr>
         </thead>
         <tbody>
