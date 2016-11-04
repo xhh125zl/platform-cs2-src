@@ -503,6 +503,6 @@ $rmenusub["use_message"] = array(
 $rmenu["yijipay"] = array(
 	'yijipay' => '批量转账',
 	'trans_yijipay_batch' => '批量转账',
-
+  'mypay' => '我的钱包'
 );
 ?>
