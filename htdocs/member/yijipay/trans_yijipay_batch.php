@@ -182,8 +182,8 @@ if ($row["status"] == 0) {
 <?php
  }
  ?>    <?php echo $row['ID'];?></td>
-            <td nowrap="nowrap"><?php echo $row["Users_ID"] ?></td>
-<td><?php echo date('Y-m-d H:i:s', $row["crated_at"])  ?></td>
+			<td><?php echo date('Y-m-d H:i:s', $row["created_at"])  ?></td>
+			<td><?php echo $row["Users_ID"] ?></td>
             <td><?php echo $row["User_ID"] ?></td>
             <td><?php echo $row["Yiji_UserID"];?></td>
             <td><?php echo $row["balance"] ?></td>
