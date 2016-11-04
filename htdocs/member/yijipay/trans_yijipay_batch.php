@@ -152,11 +152,12 @@ function Submit()
         <thead>
           <tr>
             <th width="6%" nowrap="nowrap">序号</th>
+            <th width="12%" nowrap="nowrap">登记时间</th>
             <th width="12%" nowrap="nowrap">商城</th>
             <th width="12%" nowrap="nowrap">会员ID</th>
             <th width="12%" nowrap="nowrap">易极付UID</th>
             <th width="8%" nowrap="nowrap">金额(参考)</th>
-            <th width="8%" nowrap="nowrap">申请时间</th>
+            <th width="8%" nowrap="nowrap">申请转账时间</th>
             <th width="8%" nowrap="nowrap">确认转账时间</th>
             <th width="8%" nowrap="nowrap">同步状态</th>
            <th width="8%" nowrap="nowrap">转帐状态</th>
@@ -182,6 +183,7 @@ if ($row["status"] == 0) {
  }
  ?>    <?php echo $row['ID'];?></td>
             <td nowrap="nowrap"><?php echo $row["Users_ID"] ?></td>
+<td><?php echo date('Y-m-d H:i:s', $row["crated_at"])  ?></td>
             <td><?php echo $row["User_ID"] ?></td>
             <td><?php echo $row["Yiji_UserID"];?></td>
             <td><?php echo $row["balance"] ?></td>
