@@ -11,7 +11,7 @@ if ($p < 1) $p = 1;
 //每页显示个数
 $pageSize = 10;
 
-$transData = ['Biz_Account' => $BizAccount, 'pageSize' => $pageSize];
+$transData = ['Biz_Account' => $BizAccount, 'pageSize' => $pageSize, 'Order_Status' => $status];
 $result = message::getMsgOrder($transData, $p);
 
 if (isset($result['errorCode']) && $result['errorCode'] != 0) {
@@ -30,18 +30,16 @@ $page->set($pageSize, $total, $p);
 
 $msglist = [];
 if (count($msgOrder) > 0) {
-    foreach ($msgOrder as $k => $row) {
-        if ($row['Order_Status'] == $status) {
-            $row['create_time'] = date('Y-m-d H:i:s', $row['create_time']);
-            $msglist[] = $row;
-        } 
+    foreach ($msgOrder as $row) {
+        $row['create_time'] = date('Y-m-d H:i:s', $row['create_time']);
+        $msglist[] = $row;
     }
 }
 
 $return = [
     'page' => [
-        'pagesize' => count($msgOrder),
-        'hasNextPage' => (count($msgOrder) >= $pageSize) ? 'true' : 'false',
+        'pagesize' => count($msglist),
+        'hasNextPage' => (count($msglist) >= $pageSize) ? 'true' : 'false',
         'total' => $total,
     ],
     'data' => $msglist,

@@ -34,7 +34,7 @@ function productsAdd($data){
         return false;
     }
 }
-//验证是否为数字   默认检查正浮点数  1：非负浮点数  2：检查正整数 3: 检查非负整数
+//验证是否为数字   默认检查正浮点数  0：正浮点数  1：非负浮点数  2：检查正整数 3: 检查非负整数
 function check_number($value, $type = 0) {
     $number_regular = '';
     if ($type == 0) {
