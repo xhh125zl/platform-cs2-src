@@ -34,26 +34,37 @@ require_once (CMS_ROOT . '/pay/yijipay/autoload.php');
 $verify = DigestUtil::verify($post);
 if($verify){
 	if($post['success']==true && $post['resultCode']=='EXECUTE_SUCCESS'){
-	   $DB->Set("trans_yijipay_record",['status' => 1, 'transTime' =>time()], "WHERE orderNo = '" . $post['orderNo'] . "'");
-	   $yijilist = TransYijipayRecord::where("orderNo",$post['orderNo'])->get();
-	   if($yijilist){
+		$yijilist = TransYijipayRecord::where(["orderNo" => $post['orderNo'],'status' => 0])->get();
+		$DB->Set("trans_yijipay_record",['status' => 1, 'transTime' =>time()], "WHERE orderNo = '" . $post['orderNo'] . "'");
+		if($yijilist){
 		   $yijilist = $yijilist->toArray();
 		   $Syndata = [];
 		   foreach($yijilist as $k => $v){
-			   $Syndata[$v['User_ID']] = $v['balance'];
+			   if($v['status'] == 0){
+					$Syndata[$v['User_ID']] = $v['balance'];
+			   }
 		   }
-		   $result = distribute::updateyijibalance(['counters' => $Syndata]);
-		   if($result['errorCode'] == 0){
-			   $DB->Set("trans_yijipay_record",['SynStatus' => 2], "WHERE orderNo = '" . $post['orderNo'] . "'");
+		   
+		   if(!empty($Syndata)){
+			   logging("同步记录为空",$post);
+			   $result = distribute::updateyijibalance(['counters' => $Syndata]);
+			   if($result['errorCode'] == 0){
+           $DB->Set("trans_yijipay_record",['SynStatus' => 2], "WHERE orderNo = '" . $post['orderNo'] . "'");
+           echo "success";
+           exit;
+			   }else{
+           $DB->Set("trans_yijipay_record",['SynStatus' => -1], "WHERE orderNo = '" . $post['orderNo'] . "'");
+           echo "success";
+           exit;
+			   }
+		   }else{
 			   echo "success";
 			   exit;
-		   }else{
-			   $DB->Set("trans_yijipay_record",['SynStatus' => -1], "WHERE orderNo = '" . $post['orderNo'] . "'");
-			   echo "success";
 		   }
 	   }
 	}else{
-	   echo "error";exit;
+	   echo "error";
+	   exit;
 	}
 }else{
 	echo "签名错误";

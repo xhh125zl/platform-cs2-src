@@ -24,19 +24,26 @@ $verify = DigestUtil::verify($notifyData);
 if($verify){
 	
 	if($notifyData['resultCode'] == 'EXECUTE_SUCCESS' && $notifyData['success'] == true){
+    $yijilist = TransYijipayRecord::where("orderNo",$notifyData['orderNo'])->get();
 		$DB->Set("trans_yijipay_record",['status' => 1, 'confirmTime' =>time()], "WHERE orderNo = '" . $notifyData['orderNo'] . "'");
-		$yijilist = TransYijipayRecord::where("orderNo",$notifyData['orderNo'])->get();
+		logging("同步调试记录29",$notifyData);
 		if($yijilist){
 		   $yijilist = $yijilist->toArray();
 		   $Syndata = [];
 		   foreach($yijilist as $k => $v){
-			   $Syndata[$v['User_ID']] = $v['balance'];
+			   if($v['status'] == 0){
+					$Syndata[$v['User_ID']] = $v['balance'];
+			   }
 		   }
-		   $result = distribute::updateyijibalance(['counters' => $Syndata]);
-		   if($result['errorCode'] == 0){
-			   $DB->Set("trans_yijipay_record",['SynStatus' => 2], "WHERE orderNo = '" . $notifyData['orderNo'] . "'");
-		   }else{
-			   $DB->Set("trans_yijipay_record",['SynStatus' => -1], "WHERE orderNo = '" . $notifyData['orderNo'] . "'");
+		   logging("同步调试记录38",$notifyData);
+		   if(!empty($Syndata)){
+			   logging("同步调试记录40",$notifyData);
+			   $result = distribute::updateyijibalance(['counters' => $Syndata]);
+           if($result['errorCode'] == 0){
+           $DB->Set("trans_yijipay_record",['SynStatus' => 2], "WHERE orderNo = '" . $notifyData['orderNo'] . "'");
+           }else{
+           $DB->Set("trans_yijipay_record",['SynStatus' => -1], "WHERE orderNo = '" . $notifyData['orderNo'] . "'");
+           }
 		   }
 		}
 		header("Location:/member/yijipay/trans_yijipay_batch.php");
@@ -46,7 +53,7 @@ if($verify){
 		exit;
 	}
 }else{
-	echo "ǩ������";
+	echo "签名错误";
 	exit;
 }
 
