@@ -3,13 +3,15 @@ if (!defined('USER_PATH')) exit();
 
 require_once "lib/message.php";
 
+$status = isset($_GET['status']) && in_array((int)$_GET['status'], [0,2,5,6]) ? (int)$_GET['status'] : 0;
+
 //分页初始化
 $p = isset($_GET['p']) ? (int)$_GET['p'] : 1;
 if ($p < 1) $p = 1;
 //每页显示个数
 $pageSize = 10;
 
-$transData = ['Biz_Account' => $BizAccount, 'pageSize' => $pageSize];
+$transData = ['Biz_Account' => $BizAccount, 'pageSize' => $pageSize, 'Order_Status' => $status];
 $result = message::getMsgOrder($transData, $p);
 
 if (isset($result['errorCode']) && $result['errorCode'] != 0) {
@@ -77,6 +79,14 @@ if (isset($_POST['ajax']) && $_POST['ajax'] == 1) {
                 <a href="?act=msg_withdraw"><li class="<?php if(isset($_GET['act']) && $_GET['act'] == 'msg_withdraw') { echo 'on'; } ?>"><span class="msg_mark"><?php if ($unread_withdraw_nums > 0) {echo '● ';} ?></span>提现</li></a>
             </ul>
         </div>
+        <div class="hd msg_x">
+            <ul>
+                <a href="?act=msg_order&status=0"><li class="<?php if($status == 0) { echo 'on'; } ?>">待确认</li></a>
+                <a href="?act=msg_order&status=2"><li class="<?php if($status == 2) { echo 'on'; } ?>">待发货</li></a>
+                <a href="?act=msg_order&status=5"><li class="<?php if($status == 5) { echo 'on'; } ?>">待退款</li></a>
+                <a href="?act=msg_order&status=6"><li class="<?php if($status == 6) { echo 'on'; } ?>">待退货</li></a>
+            </ul>
+        </div>
         <div class="msg_list">
             <ul class="msgList">
                 <?php
@@ -131,9 +141,10 @@ if (isset($_POST['ajax']) && $_POST['ajax'] == 1) {
         //加载更多
         var last_pageno = 1;
         $("#pagemore a").click(function(){
+            var status = <?php echo $status; ?>;
             var totalPage = <?php echo $totalPage;?>;
             var pageno = $(this).attr('data-next-pageno');
-            var url = 'admin.php?act=msg_order&p=' + pageno;
+            var url = 'admin.php?act=msg_order&status=' + status + '&p=' + pageno;
 
             //防止一页多次加载
             if (pageno == last_pageno) {

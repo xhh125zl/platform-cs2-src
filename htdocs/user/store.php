@@ -346,7 +346,7 @@ $ucenter = $homeUrl . 'member/';
         //店铺预览
         <?php
             $UsersID = Users::findUsersIDByAccount($BizAccount);
-            $ShopUrl = SHOP_URL . 'api/' . $UsersID . '/shop/?preview=1';
+            $ShopUrl = rtrim(SHOP_URL, '/') . '/api/' . $UsersID . '/shop/?preview=1';
         ?>
         $("#previewShop").click(function(){
             var shopurl = '<?php echo $ShopUrl ?>';

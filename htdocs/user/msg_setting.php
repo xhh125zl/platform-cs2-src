@@ -166,7 +166,7 @@ if ($_POST) {
     }
     
     if ($result['errorCode'] == 0) {    //改变配置，删除缓存
-        $url = SHOP_URL.'api/update_cache.php?cacheType=msgconfig&bizAccount='.$BizAccount;
+        $url = rtrim(SHOP_URL, '/') . '/api/update_cache.php?cacheType=msgconfig&bizAccount='.$BizAccount;
         curlInterFace($url);
     }
     

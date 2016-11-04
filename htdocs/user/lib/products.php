@@ -11,7 +11,7 @@ function productsAdd($data){
     unset($postdata['Users_ID'], $postdata['Products_ID']);
     //图片路径处理
     $postdata['Products_JSON'] = stripcslashes($postdata['Products_JSON']);
-    $postdata['Products_JSON'] = str_replace(SHOP_URL, '/', $postdata['Products_JSON']);
+    $postdata['Products_JSON'] = str_replace(rtrim(SHOP_URL, '/'), '', $postdata['Products_JSON']);
     
     $postdata['Users_Account'] = $_SESSION['Biz_Account'];
     $postdata['Products_Category'] = ','.(int)$data['firstCate']. ',' . $data['secondCate'] . ',';
@@ -34,7 +34,7 @@ function productsAdd($data){
         return false;
     }
 }
-//验证是否为数字   默认检查正浮点数  1：非负浮点数  2：检查正整数 3: 检查非负整数
+//验证是否为数字   默认检查正浮点数  0：正浮点数  1：非负浮点数  2：检查正整数 3: 检查非负整数
 function check_number($value, $type = 0) {
     $number_regular = '';
     if ($type == 0) {
