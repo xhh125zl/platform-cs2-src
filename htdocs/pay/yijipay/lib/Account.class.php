@@ -26,4 +26,12 @@ class Account extends BasePay
         $data = $this->handle($param);
         return $this->doPost(REQUEST_GATEWAY, $data);
     }
+
+    public function qftBatchTransfer($param)
+    {
+        $param['service'] = "qftBatchTransfer";
+        $param['protocol'] = "httpJSON";
+        $data = $this->handle($param);
+        $this->doForm(REQUEST_GATEWAY, $data, "POST");
+    }
 }
