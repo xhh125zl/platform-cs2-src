@@ -134,6 +134,8 @@ if ($row["status"] == 0) {
 }
 ?>      
 </table>
+      <div class="blank20"></div>
+      <?php $DB->showPage(); ?>
 <?php
 if ($status == 0) {
 ?>
