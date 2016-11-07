@@ -109,7 +109,7 @@ $image_path_arr = json_decode($Products_JSON, true)['ImgPath'];
 $images_path = array();
 $image_path = '';
 foreach ($image_path_arr as $k => $v) {
-    $images_path[] = rtrim(IMG_SERVER, '/') . $v;
+    $images_path[] = getImageUrl(rtrim(IMG_SERVER, '/') . $v, 0);
     $image_path .= $v . ',';
 }
 $image_path = rtrim($image_path, ',');

@@ -161,7 +161,7 @@ $infolist = [];
 if (count($products) > 0) {
     foreach ($products as $row) {
         $img = json_decode($row['Products_JSON'], true);
-        $row['thumb'] = $img['ImgPath'][0];
+        $row['thumb'] = getImageUrl($img['ImgPath'][0], 0);
         unset($row['Products_JSON']);
         //判断是否为已上架
         if (in_array($row['Products_FromId'], $resArr)) {
