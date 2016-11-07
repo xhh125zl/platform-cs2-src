@@ -64,7 +64,7 @@ $(function(){
     $(".js_upFile").uploadView({
         uploadBox: '.js_uploadBox',//设置上传框容器
         showBox : '.js_showBox',//设置显示预览图片的容器
-        width : 43, //预览图片的宽度，单位px
+        width : 45, //预览图片的宽度，单位px
         height : 43, //预览图片的高度，单位px
         allowType: ["gif", "jpeg", "jpg", "bmp", "png"], //允许上传图片的类型
         maxSize :10, //允许上传图片的最大尺寸，单位M
@@ -82,6 +82,7 @@ $(function(){
                         } else {
                             $("input[name=image_path]").val($("input[name=image_path]").val() + ',' + data.msg);
                         }
+                        $('.js_showBox div:last').append('<span class="deleted">删除</span>');
                     } else {
                         layer.open({content: data.msg, shadeClose: false, btn: '确定'});
                     }
@@ -132,7 +133,7 @@ $(function(){
     $(".js_upFile1").uploadView1({
         uploadBox: '.js_uploadBox1',//设置上传框容器
         showBox : '.js_showBox1',//设置显示预览图片的容器
-        width : 43, //预览图片的宽度，单位px
+        width : 45, //预览图片的宽度，单位px
         height : 43, //预览图片的高度，单位px
         allowType: ["gif", "jpeg", "jpg", "bmp", "png"], //允许上传图片的类型
         maxSize :10, //允许上传图片的最大尺寸，单位M
@@ -150,6 +151,7 @@ $(function(){
                         } else {
                             $("input[name=image_path1]").val($("input[name=image_path1]").val() + ',' + data.msg);
                         }
+                        $('.js_showBox1 div:last').append('<span class="deleted1">删除</span>');
                     } else {
                         layer.open({content: data.msg, shadeClose: false, btn: '确定'});
                     }

@@ -92,8 +92,8 @@ if (isset($_POST['ajax']) && $_POST['ajax'] == 1) {
                         <div class="back_x">
                             <a class="l" href='javascript:layer.closeAll();'><i class="fa  fa-angle-left fa-2x" aria-hidden="true"></i></a>提现消息
                         </div>
-                        <h3><?php echo $v['msg_title']; ?></h3>
-                        <h5 style="text-align:center;"><?php echo $v['create_time']; ?></h5>
+                        <p style="width:55%; margin:0 auto; text-align:center; line-height:20px;"><?php echo $v['msg_title']; ?></p>
+                        <p style="text-align:center; line-height:23px;"><?php echo $v['create_time']; ?></p>
                         <div style="width: 90%; margin: 10px auto 0; line-height: 20px; "><?php echo $v['msg_describe']; ?></div>
                     </div>
                 </li>

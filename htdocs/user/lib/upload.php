@@ -15,7 +15,7 @@ function curl_post($uri, $data) {
 }
 
 if ($_POST['act'] == 'uploadFile') {
-	$uri = rtrim(IMG_SERVER, '/').'/user/lib/upload.php';
+	$uri = rtrim(IMG_SERVER, '/') . '/user/lib/upload.php';
 	// 参数数组
 	$data = array (
 		'act' => $_POST['act'],
@@ -26,7 +26,7 @@ if ($_POST['act'] == 'uploadFile') {
 	echo curl_post($uri, $data);
 
 } elseif ($_POST['act'] == 'delImg') {
-    $uri = rtrim(IMG_SERVER, '/').'/user/lib/upload.php';
+    $uri = rtrim(IMG_SERVER, '/') . '/user/lib/upload.php';
 	// 参数数组
 	$data = array (
 		'act' => $_POST['act'],
