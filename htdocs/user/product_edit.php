@@ -221,7 +221,7 @@ require_once 'lib/product_category.php';
                     <?php foreach ($img_arr[2] as $k => $v) { ?>
                         <div style="width: 45px;float:left;margin:0 2px">
                             <img src="<?php echo IMG_SERVER.$v; ?>" style="display: block; width: 43px; height: 43px;">
-                            <span class="deleted">删除</span>
+                            <span class="deleted1">删除</span>
                         </div>
                     <?php }} ?>
                 </div>

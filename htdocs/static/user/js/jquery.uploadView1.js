@@ -66,7 +66,7 @@
 						  tmpSrc = tmpSrc.replace('data:,', 'data:image/jpeg;base64,');
 						}
 
-						  var img = '<div style="width: 45px;float:left;margin:0 2px 4px"><img title="点击删除图片" src="' + tmpSrc + '" style="display: block;"/><span class="deleted1">删除</span></div>';
+						  var img = '<div style="width: 45px;float:left;margin:0 2px 4px"><img title="点击删除图片" src="' + tmpSrc + '" style="display: block;"/></div>';
 						  $("#image_files1").val(tmpSrc);
 						  var tmpSrc_num =  tmpSrc.length;
 						  if (tmpSrc_num > 20971520) {
