@@ -1,0 +1,52 @@
+*{margin:0px; padding:0px;}
+ul, li, dt, dd, ol, dl{list-style-type:none;}
+a{color:#666; text-decoration:none;}
+a:active {color:#ff5000;}
+input, textarea, button, a{ -webkit-tap-highlight-color:rgba(0,0,0,0); }
+.l{float:left;}
+.r{float:right;}
+.clear{clear:both;}
+img{border:none;vertical-align: middle;}
+.left{float:left;}
+.right{float:right;}
+body{background-color:#f8f8f8;-webkit-tap-highlight-color:transparent;font-size:14px; font-family:"微软雅黑"}
+.w{width:100%; margin:0 auto;}
+input[type=button], input[type=submit], input[type=file], button { cursor: pointer; -webkit-appearance: none;} 
+
+/*子账号注册*/
+.back_x{ background:#fff; overflow:hidden; line-height:45px; color:#666; text-align:center; padding:0 10px;}
+.back_x a i{ line-height:45px}
+.list_table{ background:#fff; overflow:hidden;margin-top:5px;padding:5px 0}
+.list_table input{ margin:5px auto}
+table{
+    table-layout:fixed;
+    empty-cells:show;
+    border-collapse: collapse;
+    margin:0 auto;
+
+}
+td{
+    height:35px;
+}
+.table_x1{
+    color:#666;
+}
+.table_x1 th {
+    height:30px;
+    width:33% ;
+    text-align:right;
+}
+.table_x1 td{
+    padding:0 0.5em 0;
+    width:67%
+}
+.table_x1 td a{ color:#ff5500}
+.user_input{ border:1px #ddd solid; height:30px; line-height:30px; width:100%; text-indent:0.5em; color:#666; outline:none}
+.table_x1 tr td select{ color:#999; outline:none; margin-bottom:5px;border:1px #ddd solid; height:35px; line-height:35px; width:100%; text-indent:0.5em;}
+.table_x1 tr td select option{outline:none;}
+.back_xx{background:#ff5000; color:#fff; border:none; line-height:25px; width:70px; margin-top:10px; outline:none}
+.next_yy{ color:#fff; border:none; line-height:25px; width:70px; margin-top:10px;background-color: #999;text-align: center;outline:none}
+.img_tab{ width:96%; text-indent:0.5em; color:#666; line-height:30px; overflow:hidden}
+.img_tab th { text-align:left;}
+.img_tab th input{ outline:none; border-bottom:1px #ddd dashed; width:100%; padding-bottom:10px}
+

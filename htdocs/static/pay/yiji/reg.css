@@ -1,0 +1,14 @@
+.select2-container { width:90%; }
+.selectPic span{ width:100%;display: block; height: 30px; line-height: 30px; margin-top:-30px; }
+.btn-upload {width: 43px;height: 43px;position: relative;float:left; border:1px #999 dashed; margin-left: 15px;margin-top:20px; }
+.btn-upload a {display: block;width: 43px;line-height: 43px;text-align: center;color: #4c4c4c;background: #fff;}
+.btn-upload input {width: 43px;height: 43px;position: absolute;left: 0px;top: 0px;z-index: -1;filter: alpha(opacity=0);-moz-opacity: 0;opacity: 0;cursor: pointer;}
+.deleted{cursor: pointer;width: 45px;display: block;height: 20px;line-height: 20px;text-align: center;position: relative;background: #000;color: #fff;font-size: 12px;filter: alpha(opacity=50);-moz-opacity: 0.5;-khtml-opacity: 0.5;opacity: 0.5;margin-top: -20px;}
+.deleted1{cursor: pointer;width: 45px;display: block;height: 20px;line-height: 20px;text-align: center;position: relative;background: #000;color: #fff;font-size: 12px;filter: alpha(opacity=50);-moz-opacity: 0.5;-khtml-opacity: 0.5;opacity: 0.5;margin-top: -20px;}
+.notNull { color: red; }
+.js_showBox { width:120px; border:1px solid #fcc;float:left;font-size:10px;text-align:center;height:100px;line-height:100px;}
+.js_uploadBox {margin-right:20px;margin-top:10px;height: 100px; width: 200px; float: left;}
+.fc_red { border:1px solid #f00;}
+.list_table .js_upFile { width: 120px; height: 100px;  margin-top: -100px; margin-left: 0px; display: block; border: 1px solid #f00; opacity: 0; }
+.table_x1 .error { color:#f33; }
+.js_showBox .orgin {width:120px;height:100px;}
