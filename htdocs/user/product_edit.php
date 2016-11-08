@@ -155,6 +155,15 @@ foreach ($productData['Category401'] as $k => $v) {
 }
 $cateName = $firstCateName.'，'.$secondCateName;
 
+//商品类型处理    0 0：实物产品  1 0：虚拟产品  1 1：卡密产品
+if ($productData['Products_IsVirtual'] == 0 && $productData["Products_IsRecieve"] == 0) {
+    $Products_Type = 0;
+} else if ($productData['Products_IsVirtual'] == 1 && $productData["Products_IsRecieve"] == 0) {
+    $Products_Type = 1;
+} else if ($productData['Products_IsVirtual'] == 1 && $productData["Products_IsRecieve"] == 1) {
+    $Products_Type = 2;
+}
+
 //判断是否有未完成订单
 $res = ImplOrder::getOrders(['Biz_Account' => $BizAccount, 'Order_Status' => 'not in (4,5)']);
 
@@ -188,7 +197,7 @@ require_once 'lib/product_category.php';
     </div>
     <input type="hidden" name="Products_ID" value="<?php echo $postdata['Products_ID']; ?>">
     <div class="name_pro">
-        <input type="text" name="Products_Name" value="<?php echo input_output($productData['Products_Name']); ?>" placeholder="请输入商品名称" maxlength="30">
+        <input type="text" name="Products_Name" value="<?php echo input_output($productData['Products_Name']); ?>" placeholder="请输入商品名称" maxlength="80">
         <div class="img_add">
             <div class="js_uploadBox">
                 <div class="js_showBox">
@@ -234,13 +243,18 @@ require_once 'lib/product_category.php';
                 <input type="hidden" name="image_path1" value="<?php if (!empty($image_path)) {echo $des_img_path;} ?>"/>
             </div>
         </div>
-        <!--<div class="img_add">
-            <!--这里写配图的一些代码--
-        </div>
-        <p>配图（最多6张）</p>-->
     </div>
     <div class="list_table">
         <table width="96%" class="table_x">
+            <tr>
+                <th><span class="notNull">*</span>产品类型：</th>
+                <td style="line-height: 35px;">
+                    <input type="radio" name="Products_Type" value="0" <?php echo $Products_Type == 0 ? 'checked="checked"' : ''; ?> id="type1"><label for="type1">实物</label>
+                    &nbsp;&nbsp;<input type="radio" name="Products_Type" value="1" <?php echo $Products_Type == 1 ? 'checked="checked"' : ''; ?> id="type2"><label for="type2">虚拟</label>
+                    &nbsp;&nbsp;<input type="radio" name="Products_Type" value="2" <?php echo $Products_Type == 2 ? 'checked="checked"' : ''; ?> id="type3"><label for="type3">卡密</label>
+                    <span style=" float:right;" id="Products_Type">说明&nbsp;<i class="fa  fa-angle-right fa-x" aria-hidden="true" style="font-size:20px;"></i></span>
+                </td>
+            </tr>
             <tr>
                 <th><span class="notNull">*</span>原价(￥)：</th>
                 <td><input type="number" name="PriceY" maxlength="10" class="user_input" value="<?php echo $productData['Products_PriceY']; ?>" placeholder="请输入商品原价"></td>
@@ -321,7 +335,7 @@ require_once 'lib/product_category.php';
             </tr>
             <tr>
                 <th>是否显示：</th>
-                <td><input class="toggle-switch" type="checkbox" name="IsShow" <?php if ($productData['Products_IsShow'] == 1) {echo 'checked="checked"';} else {echo '';} ?> ></td>
+                <td><span style="font-size:0.6em;line-height:38px;">注：门槛商品是否在商城显示</span><input class="toggle-switch" type="checkbox" name="IsShow" <?php if ($productData['Products_IsShow'] == 1) {echo 'checked="checked"';} else {echo '';} ?> ></td>
             </tr>
         </table>
     </div>

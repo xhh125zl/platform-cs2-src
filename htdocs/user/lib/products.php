@@ -109,6 +109,19 @@ if (isset($_POST['act']) && $_POST['act'] == 'addEditProduct') {
     } else {
         unset($input_productData['B2CProducts_Category']);
     }
+    
+    //产品类型    0：实物产品 1：虚拟产品 2：卡密产品
+    if ($input_productData["Products_Type"] == 0){
+        $input_productData["Products_IsVirtual"] = 0;
+        $input_productData["Products_IsRecieve"] = 0;
+    } else if ($input_productData["Products_Type"] == 1) {
+        $input_productData["Products_IsVirtual"] = 1;
+        $input_productData["Products_IsRecieve"] = 0;
+    } else if ($input_productData["Products_Type"] == 2) {
+        $input_productData["Products_IsVirtual"] = 1;
+        $input_productData["Products_IsRecieve"] = 1;
+    }
+    unset($input_productData["Product_Type"]);
 
     //判断是上架商品还是编辑商品
     if (empty($input_productData['Products_ID'])) {     //上架商品

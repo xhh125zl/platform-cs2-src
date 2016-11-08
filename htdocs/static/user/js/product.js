@@ -19,7 +19,7 @@ function check_null(input) {
         return true;
     }
 }
-//检测是数字类型  默认检查正浮点数  1：非负浮点数  2：检查正整数 3: 检查非负整数
+//检测是数字类型  默认检查正浮点数  0: 正浮点数  1：非负浮点数  2：检查正整数 3: 检查非负整数
 function check_number(input, type) {
     if(!type) {type = 0;}
     var self_attr = input.attr('style');
@@ -187,6 +187,27 @@ $(function(){
     });
     //内容配图 end
 
+    //产品类型说明
+    $('#Products_Type').click(function(){
+        layer.open({
+            title: '产品类型对应的产品订单流程说明：',
+            content: '<div style="text-align:left;line-height:30px;"><div style="border-top:1px solid #ccc;">实物产品：</div><p>买家下单 -> 买家付款 -> 商家发货 -> 买家收货 -> 订单完成</p><div style="border-top:1px solid #ccc;">虚拟产品：</div><p>买家下单 -> 买家付款 -> 系统发送消费券码到买家手机 -> 商家认证消费 -> 订单完成</p><div style="border-top:1px solid #ccc;">卡密产品：</div><p>买家下单 -> 买家付款 -> 订单完成</p></div>',
+            btn: '我知道了'
+        });
+    });
+
+    //绑定虚拟卡密
+    $('input[name="Products_Type"]').click(function(){
+        var type_value = $(this).val();
+        if (type_value == 2) {  //绑定卡密产品
+            $('#type1').attr('checked', 'checked');
+            layer.open({
+                content: '卡密产品请到PC端操作',
+                btn: '我知道了'
+            });
+        }
+    });
+
     //是否推荐 推荐填写供货价
     $('input[name="is_Tj"]').click(function(){
         var isSolding = $('input[name="isSolding"]').val();
@@ -308,6 +329,7 @@ $(function(){
             //'Products_BriefDescription' : $.trim($('textarea[name="BriefDescription"]').val()),     //商品简介
             'Products_Description' : $.trim($('textarea[name="Description"]').val()),     //商品详情描述
             'Products_JSON1' : $.trim($('input[name="image_path1"]').val()),      //商品详情添加的图片
+            'Products_Type' : $('input[name="Products_Type"]:checked').val(),           //商品类型  0：实物产品 1：虚拟产品 2：卡密产品
             'Products_PriceY' : $.trim($('input[name="PriceY"]').val()),      //商品原价
             'Products_PriceX' : $.trim($('input[name="PriceX"]').val()),      //商品现价
             'isSolding' : $('input[name="isSolding"]').val(),    //编辑时  判断此推荐商品是否有未完成订单， 1： 不允许撤销推荐
