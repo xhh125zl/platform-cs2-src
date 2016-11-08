@@ -175,7 +175,7 @@ if (!isset($yijiPay['yijiGateWayBalance'])) {
 				shadeClose: false,
 				btn: ['立即开通', '以后再说'],
 				yes:function(){
-					location.href= '?act=goreg';	
+					location.href= '/pay/yijipay/reg.php';	
 				},
 				no:function(){
 					layer.close();
