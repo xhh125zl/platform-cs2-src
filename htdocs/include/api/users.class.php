@@ -81,4 +81,42 @@ class users extends base
       $result = self::request($url, 'post', $data);
       return $result;
   }
+  
+  static public function getRuleUser($data)
+  {
+      $url = '/users/getruleuser.html';
+      $result = self::request($url, 'post', $data);
+      return $result;
+  }
+  
+  static public function getUser($data)
+  {
+      $url = '/users/getuser.html';
+      $result = self::request($url, 'post', $data);
+      return $result;
+  }
+  
+  //根据Yiji_UserID获取会员信息
+  static public function Getruleuserbyyijiid($data)
+  {
+      $url = '/users/getruleuserbyyijiid.html';
+      $result = self::request($url, 'post', $data);
+      return $result;
+  }
+  
+  //更新易极付支付账号的状态
+  static public function Updateyijistatus($data)
+  {
+      $url = '/users/updateyijistatus.html';
+      $result = self::request($url, 'post', $data);
+      return $result;
+  }
+
+  static public function addYijiBind($data)
+  {
+      $url = '/users/addyijibind.html';
+      $result = self::request($url, 'post', $data);
+      return $result;
+  }
+  
 }
