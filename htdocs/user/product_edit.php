@@ -105,11 +105,11 @@ function cutstr_html($string,$length=0,$ellipsis='…'){
 $Products_JSON = stripcslashes($productData['Products_JSON']);
 $Products_JSON = str_replace(rtrim(IMG_SERVER, '/'), '', $Products_JSON);
 
-$image_path_arr = json_decode($productData['Products_JSON'], true)['ImgPath'];
+$image_path_arr = json_decode($Products_JSON, true)['ImgPath'];
 $images_path = array();
 $image_path = '';
 foreach ($image_path_arr as $k => $v) {
-    $images_path[] = rtrim(IMG_SERVER, '/') . $v;
+    $images_path[] = getImageUrl(rtrim(IMG_SERVER, '/') . $v, 0);
     $image_path .= $v . ',';
 }
 $image_path = rtrim($image_path, ',');
