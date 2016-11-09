@@ -6,6 +6,8 @@ require_once(CMS_ROOT.'/include/helper/tools.php');
 require_once(CMS_ROOT.'/include/helper/global_func.php');
 require_once(CMS_ROOT.'/include/support/yiji_helper.php');
 require_once(CMS_ROOT.'/include/api/users.class.php');
+require_once(CMS_ROOT . '/include/api/shopconfig.class.php');
+require_once(CMS_ROOT . '/include/api/const.php');
 //第一步基本信息注册
 $action = "first";
 $UsersID = "";
@@ -137,6 +139,47 @@ if(isset($_POST['act']) && $_POST['act']=='base'){
             echo "<script>alert(\"添加失败\");location.href='history.go(-1);'</script>";
             exit;
         }
+        //写入商家认证记录
+        $BizRes = shopconfig::getBizapply(['Biz_Account'=>$Biz_Account]);
+        if($BizRes['errorCode'] != 0){
+            echo '<script language="javascript">alert("未找到该商家");history.back();</script>';
+            exit;
+        }
+        $BizInfo = $BizRes['data'][0];
+        $baseinfo = json_decode($BizInfo['baseinfo'],true);
+        $authinfo = json_decode($BizInfo['authinfo'],true);
+        $bizType = isset($payAccount['registerUserType']) && $payAccount['registerUserType']== 'PERSONAL' ? 2: 1;
+
+        if($bizType == 1){
+            $baseinfo['company_name'] = isset($payAccount['enterpriseName'])?$payAccount['enterpriseName']:'';
+            $baseinfo['address'] = isset($payAccount['address'])?$payAccount['address']:'';
+            $baseinfo['main_type'] = 1;
+        }
+        $baseinfo['goods'] = isset($payAccount['goods'])?$payAccount['goods']:'';
+        $baseinfo['contacts'] = isset($payAccount['contacts'])?$payAccount['contacts']:'';
+        $baseinfo['mobile'] = isset($payAccount['mobile'])?$payAccount['mobile']:'';
+        $baseinfo['email'] = isset($payAccount['email'])?$payAccount['email']:'';
+        if($bizType == 1){
+            $authinfo['compay_add'] = isset($payAccount['address'])?$payAccount['address']:'';
+            $authinfo['compay_license'] = isset($payAccount['licenceNo'])?$payAccount['licenceNo']:'';
+            $authinfo['compay_shenfenimg'] = isset($payAccount['image_legalCertFrontPath'])?$payAccount['image_legalCertFrontPath']:'';
+            $authinfo['compay_shenfenbackimg'] = isset($payAccount['image_legalCertBackPath'])?$payAccount['image_legalCertBackPath']:'';
+            $authinfo['compay_shuiwuimg'] = isset($payAccount['image_taxCertPath'])?$payAccount['image_taxCertPath']:'';
+        }
+        $authinfo['personCertFrontPath'] = isset($payAccount['image_personCertFrontPath'])?$payAccount['image_personCertFrontPath']:'';
+        $authinfo['personCertBackPath'] = isset($payAccount['image_personCertBackPath'])?$payAccount['image_personCertBackPath']:'';
+        $Applydata = [
+            'baseinfo' => json_encode($baseinfo, JSON_UNESCAPED_UNICODE),
+            'authinfo' => json_encode($authinfo, JSON_UNESCAPED_UNICODE),
+            'authtype' => $bizType,
+            'CreateTime' => time()
+        ];
+        $Flag = shopconfig::updateBizapply(['Biz_Account'=>$Biz_Account,'bizApplyData'=> $Applydata ]);
+        if($Flag['errorCode'] != 0){
+            echo '<script language="javascript">alert("写入商家记录失败");history.back();</script>';
+            exit;
+        }
+
         $_SESSION[$UsersID.'_'.$UserID.'_payAccountConfig'] = "";
         $account = new Account();
         if($payAccount['registerUserType']=='PERSONAL'){
@@ -166,7 +209,7 @@ if(isset($_POST['act']) && $_POST['act']=='base'){
                 'province' => $payAccount['provinceName'],
                 'city' => $payAccount['cityName'],
                 'address' => $payAccount['address'],
-                'userTerminalType' => $payAccount['userTerminalType'],
+                'userTerminalType' => "MOBILE",
                 'registerUserType' => $payAccount['registerUserType'],
                 'outUserId' => $payAccount['outUserId'],
                 'userId' => $payAccount['UserYijiId'],
@@ -187,7 +230,7 @@ if(isset($_POST['act']) && $_POST['act']=='base'){
                 $businessParam['agentCertBackPath'] = $uri.$payAccount['image_agentCertBackPath'];
                 $businessParam['attorneyPath'] = $uri.$payAccount['image_attorneyPath'];
             }
-            unsset($payAccount);
+            unset($payAccount);
             $account->registerPayAccount($businessParam);
         }
         exit;
