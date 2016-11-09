@@ -355,9 +355,6 @@ KindEditor.ready(function(K) {
 			<div class="r_nav">
 				<ul>
 					<li class="cur"><a href="config.php">基本设置</a></li>
-					<li class=""><a href="skin.php">风格设置</a></li>
-					<li class=""><a href="home.php">首页设置</a></li>
-					<li><a href="menu_config.php">菜单配置</a></li>
 				</ul>
 			</div>
 			<link href='/static/js/plugin/operamasks/operamasks-ui.css'
@@ -374,18 +371,20 @@ KindEditor.ready(function(K) {
 				<form id="config_form" action="config.php" method="post">
 					<table border="0" cellpadding="0" cellspacing="0">
 						<tr>
-							<td width="50%" valign="top"><h1>
-									<span class="fc_red">*</span> <strong>微商城名称</strong>
-								</h1> <input type="text" class="input" name="ShopName"
-								value="<?php echo $rsConfig["ShopName"] ?>" maxlength="30"
-								notnull /></td>
-							<td width="50%" valign="top">
-								<span class="fc_red">*</span> <strong>商家发布自营产品收费金额<span style="color:#f00;"></span>(如不收费,请选择关)</strong><br />
+						<td width="50%" style="padding-top:20px;">
+								<span class="fc_red">*</span> <strong>商家发布自营产品收费金额<span style="color:#f00;"></span>(如不收费,请选择关)</strong><br /><br />
 								<!--<span id="Users_PayCharge"><p style="padding-left:30px;">&yen;<?php echo $rsConfig["Users_PayCharge"] ?>元</p></span>-->
 								<span id="Users_PayCharge"><input type="radio" name="Users_PayCharge" value="20" <?php echo !empty($rsConfig["Users_PayCharge"])?"checked":""; ?> >开
 								<input type="radio" name="Users_PayCharge" value="0" <?php echo empty($rsConfig["Users_PayCharge"])?"checked":""; ?> >关</span>
-							</td>
+							</td>						
+							<td width="50%" valign="top">
+								<!--<h1>	<span class="fc_red">*</span> <strong>微商城名称</strong>
+								</h1> <input type="text" class="input" name="ShopName"
+								value="<?php echo $rsConfig["ShopName"] ?>" maxlength="30"
+								notnull />--></td>
+	
 						</tr>
+						<!--
 						<tr>
 							<td width="50%" valign="top"><h1>
 									<strong>订单确认</strong><span class="tips">（关闭后下订单可直接付款，无需经过卖家确认）</span>
@@ -528,9 +527,9 @@ KindEditor.ready(function(K) {
 								</h1> <textarea name="ShareIntro"><?php echo $rsConfig["ShareIntro"] ?></textarea>
 							</td>
 						</tr>
-
+-->
 					</table>
-					<table align="center" border="0" cellpadding="0" cellspacing="0">
+					<table align="center" border="0" cellpadding="0" cellspacing="0" style="display:none;">
 						<tr>
 							<td><h1>
 									<strong>触发信息设置</strong>
@@ -574,9 +573,7 @@ KindEditor.ready(function(K) {
 								value="<?php echo $rsMaterial["ImgPath"] ?>" /></td>
 						</tr>
 					</table>
-					<div class="submit">
-						<input type="submit" name="submit_button" value="提交保存" />
-					</div>
+			
 				</form>
 			</div>
 		</div>
