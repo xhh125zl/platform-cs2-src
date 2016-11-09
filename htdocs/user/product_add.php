@@ -229,7 +229,7 @@ require_once 'lib/product_category.php';
             </tr>
             <tr>
                 <th>是否显示：</th>
-                <td><span style="line-height:38px;">注：门槛商品是否在商城显示</span><input class="toggle-switch" type="checkbox" name="IsShow" checked=""></td>
+                <td><span style="font-size:0.8rem;line-height:38px;">注：门槛商品是否在商城显示</span><input class="toggle-switch" type="checkbox" name="IsShow" checked=""></td>
             </tr>
         </table>
     </div>
