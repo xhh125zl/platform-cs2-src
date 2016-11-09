@@ -40,5 +40,6 @@ return array(
     'Zizaco\\Entrust\\ClassCreatorCommand' => $vendorDir . '/zizaco/entrust/src/commands/ClassCreatorCommand.php',
     'Zizaco\\Entrust\\MigrationCommand' => $vendorDir . '/zizaco/entrust/src/commands/MigrationCommand.php',
     'TransYijipayRecord' => $baseDir . '/include/models/TransYijipayRecord.php',
-    'Users_PayConfig' => $baseDir . '/include/models/Users_PayConfig.php'
+    'Users_PayConfig' => $baseDir . '/include/models/Users_PayConfig.php',
+    'Biz' => $baseDir . '/include/models/Biz.php',
 );

@@ -4,7 +4,6 @@ if (!defined('USER_PATH')) exit();
 require_once CMS_ROOT . '/include/api/product.class.php';
 require_once CMS_ROOT . '/include/api/ImplOrder.class.php';
 require_once CMS_ROOT . '/include/helper/page.class.php';
-require_once CMS_ROOT . '/include/helper/tools.php';
 
 if (isset($_GET['ajax']) && $_GET['ajax'] == 1) {
     $do = isset($_POST['do']) ? $_POST['do'] : '';
@@ -179,7 +178,7 @@ if (count($products) > 0) {
             continue;
         }*/
         $img = json_decode($row['Products_JSON'], true);
-        $row['thumb'] = $img['ImgPath'][0];
+        $row['thumb'] = getImageUrl($img['ImgPath'][0], 0);
         unset($row['Products_JSON']);
         $row['shop_url'] = rtrim(SHOP_URL, '/') . '/api/'.$row['Users_ID'].'/shop/products/'.$row['Products_ID'].'/';
         $infolist[] = $row;
@@ -319,7 +318,7 @@ a.preview p, a.delete p, a.edit p, a.shop p, a.top p{display:inline;}
         <!-- li -->
 		<li>
         	<div style=" border-bottom:1px #eee solid; overflow:hidden;min-height:110px;">
-            	<a><span class="imgs l"><img src="<?php echo getImageUrl($product['thumb'], 0);?>" width="90" height="90"></span>
+            	<a><span class="imgs l"><img src="<?php echo $product['thumb'];?>" width="90" height="90"></span>
                 <span class="main l">
                     <p><?php echo $product['Products_Name'];?></p>
                     <span class="l" style="font-size:16px; line-height:25px; color:#333">￥<?php echo $product['Products_PriceX'];?></span>

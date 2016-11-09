@@ -63,7 +63,7 @@ require_once 'lib/product_category.php';
     </div>
     <input type="hidden" name="Products_Id" value="">
     <div class="name_pro">
-        <input type="text" name="Products_Name" value="" placeholder="请输入商品名称">
+        <input type="text" name="Products_Name" value="" placeholder="请输入商品名称" maxlength="80">
         <div class="img_add">
             <div class="js_uploadBox">
                 <div class="js_showBox"></div>
@@ -93,20 +93,41 @@ require_once 'lib/product_category.php';
                 <input type="hidden" name="image_path1" value=""/>
             </div>
         </div>
-        <!--<div class="img_add">
-            <!--这里写配图的一些代码--
-        </div>
-        <p>配图（最多6张）</p>-->
     </div>
     <div class="list_table">
         <table width="96%" class="table_x">
             <tr>
+                <th><span class="notNull">*</span>产品类型：</th>
+                <td>
+                    <select name="TypeID">
+                        <option value="">选择产品类型</option>
+                        <?php
+                            if (!empty($Products_Type)) {
+                                foreach ($Products_Type as $v) {
+                                    echo '<option value="' . $v['ProductType_FromID'] . '">' . $v['Type_Name'] . '</option>';
+                                }
+                            }
+                        ?>
+                        <option value="0">其他</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <th><span class="notNull">*</span>订单流程：</th>
+                <td style="line-height: 35px;">
+                    <input type="radio" name="ordertype" value="0" checked="checked" id="type0"><label for="type0">实物</label>&nbsp;&nbsp;
+                    <input type="radio" name="ordertype" value="1" id="type1"><label for="type1">虚拟</label>&nbsp;&nbsp;
+                    <input type="radio" name="ordertype" value="2" id="type2"><label for="type2">卡密</label>
+                    <span style=" float:right;" id="ordertype">说明&nbsp;<i class="fa  fa-angle-right fa-x" aria-hidden="true" style="font-size:20px;"></i></span>
+                </td>
+            </tr>
+            <tr>
                 <th><span class="notNull">*</span>原价(￥)：</th>
-                <td><input type="number" name="PriceY" class="user_input" value="" placeholder="请输入商品原价"></td>
+                <td><input type="number" name="PriceY" maxlength="10" class="user_input" value="" placeholder="请输入商品原价"></td>
             </tr>
             <tr>
                 <th><span class="notNull">*</span>现价(￥)：</th>
-                <td><input type="number" name="PriceX" class="user_input" value="" placeholder="请输入商品现价"></td>
+                <td><input type="number" name="PriceX" maxlength="10" class="user_input" value="" placeholder="请输入商品现价"></td>
             </tr>
             <tr style="display:none;">
                 <th>是否推荐　<br/>到批发商城：</th>
@@ -114,7 +135,7 @@ require_once 'lib/product_category.php';
             </tr>
             <tr class="is_Tj">
                 <th><span class="notNull">*</span>供货价(￥)：</th>
-                <td><input type="number" name="PriceS" class="user_input" value="" placeholder="请输入商品供货价"></td>
+                <td><input type="number" name="PriceS" maxlength="10" class="user_input" value="" placeholder="请输入商品供货价"></td>
             </tr>
             <tr class="is_Tj">
                 <th><span class="notNull">*</span>所属分类：</th>
@@ -122,19 +143,19 @@ require_once 'lib/product_category.php';
             </tr>
             <tr>
                 <th><span class="notNull">*</span>产品利润：</th>
-                <td><input type="number" name="Products_Profit" class="user_input" value="" placeholder="佣金将按照产品利润发放" /></td>
+                <td><input type="number" name="Products_Profit" maxlength="4" class="user_input" value="" placeholder="佣金将按照产品利润发放" /></td>
             </tr>
             <tr>
                 <th><span class="notNull">*</span>购买送积分：</th>
-                <td><input type="number" name="Products_Integration" class="user_input" value="" placeholder="请输入送积分数" /></td>
+                <td><input type="number" name="Products_Integration" maxlength="6" class="user_input" value="" placeholder="请输入送积分数" /></td>
             </tr>
             <tr>
                 <th><span class="notNull">*</span>产品重量：</th>
-                <td><input type="number" name="Products_Weight" class="user_input" value="" placeholder="产品重量,单位为kg" /> </td>
+                <td><input type="number" name="Products_Weight" maxlength="6" class="user_input" value="" placeholder="产品重量,单位为kg" /> </td>
             </tr>
             <tr>
                 <th><span class="notNull">*</span>库存(件)：</th>
-                <td><input type="number" name="count" class="user_input" value="" placeholder="请输入商品库存"></td>
+                <td><input type="number" name="count" maxlength="6" class="user_input" value="" placeholder="请输入商品库存"></td>
             </tr>
             <tr>
                 <th><span class="notNull">*</span>选择运费：</th>
@@ -179,7 +200,7 @@ require_once 'lib/product_category.php';
             </tr>
             <tr>
                 <th>是否显示：</th>
-                <td><input class="toggle-switch" type="checkbox" name="IsShow" checked=""></td>
+                <td><span style="font-size:0.6em;line-height:38px;">注：门槛商品是否在商城显示</span><input class="toggle-switch" type="checkbox" name="IsShow" checked=""></td>
             </tr>
         </table>
     </div>
