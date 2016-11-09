@@ -97,6 +97,22 @@ require_once 'lib/product_category.php';
     <div class="list_table">
         <table width="96%" class="table_x">
             <tr>
+                <th><span class="notNull">*</span>产品类型：</th>
+                <td>
+                    <select name="TypeID">
+                        <option value="">选择产品类型</option>
+                        <?php
+                            if (!empty($Products_Type)) {
+                                foreach ($Products_Type as $v) {
+                                    echo '<option value="' . $v['ProductType_FromID'] . '">' . $v['Type_Name'] . '</option>';
+                                }
+                            }
+                        ?>
+                        <option value="0">其他</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
                 <th><span class="notNull">*</span>订单流程：</th>
                 <td style="line-height: 35px;">
                     <input type="radio" name="ordertype" value="0" checked="checked" id="type0"><label for="type0">实物</label>&nbsp;&nbsp;

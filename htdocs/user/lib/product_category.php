@@ -23,6 +23,13 @@ if (isset($res['errorCode']) && $res['errorCode'] == 0) {
     exit;
 }
 
+//获取产品类型  401和b2c在产品类型上同步，所以直接从b2c上获取
+$DB->Get('shop_product_type', '*', 'where Biz_ID = ' . $BizID . ' order by Type_Index asc');
+$Products_Type = [];
+while ($rsType = $DB->fetch_assoc()) {
+    $Products_Type[] = $rsType;
+}
+
 ?>
 
 <!-- 隐藏的平台分类列表 -->

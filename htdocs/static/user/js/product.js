@@ -190,8 +190,8 @@ $(function(){
     //产品订单类型说明
     $('#ordertype').click(function(){
         layer.open({
-            title: '产品类型对应的产品订单流程说明：',
-            content: '<div style="text-align:left;line-height:30px;"><div style="border-top:1px solid #ccc;">实物产品：</div><p>买家下单 -> 买家付款 -> 商家发货 -> 买家收货 -> 订单完成</p><div style="border-top:1px solid #ccc;">虚拟产品：</div><p>买家下单 -> 买家付款 -> 系统发送消费券码到买家手机 -> 商家认证消费 -> 订单完成</p><div style="border-top:1px solid #ccc;">卡密产品：</div><p>买家下单 -> 买家付款 -> 订单完成</p></div>',
+            title: '产品对应的订单流程说明：',
+            content: '<div style="text-align:left;line-height:30px;"><div style="border-top:1px solid #ccc;">实物订单：</div><p>买家下单 -> 买家付款 -> 商家发货 -> 买家收货 -> 订单完成</p><div style="border-top:1px solid #ccc;">虚拟订单：</div><p>买家下单 -> 买家付款 -> 系统发送消费券码到买家手机 -> 商家认证消费 -> 订单完成</p><div style="border-top:1px solid #ccc;">卡密订单：</div><p>买家下单 -> 买家付款 -> 订单完成</p></div>',
             btn: '我知道了'
         });
     });
@@ -329,6 +329,7 @@ $(function(){
             //'Products_BriefDescription' : $.trim($('textarea[name="BriefDescription"]').val()),     //商品简介
             'Products_Description' : $.trim($('textarea[name="Description"]').val()),     //商品详情描述
             'Products_JSON1' : $.trim($('input[name="image_path1"]').val()),      //商品详情添加的图片
+            'Products_Type' : $('select[name="TypeID"] option:selected').val(),      //商品所属类型
             'ordertype' : $('input[name="ordertype"]:checked').val(),         //商品对应订单流程处理    0 0：实物订单  1 0：虚拟订单  1 1：卡密订单
             'Products_PriceY' : $.trim($('input[name="PriceY"]').val()),      //商品原价
             'Products_PriceX' : $.trim($('input[name="PriceX"]').val()),      //商品现价
@@ -365,6 +366,13 @@ $(function(){
         /*if (!check_null($('textarea[name="BriefDescription"]'))) {
             return  false;
         }*/
+        //商品类型
+        if (productData.Products_Type == '') {
+            $('select[name="TypeID"]').attr('style', 'border:1px solid red');
+            return false;
+        } else {
+            $('select[name="TypeID"]').removeAttr('style');
+        }
         //原价
         if (!check_null($('input[name="PriceY"]')) || !check_number($('input[name="PriceY"]'))) {
             return false;
