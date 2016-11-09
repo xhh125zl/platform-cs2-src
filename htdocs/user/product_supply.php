@@ -97,12 +97,12 @@ require_once 'lib/product_category.php';
     <div class="list_table">
         <table width="96%" class="table_x">
             <tr>
-                <th><span class="notNull">*</span>产品类型：</th>
+                <th><span class="notNull">*</span>订单流程：</th>
                 <td style="line-height: 35px;">
-                    <input type="radio" name="Products_Type" value="0" checked="checked" id="type1"><label for="type1">实物</label>
-                    &nbsp;&nbsp;<input type="radio" name="Products_Type" value="1" id="type2"><label for="type2">虚拟</label>
-                    &nbsp;&nbsp;<input type="radio" name="Products_Type" value="2" id="type3"><label for="type3">卡密</label>
-                    <span style=" float:right;" id="Products_Type">说明&nbsp;<i class="fa  fa-angle-right fa-x" aria-hidden="true" style="font-size:20px;"></i></span>
+                    <input type="radio" name="ordertype" value="0" checked="checked" id="type0"><label for="type0">实物</label>&nbsp;&nbsp;
+                    <input type="radio" name="ordertype" value="1" id="type1"><label for="type1">虚拟</label>&nbsp;&nbsp;
+                    <input type="radio" name="ordertype" value="2" id="type2"><label for="type2">卡密</label>
+                    <span style=" float:right;" id="ordertype">说明&nbsp;<i class="fa  fa-angle-right fa-x" aria-hidden="true" style="font-size:20px;"></i></span>
                 </td>
             </tr>
             <tr>

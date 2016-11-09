@@ -110,18 +110,18 @@ if (isset($_POST['act']) && $_POST['act'] == 'addEditProduct') {
         unset($input_productData['B2CProducts_Category']);
     }
     
-    //产品类型    0：实物产品 1：虚拟产品 2：卡密产品
-    if ($input_productData["Products_Type"] == 0){
+    //产品类型即订单流程    0：实物产品-->0 0  1：虚拟产品-->1 0  2：卡密产品-->1 1
+    if ($input_productData["ordertype"] == 0){
         $input_productData["Products_IsVirtual"] = 0;
         $input_productData["Products_IsRecieve"] = 0;
-    } else if ($input_productData["Products_Type"] == 1) {
+    } else if ($input_productData["ordertype"] == 1) {
         $input_productData["Products_IsVirtual"] = 1;
         $input_productData["Products_IsRecieve"] = 0;
-    } else if ($input_productData["Products_Type"] == 2) {
+    } else if ($input_productData["ordertype"] == 2) {
         $input_productData["Products_IsVirtual"] = 1;
         $input_productData["Products_IsRecieve"] = 1;
     }
-    unset($input_productData["Product_Type"]);
+    unset($input_productData["ordertype"]);
 
     //判断是上架商品还是编辑商品
     if (empty($input_productData['Products_ID'])) {     //上架商品
@@ -130,8 +130,6 @@ if (isset($_POST['act']) && $_POST['act'] == 'addEditProduct') {
         $input_productData['Shipping_Free_Company'] = 0;    //免运费  0为全部 ，n为指定快递
         //$input_productData['Products_Type'] = 0/n;        //产品类型
         $input_productData['Products_SoldOut'] = 0;         //其他属性  不能为空  1: 下架
-        //$input_productData['Products_IsVirtual'] = 1;     //订单流程      0,0  1,0  1,1 
-        //$input_productData['Products_IsRecieve'] = 1;
         //$input_productData['Products_Parameter'] = '[{"name":"","value":""}]';        //产品参数
         $input_productData['Users_ID'] = $UsersID;
         $input_productData['Products_Status'] = 1;

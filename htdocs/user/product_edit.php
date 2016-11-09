@@ -155,13 +155,13 @@ foreach ($productData['Category401'] as $k => $v) {
 }
 $cateName = $firstCateName.'，'.$secondCateName;
 
-//商品类型处理    0 0：实物产品  1 0：虚拟产品  1 1：卡密产品
+//商品对应订单流程处理    0 0：实物订单  1 0：虚拟订单  1 1：卡密订单
 if ($productData['Products_IsVirtual'] == 0 && $productData["Products_IsRecieve"] == 0) {
-    $Products_Type = 0;
+    $ordertype = 0;
 } else if ($productData['Products_IsVirtual'] == 1 && $productData["Products_IsRecieve"] == 0) {
-    $Products_Type = 1;
+    $ordertype = 1;
 } else if ($productData['Products_IsVirtual'] == 1 && $productData["Products_IsRecieve"] == 1) {
-    $Products_Type = 2;
+    $ordertype = 2;
 }
 
 //判断是否有未完成订单
@@ -247,12 +247,12 @@ require_once 'lib/product_category.php';
     <div class="list_table">
         <table width="96%" class="table_x">
             <tr>
-                <th><span class="notNull">*</span>产品类型：</th>
+                <th><span class="notNull">*</span>订单流程：</th>
                 <td style="line-height: 35px;">
-                    <input type="radio" name="Products_Type" value="0" <?php echo $Products_Type == 0 ? 'checked="checked"' : ''; ?> id="type1"><label for="type1">实物</label>
-                    &nbsp;&nbsp;<input type="radio" name="Products_Type" value="1" <?php echo $Products_Type == 1 ? 'checked="checked"' : ''; ?> id="type2"><label for="type2">虚拟</label>
-                    &nbsp;&nbsp;<input type="radio" name="Products_Type" value="2" <?php echo $Products_Type == 2 ? 'checked="checked"' : ''; ?> id="type3"><label for="type3">卡密</label>
-                    <span style=" float:right;" id="Products_Type">说明&nbsp;<i class="fa  fa-angle-right fa-x" aria-hidden="true" style="font-size:20px;"></i></span>
+                    <input type="radio" name="ordertype" value="0" <?php echo $ordertype == 0 ? 'checked="checked"' : ''; ?> id="type0"><label for="type0">实物</label>&nbsp;&nbsp;
+                    <input type="radio" name="ordertype" value="1" <?php echo $ordertype == 1 ? 'checked="checked"' : ''; ?> id="type1"><label for="type1">虚拟</label>&nbsp;&nbsp;
+                    <input type="radio" name="ordertype" value="2" <?php echo $ordertype == 2 ? 'checked="checked"' : ''; ?> id="type2"><label for="type2">卡密</label>
+                    <span style=" float:right;" id="ordertype">说明&nbsp;<i class="fa  fa-angle-right fa-x" aria-hidden="true" style="font-size:20px;"></i></span>
                 </td>
             </tr>
             <tr>
