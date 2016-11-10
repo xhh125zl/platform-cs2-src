@@ -48,6 +48,8 @@ $actionArr = [
 	'msg_setting',
 	'reg',
 	'goreg',
+	'auth',
+	'xieyi'
 ];
 
 if (! in_array($act, $actionArr)) {
