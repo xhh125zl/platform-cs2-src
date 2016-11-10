@@ -2,6 +2,7 @@
 if (!defined('USER_PATH')) exit();
 require_once CMS_ROOT . "/user/config.inc.php";
 require_once CMS_ROOT . '/include/api/ImplOrder.class.php';
+require_once CMS_ROOT . '/include/api/message.class.php';
 
 //获取订单
 function getOrders($Biz_Account, $page = 1, $orderID = '', $order_status){
@@ -97,7 +98,7 @@ if ($_POST) {
             $msgOrder = $result['data']['myOrder'];
             foreach ($msgOrder as $k => $v) {
                 if ($v['Order_ID'] == $orderDetail['Order_ID'] && $v['msg_status'] == 0) {
-                    $result = message::updateMsgOrder(['id' => $v['id'], ['msg_status' => 1, 'modify_time' => time()]]);
+                    message::updateMsgOrder(['id' => $v['id'], ['msg_status' => 1, 'modify_time' => time()]]);
                 }
             }
         }
@@ -135,7 +136,7 @@ if ($_POST) {
                                 echo "待确认";
                                 break;
                             case 1:
-                                echo "未付款";
+                                echo "待付款";
                                 break;
                             case 2:
                                 echo "已付款";
