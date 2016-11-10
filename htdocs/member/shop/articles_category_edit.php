@@ -29,7 +29,7 @@ if($_POST)
 }
 $shop_category = [];
 $isChild = $DB->GetRs("shop_articles_category", "*", "WHERE Category_ParentID = ".$rsCategory['Category_ID']);
-$result = $DB->get("shop_articles_category","*","where Users_ID='".$_SESSION["Users_ID"]."' AND Category_ParentID = 0 order by Category_Index asc");
+$result = $DB->get("shop_articles_category","*","where Category_ParentID = 0 order by Category_Index asc");
 while($r=$DB->fetch_assoc($result)){
     if(!$isChild && $r["Category_ID"]<>$rsCategory['Category_ID']){
       $shop_category[$r["Category_ID"]] = $r;
@@ -110,6 +110,7 @@ while($r=$DB->fetch_assoc($result)){
               <select name="Category_ID">
                    <option value="0">一级栏目</option>
                    <?php
+                   
                    foreach($shop_category as $value){
                        if(!empty($value["Category_Name"])){
                           $key = $rsCategory["Category_ParentID"]==$value["Category_ID"]?"selected":"";
