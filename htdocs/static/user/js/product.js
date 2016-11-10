@@ -271,7 +271,7 @@ $(function(){
                     $('#b2c_category').html(b2c_firstCate_name+'，'+b2c_secondCate_name);
                 }else{
                     layer.open({
-                        content: '请选择分类<br><br>（显示的分类为保证金已达到）',
+                        content: '请选择分类',
                         btn: '确定'
                     });
                 }
