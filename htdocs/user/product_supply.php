@@ -143,7 +143,7 @@ require_once 'lib/product_category.php';
             </tr>
             <tr>
                 <th><span class="notNull">*</span>产品利润：</th>
-                <td><input type="number" name="Products_Profit" maxlength="4" class="user_input" value="" placeholder="佣金将按照产品利润发放" /></td>
+                <td><input type="number" name="Products_Profit" maxlength="4" min="0" max="40" class="user_input" value="" placeholder="佣金将按照产品利润发放" /></td>
             </tr>
             <tr>
                 <th><span class="notNull">*</span>购买送积分：</th>

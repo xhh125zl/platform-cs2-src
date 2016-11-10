@@ -271,7 +271,7 @@ $(function(){
                     $('#b2c_category').html(b2c_firstCate_name+'，'+b2c_secondCate_name);
                 }else{
                     layer.open({
-                        content: '没有完成分类选择，请完成。<br>显示的分类为保证金已达到',
+                        content: '请选择分类<br><br>（显示的分类为保证金已达到）',
                         btn: '确定'
                     });
                 }
@@ -312,12 +312,24 @@ $(function(){
                     $('#category').html(firstCate_name+'，'+secondCate_name);
                 }else{
                     layer.open({
-                        content: '没有完成分类选择，请完成',
+                        content: '请选择分类',
                         btn: '确定'
                     });
                 }
             }
         });
+    });
+
+    //判断产品利润限制
+    $('input[name="Products_Profit"]').change(function(){
+        var Products_Profit = parseFloat($(this).val());
+        if (Products_Profit > 40 || Products_Profit < 0) {
+            $(this).attr('style', 'border: 1px solid red;');
+            layer.open({content: '产品利润为0 ~ 40', shadeClose: false, btn: '确认'});
+            return false;
+        } else {
+            $(this).removeAttr('style');
+        }
     });
     
     //上架、编辑商品  提交数据 并验证
@@ -410,6 +422,12 @@ $(function(){
         //产品利润
         if (!check_null($('input[name="Products_Profit"]')) || !check_number($('input[name="Products_Profit"]'), 1)) {
             return false;
+        } else if (parseFloat(productData.Products_Profit) > 40 || parseFloat(productData.Products_Profit) < 0) {
+            $('input[name="Products_Profit"]').attr('style', 'border: 1px solid red;');
+            layer.open({content: '产品利润为0 - 40', shadeClose: false, btn: '确认'});
+            return false;
+        } else {
+            $('input[name="Products_Profit"]').removeAttr('style');
         }
         //产品送积分
         if (!check_null($('input[name="Products_Integration"]')) || !check_number($('input[name="Products_Integration"]'), 3)) {
