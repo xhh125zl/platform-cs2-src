@@ -114,11 +114,11 @@ if ($rsBiz['is_agree'] == 1) {
 
 ?>
 <span><i class="fa fa-check text-success"></i>已完成</span>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="?act=xeiyi" class="text-blue" style="display:inline-block;">查看</a>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="?act=xieyi" class="text-blue" style="display:inline-block;">查看</a>
 <?php 
 } else {
 ?>
-&nbsp;&nbsp;<a href="?act=xeiyi" class="text-blue" style="display:inline-block;">签署协议</a>
+&nbsp;&nbsp;<a href="?act=xieyi" class="text-blue" style="display:inline-block;">签署协议</a>
 <?php	
 }
 ?>								   
@@ -145,34 +145,43 @@ if ($rsBiz['is_agree'] == 1) {
                             <li class="step-item step-box">
                                 <div class="step-inner" id="id-verify-fr">
 <?php
-if ($rsBiz['is_auth'] == 0) {
+if ($rsBiz['is_agree'] == 1) {
+
+    if ($rsBiz['is_auth'] == 0) {
 ?>	
                                     <div class="step-list-opr" >
                                         <span> <i class="fa fa-hourglass-half text-warning"></i>未认证</span>
                                         <a class="text-blue"  href="/pay/yijipay/reg.php">立即认证</a>
                                     </div>								
 <?php
-} elseif ($rsBiz['is_auth'] == 1) {
+    } elseif ($rsBiz['is_auth'] == 1) {
 ?>	
                                     <div class="step-list-opr" >
                                         <span> <i class="fa fa-hourglass-half text-warning"></i>待审核</span>
                                         <a class="text-blue"  href="/pay/yijipay/userinfo.php">查看</a>
                                     </div>
 <?php
-} elseif ($rsBiz['is_auth'] == 2) {
+    } elseif ($rsBiz['is_auth'] == 2) {
 ?>
                                     <div class="step-list-opr" >
                                         <span> <i class="fa text-warning"></i>已认证</span>
                                         <a class="text-blue"  href="/pay/yijipay/userinfo.php">查看</a>
                                     </div>
 <?php	
-} elseif ($rsBiz['is_auth'] == -1) {
+    } elseif ($rsBiz['is_auth'] == -1) {
 ?>
                                     <div class="step-list-opr" >
                                         <span> <i class="fa fa-hourglass-half text-warning"></i>驳回</span>
                                         <a class="text-blue"  href="/pay/yijipay/reg.php">重新提交</a>
                                     </div>		
 <?php	
+    }
+} else {     
+?>
+                                    <div class="step-list-opr" >
+                                        <span> <i class="fa fa-hourglass-half text-warning"></i>未认证</span>
+                                    </div>	
+<?php
 }
 ?>
 
