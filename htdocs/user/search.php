@@ -506,7 +506,7 @@ if ($return['page']['hasNextPage'] == 'true') {
                         });
                     }else{
                         layer.open({
-                            content: '没有完成分类选择，请重试',
+                            content: '请选择分类',
                             btn: '确定'
                         });
                     }

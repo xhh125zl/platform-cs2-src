@@ -2,6 +2,7 @@
 if (!defined('USER_PATH')) exit();
 require_once CMS_ROOT . "/user/config.inc.php";
 require_once CMS_ROOT . '/include/api/ImplOrder.class.php';
+require_once CMS_ROOT . '/include/api/message.class.php';
 
 //获取订单
 function getOrders($Biz_Account, $page = 1, $orderID = '', $order_status){
@@ -68,7 +69,7 @@ if (isset($_GET['orderid'])) {
 <?php
 if ($_POST) {
     $action = isset($_POST['action']) ? $_POST['action'] : '';
-    if ($action == 'order_confirm') {
+    if ($action == 'order_confirm') {   //确认订单
         $Data = array(
             "Address_Name" => cleanJsCss($_POST['Name']),
             "Address_Mobile" => $_POST["Mobile"],
@@ -76,7 +77,8 @@ if ($_POST) {
             "Order_SendTime" => time(),
             "Order_Status" => 1
         );
-    } else if ($action == 'order_send') {
+        $postData = ['Biz_Account' => $BizAccount, 'Order_Status' => 0];
+    } else if ($action == 'order_send') {   //确认发货
         $Data = array(
             "Address_Name" => cleanJsCss($_POST['Name']),
             "Address_Mobile" => $_POST["Mobile"],
@@ -85,20 +87,32 @@ if ($_POST) {
             "Order_SendTime" => time(),
             "Order_Status" => 3
         );
+        $postData = ['Biz_Account' => $BizAccount, 'Order_Status' => 2];
     }
     $res = ImplOrder::actionOrdersend401(['Order_ID' => $orderDetail['Order_ID'], 'orderData' => $Data]);
 
     if (isset($res['errorCode']) && $res['errorCode'] == 0){
+        //更改此订单以前的信息的状态为已读
+        $result = message::getMsgOrder($postData);
+        if ($result['errorCode'] == 0) {
+            $msgOrder = $result['data']['myOrder'];
+            foreach ($msgOrder as $k => $v) {
+                if ($v['Order_ID'] == $orderDetail['Order_ID'] && $v['msg_status'] == 0) {
+                    message::updateMsgOrder(['id' => $v['id'], ['msg_status' => 1, 'modify_time' => time()]]);
+                }
+            }
+        }
         echo '<script>window.location.href="";</script>';
     } else {
         echo '<script>layer.open({content: "操作失败，请重试！", btn: "确定", success: function(){window.location.href="";}});</script>';
     }
+    die;
 }
 ?>
 <div class="w">
     <div class="slideTxtBox">
         <div class="back_x">
-            <a class="l" href='<?=isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '/user/admin.php?act=store'?>'><i class="fa  fa-angle-left fa-2x" aria-hidden="true"></i></a>订单详情
+            <a class="l" href="?act=order_list"><i class="fa  fa-angle-left fa-2x" aria-hidden="true"></i></a>订单详情
         </div>
         <div class="bd order_x">
             <ul>
@@ -122,7 +136,7 @@ if ($_POST) {
                                 echo "待确认";
                                 break;
                             case 1:
-                                echo "未付款";
+                                echo "待付款";
                                 break;
                             case 2:
                                 echo "已付款";

@@ -269,9 +269,9 @@ require_once 'lib/product_category.php';
             <tr>
                 <th><span class="notNull">*</span>订单流程：</th>
                 <td style="line-height: 35px;">
-                    <input type="radio" name="ordertype" value="0" <?php echo $ordertype == 0 ? 'checked="checked"' : ''; ?> id="type0"><label for="type0">实物</label>&nbsp;&nbsp;
-                    <input type="radio" name="ordertype" value="1" <?php echo $ordertype == 1 ? 'checked="checked"' : ''; ?> id="type1"><label for="type1">虚拟</label>&nbsp;&nbsp;
-                    <input type="radio" name="ordertype" value="2" <?php echo $ordertype == 2 ? 'checked="checked"' : ''; ?> id="type2"><label for="type2">卡密</label>
+                    <input type="radio" name="ordertype" value="0" <?php echo $ordertype == 0 ? 'checked="checked"' : ''; ?> id="type0"><label for="type0">&nbsp;实物</label>&nbsp;&nbsp;
+                    <input type="radio" name="ordertype" value="1" <?php echo $ordertype == 1 ? 'checked="checked"' : ''; ?> id="type1"><label for="type1">&nbsp;虚拟</label>&nbsp;&nbsp;
+                    <input type="radio" name="ordertype" value="2" <?php echo $ordertype == 2 ? 'checked="checked"' : ''; ?> id="type2"><label for="type2">&nbsp;卡密</label>
                     <span style=" float:right;" id="ordertype">说明&nbsp;<i class="fa  fa-angle-right fa-x" aria-hidden="true" style="font-size:20px;"></i></span>
                 </td>
             </tr>
@@ -298,7 +298,7 @@ require_once 'lib/product_category.php';
             </tr>
             <tr>
                 <th><span class="notNull">*</span>产品利润：</th>
-                <td><input type="number" name="Products_Profit" maxlength="4" class="user_input" value="<?php echo $productData['Products_Profit']; ?>" placeholder="百分比，佣金将按照产品利润发放" /></td>
+                <td><input type="number" name="Products_Profit" maxlength="4" min="0" max="40" class="user_input" value="<?php echo $productData['Products_Profit']; ?>" placeholder="百分比，佣金将按照产品利润发放" /></td>
             </tr>
             <tr>
                 <th><span class="notNull">*</span>购买送积分：</th>
@@ -314,7 +314,10 @@ require_once 'lib/product_category.php';
             </tr>
             <tr>
                 <th><span class="notNull">*</span>选择运费：</th>
-                <td><input type="radio" value="1" name="freeshipping" <?php if ($productData['Products_IsShippingFree'] == 1) {echo 'checked="checked"';} else {echo '';} ?> />&nbsp;免运费 &nbsp;&nbsp;<input type="radio" value="0" name="freeshipping" <?php if ($productData['Products_IsShippingFree'] == 0) {echo 'checked="checked"';} else {echo '';} ?> />&nbsp;运费模板 </td>
+                <td>
+                    <input type="radio" value="1" name="freeshipping" id="freeshipping1" <?php if ($productData['Products_IsShippingFree'] == 1) {echo 'checked="checked"';} else {echo '';} ?> /><label for="freeshipping1">&nbsp;免运费</label>&nbsp;&nbsp;
+                    <input type="radio" value="0" name="freeshipping" id="freeshipping0" <?php if ($productData['Products_IsShippingFree'] == 0) {echo 'checked="checked"';} else {echo '';} ?> /><label for="freeshipping0">&nbsp;运费模板</label>
+                </td>
             </tr>
             <tr style="display: none;">
                 <th>产品类型：</th>
@@ -355,7 +358,7 @@ require_once 'lib/product_category.php';
             </tr>
             <tr>
                 <th>是否显示：</th>
-                <td><span style="font-size:0.6em;line-height:38px;">注：门槛商品是否在商城显示</span><input class="toggle-switch" type="checkbox" name="IsShow" <?php if ($productData['Products_IsShow'] == 1) {echo 'checked="checked"';} else {echo '';} ?> ></td>
+                <td><span style="font-size:0.8em;line-height:38px;">注：门槛商品是否在商城显示</span><input class="toggle-switch" type="checkbox" name="IsShow" <?php if ($productData['Products_IsShow'] == 1) {echo 'checked="checked"';} else {echo '';} ?> ></td>
             </tr>
         </table>
     </div>
