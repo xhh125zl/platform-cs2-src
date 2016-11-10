@@ -65,7 +65,7 @@ if(isset($_POST['act']) && $_POST['act']=='base'){
             $post['Yiji_UserID'] = $result['userId'];
             
         }else{
-            echo "<script>alert(\"".addslashes($result['msg'])."！\");location.href=\"/pay/yijipay/reg.php\"</script>";
+            echo "<script>alert(\"".(isset($result['resultMessage'])?addslashes($result['resultMessage']):'')."！\");location.href=\"/pay/yijipay/reg.php\"</script>";
             exit;
         }
         logging("我的基本会员信息", $post);

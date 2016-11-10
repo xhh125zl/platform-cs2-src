@@ -114,11 +114,6 @@ function getImageUrl($srcUrl,$scenarias = 1)
 	return $srcPath . "/n{$scenarias}/" . $filename;
 }
 
-
-
-
-
-
 function http_request($url, $method = 'post', $params = array()){
 	$options = array(
 			CURLOPT_HEADER => 0,
