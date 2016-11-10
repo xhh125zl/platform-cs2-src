@@ -46,11 +46,10 @@ $actionArr = [
 	'msg_distribute',
 	'msg_withdraw',
 	'msg_setting',
-	'basic_1',
-	'basic_2',
-	'basic_3',
 	'reg',
 	'goreg',
+	'auth',
+	'xieyi'
 ];
 
 if (! in_array($act, $actionArr)) {
