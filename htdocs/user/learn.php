@@ -2,22 +2,22 @@
 require_once "config.inc.php";
 
 $id = isset($_GET['id']) ? $_GET['id'] : 0;
-
+$rsArticleList = [];
+$rslist = [];
 if($id){
-    $result = $DB->Get("shop_articles_category", "Category_ID,Users_ID,Category_ParentID,Category_Name,Category_Index", "WHERE Users_ID='{$UsersID}' AND Category_ParentID = ".$id);
+    $result = $DB->Get("shop_articles_category", "Category_ID,Users_ID,Category_ParentID,Category_Name,Category_Index", "WHERE Category_ParentID = ".$id);
     $rsArticleList = $DB->toArray($result);
 }else{
     $result = $DB->Get("shop_articles_category", "Category_ID,Users_ID,Category_ParentID,Category_Name,Category_Index", "WHERE Users_ID='{$UsersID}'");
-    $rsArticleList = $DB->toArray($result);
-    $rslist = [];
-    if(!empty($rsArticleList)){
-        foreach($rsArticleList as $k => $v){
+    $catelist = $DB->toArray($result);
+    if(!empty($catelist)){
+        foreach($catelist as $k => $v){
             if($v['Category_ParentID']==0){ 
                 $rslist[$k]['base'] = $v;
             }
         }
         foreach($rslist as $k => $v){
-            foreach($rsArticleList as $key => $val){
+            foreach($catelist as $key => $val){
                 if($v['base']['Category_ID']==$val['Category_ParentID']){ 
                     $rslist[$k]['child'][$key] = $val;
                 }
@@ -25,7 +25,6 @@ if($id){
         }
     }
 }
-
 ?>
 <!doctype html>
 <html>
@@ -48,16 +47,17 @@ if($id){
         <ul>
         <?php $count = 1; ?>
         <?php foreach($rsArticleList as $k => $v){ ?>
-        	<li><a href='?act=learn&id=<?=$v['Category_ID'] ?>'><span class="left learn_number"><?=$count<10?"0".$count:$count?> ></span><span class="left learn_title"><?=$v['Category_Name'] ?></span></a><div class="clear"></div></li>
+        	<li><a href='?act=learn_list&id=<?=$v['Category_ID'] ?>'><span class="left learn_number"><?=$count<10?"0".$count:$count?> ></span><span class="left learn_title"><?=$v['Category_Name'] ?></span></a><div class="clear"></div></li>
             <?php $count++; ?>
         <?php } ?>
         </ul>
         <?php } ?>
         
-        <?php if(!empty($rslist)){ ?>
+        <?php if(!empty($rslist)){ 
+        ?>
         <?php foreach($rslist as $k => $v){ ?>
-    	<p><a href='?act=learn&id=<?=$v['Category_ID'] ?>'><?=$v['base']['Category_Name'] ?></a></p>
         <?php if(!empty($v['child'])){ ?>
+        <p><a href='?act=learn&id=<?=$v['base']['Category_ID'] ?>'><?=$v['base']['Category_Name'] ?></a></p>
         <?php $count = 1; ?>
     	<ul>
             <?php foreach($v['child'] as $key => $val){ ?>
@@ -65,7 +65,9 @@ if($id){
             <?php $count++; ?>
             <?php } ?>
         </ul>
-        <?php } ?>
+        <?php }else{ ?>
+        <p><a href='?act=learn_list&id=<?=$v['base']['Category_ID'] ?>'><?=$v['base']['Category_Name'] ?></a></p>
+        <?php }?>
         <?php } ?>
         <?php } ?>
     </div>
