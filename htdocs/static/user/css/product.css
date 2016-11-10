@@ -147,7 +147,7 @@ input[type=button], input[type=submit], input[type=file], button { cursor: point
 
 /*产品库*/
 .back_x{ background:#fff; overflow:hidden; line-height:45px; color:#666; text-align:center; padding:0 10px;}
-.back_x a i{ line-height:45px}
+.back_x a i{ line-height:45px; padding-left:15px}
 .primary_x1{ background:#fff; overflow:hidden; margin:5px auto; }
 .primary_x1 p{ line-height:35px; padding:0 1%; color:#333;overflow:hidden}
 .primary_x1 p span{ line-height:35px}
@@ -179,8 +179,8 @@ input[type=button], input[type=submit], input[type=file], button { cursor: point
 /*商品分类*/
 .bj_x{ background-color:#fff;border-bottom:1px #f4f4f4 solid;}
 .box{ text-align:center;}
-.box span i{ padding-top:5px; padding-left:5px; color:#666}
-.sousuo_x{ line-height:25px; margin:5px 0;font-size:12px; width:75%;
+.box span i{ padding-left:20px; color:#666}
+.sousuo_x{ line-height:25px; margin:5px 0;font-size:12px; width:70%;
            background:url(../images/ss.png) no-repeat left;
 		   background-size:14px 14px;
 		   text-indent:18px;
@@ -409,6 +409,7 @@ td{
 
 /*数据统计*/
 .data_title{ font-size:20px; font-weight:normal; line-height:100px;color:#fff; text-align:center; margin-top:15px}
+.data_title a i{color:#fff;}
 .data_list{}
 .data_list ul{ margin-bottom:20px; overflow:hidden}
 .data_list ul li{background:#fff; border-radius:10px; margin:15px auto; width:85%; padding:5px 10px; color:#666; overflow:hidden; line-height:40px}
