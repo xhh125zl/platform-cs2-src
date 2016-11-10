@@ -170,9 +170,7 @@ $_Status = array(1=>'<font style="color:#ff0000">未审核</font>',2=>'<font sty
                  <?php if($rsBiz["status"] == 1){?>
                 <a href="?action=back&Biz_Account=<?php echo $rsBiz["Biz_Account"] ?>">[驳回]</a>
                 <?php } ?>
-                <a href="?action=del&Biz_Account=<?php echo $rsBiz["Biz_Account"] ?>" onClick="if(!confirm('删除后不可恢复，继续吗？')){return false};">[删除]</a>
             </td>
-
           </tr>
           <?php }?>
         </tbody>

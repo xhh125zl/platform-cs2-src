@@ -7,13 +7,13 @@ require_once CMS_ROOT . '/include/helper/tools.php';
 if (isset($_POST['do']) && $_POST['do'] == 'uploadFile') {
     $imagepath = trim($_POST['data']);
     $url = rtrim(IMG_SERVER, '/') . "/user/lib/upload.php";
-	$result = curlInterFace($url,"post",[
+	$result = http_request($url,"post",[
         'data' => $imagepath,
         'act' => 'uploadFile',
         'Users_Account' => $BizAccount,
         'filepath' => '../../uploadfiles',
     ]);
-
+	$result = json_decode($result, true);
     if($result['errorCode']===0){
         $data = [
             'Biz_Account' => $BizAccount,
