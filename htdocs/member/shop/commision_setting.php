@@ -145,11 +145,12 @@ $Data = array('Shop_Commision_Reward_Json' => json_encode($_POST, JSON_UNESCAPED
 				<tr><th><?=$disinfo['Level_Name']?></th></tr>
                		<?php 
 						$arr = array('一','二','三','四','五','六','七','八','九','十');
-						$level =  $dis_config['Dis_Self_Bonus']?$dis_config['Dis_Level']+1:$dis_config['Dis_Level'];						
+						$level =  $dis_config['Dis_Level'];	
+            					
 						for($i=0;$i<$level;$i++){?>                        
 						<tr>
 							<td>
-              &nbsp;&nbsp; %
+             <?php echo $arr[$i]?>级 %
 								<input onblur="Distribute(this);" id="dischange<?=$disinfo['Level_ID'].$i?>" name="Distribute[<?=$disinfo['Level_ID']?>][<?php echo $i;?>]" value="<?php echo !empty($Shop_Commision_Reward_Arr['Distribute'][$disinfo['Level_ID']][$i]) ? $Shop_Commision_Reward_Arr['Distribute'][$disinfo['Level_ID']][$i] : 0; ?>" class="form_input" size="5" maxlength="10" type="text">
 								(佣金比例的百分比)
 							</td>
