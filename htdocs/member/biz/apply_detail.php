@@ -141,7 +141,9 @@ require_once(CMS_ROOT . '/include/api/const.php');
         </div>
          
         <div class="group ">
-            <span class="l">法人身份证扫描件：</span><span><?php if(!empty($authinfo['compay_shenfenimg'])){?><a href='<?=IMG_SERVER.$authinfo['compay_shenfenimg']?>' target="_blank"><img src="<?php echo IMG_SERVER.$authinfo['compay_shenfenimg']?>"></a><?php } ?></span>
+            <span class="l">法人身份证扫描件：</span>
+            <span><?php if(!empty($authinfo['compay_shenfenimg'])){?><a href='<?=IMG_SERVER.$authinfo['compay_shenfenimg']?>' target="_blank"><img src="<?php echo IMG_SERVER.$authinfo['compay_shenfenimg']?>"></a><?php } ?></span>
+            <span><?php if(!empty($authinfo['compay_shenfenbackimg'])){?><a href='<?=IMG_SERVER.$authinfo['compay_shenfenbackimg']?>' target="_blank"><img src="<?php echo IMG_SERVER.$authinfo['compay_shenfenbackimg']?>"></a><?php } ?></span>
         </div>
         <div class="group ">
         	<span class="l">营业执照影印件：</span><span><?php if(!empty($authinfo['compay_licenseimg'])){?><a href='<?=IMG_SERVER.$authinfo['compay_licenseimg']?>' target="_blank"><img src="<?php echo IMG_SERVER.$authinfo['compay_licenseimg']?>"></a><?php } ?></span>
@@ -158,8 +160,13 @@ require_once(CMS_ROOT . '/include/api/const.php');
         </div>
          
         <div class="group ">
-            <span class="l">身份证扫描件：</span><span>
-                <?php if(!empty($authinfo['per_shenfenimg'])){?><a href='<?=IMG_SERVER.$authinfo['per_shenfenimg']?>' target="_blank"><img src="<?php echo !empty($authinfo['per_shenfenimg'])?IMG_SERVER.$authinfo['per_shenfenimg']:''?>"></a><?php } ?></span>
+            <span class="l">身份证扫描件：</span>
+            <span>
+                <?php if(!empty($authinfo['personCertFrontPath'])){?><a href='<?=IMG_SERVER.$authinfo['personCertFrontPath']?>' target="_blank"><img src="<?php echo !empty($authinfo['personCertFrontPath'])?IMG_SERVER.$authinfo['personCertFrontPath']:''?>"></a><?php } ?>
+            </span>
+            <span>
+                <?php if(!empty($authinfo['personCertBackPath'])){?><a href='<?=IMG_SERVER.$authinfo['personCertBackPath']?>' target="_blank"><img src="<?php echo !empty($authinfo['personCertBackPath'])?IMG_SERVER.$authinfo['personCertBackPath']:''?>"></a><?php } ?>
+            </span>
         </div>
 <?php } ?>        
     </div>
