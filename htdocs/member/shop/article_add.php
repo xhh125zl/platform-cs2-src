@@ -34,19 +34,31 @@ if($_POST){
 		exit();
 	}
 }
-$DB->get("shop_articles_category","*","where Users_ID='".$_SESSION["Users_ID"]."' order by Category_Index asc");
-$arr = $DB->toArray();
-$list = [];
-foreach($arr as $k=>$v){
-    if($v['Category_ParentID']==0){
-        $list[$k]['base'] = $v;
-    }
-}
+$DB->get("shop_articles_category", "*", "where Category_ParentID=0 order by Category_Index asc");
+$ParentCategory = $DB->toArray();
+$strSelect = "";
 
-foreach ($list as $k => $v){
-    foreach($arr as $key => $val){
-        if($v['base']['Category_ID']==$val['Category_ParentID']){
-            $list[$k]['child'][] = $val;
+if(!empty($ParentCategory)){
+    foreach ($ParentCategory as $key => $value) {
+        $result = '';
+        $catelist = '';
+        $t = function() use($DB,$value){
+            $catelist = '';
+            $result = $DB->get("shop_articles_category", "*", "WHERE Category_ParentID=" . $value["Category_ID"] . " ORDER BY Category_Index ASC");
+            if($result){
+                $catelist = $DB->toArray($result);
+            }
+            return $catelist;
+        };
+        $catelist = $t();
+        if (!empty($catelist)) {
+            $strSelect  .= '<optgroup label="' . $value["Category_Name"] . '">';
+            foreach($catelist as $rsCategory){
+                $strSelect  .= '<option value="' . $rsCategory["Category_ID"] . '">' . $rsCategory["Category_Name"] . '</option>';
+            }
+            $strSelect  .= '</optgroup>';
+        } else {
+            $strSelect  .= '<option value="' . $value["Category_ID"] . '">' . $value["Category_Name"] . '</option>';
         }
     }
 }
@@ -104,20 +116,7 @@ foreach ($list as $k => $v){
                 <label>所属分类</label>
                 <span class="input">
                  <select name="CategoryID" notnull>
-                <?php
-                	foreach ($list as $k => $v){
-		?>
-                     <option value="<?=$v['base']["Category_ID"];?>" disabled><?=$v['base']["Category_Name"];?></option>
-                <?php 
-                  if(!empty($v['child'])){
-                    foreach ($v['child'] as $key => $val){
-                ?>
-                <option value="<?=$val["Category_ID"];?>">——<?=$val["Category_Name"];?></option>
-                <?php
-                    }
-                  }
-                 ?>
-                <?php }?>
+                <?=$strSelect ?>
                  </select>
                 </span>
                 <div class="clear"></div>

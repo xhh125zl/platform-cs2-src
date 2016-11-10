@@ -127,7 +127,7 @@ $auth_status = get_auth_statusText($bizRow['is_auth']);
 <?php
 if ($auth_status == '未认证') {
 ?>    
-            <a href="?act=goreg"><p><span><i>V</i></span><span style=" background:#0292d4; padding:0px 5px; border-top-right-radius:3px;border-bottom-right-radius:3px;"><?php echo $auth_status;?></span></p></a>
+            <a href="/pay/yijipay/reg.php"><p><span><i>V</i></span><span style=" background:#0292d4; padding:0px 5px; border-top-right-radius:3px;border-bottom-right-radius:3px;"><?php echo $auth_status;?></span></p></a>
 <?php
 } else {
 ?>
@@ -175,7 +175,7 @@ if (!isset($yijiPay['yijiGateWayBalance'])) {
 				shadeClose: false,
 				btn: ['立即开通', '以后再说'],
 				yes:function(){
-					location.href= '/pay/yijipay/reg.php';	
+					location.href= '/pay/yijipay/reg.php';
 				},
 				no:function(){
 					layer.close();

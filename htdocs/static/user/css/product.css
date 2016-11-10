@@ -22,7 +22,7 @@ input[type=button], input[type=submit], input[type=file], button { cursor: point
 .sorting ul{ border-bottom:1px #eee solid; overflow:hidden;}
 .sorting ul li{ float:left; width:25%; text-align:center; padding:10px 0px;}
 .sorting ul li a.pro_asc{ color:#ff5000;}
-.product{overflow:hidden; }
+.product{overflow:hidden;}
 .product ul{}
 .product ul li{ margin-bottom:5px; background:#fff; }
 .product ul li div a span.imgs{ padding:5px;text-align: center; width:115px}
@@ -146,8 +146,8 @@ input[type=button], input[type=submit], input[type=file], button { cursor: point
 .footer ul li a{ color:#666;}
 
 /*产品库*/
-.back_x{ background:#fff; overflow:hidden; line-height:45px; color:#666; text-align:center; padding:0 10px;}
-.back_x a i{ line-height:45px}
+.back_x{ background:#fff; overflow:hidden; line-height:45px; color:#666; text-align:center; padding:0 10px; margin-bottom:5px}
+.back_x a i{ line-height:45px; padding-left:5px}
 .primary_x1{ background:#fff; overflow:hidden; margin:5px auto; }
 .primary_x1 p{ line-height:35px; padding:0 1%; color:#333;overflow:hidden}
 .primary_x1 p span{ line-height:35px}
@@ -179,15 +179,16 @@ input[type=button], input[type=submit], input[type=file], button { cursor: point
 /*商品分类*/
 .bj_x{ background-color:#fff;border-bottom:1px #f4f4f4 solid;}
 .box{ text-align:center;}
-.box span i{ padding-top:5px; padding-left:5px; color:#666}
-.sousuo_x{ line-height:25px; margin:5px 0;font-size:12px; width:75%;
+.box span i{ padding-left:15px; color:#666;padding-top: 5px;}
+.sousuo_x{ line-height:35px; margin:5px 0;font-size:12px; width:70%;
            background:url(../images/ss.png) no-repeat left;
 		   background-size:14px 14px;
 		   text-indent:18px;
 		   background-color:#fff;
        border-radius:5px;
-	   border:1px #d9d9d9 solid;}
-.ss1_x{ font-size:12px; color:#999;}
+	   border:1px #d9d9d9 solid;
+	   background-position-x: 3px;}
+.ss1_x{ font-size:14px; color:#999;}
 .up_xx{ display:block; background:#ff5000; color:#fff; border:none; line-height:25px; width:70px; margin-top:10px}
 .up_yy{ display:block; color:#fff; border:none; line-height:25px; width:70px; margin-top:10px;background-color: #ccc;text-align: center;}
 .select{-webkit-appearance: none;border:1px;width: 130px;height: 30px;line-height: 30px;font-size: 16px;margin:10px;}
@@ -246,7 +247,7 @@ input[type=button], input[type=submit], input[type=file], button { cursor: point
 
 /*店铺配置*/
 .shop_list{}
-.shop_list ul{ margin-top:5px}
+.shop_list ul{ margin-top:5px; margin-bottom:50px;}
 .shop_list ul li{ background:#fff; overflow:hidden; margin-bottom:5px; padding:5px; line-height:35px; color:#666}
 .shop_list ul li a p{ color:#999}
 .shop_list ul li a span span{ color:#999; padding-left:10px; font-size:12px}
@@ -409,6 +410,7 @@ td{
 
 /*数据统计*/
 .data_title{ font-size:20px; font-weight:normal; line-height:100px;color:#fff; text-align:center; margin-top:15px}
+.data_title a i{color:#fff;}
 .data_list{}
 .data_list ul{ margin-bottom:20px; overflow:hidden}
 .data_list ul li{background:#fff; border-radius:10px; margin:15px auto; width:85%; padding:5px 10px; color:#666; overflow:hidden; line-height:40px}

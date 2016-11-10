@@ -220,8 +220,8 @@ a.preview p, a.delete p, a.edit p, a.shop p, a.top p{display:inline;}
 <body>
 <div class="w">
 <!-- topnav -->
-	<div style="text-align:center; line-height:30px; background:#fff; padding:5px 0">
-    	<span class="l"><a href="?act=store"><img src="../static/user/images/gdx.png" width="30" height="30" style=""></a></span>商品管理
+	<div class="back_x">
+    	<span class="l"><a href="?act=store"><i class="fa  fa-angle-left fa-2x" aria-hidden="true"></i></a></span>商品管理
     </div>
 <!-- //topnav -->    
 	<!--header -->
