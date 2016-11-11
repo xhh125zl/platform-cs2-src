@@ -2,10 +2,22 @@
 if (!defined('USER_PATH')) exit();
 require_once CMS_ROOT . "/user/config.inc.php";
 
-$rsBiz = $DB->GetRs("biz", 'is_agree,is_auth', "WHERE Biz_ID=" . $BizID);
+$rsBiz = $DB->GetRs("biz", 'is_agree', "WHERE Biz_ID=" . $BizID);
 
+//同意注册协议
+if (isset($_POST['inajax']) && $_POST['inajax'] == 1) {
+    $data = ['is_agree' => 1];
+    $DB->Set('biz', $data);
 
-?><!doctype html>
+    $return = [
+        'status' => 1,
+    ];
+    echo json_encode($return);
+    exit();
+}
+
+?>
+<!doctype html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />  
@@ -14,6 +26,8 @@ $rsBiz = $DB->GetRs("biz", 'is_agree,is_auth', "WHERE Biz_ID=" . $BizID);
 <title>商家入驻</title>
 </head>
 <link rel="stylesheet" href="/static/user/css/font-awesome.min.css" type="text/css">
+<script type="text/javascript" src="../static/user/js/jquery-1.8.3.min.js"></script>
+
 <style>
 /* CSS Document */
 *{margin:0px; padding:0px;}
@@ -72,170 +86,53 @@ input[type=button], input[type=submit], input[type=file], button { cursor: point
 .step-list .icon-step-line-down{height:100%;top:35px;}
 .step-list .no-extra-down .icon-step-line-down{display:none;}
 .step-list .step-list-opr span i.text-warning{ color:#1fb4f8;color:#1fbba6}
+.btn-ipt{clear:both; text-align:center; margin-top:20px; margin-bottom:10px}
+.btn-ipt input{background: #1fb4f8;padding: 6px 15px;border: none;color: #fff;outline: none;border-radius: 5px;}
 </style>
 <body>
 <div class="w">
 	<section class="vbox">
     <header class="header">
-        <p>尊敬的商户您好，仅需完成以下流程，就可以发布产品，同时进行店铺推广！</p>
+        <p>注册协议</p>
     </header>
     <section class="wrapper">
         <section class="panel">
             <form>
                 <div class="panel-body">
                     <div class="step-list-wrp">
-                        <ul class="step-list list-unstyled">
-                            <li class="step-item step-box no-extra-up">
-                                <div class="step-inner">
-                                    <div class="step-list-opr"><span><i class="fa fa-check text-success"></i>已完成</span></div>
-                                    <div class="step-content">
-                                        <h4>
-                                            注册好分销供货商
-                                            <i class="fa fa-check text-primary m-l-sm"></i>
-                                        </h4>
-                                        <div class="step-desc">填写公司或个人名称等基本信息</div>
-                                    </div>
-                                </div>
-                                <span class="icon-step-line icon-step-line-up"></span>
-                                <span class="icon-step-line icon-step-line-down"></span>
-                                    <span class="icon-step-main-box">
-                                        <span class="icon-step-list step">1</span>
-                                    </span>
-                                    <span class="arrow-main-box">
-                                        <i class="arrow arrow-out"></i>
-                                        <i class="arrow arrow-in"></i>
-                                    </span>
-                            </li>
-                            <li class="step-item step-box ">
-                                <div class="step-inner" id="id-audit-fr">
-                                   <div class="step-list-opr">
 <?php
-if ($rsBiz['is_agree'] == 1) {
-
+$rsBizConfig = $DB->GetRs("biz_config", 'BaoZhengJin');                        
+echo $rsBizConfig['BaoZhengJin'];
 ?>
-<span><i class="fa fa-check text-success"></i>已完成</span>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="?act=xieyi" class="text-blue" style="display:inline-block;">查看</a>
-<?php 
-} else {
-?>
-&nbsp;&nbsp;<a href="?act=xieyi" class="text-blue" style="display:inline-block;">签署协议</a>
-<?php	
-}
-?>								   
-                                      
-                                                                        
-
-										
-                                    </div>
-                                    <div class="step-content">
-                                        <h4>签署入驻协议<i class="fa fa-check text-primary m-l-sm"></i></h4>
-                                        <div class="step-desc">在线签署商家入驻协议</div>
-                                    </div>
-                                </div>
-                                <span class="icon-step-line icon-step-line-up"></span>
-                                <span class="icon-step-line icon-step-line-down"></span>
-                                    <span class="icon-step-main-box">
-                                        <span class="icon-step-list step">2</span>
-                                    </span>
-                                    <span class="arrow-main-box">
-                                        <i class="arrow arrow-out"></i>
-                                        <i class="arrow arrow-in"></i>
-                                    </span>
-                            </li>
-                            <li class="step-item step-box">
-                                <div class="step-inner" id="id-verify-fr">
-<?php
-if ($rsBiz['is_auth'] == 0) {
-?>	
-                                    <div class="step-list-opr" >
-                                        <span> <i class="fa fa-hourglass-half text-warning"></i>未认证</span>
-                                        <a class="text-blue"  href="/pay/yijipay/reg.php">立即认证</a>
-                                    </div>								
-<?php
-} elseif ($rsBiz['is_auth'] == 1) {
-?>	
-                                    <div class="step-list-opr" >
-                                        <span> <i class="fa fa-hourglass-half text-warning"></i>待审核</span>
-                                        <a class="text-blue"  href="/pay/yijipay/userinfo.php">查看</a>
-                                    </div>
-<?php
-} elseif ($rsBiz['is_auth'] == 2) {
-?>
-                                    <div class="step-list-opr" >
-                                        <span> <i class="fa text-warning"></i>已认证</span>
-                                        <a class="text-blue"  href="/pay/yijipay/userinfo.php">查看</a>
-                                    </div>
-<?php	
-} elseif ($rsBiz['is_auth'] == -1) {
-?>
-                                    <div class="step-list-opr" >
-                                        <span> <i class="fa fa-hourglass-half text-warning"></i>驳回</span>
-                                        <a class="text-blue"  href="/pay/yijipay/reg.php">重新提交</a>
-                                    </div>		
-<?php	
-}
-?>
-
-
-                                    <div class="step-content">
-                                        <h4>提交资质</h4>
-                                        <div class="step-desc">提交企业资料和银行账户信息</div>
-                                    </div>
-                                </div>
-                                <span class="icon-step-line icon-step-line-up"></span>
-                                <span class="icon-step-line icon-step-line-down"></span>
-                                <span class="icon-step-main-box">
-                                     <span class="icon-step-list step">3</span>
-                                </span>
-                                <span class="arrow-main-box">
-                                    <i class="arrow arrow-out"></i>
-                                    <i class="arrow arrow-in"></i>
-                                </span>
-                            </li>
-                            <li class="step-item step-box">
-                                <div class="step-inner">
-                                    <div class="step-list-opr">                                        
-                                          <a class="btn btn-primary" href="javascript:;">付款详情</a>
-                                    </div>
-                                    <div class="step-content">
-                                        <h4>付款</h4>
-                                        <div class="step-desc">根据不同的入驻类目及入驻年限打款</div>
-                                    </div>
-                                </div>
-                                <span class="icon-step-line icon-step-line-up"></span>
-                                <span class="icon-step-line icon-step-line-down"></span>
-                                    <span class="icon-step-main-box">
-                                        <span class="icon-step-list step">4</span>
-                                    </span>
-                                    <span class="arrow-main-box">
-                                        <i class="arrow arrow-out"></i>
-                                        <i class="arrow arrow-in"></i>
-                                    </span>
-                            </li>
-                            <li class="step-item step-box no-extra-down">
-                                <div class="step-inner">
-                                	<div class="step-content">
-                                        <h4>入驻成功！<i class="fa fa-check text-primary m-l-sm hide"></i></h4>
-                                        <div class="step-desc">恭喜您成功入驻好分销！</div>
-                                    </div>
-                                </div>
-                                <span class="icon-step-line icon-step-line-up"></span>
-                                <span class="icon-step-line icon-step-line-down"></span>
-                                <span class="icon-step-main-box">
-                                    <span class="icon-step-list step">5</span>
-                                </span>
-                                <span class="arrow-main-box">
-                                    <i class="arrow arrow-out"></i>
-                                    <i class="arrow arrow-in"></i>
-                                </span>
-                            </li>
-                        </ul>
                     </div>
+<?php
+if ($rsBiz['is_agree'] == 0) {
+?>                    
+                    <div class="btn-ipt"><input type="button" value="我已阅读协议并同意"></div>
+<?php
+}
+?>                    
                 </div>
             </form>
         </section>
     </section>
 </section>
 </div>
+<?php
+if ($rsBiz['is_agree'] == 0) {
+?> 
+<script type="text/javascript">
+$(function(){
+    $(".btn-ipt input").click(function() {
+        $.post('?act=xieyi',{inajax:1, do:'agree'}, function(json){
+            $(".btn-ipt").remove();
+        },'json')
+    })
+    
+})
+</script>
+<?php
+}
+?>  
 </body>
 </html>
