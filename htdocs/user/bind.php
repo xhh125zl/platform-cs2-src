@@ -314,7 +314,7 @@ ul, li, dt, dd, ol, dl{list-style-type:none;}
         <div class="head_prox">
             <span class="win_img"><img src="<?=$headurl?>"></span>
             <span class="switch_x"><img src="../static/user/images/exchange.png"></span>
-            <span class="win_img"><img src="../static/user/images/2p-5_03.png"></span>
+            <span class="win_img"><img src="../static/user/images/2p-5_03.jpg"></span>
             <div class="clear"></div>
         </div>
         <input type="tel" name="Mobile" value="" maxlength="11" class="login_x" placeholder="请输入手机号码">
