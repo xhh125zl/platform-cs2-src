@@ -341,7 +341,7 @@ $(function(){
             //'Products_BriefDescription' : $.trim($('textarea[name="BriefDescription"]').val()),     //商品简介
             'Products_Description' : $.trim($('textarea[name="Description"]').val()),     //商品详情描述
             'Products_JSON1' : $.trim($('input[name="image_path1"]').val()),      //商品详情添加的图片
-            'Products_Type' : $('select[name="TypeID"] option:selected').val(),      //商品所属类型
+            //'Products_Type' : $('select[name="TypeID"] option:selected').val(),      //商品所属类型
             'ordertype' : $('input[name="ordertype"]:checked').val(),         //商品对应订单流程处理    0 0：实物订单  1 0：虚拟订单  1 1：卡密订单
             'Products_PriceY' : $.trim($('input[name="PriceY"]').val()),      //商品原价
             'Products_PriceX' : $.trim($('input[name="PriceX"]').val()),      //商品现价

@@ -113,11 +113,11 @@ if (isset($_POST['act']) && $_POST['act'] == 'addEditProduct') {
     }
 
     //产品类型
-    if ($input_productData['Products_Type'] == '' || $input_productData['Products_Type'] < 0) {
+    /*if ($input_productData['Products_Type'] == '' || $input_productData['Products_Type'] < 0) {
         echo json_encode(array('errorCode' => 1, 'msg' => '请选择产品类型'));die;
-    }
+    }*/
     
-    //产品类型即订单流程    0：实物产品-->0 0  1：虚拟产品-->1 0  2：卡密产品-->1 1
+    //产品订单流程    0：实物产品-->0 0  1：虚拟产品-->1 0  2：卡密产品-->1 1
     if ($input_productData["ordertype"] == 0){
         $input_productData["Products_IsVirtual"] = 0;
         $input_productData["Products_IsRecieve"] = 0;

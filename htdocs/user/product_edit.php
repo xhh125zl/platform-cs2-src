@@ -246,7 +246,7 @@ require_once 'lib/product_category.php';
     </div>
     <div class="list_table">
         <table width="96%" class="table_x">
-            <tr>
+            <!-- <tr>
                 <th><span class="notNull">*</span>产品类型：</th>
                 <td>
                     <select name="TypeID">
@@ -265,7 +265,7 @@ require_once 'lib/product_category.php';
                         <option value="0" <?php echo $productData['Products_Type'] == 0 ? 'selected="selected"' : ''; ?>>其他</option>
                     </select>
                 </td>
-            </tr>
+            </tr> -->
             <tr>
                 <th><span class="notNull">*</span>订单流程：</th>
                 <td style="line-height: 35px;">
