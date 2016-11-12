@@ -192,7 +192,7 @@ input[type=button], input[type=submit], input[type=file], button { cursor: point
 .up_xx{ display:block; background:#ff5000; color:#fff; border:none; line-height:25px; width:70px; margin-top:10px}
 .up_yy{ display:block; color:#fff; border:none; line-height:25px; width:70px; margin-top:10px;background-color: #ccc;text-align: center;}
 .select{-webkit-appearance: none;border:1px;width: 130px;height: 30px;line-height: 30px;font-size: 16px;margin:10px;}
-.select_containers{margin:10px 10px 20px 10px;height: 110px;line-height: 55px;font-size: 16px;}
+.select_containers{margin:10px 10px 20px 10px;line-height: 55px;font-size: 16px;}
 
 /*订单管理*/
 .slideTxtBox{ width:100%; background:#fff; margin:5px 0px;text-align:center;  }

@@ -204,6 +204,12 @@ if (isset($_POST['ajax']) && $_POST['ajax'] == 1) {
 <script type="text/javascript" src="../static/js/plugin/layer_mobile/layer.js"></script>
 <script type="text/javascript" src="../static/js/template.js"></script>
 <body>
+<style>
+.row-attr{clear:both;text-align:left;}
+.row-attr span{width:100px;float:left; text-align:right;}
+.row-attr .row-text{width:220px;float:left;text-align:left;padding-left:10px;}
+.toggle-switch{float:left;margin-top:12px;}
+</style>
 <?php
 //检查用户是否已经交过费用
 $users = b2cshopconfig::getConfig(array('Users_Account' => $BizAccount));
@@ -302,37 +308,48 @@ if (isset($res['errorCode']) && $res['errorCode'] == 0) {
     <!-- 隐藏的401分类列表 -->
     <div id="cate" style="display:none;">
         <div class="select_containers">
-            请选择一级分类：
-            <select name="firstCate" id="firstCate" style="font-size:15px; width:150px; height:30px; border:1px solid #ccc;">
-                <option value="0">请选择一级分类</option>
-                <?php
-                    if (!empty($Category)) {
-                        foreach ($Category as $k => $v) {
-                            echo '<option value="' . $v['Category_ID'].'">' . $v['Category_Name'] . '</option>';
-                        }
-                    }
-                ?>
-            </select><br/>
-            请选择二级分类：
-            <select name="secondCate" id="secondCate" style="font-size:15px; width:150px; height:30px; border:1px solid #ccc;">
-                <option value="0">请选择二级分类</option>
-            </select>
-            <?php
-                if (!empty($Category)) {
-                    foreach ($Category as $k => $v) {
-                        //无子分类的不显示
-                        if (isset($v['child']) && count($v['child']) > 0) {
-                            echo '<div class="first_cate_'.$v['Category_ID'].'" style="display:none;">';
-                            foreach ($v['child'] as $kk => $vv) {
-                                echo '<option value="' . $vv['Category_ID'].'">' . $vv['Category_Name'] . '</option>';
+            <div class="row-attr">
+                <span class="label">主分类</span>
+                <div class="row-text">
+                    <select name="firstCate" id="firstCate" style="font-size:15px; width:150px; height:30px; border:1px solid #ccc;">
+                        <option value="0">请选择一级分类</option>
+                        <?php
+                            if (!empty($Category)) {
+                                foreach ($Category as $k => $v) {
+                                    echo '<option value="' . $v['Category_ID'].'">' . $v['Category_Name'] . '</option>';
+                                }
                             }
-                            echo '</div>';
-                        }
-                    }
+                        ?>
+                    </select>
+                </div>
+            </div><!--//row-attr-->
+            <div class="row-attr">
+                <span class="label">子分类</span>
+                <div class="row-text">
+                <select name="secondCate" id="secondCate" style="font-size:15px; width:150px; height:30px; border:1px solid #ccc;">
+                    <option value="0">请选择二级分类</option>
+                </select>
+<?php
+    if (!empty($Category)) {
+        foreach ($Category as $k => $v) {
+            //无子分类的不显示
+            if (isset($v['child']) && count($v['child']) > 0) {
+                echo '<div class="first_cate_'.$v['Category_ID'].'" style="display:none;">';
+                foreach ($v['child'] as $kk => $vv) {
+                    echo '<option value="' . $vv['Category_ID'].'">' . $vv['Category_Name'] . '</option>';
                 }
-            ?>
-        </div>
-    </div>
+                echo '</div>';
+            }
+        }
+    }
+?>                
+                </div>
+            </div><!--//row-attr-->
+            <div class="row-attr"><span class="label">新品</span><div class="row-text"><input id="Products_IsNew" name="Products_IsNew" class="toggle-switch" type="checkbox"></div></div>
+            <div class="row-attr"><span class="label">推荐</span><div class="row-text"><input id="Products_IsRecommend" name="Products_IsRecommend" class="toggle-switch" type="checkbox"></div></div>
+        </div><!--//select_containers -->
+    </div><!--//cate-->
+
 
 </div>
 
@@ -467,22 +484,35 @@ if ($return['page']['hasNextPage'] == 'true') {
                 success: function(){
                     //分类联动菜单第二级
                     $(document).on('change', '#firstCate', function(){
-                        $(this).nextAll('#secondCate').html('');
+                        $(this).parent().parent().next().find('#secondCate').html('');
                         var first_cate_id = $(this).val();
-                        var second_cate = $(this).nextAll('.first_cate_'+first_cate_id).html();
-                        $(this).nextAll('#secondCate').html(second_cate);
+                        var second_cate = $(this).parent().parent().next().find('.first_cate_'+first_cate_id).html();
+                        $(this).parent().parent().next().find('#secondCate').html(second_cate);
                     });
                 },
                 yes:function(index){
                     var firstCate = $('.layui-m-layercont #firstCate').val();
                     var secondCate = $('.layui-m-layercont #secondCate').val();
+
+    if ($("input[name='Products_IsNew']").is(':checked')) {
+      var Products_IsNew = 1;
+    } else {
+      var Products_IsNew = 0;
+    }
+    if ($("input[name='Products_IsRecommend']").is(':checked')) {
+      var Products_IsRecommend = 1;
+    } else {
+      var Products_IsRecommend = 0;
+    }
+
+
                     if (firstCate > 0 && secondCate > 0) {
                         layer.open({type:2, shadeClose:false});
                         $.ajax({
                             url:"/user/lib/products.php",
                             type:"get",
                             timeout:6000,
-                            data:{"action":"addProducts", "Products_FromID":me.attr("data-FromID"), "firstCate":firstCate, "secondCate":secondCate},
+                            data:{"action":"addProducts", "Products_FromID":me.attr("data-FromID"), "firstCate":firstCate, "secondCate":secondCate, "Products_IsNew": Products_IsNew, "Products_IsRecommend":Products_IsRecommend},
                             dataType:"json",
                             success:function(data) {
                                 layer.closeAll();

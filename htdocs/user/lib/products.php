@@ -17,6 +17,8 @@ function productsAdd($data){
     $postdata['Products_Category'] = ','.(int)$data['firstCate']. ',' . $data['secondCate'] . ',';
     $postdata['Products_IsShow'] = 1;   //特殊属性的是否显示
     $postdata['click_count'] = 0;       //点击量
+    $postdata['Products_IsNew'] = isset($data['Products_IsNew']) && $data['Products_IsNew'] == 1 ? 1 : 0;
+    $postdata['Products_IsRecommend'] = isset($data['Products_IsRecommend']) && $data['Products_IsRecommend'] == 1 ? 1 : 0;    
 
     $resArr = product::addTo401(['productData' => $postdata]);
     if ($resArr['errorCode'] == 0) {
