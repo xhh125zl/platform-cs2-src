@@ -621,7 +621,6 @@ $(function(){
         $(function(){
             $("#onbtnclk").click(function(){
                 var isperson = <?=isset($baseInfo['registerUserType']) && $baseInfo['registerUserType']=='PERSONAL'?1:0 ?>;
-                /*
                 if(isperson){
                     if($("#image_personCertFrontPath").val()=="" || $("#image_personCertBackPath").val()==""){
                         alert("请上传身份证正面照片和反面照片");
@@ -636,59 +635,66 @@ $(function(){
                         alert("请上传法人身份证正面照片和反面照片");
                         return false;
                     }
-                }*/
-            });
-        }); 
-    	$(".js_upFile").uploadView({
-            uploadBox: '.js_uploadBox',//设置上传框容器
-            showBox : '.js_showBox',//设置显示预览图片的容器
-            width : 120, //预览图片的宽度，单位px
-            height : 100, //预览图片的高度，单位px
-            allowType: ["gif", "jpeg", "jpg", "bmp", "png"], //允许上传图片的类型
-            maxSize :10, //允许上传图片的最大尺寸，单位M
-            success:function(e,ids){
-                $.ajax({
-                    type:"POST",
-                    url:"",
-                    data:{"act":"uploadFile", "data":e},
-                    dataType:"json",
-                    success:function(data){
-                        if (data.errorCode == 0) {
-                            $("#"+ids).val(data.msg);
-                        } else {
-                            alert(data.msg);
-                        }
-                    }
-                });
-            }
-        });
-        //删除图片
-        $(document).on('click', '.deleted', function(){
-            var me = $(this);
-            var obj = me.parent().parent().parent().find(".imgpath");
-            layer.open({
-                content: '确定删除吗?',
-                btn: ['确定', '取消'],
-                yes: function(){
-                    layer.closeAll();
-                    $.ajax({
-                        type:"POST",
-                        url:"",
-                        data:{"act":"delImg", "index":me.parent().index(),"image_path":obj.val()},
-                        dataType:"json",
-                        success:function(data) {
-                            if (data.errorCode == 0) {
-                                obj.val("");
-                                me.parent().parent().find(".orgin").show();
-                                me.parent().remove();
-                            } else {
-                                alert(data.msg);
-                            }
-                        }
-                    });
                 }
             });
-        });
+
+            var up = function(){
+            	$(".js_upFile").uploadView({
+                    uploadBox: '.js_uploadBox',//设置上传框容器
+                    showBox : '.js_showBox',//设置显示预览图片的容器
+                    width : 120, //预览图片的宽度，单位px
+                    height : 100, //预览图片的高度，单位px
+                    allowType: ["gif", "jpeg", "jpg", "bmp", "png"], //允许上传图片的类型
+                    maxSize :10, //允许上传图片的最大尺寸，单位M
+                    success:function(e,ids){
+                        $.ajax({
+                            type:"POST",
+                            url:"",
+                            data:{"act":"uploadFile", "data":e},
+                            dataType:"json",
+                            success:function(data){
+                                if (data.errorCode == 0) {
+                                    $("#"+ids).val(data.msg);
+                                } else {
+                                    alert(data.msg);
+                                }
+                            }
+                        });
+                    }
+                });
+            };
+        	up();
+            //删除图片
+            $(document).on('click', '.deleted', function(){
+                var me = $(this);
+                var obj = me.parent().parent().parent().find(".imgpath");
+                
+                layer.open({
+                    content: '确定删除吗?',
+                    btn: ['确定', '取消'],
+                    yes: function(){
+                        layer.closeAll();
+                        $.ajax({
+                            type:"POST",
+                            url:"",
+                            data:{"act":"delImg", "index":me.parent().index(),"image_path":obj.val()},
+                            dataType:"json",
+                            success:function(data) {
+                                if (data.errorCode == 0) {
+                                    obj.val("");
+                                    me.parent().parent().find(".orgin").show();
+                                    me.parent().parent().next(".baseImg").val("");
+                                    me.parent().hide();
+                                    up();
+                                } else {
+                                    alert(data.msg);
+                                }
+                            }
+                        });
+                    }
+                });
+            });
+        }); 
     	</script>
     	<?php } ?>
     </div>

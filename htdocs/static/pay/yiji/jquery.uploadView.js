@@ -76,7 +76,7 @@
 						  }
 
 						  var sun_image = $(obj[0]).parent().parent().html();
-						  var sun_image = sun_image + img;
+						  var sun_image = (sun_image != undefined ? sun_image : '') + img;
 						  thisClosest.find(showBox).removeClass('hidden').html(sun_image);
 						if (_w && _h) {
 						  cssObj = { 'width':_w+'px', 'height':_h+'px' };
