@@ -59,14 +59,14 @@ $rmenu['biz']=array(
 	'index' => '商家列表',
 	//'group' => '商家分组',
 	'apply_config' => '入驻描述设置',
-	'reg_config' => '注册页面设置',
+//'reg_config' => '注册页面设置',
     'apply_other' => '年费设置',
 	'apply' => '入驻资质审核列表',
     'authpay' => '入驻支付列表',
     'chargepay' => '续费支付列表',
     'bond_back' => '保证金退款',
     'announce' => '公告管理',
-    'article_man' => '文章管理',
+    //'article_man' => '文章管理',
 	'send_push' => '推送消息',
 	'msg_push' => '推送消息管理'
 );
