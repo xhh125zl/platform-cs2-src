@@ -189,36 +189,14 @@ if(empty($_SESSION["Users_Account"]))
 	<script type='text/javascript' src='/static/member/js/global.js'></script>
 	<script src="/static/js/moment.js"></script>
 	<script src="/static/js/daterangepicker.js"></script>
-	<script type='text/javascript' src='/static/js/plugin/highcharts/highcharts_account.js'></script>
+
 	<script type='text/javascript' src='/static/member/js/account.js'></script>
     <script type='text/javascript' src='/static/js/plugin/lean-modal/lean-modal.min.js'></script> 
-	<script language="javascript">
-    var one_year_price = '<?=$one_year_price?>';
-	var max_val = '<?=$chart_max_val?>';
-	var chart_data={
-		
-		"count": [ {
-			"name": "本月销售曲线图",
-			"data": [<?=implode(',',array_values($month_sales))?>],
-			"type": "spline"
-		}],
-		"date": [<?=implode(',',array_keys($month_sales))?>]
-	};
-	var base_url = '<?=$base_url?>';
-	var Users_ID = '<?=$Users_ID?>'; 
-	var ranges  =  {
-						'今日': [moment(), moment()],
-						'昨日': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-						'本月': [moment().startOf('month'), moment().endOf('month')]
-					};
-	
-	var input_total_pages = '<?= $input_info['total_pages'] ?>';
-	var output_total_pages = '<?= $output_info['total_pages'] ?>';				
-	
-	$(document).ready(account_obj.home_init);	
-	</script>
 	</head>
-
+<style>
+.chart{line-height:30px;}
+.chart a{margin-right:10px;font-size:14px;}
+</style>
 	<body>
     <div id="wrap"> 
       <!-- tip begin -->
@@ -238,143 +216,12 @@ if(empty($_SESSION["Users_Account"]))
       <!-- tip end --> 
       <!-- statistics begin -->
       
-      	<dl id="statistics" class="list">
-        
-        <dd class="statis-item " id="all_order">
-          <p> <span class="statis-name pull-left">今日所有订单</span> <span class="statis-num pull-right">
-            <?=$today_all_order_num?>
-            <img src="/static/member/images/accout_back/notebook.png"/></span> </p>
-        </dd>
-        <dd class="statis-item " id="payed_order">
-          <p> <span class="statis-name pull-left">今日已付款订单</span> <span class="statis-num pull-right">
-            <?=$today_payed_order_num ?>
-            <img src="/static/member/images/accout_back/notebook2.png"/></span> </p>
-        </dd>
-        <dd class="statis-item " id="today_sales">
-          <p> <span class="statis-name pull-left">今日销售额</span> <span class="statis-num pull-right">
-            <?=$today_order_sales?>
-            <img src="/static/member/images/accout_back/coin_stack.png"/></span> </p>
-        </dd>
-        <dd class="statis-item " id="month_sales">
-          <p> <span class="statis-name pull-left">本月销售额</span> <span class="statis-num pull-right">
-            <?=$month_order_sales?>
-            <img  src="/static/member/images/accout_back/coin_and_paper.png"/></span> </p>
-        </dd>
-        <dd class="statis-item " id="today_bonus">
-          <p> <span class="statis-name pull-left">今日支出佣金</span> <span class="statis-num pull-right">
-            <?=round_pad_zero($today_output_money,2)?>
-            <img  src="/static/member/images/accout_back/money_paper.png"/></span> </p>
-        </dd>
-        <dd class="statis-item " id="month_bonus">
-          <p> <span class="statis-name pull-left">本月支出佣金</span> <span class="statis-num pull-right">
-            <?=round_pad_zero($month_output_money,2)?>
-            <img  src="/static/member/images/accout_back/money_bag.png"/></span> </p>
-        </dd>
-        <dd class="statis-item " id="today_new_dis_num">
-          <p> <span class="statis-name pull-left">今日加入分销商</span> <span class="statis-num pull-right">
-            <?=$today_new__account_num?>
-            <img  src="/static/member/images/accout_back/user_add.png"/></span> </p>
-        </dd>
-        <dd class="statis-item" id="month_new_dis_num">
-          <p> <span class="statis-name pull-left">本月加入分销商</span> <span class="statis-num pull-right">
-            <?=$month_new_account_num?>
-            <img  src="/static/member/images/accout_back/month_account.png"/></span> </p>
-        </dd>
-      </dl>
+      	
       
 	  <div class="clearfix"></div>
       <!-- statistics end --> 
       
-      <!-- 财务统计begin -->
-      
-      	
-        <div class="col-md-12" id="sale-chart-panel">
-        <div class="panel panel-default"> 
-          <!-- Default panel contents -->
-          <div class="panel-heading"><span class="fa fa-usd golden fz-20"></span>财务统计</div>
-          <div class="panel-body"> 
-            <!-- 日期选择表单 -->
-            <form class="form-inline">
-              <div class="form-group">
-                <div class="input-group" id="reportrange">
-                  <div class="input-group-addon "><span class="fa fa-calendar"></span></div>
-                  <input type="text"  id="reportrange-input" class="form-control" name="date-range-picker" value="<?=sdate($today)?>-<?=sdate($now)?>" placeholder="日期间隔">
-                </div>
-              	
-              </div>
-			 <div class="form-group">
-				<button type="button" class="btn btn-primary" id="input-record-search" >搜索</button>
-			</div>
-            
-			</form>
-            <!-- 日期结束表单--> 
-            
-            <!-- 财务信息列表begin -->
-            <div id="finacial_detail"> 
-              
-              <!-- Nav tabs -->
-              <ul class="nav nav-tabs" role="tablist">
-                <li role="presentation" class="active"><a href="#province" aria-controls="province" role="tab" data-toggle="tab">进账记录</a></li>
-                <li role="presentation"><a href="#city" aria-controls="city" role="tab" data-toggle="tab">出账记录</a></li>
-              </ul>
-              
-              <!-- Tab panes -->
-              
-              <div class="tab-content">
-                <div role="tabpanel" class="tab-pane active" id="province"> 
-                  <!-- 进账记录begin -->
-                  <div id="input-record-brief">
-                    <p class="fz-16">时间：<span id="input-record-begin" class="red fz-16">
-                      <?=ldate($Begin_Time)?>
-                      </span>到<span id="input-record-end"class="red fz-16">
-                      <?=ldate($End_Time)?>
-                      </span> 共计：&yen;<span class="red fz-18" id="input-record-sum">
-                      <?=$input_info['sum']?>
-                      </span> </p>
-                  </div>
-                  <div id="input_record_table">
-                    <?=$order_input_record_table?>
-                  </div>
-                  <div id="pagination_container">
-                    <ul id="input_record_pagination" class="pagination-sm">
-                    </ul>
-                  </div>
-                  
-                  <!-- 进账记录end --> 
-                </div>
-                <div role="tabpane2" class="tab-pane" id="city"> 
-                  
-                  <!-- 出账记录begin -->
-                  <div id="output-record-brief">
-                    <p class="fz-16">时间：<span id="output-record-begin" class="red fz-16">
-                      <?=ldate($Begin_Time)?>
-                      </span>到<span id="output-record-end"class="red fz-16">
-                      <?=ldate($End_Time)?>
-                      </span> 共计：&yen;<span class="red fz-18" id="output-record-sum">
-                      <?=$output_info['sum']?>
-                      </span> </p>
-                  </div>
-                  <div id="output_record_table">
-                    <?=$output_record_table?>
-                  </div>
-                  <div id="pagination_container">
-                    <ul id="output_record_pagination" class="pagination-sm">
-                    </ul>
-                  </div>
-                  
-                  <!-- 出账记录end --> 
-                  
-                </div>
-              </div>
-            </div>
-            <!-- 财务信息列表end --> 
-            
-          </div>
-        </div>
-      </div>
-      	
-      
-      <!-- 财务统计end --> 
+    
       
       <!-- sales chart begin  -->
     
@@ -382,9 +229,27 @@ if(empty($_SESSION["Users_Account"]))
         <div class="col-md-12" id="sale-chart-panel">
         <div class="panel panel-default"> 
           <!-- Default panel contents -->
-          <div class="panel-heading"><span class="fa fa-bar-chart sky-blue fz-20"></span>月销售曲线图</div>
+          <div class="panel-heading"><span class="fa fa-bar-chart sky-blue fz-20"></span>快捷导航</div>
           <div class="panel-body">
-            <div class="chart"> </div>
+            <div class="chart">
+            <a href="/member/shop/products.php">产品列表</a> <a href="/member/shop/category.php">产品分类</a><a href="/member/shop/category_add.php">+添加分类</a><br />
+<div><a href="/member/biz/apply_config.php" target="iframe">入驻描述设置</a>
+					<a href="/member/biz/apply_other.php" target="iframe">年费设置</a>
+					<a href="/member/biz/apply.php" target="iframe">入驻资质审核列表</a>
+					<a href="/member/biz/authpay.php" target="iframe">入驻支付列表</a>
+					<a href="/member/biz/chargepay.php" target="iframe">续费支付列表</a>
+					<a href="/member/biz/bond_back.php" target="iframe">保证金退款</a></div>
+          <div><a href="/member/biz/announce.php" target="iframe">公告管理</a> <a href="/member/biz/announce_add.php">+添加公告</a></div>
+
+<div><a href="/member/biz/send_push.php" target="iframe">推送消息</a>
+<a href="/member/biz/msg_push.php" target="iframe">推送消息管理</a></div>
+
+			      	<div><a href="/member/shop/articles.php" target="iframe">文章管理</a><a href="/member/shop/articles_category.php" target="iframe">分类管理</a><a href="/member/shop/articles_category_add.php">+添加分类</a></div>
+
+<div><a href="/member/yijipay/trans_yijipay_batch.php" target="iframe">批量转账</a><a href="/member/yijipay/mypay.php" target="iframe">我的钱包</a></div>
+
+
+            </div>
           </div>
         </div>
       </div>
