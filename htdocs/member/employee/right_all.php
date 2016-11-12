@@ -59,14 +59,14 @@ $rmenu['biz']=array(
 	'index' => '商家列表',
 	//'group' => '商家分组',
 	'apply_config' => '入驻描述设置',
-	'reg_config' => '注册页面设置',
+'reg_config' => '注册页面设置',
     'apply_other' => '年费设置',
 	'apply' => '入驻资质审核列表',
     'authpay' => '入驻支付列表',
     'chargepay' => '续费支付列表',
     'bond_back' => '保证金退款',
     'announce' => '公告管理',
-    'article_man' => '文章管理',
+    //'article_man' => '文章管理',
 	'send_push' => '推送消息',
 	'msg_push' => '推送消息管理'
 );
@@ -214,13 +214,13 @@ $rmenu["appmanager"] = [
 // 	'setting/send_record' => '短信购买发送记录'
 // );
 // //产品列表
-// $rmenusub["pro_products"] = array(
+ $rmenusub["pro_products"] = array(
 // 	'products_add' => '添加产品',
 // 	'output' => '导出产品',
-// 	'products_edit' => '修改产品',
+ 	'products_edit' => '修改产品',
 // 	'virtual_card_select' => '虚拟卡选择',
 // 	'commit' => '产品评论'
-// );
+ );
 //产品分类管理
 $rmenusub["pro_category"] = array(
 	'category_add' => '添加分类',
