@@ -214,13 +214,13 @@ $rmenu["appmanager"] = [
 // 	'setting/send_record' => '短信购买发送记录'
 // );
 // //产品列表
-// $rmenusub["pro_products"] = array(
+ $rmenusub["pro_products"] = array(
 // 	'products_add' => '添加产品',
 // 	'output' => '导出产品',
-// 	'products_edit' => '修改产品',
+ 	'products_edit' => '修改产品',
 // 	'virtual_card_select' => '虚拟卡选择',
 // 	'commit' => '产品评论'
-// );
+ );
 //产品分类管理
 $rmenusub["pro_category"] = array(
 	'category_add' => '添加分类',
