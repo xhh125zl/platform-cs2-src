@@ -208,7 +208,9 @@ if (isset($_POST['ajax']) && $_POST['ajax'] == 1) {
 .row-attr{clear:both;text-align:left;}
 .row-attr span{width:100px;float:left; text-align:right;}
 .row-attr .row-text{width:220px;float:left;text-align:left;padding-left:10px;}
-.toggle-switch{float:left;margin-top:12px;}
+label{line-height:55px;}
+.toggle-switch{float:none;}
+em{height:50px;line-height:50px;floatL;left;}
 </style>
 <?php
 //检查用户是否已经交过费用
@@ -345,8 +347,11 @@ if (isset($res['errorCode']) && $res['errorCode'] == 0) {
 ?>                
                 </div>
             </div><!--//row-attr-->
-            <div class="row-attr"><span class="label">新品</span><div class="row-text"><input id="Products_IsNew" name="Products_IsNew" class="toggle-switch" type="checkbox"></div></div>
-            <div class="row-attr"><span class="label">推荐</span><div class="row-text"><input id="Products_IsRecommend" name="Products_IsRecommend" class="toggle-switch" type="checkbox"></div></div>
+<div style="clear:both;">
+    <div style="float:left;line-height:55px;overflow:hidden; margin-left:53px;"><label><span style="float:left;margin-bottom: 10px;">新品</span><span><input id="Products_IsNew" name="Products_IsNew" style="margin-top: 13px;margin-left: 5px;" class="toggle-switch" type="checkbox"></span></label></div>
+    <div style="float:left;line-height:55px;overflow:hidden; margin-left:20px;"><label><span style="float:left;margin-bottom: 10px;">推荐</span><span><input id="Products_IsRecommend" name="Products_IsRecommend" style="margin-top: 13px;margin-left: 5px;" class="toggle-switch" type="checkbox"></span></label></div>
+</div>            
+            
         </div><!--//select_containers -->
     </div><!--//cate-->
 
@@ -476,7 +481,7 @@ if ($return['page']['hasNextPage'] == 'true') {
                 type:1,
                 content: $('#cate').html(),
                 title:[
-                    '<span style="float:left">请选择要添加到的分类</span>',
+                    '<span style="float:left">选择分类</span><span style="float:right"><a href="?act=my_cate" style="color:#ff5500; font-weight:normal; font-size:14px">[ + 新建分类 ]</a></span>',
                     'background-color:#f0f0f0;font-weight:bold;'
                 ],
                 style: 'width:100%;position:fixed;bottom:0;left:0;border-radius:8px;',
